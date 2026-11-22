@@ -1,0 +1,1749 @@
+{
+ "kind": "history",
+ "note": "Personal names for invented people, one record per name, each with the passage where a real person bears it. The name is history; every invented person who carries it is invention. Many attestations are later or earlier than 405 to 395 BC; each record says when. Built with tools/name-finder.mjs from the saved texts of the phoenician-punic-world repo, then checked by hand. Card: docs/research/names.md.",
+ "card": "docs/research/names.md",
+ "groups": {
+  "siceliot": {
+   "name": "Sicilian Greeks",
+   "kind": "invention",
+   "detail": "Names borne by Greeks of the Sicilian cities in the saved texts, from about 500 to 212 BC."
+  },
+  "italiote": {
+   "name": "Italian Greeks",
+   "kind": "invention",
+   "detail": "Names of Greeks from the cities of southern Italy (Rhegium, Locri, Tarentum, Neapolis)."
+  },
+  "sikel": {
+   "name": "Sikels",
+   "kind": "invention",
+   "detail": "Names of Sikel leaders of the inland towns."
+  },
+  "punic": {
+   "name": "Carthaginians",
+   "kind": "invention",
+   "detail": "Names of Carthaginians, from 480 to 202 BC. The saved texts name almost no Carthaginian women."
+  },
+  "libyan": {
+   "name": "Libyans",
+   "kind": "invention",
+   "detail": "Names of Libyans and Libyphoenicians who served Carthage."
+  },
+  "campanian": {
+   "name": "Campanians",
+   "kind": "invention",
+   "detail": "Names of Campanians, mostly men of Capua in 216 to 211 BC, and two mercenary leaders."
+  },
+  "iberian": {
+   "name": "Iberians",
+   "kind": "invention",
+   "detail": "Names of Spanish chiefs, 212 to 209 BC."
+  },
+  "celt": {
+   "name": "Gauls",
+   "kind": "invention",
+   "detail": "One name of a Gaulish mercenary leader."
+  },
+  "greekAbroad": {
+   "name": "Peloponnesians",
+   "kind": "invention",
+   "detail": "Names of Spartans and Corinthians who came to Sicily as commanders, envoys and hired men."
+  }
+ },
+ "names": [
+  {
+   "id": "hermocrates",
+   "name": "Hermocrates",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "the father of Dionysius",
+   "source": "Diodorus 13.91.3",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Hermocrates: the father of Dionysius.",
+     "cite": "Diodorus 13.91.3",
+     "quote": "do, Dionysius, the son of Hermocrates, taking the floor, accused the generals",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "athenagoras",
+   "name": "Athenagoras",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "leader of the people at Syracuse",
+   "source": "Thucydides 6.35.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Athenagoras: leader of the people at Syracuse.",
+     "cite": "Thucydides 6.35.2",
+     "quote": "Meanwhile Athenagoras, the leader of the people and",
+     "file": "sources/sicilian-wars/thucydides-6-7-7-87.crawley.txt"
+    }
+   ]
+  },
+  {
+   "id": "diocles",
+   "name": "Diocles",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a Syracusan commander",
+   "source": "Diodorus 13.59.9",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Diocles: a Syracusan commander.",
+     "cite": "Diodorus 13.59.9",
+     "quote": "were under the command of Diocles the Syracusan",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "heracleides",
+   "name": "Heracleides",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a Syracusan general",
+   "source": "Diodorus 13.4.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Heracleides: a Syracusan general.",
+     "cite": "Diodorus 13.4.1",
+     "quote": "supreme power, Hermocrates, Sicanus, and Heracleides, who enrolled soldiers and dispatched ambassadors",
+     "file": "sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "sicanus",
+   "name": "Sicanus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a Syracusan general",
+   "source": "Diodorus 13.4.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Sicanus: a Syracusan general.",
+     "cite": "Diodorus 13.4.1",
+     "quote": "generals with supreme power, Hermocrates, Sicanus, and Heracleides, who enrolled soldiers and",
+     "file": "sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "eucles",
+   "name": "Eucles",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a Syracusan general",
+   "source": "Thucydides 6.103.4",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Eucles: a Syracusan general.",
+     "cite": "Thucydides 6.103.4",
+     "quote": "were deposed and others, Heraclides, Eucles, and Tellias, elected in their stead",
+     "file": "sources/sicilian-wars/thucydides-6-7-7-87.crawley.txt"
+    }
+   ]
+  },
+  {
+   "id": "tellias",
+   "name": "Tellias",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a rich man of Acragas",
+   "source": "Diodorus 13.83.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Tellias: a rich man of Acragas.",
+     "cite": "Diodorus 13.83.1",
+     "quote": "perhaps the richest man was Tellias, who had in his mansion a",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "lysimachus",
+   "name": "Lysimachus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "father of a Syracusan general",
+   "source": "Thucydides 6.73.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Lysimachus: father of a Syracusan general.",
+     "cite": "Thucydides 6.73.1",
+     "quote": "Hermocrates himself, Heraclides, son of Lysimachus, and Sicanus, son of Execestes",
+     "file": "sources/sicilian-wars/thucydides-6-7-7-87.crawley.txt"
+    }
+   ]
+  },
+  {
+   "id": "execestes",
+   "name": "Execestes",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "father of a Syracusan general",
+   "source": "Thucydides 6.73.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Execestes: father of a Syracusan general.",
+     "cite": "Thucydides 6.73.1",
+     "quote": "Lysimachus, and Sicanus, son of Execestes",
+     "file": "sources/sicilian-wars/thucydides-6-7-7-87.crawley.txt"
+    }
+   ]
+  },
+  {
+   "id": "hippocrates",
+   "name": "Hippocrates",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "tyrant of Gela",
+   "source": "Herodotus 7.154.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Hippocrates: tyrant of Gela.",
+     "cite": "Herodotus 7.154.1",
+     "quote": "sovereignty passed to Cleandrus' brother Hippocrates. While Hippocrates was tyrant, Gelon, a",
+     "file": "sources/sicily-tyrants/herodotus-7-153-167.godley.txt"
+    }
+   ]
+  },
+  {
+   "id": "telines",
+   "name": "Telines",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "an ancestor of the tyrants of Gela",
+   "source": "Herodotus 7.153.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Telines: an ancestor of the tyrants of Gela.",
+     "cite": "Herodotus 7.153.2",
+     "quote": "as I will show, by Telines, one of their forefathers. There were",
+     "file": "sources/sicily-tyrants/herodotus-7-153-167.godley.txt"
+    }
+   ]
+  },
+  {
+   "id": "thrasybulus",
+   "name": "Thrasybulus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "brother of Hieron, ruler of Syracuse",
+   "source": "Diodorus 11.66.4",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Thrasybulus: brother of Hieron, ruler of Syracuse.",
+     "cite": "Diodorus 11.66.4",
+     "quote": "the kingdom to his brother Thrasybulus, who ruled over the Syracusans for",
+     "file": "sources/diodorus/english/book11-38-72.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "thrasydaeus",
+   "name": "Thrasydaeus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "son of Theron of Acragas",
+   "source": "Diodorus 11.48.6",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Thrasydaeus: son of Theron of Acragas.",
+     "cite": "Diodorus 11.48.6",
+     "quote": "Subsequently to these events, Thrasydaeus the son of Theron was governing",
+     "file": "sources/diodorus/english/book11-38-72.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "polyzelus",
+   "name": "Polyzelus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "brother of Hieron of Syracuse",
+   "source": "Diodorus 11.48.3",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Polyzelus: brother of Hieron of Syracuse.",
+     "cite": "Diodorus 11.48.3",
+     "quote": "observing how popular his brother Polyzelus was among the Syracusans and believing",
+     "file": "sources/diodorus/english/book11-38-72.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "megacles",
+   "name": "Megacles",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "brother of Dion of Syracuse",
+   "source": "Plutarch, Dion 28",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Megacles: brother of Dion of Syracuse.",
+     "cite": "Plutarch, Dion 28",
+     "quote": "brilliant armour, with his brother Megacles on one side of him, and",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ]
+  },
+  {
+   "id": "timocrates",
+   "name": "Timocrates",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a friend of the younger Dionysius",
+   "source": "Plutarch, Dion 21",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Timocrates: a friend of the younger Dionysius.",
+     "cite": "Plutarch, Dion 21",
+     "quote": "marriage, against her will, to Timocrates, one of his friends. And in",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ]
+  },
+  {
+   "id": "exaenetus",
+   "name": "Exaenetus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a runner of Acragas, Olympic victor",
+   "source": "Diodorus 13.82.7",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Exaenetus: a runner of Acragas, Olympic victor.",
+     "cite": "Diodorus 13.82.7",
+     "quote": "namely, the Ninety-second , when Exaenetus of Acragas won the \"stadion,\" he",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "antisthenes",
+   "name": "Antisthenes",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a man of Acragas",
+   "source": "Diodorus 13.84.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Antisthenes: a man of Acragas.",
+     "cite": "Diodorus 13.84.1",
+     "quote": "many other inhabitants of Acragas. Antisthenes at any rate, who was called",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "empedion",
+   "name": "Empedion",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "an envoy of the fugitives from Selinus",
+   "source": "Diodorus 13.59.3",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Empedion: an envoy of the fugitives from Selinus.",
+     "cite": "Diodorus 13.59.3",
+     "quote": "since the fugitives had sent Empedion as an ambassador, to him Hannibal",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "menes",
+   "name": "Menes",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a man of Camarina",
+   "source": "Diodorus 13.87.5",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Menes: a man of Camarina.",
+     "cite": "Diodorus 13.87.5",
+     "quote": "tumult prevailed in the assembly, Menes of Camarina, who had been put",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "argeius",
+   "name": "Argeius",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "one of the generals of Acragas",
+   "source": "Diodorus 13.87.5",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Argeius: one of the generals of Acragas.",
+     "cite": "Diodorus 13.87.5",
+     "quote": "of them, but the fifth, Argeius by name, who was very much",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "theodotes",
+   "name": "Theodotes",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a Syracusan noble at the younger Dionysius' court",
+   "source": "Plutarch, Dion 12",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Theodotes: a Syracusan noble at the younger Dionysius' court.",
+     "cite": "Plutarch, Dion 12",
+     "quote": "had been in conference with Theodotes and Heracleides concerning a subversion of",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ]
+  },
+  {
+   "id": "hicetas",
+   "name": "Hicetas",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a Syracusan, friend of Dion",
+   "source": "Plutarch, Dion 58",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Hicetas: a Syracusan, friend of Dion.",
+     "cite": "Plutarch, Dion 58",
+     "quote": "they were taken up by Hicetas the Syracusan, who had been one",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ]
+  },
+  {
+   "id": "timaeus",
+   "name": "Timaeus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "the historian of Sicily whom Diodorus cites",
+   "source": "Diodorus 14.54.6",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Timaeus: the historian of Sicily whom Diodorus cites.",
+     "cite": "Diodorus 14.54.6",
+     "quote": "Timaeus, on the other hand, says that",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "deinocrates",
+   "name": "Deinocrates",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a Syracusan whom Agathocles spared for their old friendship",
+   "source": "Diodorus 19.8.6",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Deinocrates: a Syracusan whom Agathocles spared for their old friendship.",
+     "cite": "Diodorus 19.8.6",
+     "quote": "together the prisoners, he let Deinocrates go because of their former friendship",
+     "file": "sources/diodorus/english/book19.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "pasiphilus",
+   "name": "Pasiphilus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a general of Agathocles",
+   "source": "Diodorus 20.77.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Pasiphilus: a general of Agathocles.",
+     "cite": "Diodorus 20.77.2",
+     "quote": "Indeed at that very time Pasiphilus the general, having heard of the",
+     "file": "sources/diodorus/english/book20.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "archagathus",
+   "name": "Archagathus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "son of Agathocles",
+   "source": "Diodorus 20.11.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Archagathus: son of Agathocles.",
+     "cite": "Diodorus 20.11.1",
+     "quote": "right wing to his son Archagathus, giving him twenty-five hundred foot-soldiers; and",
+     "file": "sources/diodorus/english/book20.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "telesides",
+   "name": "Telesides",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "an envoy of Dion's Sicilian allies",
+   "source": "Plutarch, Dion 42",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Telesides: an envoy of Dion's Sicilian allies.",
+     "cite": "Plutarch, Dion 42",
+     "quote": "delegation to him, Archonides and Telesides from the allies, and Hellanicus with",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ]
+  },
+  {
+   "id": "themistus",
+   "name": "Themistus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a Syracusan, husband of Gelo's daughter",
+   "source": "Livy 24.24.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Themistus: a Syracusan, husband of Gelo's daughter.",
+     "cite": "Livy 24.24.2",
+     "quote": "he formed a plot with Themistus, whose wife was Gelo's daughter, and",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "adranodorus",
+   "name": "Adranodorus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a Syracusan, husband of a daughter of Hiero",
+   "source": "Livy 24.4.3",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Adranodorus: a Syracusan, husband of a daughter of Hiero.",
+     "cite": "Livy 24.4.3",
+     "quote": "and those of their husbands, Adranodorus and Zoippus, who were being left",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "zoippus",
+   "name": "Zoippus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "a Syracusan, husband of a daughter of Hiero",
+   "source": "Livy 24.4.3",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Zoippus: a Syracusan, husband of a daughter of Hiero.",
+     "cite": "Livy 24.4.3",
+     "quote": "of their husbands, Adranodorus and Zoippus, who were being left as the",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "philistion",
+   "name": "Philistion",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "an officer of Epicydes at Syracuse",
+   "source": "Livy 25.28.5",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Philistion: an officer of Epicydes at Syracuse.",
+     "cite": "Livy 25.28.5",
+     "quote": "upon Epicydes' prefects, Polyclitus and Philistion and an Epicydes surnamed Sindon",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "crinippus",
+   "name": "Crinippus",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "m",
+   "who": "father of Terillus, tyrant of Himera",
+   "source": "Herodotus 7.165.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Crinippus: father of Terillus, tyrant of Himera.",
+     "cite": "Herodotus 7.165.1",
+     "quote": "been for Terillus son of Crinippus, the tyrant of Himera. This man",
+     "file": "sources/sicily-tyrants/herodotus-7-153-167.godley.txt"
+    }
+   ]
+  },
+  {
+   "id": "damarete",
+   "name": "Damarete",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "f",
+   "who": "the wife of Gelon of Syracuse",
+   "source": "Diodorus 11.26.3",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Damarete: the wife of Gelon of Syracuse.",
+     "cite": "Diodorus 11.26.3",
+     "quote": "addition a gold crown to Damaretê, the wife of Gelon. For Damaretê",
+     "file": "sources/diodorus/english/book11.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "arete",
+   "name": "Arete",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "f",
+   "who": "a daughter of Dionysius",
+   "source": "Plutarch, Dion 6",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Arete: a daughter of Dionysius.",
+     "cite": "Plutarch, Dion 6",
+     "quote": "whom were daughters, Sophrosyne and Arete. Sophrosyne became the wife of his",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ]
+  },
+  {
+   "id": "sophrosyne",
+   "name": "Sophrosyne",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "f",
+   "who": "a daughter of Dionysius",
+   "source": "Plutarch, Dion 6",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Sophrosyne: a daughter of Dionysius.",
+     "cite": "Plutarch, Dion 6",
+     "quote": "two of whom were daughters, Sophrosyne and Arete. Sophrosyne became the wife",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ]
+  },
+  {
+   "id": "harmonia",
+   "name": "Harmonia",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "f",
+   "who": "daughter of Gelo of Syracuse",
+   "source": "Livy 24.24.6",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Harmonia: daughter of Gelo of Syracuse.",
+     "cite": "Livy 24.24.6",
+     "quote": "the marriage of Gelo's daughter Harmonia, uniting her with Themistus",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "heraclia",
+   "name": "Heraclia",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "f",
+   "who": "daughter of Hiero of Syracuse",
+   "source": "Livy 24.26.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Heraclia: daughter of Hiero of Syracuse.",
+     "cite": "Livy 24.26.1",
+     "quote": "Heraclia was the daughter of Hiero and",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "damarata",
+   "name": "Damarata",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "f",
+   "who": "daughter of Hiero of Syracuse",
+   "source": "Livy 24.22.8",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Damarata: daughter of Hiero of Syracuse.",
+     "cite": "Livy 24.22.8",
+     "quote": "But his wife Damarata, daughter of Hiero and still puffed",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "texena",
+   "name": "Texena",
+   "kind": "history",
+   "group": "siceliot",
+   "sex": "f",
+   "who": "the wife of Agathocles",
+   "source": "Justin 23.2.6",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Texena: the wife of Agathocles.",
+     "cite": "Justin 23.2.6",
+     "quote": "resolved on embarking his wife Texena, and two infant sons that he",
+     "file": "sources/justin/book22-23.watson.txt"
+    }
+   ]
+  },
+  {
+   "id": "phyton",
+   "name": "Phyton",
+   "kind": "history",
+   "group": "italiote",
+   "sex": "m",
+   "who": "general of Rhegium",
+   "source": "Diodorus 14.108.4",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Phyton: general of Rhegium.",
+     "cite": "Diodorus 14.108.4",
+     "quote": "The Rhegians chose Phyton as general, armed all who could",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "anaxilas",
+   "name": "Anaxilas",
+   "kind": "history",
+   "group": "italiote",
+   "sex": "m",
+   "who": "tyrant of Rhegium",
+   "source": "Diodorus 11.76.5",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Anaxilas: tyrant of Rhegium.",
+     "cite": "Diodorus 11.76.5",
+     "quote": "Zanclians expelled the sons of Anaxilas, who were ruling over them, and",
+     "file": "sources/diodorus/english/book11-73-92.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "micythus",
+   "name": "Micythus",
+   "kind": "history",
+   "group": "italiote",
+   "sex": "m",
+   "who": "regent of Rhegium after Anaxilas",
+   "source": "Diodorus 11.48.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Micythus: regent of Rhegium after Anaxilas.",
+     "cite": "Diodorus 11.48.2",
+     "quote": "succeeded in the tyranny by Micythus, who was entrusted with the position",
+     "file": "sources/diodorus/english/book11-38-72.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "archytas",
+   "name": "Archytas",
+   "kind": "history",
+   "group": "italiote",
+   "sex": "m",
+   "who": "a leader of the Pythagoreans in Italy",
+   "source": "Plutarch, Dion 18",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Archytas: a leader of the Pythagoreans in Italy.",
+     "cite": "Plutarch, Dion 18",
+     "quote": "leaving no stone unturned, persuaded Archytas and his fellow Pythagoreans to become",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ]
+  },
+  {
+   "id": "xenetus",
+   "name": "Xenetus",
+   "kind": "history",
+   "group": "italiote",
+   "sex": "m",
+   "who": "a Locrian, father of Doris",
+   "source": "Diodorus 14.44.6",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Xenetus: a Locrian, father of Doris.",
+     "cite": "Diodorus 14.44.6",
+     "quote": "of Doris, the daughter of Xenetus, who at that time was their",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "nypsius",
+   "name": "Nypsius",
+   "kind": "history",
+   "group": "italiote",
+   "sex": "m",
+   "who": "a Neapolitan commander for the younger Dionysius",
+   "source": "Plutarch, Dion 41",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Nypsius: a Neapolitan commander for the younger Dionysius.",
+     "cite": "Plutarch, Dion 41",
+     "quote": "Dionysius, under the command of Nypsius the Neapolitan, who brought food and",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ]
+  },
+  {
+   "id": "ducetius",
+   "name": "Ducetius",
+   "kind": "history",
+   "group": "sikel",
+   "sex": "m",
+   "who": "leader of the Sikels",
+   "source": "Diodorus 11.76.3",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Ducetius: leader of the Sikels.",
+     "cite": "Diodorus 11.76.3",
+     "quote": "these events were taking place, Ducetius, the leader of the Siceli, harbouring",
+     "file": "sources/diodorus/english/book11-73-92.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "archonides",
+   "name": "Archonides",
+   "kind": "history",
+   "group": "sikel",
+   "sex": "m",
+   "who": "leader of Herbita",
+   "source": "Diodorus 14.16.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Archonides: leader of Herbita.",
+     "cite": "Diodorus 14.16.1",
+     "quote": "Archonides, the leader of Herbitê, after the",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "agyris",
+   "name": "Agyris",
+   "kind": "history",
+   "group": "sikel",
+   "sex": "m",
+   "who": "lord of Agyrium",
+   "source": "Diodorus 14.95.4",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Agyris: lord of Agyrium.",
+     "cite": "Diodorus 14.95.4",
+     "quote": "he sent an embassy to Agyris, the lord of the Agyrinaeans. This",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "hanno",
+   "name": "Hanno",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "father of the general Himilcon",
+   "source": "Diodorus 13.80.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Hanno: father of the general Himilcon.",
+     "cite": "Diodorus 13.80.1",
+     "quote": "general, Himilcon, the son of Hanno and of the same family",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "himilcar",
+   "name": "Himilcar",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a Carthaginian general",
+   "source": "Diodorus 13.85.5",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Himilcar: a Carthaginian general.",
+     "cite": "Diodorus 13.85.5",
+     "quote": "Himilcar and Hannibal, the Carthaginian generals, noting",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "hamilcar",
+   "name": "Hamilcar",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "the Carthaginian general who fought against Gelon",
+   "source": "Diodorus 13.43.5",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Hamilcar: the Carthaginian general who fought against Gelon.",
+     "cite": "Diodorus 13.43.5",
+     "quote": "He was the grandson of Hamilcar, who fought in the war against",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "hannibal",
+   "name": "Hannibal",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "Carthage's foremost citizen",
+   "source": "Diodorus 13.43.5",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Hannibal: Carthage's foremost citizen.",
+     "cite": "Diodorus 13.43.5",
+     "quote": "But when Hannibal, their foremost citizen, also advised them",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "hasdrubal",
+   "name": "Hasdrubal",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a son of the general Mago",
+   "source": "Justin 19.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Hasdrubal: a son of the general Mago.",
+     "cite": "Justin 19.1",
+     "quote": "leaving behind him two sons, Hasdrubal and Hamilcar",
+     "file": "sources/justin/justin-18.7-19.1.watson.txt"
+    }
+   ]
+  },
+  {
+   "id": "mago",
+   "name": "Mago",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a Carthaginian general",
+   "source": "Justin 18.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Mago: a Carthaginian general.",
+     "cite": "Justin 18.2",
+     "quote": "In the meantime, Mago, general of the Carthaginians, being sent",
+     "file": "sources/justin/justin-18.7-19.1.watson.txt"
+    }
+   ]
+  },
+  {
+   "id": "gisco",
+   "name": "Gisco",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "son of Hanno, recalled from exile",
+   "source": "Diodorus 16.81.3",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Gisco: son of Hanno, recalled from exile.",
+     "cite": "Diodorus 16.81.3",
+     "quote": "time in recalling from exile Gisco the son of Hanno and appointing",
+     "file": "sources/diodorus/english/book16.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "bostar",
+   "name": "Bostar",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a Carthaginian envoy",
+   "source": "Livy 23.34.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Bostar: a Carthaginian envoy.",
+     "cite": "Livy 23.34.2",
+     "quote": "And Gisgo and Bostar and Mago, who were sent with",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "adherbal",
+   "name": "Adherbal",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a Carthaginian admiral",
+   "source": "Polybius 1.44",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Adherbal: a Carthaginian admiral.",
+     "cite": "Polybius 1.44",
+     "quote": "officer and prime favourite of Adherbal’s, with instructions suitable to the business",
+     "file": "sources/polybius/book1.shuckburgh.txt"
+    }
+   ]
+  },
+  {
+   "id": "carthalo",
+   "name": "Carthalo",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a Carthaginian commander",
+   "source": "Polybius 1.53",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Carthalo: a Carthaginian commander.",
+     "cite": "Polybius 1.53",
+     "quote": "vessels, to Carthage; and giving Carthalo his colleague thirty vessels, in addition",
+     "file": "sources/polybius/book1.shuckburgh.txt"
+    }
+   ]
+  },
+  {
+   "id": "malchus",
+   "name": "Malchus",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "an early Carthaginian general",
+   "source": "Justin 18.7",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Malchus: an early Carthaginian general.",
+     "cite": "Justin 18.7",
+     "quote": "which they sentenced their general Malchus, under whose conduct they had both",
+     "file": "sources/justin/justin-18.7-19.1.watson.txt"
+    }
+   ]
+  },
+  {
+   "id": "maharbal",
+   "name": "Maharbal",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a Carthaginian commander",
+   "source": "Livy 23.18.4",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Maharbal: a Carthaginian commander.",
+     "cite": "Livy 23.18.4",
+     "quote": "troops being thus beaten back, Maharbal, who had been sent with a",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "sapho",
+   "name": "Sapho",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a grandson of the general Mago",
+   "source": "Justin 19.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Sapho: a grandson of the general Mago.",
+     "cite": "Justin 19.2",
+     "quote": "of sons, Hannibal, Hasdrubal, and Sapho",
+     "file": "sources/justin/justin-18.7-19.1.watson.txt"
+    }
+   ]
+  },
+  {
+   "id": "himilco",
+   "name": "Himilco",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a Carthaginian commander",
+   "source": "Diodorus 20.60.4",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Himilco: a Carthaginian commander.",
+     "cite": "Diodorus 20.60.4",
+     "quote": "As for Himilco, who had been appointed to conduct",
+     "file": "sources/diodorus/english/book20.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "bomilcar",
+   "name": "Bomilcar",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a Carthaginian general",
+   "source": "Justin 22.7.7",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Bomilcar: a Carthaginian general.",
+     "cite": "Justin 22.7.7",
+     "quote": "among the troops of Agathocles, Bomilcar, the Carthaginian general, would have gone",
+     "file": "sources/justin/book22-23.watson.txt"
+    }
+   ]
+  },
+  {
+   "id": "muttines",
+   "name": "Muttines",
+   "kind": "history",
+   "group": "libyan",
+   "sex": "m",
+   "who": "a Libyphoenician cavalry leader from Hippacra",
+   "source": "Livy 25.40.5",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Muttines: a Libyphoenician cavalry leader from Hippacra.",
+     "cite": "Livy 25.40.5",
+     "quote": "race, from Hippacra, and called Muttines by his countrymen, a man of",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "zarzas",
+   "name": "Zarzas",
+   "kind": "history",
+   "group": "libyan",
+   "sex": "m",
+   "who": "a Libyan captain of mercenaries",
+   "source": "Polybius 1.84",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Zarzas: a Libyan captain of mercenaries.",
+     "cite": "Polybius 1.84",
+     "quote": "among whom, besides others, was Zarzas the Libyan, with his division, and",
+     "file": "sources/polybius/book1.shuckburgh.txt"
+    }
+   ]
+  },
+  {
+   "id": "spendius",
+   "name": "Spendius",
+   "kind": "history",
+   "group": "campanian",
+   "sex": "m",
+   "who": "a leader of the mercenaries in the Mercenary War (Polybius calls him a Campanian)",
+   "source": "Polybius 1.69",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Spendius: a leader of the mercenaries in the Mercenary War (Polybius calls him a Campanian).",
+     "cite": "Polybius 1.69",
+     "quote": "there was a certain Campanian in the army, a runaway Roman slave named Spendius",
+     "file": "sources/polybius/book1.shuckburgh.txt"
+    }
+   ]
+  },
+  {
+   "id": "decius",
+   "name": "Decius",
+   "kind": "history",
+   "group": "campanian",
+   "sex": "m",
+   "who": "a Campanian captain at Rhegium",
+   "source": "Polybius 1.7",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Decius: a Campanian captain at Rhegium.",
+     "cite": "Polybius 1.7",
+     "quote": "command of a Campanian named Decius Jubellius, entered the city, and for",
+     "file": "sources/polybius/book1.shuckburgh.txt"
+    }
+   ]
+  },
+  {
+   "id": "pacuvius",
+   "name": "Pacuvius",
+   "kind": "history",
+   "group": "campanian",
+   "sex": "m",
+   "who": "a noble of Capua",
+   "source": "Livy 23.2.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Pacuvius: a noble of Capua.",
+     "cite": "Livy 23.2.2",
+     "quote": "As for the senate, Pacuvius Calavius, a noble who was at",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "vibius",
+   "name": "Vibius",
+   "kind": "history",
+   "group": "campanian",
+   "sex": "m",
+   "who": "a man of Capua",
+   "source": "Livy 23.6.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Vibius: a man of Capua.",
+     "cite": "Livy 23.6.1",
+     "quote": "and on their way home Vibius Virrius, one of them, said the",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "magius",
+   "name": "Magius",
+   "kind": "history",
+   "group": "campanian",
+   "sex": "m",
+   "who": "a man of Capua",
+   "source": "Livy 23.7.4",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Magius: a man of Capua.",
+     "cite": "Livy 23.7.4",
+     "quote": "to the utmost by Decius Magius, a man who lacked nothing for",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "seppius",
+   "name": "Seppius",
+   "kind": "history",
+   "group": "campanian",
+   "sex": "m",
+   "who": "a Campanian magistrate",
+   "source": "Livy 26.6.14",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Seppius: a Campanian magistrate.",
+     "cite": "Livy 26.6.14",
+     "quote": "highest office among the Campanians, Seppius Loesius was serving that year, though",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "autaritus",
+   "name": "Autaritus",
+   "kind": "history",
+   "group": "celt",
+   "sex": "m",
+   "who": "leader of the Gauls in the Mercenary War",
+   "source": "Polybius 1.77",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Autaritus: leader of the Gauls in the Mercenary War.",
+     "cite": "Polybius 1.77",
+     "quote": "Zarytus, and he now counselled Autaritus, the leader of the Gauls, and",
+     "file": "sources/polybius/book1.shuckburgh.txt"
+    }
+   ]
+  },
+  {
+   "id": "allucius",
+   "name": "Allucius",
+   "kind": "history",
+   "group": "iberian",
+   "sex": "m",
+   "who": "a young Spanish chief",
+   "source": "Livy 26.50.3",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Allucius: a young Spanish chief.",
+     "cite": "Livy 26.50.3",
+     "quote": "the young man's name was Allucius. accordingly he at once summoned parents",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "indibilis",
+   "name": "Indibilis",
+   "kind": "history",
+   "group": "iberian",
+   "sex": "m",
+   "who": "a Spanish chief",
+   "source": "Livy 25.34.6",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Indibilis: a Spanish chief.",
+     "cite": "Livy 25.34.6",
+     "quote": "would evidently be stricter if Indibilis, who was reported as approaching with",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "mandonius",
+   "name": "Mandonius",
+   "kind": "history",
+   "group": "iberian",
+   "sex": "m",
+   "who": "a Spanish chief, brother of Indibilis",
+   "source": "Livy 26.49.11",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Mandonius: a Spanish chief, brother of Indibilis.",
+     "cite": "Livy 26.49.11",
+     "quote": "elderly woman, the wife of Mandonius, who was the brother of Indibilis",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "edesco",
+   "name": "Edesco",
+   "kind": "history",
+   "group": "iberian",
+   "sex": "m",
+   "who": "a Spanish chief",
+   "source": "Livy 27.17.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Edesco: a Spanish chief.",
+     "cite": "Livy 27.17.1",
+     "quote": "restoring their hostages and captives, Edesco, who was eminent among the Spanish",
+     "file": "sources/livy/books23-29.foster.txt"
+    }
+   ]
+  },
+  {
+   "id": "gylippus",
+   "name": "Gylippus",
+   "kind": "history",
+   "group": "greekAbroad",
+   "sex": "m",
+   "who": "a Spartan commander",
+   "source": "Diodorus 13.106.8",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Gylippus: a Spartan commander.",
+     "cite": "Diodorus 13.106.8",
+     "quote": "siege of the city, but Gylippus, who with a flotilla had fought",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "aristus",
+   "name": "Aristus",
+   "kind": "history",
+   "group": "greekAbroad",
+   "sex": "m",
+   "who": "a Spartan envoy to Syracuse",
+   "source": "Diodorus 14.10.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Aristus: a Spartan envoy to Syracuse.",
+     "cite": "Diodorus 14.10.2",
+     "quote": "their own taste, they dispatched Aristus, one of their distinguished men, to",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "pharacidas",
+   "name": "Pharacidas",
+   "kind": "history",
+   "group": "greekAbroad",
+   "sex": "m",
+   "who": "a Spartan admiral",
+   "source": "Diodorus 14.63.4",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Pharacidas: a Spartan admiral.",
+     "cite": "Diodorus 14.63.4",
+     "quote": "warships from his allies, with Pharacidas the Lacedaemonian as admiral",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "dexippus",
+   "name": "Dexippus",
+   "kind": "history",
+   "group": "greekAbroad",
+   "sex": "m",
+   "who": "a Spartan at Acragas",
+   "source": "Diodorus 13.85.3",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Dexippus: a Spartan at Acragas.",
+     "cite": "Diodorus 13.85.3",
+     "quote": "Fighting with them was also Dexippus the Lacedaemonian, who had lately arrived",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "pollis",
+   "name": "Pollis",
+   "kind": "history",
+   "group": "greekAbroad",
+   "sex": "m",
+   "who": "a Spartan",
+   "source": "Plutarch, Dion 5",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Pollis: a Spartan.",
+     "cite": "Plutarch, Dion 5",
+     "quote": "a trireme, which was conveying Pollis the Spartan to Greece. But Dionysius",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ]
+  },
+  {
+   "id": "lysander",
+   "name": "Lysander",
+   "kind": "history",
+   "group": "greekAbroad",
+   "sex": "m",
+   "who": "a Spartan commander",
+   "source": "Diodorus 14.81.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Lysander: a Spartan commander.",
+     "cite": "Diodorus 14.81.1",
+     "quote": "Boeotians. At first they sent Lysander to them with a few soldiers",
+     "file": "sources/diodorus/english/book14-78-96.txt"
+    }
+   ]
+  },
+  {
+   "id": "xanthippus",
+   "name": "Xanthippus",
+   "kind": "history",
+   "group": "greekAbroad",
+   "sex": "m",
+   "who": "a Spartan who trained Carthage's army",
+   "source": "Polybius 1.32",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Xanthippus: a Spartan who trained Carthage's army.",
+     "cite": "Polybius 1.32",
+     "quote": "them a certain Lacedaemonian named Xanthippus, a man trained in the Spartan",
+     "file": "sources/polybius/book1.shuckburgh.txt"
+    }
+   ]
+  },
+  {
+   "id": "ariston",
+   "name": "Ariston",
+   "kind": "history",
+   "group": "greekAbroad",
+   "sex": "m",
+   "who": "a Corinthian helmsman at Syracuse",
+   "source": "Diodorus 13.10.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Ariston: a Corinthian helmsman at Syracuse.",
+     "cite": "Diodorus 13.10.2",
+     "quote": "And when Ariston the Corinthian pilot advised them to",
+     "file": "sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "pyrrhicus",
+   "name": "Pyrrhicus",
+   "kind": "history",
+   "group": "greekAbroad",
+   "sex": "m",
+   "who": "a Corinthian, father of Ariston",
+   "source": "Thucydides 7.39.2",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Pyrrhicus: a Corinthian, father of Ariston.",
+     "cite": "Thucydides 7.39.2",
+     "quote": "at last Ariston, son of Pyrrhicus, a Corinthian, the ablest helmsman in",
+     "file": "sources/sicilian-wars/thucydides-6-7-7-87.crawley.txt"
+    }
+   ]
+  },
+  {
+   "id": "acestorides",
+   "name": "Acestorides",
+   "kind": "history",
+   "group": "greekAbroad",
+   "sex": "m",
+   "who": "a Corinthian elected general at Syracuse",
+   "source": "Diodorus 19.5.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Acestorides: a Corinthian elected general at Syracuse.",
+     "cite": "Diodorus 19.5.1",
+     "quote": "Thereafter, at the time when Acestorides the Corinthian had been elected general",
+     "file": "sources/diodorus/english/book19.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "amoashtart",
+   "name": "Amoashtart",
+   "kind": "history",
+   "group": "punic",
+   "sex": "f",
+   "who": "a queen of Sidon, mother of Eshmunazar II (a Phoenician name from the homeland)",
+   "source": "Wikipedia, Eshmunazar II (saved copy), on the Sidon inscriptions",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Amoashtart: a queen of Sidon, mother of Eshmunazar II (a Phoenician name from the homeland).",
+     "cite": "Wikipedia, Eshmunazar II",
+     "quote": "He and his mother Amoashtart built temples in various parts of Sidon",
+     "file": "sources/gods-dead/plain/wiki-Eshmunazar_II.txt"
+    }
+   ],
+   "note": "Not Carthaginian and not from an ancient author: a modern page on Phoenician inscriptions from Sidon. Used because the saved texts name almost no Carthaginian women."
+  },
+  {
+   "id": "synalus",
+   "name": "Synalus",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "the Carthaginian commander at Minoa",
+   "source": "Plutarch, Dion 25",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Synalus: the Carthaginian commander at Minoa.",
+     "cite": "Plutarch, Dion 25",
+     "quote": "controlled. Now, it chanced that Synalus, the Carthaginian commander, was in the",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ]
+  },
+  {
+   "id": "bodostor",
+   "name": "Bodostor",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a Carthaginian prisoner held at Rome",
+   "source": "Diodorus 24.12.1",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Bodostor: a Carthaginian prisoner held at Rome.",
+     "cite": "Diodorus 24.12.1",
+     "quote": "of food for five days, Bodostor died of despair and privation. Hamilcar",
+     "file": "sources/diodorus/english/book24.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "mathos",
+   "name": "Mathos",
+   "kind": "history",
+   "group": "libyan",
+   "sex": "m",
+   "who": "a free Libyan, a leader in the Mercenary War",
+   "source": "Polybius 1.69",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Mathos: a free Libyan, a leader in the Mercenary War.",
+     "cite": "Polybius 1.69",
+     "quote": "seconded by a Libyan called Mathōs, who was not a slave but",
+     "file": "sources/polybius/book1.shuckburgh.txt"
+    }
+   ]
+  },
+  {
+   "id": "naravas",
+   "name": "Naravas",
+   "kind": "history",
+   "group": "libyan",
+   "sex": "m",
+   "who": "a Numidian of high rank who joined Hamilcar",
+   "source": "Polybius 1.78",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Naravas: a Numidian of high rank who joined Hamilcar.",
+     "cite": "Polybius 1.78",
+     "quote": "at that time a certain Narávas, a Numidian of high rank and",
+     "file": "sources/polybius/book1.shuckburgh.txt"
+    }
+   ]
+  },
+  {
+   "id": "annobal",
+   "name": "Annobal",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a magistrate (sufete) of Leptis Magna, AD 1 to 2: a Punic name from a much later inscription",
+   "source": "Inscriptions of Roman Tripolitania 322 (Leptis Magna)",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Annobal: a sufete of Leptis Magna who paid for the theatre.",
+     "cite": "IRT 322",
+     "quote": "Annobal ornator patriae amator concordiae",
+     "file": "sources/language/leptis-magna-irt322-bilingual.txt"
+    }
+   ],
+   "note": "Four centuries after the game's decade, and from Libya rather than Carthage. Used because the saved texts name few Carthaginian men."
+  },
+  {
+   "id": "bodashtart",
+   "name": "Bodashtart",
+   "kind": "history",
+   "group": "punic",
+   "sex": "m",
+   "who": "a king of Sidon (a Phoenician name from the homeland)",
+   "source": "Wikipedia, Eshmunazar II (saved copy), on the Sidon inscriptions",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Bodashtart: a king of Sidon, named in the Bodashtart inscriptions.",
+     "cite": "Wikipedia, Eshmunazar II",
+     "quote": "the dedicatory Bodashtart inscriptions found on the foundations of the Temple of Eshm",
+     "file": "sources/gods-dead/plain/wiki-Eshmunazar_II.txt"
+    }
+   ],
+   "note": "Not Carthaginian and not from an ancient author: a modern page on Phoenician inscriptions from Sidon."
+  }
+ ]
+}

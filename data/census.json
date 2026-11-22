@@ -1,0 +1,576 @@
+{
+  "kind": "invention",
+  "note": "Rules for the generated cast: the invented families of the island's cities, Carthage's council and the hired captains. Every number here is invention and Jacob's to change. The names come from data/names.json (each attested in a saved text); the people who carry them are invented. Not tuned to ancient birth or death rates: CLAUDE.md says count and look for broken results, don't script history.",
+  "startYear": 405,
+  "bodies": [
+    {
+      "id": "syracuse-rich",
+      "kind": "invention",
+      "name": "the rich families of Syracuse",
+      "place": "syracuse",
+      "tie": {
+        "kind": "faction",
+        "id": "rich"
+      },
+      "houses": 4,
+      "standing": [
+        2,
+        3
+      ],
+      "groups": {
+        "siceliot": 1
+      },
+      "roles": [
+        "a landowner with horses in the cavalry",
+        "a shipowner",
+        "a priest of Demeter's house",
+        "a landowner of the plain"
+      ]
+    },
+    {
+      "id": "syracuse-citizens",
+      "kind": "invention",
+      "name": "the common citizens of Syracuse",
+      "place": "syracuse",
+      "tie": {
+        "kind": "faction",
+        "id": "citizens"
+      },
+      "houses": 3,
+      "standing": [
+        1,
+        1
+      ],
+      "groups": {
+        "siceliot": 1
+      },
+      "roles": [
+        "a potter of Achradina",
+        "a fisherman's son grown rich",
+        "a speaker in the assembly"
+      ]
+    },
+    {
+      "id": "leontini",
+      "kind": "invention",
+      "name": "the leading men of Leontini",
+      "place": "leontini",
+      "tie": {
+        "kind": "city",
+        "id": "leontini"
+      },
+      "houses": 3,
+      "standing": [
+        1,
+        3
+      ],
+      "groups": {
+        "siceliot": 1
+      },
+      "roles": [
+        "the first man of Leontini",
+        "a grain-lord of the Leontine plain",
+        "an exile of Acragas, settled in Leontini"
+      ]
+    },
+    {
+      "id": "catana",
+      "kind": "invention",
+      "name": "the leading men of Catana",
+      "place": "catana",
+      "tie": {
+        "kind": "city",
+        "id": "catana"
+      },
+      "houses": 3,
+      "standing": [
+        1,
+        3
+      ],
+      "groups": {
+        "siceliot": 1
+      },
+      "roles": [
+        "the first man of Catana",
+        "a harbour-master",
+        "a landowner under Aetna"
+      ]
+    },
+    {
+      "id": "messana",
+      "kind": "invention",
+      "name": "the leading men of Messana",
+      "place": "messana",
+      "tie": {
+        "kind": "city",
+        "id": "messana"
+      },
+      "houses": 3,
+      "standing": [
+        1,
+        3
+      ],
+      "groups": {
+        "siceliot": 0.6,
+        "italiote": 0.4
+      },
+      "roles": [
+        "the first man of Messana",
+        "a shipowner of the strait",
+        "a friend of Rhegium"
+      ]
+    },
+    {
+      "id": "gela",
+      "kind": "invention",
+      "name": "the leading men of Gela",
+      "place": "gela",
+      "tie": {
+        "kind": "city",
+        "id": "gela"
+      },
+      "houses": 3,
+      "standing": [
+        1,
+        2
+      ],
+      "groups": {
+        "siceliot": 1
+      },
+      "roles": [
+        "the first man of Gela",
+        "a landowner back from exile",
+        "a priest of the old temples"
+      ]
+    },
+    {
+      "id": "acragas",
+      "kind": "invention",
+      "name": "the leading men of Acragas",
+      "place": "acragas",
+      "tie": {
+        "kind": "city",
+        "id": "acragas"
+      },
+      "houses": 3,
+      "standing": [
+        1,
+        3
+      ],
+      "groups": {
+        "siceliot": 1
+      },
+      "roles": [
+        "the first man of Acragas",
+        "a rich man who kept his wine-cellars",
+        "a horse-breeder"
+      ]
+    },
+    {
+      "id": "aetna",
+      "kind": "invention",
+      "name": "the exiles at Aetna",
+      "place": "aetna",
+      "tie": {
+        "kind": "city",
+        "id": "aetna"
+      },
+      "houses": 3,
+      "standing": [
+        1,
+        2
+      ],
+      "groups": {
+        "siceliot": 1
+      },
+      "roles": [
+        "a cavalryman who fled Syracuse",
+        "an exile who lost his land",
+        "a young hothead of the exiles"
+      ]
+    },
+    {
+      "id": "motya",
+      "kind": "invention",
+      "name": "the leading men of Motya",
+      "place": "motya",
+      "tie": {
+        "kind": "city",
+        "id": "motya"
+      },
+      "houses": 3,
+      "standing": [
+        1,
+        3
+      ],
+      "groups": {
+        "punic": 1
+      },
+      "roles": [
+        "the first man of Motya",
+        "a dyer and trader",
+        "a shipwright of the harbour"
+      ]
+    },
+    {
+      "id": "panormus",
+      "kind": "invention",
+      "name": "the leading men of Panormus",
+      "place": "panormus",
+      "tie": {
+        "kind": "city",
+        "id": "panormus"
+      },
+      "houses": 3,
+      "standing": [
+        1,
+        3
+      ],
+      "groups": {
+        "punic": 1
+      },
+      "roles": [
+        "the first man of Panormus",
+        "a merchant of the harbour",
+        "a priest of Baal"
+      ]
+    },
+    {
+      "id": "carthage-elders",
+      "kind": "invention",
+      "name": "the Elders' houses",
+      "place": "carthage",
+      "tie": {
+        "kind": "bloc",
+        "id": "elders"
+      },
+      "houses": 4,
+      "standing": [
+        2,
+        3
+      ],
+      "groups": {
+        "punic": 1
+      },
+      "roles": [
+        "head of a merchant house",
+        "an elder who owns estates in Libya",
+        "an elder with ships in the western trade",
+        "an elder who lends to the state"
+      ]
+    },
+    {
+      "id": "carthage-hundred",
+      "kind": "invention",
+      "name": "men of the Hundred",
+      "place": "carthage",
+      "tie": {
+        "kind": "bloc",
+        "id": "hundred"
+      },
+      "houses": 3,
+      "standing": [
+        2,
+        3
+      ],
+      "groups": {
+        "punic": 1
+      },
+      "roles": [
+        "a judge of the Hundred",
+        "a man of the Hundred who wants a command",
+        "a man of the Hundred who audits the generals"
+      ]
+    },
+    {
+      "id": "carthage-people",
+      "kind": "invention",
+      "name": "speakers of the people's assembly",
+      "place": "carthage",
+      "tie": {
+        "kind": "bloc",
+        "id": "people"
+      },
+      "houses": 2,
+      "standing": [
+        1,
+        1
+      ],
+      "groups": {
+        "punic": 1
+      },
+      "roles": [
+        "a speaker of the dockyards",
+        "a speaker of the craftsmen"
+      ]
+    }
+  ],
+  "captains": [
+    {
+      "id": "captains-syracuse",
+      "kind": "history",
+      "source": "Diodorus 14.58.2",
+      "card": "docs/research/names.md",
+      "name": "captains hired by Syracuse",
+      "side": "syracuse",
+      "count": 4,
+      "groups": {
+        "campanian": 0.5,
+        "greekAbroad": 0.5
+      },
+      "roles": {
+        "campanian": "captain of Campanian horsemen",
+        "greekAbroad": "captain of hired Peloponnesian foot"
+      },
+      "facts": [
+        {
+          "text": "Dionysius settled Campanians at Aetna.",
+          "cite": "Diodorus 14.58.2",
+          "quote": "He also persuaded the Campanians who were dwelling in Catanê to move to Aetnê",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        }
+      ],
+      "invented": [
+        "count",
+        "groups",
+        "roles",
+        "every captain"
+      ]
+    },
+    {
+      "id": "captains-carthage",
+      "kind": "history",
+      "source": "Diodorus 13.44.1, 14.54.5",
+      "card": "docs/research/names.md",
+      "name": "captains hired by Carthage",
+      "side": "carthage",
+      "count": 4,
+      "groups": {
+        "libyan": 0.35,
+        "iberian": 0.35,
+        "campanian": 0.3
+      },
+      "roles": {
+        "libyan": "captain of Libyan foot",
+        "iberian": "captain of Iberian foot",
+        "campanian": "captain of Campanian horsemen"
+      },
+      "facts": [
+        {
+          "text": "Carthage sent Libyans and Campanians to Segesta.",
+          "cite": "Diodorus 13.44.1",
+          "quote": "five thousand Libyans and eight hundred Campanians",
+          "file": "sources/diodorus/english/book13.loeb.txt"
+        },
+        {
+          "text": "Carthage raised its army of 396 from Libya and Iberia.",
+          "cite": "Diodorus 14.54.5",
+          "quote": "they gathered armaments from all Libya as well as from Iberia",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        }
+      ],
+      "invented": [
+        "count",
+        "groups",
+        "roles",
+        "every captain"
+      ]
+    }
+  ],
+  "reserved": {
+    "kind": "invention",
+    "note": "Given names kept off living invented people, so they are not mistaken for the real people (or the island thread's invented Carthaginians) of the same names or near spellings. They may still be a dead father's name, and a reserved name is used only when every other name of the group is taken in that place (Carthaginian names run short). Names of the starting cast are never used for the living.",
+    "names": [
+      "Mago",
+      "Himilco",
+      "Himilcar",
+      "Hanno",
+      "Bomilcar",
+      "Hermocrates",
+      "Timaeus",
+      "Archytas",
+      "Ducetius",
+      "Agyris",
+      "Archonides",
+      "Lysander",
+      "Gylippus",
+      "Pharacidas",
+      "Aristus",
+      "Anaxilas"
+    ]
+  },
+  "naming": {
+    "kind": "invention",
+    "note": "A person is called by one name and the father's name (Tellias son of Menes). The game names about half of eldest sons after their father's father; modern scholars describe this Greek custom, but it is not carded from a saved source. Women are often known in the sources only as someone's daughter or wife; the game leaves that share of women unnamed, by group. When a group's attested names run out in one place, men borrow from a neighbouring group (Italian Greeks from Sicilian Greeks, Libyans from Carthaginians).",
+    "grandfatherName": 0.5,
+    "unnamedWomen": {
+      "siceliot": 0.25,
+      "italiote": 0.25,
+      "sikel": 0.5,
+      "punic": 0.6,
+      "default": 0.5
+    },
+    "femaleFallback": {
+      "italiote": "siceliot",
+      "sikel": "siceliot"
+    },
+    "maleFallback": {
+      "italiote": "siceliot",
+      "sikel": "siceliot",
+      "libyan": "punic"
+    }
+  },
+  "people": {
+    "kind": "invention",
+    "headAge": [
+      38,
+      62
+    ],
+    "wifeYounger": [
+      8,
+      16
+    ],
+    "children": [
+      0,
+      4
+    ],
+    "childGap": [
+      1,
+      4
+    ],
+    "marriedFrom": {
+      "m": 28,
+      "f": 16
+    },
+    "brotherChance": 0.35,
+    "widowedMotherChance": 0.3,
+    "captainAge": [
+      26,
+      48
+    ],
+    "traits": [
+      "shrewd",
+      "ambitious",
+      "cautious",
+      "wellConnected",
+      "bold",
+      "generous",
+      "dutiful",
+      "showy",
+      "blunt",
+      "proud",
+      "wealthy",
+      "patient",
+      "fiery",
+      "harsh",
+      "loyal",
+      "vengeful",
+      "brave",
+      "greedy",
+      "grim",
+      "suspicious",
+      "silverTongued"
+    ],
+    "opposites": [
+      [
+        "cautious",
+        "bold"
+      ],
+      [
+        "generous",
+        "greedy"
+      ],
+      [
+        "patient",
+        "fiery"
+      ],
+      [
+        "loyal",
+        "vengeful"
+      ],
+      [
+        "blunt",
+        "silverTongued"
+      ],
+      [
+        "showy",
+        "grim"
+      ]
+    ],
+    "ambitions": {
+      "Wealth": 3,
+      "Office": 3,
+      "Safety": 2,
+      "Power": 2,
+      "Revenge": 1
+    }
+  },
+  "life": {
+    "kind": "invention",
+    "note": "Chances per year; the game rolls a quarter of each every season. Rough and not tuned to ancient life tables.",
+    "death": [
+      {
+        "to": 4,
+        "p": 0.06
+      },
+      {
+        "to": 14,
+        "p": 0.01
+      },
+      {
+        "to": 39,
+        "p": 0.012
+      },
+      {
+        "to": 54,
+        "p": 0.02
+      },
+      {
+        "to": 64,
+        "p": 0.04
+      },
+      {
+        "to": 74,
+        "p": 0.08
+      },
+      {
+        "to": 200,
+        "p": 0.16
+      }
+    ],
+    "causes": {
+      "child": [
+        "a fever",
+        "the summer sickness",
+        "a cough that would not leave"
+      ],
+      "adult": [
+        "a fever",
+        "a fall from a horse",
+        "the flux",
+        "a wound that went bad",
+        "a sickness of the chest"
+      ],
+      "old": [
+        "old age",
+        "a fever",
+        "a stroke",
+        "a long illness"
+      ]
+    },
+    "birth": {
+      "from": 16,
+      "to": 40,
+      "p": 0.25,
+      "lateTo": 45,
+      "lateP": 0.08,
+      "childbedDeath": 0.02
+    },
+    "marriage": {
+      "p": 0.3,
+      "maxGapYears": 25,
+      "otherPlaceP": 0.2
+    },
+    "headFromAge": 18
+  }
+}

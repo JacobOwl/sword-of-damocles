@@ -166,3 +166,12 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **A counted side effect, not fixed:** political rivals who never drop off hold the cap of two, so fewer new ones rise. Report: `docs/playtests/2026-11-22-feud.md`.
 - New count for the sweeps: people who became your Nemesis, counted once per man. The old "Nemeses" count adds every climb back to rank 4.
 - **Painted figures in eight event pictures** (`ui/figures.ts`, red-figure style, invention): feast, assembly, wedding, hearth, arms, whispering, sickness, letter. The other fourteen stay emblems. Art thread, 2026-11-22.
+
+## 2026-11-22 (the generated cast, slice 1, thread 13)
+- **Invented people are generated, not hand-written, for the island's cities, Carthage's council and the hired captains.** Why: Jacob wants CK3-style numbers of invented people, each tagged; the island and Carthage need named men; hand-writing 165 people would be samey. The sourced cast of Syracuse is unchanged.
+- **Every generated name is attested in a saved text, with its passage** (`data/names.json`, card `docs/research/names.md`). The people are invention. Names of the starting cast are never given to the living; a reserved list keeps off names that would be mistaken for real people of the decade.
+- **The census is its own system**, a pure function of a random stream (`src/core/census.ts`). In a game it will draw from the game's one seeded stream, in island games only, so the citadel scenario stays byte for byte. Other systems read it through lookups (`censusLeader`, `censusCouncil`, `censusCaptain`, `censusAt`), agreed with thread 10.
+- **Some women stay unnamed, as in the sources**, more often Carthaginians (no Carthaginian woman's name is saved). Their husband's or father's name tells them apart.
+- **Births, deaths, marriages and heirs within the decade are in; generations (playing an heir) stay out**, per `scope.md`.
+- **Not tuned to ancient birth and death rates** (CLAUDE.md): rough chances, counted for broken results over 1,000 decades.
+- **Open:** women's names, the two late Punic names, how much of this the log should show (handoff questions).

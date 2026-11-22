@@ -2,6 +2,20 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Built by the cast-generator thread (13, 2026-11-22), slice 1: the generated cast
+- **Names from the sources** (`data/names.json`): 94 personal names, each with the passage where a real person bears it (Diodorus, Thucydides, Herodotus, Plutarch, Plato, Justin, Polybius, Livy, two inscriptions), in nine groups: Sicilian Greeks, Italian Greeks, Sikels, Carthaginians, Libyans, Campanians, Iberians, Gauls, Peloponnesians. Card: `docs/research/names.md` (its list is rebuilt by `node tools/build-names-card.mjs`). `tools/name-finder.mjs` is the drafting aid that found the passages; every quote is checked by `node scripts/verify-cast-quotes.mjs ../phoenician-punic-world` (247 of 247 found).
+- **The generator** (`src/core/census.ts`, rules in `data/census.json`, all invention): about 165 invented people in 40 houses (the rich and the citizens of Syracuse, the leading men of Leontini, Catana, Messana, Gela, Acragas, Motya and Panormus, the exiles at Aetna, the Elders, the Hundred and the people's speakers at Carthage), each with a father's name, age, spouse, children, one or two traits from `data/traits.json`, an ambition, a role (the first man of Leontini, a grain-lord, a judge of the Hundred) and the parts of a face for the mosaic portraits. Plus four captains hired by each side.
+- **A decade of life:** every season some die (by age; causes in plain words), wives bear children, widows hold houses for young sons, heirs take over with the house's role, houses die out and a new man rises in their place, a dead captain's company passes to a new one, and each autumn there are marriages and children come of age at 16. Every change comes back as a sentence with its reason, for the log.
+- **Not in the game yet.** Nothing in `GameState`, `season.ts` or the UI uses it, so both scenarios play exactly as before (100 seeds: same counts as the last run). The next slice adds it to island games only, drawing from the game's one random stream.
+- `npm run census -- --seed 7` prints a readable census and its decade; `npm run census -- --seeds 100` checks 100 decades. 1,000 decades: 0 broken states; about 167 people at the start and 179 at the end; a decade has about 55 births, 47 deaths, 13 marriages, 12 new heads of houses and 1 house dying out. Not tuned.
+- `tests/census.test.ts`: every name attested, same seed same decade, 100 decades with no broken family, house, name or captain, births, deaths, marriages and heirs happen, no code ids in the words, no living invented person carries a cast name, the lookups for the island thread, every face uses the mosaic editor's choices.
+
+## Questions from the cast-generator thread
+- **Women's names.** The saved texts name seven Sicilian Greek women and no Carthaginian woman. The game leaves a quarter of Greek women and 60% of Carthaginian women unnamed ("the daughter of Tellias", "the wife of Bostar"), as the sources do. Keep, or name more of them from fewer names?
+- **Annobal and Bodashtart**, a Punic name from Roman Leptis Magna and a Phoenician king of Sidon, pad the thin Carthaginian list. Keep or cut?
+- **Births and deaths:** about 55 births and 47 deaths in a decade among 165 people. Too busy for the log, or the right texture? (The island slice can show only deaths and heirs of people who matter.)
+- **Scope check:** the generated people fill the island's cities, Carthage's council and the captains. Nobody plays an heir, so "generations" stays out. Say if you'd rather this waited.
+
 ## Built by the art thread, second round (2026-11-22)
 - **Diodorus' years** in the chronicle and on each autumn's season card (`data/calendar.json`, `docs/research/calendar.md`).
 - **Sound** (`ui/sound.ts`), off until you click the lyre in the masthead.
