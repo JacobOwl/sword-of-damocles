@@ -50,8 +50,8 @@ const spare = (s: GameState, n: number) => s.silver - upkeepReserve(s) >= n;
 const KEY: OfficeId[] = ["citadel", "treasury"];
 
 // Carthage at the gates and enemies behind walls you can march on.
-function outside(s: GameState, out: Choice[], minMarch: number) {
-  if (s.island) out.push(...islandChoices(s)); // the island game (Phase 2): armies, embassies, peace
+function outside(s: GameState, out: Choice[], minMarch: number, sack = false) {
+  if (s.island) out.push(...islandChoices(s, { sack })); // the island game (Phase 2): armies, embassies, peace
   if (s.clock >= 7 && !s.walls && s.silver >= 3) out.push({ a: "build", args: { target: "wall" } });
   if (s.clock >= 7 && s.silver >= 1) out.push({ a: "envoy", min: 0.34 });
   const hunted = others(s).some((p) => p.status === "outside" && p.rival && p.faction === "rich");
@@ -200,7 +200,7 @@ const tyrant: Bot = {
     // Arrest the dangerous before they act: grudge-holders with weight.
     for (const p of free(s).filter((p) => p.grudges.length && weight(s, p) >= 2).sort((a, b) => weight(s, b) - weight(s, a)).slice(0, 1))
       out.push({ a: "imprison", args: { target: p.id }, min: 0.5 });
-    outside(s, out, 0.34);
+    outside(s, out, 0.34, true);
     if (!s.factions.citizens.disarmed && s.factions.guard.mood >= 3) out.push({ a: "disarm", min: 0.5 });
     if (s.grain <= 4) out.push({ a: "buyGrain" });
     income(s, out, true);

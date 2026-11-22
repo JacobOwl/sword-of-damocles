@@ -2,7 +2,7 @@
 // It only reads the state; every rule is in src/core.
 import {
   CARTHAGE, ISLAND, NODES, ROUTES, armyName, blocDef, capital, carthageAgenda, cityGrain, cityMen, cityWalls, goalDef, menWords,
-  moodWord, nodeName, prefers, sideName,
+  moodWord, nodeName, prefers, sideName, goOverMods,
 } from "../src/core/index.ts";
 import type { Army, GameState } from "../src/core/index.ts";
 import { esc, linkNames } from "./text.ts";
@@ -67,6 +67,20 @@ function armyLine(g: GameState, a: Army) {
   return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, ${food}${guard}.</li>`;
 }
 
+// The chance a town goes over this season, from the same roll the world step makes.
+function overNotes(g: GameState, id: string): string[] {
+  const out: string[] = [];
+  for (const side of ["syracuse", "carthage"] as const) {
+    const m = goOverMods(g, id, side);
+    if (!m) continue;
+    const t = m.reduce((x, y) => x + y.value, 0);
+    const p = [1, 2, 3, 4, 5, 6].filter((d) => d + t >= ISLAND.rules.goOverNeed).length;
+    if (!p) continue; // the world step makes no roll it cannot win
+    out.push(`<span class="${side === "syracuse" ? "good" : "warn"}">may go over to ${side === "syracuse" ? "you" : "Carthage"} (${p} in 6 next season)</span>`);
+    break;
+  }
+  return out;
+}
 function cityRows(g: GameState) {
   const isl = g.island!;
   return NODES.map((n) => {
@@ -74,7 +88,7 @@ function cityRows(g: GameState) {
     const w = cityWalls(g, n.id);
     const sieged = isl.armies.find((a) => a.siege === n.id);
     const leanWord = n.id === "syracuse" ? "" : c.lean >= 2 ? "warm to you" : c.lean === 1 ? "leans your way" : c.lean === 0 ? "undecided" : c.lean === -1 ? "cool to you" : "hostile to you";
-    const notes = [sieged ? `<span class="warn">besieged by ${esc(armyName(g, sieged))}</span>` : "", c.sacked ? "sacked, still in ruins" : "", c.fear ? "afraid of you" : ""].filter(Boolean).join("; ");
+    const notes = [sieged ? `<span class="warn">besieged by ${esc(armyName(g, sieged))}</span>` : "", c.sacked ? "sacked, still in ruins" : "", c.fear ? "afraid of you" : "", ...overNotes(g, n.id)].filter(Boolean).join("; ");
     return `<tr><th scope="row">${esc(n.name)}</th><td><span class="side" style="--c:${SIDE_COLOR[c.side]}">${esc(capital(sideName(c.side)))}</span></td>
       <td>${w ? `walls ${w}` : "no walls"}</td><td>${cityGrain(g, n.id)} months</td><td>${menWords(cityMen(g, n.id))}</td><td>${esc(leanWord)}</td><td class="small notes">${notes || `<span class="muted">${esc(n.detail)}</span>`}</td></tr>`;
   }).join("");

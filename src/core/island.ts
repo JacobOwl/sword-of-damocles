@@ -4,6 +4,7 @@
 import islandJson from "../../data/island.json" with { type: "json" };
 import carthageJson from "../../data/carthage.json" with { type: "json" };
 import { traitById } from "./data.ts";
+import { on } from "./switches.ts";
 import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf, power, others } from "./state.ts";
 import { clock, event, grain, guardSet, mood, powerChange, setStatus, silver, nextId, log } from "./ops.ts";
@@ -173,6 +174,7 @@ export function arrive(s: GameState, a: Army) {
     takeCity(s, a, "surrendered");
     return;
   }
+  if (a.side === "syracuse" && c.fear > 0 && fearSurrender(s, a)) return;
   a.siege = a.at;
   a.siegeSince = s.season;
   count(s, "islandSieges");
@@ -230,7 +232,17 @@ export function battle(s: GameState, a: Army, b: Army) {
     mood(s, "citizens", -1, "your army was beaten");
     count(s, "battlesLost");
   }
-  if (s.island!.armies.includes(lose)) retreat(s, lose, "beaten in the field");
+  if (!s.island!.armies.includes(lose)) return;
+  // Switch "armiesBreak": a beaten army that is starving, or was beaten once already this year, scatters.
+  if (on(s, "armiesBreak")) {
+    const twice = lose.beaten !== undefined && s.season - lose.beaten < R.breakWithin;
+    if (lose.food <= 0 || twice) {
+      count(s, "armiesBroken");
+      return destroy(s, lose, twice ? "beaten twice within a year, its men lose heart and scatter" : "beaten with no food left, its men scatter to find their own");
+    }
+  }
+  lose.beaten = s.season;
+  retreat(s, lose, "beaten in the field");
 }
 
 function retreat(s: GameState, a: Army, why: string) {
@@ -311,6 +323,7 @@ export function takeCity(s: GameState, a: Army, how: "surrendered" | "stormed" |
     event(s, PLAYER, `Your soldiers sack ${nodeName(id)} and sell its people.`, "you ordered a sack");
     mood(s, "guard", 1, `plunder from ${nodeName(id)}`);
     count(s, "sacks");
+    (s.island!.sacks ??= []).push(id);
     for (const n of NODES) {
       if (n.id === id || n.id === "syracuse") continue;
       const o = city(s, n.id);
@@ -453,20 +466,105 @@ export function islandWorld(s: GameState) {
       }
     }
   }
-  // Cities lean toward the stronger side in war: a free city or ally that dislikes you goes over to a stronger Carthaginian army.
-  if (isl.war) {
-    const ca = carthageArmy(s);
-    const yours = yourArmy(s)?.men ?? 0;
-    if (ca && ca.men > yours) {
-      for (const n of NODES) {
-        const c = city(s, n.id);
-        if ((c.side === "free" || c.side === "ally") && c.lean <= -1 && !isl.armies.some((a) => a.siege === n.id)) {
-          count(s, "defections");
-          setSide(s, n.id, "tributary", `Carthage's army is the stronger, and ${nodeName(n.id)} never liked you`);
-        }
+  // Fear fades: once a year, in summer, each city's fear of you drops by one.
+  if (q === 3) for (const n of NODES) { const c = city(s, n.id); if (c.fear > 0) { c.fear -= 1; log(s, { actor: "world", text: `${nodeName(n.id)} fears you a little less (fear ${c.fear}).`, why: "a year has passed", visible: true, kind: "change" }); } }
+  goingOver(s);
+}
+
+// ---------- Cities that change sides ----------
+// A town near a great army may go over to it, as Eryx and the Sicani did to Dionysius (Diodorus 14.48.1, 14.48.4)
+// and the Siceli did to Carthage (14.58.1). One roll a season per town, for the nearer side's army.
+const within = (from: string, to: string, days: number) => from === to || (path(from, to)?.days.at(-1) ?? 999) <= days;
+export function goOverMods(s: GameState, id: string, side: Army["side"]): Mod[] | null {
+  const isl = s.island!;
+  const c = city(s, id);
+  if (id === "syracuse" || isl.armies.some((a) => a.siege === id)) return null;
+  const army = isl.armies.find((a) => a.side === side);
+  if (!army || !within(army.at, id, R.goOverDays)) return null;
+  // Who may go over: to you, the free towns and the tribute towns (not Carthage's own, which "expected aid", 14.48.1);
+  // to Carthage, in war only, the free towns, your allies, and the towns you took.
+  const can = side === "syracuse" ? ["free", "tributary"].includes(c.side) : isl.war && ["free", "ally", "syracuse"].includes(c.side);
+  if (!can) return null;
+  const holder = isl.armies.find((a) => a.at === id && friendly(a.side, c.side));
+  if (holder) return null; // an army of its own side stands in it
+  const foe = isl.armies.find((a) => a.side !== side);
+  const m: Mod[] = [];
+  if (side === "syracuse") {
+    if (c.lean) m.push({ label: c.lean > 0 ? "they lean your way" : "they lean against you", value: c.lean });
+    if (c.fear) m.push({ label: "they fear you", value: c.fear });
+    if (c.side === "tributary") m.push(isl.war ? { label: "at war, the tribute towns want to be free", value: 1 } : { label: "they fear Carthage's anger", value: -1 });
+  } else {
+    if (c.lean) m.push({ label: c.lean < 0 ? "they hate you" : "they are loyal to you", value: -c.lean });
+    if (c.side === "syracuse") m.push({ label: "your garrison holds it", value: -1 });
+  }
+  if (army.men >= R.aweMen) m.push({ label: `awed by the size of ${armyName(s, army)}`, value: 1 });
+  if (!foe || army.men > foe.men) m.push({ label: `${armyName(s, army)} is the strongest on the island`, value: 1 });
+  if (foe && within(foe.at, id, R.goOverDays)) m.push({ label: `${armyName(s, foe)} is near`, value: -2 });
+  if (cityWalls(s, id) >= 2) m.push({ label: "they trust their walls", value: -1 });
+  return m;
+}
+function goingOver(s: GameState) {
+  const isl = s.island!;
+  for (const n of NODES) {
+    for (const side of ["syracuse", "carthage"] as const) {
+      const m = goOverMods(s, n.id, side);
+      if (!m) continue;
+      const army = isl.armies.find((a) => a.side === side)!;
+      const total = sum(m);
+      if (total + 6 < R.goOverNeed) continue; // no roll can do it, so no roll is made
+      const c = city(s, n.id);
+      const prev = c.side;
+      const die = d6(s);
+      const ok = die + total >= R.goOverNeed;
+      log(s, { actor: "world", text: `${nodeName(n.id)} weighs going over to ${side === "syracuse" ? "you" : "Carthage"}: rolled ${die}${modText(m)} = ${die + total}, needs ${R.goOverNeed}. ${ok ? "It goes over." : "It stays as it is."}`,
+        why: `${armyName(s, army)} is within ${R.goOverDays} days`, visible: true, kind: "roll", roll: { die, mods: m, total: die + total, need: R.goOverNeed, ok } });
+      if (!ok) break;
+      if (side === "syracuse") {
+        count(s, "wonOver");
+        setSide(s, n.id, "ally", `awed by your army, ${nodeName(n.id)} goes over to you`);
+        c.lean = Math.max(c.lean, 1);
+        event(s, PLAYER, `${nodeName(n.id)} comes over to you without a blow.`, `your army is near and ${m.filter((x) => x.value > 0).map((x) => x.label).join(", ")}`);
+        if (prev === "tributary") { clock(s, R.angerEmbassyDefect, `${nodeName(n.id)} stopped paying Carthage`); s.flags.tributeLost = s.season; }
+      } else {
+        count(s, "defections");
+        setSide(s, n.id, "tributary", `${carthagePersonName(s, army.commander)}'s army is near`);
+        event(s, "carthage", `${nodeName(n.id)} goes over to Carthage.`, `${armyName(s, army)} is near and ${m.filter((x) => x.value > 0).map((x) => x.label).join(", ")}`);
+        if (prev === "syracuse" || prev === "ally") mood(s, "citizens", -1, `${nodeName(n.id)} went over to Carthage`);
       }
+      break;
     }
   }
+}
+
+// The Leontines, "reflecting on the fate of the Naxians and Catanians", gave in without a siege (14.15.4).
+export function surrenderMods(s: GameState, a: Army): Mod[] {
+  const id = a.at;
+  const c = city(s, id);
+  const isl = s.island!;
+  const last = isl.sacks?.at(-1);
+  const m: Mod[] = [{ label: last ? `they remember the sack of ${nodeName(last)}` : "they fear you", value: c.fear }];
+  if (a.men >= 2 * cityMen(s, id)) m.push({ label: "your army is far stronger", value: 1 });
+  const w = cityWalls(s, id);
+  if (w) m.push({ label: `the walls of ${nodeName(id)}`, value: -w });
+  const ca = carthageArmy(s);
+  if (ca && isl.war && within(ca.at, id, R.goOverDays)) m.push({ label: "Carthage's army may save them", value: -2 });
+  return m;
+}
+function fearSurrender(s: GameState, a: Army): boolean {
+  const id = a.at;
+  const c = city(s, id);
+  if (c.side === "carthage" || c.side === "exiles") return false; // Carthage's own towns and the exiles expect no mercy
+  const m = surrenderMods(s, a);
+  const die = d6(s);
+  const t = die + sum(m);
+  const ok = t >= R.surrenderNeed;
+  log(s, { actor: "world", text: `${nodeName(id)} weighs giving in to your army: rolled ${die}${modText(m)} = ${t}, needs ${R.surrenderNeed}. ${ok ? "It gives in." : "It shuts its gates."}`,
+    why: "your army stands before a town that fears you", visible: true, kind: "roll", roll: { die, mods: m, total: t, need: R.surrenderNeed, ok } });
+  if (!ok) return false;
+  count(s, "fearSurrenders");
+  event(s, "world", `${nodeName(id)}, afraid of suffering what others suffered, opens its gates to you.`, m[0].label);
+  takeCity(s, a, "surrendered");
+  return true;
 }
 
 // A bloc's mood in Carthage. Kept here so island.ts and carthage.ts share it.

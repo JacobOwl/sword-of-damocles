@@ -143,3 +143,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Your guard can march with the army, and then does not defend you at home.** The first link between the map and the sword. The fuller link (you or a named man leading in person, a keeper left in the citadel) is the council's "commission" recommendation, parked for Jacob.
 - **Carthage's ships feed its armies in ports; yours eat from friendly towns.** Why: an asymmetry from the sea, and the reason Motya and Panormus matter.
 - **Two rule numbers changed after the first runs, both because a rule never fired or ran away:** blocs below Uneasy recover a step each summer if nothing soured them (Libya was in revolt a third of every game), and war weariness (the Elders want peace after 8 seasons of war, the people after 12; wars never ended). Plague in a siege camp now needs 6 strength points, not 10 (it never happened). Not tuned to history.
+
+## 2026-11-22 (the island, slice 2: towns that change sides, thread 10)
+- **Done:** towns go over to a large army nearby (one roll a season per town, every modifier shown); a town that fears you may give in when your army arrives; fear fades one step each summer; an optional switch "Beaten armies can break" (off by default); the bots stop walking into battles they would likely lose, and the iron hand sacks Carthage's towns and towns that lean against it. The city table shows the chance a town goes over next season.
+- **Decided:** the old rule (in war, every town with lean -1 or less went over to Carthage at once when its army outnumbered yours) is replaced by the roll. Why: it was all at once and showed no odds.
+- **Decided:** Carthage's own towns (Motya, Panormus) never go over, following 14.48.1. Going over to you makes a town your ally, not yours.
+- **Decided:** armies breaking is a switch, not a rule, because the handoff named it as Jacob's choice. With it on, about one Carthaginian army in five games breaks (careful bot); Himilcon's end can now fire.
+- **Open:** the fear rule fires only in unit tests; no bot sacks often enough in the sweeps to test it (see handoff).
+
