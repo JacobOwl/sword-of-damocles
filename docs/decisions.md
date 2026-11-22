@@ -204,3 +204,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **The browser game stays TypeScript with no UI framework; Vite replaces the hand-written esbuild script next.** Why: screens are already plain functions tested headless, every thread can add to them, and Godot is the long-term home (Jacob), so the browser UI should stay cheap. Plan in `docs/architecture.md`.
 - **The engine's purity is now tested** (`tests/core-boundary.test.ts`) and **conformance replays can be exported** (`npm run replays`) for a later port. Why: Godot is the goal; a port is checked by replaying the same games.
 - **Open:** which Godot route (translate or embed), for later.
+
+## 2026-11-22 (a proper web app, step 2: thread 17)
+- **The browser game builds with Vite 8 and `vite-plugin-singlefile`** into the same single page; `npm run dev` gives a live-reloading page. Why: a standard build with a dev server, while the Artifact link still gets one self-contained page.
+- **UI restructures are checked by a scripted walk-through** (`npm run walk`) that must record identical pages before and after. Why: "behaviour identical" needs a check, not a promise.

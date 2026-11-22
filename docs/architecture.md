@@ -36,7 +36,9 @@ These keep the engine portable. `tests/core-boundary.test.ts` checks the first f
 
 - **TypeScript everywhere**, run directly by Node 22's type stripping for tests and scripts (no compile step to test). So use only erasable TypeScript: no `enum`, no `namespace`, no parameter properties; import with the `.ts` extension.
 - **No UI framework.** Screens are plain functions returning HTML text, wired by a small event layer. Why: the screens are already written this way and tested headless; every thread can add to them without learning a framework; Node runs them in tests without a loader; and since Godot is the long-term home, the browser UI should stay cheap to keep rather than deep to leave. If a screen ever needs fine-grained live updates (an animated map, drag and drop), that one component can use a small library inside it without changing the rest.
-- **Build:** today `scripts/build-ui.ts` bundles with esbuild into one self-contained page, `ui/dist/index.html`, with fonts linked from Google Fonts and portraits inlined. `npm run build -- --fragment <path>` also writes the page without its outer skeleton, which is what is published to the Artifact link (https://claude.ai/artifact/8KqQzj6x3QrXRjQKzVZNK4). Step 2 below moves this to Vite, which adds a live-reloading dev server; the output stays one self-contained page.
+- **Build: Vite** (`vite.config.ts`, page shell `ui/index.html`). `npm run dev` serves the game with live reload while you work. `npm run build` (`scripts/build-ui.ts`) writes one self-contained page, `ui/dist/index.html`: code, styles and portraits inlined by `vite-plugin-singlefile` and a small portraits plugin, fonts linked from Google Fonts. `npm run build -- --fragment <path>` also writes the page without its outer skeleton, which is what is published to the Artifact link (https://claude.ai/artifact/8KqQzj6x3QrXRjQKzVZNK4).
+- **Stylesheets** are linked from `ui/index.html` and inlined by the build. A new stylesheet is one more `<link>` there (or, for a component's own styles, an `import "./x.css"` in its file once the component layout exists).
+- **The walk-through check:** `npm run walk -- <page.html> <out.json>` (`scripts/ui-walk.mjs`) plays the built page with a fixed seed and fixed clicks, at desktop and phone width, in both scenarios, and records the page after each step. Run it on the page before and after a UI restructure and compare the two files: they must be identical. Needs Playwright (present in the cloud machines; locally, `NODE_PATH=$(npm root -g)` with a global Playwright).
 
 ## Target layout
 
@@ -64,8 +66,8 @@ A **view or component** is a file that exports functions `(g: GameState, ...) =>
 
 Each step is one small pull request that keeps `npm test`, the typecheck and `npm run sim -- --seeds 100` passing, and keeps the game behaving the same. Before each UI step, a scripted browser walk-through (same seed, same clicks) is recorded before and after, and the pages must match.
 
-1. **This document, the engine boundary test and the replay export.** No game files move. (Done with this PR.)
-2. **Vite build.** `npm run dev` for a live-reloading page; `npm run build` still writes `ui/dist/index.html` and the fragment. CSS is imported by the code instead of read by the build script.
+1. **This document, the engine boundary test and the replay export.** No game files move. (Done, PR #26.)
+2. **Vite build.** `npm run dev` for a live-reloading page; `npm run build` still writes `ui/dist/index.html` and the fragment. The walk-through gives the same 83 pages as the old esbuild page. (Done with this PR.)
 3. **One click layer.** Replace the per-render wiring in `ui/main.ts` with handlers registered once, matched by `data-` attributes.
 4. **Split `ui/main.ts`** into `ui/app/` (shell, saving, dialog, clicks) and `ui/views/` (title, season, city, dangers, ending).
 5. **Move the other UI files** into `views/`, `components/` and `lib/`, timed for a moment when no other thread has a UI pull request open, and announced to them first.
