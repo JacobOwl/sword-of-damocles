@@ -2,8 +2,9 @@
 
 New ideas land here, not in the build. Tag each with the phase it might belong to. Jacob decides what moves into `scope.md`.
 
-- [Phase 2] Fully simulated Carthage with its own council, families and generals (the centerpiece).
-- [Phase 2] Island map: 6 to 8 cities, armies with supply; reuse the Feeding an Army logistics ideas.
+- [Moved into scope 2026-11-22] Fully simulated Carthage and the island map with armies and supply are now Phase 2 scope (`scope.md`, `docs/phase2-plan.md`).
+- [Phase 3] The rest of the island's cities: Selinus, Himera, Camarina, Naxos, Enna and the Sikel towns, Segesta and Eryx.
+- [Phase 3] The full Feeding an Army logistics (wagons, baggage, depots), beyond Phase 2's months of food.
 - [Phase 3] All 216 years, generations, selectable start dates, full mercenary market (land as pay; Dionysius I gave mercenaries citizenship and land).
 - [Phase 3] Other starting characters: demagogue, mercenary captain, rich exile.
 - [Phase 4] Legends-style browser for every person, city and war; chronicle in a biased voice (Philistus close to Dionysius, Timaeus hostile to tyrants).
@@ -11,7 +12,7 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Optional] Board game of the power-object system for Tabletop Simulator.
 - [Optional] Calibrating the engine against history over 1,000 seeds, as a sanity check only.
 - [Optional] Reuse the engine for an invented world (Bo'saal).
-- [Phase 1 or 2, Jacob to decide] Simple conquest or raids on nearby cities (Leontini, Catana, Naxos, Carthage's tribute towns). In the paper test, the player reached outside the city 3 times in 10 seasons. Phase 1 has no island, so each one was resolved as a single roll.
+- [Done in Phase 2 by the island map, 2026-11-22] Simple conquest or raids on nearby cities (Leontini, Catana, Naxos, Carthage's tribute towns). In the paper test, the player reached outside the city 3 times in 10 seasons. Phase 1 has no island, so each one was resolved as a single roll.
 - [Phase 1?] Dinners as the main stage for drama: who is invited, where they sit, what the wine loosens. This is from Jacob's pitch doc (background only), and it barely came up in the paper test.
 - [Phase 3?] Playing on as an exile who plots a return. Also from Jacob's pitch doc.
 - [Phase 1?] Let the player use the scheming actions too (start a plot against a rival, lend). Rules v2 says they are open to anyone; the prototype gives them to the computer's people only.
@@ -27,6 +28,10 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Source to save] Cicero, *Tusculan Disputations* 5.61 to 5.62, the story of Damocles and the sword. Not among the saved texts, and the cloud could not reach it (https://www.thelatinlibrary.com/cicero/tusc5.shtml was refused). Jacob, could you paste or save an English translation of 5.61 to 5.62? Two saved modern pages disagree about which Dionysius it belongs to, so no event uses it yet. Parked by the events thread, 2026-11-22.
 - [Phase 1?] Events that people other than you answer (a faction leader choosing, by its priority list), so events can happen between the computer's people too. Parked by the events thread, 2026-11-22.
 - [Phase 1?] Philoxenus the poet sent to the quarries, and other court stories outside the saved texts. Needs a saved source first. Parked by the events thread, 2026-11-22.
+- [Phase 2, Jacob to decide] From the design council (2026-11-22, `docs/council/2026-11-22-design-council.md`, V11), ranked: a "mark this moment" button that tags a moment in play into the replay; a story sweep (prose summaries of each game's two longest storylines for 10 seeds beside the balance sweep); an ambition chosen at the start and judged by the chronicle's last page, no score; one dice stream per system made from the seed (changes the "one seeded RNG" rule; do it in the engine refactor or not at all); disputed numbers from rival historians in the chronicle (Diodorus 14.54.5-6).
+- [Phase 2 second test?] Losing Syracuse as a turn, not the end: play on as an exile at Aetna or Rhegium and plot a return (design council V11; also in Jacob's pitch doc). Exile records and the `where` field are to be designed so it fits later.
+- [Phase 2?] Two playable checkpoints before the full island: the citadel under the first-test preset, then the island against the old Carthage clock (design council, risks).
+- [Phase 2?] A switch that raises the army's pay after each victory, to brake a winning ruler (design council, Systems seat; compare Diodorus 14.78.2).
 - [Phase 1 or later] Painted figure scenes for events (people in red-figure, not only emblems), once the emblems have been judged in play. Art thread, 2026-11-22.
 - [Phase 1 or later] Sound: a lyre phrase for a new season, a low drone when a plot is named. Out of this pass by the art direction. Art thread, 2026-11-22.
 - [Phase 1?] Date the chronicle's years the way Diodorus does (Olympiad and Athenian archon), e.g. "the Ninety-fourth Olympiad was celebrated" (Diodorus 14.3.1). Needs care: Diodorus' years don't line up neatly with the game's. Art thread, 2026-11-22.

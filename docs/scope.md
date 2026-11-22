@@ -1,25 +1,35 @@
 # Scope
 
-Current phase: **1, "The Citadel"**. Change this file only by a logged decision.
+Current phase: **2, "The Island"**, the target of the first real test. Change this file only by a logged decision.
 
-## In (Phase 1)
+Phase 1, "The Citadel", is the foundation Phase 2 is built on. It stays playable as its own scenario (Syracuse alone, Carthage as a clock), and everything in it carries over. It is no longer a gate. (Jacob, 2026-11-22.)
 
-- Syracuse alone, 405 to 395 BC, in seasons.
+The milestones for Phase 2 are in `docs/phase2-plan.md`.
+
+## In (Phase 2)
+
+Everything from Phase 1:
+- Syracuse, 405 to 395 BC, in seasons. The same decade, because it holds the great war with Carthage of 397 to 396.
 - Four factions: common citizens, rich families, the mercenary guard, the ruler's family.
 - The six power objects: citadel, treasury, mint, fleet, generalship, assembly. Government form comes out of who holds them.
-- About 15 people with traits, ambitions, money, relationships and grudges (each grudge has a reason).
-- Real people first. Invented people are allowed where the sources run out, as in CK3, and every person is tagged `history` or `invention`. The UI will later mark real people with a small note.
+- About 25 people with traits, ambitions, money, relationships and grudges (each grudge has a reason). Real people first, invented people where the sources run out, every person tagged `history` or `invention`.
 - Plots and the sword check, with warnings before the blow.
-- Events as data (`data/events.json`): drawn from the game's state, with defined choices and set effects. Sourced stories from the cast's years plus invented everyday ones (feasts, debts, fevers, scandals). Added by Jacob's decision, 2026-11-22.
-- Carthage as outside pressure only, a clock, not a simulated city.
+- Events as data (`data/events.json`), with defined choices and set effects.
 - A plain-text chronicle, read from the action log.
 - Seeded headless runs; 100-seed check before every merge.
-- Placeholder mosaic portraits for the cast, made in `tools/mosaic-editor.html`. Their looks are invention. (Jacob, 2026-11-22.)
+- Placeholder mosaic portraits.
+
+New in Phase 2:
+- **The island map**: 8 cities (Syracuse, Leontini, Catana, Messana, Gela, Acragas, Motya, Panormus) and the fortress at Aetna, joined by roads and sea lanes. Each city has a side, walls, grain, men under arms and a lean toward Syracuse or Carthage.
+- **A simulated Carthage** in place of the clock: a council of blocs with power and moods (the Elders, the Hundred, the people, the Libyan subjects), its own named people (Himilcon, Magon and invented elders), its own stores, and its own fixed action menu worked through a priority list, with a visible goal and a reason for every act. The council votes on war and peace.
+- **Armies with supply** as objects on the map: men, months of food, a commander. They march along routes, eat as they go, forage in enemy land, besiege cities (walls, hunger, plague) and fight battles with every modifier shown first.
+- **Cities that change sides** by embassy, fear, siege or revolt.
+- Defined actions only, CK3-style. No freeform orders and no improvised results, for you or for Carthage.
 
 ## Out (cut for now)
 
-City map of Syracuse, supply and sieges, mercenary market, generations, choosing the start date, the full island, a simulated Carthage (the centerpiece of Phase 2), coin art, the history browser, the biased-historian voice, the board game. (Coin art here means real coin photographs; placeholder portraits are In.)
+The full island of about 25 cities, the mercenary market (companies, prices, contracts), naval battles beyond a single interception roll, generations, choosing the start date, other playable characters, playing as Carthage, the Sikel league as a full faction, Italy and Greece as more than names, the city map of Syracuse's districts, coin art (real coin photographs), the history browser, the biased-historian voice, the board game.
 
-## Gate to Phase 2
+## Gate to Phase 3
 
-Ten seasons of Phase 1 produce a story Jacob would retell, and he says go. Only then does a simulated Carthage and the island map begin.
+Ten seasons of the island game produce a story Jacob would retell, and he says go.
