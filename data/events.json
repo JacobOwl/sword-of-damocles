@@ -3,7 +3,7 @@
   "pacing": { "kind": "invention", "draws": 1, "secondChance": 0.35, "maxOpen": 3, "cooldown": 8 },
   "events": [
     {
-      "id": "andronTempted", "kind": "history", "name": "The keeper's confession", "weight": 3,
+      "id": "andronTempted", "kind": "history", "art": "walls", "name": "The keeper's confession", "weight": 3,
       "when": { "from": "winter-405" },
       "roles": { "keeper": { "id": "andron", "opinion": { "min": 0 } }, "tempter": { "faction": ["family", "rich"], "opinion": { "max": 0 }, "notId": ["theste", "doris", "aristomache"] } },
       "text": "Andron, who keeps the fortress and the treasure on the Island, comes to you at last. {Tempter} urged him to seize both while your back was turned. He confesses every detail, but he did not come to you at once.",
@@ -28,7 +28,7 @@
       "invented": ["trigger", "who plays the tempter (Polyaenus names a Hermocrates, the sister's husband)", "the choices other than execution and banishment", "all numbers"]
     },
     {
-      "id": "polyxenusFlees", "kind": "history", "name": "A flight by night", "weight": 4,
+      "id": "polyxenusFlees", "kind": "history", "art": "horse", "name": "A flight by night", "weight": 4,
       "roles": { "flier": { "id": "polyxenus", "opinion": { "max": 0 }, "grudge": true } },
       "text": "Polyxenus, your sister's husband, has become your enemy. At dawn word comes that, moved by fear, he slipped out of the city and is making for the coast.",
       "why": "Polyxenus holds a grudge against you, and fears what you will do",
@@ -49,7 +49,7 @@
       "invented": ["trigger (a grudge, and no warmth toward you)", "the riders and the letter", "all numbers"]
     },
     {
-      "id": "thesteAnswer", "kind": "history", "name": "Theste's answer", "chained": true,
+      "id": "thesteAnswer", "kind": "history", "art": "hearth", "name": "Theste's answer", "chained": true,
       "roles": { "wife": { "id": "theste" }, "flier": { "id": "polyxenus", "status": ["outside", "held", "free"] } },
       "text": "You send for your sister Theste and upbraid her: she knew of her husband's flight and did not tell you. She answers without fear. Had she known, she says, she would have sailed with him: \"it would have been well for me to be called the wife of Polyxenus the exile, rather than the sister of Dionysius the tyrant.\"",
       "why": "her husband fled, and you think she knew",
@@ -70,7 +70,7 @@
       "invented": ["the choices other than admiring her", "all numbers"]
     },
     {
-      "id": "rhegiumRefuses", "kind": "history", "name": "No bride from Rhegium", "weight": 4,
+      "id": "rhegiumRefuses", "kind": "history", "art": "wedding", "name": "No bride from Rhegium", "weight": 4,
       "when": { "from": "spring-399", "until": "summer-397" },
       "text": "You sent envoys to Rhegium asking for a bride from among its citizens, and promised them land and strength in return. After much debate their assembly has voted no.",
       "why": "you need children to secure your rule, and friends on the Strait before a war",
@@ -84,7 +84,7 @@
       "invented": ["the choices other than Locri", "all numbers"]
     },
     {
-      "id": "doubleWedding", "kind": "history", "name": "Two brides on one day", "weight": 8, "once": false, "cooldown": 3,
+      "id": "doubleWedding", "kind": "history", "art": "wedding", "name": "Two brides on one day", "weight": 8, "once": false, "cooldown": 3,
       "when": { "any": [ { "flag": { "locriAsked": true } }, { "from": "summer-398" } ] },
       "roles": { "locrian": { "id": "doris", "status": ["outside", "free"], "marriageable": true }, "bride": { "id": "aristomache", "marriageable": true }, "father": { "id": "hipparinus", "optional": true } },
       "text": "The Locrians agree to the match: Doris, daughter of Xenetus, their most esteemed citizen. In Syracuse the most notable maiden is Aristomache, daughter of Hipparinus. You could send your first quinquereme, fitted with silver and gold, for the one, and a chariot drawn by four white horses for the other.",
@@ -109,7 +109,7 @@
       "invented": ["marrying only one, or neither", "all numbers"]
     },
     {
-      "id": "eldestSon", "kind": "history", "name": "A son from Locri", "chained": true,
+      "id": "eldestSon", "kind": "history", "art": "hearth", "name": "A son from Locri", "chained": true,
       "roles": { "mother": { "id": "doris", "married": true } },
       "text": "Doris of Locri has borne you a son, your eldest. The city had hoped its own countrywoman would be honoured above the stranger.",
       "why": "Doris became a mother first",
@@ -124,7 +124,7 @@
       "invented": ["timing (four seasons after the wedding)", "the choices", "all numbers"]
     },
     {
-      "id": "dorisMother", "kind": "history", "name": "The charge against the Locrian mother", "chained": true,
+      "id": "dorisMother", "kind": "history", "art": "mask", "name": "The charge against the Locrian mother", "chained": true,
       "roles": { "locrian": { "id": "doris", "married": true }, "wife": { "id": "aristomache", "married": true } },
       "text": "Aristomache has borne you no child. At court they whisper that the mother of your Locrian wife has been giving her drugs to prevent it.",
       "why": "Aristomache is still childless, and the court looks for someone to blame",
@@ -140,7 +140,7 @@
       "invented": ["timing", "the choices other than execution", "all numbers"]
     },
     {
-      "id": "councilOfFriends", "kind": "history", "name": "Counsel in the Island", "weight": 6, "once": false, "cooldown": 12,
+      "id": "councilOfFriends", "kind": "history", "art": "walls", "name": "Counsel in the Island", "weight": 6, "once": false, "cooldown": 12,
       "when": { "any": [ { "plotStage": { "min": 3 } }, { "mood": { "citizens": { "max": 0 } } }, { "flag": { "besieged": { "within": 0 } } } ] },
       "roles": { "heloris": { "id": "heloris", "optional": true }, "polyxenus": { "id": "polyxenus", "optional": true }, "philistus": { "id": "philistus", "optional": true } },
       "text": "Danger is close, and your friends gather in the Island to counsel you. It may be time to think not of how to win, but of how this ends.",
@@ -167,7 +167,7 @@
       "invented": ["trigger", "that it can come more than once", "all numbers"]
     },
     {
-      "id": "campanianHorse", "kind": "history", "name": "The Campanians' price", "chained": true,
+      "id": "campanianHorse", "kind": "history", "art": "horse", "name": "The Campanians' price", "chained": true,
       "text": "The Campanian horsemen you sent for have cut their way through to you. Now they want the price you promised.",
       "why": "you promised them any price they asked",
       "choices": [
@@ -185,7 +185,7 @@
       "invented": ["keeping them or giving them land", "all numbers"]
     },
     {
-      "id": "aristusOfSparta", "kind": "history", "name": "The Spartan envoy", "weight": 4,
+      "id": "aristusOfSparta", "kind": "history", "art": "assembly", "name": "The Spartan envoy", "weight": 4,
       "when": { "until": "summer-402" },
       "roles": { "victim": { "id": "nicoteles" } },
       "text": "Aristus, a distinguished Spartan, has landed. In public he promises the citizens their liberty. In private he tells you Sparta wants your rule made stronger, and that Nicoteles the Corinthian, a leader of the citizens, trusts him.",
@@ -203,7 +203,7 @@
       "invented": ["the choices other than letting him", "all numbers"]
     },
     {
-      "id": "harvestArms", "kind": "history", "name": "The empty houses", "weight": 3,
+      "id": "harvestArms", "kind": "history", "art": "harvest", "name": "The empty houses", "weight": 3,
       "when": { "seasonOfYear": ["summer"], "disarmed": false, "mood": { "citizens": { "max": 2 } } },
       "text": "Harvest time. The citizens are out in the fields, and their houses in the city stand empty.",
       "why": "the citizens are Uneasy or worse, and the harvest takes them out of the city",
@@ -218,7 +218,7 @@
       "invented": ["trigger", "all numbers"]
     },
     {
-      "id": "epipolaeWall", "kind": "history", "name": "Sixty thousand hands", "weight": 3, "once": false, "cooldown": 8,
+      "id": "epipolaeWall", "kind": "history", "art": "walls", "name": "Sixty thousand hands", "weight": 3, "once": false, "cooldown": 8,
       "when": { "walls": false, "silver": { "min": 3 }, "clock": { "min": 4 } },
       "text": "Your master-builders say the heights of Epipolae command the city. A wall there would mean Syracuse can never again be cut off from its countryside, as it was in the war with Athens.",
       "why": "Carthage stirs, and the heights are open",
@@ -238,7 +238,7 @@
       "invented": ["trigger", "the hired option", "all numbers"]
     },
     {
-      "id": "armsWorkshops", "kind": "history", "name": "The arms workshops", "weight": 3,
+      "id": "armsWorkshops", "kind": "history", "art": "arms", "name": "The arms workshops", "weight": 3,
       "when": { "from": "spring-399", "clock": { "min": 3 } },
       "text": "You could prepare for a great war: gather skilled workmen from your cities and, with high wages, from Italy, Greece and even Carthage's lands, and fill the porticoes and back rooms of the temples with forges.",
       "why": "a war with Carthage is coming, sooner or later",
@@ -257,7 +257,7 @@
       "invented": ["trigger", "the buy option", "all numbers"]
     },
     {
-      "id": "warOnCarthage", "kind": "history", "name": "War, while Carthage is sick", "weight": 4,
+      "id": "warOnCarthage", "kind": "history", "art": "palm", "name": "War, while Carthage is sick", "weight": 4,
       "when": { "clock": { "max": 6 }, "any": [ { "flag": { "armed": true } }, { "from": "spring-397" } ] },
       "text": "Plague has struck Carthage and Libya. You could call the assembly and urge war now, before the enemy recovers.",
       "why": "Carthage is weak, and you are armed",
@@ -277,7 +277,7 @@
       "invented": ["trigger", "protecting the merchants", "all numbers"]
     },
     {
-      "id": "theodorusSpeaks", "kind": "history", "name": "Theodorus speaks for liberty", "weight": 6,
+      "id": "theodorusSpeaks", "kind": "history", "art": "assembly", "name": "Theodorus speaks for liberty", "weight": 6,
       "when": { "from": "spring-398", "any": [ { "flag": { "atWar": true } }, { "clock": { "min": 8 } } ] },
       "roles": { "speaker": { "id": "theodorus" } },
       "text": "You call the assembly to praise the citizens and promise a quick end to the war. Before you can dismiss it, Theodorus, a man of action, held in high esteem among the cavalry, stands to speak for liberty: if you will lay down your office, let you leave with your possessions; if not, they have weapons in their hands and allies about them.",
@@ -306,7 +306,7 @@
       "invented": ["the roll for the Spartan's answer", "seizing him, the promise", "all numbers"]
     },
     {
-      "id": "polyxenusEmbassy", "kind": "history", "name": "An embassy for ships", "weight": 4,
+      "id": "polyxenusEmbassy", "kind": "history", "art": "warship", "name": "An embassy for ships", "weight": 4,
       "when": { "clock": { "min": 7 } },
       "roles": { "envoy": { "id": "polyxenus", "opinion": { "min": 0 } } },
       "text": "Carthage is coming. You could send your brother-in-law Polyxenus to the Greeks of Italy, to Sparta and to Corinth, begging for ships, with ample money to hire soldiers.",
@@ -320,7 +320,7 @@
       "invented": ["trigger", "all numbers"]
     },
     {
-      "id": "polyxenusReturns", "kind": "history", "name": "Thirty ships from the allies", "chained": true,
+      "id": "polyxenusReturns", "kind": "history", "art": "warship", "name": "Thirty ships from the allies", "chained": true,
       "roles": { "envoy": { "id": "polyxenus" } },
       "text": "Polyxenus is back from the Peloponnese and Italy, bringing thirty warships from your allies, with the Spartan Pharacidas as admiral.",
       "why": "the embassy you sent",
@@ -330,7 +330,7 @@
       "invented": ["timing", "all numbers"]
     },
     {
-      "id": "mercenaryDemand", "kind": "history", "name": "The mercenaries want their pay", "weight": 5, "once": false, "cooldown": 8,
+      "id": "mercenaryDemand", "kind": "history", "art": "arms", "name": "The mercenaries want their pay", "weight": 5, "once": false, "cooldown": 8,
       "when": { "arrears": { "min": 1 }, "guardMood": { "max": 2 } },
       "roles": { "commander": { "id": "aristotle", "optional": true } },
       "text": "The mercenaries are hostile, and you fear they may depose you. They gather under arms and demand their pay, with some sharpness.",
@@ -352,7 +352,7 @@
       "invented": ["trigger", "the roll", "all numbers"]
     },
     {
-      "id": "himilconOffer", "kind": "history", "name": "Carthage's secret offer", "weight": 8,
+      "id": "himilconOffer", "kind": "history", "art": "letter", "name": "Carthage's secret offer", "weight": 8,
       "when": { "flag": { "invaded": { "within": 1 } }, "clock": { "max": 6 } },
       "text": "Beaten back, the Carthaginian general sends to you in secret, behind the citizens' backs: let his own Carthaginians sail home by night, and three hundred talents are yours.",
       "why": "Carthage's army was thrown back from the walls",
@@ -370,7 +370,7 @@
       "invented": ["trigger", "all numbers"]
     },
     {
-      "id": "marsyasDream", "kind": "history", "name": "The captain's dream", "weight": 3,
+      "id": "marsyasDream", "kind": "history", "art": "dagger", "name": "The captain's dream", "weight": 3,
       "roles": { "dreamer": { "faction": "guard" } },
       "text": "{Dreamer}, whom you raised to high command, dreamed of killing you and told the dream over wine. The story is all through the barracks.",
       "why": "you are suspicious, and in the barracks dreams get told",
@@ -385,7 +385,7 @@
       "invented": ["who dreams (Plutarch names Marsyas, who is not in the cast; a member of the guard takes his place)", "the choices other than death", "all numbers"]
     },
     {
-      "id": "borrowedSpear", "kind": "history", "name": "The borrowed spear", "weight": 3,
+      "id": "borrowedSpear", "kind": "history", "art": "arms", "name": "The borrowed spear", "weight": 3,
       "roles": { "brother": { "id": "leptines" } },
       "text": "Describing a place to you, Leptines drew its plan on the ground with a spear he took from one of your bodyguards. No one is meant to bear arms in your presence.",
       "why": "you trust no one near you with a weapon, not even your brother",
@@ -400,7 +400,7 @@
       "invented": ["the choices other than death", "all numbers"]
     },
     {
-      "id": "philistusMatch", "kind": "history", "name": "A marriage made without you", "weight": 3,
+      "id": "philistusMatch", "kind": "history", "art": "wedding", "name": "A marriage made without you", "weight": 3,
       "roles": { "brother": { "id": "leptines" }, "groom": { "id": "philistus" } },
       "text": "Leptines has given one of his two daughters to Philistus in marriage, without so much as telling you.",
       "why": "Leptines and Philistus are close, and neither asked you",
@@ -415,7 +415,7 @@
       "invented": ["that it can happen in 405 to 395 at all", "the choices other than banishment", "all numbers"]
     },
     {
-      "id": "secretOfConspiracies", "kind": "history", "name": "The man with the secret", "weight": 2,
+      "id": "secretOfConspiracies", "kind": "history", "art": "mask", "name": "The man with the secret", "weight": 2,
       "text": "A foreigner in the city claims an infallible secret for revealing conspiracies, and will tell it to you alone. Alone with you, he says: claim, as I do, that you have such a secret, and no one will dare plot against you.",
       "why": "a clever stranger has heard how much you fear plots",
       "choices": [
@@ -428,7 +428,7 @@
       "invented": ["all numbers"]
     },
     {
-      "id": "whatTheyHeard", "kind": "history", "name": "What the musicians hear", "weight": 2,
+      "id": "whatTheyHeard", "kind": "history", "art": "lyre", "name": "What the musicians hear", "weight": 2,
       "text": "Your agents say the flute-girls and courtesans of the city hear everything their lovers say about you.",
       "why": "you want to know who your enemies are",
       "choices": [
@@ -443,7 +443,7 @@
       "invented": ["paying them instead", "all numbers"]
     },
     {
-      "id": "reportOfDeath", "kind": "history", "name": "A report of your death", "weight": 2,
+      "id": "reportOfDeath", "kind": "history", "art": "letter", "name": "A report of your death", "weight": 2,
       "when": { "plotStage": { "min": 1 } },
       "text": "Your enemies are stirring. You could put out word that you are at the point of death, and watch who rejoices.",
       "why": "there are whispers of a plot",
@@ -459,7 +459,7 @@
       "invented": ["the roll and its failure", "all numbers"]
     },
     {
-      "id": "demeterOrnaments", "kind": "history", "name": "Demeter's ornaments", "weight": 2,
+      "id": "demeterOrnaments", "kind": "history", "art": "temple", "name": "Demeter's ornaments", "weight": 2,
       "when": { "silver": { "max": 2 } },
       "text": "The treasury is empty. You could tell the assembly that Demeter has appeared to you and asked for the women's ornaments to be brought to her temple, as your own household has already done.",
       "why": "you are short of silver",
@@ -473,7 +473,7 @@
       "invented": ["all numbers"]
     },
     {
-      "id": "tinCoinage", "kind": "history", "name": "Coins of tin", "weight": 2,
+      "id": "tinCoinage", "kind": "history", "art": "coins", "name": "Coins of tin", "weight": 2,
       "when": { "silver": { "max": 2 }, "playerHolds": ["mint"] },
       "text": "You hold the mint and have no silver. You could strike coins of tin, and have the assembly vote that whatever a man receives counts as silver.",
       "why": "you are short of silver, and you hold the mint",
@@ -487,7 +487,7 @@
       "invented": ["all numbers"]
     },
     {
-      "id": "asclepiusOfferings", "kind": "history", "name": "The offerings of Asclepius", "weight": 2,
+      "id": "asclepiusOfferings", "kind": "history", "art": "temple", "name": "The offerings of Asclepius", "weight": 2,
       "when": { "silver": { "max": 3 } },
       "text": "The people refuse a new tax: they have paid too often already. Meanwhile the temple of Asclepius is full of offerings of silver and gold.",
       "why": "the treasury is low, and the people will not pay",
@@ -501,7 +501,7 @@
       "invented": ["all numbers"]
     },
     {
-      "id": "newCitizens", "kind": "history", "name": "Sharing out the land", "weight": 4,
+      "id": "newCitizens", "kind": "history", "art": "harvest", "name": "Sharing out the land", "weight": 4,
       "when": { "until": "summer-403", "land": { "min": 1 } },
       "text": "The land of Syracuse is yours to share out. Your friends and officers expect the best of it. The freed slaves could be enrolled as citizens.",
       "why": "after the troubles, the land is yours to give",
@@ -519,7 +519,7 @@
       "invented": ["making the three into separate choices (Diodorus has him do all of them)", "all numbers"]
     },
     {
-      "id": "wordsInTheRanks", "kind": "history", "name": "Words in the ranks", "weight": 6,
+      "id": "wordsInTheRanks", "kind": "history", "art": "arms", "name": "Words in the ranks", "weight": 6,
       "when": { "mood": { "citizens": { "max": 2 } }, "any": [ { "flag": { "marched": { "within": 1 } } }, { "flag": { "fighting": { "within": 1 } } } ] },
       "roles": { "commander": { "id": "doricus" } },
       "text": "In camp the citizen soldiers, arms in hand, gather in groups and reproach each other for not joining the cavalry against you. Doricus, their commander, warned one outspoken man; the man answered back, and Doricus stepped up to strike him.",
@@ -540,7 +540,7 @@
       "invented": ["trigger (any march or street fighting)", "the roll that decides whether Doricus dies", "all numbers"]
     },
     {
-      "id": "termsForAetna", "kind": "history", "name": "Terms for Aetna", "weight": 4,
+      "id": "termsForAetna", "kind": "history", "art": "letter", "name": "Terms for Aetna", "weight": 4,
       "when": { "until": "summer-401" },
       "roles": { "exile": { "id": "cavalryLeader", "status": "outside" } },
       "text": "You could bury the dead of both sides with honour, and send envoys to the exiles at Aetna pledging that you bear them no enmity if they come home.",
@@ -560,7 +560,7 @@
       "invented": ["the roll", "all numbers"]
     },
     {
-      "id": "leptinesAttacks", "kind": "history", "name": "Leptines wants battle", "weight": 4,
+      "id": "leptinesAttacks", "kind": "history", "art": "warship", "name": "Leptines wants battle", "weight": 4,
       "when": { "any": [ { "clock": { "min": 7 } }, { "flag": { "atWar": true } } ] },
       "roles": { "admiral": { "id": "leptines", "office": "fleet" } },
       "text": "Leptines, your admiral, wants to take the thirty best ships far ahead of the rest and fall on the Carthaginian fleet.",
@@ -577,7 +577,7 @@
       "invented": ["the roll (history has him beaten)", "all numbers"]
     },
     {
-      "id": "veteransPay", "kind": "history", "name": "The old soldiers' pay", "weight": 2,
+      "id": "veteransPay", "kind": "history", "art": "coins", "name": "The old soldiers' pay", "weight": 2,
       "when": { "silver": { "max": 3 }, "arrears": { "max": 0 } },
       "text": "The soldiers' pay weighs on the treasury. You could stop paying the old veterans, but the young men say it would be cruel to starve those who spent their youth in your service.",
       "why": "the guard costs more than the treasury takes in",
@@ -592,7 +592,7 @@
     },
 
     {
-      "id": "symposiumInsult", "kind": "invention", "name": "Wine at your table", "weight": 3,
+      "id": "symposiumInsult", "kind": "invention", "art": "feast", "name": "Wine at your table", "weight": 3,
       "roles": { "mocker": {}, "target": {} },
       "text": "At your dinner, deep in the wine, {mocker} mocks {target} before the whole table. Everyone looks at you.",
       "why": "wine loosens tongues",
@@ -604,7 +604,7 @@
       ]
     },
     {
-      "id": "debtCalledIn", "kind": "invention", "name": "A debt called in", "weight": 4,
+      "id": "debtCalledIn", "kind": "invention", "art": "coins", "name": "A debt called in", "weight": 4,
       "roles": { "lender": { "owedFavor": true } },
       "text": "{Lender} reminds you, politely and then less politely, that you owe him.",
       "why": "you borrowed from {lender}",
@@ -615,7 +615,7 @@
       ]
     },
     {
-      "id": "houseInRuin", "kind": "invention", "name": "A house in ruin", "weight": 2,
+      "id": "houseInRuin", "kind": "invention", "art": "coins", "name": "A house in ruin", "weight": 2,
       "roles": { "debtor": { "faction": "rich", "notId": ["aristomache"] } },
       "text": "{Debtor}'s house is ruined by debt. Creditors circle the estates.",
       "why": "bad years, bad loans",
@@ -626,7 +626,7 @@
       ]
     },
     {
-      "id": "matchBetweenHouses", "kind": "invention", "name": "A match between houses", "weight": 2,
+      "id": "matchBetweenHouses", "kind": "invention", "art": "wedding", "name": "A match between houses", "weight": 2,
       "roles": { "first": { "faction": "rich" }, "second": { "faction": ["guard", "family", "citizens"], "notId": ["theste", "doris"] } },
       "text": "{First} and {second} want to join their houses by marriage, and ask for your blessing.",
       "why": "two houses look for allies",
@@ -637,7 +637,7 @@
       ]
     },
     {
-      "id": "fever", "kind": "invention", "name": "A fever", "weight": 2, "cooldown": 6,
+      "id": "fever", "kind": "invention", "art": "sickness", "name": "A fever", "weight": 2, "cooldown": 6,
       "roles": { "sick": {} },
       "text": "A fever has taken hold of {sick}. The physicians shake their heads.",
       "why": "summer fevers come every year to the marshes by the Great Harbour",
@@ -649,7 +649,7 @@
       ]
     },
     {
-      "id": "bloodInAgora", "kind": "invention", "name": "Blood in the agora", "weight": 3,
+      "id": "bloodInAgora", "kind": "invention", "art": "dagger", "name": "Blood in the agora", "weight": 3,
       "roles": { "merc": { "faction": "guard" } },
       "text": "In a brawl in the agora, one of your mercenaries has killed a citizen. A crowd wants him handed over. {Merc} wants him protected.",
       "why": "foreign soldiers and citizens share the same streets",
@@ -660,7 +660,7 @@
       ]
     },
     {
-      "id": "fireAchradina", "kind": "invention", "name": "Fire in Achradina", "weight": 2,
+      "id": "fireAchradina", "kind": "invention", "art": "fire", "name": "Fire in Achradina", "weight": 2,
       "roles": { "rich": { "faction": "rich", "optional": true } },
       "text": "Fire sweeps through the crowded streets of Achradina in the night. Granaries burn with the houses.",
       "why": "dry weather and crowded wooden roofs",
@@ -672,7 +672,7 @@
       ]
     },
     {
-      "id": "storm", "kind": "invention", "name": "A storm off Plemmyrium", "weight": 2,
+      "id": "storm", "kind": "invention", "art": "storm", "name": "A storm off Plemmyrium", "weight": 2,
       "when": { "seasonOfYear": ["winter", "autumn"] },
       "text": "A storm drives ships onto the rocks off Plemmyrium.",
       "why": "the winter sea",
@@ -683,7 +683,7 @@
       ]
     },
     {
-      "id": "omen", "kind": "invention", "name": "A bad omen", "weight": 2,
+      "id": "omen", "kind": "invention", "art": "omen", "name": "A bad omen", "weight": 2,
       "roles": { "scapegoat": { "faction": "rich", "grudge": true, "optional": true } },
       "text": "At the sacrifice, the seers find the liver of the victim misshapen. The city talks of nothing else.",
       "why": "the gods are watched closely in a frightened city",
@@ -694,7 +694,7 @@
       ]
     },
     {
-      "id": "poetsVerses", "kind": "invention", "name": "A poet's verses", "weight": 2,
+      "id": "poetsVerses", "kind": "invention", "art": "lyre", "name": "A poet's verses", "weight": 2,
       "text": "At the festival a poet recites verses that mock you. The crowd laughs, then looks to see what you will do.",
       "why": "you are the obvious target",
       "choices": [
@@ -704,7 +704,7 @@
       ]
     },
     {
-      "id": "slaveStory", "kind": "invention", "name": "A slave with a story", "weight": 3,
+      "id": "slaveStory", "kind": "invention", "art": "mask", "name": "A slave with a story", "weight": 3,
       "roles": { "master": { "inPlot": true } },
       "text": "A slave from the household of {master} asks to speak with you alone. His master has guests at night, he says, and the doors are barred.",
       "why": "slaves see everything in a house",
@@ -714,7 +714,7 @@
       ]
     },
     {
-      "id": "widowsEstate", "kind": "invention", "name": "A disputed estate", "weight": 2,
+      "id": "widowsEstate", "kind": "invention", "art": "harvest", "name": "A disputed estate", "weight": 2,
       "roles": { "claimant": { "faction": "rich" }, "rivalClaimant": { "faction": ["rich", "citizens", "guard"] } },
       "text": "{Claimant} and {rivalClaimant} both claim the estate of a dead man, and both ask you to judge.",
       "why": "a rich man died without a clear heir",
@@ -726,7 +726,7 @@
       ]
     },
     {
-      "id": "grainShip", "kind": "invention", "name": "A grain ship from Egypt", "weight": 3,
+      "id": "grainShip", "kind": "invention", "art": "grainship", "name": "A grain ship from Egypt", "weight": 3,
       "when": { "grain": { "max": 4 } },
       "text": "A merchant ship heavy with Egyptian grain puts in at the Great Harbour, asking a high price.",
       "why": "the stores are low, and merchants can smell it",
@@ -737,7 +737,7 @@
       ]
     },
     {
-      "id": "captainsDice", "kind": "invention", "name": "The captain's dice", "weight": 3,
+      "id": "captainsDice", "kind": "invention", "art": "dice", "name": "The captain's dice", "weight": 3,
       "roles": { "captain": { "id": "guardCaptain" } },
       "text": "The captain of the guard has lost heavily at dice, and creditors are at the door. He hints that there are men in the city who would pay those debts.",
       "why": "the captain is greedy and owes money",
@@ -748,7 +748,7 @@
       ]
     },
     {
-      "id": "festival", "kind": "invention", "name": "The spring festival", "weight": 3,
+      "id": "festival", "kind": "invention", "art": "feast", "name": "The spring festival", "weight": 3,
       "when": { "seasonOfYear": ["spring"] },
       "text": "The spring festival comes round. The city waits to see how open your hand will be.",
       "why": "the festival of the season",
@@ -760,7 +760,7 @@
       ]
     },
     {
-      "id": "carthaginianSilver", "kind": "invention", "name": "Carthaginian silver", "weight": 2,
+      "id": "carthaginianSilver", "kind": "invention", "art": "palm", "name": "Carthaginian silver", "weight": 2,
       "roles": { "taker": { "faction": "rich", "opinion": { "max": 0 } } },
       "text": "Your watchers report that a Carthaginian merchant has been carrying silver to {taker}'s house by night.",
       "why": "Carthage buys friends in Syracuse",
@@ -774,7 +774,7 @@
       ]
     },
     {
-      "id": "lightCoins", "kind": "invention", "name": "Light coins", "weight": 3,
+      "id": "lightCoins", "kind": "invention", "art": "coins", "name": "Light coins", "weight": 3,
       "roles": { "minter": { "office": "mint" } },
       "text": "Coins from the mint are coming out light, and everyone knows whose hand is on the mint: {minter}'s.",
       "why": "{minter} holds the mint",
@@ -785,7 +785,7 @@
       ]
     },
     {
-      "id": "letterFromExiles", "kind": "invention", "name": "A letter from the exiles", "weight": 3,
+      "id": "letterFromExiles", "kind": "invention", "art": "letter", "name": "A letter from the exiles", "weight": 3,
       "roles": { "exile": { "status": "outside", "rival": true }, "reader": { "grudge": true } },
       "text": "Your men stop a messenger on the road from {exile}. He carries a sealed letter for {reader}.",
       "why": "{exile} looks for friends inside the walls",
@@ -799,7 +799,7 @@
       ]
     },
     {
-      "id": "promiseComesDue", "kind": "invention", "name": "Your promise comes due", "chained": true,
+      "id": "promiseComesDue", "kind": "invention", "art": "assembly", "name": "Your promise comes due", "chained": true,
       "roles": { "leader": { "faction": "citizens", "leader": true, "optional": true } },
       "text": "The citizens remember your promise to lay down your power once the war was won. They are waiting.",
       "why": "you promised the assembly",

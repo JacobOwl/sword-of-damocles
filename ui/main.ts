@@ -12,6 +12,10 @@ import { court, flags, sheet } from "./people.ts";
 import { portrait } from "./portraits.ts";
 import { chronicleBook, lastSeasonSummary, seasonFeed } from "./story.ts";
 import { esc, linkNames, opChip, pr, sign, ui, who } from "./text.ts";
+import { showSeasonCard, swordOverhead } from "./ambient.ts";
+import { AREA_ICON, FACTION_ICON, OFFICE_ICON, icon } from "./icons.ts";
+import { titlePage } from "./title.ts";
+import { vignette } from "./vignettes.ts";
 
 const SAVE_KEY = "sword-of-damocles-save-v1";
 const app = document.getElementById("app")!;
@@ -32,28 +36,28 @@ function splash() {
   const saved = load();
   const seed = Math.floor(Math.random() * 1_000_000);
   closeSheet();
-  app.innerHTML = `
-  <div class="splash">
-    <p class="label">Phase 1 prototype · rules v2</p>
-    <h1>The Sword of Damocles</h1>
-    <p>Autumn, 405 BC. You are Dionysius, a scribe who made himself general with supreme power. The cavalry of the rich families rode home ahead of you, sacked your house and fled to Aetna. Carthage, struck by plague, has made peace. You hold the generalship and the treasury, and you sleep in the naval dockyards. The citadel on the Island is not yet built.</p>
-    <p>Each season you take <b>three actions</b> from a fixed menu. The people and factions of Syracuse act on their own, by the same rules. Plots warn you three times before they strike. Hold the city to the summer of 395.</p>
-    <div class="row" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
-      <label for="tuning" class="small">Balance</label>
-      <select id="tuning">${PACKAGES.map((p) => `<option value="${esc(p.id)}"${p.id === DEFAULT_TUNING ? " selected" : ""}>${esc(p.name)}</option>`).join("")}</select>
-      <button class="primary" id="new">Begin</button>
-      ${saved ? `<button id="resume">Resume your game (${esc(packageName(saved.tuning))} balance)</button>` : ""}
+  const intro = `<p>Autumn, 405 BC. You are Dionysius, a scribe who made himself general with supreme power. The cavalry of the rich families rode home ahead of you, sacked your house and fled to Aetna. Carthage, struck by plague, has made peace. You hold the generalship and the treasury, and you sleep in the naval dockyards. The citadel on the Island is not yet built.</p>
+    <p>Each season you take <b>three actions</b> from a fixed menu. The people and factions of Syracuse act on their own, by the same rules. Plots warn you three times before they strike. Hold the city to the summer of 395.</p>`;
+  const begin = `<div class="begin">
+      <div class="begin-options">
+        <label for="tuning" class="label">Balance</label>
+        <select id="tuning">${PACKAGES.map((p) => `<option value="${esc(p.id)}"${p.id === DEFAULT_TUNING ? " selected" : ""}>${esc(p.name)}</option>`).join("")}</select>
+      </div>
+      <p class="small note" id="tuning-note">${esc(PACKAGES.find((p) => p.id === DEFAULT_TUNING)?.summary)}</p>
+      <div class="begin-options">
+        <button class="primary" id="new">Begin</button>
+        ${saved ? `<button id="resume">Resume your game (${esc(packageName(saved.tuning))} balance)</button>` : ""}
+      </div>
       <details class="seedbox"><summary class="small muted">Choose a seed</summary>
         <label for="seed" class="small">The same seed and the same choices always give the same history.</label>
         <input id="seed" type="number" value="${seed}" style="width:9em">
       </details>
-    </div>
-    <p class="small" id="tuning-note">${esc(PACKAGES.find((p) => p.id === DEFAULT_TUNING)?.summary)}</p>
-    <p class="small muted">The people and the situation come from Diodorus, Plutarch and others; each real person's sheet quotes the passages. Everything else, including every rule and number, is invention.</p>
-  </div>`;
+      <p class="small muted note">Phase 1 prototype, rules v2. The people and the situation come from Diodorus, Plutarch and others; each real person's sheet quotes the passages. Everything else, including every rule, number and picture, is invention.</p>
+    </div>`;
+  app.innerHTML = titlePage(begin, intro);
   document.getElementById("new")!.onclick = () => {
     const v = Number((document.getElementById("seed") as HTMLInputElement).value) || seed;
-    ui.s = startGame(v, (document.getElementById("tuning") as HTMLSelectElement).value); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render();
+    ui.s = startGame(v, (document.getElementById("tuning") as HTMLSelectElement).value); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render(); showSeasonCard(ui.s);
   };
   const sel = document.getElementById("tuning") as HTMLSelectElement;
   sel.onchange = () => { document.getElementById("tuning-note")!.textContent = PACKAGES.find((p) => p.id === sel.value)?.summary ?? ""; };
@@ -103,20 +107,21 @@ function play(g: GameState) {
 function masthead(g: GameState) {
   const slots = DATA.start.actionsPerSeason;
   return `<header class="mast">
-    <h1>The Sword of Damocles</h1>
+    <h1>${swordOverhead(g)}<span>The Sword <span class="of">of</span> Damocles</span></h1>
     <span class="when">${esc(seasonName(g.over ? g.over.season : g.season))}</span>
     <span class="muted small">Season ${Math.min(g.season + 1, DATA.start.seasons)} of ${DATA.start.seasons}</span>
     <span class="grow"></span>
     ${g.over ? "" : `<span class="label" ${tipAttr("actions")}>Actions</span><span class="slots" aria-label="${g.slots} actions left">${Array.from({ length: slots }, (_, i) => `<i class="slot ${i < g.slots ? "full" : ""}"></i>`).join("")}</span>
     <button class="primary" id="end">End the season</button>`}
-  </header>`;
+  </header><div class="meander mast-rule" aria-hidden="true"></div>`;
 }
 
 function ledger(g: GameState) {
   const d = defense(g);
   const guardPay = g.guard.arrearsSeasons ? `<span class="warn">owed ${g.guard.owed}, won't defend you</span>` : g.factions.guard.mood <= 1 ? `<span class="warn">paid, but too angry to defend you</span>` : g.guard.refusing ? `<span class="warn">refusing duty</span>` : g.plots.some((p) => p.guardBacking) ? `<span class="warn">sold to a plot</span>` : `<span class="good">paid, at your door</span>`;
   const bf = backingFaction(g);
-  const L = (k: string, t: string) => `<span class="label tipped" ${tipAttr(k)}>${t}</span>`;
+  const MARK: Record<string, string> = { silver: "silver", grain: "grain", carthage: "palm", land: "land", guard: "helmet", defense: "defense", influence: "influence", government: "city" };
+  const L = (k: string, t: string) => `<span class="label tipped" ${tipAttr(k)}>${icon(MARK[k], k === "carthage" ? "f-carthage" : "")}${t}</span>`;
   return `<div class="ledger">
     <div>${L("silver", "Silver")}<span class="v">${g.silver} <small>talents</small></span></div>
     <div>${L("grain", "Grain")}<span class="v ${g.grain < 3 ? "warn" : ""}">${g.grain} <small>months</small></span></div>
@@ -126,16 +131,19 @@ function ledger(g: GameState) {
     <div>${L("defense", "Your defense")}<span class="v">${d.total}</span><span class="small muted">${esc(d.parts.map((p) => `${p.value} ${p.label}`).join(" + "))}</span></div>
     <div>${L("influence", "Your influence")}<span class="v">${playerInfluence(g)}</span><span class="small muted">${officesOf(g, PLAYER).length} offices${bf ? `, backed by ${esc(g.factions[bf].short)}` : ", no faction backs you"}</span></div>
     <div>${L("government", "Government")}<span class="v gov">${esc(government(g))}</span></div>
-  </div>`;
+  </div><div class="meander ledger-rule" aria-hidden="true"></div>`;
 }
 
 function ending(g: GameState) {
   const o = g.over!;
   const title = { killed: "You are dead", exiled: "Exile", deposed: "Deposed", fallen: "The city falls", survived: "You held Syracuse", fled: "Flight", abdicated: "You stepped down" }[o.reason] ?? "The end";
-  return `<div class="ending">
+  const n = (k: string) => g.counters[k] ?? 0;
+  return `<div class="ending ${esc(o.reason)}">
     <h2>${esc(title)}</h2>
+    <p class="small muted">${esc(seasonName(o.season))}</p>
+    <div class="meander" aria-hidden="true"></div>
     <p>${linkNames(o.text)}</p>
-    <p class="small muted">${esc(seasonName(o.season))}. Plots against you: ${g.counters.plots ?? 0}. Enemies made: ${g.counters.rivals ?? 0}. Political rivals: ${g.counters.politicalRivals ?? 0}. Seasons as tyrant: ${g.counters.tyrantSeasons ?? 0}.</p>
+    <div class="counts"><span><b>${n("plots")}</b>plots against you</span><span><b>${n("rivals")}</b>enemies made</span><span><b>${n("politicalRivals")}</b>political rivals</span><span><b>${n("tyrantSeasons")}</b>seasons as tyrant</span></div>
     <p><button class="primary" id="again">Play again</button> <button type="button" data-view="chronicle">Read the chronicle of your rule</button></p>
   </div>`;
 }
@@ -146,7 +154,7 @@ function cityCol(g: GameState) {
     const h = g.offices[o];
     const text = o === "citadel" && !g.citadelBuilt ? `<span class="muted">not yet built${g.building?.what === "citadel" ? " (work has begun)" : ""}</span>` : h ? (h === PLAYER ? "<b>You</b>" : who(h)) : `<span class="muted">empty</span>`;
     const eff = DATA.offices.find((x) => x.id === o)!.effect;
-    return `<dt>${esc(capital(officeName(o).replace(/^the /, "")))}</dt><dd>${text}<div class="small muted">${esc(eff)}</div></dd>`;
+    return `<dt>${icon(OFFICE_ICON[o])}${esc(capital(officeName(o).replace(/^the /, "")))}</dt><dd>${text}<div class="small muted">${esc(eff)}</div></dd>`;
   }).join("");
   const facs = FACTIONS.map((f) => faction(g, f)).join("");
   const laws = g.laws.length ? `<p class="small">Laws in force: ${g.laws.map((l) => esc(DATA.laws.find((x) => x.id === l)!.name)).join("; ")}.</p>` : "";
@@ -164,8 +172,8 @@ function faction(g: GameState, f: FactionId) {
   const ag = agendaById(fa.agenda.id);
   const lead = leaderOf(g, f);
   const bar = Array.from({ length: 10 }, (_, i) => `<i class="${i < pow ? "on" : ""} ${i === 3 || i === 8 ? "cut" : ""}"></i>`).join("");
-  return `<div class="faction">
-    <div class="fhead"><h3>${esc(fa.name)}</h3><span><span class="num">${pow}</span> <span class="band ${b} tipped" ${tipAttr("power")}>${b}</span></span></div>
+  return `<div class="faction f-${f}">
+    <div class="fhead"><h3>${icon(FACTION_ICON[f], `f-${f}`)}${esc(fa.name)}</h3><span><span class="num">${pow}</span> <span class="band ${b} tipped" ${tipAttr("power")}>${b}</span></span></div>
     <div class="powerbar" aria-hidden="true">${bar}</div>
     <div class="small">Mood: <span class="mood mood-${fa.mood} tipped" ${tipAttr("mood")}>${moodName(fa.mood)}</span>${lead ? ` · Led by ${who(lead.id)}` : ""}${fa.backing ? ` · <span class="warn">backs a plot</span>` : ""}</div>
     <div class="small">Wants: ${esc(goal)}</div>
@@ -193,7 +201,8 @@ function matters(g: GameState) {
   if (!evs.length) return "";
   return `<div><h2>Matters before you</h2>
     <p class="small muted">Answering costs no action unless it says so. If you end the season without answering, the choice marked “if you give no answer” is taken.</p>
-    ${evs.map((ev) => `<div class="matter">
+    ${evs.map((ev) => `<div class="matter ${(ev.def as { art?: string }).art ? "" : "no-art"}">
+      ${vignette((ev.def as { art?: string }).art, `Picture for ${ev.title}`)}
       <h3>${esc(ev.title)}</h3>
       <p>${linkNames(ev.text)}</p>
       ${ev.def.kind === "history" ? `<p class="small muted">From the sources: ${esc(ev.def.source)}. What follows from your choice is the game's.</p>` : ""}
@@ -243,7 +252,7 @@ function actions(g: GameState) {
   const areas = DATA.areas.filter((a) => items.some((i) => i.area === a));
   return `<div id="actions"><h2>Your actions</h2>
     <p class="small muted">Open an action to see its target, cost and odds before you commit. A roll is one die plus modifiers; 4 or more succeeds.</p>
-    ${areas.map((area) => `<div class="area"><span class="label">${esc(area)}</span>
+    ${areas.map((area) => `<div class="area"><span class="label">${icon(AREA_ICON[area] ?? "")}${esc(area)}</span>
       ${items.filter((i) => i.area === area).map((i) => `
         <button class="act ${ui.openAction === i.id ? "open" : ""} ${i.blocked ? "off" : ""}" data-act="${i.id}" aria-expanded="${ui.openAction === i.id}">
           <span>${esc(i.name)}${i.reach ? ` <span class="tag" data-tip="reach">reach</span>` : ""}</span><span class="c">${esc(i.blocked ?? i.cost)}</span>
@@ -347,7 +356,7 @@ function whoIsWho(g: GameState) {
     ${order.map((f) => {
       const ps = others(g).filter((p) => p.faction === f && p.status !== "absent" && p.status !== "dead");
       if (!ps.length) return "";
-      return `<div class="area"><span class="label">${esc(g.factions[f].name)}</span>${ps.map((p) => {
+      return `<div class="area"><span class="label">${icon(FACTION_ICON[f], `f-${f}`)}${esc(g.factions[f].name)}</span>${ps.map((p) => {
         const offs = officesOf(g, p.id);
         return `<button type="button" class="row-person" data-person="${esc(p.id)}">${portrait(p.id, "s")}<span class="nm">${esc(capital(p.name))}${offs.length ? ` <span class="tag">${esc(offs.map((o) => capital(officeName(o).replace(/^the /, ""))).join(", "))}</span>` : ""}${p.status !== "free" ? ` <span class="tag">${p.status === "held" ? "in prison" : "outside"}</span>` : ""} ${flags(g, p)}</span>${opChip(p.opinion)}</button>`;
       }).join("")}</div>`;
@@ -388,15 +397,18 @@ function openSheet(id: string, focus = true) {
 }
 function closeSheet() { ui.sheet = null; if (dialog?.open) dialog.close(); }
 
+// A page-turn when the view or the season changes (CSS turns it off for reduced motion).
+function turn() { app.classList.remove("turn"); void app.offsetWidth; app.classList.add("turn"); }
+
 // ---------- Events ----------
 function wire(g: GameState) {
-  for (const id of ["end", "end2"]) document.getElementById(id)?.addEventListener("click", () => { endSeason(g); ui.openAction = null; ui.args = {}; save(); render(); window.scrollTo({ top: 0 }); });
+  for (const id of ["end", "end2"]) document.getElementById(id)?.addEventListener("click", () => { endSeason(g); ui.openAction = null; ui.args = {}; save(); render(); turn(); window.scrollTo({ top: 0 }); showSeasonCard(g); });
   document.getElementById("restart")?.addEventListener("click", () => { clearSave(); ui.s = null; splash(); });
   document.getElementById("again")?.addEventListener("click", () => { clearSave(); ui.s = null; splash(); });
   document.getElementById("designer")?.addEventListener("change", (e) => { ui.designer = (e.target as HTMLInputElement).checked; save(); render(); });
   document.getElementById("guide-done")?.addEventListener("click", () => { setGuideDone(true); render(); });
   document.getElementById("guide-again")?.addEventListener("click", () => { setGuideDone(false); ui.view = "play"; ui.tab = "season"; render(); window.scrollTo({ top: 0 }); });
-  app.querySelectorAll<HTMLButtonElement>("[data-view]").forEach((b) => (b.onclick = () => { ui.view = b.dataset.view as typeof ui.view; render(); window.scrollTo({ top: 0 }); }));
+  app.querySelectorAll<HTMLButtonElement>("[data-view]").forEach((b) => (b.onclick = () => { ui.view = b.dataset.view as typeof ui.view; render(); turn(); window.scrollTo({ top: 0 }); }));
   app.querySelectorAll<HTMLButtonElement>("[data-tab]").forEach((b) => (b.onclick = () => { ui.tab = b.dataset.tab!; render(); }));
   app.querySelectorAll<HTMLElement>("[data-person]").forEach((b) => (b.onclick = (e) => { e.preventDefault(); openSheet(b.dataset.person!); }));
   app.querySelectorAll<HTMLButtonElement>("[data-act]").forEach((b) => (b.onclick = () => {

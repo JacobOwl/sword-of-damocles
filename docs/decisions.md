@@ -97,3 +97,12 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **One 192 px WebP per person**, tile size 7, transparent outside the coin, in `ui/art/portraits/<person id>.webp`, about 20 KB each. The build inlines them, so the game stays one file. Why: the largest slot is 92 px, and 192 covers it at double density; tile size 7 is the smallest that still reads as tiles at 46 px.
 - **Faction colours on the coins are invention:** the ruler and his family on blood red, the rich families on deep sea blue, the citizens on olive, the guard on teal. Jacob's to change.
 
+
+## 2026-11-22 (art direction and flavour, thread 12)
+
+- **Jacob asked for a full art, interface and flavour pass** ("go hard on art and UI and flavor"). It is UI and words only: no rule, number or engine sentence changed, and the 100-seed check matches the run before it (tyrannies 13, crashes 0). The art is placeholder-grade invention, like the portraits; real coin photographs stay parked.
+- **Art direction written first:** `docs/art-direction.md`. The game is a museum catalogue of one reign: parchment and ink for the interface, struck silver for people, red-figure cup paintings for events, black-figure silhouettes for icons, tesserae and the meander for borders. Jacob owns it; every rule in it can change.
+- **Faction colours unified with the coins:** the fallback portrait circles and the new faction marks use the coin colours (ruler and family blood red, rich sea blue, citizens olive, guard teal). Before, the fallback circles used other colours.
+- **Events name a picture** (`art` in `data/events.json`): 22 emblems in a cup tondo cover all 52 events. No human figures yet (parked). A test checks every event has a picture that exists.
+- **Flavour lives in `data/flavor.json`**: season lines chosen from what is true in the city, the chronicle's opening and closing lines, the title epigraph. Picked by a hash of the seed and the season, never the game's dice, so replays are exact. Two records are history (Heloris' saying, Diodorus 14.8.5; the coin legend ΣΥΡΑΚΟΣΙΩΝ, ANS 2015.1.1), carded in `docs/research/art-motifs.md`.
+- **The sword overhead** reads only plots you have been warned of, so it can't leak a hidden plot. Why: the sword check must give warnings, never information the player shouldn't have.
