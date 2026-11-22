@@ -11,6 +11,7 @@ import { DATA } from "./data.ts";
 import type { Args, FactionId, GameState, OfficeId, Person } from "./types.ts";
 import { FACTIONS } from "./types.ts";
 import { islandChoices } from "./island-bot.ts";
+import { holdsDeadly } from "./secrets.ts";
 
 export interface Choice { a: string; args?: Args; min?: number } // min: lowest chance worth rolling for
 export interface Bot { id: string; name: string; summary: string; choices: (s: GameState, r: () => number) => Choice[] }
@@ -38,6 +39,9 @@ function clueHit(s: GameState, p: Person): number {
     if (d.grudge && p.grudges.some((g) => g.reason === d.grudge)) v += 2;
     if (pl.stage >= 2 && d.faction && d.faction === p.faction) v += 1;
   }
+  // Switch "council": a man named at your council this season, by someone you have not caught lying.
+  const c = s.council;
+  if (c) for (const l of c.brief) if (l.accuse === p.id && !(c.doubts[l.who] ?? 0)) v += 2;
   return v;
 }
 const suspects = (s: GameState) =>
@@ -78,6 +82,8 @@ function income(s: GameState, out: Choice[], harsh: boolean) {
 function petitions(s: GameState, out: Choice[], generous: boolean, keepKey = true) {
   for (const r of s.requests) {
     const p = s.people[r.from];
+    // Switch "secrets": a price for silence. Pay it if it is not a key office.
+    if (r.blackmail && r.kind === "office" && r.office && holds(s, PLAYER, r.office) && (!KEY.includes(r.office) || !keepKey)) out.push({ a: "grantOffice", args: { target: r.from, second: r.office } });
     if (r.kind === "silver") out.push({ a: "bribe", args: { target: r.from, second: "1" } });
     if (r.kind === "citizenship" && s.land > 0) out.push({ a: "grantGuard" });
     if (r.kind === "marriage") out.push({ a: "marriage", args: { target: r.from, second: s.people[PLAYER].married ? "thearides" : PLAYER } });
@@ -120,6 +126,9 @@ function counterPolitical(s: GameState, out: Choice[], strip = 9) {
       const o = (["generalship", "treasury", "citadel", "fleet", "assembly", "mint"] as OfficeId[]).find((x) => os.includes(x))!;
       out.push({ a: "revokeOffice", args: { target: p.id, second: o }, min: 0.5 });
     }
+    // Switch "secrets": a deadly hold takes an office back without making an enemy of his faction; servants find holds.
+    if (os.length && p.status === "free" && holdsDeadly(s, PLAYER, p.id)) out.push({ a: "demandOffice", args: { target: p.id, second: os[0] } });
+    if (!leverageOver(s, PLAYER, p.id) && p.political!.rank >= 2 && spare(s, 2)) out.push({ a: "payServants", args: { target: p.id }, min: 0.5 });
     if (leverageOver(s, PLAYER, p.id)) out.push({ a: p.agenda?.id === "takePlace" ? "block" : "expose", args: { target: p.id } });
     if (p.political!.rank >= 2 || influence(s, p.id) >= playerInfluence(s)) {
       if (p.knownUntil < s.season) out.push({ a: "watch", args: { target: p.id } });

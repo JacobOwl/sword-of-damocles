@@ -8,6 +8,7 @@ import {
 } from "./island.ts";
 import { endWar, startWar } from "./carthage.ts";
 import type { Args, GameState, Mod } from "./types.ts";
+import { townHold, useHold, townLeader, SECRETS } from "./secrets.ts";
 
 const R = ISLAND.rules;
 interface Option { value: string; label: string }
@@ -111,12 +112,14 @@ export const ISLAND_IMPL: Record<string, Impl> = {
       const ca = carthageArmy(s);
       if (ca && (ca.at === c.id || (path(ca.at, c.id)?.days.at(-1) ?? 99) <= 6)) m.push({ label: "Carthage's army is near", value: -2 });
       if (c.side === "tributary" && !s.island!.war) m.push({ label: "they fear Carthage's anger", value: -1 });
+      if (townHold(s, c.id)) m.push({ label: "you hold a secret over its first man", value: SECRETS.knobs.embassyHold });
       return m;
     },
     need: R.embassyNeed,
     run: (s, a, ok) => {
       silver(s, -1, "gifts for the embassy");
       const c = city(s, a.target!);
+      if (townHold(s, c.id)) useHold(s, PLAYER, townLeader(s, c.id)!, "your envoys remind its first man what you know");
       const prev = c.side;
       if (!ok) { event(s, PLAYER, `${nodeName(c.id)} sends your envoys home with nothing.`, "Embassy failed"); return; }
       c.side = "ally";

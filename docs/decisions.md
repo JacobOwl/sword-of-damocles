@@ -205,6 +205,12 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **The engine's purity is now tested** (`tests/core-boundary.test.ts`) and **conformance replays can be exported** (`npm run replays`) for a later port. Why: Godot is the goal; a port is checked by replaying the same games.
 - **Open:** which Godot route (translate or embed), for later.
 
+## 2026-11-22 (council and secrets switches, thread 14)
+- **Two new rule switches, both off by default: "Your council argues" and "Secrets and leverage".** Why: Jacob's wish for CK3-style interactions and Varys or Littlefinger rivals; the research proposals 4 and 6 (`docs/game-research.md`), parked in `docs/later.md` for Jacob to pick, are built only as switches, like the earlier ones, so nothing changes until he turns them on.
+- **Which invented townsman hides what is decided from a hash of the seed and his name, not the game's dice**, so turning the switch on doesn't shift the island's census. Same seed, same answer, every time.
+- **The council rolls no dice.** What a man says follows from state, so a player can learn whom to trust.
+- **Open:** see the questions in `docs/handoff.md` (how hard secrets should push political rivals, the council on events, women's seats).
+
 ## 2026-11-22 (island and Carthage events, slice 1: thread 16)
 - **The island gets its own event library, `data/island-events.json`, run by the same engine.** `src/core/island-events.ts` adds conditions on towns, armies and Carthage, parts played by towns, the generated cast and Carthage's named men, and effects on towns, armies and Carthage's council and stores. Why: the court's 52 events never touch the map; the island needed its own stories without a second event system.
 - **Island events have their own draw each season (one, sometimes two; at most two open), only in island games.** Why: so the court's intrigue is not crowded out, and so citadel games draw exactly the same dice as before (the standard digest and the 100-seed counts are unchanged).

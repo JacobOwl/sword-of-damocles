@@ -5,6 +5,7 @@ import { nextRandom } from "./rng.ts";
 import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf, others, plotStrength } from "./state.ts";
 import { clock, event, log } from "./ops.ts";
+import { deedSecret } from "./secrets.ts";
 import {
   CARTHAGE, ISLAND, NODES, armyName, assault, assaultMods, assaultNeed, bloc, blocPower, carthageArmy, carthagePersonName, chance, city,
   friendly, march, menWords, nodeName, path, yourArmy, loseMen,
@@ -194,11 +195,13 @@ function doAct(s: GameState, id: string, goalName: string) {
       const pl = s.plots.slice().sort((a, b) => plotStrength(s, b).total - plotStrength(s, a).total)[0];
       if (pl) {
         pl.bonus += 1;
+        deedSecret(s, pl.leader, "carthageSilver");
         const seen = !!pl.informer;
         say(s, `Carthaginian silver reaches the plot against you, through ${s.people[pl.leader].name}.`, `${why}; a plot already stands against you`, seen);
       } else {
         const p = others(s).filter((p) => p.status === "free" && p.opinion <= -1).sort((a, b) => a.opinion - b.opinion)[0];
         p.infl += 1;
+        deedSecret(s, p.id, "carthageSilver");
         say(s, `Carthaginian silver finds ${p.name}, who has no love for you.`, `${why}; ${p.name}'s opinion of you is ${p.opinion}`, p.knownUntil >= s.season);
       }
       break;
