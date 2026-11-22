@@ -46,3 +46,13 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Both kinds of rival are in the engine:** enemies (wounds) and political rivals (ambition), per Jacob's change to the v2 rivals section. Rival origins and types are data, so new kinds can be added without new code paths.
 - **Defaults chosen where v2 was silent** are listed in `docs/handoff.md`. They are invention and Jacob's to overrule. The two with the most effect: faction power drifts 1 toward 5 when nothing moves it, and a failed law gives no one power.
 - **Finding, not tuned:** with a simple bot player, no game lasts the decade (average 8.4 seasons). Plots grow to strength 10 to 17. Left for Jacob's playtest before any tuning, so the history isn't scripted.
+
+## 2026-11-22 (the sourced cast)
+
+- **The cast is data in the engine's format.** The engine thread owns field names and the engine; the cast thread owns the content. Why: two threads were writing the same files, and one format avoids an adapter.
+- **History records carry their quotes.** Each fact has the quote, the citation and the saved file in the Phoenician-Punic World repo, and a script checks every quote. Why: confident errors are the worst failure, and a quote can be checked.
+- **Game numbers are invention even on history records.** Traits, ambitions, opinions, wants, rival types and starting offices are listed under each record's `invented`. Why: the sources give character, not dice.
+- **People who appear later have an `enters` season** (Doris about 398; Biton and Archylus about 397). The dead stay in the data as anchors for grudges.
+- **Disagreements are shown, not settled:** the first wife's death (Diodorus or Plutarch), the sister's husband (Polyxenus or Hermocrates), and whether Aretes is Aristus.
+- **Invented people are in Phase 1** (Jacob, 2026-11-22). Real people are preferred, but the game will need many invented ones, as in CK3. Each person keeps its `history` or `invention` tag, and later the UI shows a small note such as "real person". `scope.md` moved "invented people" from Out to In. Consequences: the invented guard captain and the brother of Demarchus stay, and the citizens get an invented spokesman, Damon the smith, since the sources name only Nicoteles.
+- **The guard is led by Aristotle the Spartan**, attested as its commander in about 396; the invented captain serves under him.
