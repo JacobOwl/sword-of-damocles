@@ -106,3 +106,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Eight cities and one fortress** (a default): Syracuse, Leontini, Catana, Messana, Gela, Acragas, Motya, Panormus, and Aetna. Selinus, Himera, Camarina, Naxos and the Sikel towns are parked.
 - **Phase 1 is a scenario, not deleted.** A game has a scenario, `island` or `citadel`; the citadel game must replay exactly as before.
 - **Milestones** are in `docs/phase2-plan.md`: the map and cities, Carthage simulated, armies with supply, cities that change sides, the test pass.
+
+## 2026-11-22 (design council, thread 11)
+
+- **Held a design council** at Jacob's request ("use different agents with different opinions, act as a council and debate"). Six seats (systems designer, story engineer, historian, player's advocate, scope and architecture skeptic, devil's advocate), three rounds. Record: `docs/council/2026-11-22-design-council.md`; every statement in `docs/council/2026-11-22/`.
+- **Its design verdicts are recommendations, not decisions.** Where they differ from `scope.md` and `docs/phase2-plan.md` (5 places instead of 8, one food counter instead of routes, commissions instead of "only the general gives orders", Carthage's blocs), the scope and plan stand until Jacob picks. Why: rules and goals are Jacob's.
+- **Engineering verdicts offered to the build threads as agreed practice** (V9): a refactor before any island rule that moves Syracuse into a city record, adds a `where` field to people (never reusing status "absent"), replaces the drift rule's text search for " power " with a structured field, and adds `thread` and `cause` fields to log entries, with the standard digest unchanged. Why: the engine stores one city at the top of the state, and the drift rule silently breaks if any new log line contains the word "power".
+- **History flag, fact not opinion:** Carthage's "Elders" and "Hundred" come from Aristotle (*Politics* 2.11, written decades later) and Justin (19.2.5-6, undated). If used as blocs they are tagged invention from a later description. The saved texts show a senate and a people for 405-396 (Diodorus 14.47.2).

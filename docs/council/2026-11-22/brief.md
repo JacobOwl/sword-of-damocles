@@ -1,0 +1,30 @@
+# Design council brief: The Sword of Damocles
+
+You hold one seat on a design council for Jacob's hobby video game, "The Sword of Damocles": a single-player political simulation and story generator set in Syracuse, Sicily (the full vision is 480 to 264 BC). You play a person, not a state. Jacob makes design calls and playtests; Claude writes the code. He is a novice who doesn't code. His goal, in his words: a game where he can organically, emergently play a Game of Thrones style story exploring politics, government, power and ambition.
+
+## Read first (local clones; READ ONLY, do not edit or commit anything)
+- `/home/user/sword-of-damocles/CLAUDE.md` (project rules: determinism, everything as data, every change logged with a reason, warnings before a death, history vs invention tags, scope discipline)
+- `/home/user/sword-of-damocles/docs/scope.md`, `docs/handoff.md` (what is built, what broke, open questions), `docs/decisions.md`, `docs/game-research.md` (13 ranked proposals from other games), `docs/design.md` (Jacob's original vision), `docs/playtests/2026-11-22-balance-sweep.md`, `docs/playtests/2026-11-22-paper-test.md`
+- Skim `data/*.json` and `src/core/*.ts` only as far as your seat needs.
+- History sources (saved texts) are in `/home/user/phoenician-punic-world/sources/` (e.g. `sources/diodorus/english/book14-*.txt` covers Dionysius I and the Carthaginian wars of 405-392 BC). Search with grep, never read whole books. That repo is READ ONLY.
+
+## The new situation (2026-11-22)
+- A playable browser prototype of Phase 1 ("The Citadel": Syracuse only, 405-395 BC, four factions, six power objects, ~24 people, plots and the sword check, rivals, 52 events, balance packages) is built and merged.
+- Jacob has just decided that **Phase 2, "The Island"** (an island map of 6-8 cities, a simulated Carthage, armies) is the target for the first real test, instead of Phase 1. This is his call; do not try to overturn it, but you may say what it risks and how to de-risk it.
+- Thread 10 is building Phase 2 now (new files data/island.json, data/carthage.json, src/core/island.ts, src/core/carthage.ts, a map view; a `scenario: "citadel" | "island"` option; simulated Carthage replacing the Carthage clock behind a switch).
+- Thread 09 is building optional rule switches (default off): plot warnings as real clues, plots that partly succeed, people who escalate instead of repeating, breaking the single dominant storyline (Nicoteles and the citizens' assembly), chronicle written as story.
+- Rules choices are Jacob's: new rules ship as optional switches, default off. Designs and opinions stay his. Never tune to match historical rates (that scripts history). Jacob's tastes: Leder Games (Root, Oath, Arcs), Republic of Rome, John Company, CK3, Dwarf Fortress, Songs of Syx. Asymmetric factions, power held as objects, persistent world, emergent stories. NOT a Reigns-style card game. He dislikes freeform role-play; wants concrete defined actions like CK3. He liked plots forming from his own actions, wants faction power that rises and falls, characters acting on their own, Shadow of Mordor style nemeses, Varys/Littlefinger political rivals.
+
+## The questions on the table
+Q1. **The Phase 2 first slice.** What is the smallest "Island" that tests whether the game is fun? Which cities, what span of years, what the player does on the map each season. How do the citadel politics (plots, factions, offices) and the island (cities, war) form ONE loop rather than two games glued together?
+Q2. **Simulated Carthage.** How deep for the first test? Same rules as Syracuse (its own factions, offices, people, plots) or a lighter priority-list bot with a few named men? What makes it feel like a rival society, not a clock? The "mirror" idea: Carthage and Syracuse shaping each other's governments.
+Q3. **Armies and war.** Abstraction level: armies as tokens with strength and supply? Battles as one roll, or a few choices? Sieges? Mercenaries (contracts, arrears, seizing cities)? And above all, how war feeds back into domestic politics (the generalship, the guard, generals who come home popular).
+Q4. **The other cities.** How much simulation per city (one number, a few stores, or their own factions and leaders)? How does the player relate to them: conquest, alliance, tribute, installing friends, exiles who flee there?
+Q5. **Plots and the sword.** Standard rules make strikes ~90% lethal, deaths bunch in years 2-3. Which direction: method-and-moment plots, partial success, which balance package to test first? How should war change plotting (a general abroad, a ruler away on campaign)?
+Q6. **Rivals and nemeses.** Nemeses almost never appear (rank 4 needs four rank-ups); the same man becomes your enemy 5-6 times; Nicoteles dominates the endings; rivals flicker. What should the rival system become, especially once there are other cities to flee to and come back from?
+Q7. **The player's own goal.** Beyond survival, what does the player want? Ambitions, legacy, a score, the chronicle as the prize?
+Q8. **Voices and legibility.** A council of advisors who argue each decision (research ★4); the chronicle grouped by storyline; clue-based warnings. Which of these matter most for "a story you would retell"?
+Q9. **Architecture and risk.** How to add the island without breaking determinism, replays, the one-log rule and the 100-seed check; what gets fragile; how two threads should share the engine; what to cut.
+
+## Format for your answer
+Write in plain English, no code. Be opinionated and concrete; disagree with the docs and with likely positions of other seats where you believe it. For EACH question give: your position (2-5 sentences), your single most important concrete proposal, and what you'd refuse. Then name your top 3 questions (the ones that matter most for the foundation) and one idea nobody else on the council is likely to raise. Keep the whole answer under 1,800 words. Mark any historical claim with its source passage (file and a short quote) or say "unverified".
