@@ -205,6 +205,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **The engine's purity is now tested** (`tests/core-boundary.test.ts`) and **conformance replays can be exported** (`npm run replays`) for a later port. Why: Godot is the goal; a port is checked by replaying the same games.
 - **Open:** which Godot route (translate or embed), for later.
 
+## 2026-11-22 (the Damocles banquet event, thread 07)
+- **The Damocles story is an event, not a fixed scene.** Hanging the sword is the sourced choice (`history: true`) among three; the game never forces it. Why: events offer what Dionysius did as one choice, per the events decision.
+- **Which Dionysius stays open in the game.** Both modern readings are quoted; Cicero 5.57 would settle it and is not yet saved (`docs/later.md`). The event's dating (from Spring 404) is invention for this decade either way.
+- **A refusal is not forever.** Under "Warnings are clues", a man who said no can join the same plot later after a new wrong; the deeds list records both, so every clue stays true.
+
 ## 2026-11-22 (a proper web app, step 2: thread 17)
 - **The browser game builds with Vite 8 and `vite-plugin-singlefile`** into the same single page; `npm run dev` gives a live-reloading page. Why: a standard build with a dev server, while the Artifact link still gets one self-contained page.
 - **UI restructures are checked by a scripted walk-through** (`npm run walk`) that must record identical pages before and after. Why: "behaviour identical" needs a check, not a promise.

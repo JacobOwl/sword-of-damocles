@@ -18,3 +18,9 @@ Cicero's moral after the story (5.62) is only saved as Wikipedia's translation: 
 ## Not reached (logged in `docs/later.md`)
 
 The public-domain Yonge translation (1877; Project Gutenberg ebook 14988, Standard Ebooks) and the Latin text. The cloud reader was refused by Gutenberg and Standard Ebooks, the archive.org scan stops in Book II, and the Latin Library was refused earlier.
+
+## A sword on a horse-hair: the game's event
+
+`damoclesBanquet` in `data/events.json` (added 2026-11-22, events thread). It quotes 5.61 and both modern attributions, and the event's source line in the game says which Dionysius is disputed. Damocles is not in the cast, so a friendly courtier takes his part. Everything mechanical is invention.
+
+**Review when 5.57 is saved.** If Cicero means Dionysius I, mark the disagreement settled here and in the event's facts. If he means Dionysius II, the event is a what-if for this ruler: say so in its text, or move it to a later phase.
