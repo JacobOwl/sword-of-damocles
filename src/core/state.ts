@@ -5,6 +5,8 @@ import type { Faction, FactionId, GameOpts, GameState, OfficeId, Person, Plot } 
 import { checkSwitches } from "./switches.ts";
 import { newIsland } from "./island.ts";
 import { newCensus } from "./census-game.ts";
+import { initSecrets } from "./secrets.ts";
+import { initCouncil } from "./council.ts";
 import { FACTIONS, MOODS, OFFICES } from "./types.ts";
 
 export const PLAYER = "dionysius";
@@ -66,6 +68,8 @@ export function newGame(seed: number, tuning: string = DEFAULT_TUNING, opts: Gam
     events: { open: [], queue: [], fired: {}, count: 0 },
   };
   if (opts.scenario === "island") { s.scenario = "island"; s.island = newIsland(); s.census = newCensus(s); }
+  if (switches.includes("secrets")) initSecrets(s); // no dice: the same seed plays the same with the switch off
+  if (switches.includes("council")) initCouncil(s);
   return s;
 }
 
@@ -172,7 +176,10 @@ export function influence(s: GameState, pid: string): number {
   const p = s.people[pid];
   if (p.player) return playerInfluence(s);
   if (p.status === "outside" || p.status === "dead") return 0;
-  let v = 2 * officesOf(s, pid).length + (p.owedFavor ? 1 : 0) + s.leverage.filter((l) => l.holder === pid).length + p.infl;
+  // Switch "secrets": what he knows counts in place of the old tokens (at most 2). Switch "council": a seat at your table.
+  const held = s.secrets ? Math.min(2, s.secrets.list.filter((x) => x.known.includes(pid) && x.about !== pid && x.publicSince === undefined).length) : s.leverage.filter((l) => l.holder === pid).length;
+  const seat = s.council && Object.values(s.council.seats).includes(pid) ? 1 : 0;
+  let v = 2 * officesOf(s, pid).length + (p.owedFavor ? 1 : 0) + held + seat + p.infl;
   if (p.status === "held") v -= 2;
   return Math.max(0, Math.min(10, v));
 }
@@ -187,4 +194,7 @@ export function playerInfluence(s: GameState): number {
 }
 export const politicalRivals = (s: GameState) => others(s).filter((p) => p.political && alive(p));
 export const enemies = activeRivals;
-export const leverageOver = (s: GameState, holder: string, over: string) => s.leverage.filter((l) => l.holder === holder && l.over === over).length;
+// With the switch "secrets" on, leverage is the secrets about him that the holder can use now.
+export const leverageOver = (s: GameState, holder: string, over: string) => s.secrets
+  ? s.secrets.list.filter((x) => x.about === over && x.publicSince === undefined && x.known.includes(holder) && !x.spent.includes(holder) && (x.rest[holder] ?? -1) < s.season).length
+  : s.leverage.filter((l) => l.holder === holder && l.over === over).length;

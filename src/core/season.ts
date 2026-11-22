@@ -20,6 +20,7 @@ import { on, switchById } from "./switches.ts";
 import { clueWarning } from "./clues.ts";
 import { feudOn, feudSurvive } from "./feud.ts";
 import { botById, botRandom, playSeason } from "./bots.ts";
+import { councilBrief, councilSeasonEnd } from "./council.ts";
 
 // ---------- World ----------
 function worldStep(s: GameState) {
@@ -300,6 +301,7 @@ export function beginSeason(s: GameState) {
   if (s.island) carthageStep(s); // Carthage's council and general, after the Syracusan factions
   if (s.over) return finish(s);
   s.step = "player";
+  if (s.council) councilBrief(s); // switch "council": who sits at your table, and what each of them says this season
   if (s.blockedSlots) {
     s.slots = Math.max(0, s.slots - s.blockedSlots);
     s.blockedSlots = 0;
@@ -313,6 +315,7 @@ export function endSeason(s: GameState) {
   for (const r of s.requests.slice()) refuse(s, r.id, true);
   powerStep(s);
   if (!s.over) swordStep(s);
+  if (!s.over && s.council) councilSeasonEnd(s);
   finish(s);
 }
 
