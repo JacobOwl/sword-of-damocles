@@ -70,7 +70,7 @@ export function cityMen(s: GameState, id: string): number {
   return c.men + (home && s.guard.arrearsSeasons === 0 ? s.guard.strength : 0);
 }
 export const cityGrain = (s: GameState, id: string) => (id === "syracuse" ? s.grain : city(s, id).grain);
-function cityGrainChange(s: GameState, id: string, d: number, why: string) {
+export function cityGrainChange(s: GameState, id: string, d: number, why: string) {
   if (!d) return;
   if (id === "syracuse") return grain(s, d, why);
   const c = city(s, id);
@@ -78,13 +78,13 @@ function cityGrainChange(s: GameState, id: string, d: number, why: string) {
   c.grain = Math.max(0, Math.min(10, c.grain + d));
   if (c.grain !== before) log(s, { actor: "world", text: `${nodeName(id)}'s grain ${d > 0 ? "+" : ""}${c.grain - before} months (now ${c.grain}).`, why, visible: true, kind: "change" });
 }
-function lean(s: GameState, id: string, d: number, why: string) {
+export function lean(s: GameState, id: string, d: number, why: string) {
   const c = city(s, id);
   const before = c.lean;
   c.lean = Math.max(-3, Math.min(3, c.lean + d));
   if (c.lean !== before) log(s, { actor: "world", text: `${nodeName(id)} ${c.lean > before ? "warms to you" : "cools toward you"} (lean ${c.lean > 0 ? "+" : ""}${c.lean}).`, why, visible: true, kind: "change" });
 }
-function setSide(s: GameState, id: string, side: Side, why: string) {
+export function setSide(s: GameState, id: string, side: Side, why: string) {
   const c = city(s, id);
   if (c.side === side) return;
   c.side = side;
@@ -224,6 +224,7 @@ export function battle(s: GameState, a: Army, b: Army) {
   event(s, "world", `${capital(armyName(s, win))} wins the battle at ${nodeName(win.at)}.`, "the higher roll");
   loseMen(s, win, Math.ceil(win.men / 6), "the cost of victory");
   loseMen(s, lose, Math.ceil(lose.men / 3), "beaten in the field");
+  s.flags[win.side === "syracuse" ? "battleWon" : "battleLost"] = s.season; // for events (data/island-events.json)
   if (win.side === "syracuse") {
     mood(s, "citizens", 1, "a victory over Carthage");
     mood(s, "guard", 1, "a victory, and plunder from the camp");

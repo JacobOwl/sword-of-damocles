@@ -1,0 +1,402 @@
+{
+  "note": "Events of the island game (Phase 2): campaigns, sieges, supply, plague, mercenaries, embassies, Sicels and Italian Greeks, Carthage's council and its houses, and towns changing sides. Same shape as data/events.json, plus 'places' (the towns an event is about), parts played by the generated cast ('census') or Carthage's named men ('punic'), and an 'island' block in 'when' for cities, armies and Carthage. History comes in as conditions, never dates (design council V8). They fire only in island games, from their own draw each season. The engine is src/core/events.ts with src/core/island-events.ts; the research card is docs/research/island-events.md.",
+  "pacing": { "kind": "invention", "draws": 1, "secondChance": 0.3, "maxOpen": 2 },
+  "events": [
+    {
+      "id": "traitorAtTheGate", "kind": "history", "art": "gate", "name": "A gate at midnight", "weight": 4, "once": false, "cooldown": 8,
+      "when": { "island": { "yourArmy": { "siege": true } } },
+      "places": { "town": { "besiegedBy": "you", "hasLeader": true } },
+      "roles": { "traitor": { "census": "leader", "of": "town" } },
+      "text": "A man comes to your tent by night from {town}. {Traitor}, who leads the town, will open a gate to you at midnight, for great promises and the safety of his kin.",
+      "why": "your army is before {town}, and {traitor} sees how the siege will end",
+      "choices": [
+        { "id": "pay", "label": "Pay what he asks", "history": true, "cost": { "silver": 2 },
+          "roll": { "need": 3, "mods": [ { "label": "the siege lines are dug", "value": 1, "if": { "island": { "yourArmy": { "siegeFor": { "min": 2 } } } } } ],
+            "success": { "text": "At midnight a gate swings open. Your men are inside before the watch can cry out.", "effects": [ { "takeCity": "town" }, { "fear": "town", "by": 1 } ] },
+            "failure": { "text": "The plot is found out. {Traitor}'s head is shown on the walls at dawn, and your silver is gone.", "effects": [ { "lean": "town", "by": -1, "why": "they caught a traitor in your pay" } ] } } },
+        { "id": "promise", "label": "Promise him that he will rule {town} for you",
+          "roll": { "need": 4, "mods": [ { "trait": "you", "action": "envoy" } ],
+            "success": { "text": "{Traitor} takes your word. The gate opens, and he rules {town} in your name.", "effects": [ { "takeCity": "town" }, { "lean": "town", "by": 1, "why": "one of their own still rules them" } ] },
+            "failure": { "text": "{Traitor} wanted silver, not promises. No gate opens.", "effects": [] } } },
+        { "id": "refuse", "label": "Take no town by treachery", "default": true,
+          "effects": [ { "mood": "guard", "by": -1, "why": "the soldiers wanted the easy way in" } ] }
+      ],
+      "source": "Diodorus 14.15.1 to 14.15.2", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "Catana was betrayed to Dionysius by its general, who let him in about midnight.", "cite": "Diodorus 14.15.1", "quote": "the general of the Catanians, had offered to betray the city to him. Consequently, being admitted by", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" },
+        { "text": "Naxos was handed over by its commander, won over by great promises.", "cite": "Diodorus 14.15.2", "quote": "Procles, the commander of the Naxians, on being won over by great promises, delivered over his native city to Dionysius", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" }
+      ],
+      "invented": ["trigger (any town your army besieges)", "the traitor is the town's first man from the generated cast", "the promise and the refusal", "all numbers"]
+    },
+    {
+      "id": "moleToMotya", "kind": "history", "art": "siege", "name": "The mole to the island", "weight": 6,
+      "when": { "island": { "yourArmy": { "siege": true } } },
+      "places": { "town": { "id": "motya", "besiegedBy": "you" } },
+      "text": "Motya stands on an island off the shore, and its people have broken the narrow causeway so that no enemy can come at their walls. Your engineers say the strait can be filled, if enough men carry earth and stone.",
+      "why": "your army is before Motya, and the causeway is cut",
+      "choices": [
+        { "id": "mole", "label": "Fill the strait and build a mole", "history": true, "cost": { "silver": 2, "slots": 1 },
+          "text": "Thousands carry stone. Little by little the mole runs out toward the walls, and the engines go forward with it.",
+          "effects": [ { "siegeLines": "yours", "by": 2 } ] },
+        { "id": "starve", "label": "Ring it with ships and starve it",
+          "if": { "playerHolds": ["fleet"] },
+          "effects": [ { "cityGrain": "town", "by": -2, "why": "your ships close the strait" } ] },
+        { "id": "asItIs", "label": "Attack it as it stands", "default": true }
+      ],
+      "source": "Diodorus 14.48.2, 14.49.3", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "Motya lay on an island six stades off Sicily; its people breached the causeway.", "cite": "Diodorus 14.48.2", "quote": "It also had a narrow artificial causeway extending to the shore of Sicily, which the Motyans breached at this time", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "Dionysius filled the strait and advanced his engines along the mole.", "cite": "Diodorus 14.49.3", "quote": "he at once put many times more men on the task of filling up the strait between the city and the coast, and, as the mole was extended, advanced his engines of war little by little toward the walls", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger", "the blockade choice", "all numbers"]
+    },
+    {
+      "id": "towersAndCatapults", "kind": "history", "art": "siege", "name": "Towers six storeys high", "weight": 3,
+      "when": { "island": { "yourArmy": { "siege": true, "siegeFor": { "min": 1 } } } },
+      "places": { "town": { "besiegedBy": "you", "walls": { "min": 1 } } },
+      "text": "The siege of {town} drags on. Your engineers want to build wheeled towers as tall as the houses, bring up the rams, and keep the battlements clear with catapults.",
+      "why": "your army has sat before {town} for a season",
+      "choices": [
+        { "id": "towers", "label": "Bring up towers, rams and catapults", "history": true, "cost": { "silver": 2 },
+          "if": { "flag": { "armed": true } },
+          "text": "The towers roll forward and the rams hammer the walls of {town}.",
+          "effects": [ { "cityWalls": "town", "by": -1, "why": "the rams break a stretch of wall" }, { "siegeLines": "yours", "by": 1 } ] },
+        { "id": "rams", "label": "Build rams and sheds with what you have", "cost": { "silver": 1 },
+          "effects": [ { "siegeLines": "yours", "by": 1 } ] },
+        { "id": "wait", "label": "Wait for hunger to do the work", "default": true }
+      ],
+      "note": "The towers need the arms workshops (the event of that name) to have been set up.",
+      "source": "Diodorus 14.51.1", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "At Motya Dionysius used rams, catapults and wheeled towers six stories high.", "cite": "Diodorus 14.51.1", "quote": "kept hammering the towers with his battering-rams, while with the catapults he kept down the fighters on the battlements; and he also advanced against the walls his wheeled towers, six stories high", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger (any town with walls you have besieged for a season)", "all numbers"]
+    },
+    {
+      "id": "heraldsToTheTemples", "kind": "history", "art": "temple", "name": "Heralds to the temples", "weight": 6, "once": false, "cooldown": 6,
+      "when": { "flag": { "punicLost": { "within": 1 } } },
+      "places": { "town": { "side": "syracuse", "changedWithin": 1, "id": ["motya", "panormus"] } },
+      "text": "Your army has burst into {town}. The Sicilian Greeks remember what Carthage did to their own cities and kill everyone they meet, sparing neither child nor old man.",
+      "why": "you took {town}, a town of Carthage's own",
+      "choices": [
+        { "id": "heralds", "label": "Send heralds to cry: take refuge in the Greek temples", "history": true,
+          "text": "The heralds cry it in every street. Those who reach the temples live, to be sold.",
+          "effects": [ { "silver": 2, "why": "the captives are sold" }, { "mood": "guard", "by": -1, "why": "you held back their fury" } ] },
+        { "id": "letThem", "label": "Let the soldiers have their way",
+          "effects": [ { "mood": "guard", "by": 1, "why": "they had their revenge" }, { "clock": 2, "why": "Carthage hears of the slaughter" }, { "bloc": "people", "by": -1, "why": "the slaughter at {town}" } ] },
+        { "id": "guard", "label": "Stop the killing with your own guard",
+          "roll": { "need": 4, "mods": [ { "label": "your guard is Loyal", "value": 1, "if": { "guardMood": { "min": 4 } } } ],
+            "success": { "text": "Your guard stands between the soldiers and the townspeople. The killing stops.", "effects": [ { "lean": "town", "by": 1, "why": "you stopped the slaughter" }, { "silver": 1, "why": "the captives are sold" } ] },
+            "failure": { "text": "No one listens. The killing goes on until it burns itself out.", "effects": [ { "mood": "guard", "by": -1, "why": "you set the guard against the army" } ] } } }
+      ],
+      "source": "Diodorus 14.53.1 to 14.53.2", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "At Motya the Sicilian Greeks slew everyone they met.", "cite": "Diodorus 14.53.1", "quote": "for the Sicilian Greeks, eager to return cruelty for cruelty, slew everyone they encountered, sparing without distinction not a child, not a woman, not an elder", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "Dionysius, wanting captives to sell, sent heralds telling the Motyans to flee to the Greek temples.", "cite": "Diodorus 14.53.2", "quote": "he stationed heralds to cry aloud and tell the Motyans to take refuge in the temples which were revered by the Greeks", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger (taking a town of Carthage's own)", "the other two choices", "all numbers"]
+    },
+    {
+      "id": "greeksInTheEnemyRanks", "kind": "history", "art": "dagger", "name": "Greeks who fought for Carthage", "weight": 4, "once": false, "cooldown": 8,
+      "when": { "flag": { "punicLost": { "within": 1 } } },
+      "places": { "town": { "side": "syracuse", "changedWithin": 1 }, "watcher": { "side": ["free", "tributary"], "optional": true } },
+      "text": "Among the captives at {town} are Greeks who fought on Carthage's side, and were taken with weapons in their hands.",
+      "why": "you took {town}, and Greeks were among its defenders",
+      "choices": [
+        { "id": "crucify", "label": "Crucify them, as a lesson", "history": true,
+          "effects": [ { "fear": "watcher", "by": 1, "why": "they heard what you did to Greeks who sided with Carthage" }, { "lean": "watcher", "by": -1, "why": "a cruel lesson" }, { "mood": "guard", "by": 1 } ] },
+        { "id": "enlist", "label": "Enlist them in your guard",
+          "effects": [ { "guard": "strength", "by": 1, "why": "hardened men who know Carthage's ways" }, { "mood": "citizens", "by": -1, "why": "turncoats paid with their silver" } ] },
+        { "id": "release", "label": "Send them home", "default": true,
+          "effects": [ { "lean": "watcher", "by": 1, "why": "you showed mercy to Greeks" } ] }
+      ],
+      "source": "Diodorus 14.53.4", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "After Motya Dionysius crucified Daimenes and other Greeks who had fought for Carthage.", "cite": "Diodorus 14.53.4", "quote": "and other Greeks who had fought on the side of the Carthaginians and had been taken captive", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger", "which town hears of it", "enlisting and releasing", "all numbers"]
+    },
+    {
+      "id": "firstOnTheWall", "kind": "history", "art": "coins", "name": "The first man on the wall", "weight": 4, "once": false, "cooldown": 8,
+      "when": { "island": { "yourArmy": true } },
+      "places": { "town": { "side": "syracuse", "changedWithin": 1, "notId": ["syracuse"] } },
+      "roles": { "hero": { "census": "captain", "of": "syracuse" } },
+      "text": "{Town} is yours. The soldiers say that {hero} was the first man to climb its wall, and they wait to see how you reward courage.",
+      "why": "your army has just taken {town}",
+      "choices": [
+        { "id": "reward", "label": "Reward {hero} with silver and honour the brave", "history": true, "cost": { "silver": 1 },
+          "effects": [ { "mood": "guard", "by": 1, "why": "you reward courage" } ] },
+        { "id": "crown", "label": "Give him a crown of olive before the army",
+          "effects": [ { "mood": "guard", "by": 1, "why": "the honour pleases them" }, { "mood": "rich", "by": -1, "why": "a hired captain honoured above citizens" } ] },
+        { "id": "nothing", "label": "Courage is what you pay them for", "default": true,
+          "effects": [ { "mood": "guard", "by": -1, "why": "no reward for the first man on the wall" } ] }
+      ],
+      "source": "Diodorus 14.53.4", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "Dionysius rewarded Archylus, the first up the wall of Motya, with one hundred minas, and honoured the brave.", "cite": "Diodorus 14.53.4", "quote": "he rewarded Archylus, who had been the first to mount the wall, with one hundred minas, and honoured according to their merits all others who had performed deeds of valour", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger (any town you take)", "the hero is one of your hired captains from the generated cast (the source names Archylus of Thurii)", "the other choices", "all numbers"]
+    },
+    {
+      "id": "shipsOnTheBeach", "kind": "history", "art": "warship", "name": "Ships on the beach", "weight": 4,
+      "when": { "island": { "war": true, "ships": { "min": 4 }, "yourArmy": { "siege": true } } },
+      "places": { "town": { "besiegedBy": "you", "port": true } },
+      "text": "Your warships lie hauled up on the beach before {town}. At dawn Carthage's best ships appear off the harbour mouth, hoping to catch them on land and break the siege.",
+      "why": "Carthage holds the sea, and your fleet is beached at {town}",
+      "choices": [
+        { "id": "haul", "label": "Haul the ships over land to open sea, and man them with archers", "history": true, "cost": { "slots": 1 },
+          "text": "The soldiers drag the ships across the land. Archers and slingers on the decks, and catapults on the shore, drive the enemy off.",
+          "effects": [ { "cShips": -1, "why": "ships lost to your catapults" } ] },
+        { "id": "fight", "label": "Fight them at the harbour mouth",
+          "roll": { "need": 5, "mods": [ { "label": "you hold the fleet yourself", "value": 1, "if": { "playerHolds": ["fleet"] } }, { "label": "your engines and catapults", "value": 1, "if": { "flag": { "armed": true } } } ],
+            "success": { "text": "The enemy is caught in the narrows and beaten.", "effects": [ { "cShips": -2, "why": "beaten at the harbour mouth" } ] },
+            "failure": { "text": "Your ships are rammed as they come out, one by one.", "effects": [ { "flag": "fleetDamaged" }, { "mood": "citizens", "by": -1, "why": "ships lost at sea" } ] } } },
+        { "id": "lift", "label": "Lift the siege to save the ships", "default": true,
+          "effects": [ { "liftSiege": "yours", "why": "you would not lose the fleet" } ] }
+      ],
+      "source": "Diodorus 14.50.1, 14.50.4", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "Himilcon came with his hundred best triremes to catch Dionysius' ships hauled up in the harbour of Motya.", "cite": "Diodorus 14.50.1", "quote": "hearing that Dionysius had hauled his warships up on land, manned at once his hundred best triremes", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "Dionysius hauled the ships over land, manned them with archers and slingers, and used the new catapults from the shore.", "cite": "Diodorus 14.50.4", "quote": "he hauled his vessels over the land with no difficulty and launched them safely in the sea outside the harbour", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger (any port your army besieges while Carthage has a fleet)", "the other choices", "all numbers"]
+    },
+    {
+      "id": "baggageLate", "kind": "invention", "art": "amphora", "name": "The baggage is late", "weight": 4,
+      "when": { "island": { "yourArmy": { "food": { "max": 1 }, "onOwnGround": false } } },
+      "places": { "near": { "yourArmy": 6, "notId": ["syracuse"], "optional": true } },
+      "text": "The mule train has not come up, and the last of the bread is in the soldiers' packs. The quartermasters ask what the army is to eat.",
+      "why": "your army is in enemy land with little food",
+      "choices": [
+        { "id": "forage", "label": "Send out foragers in strength",
+          "roll": { "need": 4, "mods": [ { "label": "it is summer, and the fields are full", "value": 1, "if": { "seasonOfYear": ["summer"] } }, { "label": "it is winter, and the fields are bare", "value": -1, "if": { "seasonOfYear": ["winter"] } } ],
+            "success": { "text": "The foragers come back with grain and cattle.", "effects": [ { "armyFood": "yours", "by": 1 }, { "lean": "near", "by": -1, "why": "your foragers stripped their fields" } ] },
+            "failure": { "text": "The foragers are caught scattered in the fields and cut down.", "effects": [ { "armyMen": "yours", "by": -1, "why": "foragers ambushed" } ] } } },
+        { "id": "buy", "label": "Buy grain from {near}", "cost": { "silver": 2 }, "needs": ["near"],
+          "effects": [ { "armyFood": "yours", "by": 2 }, { "lean": "near", "by": 1, "why": "you paid well for their grain" } ] },
+        { "id": "mules", "label": "Kill the baggage animals and eat them",
+          "effects": [ { "armyFood": "yours", "by": 1 }, { "mood": "citizens", "by": -1, "why": "the levies grumble at eating mules" } ] },
+        { "id": "onward", "label": "March on and hope", "default": true }
+      ],
+      "invented": ["all of it"]
+    },
+    {
+      "id": "cutTheirForage", "kind": "history", "art": "horse", "name": "Cut off their foragers", "weight": 4, "once": false, "cooldown": 6,
+      "when": { "island": { "war": true, "carthageArmy": { "onOwnGround": false, "food": { "max": 1 } } } },
+      "places": { "town": { "carthageArmy": 6, "side": ["syracuse", "ally", "free"], "notId": ["syracuse"], "optional": true } },
+      "text": "Carthage's army is in hostile country and short of food. Its foragers go out every day in long, careless columns.",
+      "why": "Carthage's army has little food and is far from its own towns",
+      "choices": [
+        { "id": "horse", "label": "Send horsemen to ambush the foragers", "cost": { "slots": 1 },
+          "roll": { "need": 4, "mods": [ { "label": "you hold the generalship", "value": 1, "if": { "playerHolds": ["generalship"] } } ],
+            "success": { "text": "Your horsemen fall on the foragers again and again. Carthage's army goes hungry.", "effects": [ { "armyFood": "carthage", "by": -1 }, { "armyMen": "carthage", "by": -1, "why": "foragers cut down" } ] },
+            "failure": { "text": "The foragers were bait. Your horsemen ride into the enemy's cavalry.", "effects": [ { "guard": "strength", "by": -1, "why": "horsemen lost in an ambush" } ] } } },
+        { "id": "townsmen", "label": "Pay the men of {town}, who know the ground, to harry them", "cost": { "silver": 2 }, "needs": ["town"], "history": true,
+          "effects": [ { "armyFood": "carthage", "by": -1, "why": "ambushes in country they know" }, { "lean": "town", "by": 1 } ] },
+        { "id": "leave", "label": "Let hunger do its own work", "default": true }
+      ],
+      "source": "Diodorus 14.96.1", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "Magon, camped in hostile land and short of supplies, was harried by Agyris' troops, who knew the ground.", "cite": "Diodorus 14.96.1", "quote": "the troops of Agyris, being familiar with the territory, held the advantage in laying ambushes and were continually cutting off the enemy's supplies", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger", "local men from one of the island's towns play the part of Agyris' troops", "the horsemen", "all numbers"]
+    },
+    {
+      "id": "grainConvoy", "kind": "history", "art": "grainship", "name": "The grain convoy", "weight": 6,
+      "when": { "grain": { "max": 3 }, "island": { "carthageArmy": { "siege": true, "at": "syracuse" } } },
+      "roles": { "admiral": { "office": "fleet", "optional": true } },
+      "text": "Syracuse is besieged and the granaries are low. Merchant ships with grain from Sardinia and Libya are waiting offshore for an escort past Carthage's fleet.",
+      "why": "Carthage besieges Syracuse, and you have little grain",
+      "choices": [
+        { "id": "sail", "label": "Sail out yourself to escort the grain", "history": true, "cost": { "slots": 1 },
+          "roll": { "need": 3, "mods": [],
+            "success": { "text": "You bring the grain ships in. While you were at sea the citizens sailed out on their own, took a Punic food ship, and are proud of it.", "effects": [ { "grain": 3 }, { "power": "citizens", "by": 1, "why": "they fought and won without you" } ] },
+            "failure": { "text": "The convoy is scattered. You come back with half of it.", "effects": [ { "grain": 1 } ] } } },
+        { "id": "send", "label": "Send {admiral} with the fleet", "needs": ["admiral"],
+          "roll": { "need": 4, "mods": [ { "label": "{admiral} is bold", "value": 1, "ifRole": { "role": "admiral", "is": { "trait": "bold" } } } ],
+            "success": { "text": "{Admiral} brings the grain ships in.", "effects": [ { "grain": 3 }, { "opinion": "admiral", "by": 1 } ] },
+            "failure": { "text": "Carthage's ships catch the convoy. Grain and warships go to the bottom.", "effects": [ { "flag": "fleetDamaged" }, { "mood": "citizens", "by": -1 } ] } } },
+        { "id": "ration", "label": "Ration what is left", "default": true,
+          "effects": [ { "mood": "citizens", "by": -1, "why": "short rations in a besieged city" } ] }
+      ],
+      "source": "Diodorus 14.63.4, 14.64.1", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "Besieged, Dionysius sent merchant ships to Sardinia and Libya for grain.", "cite": "Diodorus 14.63.4", "quote": "He also dispatched merchant ships to Sardinia and Libya to secure grain and every kind of food", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "While Dionysius and Leptines escorted supplies, the Syracusans on their own took a food ship.", "cite": "Diodorus 14.64.1", "quote": "Dionysius and Leptines had set out with warships to escort a supply of provisions; and the Syracusans, who were thus left to themselves", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger (grain 3 or less under siege)", "sending the admiral alone", "all numbers"]
+    },
+    {
+      "id": "feverInTheLines", "kind": "invention", "art": "camp", "name": "Fever in the lines", "weight": 3, "cooldown": 6,
+      "when": { "seasonOfYear": ["summer", "autumn"], "island": { "yourArmy": { "siege": true, "men": { "min": 4 } } } },
+      "places": { "town": { "besiegedBy": "you" } },
+      "text": "The summer is hot and the camp before {town} is crowded. Men in the lowest lines are falling sick, and the physicians blame the bad water and the ground.",
+      "why": "a crowded camp in the hot months before {town}",
+      "choices": [
+        { "id": "move", "label": "Move the camp to higher ground",
+          "effects": [ { "siegeLines": "yours", "by": -1, "why": "you gave up the lowest lines" } ] },
+        { "id": "burn", "label": "Burn the dead and keep the lines", "default": true,
+          "effects": [ { "armyMen": "yours", "by": -1, "why": "fever in the camp" } ] },
+        { "id": "home", "label": "Lift the siege before it spreads",
+          "effects": [ { "liftSiege": "yours", "why": "fever in the camp" } ] }
+      ],
+      "note": "The causes the physicians name follow Diodorus 14.70.4 to 14.70.5 (crowding, the season, the water, marshy ground), but this event is invention.",
+      "invented": ["all of it"]
+    },
+    {
+      "id": "plagueInTheirCamp", "kind": "history", "art": "camp", "name": "Plague in the Punic camp", "weight": 8,
+      "when": { "flag": { "carthagePlague": { "within": 1 } }, "island": { "carthageArmy": { "siege": true } } },
+      "places": { "town": { "besiegedBy": "carthage" } },
+      "text": "Plague has struck Carthage's camp before {town}. It took the Libyans first. Now the dead lie unburied, and no one dares go near the sick.",
+      "why": "a crowded camp in the hot months, and, the priests say, the gods' anger",
+      "choices": [
+        { "id": "attack", "label": "Attack by land and sea at dawn", "history": true, "cost": { "slots": 1 },
+          "roll": { "need": 3, "mods": [ { "label": "plague in their camp", "value": 2 }, { "label": "your army is in the field", "value": 1, "if": { "island": { "yourArmy": true } } }, { "label": "your fleet is damaged", "value": -1, "if": { "flag": { "fleetDamaged": { "within": 2 } } } } ],
+            "success": { "text": "Your army comes round by night and falls on the camp at daybreak while your ships burn theirs at anchor.", "effects": [ { "armyMen": "carthage", "by": -3, "why": "the camp is stormed" }, { "cShips": -2, "why": "ships burned at anchor" }, { "liftSiege": "carthage", "why": "the camp is broken" }, { "mood": "citizens", "by": 1 } ] },
+            "failure": { "text": "Even sick men fight hard behind a rampart. Your attack is thrown back.", "effects": [ { "guard": "strength", "by": -1, "why": "dead before the enemy camp" } ] } } },
+        { "id": "wait", "label": "Let the plague do its work", "default": true,
+          "effects": [ { "armyMen": "carthage", "by": -1, "why": "the plague goes on" } ] }
+      ],
+      "source": "Diodorus 14.70.4 to 14.72.1", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "A plague struck the Carthaginian army before Syracuse, from crowding, the season and the heat.", "cite": "Diodorus 14.70.4", "quote": "that myriads of people were gathered together, that it was the time of year which is most productive of plagues", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "The camp's ground was marshy and in a hollow.", "cite": "Diodorus 14.70.5", "quote": "since the terrain was marshy and in a hollow", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "The plague first attacked the Libyans; soon no one dared approach the sick.", "cite": "Diodorus 14.71.1", "quote": "Now the plague first attacked the Libyans", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "Dionysius attacked the camp by land and the ships by sea at daybreak.", "cite": "Diodorus 14.72.1", "quote": "ordered Pharacidas and Leptines the admirals to attack the enemy's ships at daybreak, while he himself, profiting by a moonless night, made a circuit with his army", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger (plague breaking out in a Carthaginian siege camp, from the island's own plague roll)", "waiting", "all numbers"],
+      "note": "Diodorus also gives a religious cause, the plundered temple of Demeter and Kore (14.70.4). The game's plague comes from the camp; the event names both."
+    },
+    {
+      "id": "himilconsBargain", "kind": "history", "art": "letter", "name": "A bargain by night", "weight": 8,
+      "when": { "island": { "war": true, "carthageArmy": true },
+        "any": [ { "flag": { "carthagePlague": { "within": 2 } } }, { "flag": { "battleWon": { "within": 1 } } }, { "island": { "carthageArmy": { "food": { "max": 0 } } } } ] },
+      "roles": { "general": { "punic": "general" } },
+      "text": "Beaten and sick, {general} sends to you in secret, behind your citizens' backs. Let his own Carthaginians sail home by night, and the 300 talents in his camp are yours. His hired men and his allies he will leave behind.",
+      "why": "{general}'s army is in a bad way, and he wants to save what he can",
+      "choices": [
+        { "id": "take", "label": "Take the silver and let them go by night", "history": true,
+          "text": "On the fourth night the Carthaginians slip away. The Iberians left behind send a herald and ask to serve you; the rest throw down their arms.",
+          "effects": [ { "silver": 4 }, { "armyHome": "carthage", "why": "you let them sail away" }, { "guard": "strength", "by": 1, "why": "the Iberians take service with you" }, { "plotBonus": -1, "why": "fear of Carthage keeps the city close to you" }, { "clock": 1, "why": "Carthage keeps men to come back with" } ] },
+        { "id": "refuse", "label": "Refuse, and finish them",
+          "roll": { "need": 4, "mods": [ { "label": "plague in their camp", "value": 1, "if": { "flag": { "carthagePlague": { "within": 2 } } } }, { "label": "their army has no food", "value": 1, "if": { "island": { "carthageArmy": { "food": { "max": 0 } } } } } ],
+            "success": { "text": "Your men cut down the army as it tries to reach the ships.", "effects": [ { "armyMen": "carthage", "by": -4, "why": "cut down as they fled" }, { "clock": -2, "why": "Carthage has lost an army" }, { "mood": "citizens", "by": 1 } ] },
+            "failure": { "text": "They fight their way to the shore and get away, and they owe you nothing.", "effects": [ { "armyHome": "carthage", "why": "they broke out" }, { "guard": "strength", "by": -1, "why": "dead on the beach" } ] } } }
+      ],
+      "source": "Diodorus 14.75.1 to 14.75.9", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "The Carthaginians, beaten, offered Dionysius three hundred talents in secret to let their troops cross to Libya.", "cite": "Diodorus 14.75.1", "quote": "they entered into negotiations with Dionysius without the knowledge of the Syracusans. They asked him to allow their remaining troops to cross back to Libya and promised to give him the three hundred talents", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "Diodorus says Dionysius agreed so that fear of Carthage would keep the Syracusans from seeking their freedom.", "cite": "Diodorus 14.75.3", "quote": "in order that the Syracusans, by reason of their fear of the Carthaginians, should never find a time of ease to assert their freedom", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "The Iberians left behind took service with Dionysius.", "cite": "Diodorus 14.75.9", "quote": "Dionysius made peace with the Iberians and enrolled them in his mercenaries", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger (plague, a lost battle, or a starving army)", "refusing", "all numbers (300 talents is shown as 4 silver)"],
+      "note": "Diodorus' reason for the deal is his own judgement of Dionysius' motive; the game shows it as the effect on plots, not as fact."
+    },
+    {
+      "id": "mercenariesWantLeontini", "kind": "history", "art": "arms", "name": "Pay in land", "weight": 5,
+      "when": { "guardStrength": { "min": 3 }, "any": [ { "arrears": { "min": 1 } }, { "flag": { "peaceMade": { "within": 2 } } } ] },
+      "places": { "town": { "id": "leontini", "side": ["free", "ally", "syracuse"] } },
+      "roles": { "commander": { "id": "aristotle", "optional": true } },
+      "text": "The mercenaries are hostile, and you fear they may depose you. They gather under arms and demand their pay, with some sharpness. Leontini's good land lies empty enough to give away.",
+      "why": "the guard wants its pay, and you have more men than silver",
+      "choices": [
+        { "id": "leontini", "label": "Give them the city and land of Leontini in place of pay", "history": true,
+          "text": "The mercenaries gladly take the land and share it out in lots. You recruit new men to take their place at your door.",
+          "effects": [ { "payArrears": true }, { "side": "town", "to": "syracuse", "why": "your old mercenaries settle there" }, { "cityMen": "town", "by": 2, "why": "veterans settle there" }, { "guard": "strength", "by": -1, "why": "many go off to farm at Leontini" }, { "mood": "guard", "by": 1 }, { "clock": 1, "why": "Carthage sees Leontini garrisoned by your men" } ] },
+        { "id": "arrest", "label": "Arrest {commander} and send him to Sparta for trial", "needs": ["commander"], "history": true,
+          "effects": [ { "status": "commander", "to": "outside", "why": "sent to Sparta to face trial" }, { "rival": "commander", "scar": "Exiled", "reason": "you arrested him and sent him to Sparta" }, { "mood": "guard", "by": -1, "why": "their captain arrested" } ] },
+        { "id": "pay", "label": "Pay them from the treasury", "cost": { "silver": 3 },
+          "effects": [ { "payArrears": true }, { "mood": "guard", "by": 1 } ] },
+        { "id": "stall", "label": "Promise pay later", "default": true,
+          "effects": [ { "mood": "guard", "by": -1 } ] }
+      ],
+      "source": "Diodorus 14.78.1 to 14.78.3", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "Fearing the mercenaries might depose him, Dionysius arrested their commander Aristotle.", "cite": "Diodorus 14.78.1", "quote": "seeing that the mercenaries were most hostile to him and fearing that they might depose him, first of all arrested Aristotle, their commander", "file": "sources/diodorus/english/book14-78-96.txt" },
+        { "text": "He sent Aristotle to Sparta for trial and gave the ten thousand mercenaries Leontini in place of pay.", "cite": "Diodorus 14.78.2", "quote": "offered to the mercenaries, who numbered about ten thousand, in lieu of their pay the city and territory of the Leontines", "file": "sources/diodorus/english/book14-78-96.txt" },
+        { "text": "They shared out the land and settled in Leontini; he recruited new mercenaries.", "cite": "Diodorus 14.78.3", "quote": "after portioning it out in allotments they made their home in Leontini", "file": "sources/diodorus/english/book14-78-96.txt" }
+      ],
+      "invented": ["trigger (unpaid guard, or a recent peace)", "paying or stalling", "all numbers"],
+      "note": "The court event 'The mercenaries' demand' tells the same story in the citadel game."
+    },
+    {
+      "id": "captainCourted", "kind": "invention", "art": "horse", "name": "Punic silver for a captain", "weight": 2,
+      "when": { "island": { "war": true, "carthageArmy": true } },
+      "roles": { "captain": { "census": "captain", "of": "syracuse" } },
+      "text": "Your watchers report that Carthage's agents have been at {captain}'s tent, offering his men double pay to change sides.",
+      "why": "Carthage's army is on the island, and hired men follow the higher pay",
+      "choices": [
+        { "id": "outbid", "label": "Raise his men's pay", "cost": { "silver": 2 },
+          "effects": [ { "mood": "guard", "by": 1, "why": "better pay" } ] },
+        { "id": "dismiss", "label": "Pay him off and send him away before he turns",
+          "effects": [ { "guard": "strength", "by": -1, "why": "{captain} and his men are sent away" } ] },
+        { "id": "falseOrders", "label": "Let him seem to sell himself, and carry Carthage a false report",
+          "roll": { "need": 4, "mods": [ { "trait": "you", "action": "plantRumor" } ],
+            "success": { "text": "Carthage's general believes {captain}'s report and marches on a lie.", "effects": [ { "armyFood": "carthage", "by": -1, "why": "a wasted march" }, { "armyMen": "carthage", "by": -1, "why": "caught on a bad road" } ] },
+            "failure": { "text": "{Captain} sells himself in earnest, and his men with him.", "effects": [ { "guard": "strength", "by": -1, "why": "{captain} goes over to Carthage" }, { "cMercs": 1, "why": "{captain}'s company joins Carthage" } ] } } },
+        { "id": "trust", "label": "Trust him", "default": true,
+          "roll": { "need": 3, "mods": [],
+            "success": { "text": "{Captain} sends Carthage's agents away with their silver.", "effects": [] },
+            "failure": { "text": "One morning {captain}'s tents are empty.", "effects": [ { "guard": "strength", "by": -1, "why": "{captain} goes over to Carthage" }, { "cMercs": 1, "why": "{captain}'s company joins Carthage" } ] } } }
+      ],
+      "invented": ["all of it"]
+    },
+    {
+      "id": "campaniansCourted", "kind": "history", "art": "horse", "name": "Envoys to the Campanians", "weight": 4, "once": false, "cooldown": 10,
+      "when": { "island": { "war": true, "carthageArmy": true } },
+      "places": { "town": { "side": ["ally", "syracuse"], "carthageArmy": 6, "notId": ["syracuse"] } },
+      "text": "Carthage's general sends envoys to the Campanian horsemen who hold {town} for you, urging them to change sides. He promises them land and a share of the spoils, and reminds them that their kinsmen at Entella side with Carthage.",
+      "why": "Carthage's army is near {town}",
+      "choices": [
+        { "id": "pay", "label": "Send them their pay early", "cost": { "silver": 2 },
+          "effects": [ { "lean": "town", "by": 1, "why": "the Campanians are paid" } ] },
+        { "id": "hostages", "label": "Take their families as hostages",
+          "effects": [ { "fear": "town", "by": 1 }, { "lean": "town", "by": -1, "why": "you hold their wives and children" } ] },
+        { "id": "trust", "label": "Trust them to keep faith", "default": true,
+          "roll": { "need": 3, "mods": [],
+            "success": { "text": "The Campanians send the envoys back unheard.", "effects": [] },
+            "failure": { "text": "The Campanians open {town} to Carthage.", "effects": [ { "side": "town", "to": "tributary", "why": "its Campanian garrison went over" } ] } } }
+      ],
+      "source": "Diodorus 14.61.4 to 14.61.5", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "Himilcon sent envoys to the Campanians who held Aetna, urging them to revolt from Dionysius.", "cite": "Diodorus 14.61.4", "quote": "sent ambassadors to the Campanians who held", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "He promised them land and spoils, and pointed to the Campanians of Entella, who sided with Carthage.", "cite": "Diodorus 14.61.5", "quote": "He promised both to give them a large amount of territory and to let them share in the spoils of the war", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger (any town of yours near Carthage's army; the source names Aetna)", "the choices", "all numbers"]
+    },
+    {
+      "id": "alliesAndTheHarvest", "kind": "invention", "art": "harvest", "name": "The harvest is waiting", "weight": 3,
+      "when": { "seasonOfYear": ["summer"], "island": { "yourArmy": { "seasonsOut": { "min": 1 } } } },
+      "places": { "town": { "side": "ally" } },
+      "text": "The men of {town} who march with you say their fields are ripe and their wives cannot bring in the harvest alone.",
+      "why": "your army has been out since spring, and the grain is ripe",
+      "choices": [
+        { "id": "release", "label": "Let {town}'s men go home",
+          "effects": [ { "armyMen": "yours", "by": -1, "why": "{town}'s men go home for the harvest" }, { "lean": "town", "by": 1, "why": "you let their men go home" } ] },
+        { "id": "keep", "label": "Keep them under the standards", "default": true,
+          "effects": [ { "lean": "town", "by": -1, "why": "their harvest rots in the fields" }, { "cityGrain": "town", "by": -2, "why": "the harvest rots in the fields" } ] },
+        { "id": "pay", "label": "Pay them to stay", "cost": { "silver": 2 } }
+      ],
+      "invented": ["all of it"]
+    },
+    {
+      "id": "goddessesTemple", "kind": "history", "art": "temple", "name": "The goddesses' temple", "weight": 5,
+      "when": { "island": { "carthageArmy": { "at": "syracuse" } } },
+      "text": "Carthage's soldiers have taken the suburb of Achradina and stripped the temple of Demeter and Kore of its offerings. The city is horrified, and the priestesses say the goddesses will not forget.",
+      "why": "Carthage's army is at the walls of Syracuse",
+      "choices": [
+        { "id": "proclaim", "label": "Proclaim the sacrilege at every altar",
+          "effects": [ { "mood": "citizens", "by": 1, "why": "the gods are on our side" }, { "bloc": "people", "by": -1, "why": "word of the sacrilege reaches Carthage" } ] },
+        { "id": "vow", "label": "Vow a new temple to the Two Goddesses", "cost": { "silver": 2 },
+          "effects": [ { "mood": "citizens", "by": 2, "why": "your vow to the goddesses" } ] },
+        { "id": "silence", "label": "Say nothing", "default": true }
+      ],
+      "source": "Diodorus 14.63.1, 14.77.4", "card": "docs/research/island-events.md",
+      "facts": [
+        { "text": "Himilcon took the suburb of Achradina and plundered the temples of Demeter and Kore.", "cite": "Diodorus 14.63.1", "quote": "he also plundered the temples of both Demeter and", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "Afterwards the Carthaginians believed the gods were fighting them and voted to propitiate them.", "cite": "Diodorus 14.77.4", "quote": "Consequently they voted by every means to propitiate the gods who had been sinned against", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger", "the choices", "all numbers"]
+    }
+  ]
+}

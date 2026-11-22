@@ -12,6 +12,10 @@ import {
   rankChange, roll, setOffice, setStatus, silver,
 } from "./ops.ts";
 import { startPlot } from "./ai.ts";
+import {
+  applyIslandEffect, castPart, castPlaces, checkIslandCond, describeIslandEffect, isPart, partName, scoreIslandEffect,
+} from "./island-events.ts";
+import type { CensusRole, IslandCond, PlaceCond, PunicRole } from "./island-events.ts";
 import type { EventInstance, EventsState, FactionId, GameState, Mod, OfficeId, Person } from "./types.ts";
 import { OFFICES } from "./types.ts";
 
@@ -31,6 +35,7 @@ export interface Cond {
   law?: string; noLaw?: string;
   done?: string[]; notDone?: string[]; // other events that have (or have not) happened
   any?: Cond[];
+  island?: IslandCond; // cities, armies and Carthage (island games only; see island-events.ts)
 }
 export interface RoleCond {
   id?: string | string[];
@@ -53,6 +58,9 @@ export interface RoleCond {
   kinOf?: string;
   real?: boolean;
   optional?: boolean;
+  // A part played by one of the generated cast or one of Carthage's named men (island games only).
+  census?: CensusRole["census"]; of?: string; n?: number;
+  punic?: PunicRole["punic"]; punicStatus?: string[];
 }
 export interface Effect { [k: string]: any }
 export interface RollDef {
@@ -72,11 +80,18 @@ export interface EventDef {
   weight?: number; once?: boolean; cooldown?: number; chained?: boolean;
   choices?: ChoiceDef[]; effects?: Effect[];
   source?: string; card?: string; facts?: any[]; invented?: string[]; note?: string;
+  scenario?: "island" | "citadel"; // only in that kind of game (the island events are all "island")
+  places?: Record<string, PlaceCond>; // towns the event is about, cast before the people
+  art?: string;
 }
 
 import eventsJson from "../../data/events.json" with { type: "json" };
-export const EVENTS = (eventsJson as any).events as EventDef[];
+import islandEventsJson from "../../data/island-events.json" with { type: "json" };
+export const COURT_EVENTS = (eventsJson as any).events as EventDef[];
+export const ISLAND_EVENTS = ((islandEventsJson as any).events as EventDef[]).map((e) => ({ ...e, scenario: "island" as const }));
+export const EVENTS = [...COURT_EVENTS, ...ISLAND_EVENTS];
 export const PACING = (eventsJson as any).pacing as { draws: number; secondChance: number; maxOpen: number; cooldown: number };
+export const ISLAND_PACING = (islandEventsJson as any).pacing as { draws: number; secondChance: number; maxOpen: number };
 export const eventById = (id: string) => EVENTS.find((e) => e.id === id);
 
 export function eventsState(s: GameState): EventsState {
@@ -118,6 +133,7 @@ export function checkCond(s: GameState, c: Cond | undefined): boolean {
   for (const id of c.done ?? []) if (fired[id] === undefined) return false;
   for (const id of c.notDone ?? []) if (fired[id] !== undefined) return false;
   if (c.any && !c.any.some((x) => checkCond(s, x))) return false;
+  if (c.island && !checkIslandCond(s, c.island)) return false;
   return true;
 }
 
@@ -161,8 +177,16 @@ export function fitsRole(s: GameState, p: Person, r: RoleCond, cast: Record<stri
 
 // Cast the roles in the order they are written. Returns null if a required part can't be filled.
 function castRoles(s: GameState, def: EventDef, given: Record<string, string> = {}): Record<string, string> | null {
-  const cast: Record<string, string> = {};
+  const places = castPlaces(s, def.places, given);
+  if (!places) return null;
+  const cast: Record<string, string> = { ...places };
   for (const [role, r] of Object.entries(def.roles ?? {})) {
+    if (r.census || r.punic) {
+      const id = given[role] && isPart(given[role]) ? given[role] : castPart(s, r as CensusRole | PunicRole, cast);
+      if (id) { cast[role] = id; continue; }
+      if (r.optional) continue;
+      return null;
+    }
     if (given[role]) {
       const p = s.people[given[role]];
       const without = Object.fromEntries(Object.entries(cast));
@@ -188,7 +212,7 @@ export function fill(s: GameState, text: string, cast: Record<string, string>): 
     const k = key.charAt(0).toLowerCase() + key.slice(1);
     const id = cast[k];
     if (!id) return m;
-    const n = nameOf(s, id);
+    const n = partName(s, id);
     return key[0] === key[0].toUpperCase() ? capital(n) : n;
   });
 }
@@ -258,9 +282,11 @@ const fname = (s: GameState, f: string) => (s.factions[f as FactionId]?.name ?? 
 // Plain words for each effect. Hidden effects (marked "hidden": true) are left out.
 export function describe(s: GameState, inst: EventInstance, effects: Effect[]): string[] {
   const out: string[] = [];
-  const who = (r: string) => (r === "you" ? "you" : capital(nameOf(s, inst.roles[r] ?? r)));
+  const who = (r: string) => (r === "you" ? "you" : capital(partName(s, inst.roles[r] ?? r)));
   for (const e of effects) {
     if (e.hidden) continue;
+    const isl = describeIslandEffect(s, inst.roles, e);
+    if (isl !== null) { out.push(isl); continue; }
     if (e.silver) out.push(`Silver ${sgn(e.silver)}`);
     else if (e.grain) out.push(`Grain ${sgn(e.grain)} months`);
     else if (e.land) out.push(`Land ${sgn(e.land)}`);
@@ -301,6 +327,8 @@ export function describe(s: GameState, inst: EventInstance, effects: Effect[]): 
 function eligible(s: GameState, def: EventDef): boolean {
   const ev = eventsState(s);
   if (def.chained) return false; // only fires when another event queues it
+  if (def.scenario === "island" && !s.island) return false;
+  if (def.scenario === "citadel" && s.island) return false;
   const last = ev.fired[def.id];
   if (last !== undefined && (def.once ?? def.kind === "history")) return false;
   if (last !== undefined && s.season - last < (def.cooldown ?? PACING.cooldown)) return false;
@@ -313,6 +341,7 @@ function fire(s: GameState, def: EventDef, cast: Record<string, string>, why: st
   ev.count += 1;
   s.counters.events = (s.counters.events ?? 0) + 1;
   if (def.kind === "history") s.counters.historyEvents = (s.counters.historyEvents ?? 0) + 1;
+  if (def.scenario === "island") s.counters.islandEvents = (s.counters.islandEvents ?? 0) + 1;
   const actor = Object.values(cast)[0] ?? "world";
   event(s, actor, fill(s, def.text, cast), fill(s, why, cast));
   // Effects on the event itself happen as it fires; choices come after.
@@ -333,10 +362,21 @@ export function drawEvents(s: GameState) {
     const cast = castRoles(s, def, q.roles);
     if (cast) fire(s, def, cast, def.why);
   }
-  let draws = PACING.draws + (nextRandom(s) < PACING.secondChance ? 1 : 0);
-  while (draws-- > 0 && ev.open.length < PACING.maxOpen) {
+  drawFrom(s, COURT_EVENTS, PACING.draws, PACING.secondChance, PACING.maxOpen);
+  // The island game draws again from the island's own events, so the court's intrigue is not crowded out.
+  if (s.island && !s.over) {
+    const islandOpen = () => ev.open.filter((o) => eventById(o.id)?.scenario === "island").length;
+    drawFrom(s, ISLAND_EVENTS, ISLAND_PACING.draws, ISLAND_PACING.secondChance, ISLAND_PACING.maxOpen, islandOpen);
+  }
+}
+
+function drawFrom(s: GameState, defs: EventDef[], baseDraws: number, second: number, maxOpen: number, openCount?: () => number) {
+  const ev = eventsState(s);
+  const opened = openCount ?? (() => ev.open.length);
+  let draws = baseDraws + (nextRandom(s) < second ? 1 : 0);
+  while (draws-- > 0 && opened() < maxOpen) {
     const pool: { def: EventDef; cast: Record<string, string> }[] = [];
-    for (const def of EVENTS) {
+    for (const def of defs) {
       if (!eligible(s, def) || ev.open.some((o) => o.id === def.id)) continue;
       const cast = castRoles(s, def);
       if (cast) pool.push({ def, cast });
@@ -407,6 +447,7 @@ export function apply(s: GameState, inst: EventInstance, effects: Effect[], why:
   for (const e of effects) {
     if (s.over) return;
     const reason = e.why ? fill(s, e.why, inst.roles) : why;
+    if (applyIslandEffect(s, inst.roles, e, reason)) continue;
     if (e.silver) silver(s, e.silver, reason);
     else if (e.grain) grain(s, e.grain, reason);
     else if (e.land) land(s, e.land, reason);
@@ -497,6 +538,7 @@ const VAL: Record<string, number> = { silver: 1, grain: 0.5, land: 1, clock: -1.
 function scoreEffects(s: GameState, inst: EventInstance, es: Effect[]): number {
   let v = 0;
   for (const e of es) {
+    v += scoreIslandEffect(s, inst.roles, e);
     for (const k of Object.keys(VAL)) if (typeof e[k] === "number") v += VAL[k] * e[k];
     if (e.mood) v += e.by * (s.factions[e.mood as FactionId].mood <= 1 ? 2 : 1.2);
     if (e.power) v += e.power === "family" ? e.by * 0.5 : -e.by * 0.3;
