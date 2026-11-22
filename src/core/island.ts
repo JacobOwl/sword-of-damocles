@@ -64,7 +64,8 @@ export function cityWalls(s: GameState, id: string): number {
 export function cityMen(s: GameState, id: string): number {
   const c = city(s, id);
   if (id !== "syracuse") return c.men;
-  const home = !yourArmy(s) || yourArmy(s)!.guard === 0;
+  const ya = yourArmy(s);
+  const home = !ya || ya.guard === 0 || ya.at === "syracuse";
   return c.men + (home && s.guard.arrearsSeasons === 0 ? s.guard.strength : 0);
 }
 export const cityGrain = (s: GameState, id: string) => (id === "syracuse" ? s.grain : city(s, id).grain);

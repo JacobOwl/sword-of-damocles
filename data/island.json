@@ -14,7 +14,7 @@
     "linesMax": 2,
     "assaultBase": 4,
     "wallWeight": 2,
-    "plagueMinMen": 10,
+    "plagueMinMen": 6,
     "plagueOn": 1,
     "plagueOnMarsh": 2,
     "battleDivisor": 2,

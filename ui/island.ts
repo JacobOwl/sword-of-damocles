@@ -41,8 +41,9 @@ function mapSvg(g: GameState): string {
       ? `<path d="M${x},${y - 8}L${x + 7},${y + 5}L${x - 7},${y + 5}Z" fill="${col}" class="mark"/>`
       : `<rect x="${x - 6}" y="${y - 6}" width="12" height="12" fill="${col}" class="mark"${cityWalls(g, n.id) ? "" : ` stroke-dasharray="2 2"`}/>`;
     const ring = sieged ? `<circle cx="${x}" cy="${y}" r="13" class="siege"/>` : "";
-    const below = n.lat > 37.9 ? -12 : 20;
-    return `<g>${ring}${shape}<text x="${x}" y="${y + below}" class="place">${esc(n.name)}${n.approx ? "?" : ""}</text></g>`;
+    const below = n.lat > 37.9 || n.id === "aetna" ? -12 : 20;
+    const dx = n.id === "aetna" ? -14 : n.id === "catana" ? 22 : 0;
+    return `<g>${ring}${shape}<text x="${x + dx}" y="${y + below}" class="place">${esc(n.name)}${n.approx ? "?" : ""}</text></g>`;
   }).join("");
   const armies = isl.armies.map((a, i) => {
     const n = at(a.at);
@@ -52,7 +53,7 @@ function mapSvg(g: GameState): string {
       <text x="${x + (a.side === "syracuse" ? 14 : -14)}" y="${y + 4}" class="men" text-anchor="${a.side === "syracuse" ? "start" : "end"}">${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k</text></g>`;
   }).join("");
   const cy = Y(37.2);
-  const toCarthage = `<g class="offmap"><path d="M${LEFT + 40},${cy} L8,${cy + 40}" class="sea"/><text x="6" y="${cy + 58}" class="place" text-anchor="start">To Carthage</text><text x="6" y="${cy + 74}" class="days" text-anchor="start">two days' sail</text></g>`;
+  const toCarthage = `<g class="offmap"><path d="M${LEFT + 40},${cy} L8,${cy + 40}" class="sea"/><text x="6" y="${cy + 58}" class="place" style="text-anchor:start">To Carthage</text><text x="6" y="${cy + 74}" class="days" style="text-anchor:start">two days' sail</text></g>`;
   return `<svg viewBox="0 0 ${W} ${H}" class="island-map" role="img" aria-label="Map of Sicily: ${NODES.map((n) => `${n.name}, ${sideName(isl.cities[n.id].side)}`).join("; ")}">
     <rect width="${W}" height="${H}" class="sea-bg"/>
     <g class="land">${coast}</g>${roads}${toCarthage}${marks}${armies}
@@ -62,7 +63,7 @@ function mapSvg(g: GameState): string {
 function armyLine(g: GameState, a: Army) {
   const where = a.siege ? `besieging ${nodeName(a.siege)}` : `at ${nodeName(a.at)}`;
   const food = a.food <= 0 ? `<span class="warn">no food left</span>` : `${a.food} ${a.food === 1 ? "season" : "seasons"} of food`;
-  const guard = a.side === "syracuse" && a.guard ? `; ${menWords(a.guard)} of them are your guard, away from your door` : "";
+  const guard = a.side === "syracuse" && a.guard ? `; ${menWords(a.guard)} of them are your guard${a.at === "syracuse" ? "" : ", away from your door"}` : "";
   return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, ${food}${guard}.</li>`;
 }
 
@@ -75,7 +76,7 @@ function cityRows(g: GameState) {
     const leanWord = n.id === "syracuse" ? "" : c.lean >= 2 ? "warm to you" : c.lean === 1 ? "leans your way" : c.lean === 0 ? "undecided" : c.lean === -1 ? "cool to you" : "hostile to you";
     const notes = [sieged ? `<span class="warn">besieged by ${esc(armyName(g, sieged))}</span>` : "", c.sacked ? "sacked, still in ruins" : "", c.fear ? "afraid of you" : ""].filter(Boolean).join("; ");
     return `<tr><th scope="row">${esc(n.name)}</th><td><span class="side" style="--c:${SIDE_COLOR[c.side]}">${esc(capital(sideName(c.side)))}</span></td>
-      <td>${w ? `walls ${w}` : "no walls"}</td><td>${cityGrain(g, n.id)} months</td><td>${menWords(cityMen(g, n.id))}</td><td>${esc(leanWord)}</td><td class="small">${notes || `<span class="muted">${esc(n.detail)}</span>`}</td></tr>`;
+      <td>${w ? `walls ${w}` : "no walls"}</td><td>${cityGrain(g, n.id)} months</td><td>${menWords(cityMen(g, n.id))}</td><td>${esc(leanWord)}</td><td class="small notes">${notes || `<span class="muted">${esc(n.detail)}</span>`}</td></tr>`;
   }).join("");
 }
 
@@ -100,7 +101,7 @@ function carthagePanel(g: GameState) {
     <h2>Carthage</h2>
     <p><span class="label">Its goal</span> <b>${esc(goal.name)}</b>. ${esc(goal.text)} <span class="small muted">Why: ${esc(c.goalWhy)}.</span></p>
     <p class="small">${g.island!.war ? `<span class="warn">At war with you since ${esc(seasonWord(g, g.island!.warSince))}.</span>` : "At peace with you."}
-      Anger toward Syracuse ${g.clock} of 10. Its treasury holds ${c.silver} silver; at home it has ${menWords(c.mercs)} of hired men and ${menWords(c.levy)} of Libyan levies; ${c.ships} squadrons of ships.
+      Anger toward Syracuse ${g.clock} of 10. Its treasury holds ${c.silver} silver; at home it has ${c.mercs ? `${menWords(c.mercs)} hired` : "no hired men"} and ${c.levy ? `${menWords(c.levy)} in Libyan levies` : "no Libyan levies"}; ${c.ships} squadrons of ships.
       ${c.offer >= g.season - 1 && g.island!.war ? "<b>Its envoys are in Syracuse with terms.</b>" : ""}</p>
     ${plague}${revolt}
     <h3>The council</h3><ul class="blocs">${blocs}</ul>
@@ -126,7 +127,7 @@ export function islandView(g: GameState): string {
       <h3>Armies</h3>${armies}
       ${abroad.length ? `<h3>This season abroad</h3><ul class="small">${abroad.map((e) => `<li>${linkNames(e.text)}${e.why ? ` <span class="muted">(${esc(e.why)})</span>` : ""}</li>`).join("")}</ul>` : ""}
       <h3>The cities</h3>
-      <div class="tablewrap"><table class="cities"><thead><tr><th>City</th><th>Side</th><th>Walls</th><th>Grain</th><th>Men</th><th>Toward you</th><th>Notes</th></tr></thead><tbody>${cityRows(g)}</tbody></table></div>
+      <div class="tablewrap"><table class="cities"><thead><tr><th>City</th><th>Side</th><th>Walls</th><th>Grain</th><th>Men</th><th>Toward you</th><th class="notes">Notes</th></tr></thead><tbody>${cityRows(g)}</tbody></table></div>
     </div>
     ${carthagePanel(g)}
   </div>`;

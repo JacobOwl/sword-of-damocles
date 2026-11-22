@@ -115,7 +115,7 @@ export const isPlayerTyranny = (s: GameState) => government(s) === "Tyranny (you
 
 export function guardDefends(s: GameState): boolean {
   const g = s.guard;
-  const away = s.island?.armies.some((a) => a.side === "syracuse" && a.guard > 0) ?? false; // the guard is in the field
+  const away = s.island?.armies.some((a) => a.side === "syracuse" && a.guard > 0 && a.at !== "syracuse") ?? false; // the guard is in the field
   return g.arrearsSeasons === 0 && s.factions.guard.mood > 1 && !g.refusing && !s.plots.some((p) => p.guardBacking) && !away;
 }
 

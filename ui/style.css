@@ -342,7 +342,8 @@ dialog.sheet::backdrop { background: rgba(43,29,18,.45); }
 
 /* The island (Phase 2): map, cities, Carthage. Map colours follow the Phoenician-Punic World maps. */
 .island { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 22px; margin-top: 14px; }
-@media (max-width: 900px) { .island { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .island { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 600px) { table.cities .notes { display: none; } }
 .mapfig { margin: 0; }
 .island-map { width: 100%; height: auto; display: block; border: 1px solid var(--rule); }
 .island-map .sea-bg { fill: #dfe5d8; }

@@ -10,6 +10,7 @@ import type { Args, FactionId, GameState, Input, Plot } from "../src/core/index.
 import { guide, guideDone, howToPlay, installTips, setGuideDone, tipAttr } from "./help.ts";
 import { court, flags, sheet } from "./people.ts";
 import { portrait } from "./portraits.ts";
+import { islandView } from "./island.ts";
 import { chronicleBook, lastSeasonSummary, seasonFeed } from "./story.ts";
 import { esc, linkNames, opChip, pr, sign, ui, who } from "./text.ts";
 import { showSeasonCard, swordOverhead } from "./ambient.ts";
@@ -24,9 +25,9 @@ const app = document.getElementById("app")!;
 function save() {
   const s = ui.s;
   if (!s) return;
-  try { localStorage.setItem(SAVE_KEY, JSON.stringify({ seed: s.seed, tuning: s.tuning, inputs: s.inputs, designer: ui.designer })); } catch { /* storage may be blocked */ }
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify({ seed: s.seed, tuning: s.tuning, scenario: s.scenario ?? "citadel", inputs: s.inputs, designer: ui.designer })); } catch { /* storage may be blocked */ }
 }
-function load(): { seed: number; tuning?: string; inputs: Input[]; designer?: boolean } | null {
+function load(): { seed: number; tuning?: string; scenario?: "citadel" | "island"; inputs: Input[]; designer?: boolean } | null {
   try { const v = localStorage.getItem(SAVE_KEY); return v ? JSON.parse(v) : null; } catch { return null; }
 }
 function clearSave() { try { localStorage.removeItem(SAVE_KEY); } catch { /* ignore */ } }
@@ -42,6 +43,8 @@ function splash() {
       <div class="begin-options">
         <label for="tuning" class="label">Balance</label>
         <select id="tuning">${PACKAGES.map((p) => `<option value="${esc(p.id)}"${p.id === DEFAULT_TUNING ? " selected" : ""}>${esc(p.name)}</option>`).join("")}</select>
+        <label for="scenario" class="label">Game</label>
+        <select id="scenario"><option value="island" selected>The island: Syracuse, Sicily and Carthage (Phase 2)</option><option value="citadel">The citadel: Syracuse alone (Phase 1)</option></select>
       </div>
       <p class="small note" id="tuning-note">${esc(PACKAGES.find((p) => p.id === DEFAULT_TUNING)?.summary)}</p>
       <div class="begin-options">
@@ -52,27 +55,29 @@ function splash() {
         <label for="seed" class="small">The same seed and the same choices always give the same history.</label>
         <input id="seed" type="number" value="${seed}" style="width:9em">
       </details>
-      <p class="small muted note">Phase 1 prototype, rules v2. The people and the situation come from Diodorus, Plutarch and others; each real person's sheet quotes the passages. Everything else, including every rule, number and picture, is invention.</p>
+      <p class="small muted note">Prototype: Phase 2, the island, built on rules v2. The people and the situation come from Diodorus, Plutarch and others; each real person's sheet quotes the passages. Everything else, including every rule, number and picture, is invention.</p>
     </div>`;
   app.innerHTML = titlePage(begin, intro);
   document.getElementById("new")!.onclick = () => {
     const v = Number((document.getElementById("seed") as HTMLInputElement).value) || seed;
-    ui.s = startGame(v, (document.getElementById("tuning") as HTMLSelectElement).value); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render(); showSeasonCard(ui.s);
+    const scenario = (document.getElementById("scenario") as HTMLSelectElement).value === "citadel" ? "citadel" : "island";
+    ui.s = startGame(v, (document.getElementById("tuning") as HTMLSelectElement).value, { scenario }); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render(); showSeasonCard(ui.s);
   };
   const sel = document.getElementById("tuning") as HTMLSelectElement;
   sel.onchange = () => { document.getElementById("tuning-note")!.textContent = PACKAGES.find((p) => p.id === sel.value)?.summary ?? ""; };
   const r = document.getElementById("resume");
-  if (r && saved) r.onclick = () => { ui.s = replay(saved.seed, saved.inputs, PACKAGES.some((p) => p.id === saved.tuning) ? saved.tuning : DEFAULT_TUNING); ui.designer = !!saved.designer; render(); };
+  if (r && saved) r.onclick = () => { ui.s = replay(saved.seed, saved.inputs, PACKAGES.some((p) => p.id === saved.tuning) ? saved.tuning : DEFAULT_TUNING, { scenario: saved.scenario === "island" ? "island" : "citadel" }); ui.designer = !!saved.designer; render(); };
 }
 
 // ---------- Main screen ----------
 function render() {
   const g = ui.s;
   if (!g) return splash();
-  const views: [typeof ui.view, string][] = [["play", "The season"], ["court", "The court"], ["chronicle", "The chronicle"], ["help", "How to play"]];
+  const views: [typeof ui.view, string][] = [["play", "The season"], ...(g.island ? [["island", "The island"] as [typeof ui.view, string]] : []), ["court", "The court"], ["chronicle", "The chronicle"], ["help", "How to play"]];
   let body = "";
   if (ui.view === "play") body = play(g);
   else if (ui.view === "court") body = court(g);
+  else if (ui.view === "island" && g.island) body = islandView(g);
   else if (ui.view === "chronicle") body = chronicleBook(g);
   else body = howToPlay();
   app.innerHTML = `
@@ -125,7 +130,7 @@ function ledger(g: GameState) {
   return `<div class="ledger">
     <div>${L("silver", "Silver")}<span class="v">${g.silver} <small>talents</small></span></div>
     <div>${L("grain", "Grain")}<span class="v ${g.grain < 3 ? "warn" : ""}">${g.grain} <small>months</small></span></div>
-    <div>${L("carthage", "Carthage")}<span class="clock">${Array.from({ length: 10 }, (_, i) => `<i class="${i < g.clock ? "on" : ""}"></i>`).join("")}</span><span class="small muted">${g.clock} of 10</span></div>
+    <div>${g.island ? L("anger", "Carthage's anger") : L("carthage", "Carthage")}<span class="clock">${Array.from({ length: 10 }, (_, i) => `<i class="${i < g.clock ? "on" : ""}"></i>`).join("")}</span><span class="small muted">${g.clock} of 10</span></div>
     <div>${L("land", "Land to give")}<span class="v">${g.land}</span></div>
     <div>${L("guard", "The guard")}<span class="v">${g.guard.strength} <small>strong, ${guardPay}</small></span></div>
     <div>${L("defense", "Your defense")}<span class="v">${d.total}</span><span class="small muted">${esc(d.parts.map((p) => `${p.value} ${p.label}`).join(" + "))}</span></div>
