@@ -195,6 +195,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 ## 2026-11-22 (Punic women's names in the generated cast, thread 13)
 - **Nine Carthaginian and Phoenician women's names join `data/names.json`**, from the source-search thread's card (`docs/research/punic-womens-names.md`). The game writes the scholars' forms plainly (Am-'ashtart as Amashtart, and so on); those spellings are invention and the records keep the scholars' form. Why: until now the saved texts gave no Carthaginian woman's name, so 60% of Carthaginian women were unnamed and the rest all Amoashtart.
 - **Unnamed Carthaginian women drop from 60% to 35%** (`naming.unnamedWomen.punic`). Invention, Jacob's to change.
+
 ## 2026-11-22 (art thread 12: the last three Diodorus years)
 
 - **Done:** `data/calendar.json` now names 401 (Exaenetus, 14.19.1), 400 (Laches, with the Ninety-fifth Olympiad, 14.35.1) and 399 (Aristocrates, 14.38.1), quoted from the excerpts the source-search thread saved (`sources/diodorus/book14-19-40.loeb.excerpts.txt`). Every year of the decade now has its Diodorus line. `docs/research/calendar.md` updated. Checks: 68 tests pass; 100 seeds in both scenarios, 0 crashes, 0 broken states; 257 quotes checked, 0 not found.
