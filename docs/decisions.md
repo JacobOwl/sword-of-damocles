@@ -80,6 +80,16 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Recommendation, not a decision:** playtest Reap what you sow first. Jacob decides.
 - **Not tuned to history.** Targets were about play: careless should lose, careful should usually but not always win, each style should have its own typical ending, and a blow should come after warnings.
 
+## 2026-11-22 (events, thread 06)
+
+- **Events are in Phase 1** (Jacob chose this on 2026-11-22). `scope.md` now lists them. Why: the Phase 1 test is whether a decade makes a story worth retelling, and events give the people and the city things to happen to them.
+- **Events are data, never code.** Each event in `data/events.json` has a trigger built from game state, the people it needs (by id or by description), text, and two to five defined choices with set effects, costs and, for some, a roll with every modifier shown first. `src/core/events.ts` only reads them. Why: CLAUDE.md rule, and Jacob wants defined CK3-style choices, not improvisation.
+- **Events fire at the end of the people step**, at most one a season plus a 35% chance of a second, and no more than three waiting at once. Answering costs no action unless the choice says so. Unanswered events take a choice marked as the default when the season ends. All of this is invention and Jacob's to change (`pacing` in the data file).
+- **What Dionysius really did is one choice among several, never forced.** It is marked `history: true` in the data, and sometimes now decided by a roll. Why: tuning to history scripts the history (CLAUDE.md).
+- **Follow-ups chain** (a flight leads to Theste's answer, the weddings to a son and then to the charge against the Locrian mother, Theodorus' speech to a promise that comes due).
+- **52 events: 33 from the sources, 19 invented.** Every sourced event quotes the saved text it comes from (54 quotes, all found by `scripts/verify-cast-quotes.mjs`) and lists what is invented. Card: `docs/research/events-405-395.md`.
+- **Damocles is not used yet**: the passage (Cicero, *Tusculan Disputations* 5.61 to 5.62) is not saved and modern pages disagree which Dionysius it belongs to. Request in `later.md`.
+
 ## 2026-11-22 (placeholder portraits)
 
 - **Mosaic portraits are in Phase 1 as placeholders** (Jacob, on a decision card). `scope.md` now lists them as In; real coin photographs stay parked for Phase 4. Why: faces on the character sheets and court cards make plots and rivals easier to follow in playtests, and the change is UI only.

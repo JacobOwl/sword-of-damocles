@@ -20,7 +20,9 @@ test("the standard package plays exactly as rules v2 did before packages existed
   }
   assert.equal(h.digest("hex").slice(0, 16), STANDARD_DIGEST);
 });
-const STANDARD_DIGEST = "6f4d7392e5e4631f";
+// Re-pinned 2026-11-22 when events joined the season (thread 06). With the event draw switched off,
+// the old digest "6f4d7392e5e4631f" still matched, so events were the only change.
+const STANDARD_DIGEST = "825ddae722aa16c6";
 
 test("every package only names knobs that exist", () => {
   const known = Object.keys(knobsFor("standard"));
