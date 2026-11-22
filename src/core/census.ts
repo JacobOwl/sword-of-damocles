@@ -234,10 +234,14 @@ export function lookOf(c: Census, id: string, season: number) {
   const style = p.sex === "m" && band === "young" && (g.style === "bald" || g.style === "receding") ? "curls" : g.style;
   const beard = p.sex === "m" && age < 18 ? "none" : g.beard;
   const body = CENSUS_DATA.bodies.find((b) => b.id === p.body);
-  const faction = body?.tie.kind === "faction" ? body.tie.id : "outside";
+  const faction = body?.tie.kind === "faction" ? body.tie.id : p.side === "syracuse" ? "guard" : "outside";
+  // The coin's colours (invention): Syracuse's houses take their faction's coin; the other Greek towns bronze;
+  // Carthage, its towns and its captains Punic purple; Syracuse's captains the guard's teal.
+  const punic = p.place === "carthage" || p.place === "motya" || p.place === "panormus" || p.side === "carthage";
+  const coin = body?.tie.kind === "faction" || p.side === "syracuse" ? {} : punic ? { field: "punic", ring: "gold", clothes: "cream" } : { field: "b2", ring: "b3", clothes: "sand" };
   return {
     id, name: censusName(c, id), faction, sex: p.sex, age: band, facing: "left", skin: g.skin, hairCol, hair: style, beard,
-    head: g.head, nose: g.nose, jaw: g.jaw, faceSeed: g.faceSeed, kind: "invention",
+    head: g.head, nose: g.nose, jaw: g.jaw, faceSeed: g.faceSeed, ...coin, kind: "invention",
   };
 }
 

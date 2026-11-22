@@ -180,3 +180,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Every island game has a census, drawn from the game's one random stream at the start and stepped in the world step.** Why: one stream keeps replays exact; island games only, so the citadel scenario is untouched. Thread 10 agreed (its island tests replay rather than pin a digest).
 - **The feed shows what changes who leads** (a head of a house or a captain dies, an heir takes over, a house ends) and keeps births, marriages and comings of age in the designer view. Why: about 40 births a decade would bury the season feed. Jacob's to change.
 - **The census joins the broken-state check** of the 100-seed run.
+
+## 2026-11-22 (the generated cast, slice 3: faces and a page, thread 13)
+- **Generated people get mosaic portraits drawn in the browser by the editor's own code**, copied by `scripts/build-mosaic-runtime.mjs` into `ui/mosaic-runtime.ts`. Why: the people differ every game, so the faces can't be pre-made files; copying the editor's code keeps one source for the art style (thread 12's), instead of a second drawing of faces.
+- **A view "The families" lists the invented cast in island games.** Why: 165 people need a place to be seen before thread 10 shows them on the map and in Carthage's council. Jacob's to keep or fold away.
