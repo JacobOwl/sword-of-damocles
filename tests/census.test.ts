@@ -120,3 +120,16 @@ test("in a game: island games have the census, citadel games do not, and island 
   assert.ok(lines.length > 0, "the feed shows some deaths and heirs");
   for (const e of lines) assert.doesNotMatch(e.text + (e.why ?? ""), /\b[ch]\d+\b|undefined|NaN/);
 });
+
+test("the families view renders for island games with no code ids or broken values", async () => {
+  const { familiesView } = await import("../ui/census.ts");
+  const { ui } = await import("../ui/text.ts");
+  for (const seed of [1, 2, 3, 4, 5]) {
+    const s = runBotGame(seed, { scenario: "island", bot: "careful" });
+    ui.s = s;
+    const text = familiesView(s).replace(/<[^>]*>/g, " ");
+    assert.doesNotMatch(text, /\b[ch]\d+\b|\bundefined\b|\bNaN\b|\[object|\bnull\b/, `seed ${seed}`);
+    assert.match(text, /Captains hired by Carthage/);
+    assert.equal(familiesView(runBotGame(seed)), "", "no census in a citadel game");
+  }
+});

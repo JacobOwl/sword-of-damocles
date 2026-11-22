@@ -363,3 +363,6 @@ table.cities thead th { font-family: var(--display); font-weight: 400; color: va
 .carthage ul.blocs { list-style: none; padding: 0; margin: 4px 0 8px; }
 .carthage ul.blocs li { margin-bottom: 6px; }
 .carthage h3 { margin-top: 10px; }
+
+/* The island's invented families (ui/census.ts) */
+.census .census-card { cursor: default; }

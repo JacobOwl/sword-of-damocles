@@ -11,6 +11,7 @@ import { guide, guideDone, howToPlay, installTips, setGuideDone, tipAttr } from 
 import { court, flags, sheet } from "./people.ts";
 import { portrait } from "./portraits.ts";
 import { islandView } from "./island.ts";
+import { familiesView, paintCensusFaces } from "./census.ts";
 import { chronicleBook, lastSeasonSummary, seasonFeed } from "./story.ts";
 import { esc, linkNames, opChip, pr, sign, ui, who } from "./text.ts";
 import { showSeasonCard, swordOverhead } from "./ambient.ts";
@@ -80,11 +81,12 @@ let endedSound = false;
 function render() {
   const g = ui.s;
   if (!g) return splash();
-  const views: [typeof ui.view, string][] = [["play", "The season"], ...(g.island ? [["island", "The island"] as [typeof ui.view, string]] : []), ["court", "The court"], ["chronicle", "The chronicle"], ["help", "How to play"]];
+  const views: [typeof ui.view, string][] = [["play", "The season"], ...(g.island ? [["island", "The island"] as [typeof ui.view, string]] : []), ["court", "The court"], ...(g.census ? [["families", "The families"] as [typeof ui.view, string]] : []), ["chronicle", "The chronicle"], ["help", "How to play"]];
   let body = "";
   if (ui.view === "play") body = play(g);
   else if (ui.view === "court") body = court(g);
   else if (ui.view === "island" && g.island) body = islandView(g);
+  else if (ui.view === "families" && g.census) body = familiesView(g);
   else if (ui.view === "chronicle") body = chronicleBook(g);
   else body = howToPlay();
   app.innerHTML = `
@@ -99,6 +101,7 @@ function render() {
       <button id="restart">New game</button>
     </div>`;
   wire(g);
+  paintCensusFaces(g); // the invented families' portraits, laid in tiles while the page is idle
   sound.update(g);
   if (g.over && !endedSound) { endedSound = true; sound.ending(g.over.reason); }
   ui.lastSeen = g.log.length;
