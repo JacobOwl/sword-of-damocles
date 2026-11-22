@@ -1,0 +1,28 @@
+# Cicero, Tusculan Disputations 5.61, the story of Damocles: EXCERPTS ONLY, for citation.
+# Translation: Gavin Betts, on Livius.org, https://www.livius.org/sources/content/cicero/tusculan-deputations/damocles/ . The page says "This translation of Cicero's Tusculan disputations 5.61 was made by Gavin Betts." and "All content copyright © 1995–2026 Livius.org. All rights reserved." So this is NOT public domain: only short quotes are kept here, as citations. Read 2026-11-22 through the cloud's web-reading tool (short exact quotes only).
+# Not reached: the public-domain Yonge translation (Project Gutenberg 14988 and Standard Ebooks refused the reader; the archive.org scan stops in Book II), and the Latin (Latin Library refused earlier; Latin Wikisource page not found). So 5.57 (which Dionysius) and 5.62 to 5.63 (Cicero's moral) are not saved.
+# Format: section<TAB>exact words. Lines marked [page] are the Livius editor's words, not Cicero's.
+[page]	the tyrant Dionysius II of Syracuse
+[page]	the History of Timaeus of Tauromenium
+[page]	the real point of the story is that happiness is fragile
+5.61	one of his flatterers, Damocles, mentioned in conversation the wealth of Dionysius
+5.61	denied that there had ever been anyone more fortunate
+5.61	do you wish to taste it yourself and make trial of my fortune?
+5.61	on a golden couch covered with a most beautiful woven rug
+5.61	chosen boys of outstanding beauty should stand by his table
+5.61	for a sign from Damocles
+5.61	tables were piled up with the most select foods
+5.61	Damocles seemed to himself fortunate.
+5.61	a shining sword, fastened from the ceiling by a horse-hair
+5.61	the neck of that fortunate man.
+5.61	looked neither at those handsome waiters
+5.61	did he stretch his hand to the table.
+5.61	Now the very wreaths slipped off.
+5.61	he begged the tyrant that he should be allowed to depart because he no longer wanted to be fortunate.
+
+# Wikipedia, "Sword of Damocles" (https://en.wikipedia.org/wiki/Damocles redirects there), CC BY-SA 4.0, read 2026-11-22. Short quotes:
+[wikipedia]	Its main character, Damocles, was based on a courtier in the court of Dionysius I of Syracuse, a ruler of Syracuse, Sicily
+[wikipedia]	The anecdote apparently figured in the lost history of Sicily by Timaeus of Tauromenium (c. 356 – c. 260 BC).
+[wikipedia]	Cicero states, 'Doesn't Dionysius seem to have made it plenty clear that nothing is happy for him over whom terror always looms?'
+[wikipedia]	Cicero's meaning in the story of the Sword of Damocles has alternative interpretations.
+[wikipedia]	Cicero used this story as the last in a series of contrasting examples for concluding his fifth Disputation
