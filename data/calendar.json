@@ -1,5 +1,5 @@
 {
-  "note": "How Diodorus names each year of the game: by the archon at Athens, and the Olympiad when one was celebrated. 'year' is the BC year in which the game's year begins (autumn 405 is year 405). Diodorus' years run from midsummer and the game's from autumn, and Diodorus sometimes puts Sicilian events in the wrong year, so read each as 'about'. The chronicle shows these lines; they change nothing in play. Years 401, 400 and 399 are missing because Diodorus 14.19 to 14.40 is not among the saved texts (see docs/later.md).",
+  "note": "How Diodorus names each year of the game: by the archon at Athens, and the Olympiad when one was celebrated. 'year' is the BC year in which the game's year begins (autumn 405 is year 405). Diodorus' years run from midsummer and the game's from autumn, and Diodorus sometimes puts Sicilian events in the wrong year, so read each as 'about'. The chronicle shows these lines; they change nothing in play. Years 401 to 399 are quoted from the LacusCurtius Loeb excerpts saved in this repo (docs/research/diodorus-401-399.md).",
   "years": [
     {
       "id": "year405",
@@ -44,6 +44,39 @@
       "quote": "At the close of the year Micion was archon in Athens",
       "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt",
       "card": "docs/research/calendar.md"
+    },
+    {
+      "id": "year401",
+      "kind": "history",
+      "name": "Exaenetus's archonship",
+      "year": 401,
+      "text": "the year Exaenetus was archon at Athens",
+      "source": "Diodorus 14.19.1",
+      "quote": "At the close of the year Exaenetus was archon in Athens",
+      "file": "sources/diodorus/book14-19-40.loeb.excerpts.txt",
+      "card": "docs/research/diodorus-401-399.md"
+    },
+    {
+      "id": "year400",
+      "kind": "history",
+      "name": "Laches's archonship",
+      "year": 400,
+      "text": "the year Laches was archon at Athens, and the Ninety-fifth Olympiad was held",
+      "source": "Diodorus 14.35.1",
+      "quote": "At the close of this year, in Athens Laches was archon",
+      "file": "sources/diodorus/book14-19-40.loeb.excerpts.txt",
+      "card": "docs/research/diodorus-401-399.md"
+    },
+    {
+      "id": "year399",
+      "kind": "history",
+      "name": "Aristocrates's archonship",
+      "year": 399,
+      "text": "the year Aristocrates was archon at Athens",
+      "source": "Diodorus 14.38.1",
+      "quote": "At the end of the year in Athens Aristocrates entered the office of archon",
+      "file": "sources/diodorus/book14-19-40.loeb.excerpts.txt",
+      "card": "docs/research/diodorus-401-399.md"
     },
     {
       "id": "year398",

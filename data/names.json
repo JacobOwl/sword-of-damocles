@@ -1744,6 +1744,163 @@
     }
    ],
    "note": "Not Carthaginian and not from an ancient author: a modern page on Phoenician inscriptions from Sidon."
+  },
+  {
+   "id": "sophoniba",
+   "name": "Sophoniba",
+   "kind": "history",
+   "group": "punic",
+   "sex": "f",
+   "who": "wife of Syphax, daughter of Hasdrubal the Carthaginian",
+   "source": "Livy 30.12.8",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Sophoniba: wife of Syphax, daughter of Hasdrubal the Carthaginian.",
+     "cite": "Livy 30.12.8",
+     "quote": "Sophoniba, the wife of Syphax, daughter of Hasdrubal the Carthaginian",
+     "file": "sources/livy/numidia-30-45-selected.txt"
+    }
+   ]
+  },
+  {
+   "id": "amashtart",
+   "name": "Amashtart",
+   "kind": "history",
+   "group": "punic",
+   "sex": "f",
+   "who": "a woman named on a curse tablet from Carthage",
+   "source": "Cooke 1903, no. 50",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Am-'ashtart: a woman named on a curse tablet from Carthage.",
+     "cite": "Cooke 1903, no. 50",
+     "quote": "bind Am-'ashtart",
+     "file": "sources/religion/cooke-1903-carthage-and-north-africa.txt"
+    }
+   ],
+   "spelled": "Am-'ashtart",
+   "note": "Carthage, 3rd to 2nd century BC (Cooke). The game writes it Amashtart, a plain spelling of the scholars' Am-'ashtart (invention)."
+  },
+  {
+   "id": "sibbolet",
+   "name": "Sibbolet",
+   "kind": "history",
+   "group": "punic",
+   "sex": "f",
+   "who": "a businesswoman of Carthage, on her gravestone",
+   "source": "KAI 92 (CIS I 5948)",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "ŠBLT (Sibbolet): a businesswoman of Carthage, on her gravestone.",
+     "cite": "KAI 92 (CIS I 5948)",
+     "quote": "Grave of ŠBLT (Sibbolet), businesswoman of the City",
+     "file": "sources/inscriptions/sibbolet-kai92.excerpts.txt"
+    }
+   ],
+   "spelled": "ŠBLT (Sibbolet)",
+   "note": "Carthage, undated. The game writes it Sibbolet, a plain spelling of the scholars' ŠBLT (Sibbolet) (invention)."
+  },
+  {
+   "id": "ahatmilkat",
+   "name": "Ahatmilkat",
+   "kind": "history",
+   "group": "punic",
+   "sex": "f",
+   "who": "daughter of Bo'-melqarth, on her gravestone at Maktar",
+   "source": "Cooke 1903, no. 54",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Ahath-milkath: daughter of Bo'-melqarth, on her gravestone at Maktar.",
+     "cite": "Cooke 1903, no. 54",
+     "quote": "This stone is set up to Ahath-milkath, daughter of Bo'-",
+     "file": "sources/religion/cooke-1903-neopunic-incl-sulci.txt"
+    }
+   ],
+   "spelled": "Ahath-milkath",
+   "note": "Neo-Punic script, North Africa, later than the game's decade. The game writes it Ahatmilkat, a plain spelling of the scholars' Ahath-milkath (invention)."
+  },
+  {
+   "id": "rosh",
+   "name": "Rosh",
+   "kind": "history",
+   "group": "punic",
+   "sex": "f",
+   "who": "daughter of 'Abd-eshmun, who set up a pillar to her mother at Jol",
+   "source": "Cooke 1903, no. 68",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Rosh: daughter of 'Abd-eshmun, who set up a pillar to her mother at Jol.",
+     "cite": "Cooke 1903, no. 68",
+     "quote": "up by Rosh, daughter",
+     "file": "sources/religion/cooke-1903-neopunic-incl-sulci.txt"
+    }
+   ],
+   "note": "Neo-Punic script, North Africa, later than the game's decade."
+  },
+  {
+   "id": "amatashtart",
+   "name": "Amatashtart",
+   "kind": "history",
+   "group": "punic",
+   "sex": "f",
+   "who": "a wife at Kition in Cyprus",
+   "source": "Cooke 1903, no. 16 (CIS I 46)",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Amath-'ashtart: a wife at Kition in Cyprus.",
+     "cite": "Cooke 1903, no. 16 (CIS I 46)",
+     "quote": "to my wife, Amath-'ashtart, daughter of",
+     "file": "sources/religion/cooke-1903-cyprus.txt"
+    }
+   ],
+   "spelled": "Amath-'ashtart",
+   "note": "The Phoenician East (Kition, Cyprus), 4th to 3rd century BC. The game writes it Amatashtart, a plain spelling of the scholars' Amath-'ashtart (invention)."
+  },
+  {
+   "id": "amatosir",
+   "name": "Amatosir",
+   "kind": "history",
+   "group": "punic",
+   "sex": "f",
+   "who": "a basket-bearer of Queen Arsinoe at Idalion",
+   "source": "Cooke 1903, no. 27 (CIS I 93)",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Amath-osir: a basket-bearer of Queen Arsinoe at Idalion.",
+     "cite": "Cooke 1903, no. 27 (CIS I 93)",
+     "quote": "Amath-osir, daughter of Mk",
+     "file": "sources/religion/cooke-1903-cyprus.txt"
+    }
+   ],
+   "spelled": "Amath-osir",
+   "note": "The Phoenician East (Idalion, Cyprus), 254 BC. The game writes it Amatosir, a plain spelling of the scholars' Amath-osir (invention)."
+  },
+  {
+   "id": "batshalom",
+   "name": "Batshalom",
+   "kind": "history",
+   "group": "punic",
+   "sex": "f",
+   "who": "daughter of Mar-yehai, at Idalion",
+   "source": "Cooke 1903, no. 27 (CIS I 93)",
+   "card": "docs/research/names.md",
+   "facts": [
+    {
+     "text": "Bath-shalom: daughter of Mar-yehai, at Idalion.",
+     "cite": "Cooke 1903, no. 27 (CIS I 93)",
+     "quote": "Bath-shalom, daughter of Mar-yehai",
+     "file": "sources/religion/cooke-1903-cyprus.txt"
+    }
+   ],
+   "spelled": "Bath-shalom",
+   "note": "The Phoenician East (Idalion, Cyprus), 254 BC. The game writes it Batshalom, a plain spelling of the scholars' Bath-shalom (invention)."
   }
  ]
 }
