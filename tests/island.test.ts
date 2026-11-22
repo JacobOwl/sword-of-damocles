@@ -65,3 +65,82 @@ test("no code ids or broken values in the island log or the island view", () => 
     for (const id of ids) assert.ok(!new RegExp(`\\b${id}\\b`).test(html), `seed ${seed}: id ${id} in the island view`);
   }
 });
+
+// ---------- Slice 2: cities that change sides, and armies that break ----------
+import { goOverMods, surrenderMods, arrive, battle, islandWorld } from "../src/core/island.ts";
+import type { Army, GameState } from "../src/core/types.ts";
+
+function withArmy(s: GameState, side: Army["side"], at: string, men: number, extra: Partial<Army> = {}): Army {
+  const a: Army = { id: `t${side}`, side, at, men, food: 2, commander: side === "carthage" ? "himilcon" : "dionysius", guard: 0, guardStart: 0, since: -1, moved: -1, siegeSince: -1, onTake: "spare", ...extra };
+  s.island!.armies.push(a);
+  return a;
+}
+
+test("a town near a great army may go over; Carthage's own towns never do, and a near enemy army holds it back", () => {
+  const s = startGame(7, undefined, { scenario: "island" });
+  withArmy(s, "syracuse", "leontini", 8);
+  const m = goOverMods(s, "catana", "syracuse")!;
+  assert.ok(m, "Catana is near Leontini, so it should weigh going over");
+  assert.ok(m.some((x) => x.label.startsWith("awed by the size")));
+  assert.equal(goOverMods(s, "syracuse", "syracuse"), null);
+  for (const n of NODES) if (s.island!.cities[n.id].side === "carthage") assert.equal(goOverMods(s, n.id, "syracuse"), null, `${n.id} is Carthage's own`);
+  // Carthage pulls only in war.
+  withArmy(s, "carthage", "catana", 6);
+  assert.equal(goOverMods(s, "leontini", "carthage"), null);
+  const before = goOverMods(s, "messana", "syracuse");
+  if (before) assert.ok(before.some((x) => x.value === -2), "Carthage's army near should weigh against you");
+});
+
+test("a town that fears you may give in without a siege (Leontini after Naxos and Catana)", () => {
+  let gave = 0, shut = 0;
+  for (let seed = 1; seed <= 40; seed++) {
+    const s = startGame(seed, undefined, { scenario: "island" });
+    s.island!.sacks = ["catana"];
+    const c = s.island!.cities.leontini;
+    c.side = "free"; c.fear = 3;
+    const a = withArmy(s, "syracuse", "leontini", 8);
+    assert.ok(surrenderMods(s, a)[0].label.includes("Catana"));
+    arrive(s, a);
+    if (s.island!.cities.leontini.side === "syracuse") gave++; else { shut++; assert.equal(a.siege, "leontini"); }
+  }
+  assert.ok(gave > 0 && shut > 0, `gave ${gave}, shut ${shut}`);
+  // With no fear there is no roll.
+  const s = startGame(1, undefined, { scenario: "island" });
+  s.island!.cities.leontini.side = "free"; s.island!.cities.leontini.fear = 0;
+  const a = withArmy(s, "syracuse", "leontini", 8);
+  arrive(s, a);
+  assert.ok(!s.log.some((e) => e.text.includes("weighs giving in")));
+});
+
+test("fear fades by one each summer", () => {
+  const s = startGame(1, undefined, { scenario: "island" });
+  s.island!.cities.gela.fear = 2;
+  while (s.season % 4 !== 3) s.season++;
+  islandWorld(s);
+  assert.equal(s.island!.cities.gela.fear, 1);
+});
+
+test("switch armiesBreak: a starving beaten army scatters; without it, it falls back", () => {
+  for (const sw of [true, false]) {
+    let broke = 0;
+    for (let seed = 1; seed <= 30; seed++) {
+      const s = startGame(seed, undefined, { scenario: "island", ...(sw ? { switches: ["armiesBreak"] } : {}) });
+      s.island!.war = true;
+      const you = withArmy(s, "syracuse", "gela", 12);
+      const ca = withArmy(s, "carthage", "gela", 2, { food: 0 });
+      battle(s, ca, you);
+      if (!s.island!.armies.includes(ca)) broke++;
+    }
+    if (sw) assert.ok(broke > 15, `with the switch, only ${broke} of 30 broke`);
+    else assert.ok(broke < 5, `without the switch, ${broke} of 30 were destroyed`);
+  }
+});
+
+test("island games with the armiesBreak switch replay and never break state", () => {
+  for (const seed of [2, 9, 21]) {
+    const a = runBotGame(seed, { scenario: "island", bot: "careful", switches: ["armiesBreak"] });
+    const b = replay(seed, a.inputs, a.tuning, { scenario: "island", switches: ["armiesBreak"] });
+    assert.equal(JSON.stringify(b.log), JSON.stringify(a.log));
+    assert.deepEqual(brokenState(a), []);
+  }
+});

@@ -56,6 +56,20 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Ideas ranked by the council:** "mark this moment" button and a story sweep (tied first), an ambition chosen at the start, dice streams, playing on as an exile, disputed numbers. Parked in `later.md`.
 - **Carthage's blocs:** keep the Elders and the Hundred as tagged invention from later sources, or use the council's general, council mood and two rival houses? (V7)
 
+## Built by the Phase 2 thread (10, 2026-11-22): the island, slice 2 (towns that change sides)
+- **Towns go over to a great army** (`goOverMods` and `goingOver` in `src/core/island.ts`): each season, a free or tribute town within 6 days of your army, or (in war) a free town, ally or town you took near Carthage's army, rolls d6 plus its lean, fear, "awed by the size" (6+ points), "the strongest on the island", minus 2 if the other army is near and 1 for strong walls; 7 or more and it goes over. Carthage's own towns never do (14.48.1). The roll and every modifier are in the log; the city table shows "may go over to you (2 in 6 next season)".
+- **Fear after a sack** (`surrenderMods`): when your army reaches a town that fears you, it rolls to open its gates before a siege, naming the last town you sacked ("they remember the sack of Catana"). Fear fades a step each summer.
+- **Switch "Beaten armies can break"** (`data/switches.json`, off): a beaten army with no food, or beaten twice within a year, scatters. With it on (careful bot, 100 seeds) Carthage loses 0.25 armies a game, 0.21 of them broken; without it, 0.
+- **The bots** no longer march into Carthage's army unless their battle numbers are better by 1; the iron hand sacks Carthage's towns and towns that lean against it.
+- The old war rule (every town leaning against you went over at once when Carthage's army outnumbered yours) is gone.
+- `tests/island.test.ts`: five new tests (going over, fear surrender, fear fading, the switch, replay with the switch).
+- Checks: 57 of 57 tests pass. Citadel 100 seeds unchanged (10.8 seasons; killed 27, deposed 41, exiled 32; tyrannies 13). Island, 100 seeds for each of the five players: 0 crashes, 0 broken states. Careful bot: wars 0.86, battles 0.33 (won 0.06, lost 0.22), cities taken 1.31, towns going over to you 0.72, to Carthage 0.14.
+
+## Broke or odd after slice 2 (found, not tuned)
+- **The fear rule never fires in the sweeps.** Only the iron hand sacks, and it rarely lives past season 9. It works in its unit test. Your playtest is the real test.
+- **Battles fell from about 1 a game to 0.33** now the bot avoids bad fights; when Carthage attacks it still wins most (it is usually larger). Most of the careful bot's gains now come from towns going over (0.72 a game), not fighting.
+- **Carthage still never loses an army with the switch off.**
+
 ## Built by the Phase 2 thread (10, 2026-11-22): the island, slice 1
 
 Play it: the browser game now starts **the island** by default (a "Game" choice on the start screen keeps **the citadel**, Phase 1, exactly as before; a test pins its digest). `npm run sim -- --seeds 100 --scenario island` gives the island summary.

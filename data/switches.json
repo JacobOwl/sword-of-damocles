@@ -39,6 +39,13 @@
       "name": "Chronicle as story",
       "summary": "The chronicle follows people instead of listing events: each season is told by who it was about, with what led to it, and at the end each person's thread through the decade is gathered into a short life. No rules change.",
       "research": "docs/game-research.md, proposal 2"
+    },
+    {
+      "id": "armiesBreak",
+      "kind": "invention",
+      "name": "Beaten armies can break",
+      "summary": "Island game only. An army beaten in battle with no food left, or beaten for the second time within a year, scatters instead of falling back. Before, a beaten army always fell back to a friendly town, so Carthage almost never lost an army.",
+      "research": "docs/handoff.md, \"Broke or odd in the island\""
     }
   ]
 }
