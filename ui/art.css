@@ -1,0 +1,227 @@
+/* ---------- Art pass (thread 12): see docs/art-direction.md ----------
+   Four materials: parchment and ink (the catalogue), struck silver (portraits, slots), red-figure pottery
+   (event pictures, the title panel), black-figure silhouettes (icons). Loaded after style.css. */
+:root {
+  --glaze: #1d1410;
+  --clay: #c8743a;
+  --clay-light: #e0a066;
+  --silver: #b9b6ad;
+  --f-ruler: #7a2e24; --f-family: #7a2e24; --f-rich: #2a4a5a; --f-citizens: #5a5a28; --f-guard: #2f5e57;
+  --speck: rgba(120, 85, 40, .085);
+  --greek: "GFS Didot", "Cormorant Garamond", Georgia, serif;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+/* Parchment: fine specks like the site's limestone bands, and a soft darkening at the edges. */
+html { background: var(--page); }
+body {
+  background-color: var(--page);
+  background-image:
+    radial-gradient(ellipse at 50% 0%, transparent 55%, rgba(122, 84, 36, .10) 100%),
+    radial-gradient(var(--speck) 1px, transparent 1.3px);
+  background-size: 100% 100%, 7px 7px;
+  background-attachment: fixed, scroll;
+  background-repeat: no-repeat, repeat;
+}
+
+/* ---------- Ornament ---------- */
+.meander {
+  height: 12px; border: 0; margin: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M0 10.5H12M0 1.5H12M1 9V3.4H9V7.6H4.4V5.4H6.8' fill='none' stroke='%237a5424' stroke-width='1.1'/%3E%3C/svg%3E") repeat-x 0 0 / 12px 12px;
+  opacity: .75;
+}
+.tesserae {
+  height: 8px;
+  background:
+    linear-gradient(0deg, var(--page) 0 1px, transparent 1px calc(100% - 1px), var(--page) calc(100% - 1px)),
+    repeating-linear-gradient(90deg, var(--clay) 0 6px, var(--page) 6px 7px, var(--glaze) 7px 13px, var(--page) 13px 14px, var(--gold) 14px 20px, var(--page) 20px 21px, var(--glaze) 21px 27px, var(--page) 27px 28px);
+}
+.fleuron { display: block; text-align: center; color: var(--accent); font-size: 1.1rem; letter-spacing: .6em; margin: 10px 0; }
+.fleuron::before { content: "❦"; }
+
+/* ---------- Icons ---------- */
+.ico { width: 1.15em; height: 1.15em; fill: currentColor; stroke: none; vertical-align: -.2em; flex: none; overflow: visible; }
+.ico .line { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+.ico .cut { fill: var(--cut, var(--page)); }
+.ico .cut.line { fill: none; stroke: var(--cut, var(--page)); }
+.f-ruler { color: var(--f-ruler); } .f-family { color: var(--f-family); } .f-rich { color: var(--f-rich); }
+.f-citizens { color: var(--f-citizens); } .f-guard { color: var(--f-guard); } .f-carthage { color: var(--punic); }
+.label .ico, h2 .ico, h3 .ico, dt .ico { margin-right: .3em; }
+h2 .ico { width: 1.05em; height: 1.05em; } h2 > .ico { color: var(--accent); }
+
+/* ---------- Headings: a double rule like the site, a small ornament ---------- */
+h2 { border-bottom: 0; background: linear-gradient(var(--rule), var(--rule)) 0 calc(100% - 3px) / 100% 1px no-repeat, linear-gradient(var(--rule), var(--rule)) 0 100% / 100% 1px no-repeat; padding-bottom: 7px; }
+
+/* ---------- Masthead ---------- */
+.mast { position: relative; border-bottom: 0; padding-bottom: 10px; align-items: center; }
+.mast-rule { margin-top: 2px; }
+.mast h1 { letter-spacing: .06em; display: flex; align-items: center; gap: 10px; }
+.mast h1 .of { font-size: .7em; letter-spacing: .02em; color: var(--muted); }
+
+/* The sword overhead: thinner hair, lower blade and more sway as the worst known plot advances. */
+.overhead { display: inline-block; width: 26px; height: 54px; margin: -14px 0 -10px; cursor: help; flex: none; }
+.overhead svg { width: 100%; height: 100%; overflow: visible; }
+.overhead .hair { stroke: var(--muted); stroke-width: 1.2; }
+.overhead .blade { fill: var(--ink); }
+.overhead .blade .line { fill: none; stroke: var(--ink); }
+.overhead .blade .cut { fill: var(--page); } .overhead .blade .cut.line { fill: none; stroke: var(--page); }
+.overhead.s1 .hair { stroke-width: .8; }
+.overhead.s2 .hair { stroke-width: .55; stroke: var(--accent); }
+.overhead.s3 .hair { stroke-width: .35; stroke: var(--blood); }
+.overhead.s3 .blade { fill: var(--blood); }
+.overhead svg { transform-origin: 50% 0; }
+
+/* Action slots as silver coins. */
+.slot { width: 16px; height: 16px; border-radius: 50%; transform: none; border: 1.5px solid var(--accent); background: transparent; box-shadow: inset 0 0 0 2px var(--page), inset 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent); }
+.slot.full { background: radial-gradient(circle at 38% 34%, #f2efe6, var(--silver) 55%, #8d897e); border-color: #6f6b61; box-shadow: inset 0 0 0 2px rgba(255,255,255,.25), 0 1px 0 rgba(43,29,18,.25); }
+
+/* ---------- Ledger: each store with its mark ---------- */
+.ledger { border-bottom: 0; padding-bottom: 10px; }
+.ledger .label { display: inline-flex; align-items: center; gap: 4px; }
+.ledger .label .ico { width: 1.1em; height: 1.1em; color: var(--accent); margin: 0; }
+.ledger .label .ico.f-carthage { color: var(--punic); }
+.ledger-rule { margin: 0 0 4px; }
+
+/* ---------- The city: offices and factions ---------- */
+.offices dt { display: flex; align-items: flex-start; gap: 6px; }
+.offices dt .ico { width: 1.3em; height: 1.3em; color: var(--accent); margin: 0; }
+.faction h3 { display: inline-flex; align-items: center; gap: 7px; }
+.faction h3 .ico { width: 1.45em; height: 1.45em; margin: 0; }
+.faction { border-left: 3px solid var(--fc, var(--rule)); padding-left: 10px; border-bottom: 0; margin-bottom: 4px; background: linear-gradient(90deg, color-mix(in srgb, var(--fc, var(--rule)) 7%, transparent), transparent 60%); }
+.faction.f-citizens { --fc: var(--f-citizens); } .faction.f-rich { --fc: var(--f-rich); } .faction.f-guard { --fc: var(--f-guard); } .faction.f-family { --fc: var(--f-family); }
+.faction { color: var(--ink); }
+.powerbar i.on { background: var(--fc, var(--accent)); border-color: var(--fc, var(--accent)); }
+
+/* Action menu and the dangers column: area marks. */
+.area > .label { display: flex; align-items: center; gap: 6px; }
+.area > .label .ico { width: 1.25em; height: 1.25em; margin: 0; color: var(--accent); }
+.area > .label .ico[class*="f-"] { color: inherit; }
+.act { transition: background-color .15s; }
+.act:hover:not(:disabled) .c { color: var(--ink); }
+
+/* ---------- Event pictures: a red-figure cup tondo beside the matter ---------- */
+.tondo { display: block; flex: none; filter: drop-shadow(0 1px 1.5px rgba(43,29,18,.35)); }
+.tondo .glaze { fill: var(--glaze); }
+.tondo .clay { fill: var(--clay); }
+.tondo .line { fill: none; stroke: var(--clay); stroke-linecap: round; stroke-linejoin: round; }
+.tondo .cut { fill: var(--glaze); } .tondo .cut.line { fill: none; stroke: var(--glaze); }
+.matter { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 4px 16px; border-left: 0; padding: 12px 0 14px; border-bottom: 1px dotted var(--rule); margin: 0; }
+.matter .tondo { width: 96px; height: 96px; grid-row: 1 / span 3; }
+.matter > :not(.tondo) { grid-column: 2; }
+.matter h3 { font-size: 1.2rem; }
+.matter.no-art { grid-template-columns: minmax(0, 1fr); border-left: 3px solid var(--gold); padding-left: 12px; }
+.matter.no-art > * { grid-column: 1; }
+.matter .from { display: inline-flex; gap: 6px; align-items: baseline; }
+
+/* ---------- Title page ---------- */
+.title { max-width: 760px; margin: 28px auto 40px; display: flex; flex-direction: column; gap: 16px; text-align: center; }
+.title .kicker { font-family: var(--display); letter-spacing: .14em; color: var(--muted); font-size: .95rem; margin: 0; }
+.title .greek { font-family: var(--greek); letter-spacing: .2em; color: var(--accent); }
+.inscribed { font-family: var(--display); font-weight: 400; font-size: clamp(2rem, 6.4vw, 3.6rem); letter-spacing: .1em; line-height: 1.02; margin: 0; color: var(--ink); text-shadow: 0 1px 0 rgba(255,255,255,.45), 0 -1px 0 rgba(43,29,18,.18); }
+.inscribed .of { font-size: .5em; letter-spacing: .2em; color: var(--accent); vertical-align: .18em; }
+.panel-art { margin: 4px auto 0; width: min(100%, 640px); }
+.title-scene { width: 100%; height: auto; display: block; border-radius: 3px; box-shadow: 0 0 0 1px var(--glaze), 0 0 0 5px var(--page), 0 0 0 6px var(--rule), 0 8px 24px rgba(43,29,18,.18); }
+.title-scene .glaze { fill: var(--glaze); }
+.title-scene .clay { fill: var(--clay); }
+.title-scene .line { fill: none; stroke: var(--clay); stroke-linecap: round; stroke-linejoin: round; }
+.title-scene .cut { fill: var(--glaze); } .title-scene .cut.line { fill: none; stroke: var(--glaze); }
+.title-scene .hair { stroke: var(--clay-light); }
+.epigraph { margin: 0 auto; max-width: 40ch; font-style: italic; font-size: 1.15rem; }
+.epigraph p { margin: 0; }
+.epigraph footer { font-style: normal; font-size: .85rem; color: var(--muted); margin-top: 2px; }
+.title-intro { text-align: left; display: flex; flex-direction: column; gap: 10px; max-width: 64ch; margin: 0 auto; }
+.title-intro p { margin: 0; }
+.title-intro p:first-child::first-letter { font-family: var(--display); float: left; font-size: 3.1em; line-height: .8; padding: 4px 8px 0 0; color: var(--blood); }
+.begin { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 14px 0 4px; }
+.begin-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 12px; align-items: center; }
+.begin .primary#new { font-size: 1.3rem; letter-spacing: .1em; padding: 8px 30px; }
+.begin .note { max-width: 60ch; margin: 0; }
+.coin-tray { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 14px; padding: 14px 10px 4px; border-top: 1px solid var(--rule); }
+.coin { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; width: 66px; }
+.coin img { width: 58px; height: 58px; border-radius: 50%; box-shadow: 0 2px 4px rgba(43,29,18,.3); transition: transform .3s var(--ease); }
+.coin:hover img { transform: rotate(-8deg) scale(1.06); }
+.coin figcaption { font-family: var(--display); font-size: .72rem; letter-spacing: .04em; color: var(--muted); line-height: 1.1; }
+
+/* ---------- The season card ---------- */
+.season-card { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; background: rgba(43,29,18,.42); cursor: pointer; padding: 16px; }
+.sc-inner { background: var(--page); background-image: radial-gradient(var(--speck) 1px, transparent 1.3px); background-size: 7px 7px; width: min(520px, 100%); padding: 0 0 4px; text-align: center; box-shadow: 0 0 0 1px var(--ink), 0 0 0 6px var(--page), 0 0 0 7px var(--rule), 0 24px 60px rgba(20,12,6,.5); }
+.sc-inner .tesserae { margin: 0; }
+.sc-sword { display: block; margin: 16px auto 0; width: 44px; height: 56px; color: var(--ink); --cut: var(--page); }
+.sc-kicker { font-family: var(--display); letter-spacing: .12em; color: var(--muted); font-size: .85rem; margin: 6px 0 0; }
+.sc-season { font-family: var(--display); font-size: clamp(2.6rem, 9vw, 3.8rem); letter-spacing: .2em; border: 0; background: none; padding: 0; margin: 2px 0 0; line-height: 1; }
+.sc-year { font-family: var(--num); font-size: 1.3rem; font-weight: 600; color: var(--accent); margin: 0 0 10px; }
+.sc-line { font-size: 1.15rem; line-height: 1.45; max-width: 36ch; margin: 0 auto 10px; padding: 0 18px; text-align: left; }
+.dropcap { font-family: var(--display); float: left; font-size: 2.9em; line-height: .8; padding: 5px 7px 0 0; color: var(--blood); }
+.sc-go { font-size: .8rem; color: var(--muted); margin: 6px 0 10px; letter-spacing: .06em; }
+
+/* ---------- The ending as a stele ---------- */
+.ending { position: relative; border: 0; margin: 18px auto 8px; max-width: 760px; padding: 30px 28px 22px; text-align: center;
+  background: linear-gradient(180deg, #e3d6b4, #d6c69e); box-shadow: inset 0 0 0 1px rgba(43,29,18,.35), inset 0 0 0 7px #e3d6b4, inset 0 0 0 8px rgba(43,29,18,.25), 0 6px 18px rgba(43,29,18,.22); border-radius: 4px 4px 2px 2px; }
+.ending::before { content: ""; position: absolute; left: 50%; top: 5px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: radial-gradient(circle, #b8913a 30%, transparent 32%), radial-gradient(circle, transparent 54%, #7a5424 56%, #7a5424 66%, transparent 68%); }
+.ending h2 { font-size: clamp(1.7rem, 5vw, 2.4rem); letter-spacing: .22em; background: none; padding: 6px 0 2px; text-shadow: 0 1px 0 rgba(255,255,255,.5), 0 -1px 0 rgba(43,29,18,.25); }
+.ending p { max-width: 58ch; margin: 8px auto; }
+.ending .meander { margin: 8px auto; max-width: 320px; }
+.ending .counts { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 22px; font-family: var(--display); letter-spacing: .06em; color: var(--muted); font-size: .9rem; }
+.ending .counts b { font-family: var(--num); font-size: 1.3rem; color: var(--ink); font-weight: 700; display: block; }
+.ending.killed h2, .ending.fallen h2 { color: var(--blood); }
+.ending.survived h2 { color: var(--olive); }
+
+/* ---------- The chronicle as a book ---------- */
+.book { background: color-mix(in srgb, var(--page) 70%, #fff8e6); padding: 22px clamp(16px, 4vw, 44px) 28px; box-shadow: 0 0 0 1px var(--rule), 0 8px 22px rgba(43,29,18,.12); }
+.book > h2 { text-align: center; background: none; letter-spacing: .2em; font-size: 1.9rem; }
+.book .opening { text-align: center; font-style: italic; max-width: 46ch; margin: 6px auto 0; }
+.cyear h3 { text-align: center; letter-spacing: .14em; }
+.cyear .cseason:first-of-type p:first-of-type::first-letter { font-family: var(--display); float: left; font-size: 2.8em; line-height: .8; padding: 4px 7px 0 0; color: var(--blood); }
+.cseason + .cseason::before { content: "· · ·"; display: block; text-align: center; color: var(--rule); letter-spacing: .4em; margin: 4px 0; }
+.colophon { text-align: center; font-family: var(--display); letter-spacing: .08em; color: var(--accent); margin-top: 18px; }
+
+/* ---------- Character sheet and court: the faction's mark ---------- */
+.sheet-head .fmark { display: inline-flex; align-items: center; gap: 5px; }
+.sheet-head .fmark .ico { width: 1.2em; height: 1.2em; }
+dialog.sheet { box-shadow: 0 0 0 5px var(--page), 0 0 0 6px var(--rule), 0 14px 44px rgba(43,29,18,.38); }
+.portrait.l { box-shadow: inset 0 0 0 2px var(--gold), 0 0 0 1px var(--rule), 0 3px 8px rgba(43,29,18,.3); }
+
+/* ---------- Guide: a wax tablet ---------- */
+.guide { border: 0; background: color-mix(in srgb, var(--panel) 70%, var(--page)); box-shadow: inset 0 0 0 1px var(--accent), inset 0 0 0 4px var(--panel), inset 0 0 0 5px color-mix(in srgb, var(--accent) 50%, transparent); padding: 14px 18px; }
+
+/* ---------- Buttons: a little weight ---------- */
+button.primary { letter-spacing: .05em; box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 2px 0 rgba(43,29,18,.25); }
+button.primary:active:not(:disabled) { transform: translateY(1px); box-shadow: none; }
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  #app.turn { animation: leaf .45s var(--ease); }
+  @keyframes leaf { from { opacity: .0; transform: translateY(6px); } }
+  .season-card { animation: dim .35s ease-out; }
+  .season-card .sc-inner { animation: card .6s var(--ease); }
+  .season-card.out { animation: dimout .38s ease-in forwards; }
+  .season-card.out .sc-inner { animation: cardout .38s ease-in forwards; }
+  @keyframes dim { from { background: rgba(43,29,18,0); } }
+  @keyframes dimout { to { background: rgba(43,29,18,0); } }
+  @keyframes card { from { opacity: 0; transform: perspective(900px) rotateX(18deg) translateY(24px) scale(.96); } }
+  @keyframes cardout { to { opacity: 0; transform: translateY(-14px) scale(.98); } }
+  .overhead.s1 svg { animation: sway 5s ease-in-out infinite; }
+  .overhead.s2 svg { animation: sway 3.2s ease-in-out infinite; }
+  .overhead.s3 svg { animation: sway 1.9s ease-in-out infinite; }
+  .overhead.ready svg { animation: sway 1.9s ease-in-out infinite, tremble .18s linear infinite; }
+  @keyframes sway { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+  @keyframes tremble { 50% { translate: .6px 0; } }
+  .title-sword { animation: swaybig 6s ease-in-out infinite; transform-origin: 210px 36px; transform-box: view-box; }
+  @keyframes swaybig { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.6deg); } }
+  .title > * { animation: rise .8s var(--ease) both; }
+  .title > :nth-child(2) { animation-delay: .08s; } .title > :nth-child(3) { animation-delay: .16s; } .title > :nth-child(n+4) { animation-delay: .26s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+  .matter { animation: rise .5s var(--ease) both; }
+  .ending { animation: rise .8s var(--ease) both; }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 560px) {
+  .matter { grid-template-columns: 64px minmax(0, 1fr); gap: 4px 12px; }
+  .matter .tondo { width: 64px; height: 64px; grid-row: 1 / span 2; }
+  .matter > .choices, .matter > p.small { grid-column: 1 / -1; }
+  .title { margin-top: 14px; gap: 12px; }
+  .coin { width: 54px; } .coin img { width: 46px; height: 46px; }
+  .ending { padding: 26px 14px 18px; }
+  .overhead { height: 44px; width: 22px; }
+}

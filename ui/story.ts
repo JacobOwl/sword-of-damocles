@@ -2,6 +2,7 @@
 import { PLAYER, seasonName, storyBook, switchOn } from "../src/core/index.ts";
 import type { GameState, LogEntry } from "../src/core/index.ts";
 import { esc, linkNames, rollLine, ui } from "./text.ts";
+import { chronicleLine, colophon } from "./ambient.ts";
 
 // Reasons that only repeat the action's own name add nothing ("Host a feast" after "You host a feast").
 const ECHO = /^(Host|Grant|Revoke|Arrange|Petition|Bribe|Pardon|Imprison|Execute|Exile|Hand|Give|Propose|Seize|Strike|Build|Pay|Hire|Disarm|Raid|March|Watch|Plant|Turn|Force|Block|Expose|Envoy|Buy|Offer|Refuse)/;
@@ -89,7 +90,9 @@ export function chronicleBook(s: GameState) {
     for (let q = 0; q < 4; q++) { const i = y * 4 + q; if (i <= last) seasons.push(chronicleSeason(s, i)); }
     years.push(`<section class="cyear"><h3>Year ${y + 1} <span class="muted">${405 - y} to ${404 - y} BC</span></h3>${seasons.join("")}</section>`);
   }
-  return `<article class="book"><h2>The chronicle</h2><p class="small muted">Everything here is what you saw happen, in order. Turning points are in bold; omens and warnings in italics.</p>${years.join("")}</article>`;
+  return `<article class="book"><h2>The chronicle</h2><p class="opening">${esc(chronicleLine("opening"))}</p><div class="meander" aria-hidden="true"></div>
+    <p class="small muted">Everything here is what you saw happen, in order. Turning points are in bold; omens and warnings in italics.</p>${years.join("")}
+    ${s.over ? `<span class="fleuron" aria-hidden="true"></span><p class="colophon">${esc(colophon(s))}</p>` : ""}</article>`;
 }
 
 // The last season, short, for the season column.

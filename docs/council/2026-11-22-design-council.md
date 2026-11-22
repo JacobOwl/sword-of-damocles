@@ -29,7 +29,7 @@ Jacob asked for "different agents with different opinions" to "act as a council 
 
 | # | Question | Council recommends | Vote |
 |---|---|---|---|
-| J1 | Size of the first island test | 5 places, one food counter per army, no routes, growing later | 6-0 |
+| J1 | Size of the first island test | 5 places, one food counter per army, no routes, growing later. **Jacob declined: keep the current plan (2026-11-22).** | 6-0 |
 | J2 | Hinge between court and map | A **commission**: one of your three actions sends a named man (or yourself) with men and a purpose | 6-0 |
 | J3 | Faction power drift toward 5 | Replace with "power that people carry", as a switch swept against drift | 6-0 |
 | J4 | First test configuration | A named preset: island, Reap what you sow, clue warnings and partial success on | 6-0 |
