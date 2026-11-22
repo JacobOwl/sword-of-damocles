@@ -56,3 +56,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Disagreements are shown, not settled:** the first wife's death (Diodorus or Plutarch), the sister's husband (Polyxenus or Hermocrates), and whether Aretes is Aristus.
 - **Invented people are in Phase 1** (Jacob, 2026-11-22). Real people are preferred, but the game will need many invented ones, as in CK3. Each person keeps its `history` or `invention` tag, and later the UI shows a small note such as "real person". `scope.md` moved "invented people" from Out to In. Consequences: the invented guard captain and the brother of Demarchus stay, and the citizens get an invented spokesman, Damon the smith, since the sources name only Nicoteles.
 - **The guard is led by Aristotle the Spartan**, attested as its commander in about 396; the invented captain serves under him.
+
+## 2026-11-22 (research on political games)
+
+- **Wrote `docs/game-research.md`**, a ranked, report-only list of what to borrow from other political and story games, what to avoid and what v2 is missing. Why: Jacob asked for substantial work while away, and the coordinator asked for this research. Nothing is decided; Jacob picks.
+- **Every claim about another game is marked** as opened this session (with the link) or as general knowledge. Why: confident errors are the worst failure.
+- **The nemesis patent note stands as before** (a private hobby game is unaffected). The note adds that "waiting in the wings" is the part of v2 closest to the patent's described behaviour, in case the game is ever published.
+
