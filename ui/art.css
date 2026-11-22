@@ -173,6 +173,8 @@ h2 { border-bottom: 0; background: linear-gradient(var(--rule), var(--rule)) 0 c
 .cyear h3 { text-align: center; letter-spacing: .14em; }
 .cyear .cseason:first-of-type p:first-of-type::first-letter { font-family: var(--display); float: left; font-size: 2.8em; line-height: .8; padding: 4px 7px 0 0; color: var(--blood); }
 .cseason + .cseason::before { content: "· · ·"; display: block; text-align: center; color: var(--rule); letter-spacing: .4em; margin: 4px 0; }
+.cdiod { text-align: center; font-style: italic; color: var(--muted); margin: -2px 0 8px; font-size: .95rem; }
+.sc-diod { font-style: italic; color: var(--muted); font-size: .92rem; margin: -6px 18px 10px; }
 .colophon { text-align: center; font-family: var(--display); letter-spacing: .08em; color: var(--accent); margin-top: 18px; }
 
 /* ---------- Character sheet and court: the faction's mark ---------- */
@@ -225,3 +227,10 @@ button.primary:active:not(:disabled) { transform: translateY(1px); box-shadow: n
   .ending { padding: 26px 14px 18px; }
   .overhead { height: 44px; width: 22px; }
 }
+
+/* ---------- Sound switch (art thread, second round) ---------- */
+.sound-btn { border: 0; padding: 4px 6px; background: none; color: var(--muted); line-height: 0; }
+.sound-btn .ico { width: 22px; height: 22px; }
+.sound-btn[aria-pressed="true"] { color: var(--accent); }
+.sound-btn:hover:not(:disabled) { background: none; color: var(--ink); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

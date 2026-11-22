@@ -126,6 +126,10 @@ const ICONS: Record<string, string> = {
   carthage: "",
   // ---- Small marks ----
   plot: `<path d="M12 1.4 L13.6 5.6 L13.3 14.2 H10.7 L10.4 5.6 Z"/><path d="M7.2 14.2 H16.8 C16.8 15.2 16 15.8 15 15.8 H9 C8 15.8 7.2 15.2 7.2 14.2 Z"/><rect x="11" y="15.8" width="2" height="4.8"/><circle cx="12" cy="21.6" r="1.5"/>`,
+  lyre: `<path d="M8.6 15.6 C5.6 11.8 5.4 6.6 7 2.6 M15.4 15.6 C18.4 11.8 18.6 6.6 17 2.6" class="line" style="stroke-width:1.6"/>
+    <path d="M6.4 5 H17.6" class="line" style="stroke-width:1.2"/><ellipse cx="12" cy="18" rx="6.2" ry="4.4"/>
+    <path d="M10 5.4 V16 M12 5.4 V16 M14 5.4 V16" class="line" style="stroke-width:.55"/>`,
+  mute: `<path d="M3 9 H7 L12 4.6 V19.4 L7 15 H3 Z"/><path d="M15.4 9 L21 15 M21 9 L15.4 15" class="line" style="stroke-width:1.6"/>`,
   rival: `<path d="M2.4 12 C5.8 6.6 18.2 6.6 21.6 12 C18.2 17.4 5.8 17.4 2.4 12 Z"/><circle cx="12" cy="12" r="3.6" class="cut"/><circle cx="12" cy="12" r="1.8"/>`,
   government: "",
 };

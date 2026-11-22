@@ -16,6 +16,7 @@ import { esc, linkNames, opChip, pr, sign, ui, who } from "./text.ts";
 import { showSeasonCard, swordOverhead } from "./ambient.ts";
 import { AREA_ICON, FACTION_ICON, OFFICE_ICON, icon } from "./icons.ts";
 import { titlePage } from "./title.ts";
+import * as sound from "./sound.ts";
 import { vignette } from "./vignettes.ts";
 
 const SAVE_KEY = "sword-of-damocles-save-v1";
@@ -66,7 +67,7 @@ function splash() {
     const v = Number((document.getElementById("seed") as HTMLInputElement).value) || seed;
     const scenario = (document.getElementById("scenario") as HTMLSelectElement).value === "citadel" ? "citadel" : "island";
     const switches = [...document.querySelectorAll<HTMLInputElement>("input.switch")].filter((x) => x.checked).map((x) => x.value);
-    ui.s = startGame(v, (document.getElementById("tuning") as HTMLSelectElement).value, { scenario, switches }); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render(); showSeasonCard(ui.s);
+    endedSound = false; ui.s = startGame(v, (document.getElementById("tuning") as HTMLSelectElement).value, { scenario, switches }); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render(); showSeasonCard(ui.s);
   };
   const sel = document.getElementById("tuning") as HTMLSelectElement;
   sel.onchange = () => { document.getElementById("tuning-note")!.textContent = PACKAGES.find((p) => p.id === sel.value)?.summary ?? ""; };
@@ -75,6 +76,7 @@ function splash() {
 }
 
 // ---------- Main screen ----------
+let endedSound = false;
 function render() {
   const g = ui.s;
   if (!g) return splash();
@@ -97,6 +99,8 @@ function render() {
       <button id="restart">New game</button>
     </div>`;
   wire(g);
+  sound.update(g);
+  if (g.over && !endedSound) { endedSound = true; sound.ending(g.over.reason); }
   ui.lastSeen = g.log.length;
   if (ui.sheet) openSheet(ui.sheet, false);
 }
@@ -121,6 +125,7 @@ function masthead(g: GameState) {
     <span class="when">${esc(seasonName(g.over ? g.over.season : g.season))}</span>
     <span class="muted small">Season ${Math.min(g.season + 1, DATA.start.seasons)} of ${DATA.start.seasons}</span>
     <span class="grow"></span>
+    <button type="button" id="sound" class="sound-btn" aria-pressed="${sound.soundOn()}" data-tip="${sound.soundOn() ? "Sound is on: a lyre each season, the harbour, a drone while a plot has a name. Click to turn it off." : "Sound is off. Click to hear a lyre each season, the harbour, and a drone while a plot has a name."}">${icon(sound.soundOn() ? "lyre" : "mute")}<span class="sr">${sound.soundOn() ? "Sound on" : "Sound off"}</span></button>
     ${g.over ? "" : `<span class="label" ${tipAttr("actions")}>Actions</span><span class="slots" aria-label="${g.slots} actions left">${Array.from({ length: slots }, (_, i) => `<i class="slot ${i < g.slots ? "full" : ""}"></i>`).join("")}</span>
     <button class="primary" id="end">End the season</button>`}
   </header><div class="meander mast-rule" aria-hidden="true"></div>`;
@@ -414,6 +419,7 @@ function turn() { app.classList.remove("turn"); void app.offsetWidth; app.classL
 
 // ---------- Events ----------
 function wire(g: GameState) {
+  document.getElementById("sound")?.addEventListener("click", () => { sound.toggle(g); render(); });
   for (const id of ["end", "end2"]) document.getElementById(id)?.addEventListener("click", () => { endSeason(g); ui.openAction = null; ui.args = {}; save(); render(); turn(); window.scrollTo({ top: 0 }); showSeasonCard(g); });
   document.getElementById("restart")?.addEventListener("click", () => { clearSave(); ui.s = null; splash(); });
   document.getElementById("again")?.addEventListener("click", () => { clearSave(); ui.s = null; splash(); });
@@ -440,15 +446,15 @@ function wire(g: GameState) {
   }));
   document.getElementById("do")?.addEventListener("click", () => {
     if (!ui.openAction) return;
-    act(g, ui.openAction, ui.args); ui.openAction = null; ui.args = {}; save(); render();
+    act(g, ui.openAction, ui.args); sound.tick(); ui.openAction = null; ui.args = {}; save(); render();
   });
   document.getElementById("cancel")?.addEventListener("click", () => { ui.openAction = null; ui.args = {}; render(); });
   app.querySelectorAll<HTMLButtonElement>("[data-grant]").forEach((b) => (b.onclick = () => {
     const r = g.requests.find((x) => x.id === b.dataset.grant);
     const ga = r && grantArgs(g, r);
-    if (ga) { act(g, ga.a, ga.args); save(); render(); }
+    if (ga) { act(g, ga.a, ga.args); sound.tick(); save(); render(); }
   }));
-  app.querySelectorAll<HTMLButtonElement>("[data-choose]").forEach((b) => (b.onclick = () => { chooseEvent(g, b.dataset.choose!, b.dataset.choice!); save(); render(); }));
+  app.querySelectorAll<HTMLButtonElement>("[data-choose]").forEach((b) => (b.onclick = () => { chooseEvent(g, b.dataset.choose!, b.dataset.choice!); sound.tick(); save(); render(); }));
   app.querySelectorAll<HTMLButtonElement>("[data-refuse]").forEach((b) => (b.onclick = () => { refuseRequest(g, b.dataset.refuse!); save(); render(); }));
 }
 
