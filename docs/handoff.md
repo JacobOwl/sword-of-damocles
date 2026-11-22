@@ -2,6 +2,25 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+
+## Built by the island events thread (16, 2026-11-22), slice 1
+- **A second event library for the island**, `data/island-events.json` (18 events: 14 from Diodorus book 14, 4 invented), card `docs/research/island-events.md`, written by `node tools/build-island-events-card.mjs` from the data (safe to rerun). The quote checker now reads the island events too (293 of 293 found).
+- **Engine:** `src/core/island-events.ts`, with small hooks in `src/core/events.ts`. Events can now name **towns** as parts (`places`, chosen by side, lean, fear, grain, walls, sieges, distance from an army, a recent change of side), give parts to **the generated cast** (a town's first man, a council member of the Elders, the Hundred or the people, a hired captain) and to **Carthage's named men** (Himilcon, Magon, or whoever is general), check **armies and Carthage** in `when.island` (war, armies' food, men and sieges, Carthage's goal, plague, revolt, stores and blocs), and change them (lean, grain, men, walls, fear and side of a town; an army's men, food and siege lines; lifting a siege; sending Carthage's army home; Carthage's blocs, treasury, hired men, levy, fleet, plague; a general's fall; peace). Every change is logged with its reason and shown in plain words on the choice before you pick.
+- **Pacing:** in island games, one extra draw a season from the island's events only (a second 30% of the time; at most two open). Citadel games never see them.
+- **Pictures:** four new emblems in `ui/vignettes.ts` (gate, siege tower, amphorae, camp).
+- **Tests:** `tests/island-events.test.ts` (shape, no dates, parts and effects exist, no ids in text, 54 of 55 choices run without breaking a game, never in a citadel game, fire in island games and replay exactly). `tests/events.test.ts` now checks the court events only; `tests/look.test.ts` checks both libraries' pictures.
+- **Checks:** 79 of 79 tests pass. Citadel 100 seeds unchanged (10.8 seasons; killed 27, deposed 41, exiled 32; tyrannies 13). Island, 100 seeds for each of the five players: 0 crashes, 0 broken states. The careful player sees 3.5 island events a game (27 seasons); the simple bot far fewer, since it rarely takes the field. `npm run sim -- --scenario island` now prints the island event count.
+
+## Questions from the island events thread
+- **Sieges are rare for the bots** (about 0.7 a game for the careful player), so the siege events (the mole, the towers, the gate at midnight) will mostly be met in your own play. Is that the right rarity, or should events be a reason to besiege?
+- **Himilcon's bargain** sends Carthage's army home without counting it as a lost army, so Himilcon's end (disgrace, starving himself) still never fires. Should taking the bargain disgrace the general?
+- **The court event "The mercenaries' demand"** tells the same story as the island's "Pay in land", and both can fire in an island game. Keep both, or hide the court one in island games?
+
+## Built by the web-app thread (17, 2026-11-22), step 1 of 5: the plan and the engine boundary
+- **`docs/architecture.md`**: the two halves (rules engine in `src/core/`, browser UI in `ui/`), the rules each follows, the stack (TypeScript, no UI framework, Vite next), the target folder layout, the five migration steps, and the road to Godot.
+- **`tests/core-boundary.test.ts`**: the engine imports only itself and `data/`; uses no `Math.random`, `Date`, browser or Node globals; a game saved as JSON plays on exactly the same; a bot game replays in both scenarios.
+- **`npm run replays`** (`scripts/export-replays.ts`): writes `dist/replays.json` (not kept in git), 20 whole games with their inputs and the log each must produce, for checking a later port.
+
 ## Built by the events thread (07, 2026-11-22): the Damocles banquet
 - **New event "A sword on a horse-hair"** (`data/events.json`, history): a courtier praises your fortune at a feast. You can hang a sword over his couch (what Cicero tells; he loses standing and warmth, plots are a little harder), reward the flattery, or smile it away. It fires in about 80 of 100 careful-bot games.
 - **Both readings of which Dionysius are shown.** The event's facts quote Livius.org (Dionysius II) and Wikipedia (Dionysius I) from the saved excerpts; the doubt is listed as uncertain. Review steps are on the card (`docs/research/damocles.md`, last section) for when Cicero 5.57 is saved.

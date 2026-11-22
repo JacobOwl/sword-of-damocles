@@ -95,6 +95,36 @@ export const VIGNETTES: Record<string, string> = {
     <path d="M70 34 C92 34 100 56 86 70 C86 58 80 48 70 44 Z"/><path d="M71 41 C76 54 74 70 68 86" class="line" style="stroke-width:3"/>`,
   palm: `${use("palm", 28, 24, 2.6)}
     <path d="M38 87 C46 84 74 84 82 87" class="line" style="stroke-width:1.4"/>`,
+
+  // The island's events (data/island-events.json).
+  gate: `<path d="M22 88 V40 H20 V33 H25 V37 H29 V33 H33 V37 H37 V33 H42 V40 H40 V88 Z M80 88 V40 H78 V33 H83 V37 H87 V33 H91 V37 H95 V33 H100 V40 H98 V88 Z"/>
+    <path d="M40 88 V54 H80 V88 H72 V66 C72 58 48 58 48 66 V88 Z"/>
+    <path d="M48 88 V66 C48 62 52 60.6 55 60.4 L55 88 Z"/>
+    <path d="M44 58 H76 M44 70 H48 M72 70 H76 M44 78 H48 M72 78 H76" class="cut line" style="stroke-width:.8"/>
+    <path d="M65 61 L69 88" class="line" style="stroke-width:1.4"/>
+    <path d="M58 22 C52 24 50 32 54 37 C49 36 46 30 48 25 C50 20 55 19 58 22 Z"/>
+    <circle cx="70" cy="22" r="1.2"/><circle cx="38" cy="26" r="1"/><circle cx="82" cy="28" r="1"/>`,
+  siege: `<path d="M64 88 V38 H62 V32 H67 V35 H71 V32 H75 V35 H79 V32 H84 V35 H88 V32 H93 V38 H91 V88 Z"/>
+    <path d="M70 46 H76 V52 H70 Z M80 60 H86 V66 H80 Z" class="cut"/>
+    <path d="M78 50 L81 54 L77 57" class="cut line" style="stroke-width:1"/>
+    <path d="M26 80 V28 H50 V80 Z"/><path d="M24 28 H52 V24 H24 Z"/>
+    <path d="M26 40 H50 M26 54 H50 M26 68 H50" class="cut line" style="stroke-width:1"/>
+    <path d="M30 31 H36 V37 H30 Z M40 31 H46 V37 H40 Z" class="cut"/>
+    <path d="M50 46 H62" class="line" style="stroke-width:2.4"/>
+    <circle cx="31" cy="83" r="5"/><circle cx="45" cy="83" r="5"/>
+    <circle cx="31" cy="83" r="1.6" class="cut"/><circle cx="45" cy="83" r="1.6" class="cut"/>
+    <path d="M30 58 L46 66 M46 58 L30 66" class="cut line" style="stroke-width:.8"/>`,
+  amphora: `<path d="M38 30 H46 V34 C54 38 56 48 54 60 C52 72 46 80 42 86 C38 80 32 72 30 60 C28 48 30 38 38 34 Z"/>
+    <path d="M38 34 C32 34 30 40 33 44 M46 34 C52 34 54 40 51 44" class="line" style="stroke-width:2"/>
+    <path d="M31 50 H53 M31 54 H53" class="cut line" style="stroke-width:.9"/><path d="M36 60 C40 64 44 64 48 60" class="cut line" style="stroke-width:.9"/>
+    <g transform="rotate(32 69 67)"><path d="M66 46 H72 V50 C78 54 80 62 78 70 C76 78 72 84 69 88 C66 84 62 78 60 70 C58 62 60 54 66 50 Z"/>
+    <path d="M64 70 C68 73 72 73 76 70" class="cut line" style="stroke-width:.8"/></g>
+    ${use("grain", 72, 18, 1.2, 24)}`,
+  camp: `<path d="M22 82 L38 50 L54 82 Z"/><path d="M38 50 L34 82 H42 Z" class="cut"/><path d="M38 50 V44" class="line" style="stroke-width:1.4"/>
+    <path d="M58 84 L76 46 L94 84 Z"/><path d="M76 46 L71 84 H81 Z" class="cut"/><path d="M76 46 V40" class="line" style="stroke-width:1.4"/>
+    <path d="M24 86 H96" class="line" style="stroke-width:1.4"/>
+    <path d="M48 30 C52 25 56 25 60 29 C64 25 68 25 72 30 C68 28 64 29 60 33 C56 29 52 28 48 30 Z"/>
+    <path d="M28 36 C30 34 32 34 34 36 C36 34 38 34 40 36 C38 35.4 36 36 34 38 C32 36 30 35.4 28 36 Z"/>`,
 };
 
 export const VIGNETTE_NAMES = Object.keys(VIGNETTES);

@@ -205,6 +205,14 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **The engine's purity is now tested** (`tests/core-boundary.test.ts`) and **conformance replays can be exported** (`npm run replays`) for a later port. Why: Godot is the goal; a port is checked by replaying the same games.
 - **Open:** which Godot route (translate or embed), for later.
 
+## 2026-11-22 (island and Carthage events, slice 1: thread 16)
+- **The island gets its own event library, `data/island-events.json`, run by the same engine.** `src/core/island-events.ts` adds conditions on towns, armies and Carthage, parts played by towns, the generated cast and Carthage's named men, and effects on towns, armies and Carthage's council and stores. Why: the court's 52 events never touch the map; the island needed its own stories without a second event system.
+- **Island events have their own draw each season (one, sometimes two; at most two open), only in island games.** Why: so the court's intrigue is not crowded out, and so citadel games draw exactly the same dice as before (the standard digest and the 100-seed counts are unchanged).
+- **History arrives as conditions, never dates** (council V8), and a test fails if an island event has a date window. What Dionysius did is one choice, marked as his.
+- **Slice 1: 18 events** (14 from Diodorus, 4 invented) on treachery at the gates, the mole to Motya, siege engines, the sack of a Punic town, Greeks who fought for Carthage, the first man on the wall, ships caught on the beach, supply, cutting Carthage's foragers, the grain convoy, fever in camp, plague in the Punic camp, Himilcon's bargain, mercenaries paid with Leontini, Carthage buying a captain, the Campanians courted, the allies' harvest and the goddesses' temple. Four new emblems.
+- **Battles now leave a flag (`battleWon`, `battleLost`)** so events can follow a defeat. Logged only in the state, not the chronicle.
+- **Open:** see the questions in `docs/handoff.md`.
+
 ## 2026-11-22 (the Damocles banquet event, thread 07)
 - **The Damocles story is an event, not a fixed scene.** Hanging the sword is the sourced choice (`history: true`) among three; the game never forces it. Why: events offer what Dionysius did as one choice, per the events decision.
 - **Which Dionysius stays open in the game.** Both modern readings are quoted; Cicero 5.57 would settle it and is not yet saved (`docs/later.md`). The event's dating (from Spring 404) is invention for this decade either way.
