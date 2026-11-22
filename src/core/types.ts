@@ -123,6 +123,7 @@ export interface Args { target?: string; second?: string; option?: string }
 export interface GameState {
   version: 1;
   seed: number;
+  tuning?: string; // id of the balance package in data/tuning.json (missing = the default)
   rng: number;
   season: number; // 0 = autumn 405 BC
   step: Step;
@@ -150,7 +151,7 @@ export interface GameState {
   ids: number;
   log: LogEntry[];
   inputs: Input[];
-  over?: { reason: string; text: string; season: number };
+  over?: { reason: string; text: string; season: number; by?: string };
   invasions: number;
   leverage: Leverage[];
   blockedSlots: number;

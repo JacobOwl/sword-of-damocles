@@ -3,6 +3,7 @@ import {
   DATA, FACTIONS, OFFICES, PLAYER, act, agendaById, band, capital, defense, endSeason, government, influence,
   leaderOf, menu, moodName, officeName, officesOf, others, playerInfluence, plotStrength, power, preview, rankTitle,
   refuseRequest, replay, secondOptions, seasonName, stageName, startGame, backingFaction,
+  PACKAGES, DEFAULT_TUNING, knobsFor, packageName,
 } from "../src/core/index.ts";
 import type { Args, FactionId, GameState, Input, Plot } from "../src/core/index.ts";
 import { guide, guideDone, howToPlay, installTips, setGuideDone, tipAttr } from "./help.ts";
@@ -18,9 +19,9 @@ const app = document.getElementById("app")!;
 function save() {
   const s = ui.s;
   if (!s) return;
-  try { localStorage.setItem(SAVE_KEY, JSON.stringify({ seed: s.seed, inputs: s.inputs, designer: ui.designer })); } catch { /* storage may be blocked */ }
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify({ seed: s.seed, tuning: s.tuning, inputs: s.inputs, designer: ui.designer })); } catch { /* storage may be blocked */ }
 }
-function load(): { seed: number; inputs: Input[]; designer?: boolean } | null {
+function load(): { seed: number; tuning?: string; inputs: Input[]; designer?: boolean } | null {
   try { const v = localStorage.getItem(SAVE_KEY); return v ? JSON.parse(v) : null; } catch { return null; }
 }
 function clearSave() { try { localStorage.removeItem(SAVE_KEY); } catch { /* ignore */ } }
@@ -37,21 +38,26 @@ function splash() {
     <p>Autumn, 405 BC. You are Dionysius, a scribe who made himself general with supreme power. The cavalry of the rich families rode home ahead of you, sacked your house and fled to Aetna. Carthage, struck by plague, has made peace. You hold the generalship and the treasury, and you sleep in the naval dockyards. The citadel on the Island is not yet built.</p>
     <p>Each season you take <b>three actions</b> from a fixed menu. The people and factions of Syracuse act on their own, by the same rules. Plots warn you three times before they strike. Hold the city to the summer of 395.</p>
     <div class="row" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+      <label for="tuning" class="small">Balance</label>
+      <select id="tuning">${PACKAGES.map((p) => `<option value="${esc(p.id)}"${p.id === DEFAULT_TUNING ? " selected" : ""}>${esc(p.name)}</option>`).join("")}</select>
       <button class="primary" id="new">Begin</button>
-      ${saved ? `<button id="resume">Resume your game</button>` : ""}
+      ${saved ? `<button id="resume">Resume your game (${esc(packageName(saved.tuning))} balance)</button>` : ""}
       <details class="seedbox"><summary class="small muted">Choose a seed</summary>
         <label for="seed" class="small">The same seed and the same choices always give the same history.</label>
         <input id="seed" type="number" value="${seed}" style="width:9em">
       </details>
     </div>
+    <p class="small" id="tuning-note">${esc(PACKAGES.find((p) => p.id === DEFAULT_TUNING)?.summary)}</p>
     <p class="small muted">The people and the situation come from Diodorus, Plutarch and others; each real person's sheet quotes the passages. Everything else, including every rule and number, is invention.</p>
   </div>`;
   document.getElementById("new")!.onclick = () => {
     const v = Number((document.getElementById("seed") as HTMLInputElement).value) || seed;
-    ui.s = startGame(v); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render();
+    ui.s = startGame(v, (document.getElementById("tuning") as HTMLSelectElement).value); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render();
   };
+  const sel = document.getElementById("tuning") as HTMLSelectElement;
+  sel.onchange = () => { document.getElementById("tuning-note")!.textContent = PACKAGES.find((p) => p.id === sel.value)?.summary ?? ""; };
   const r = document.getElementById("resume");
-  if (r && saved) r.onclick = () => { ui.s = replay(saved.seed, saved.inputs); ui.designer = !!saved.designer; render(); };
+  if (r && saved) r.onclick = () => { ui.s = replay(saved.seed, saved.inputs, PACKAGES.some((p) => p.id === saved.tuning) ? saved.tuning : DEFAULT_TUNING); ui.designer = !!saved.designer; render(); };
 }
 
 // ---------- Main screen ----------
@@ -72,7 +78,7 @@ function render() {
     ${body}
     <div class="foot small">
       <label><input type="checkbox" id="designer" ${ui.designer ? "checked" : ""}> Designer view: show the moves you can't see in play</label>
-      <span class="muted">Seed ${g.seed}</span>
+      <span class="muted">Seed ${g.seed} · ${esc(packageName(g.tuning))} balance</span>
       <button id="restart">New game</button>
     </div>`;
   wire(g);
@@ -269,8 +275,8 @@ function plots(g: GameState) {
     const track = ["Whispers", "Rumors", "Named", "Strike"].map((n, i) => `<span class="${i < pl.stage ? "done" : ""} ${i === pl.stage ? "next" : ""}">${n}</span>`).join("");
     let when: string;
     if (pl.stage < 3) when = `Earliest blow: ${3 - pl.stage + 1} seasons from now, if it keeps growing.`;
-    else if (pl.namedSince < g.season) when = `<b class="warn">It can strike at the end of this season</b> if its strength is 6 or more.`;
-    else when = `It can strike from next season, if its strength is 6 or more.`;
+    else if (pl.namedSince < g.season) when = `<b class="warn">It can strike at the end of this season</b> if its strength is ${knobsFor(g.tuning).minStrike} or more.`;
+    else when = `It can strike from next season, if its strength is ${knobsFor(g.tuning).minStrike} or more.`;
     const what = pl.stage === 1 ? "Something is off. You don't know who." : pl.stage === 2 ? "You know the faction, not the leader." : "You have a name.";
     const meter = showStr ? `<div class="vs"><span>Strength <b class="num">${st.total}</b></span><span class="vsbar"><i class="str" style="width:${Math.min(100, (st.total / 16) * 100)}%"></i><i class="def" style="left:${Math.min(100, (def / 16) * 100)}%"></i></span><span>your defense <b class="num">${def}</b></span></div>
       <div class="small muted">${esc(st.parts.map((p) => `${p.label} ${sign(p.value)}`).join(", "))}</div>` : `<div class="small muted">Its strength is unknown. Turn an informer inside it to learn it.</div>`;

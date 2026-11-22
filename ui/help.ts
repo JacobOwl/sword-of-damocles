@@ -10,14 +10,14 @@ export const TIPS: Record<string, string> = {
   land: "Portions of land you can hand out: to a faction, or to the guard as pay or citizenship.",
   guard: "Your mercenary guard. While it is paid and not too angry, its strength counts toward your defense. Unpaid, it can sell itself to a plot.",
   defense: "What a plot must beat when it strikes: a base of 4, plus the guard if it defends you, plus the citadel once built and held, plus watches on plotters.",
-  influence: "Your political weight: one for each office you hold, plus half the power of the faction that backs you most. Anyone whose influence comes within 3 of yours may become a political rival.",
+  influence: "Your political weight: one for each office you hold, plus half the power of the faction that backs you most. Anyone whose influence comes within 3 of yours (under Standard balance; the other packages may differ) may become a political rival.",
   government: "Who holds the offices decides the government. Hold the citadel, the generalship and the treasury at once and it is a tyranny.",
   actions: "You take three actions each season. Granting a petition also uses one.",
   power: "Faction power, 0 to 10. Marginal at 0 to 2, Active at 3 to 7, Dominant at 8 to 10. Each office a member holds adds 1. A Dominant faction backing a plot makes it far stronger.",
   mood: "A faction's mood toward you, from Rebellious to Loyal. At Angry or worse it may back a plot against you.",
   agenda: "A faction's scheme over several seasons. It moves a step forward whether or not you act. Work against it to slow it.",
   opinion: "What this person thinks of you, from −3 (hates you) to +3 (devoted). Gifts, offices and favours raise it; refusals, arrests and seizures lower it.",
-  stage: "Plots pass three warnings: Whispers, then Rumors (you learn the faction), then Named (you learn a name). A plot needs at least a season at each, and strength 6, before it can strike.",
+  stage: "Plots pass three warnings: Whispers, then Rumors (you learn the faction), then Named (you learn a name). A plot needs at least a season at each, and strength 6 (under Standard balance), before it can strike.",
   enemy: "An enemy is made by a wound: a failed arrest, exile, a killed kinsman, public humiliation, or a failed plot they survived. Enemies rank up from Malcontent to Nemesis, and remember what you did.",
   political: "A political rival wants your place, not your life. They rise from Contender to Pretender, and a Pretender can depose you.",
   reach: "Reaches outside the city. These actions need the fleet or the army, or an envoy.",
@@ -96,7 +96,7 @@ export function howToPlay() {
     <ul>${areas}</ul>
     <p>Most actions are one die plus modifiers, and 4 or more succeeds. Every modifier is shown before you commit. Some actions need no roll.</p>
     <h3>Plots and the sword</h3>
-    <p>A plot forms from grudges and anger. You get three warnings: <i>Whispers</i> (something is off), <i>Rumors</i> (you learn which faction), <i>Named</i> (you learn a name). A plot can strike only after a season at Named and with strength 6 or more. When it strikes it rolls one die plus its strength, and must beat your defense. Watch a suspect to see whether he is in it; turn an informer to learn its size; imprison a named plotter to take him out of it; keep the guard paid.</p>
+    <p>A plot forms from grudges and anger. You get three warnings: <i>Whispers</i> (something is off), <i>Rumors</i> (you learn which faction), <i>Named</i> (you learn a name). A plot can strike only after a season at Named and with strength 6 or more (under Standard balance; the start screen says what the other packages change). When it strikes it rolls one die plus its strength, and must beat your defense. Watch a suspect to see whether he is in it; turn an informer to learn its size; imprison a named plotter to take him out of it; keep the guard paid.</p>
     <h3>Rivals</h3>
     <p><b>Enemies</b> are made by wounds and want you dead. They carry scars, remember what you did, and can rise to Nemesis. <b>Political rivals</b> are made by ambition and want your place. A Pretender can depose you without a blow.</p>
     <h3>Words used in the game</h3>

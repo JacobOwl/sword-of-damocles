@@ -1,0 +1,82 @@
+{
+  "note": "Balance packages: the numbers behind plots, defense and political rivals. 'standard' is rules v2 as built in the prototype and stays the default until Jacob picks another. All invention. Each package lists only what it changes from standard; see docs/playtests/2026-11-22-balance-sweep.md for what each one does to the stories.",
+  "default": "standard",
+  "packages": [
+    {
+      "id": "standard",
+      "kind": "invention",
+      "name": "Standard",
+      "summary": "Rules v2 as built. Plots grow fast and strike as soon as they have a fair chance.",
+      "knobs": {}
+    },
+    {
+      "id": "slowFuse",
+      "kind": "invention",
+      "name": "Slow fuse",
+      "summary": "Plots need more strength before they are Named and can strike, wait longer for their moment, and a successful Watch names everyone in the plot. A broken plot buys a season of quiet. The blow is as deadly as ever, but it comes late and you see it coming.",
+      "knobs": {
+        "stageRumors": 4,
+        "stageNamed": 7,
+        "minStrike": 8,
+        "strikeMargin": 2,
+        "namedWait": 3,
+        "watchRevealsPlot": true,
+        "breathingRoom": 1,
+        "takePlaceNeed": 5
+      }
+    },
+    {
+      "id": "fairFight",
+      "kind": "invention",
+      "name": "Fair fight",
+      "summary": "Plots grow as fast as in standard, but office holders weigh 2 instead of 3, backing factions add less, and your defense counts for more (base 6, citadel 3, each watched plotter 2). Strikes often fail, and a leader who survives his failed blow rises a rank.",
+      "knobs": {
+        "officeWeight": 2,
+        "backingDivisor": 4,
+        "defenseBase": 6,
+        "citadelDefense": 3,
+        "watchDefense": 2,
+        "takePlaceNeed": 5,
+        "rankOnFailedPlot": 1
+      }
+    },
+    {
+      "id": "reapWhatYouSow",
+      "kind": "invention",
+      "name": "Reap what you sow",
+      "summary": "Plots take longer to ripen and a Watch names the whole plot, as in Slow fuse. One more rule: a faction that is Content or Loyal holds back its agenda against you. Keep a faction happy and it leaves you alone; neglect it and its agenda marches on.",
+      "knobs": {
+        "stageRumors": 4,
+        "stageNamed": 7,
+        "minStrike": 8,
+        "strikeMargin": 2,
+        "namedWait": 3,
+        "watchRevealsPlot": true,
+        "breathingRoom": 1,
+        "takePlaceNeed": 5,
+        "contentFactionsStall": true
+      }
+    }
+  ],
+  "standard": {
+    "officeWeight": 3,
+    "leaderWeight": 2,
+    "memberWeight": 1,
+    "backingDivisor": 3,
+    "stageRumors": 3,
+    "stageNamed": 5,
+    "minStrike": 6,
+    "strikeMargin": 4,
+    "namedWait": 2,
+    "recruitNeed": 4,
+    "defenseBase": 4,
+    "citadelDefense": 2,
+    "watchDefense": 1,
+    "watchRevealsPlot": false,
+    "politicalRange": 3,
+    "takePlaceNeed": 4,
+    "contentFactionsStall": false,
+    "breathingRoom": 0,
+    "rankOnFailedPlot": 0
+  }
+}
