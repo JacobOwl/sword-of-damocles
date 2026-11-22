@@ -3,7 +3,7 @@
 import { DATA, originById } from "./data.ts";
 import { d6 } from "./rng.ts";
 import { PLAYER, activeRivals, capital, moodName, nameOf, officeName, power, band, seasonName } from "./state.ts";
-import type { FactionId, GameState, LogEntry, Mod, OfficeId, Scar } from "./types.ts";
+import type { FactionId, GameState, LogEntry, Mod, OfficeId, Scar, Status } from "./types.ts";
 import { FACTIONS } from "./types.ts";
 
 export function log(s: GameState, e: Omit<LogEntry, "n" | "season" | "step">): LogEntry {
@@ -105,10 +105,10 @@ export function setOffice(s: GameState, o: OfficeId, holder: string | null, why:
   change(s, holder ?? "world", holder ? `${capital(nameOf(s, holder))} ${holder === PLAYER ? "hold" : "holds"} ${officeName(o)}.` : `${capital(officeName(o))} stands empty.`, why);
 }
 
-export function setStatus(s: GameState, pid: string, status: "free" | "held" | "outside" | "dead", why: string) {
+export function setStatus(s: GameState, pid: string, status: Status, why: string) {
   const p = s.people[pid];
   p.status = status;
-  const words = { free: "is free in the city", held: "is held under guard", outside: "is outside the walls", dead: "is dead" }[status];
+  const words = ({ free: "is free in the city", held: "is held under guard", outside: "is outside the walls", dead: "is dead", absent: "is away" } as Record<string, string>)[status];
   change(s, pid, `${capital(p.name)} ${words}.`, why);
   if (status !== "free") {
     // An office needs its holder in the city; held, exiled or dead holders lose it.

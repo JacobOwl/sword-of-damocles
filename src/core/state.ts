@@ -14,6 +14,16 @@ export function seasonName(i: number): string {
   if (q === 1) return `Winter ${y}/${y - 1} BC`;
   return `${SEASON_NAMES[q]} ${y - 1} BC`;
 }
+// "autumn-405" -> 0, "winter-405" -> 1, "spring-404" -> 2, "summer-404" -> 3 ...
+export function seasonIndex(v: unknown): number {
+  if (typeof v !== "string") return 0;
+  const m = /^(autumn|winter|spring|summer)-(\d+)/i.exec(v);
+  if (!m) return 0;
+  const q = ["autumn", "winter", "spring", "summer"].indexOf(m[1].toLowerCase());
+  const y = Number(m[2]);
+  const k = q <= 1 ? 405 - y : 404 - y;
+  return Math.max(0, k * 4 + q);
+}
 export const seasonOfYear = (i: number) => SEASON_NAMES[i % 4];
 
 export function newGame(seed: number): GameState {
@@ -24,11 +34,12 @@ export function newGame(seed: number): GameState {
       id: p.id, name: p.name, faction: p.faction, role: p.role, traits: [...p.traits], ambition: p.ambition,
       opinion: p.opinion ?? 0, grudges: (p.grudges ?? []).map((r: string) => ({ reason: r, season: -1 })),
       status: p.status ?? "free", kin: p.kin ?? [], wants: p.wants, marriageable: !!p.marriageable, married: false,
-      bound: false, refusals: 0, owedFavor: false, knownUntil: -1, player: !!p.player, exposed: false, infl: 0, blockedUntil: -1, informer: false,
+      bound: false, refusals: 0, owedFavor: false, knownUntil: -1, player: !!p.player, exposed: false, infl: 0, blockedUntil: -1, informer: false, enters: seasonIndex(p.enters),
       rival: p.rival ? { rank: p.rival.rank, scars: [p.rival.scar], memory: [], since: 0 } : undefined,
       agenda: p.agenda ? { id: p.agenda, step: 0, done: false } : undefined,
     };
   }
+  for (const p of Object.values(people)) if (p.enters > 0) { (p as any).startStatus = p.status; p.status = "absent"; }
   const offices = {} as Record<OfficeId, string | null>;
   for (const o of DATA.offices) offices[o.id as OfficeId] = o.holder;
   const factions = {} as Record<FactionId, Faction>;
@@ -57,7 +68,7 @@ export const officeName = (o: string) => DATA.offices.find((x) => x.id === o)?.n
 export const traitName = (t: string) => DATA.traits.find((x) => x.id === t)?.name ?? t;
 export const hasTrait = (p: Person, t: string) => p.traits.includes(t);
 
-export const alive = (p: Person) => p.status !== "dead";
+export const alive = (p: Person) => p.status !== "dead" && p.status !== "absent";
 export const inCity = (p: Person) => p.status === "free";
 export const others = (s: GameState) => Object.values(s.people).filter((p) => !p.player);
 export const membersOf = (s: GameState, f: FactionId) => others(s).filter((p) => p.faction === f && alive(p));
@@ -78,6 +89,9 @@ export function band(pow: number): "Marginal" | "Active" | "Dominant" {
 export function leaderOf(s: GameState, f: FactionId): Person | undefined {
   // The first listed member who is free in the city, else anyone alive.
   const ms = membersOf(s, f);
+  const named = DATA.factions.find((x) => x.id === f)?.leader;
+  const lead = named ? s.people[named] : undefined;
+  if (lead && lead.status === "free") return lead;
   return ms.find((p) => p.status === "free") ?? ms.find((p) => p.status !== "held");
 }
 

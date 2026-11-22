@@ -353,7 +353,7 @@ export const IMPL: Record<string, Impl> = {
     },
   },
   proposeLaw: {
-    target: (s) => DATA.laws.filter((l) => l.repeatable || !s.laws.includes(l.id)).map((l) => ({ value: l.id, label: `${l.name} (${l.detail})` })),
+    target: (s) => DATA.laws.filter((l) => (l.repeatable || !s.laws.includes(l.id)) && s.flags[`failed_${l.id}`] !== s.season).map((l) => ({ value: l.id, label: `${l.name} (${l.detail})` })),
     odds: (s, a) => vote(s, a.target!).mods,
     run: (s, a, ok) => {
       const law = lawById(a.target!)!;
@@ -369,7 +369,7 @@ export const IMPL: Record<string, Impl> = {
         if (law.servesCitizens) meetGoal(s, "citizens", "lawForCitizens");
       } else {
         event(s, PLAYER, `The assembly throws out ${law.name.toLowerCase()}.`, "the vote");
-        for (const f of v.againstF) powerChange(s, f, 1, "it won an assembly vote");
+        s.flags[`failed_${law.id}`] = s.season;
       }
     },
   },
@@ -385,7 +385,7 @@ export const IMPL: Record<string, Impl> = {
       actAgainst(s, p.id);
       s.factions.rich.actedAgainst = true;
       if (ok) {
-        event(s, PLAYER, `Your men empty ${p.name}'s strongrooms.`, "Seize property");
+        event(s, PLAYER, `Your men empty the strongrooms of ${p.name}.`, "Seize property");
         silver(s, d6(s) <= 3 ? 2 : 3, `seized from ${p.name}`);
         powerChange(s, "rich", -1, "its property was seized");
       } else event(s, PLAYER, `${capital(p.name)} had warning. The silver is gone before your men arrive.`, "Seize property failed");

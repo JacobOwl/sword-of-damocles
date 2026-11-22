@@ -9,7 +9,7 @@ export const OFFICES: OfficeId[] = ["citadel", "treasury", "mint", "fleet", "gen
 export const MOODS = ["Rebellious", "Angry", "Uneasy", "Content", "Loyal"] as const;
 export type Ambition = "Wealth" | "Office" | "Safety" | "Revenge" | "Power";
 export type Scar = string; // an id from data/rivals.json, so new rival origins can be added as data
-export type Status = "free" | "held" | "outside" | "dead";
+export type Status = "free" | "held" | "outside" | "dead" | "absent"; // absent: enters the story later
 export type Step = "world" | "people" | "factions" | "player" | "power" | "sword" | "chronicle";
 
 export interface Grudge { reason: string; season: number }
@@ -48,6 +48,7 @@ export interface Person {
   political?: Political;
   blockedUntil: number; // a Block cancels their next action
   informer: boolean; // reports to you about any plot they are in
+  enters: number; // season they enter the story (0 = from the start)
 }
 
 // A political rival wants your place, not your death (rules v2, Jacob's change of 2026-11-22).

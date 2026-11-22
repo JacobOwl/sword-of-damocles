@@ -131,7 +131,7 @@
       "cost": "none",
       "roll": "an assembly vote: each faction's power counts for or against, then one die",
       "success": "The law is in force. The winning side +1 power.",
-      "failure": "The law fails. The side that blocked it +1 power."
+      "failure": "The law fails, and cannot be put again this season."
     },
     {
       "id": "seize",
