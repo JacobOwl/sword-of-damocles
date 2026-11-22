@@ -10,7 +10,8 @@
     "check": "npm test",
     "sim": "node scripts/sim.ts",
     "build": "node scripts/build-ui.ts",
-    "census": "node scripts/census.ts"
+    "census": "node scripts/census.ts",
+    "replays": "node scripts/export-replays.ts"
   },
   "engines": {
     "node": ">=22.18"

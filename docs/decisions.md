@@ -191,3 +191,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Only quotes, not whole texts.** The cloud's network is closed except GitHub, and the web reader returns short passages. Enough for the three gaps; whole chapters wait for Jacob if ever needed.
 - **Which Dionysius Damocles served stays open.** Livius.org says Dionysius II, Wikipedia says Dionysius I; Cicero's own 5.57 would settle it and is not saved.
 - **No game data changed.** The calendar (thread 12), events (thread 06) and names (thread 13) stay with their threads.
+
+## 2026-11-22 (a proper web app, step 1: thread 17)
+- **The browser game stays TypeScript with no UI framework; Vite replaces the hand-written esbuild script next.** Why: screens are already plain functions tested headless, every thread can add to them, and Godot is the long-term home (Jacob), so the browser UI should stay cheap. Plan in `docs/architecture.md`.
+- **The engine's purity is now tested** (`tests/core-boundary.test.ts`) and **conformance replays can be exported** (`npm run replays`) for a later port. Why: Godot is the goal; a port is checked by replaying the same games.
+- **Open:** which Godot route (translate or embed), for later.
