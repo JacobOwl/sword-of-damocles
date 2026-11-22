@@ -22,7 +22,10 @@ test("the standard package plays exactly as rules v2 did before packages existed
 });
 // Re-pinned 2026-11-22 when events joined the season (thread 06). With the event draw switched off,
 // the old digest "6f4d7392e5e4631f" still matched, so events were the only change.
-const STANDARD_DIGEST = "825ddae722aa16c6";
+// Re-pinned again 2026-11-22 (thread 09) for two text fixes only: "is in a plot against you, and leads it
+// himself" instead of "led by" his own name, and the Take his place ending no longer lists all four ways to lose.
+// With those two lines put back, "825ddae722aa16c6" still matched, so the rule switches change nothing while off.
+const STANDARD_DIGEST = "91a0386516ddf2e8";
 
 test("every package only names knobs that exist", () => {
   const known = Object.keys(knobsFor("standard"));
