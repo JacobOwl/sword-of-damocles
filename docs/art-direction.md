@@ -78,7 +78,7 @@ One set, drawn in `ui/icons.ts` as inline SVG, on a 24-unit square, filled silho
 
 Each event names a picture (`art` in `data/events.json`, a word like `ship` or `feast`). The picture is a red-figure tondo: a clay-orange emblem on black glaze inside a ring of the meander. About sixteen emblems cover all 52 events: feast cup, ship, storm wave, fire, wheat and ship, coins, sealed letter, wedding torches, a bed of sickness (the staff of Asclepius), an omen (eagle and snake), dice, lyre, spear and shield, the citadel, the assembly, Carthage's palm, a dagger, a mask for the whispered and secret. A test fails if an event has no picture or names one that doesn't exist.
 
-**No human figures yet.** Hand-drawn people in a tondo would look worse than objects, and objects carry the story the way a shield device does. Proper painted figure scenes are parked in `docs/later.md`.
+**People, since the second round.** Eight pictures now show figures drawn as red-figure painters drew them (`ui/figures.ts`): a man reclining at a feast, a speaker in the assembly, a veiled bride with a torch-bearer, a woman at the hearth, a hoplite, two men whispering, a sick man and his physician, a man reading a tablet. Figures are left in clay; hair, beards, eyes and folds are black glaze, with a thin clay line round the black hair as the painters left it. The rest stay emblems, which carry the story the way a shield device does.
 
 ## Signature pieces
 

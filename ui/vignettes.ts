@@ -2,6 +2,7 @@
 // inside a ring of the meander. Each event in data/events.json names one with "art". All of it is invention
 // (see docs/art-direction.md). Clay parts use currentColor-free classes so CSS decides the two colours.
 import { iconBody } from "./icons.ts";
+import * as F from "./figures.ts";
 
 // An icon from the set, placed and scaled into the 120-unit tondo.
 const use = (name: string, x: number, y: number, s: number, rot = 0) =>
@@ -23,21 +24,9 @@ const grapes = (x: number, y: number) => {
 
 
 export const VIGNETTES: Record<string, string> = {
-  feast: `<path d="M38 42 H82 L78 46.5 C78 58 72 66 65 68.5 L65 74.5 C69 75.5 72 77.5 72 80 H48 C48 77.5 51 75.5 55 74.5 L55 68.5 C48 66 42 58 42 46.5 Z"/>
-    <path d="M43 52 C35 51 33 60 41 62 M77 52 C85 51 87 60 79 62" class="line" style="stroke-width:2.4"/>
-    <path d="M42.5 48.5 H77.5 M44.5 56 H75.5" class="cut line" style="stroke-width:1"/>
-    <path d="M48 58.5 L50 64 M53 58.5 L54.5 66 M58 58.5 L58.5 67 M62 58.5 L61.5 67 M67 58.5 L65.5 66 M72 58.5 L70 64" class="cut line" style="stroke-width:.9"/>
-    <path d="M26 34 C38 24 50 30 60 27 C70 30 82 24 94 34" class="line" style="stroke-width:1.4"/>
-    ${grapes(33, 32)}${grapes(87, 32)}
-    <path d="M44 29 C46 26 49 26 50 28 C48 28.5 46 29 44 29 Z M70 28 C71 26 74 26 76 29 C74 29 72 28.5 70 28 Z"/>`,
-  wedding: `<path d="M36 90 L70 30 M84 90 L50 30" class="line" style="stroke-width:3.2"/>
-    <path d="M70 30 C66 26 66 20 71 14 C71 19 75 19 75 24 C76 21 78 22 78 25 C78 29 74 32 70 30 Z"/>
-    <path d="M50 30 C54 26 54 20 49 14 C49 19 45 19 45 24 C44 21 42 22 42 25 C42 29 46 32 50 30 Z"/>
-    <path d="M66.5 36.5 C64 35 61 35 60 37 M53.5 36.5 C56 35 59 35 60 37" class="line" style="stroke-width:1.6"/>
-    ${use("influence", 46, 52, 1.2)}`,
-  hearth: `${use("hearth", 27, 25, 2.75)}
-    <path d="M30 40 C40 48 50 50 60 50 C70 50 80 48 90 40" class="line" style="stroke-width:1.3"/>
-    <circle cx="36" cy="43.5" r="1.6"/><circle cx="48" cy="48.6" r="1.6"/><circle cx="72" cy="48.6" r="1.6"/><circle cx="84" cy="43.5" r="1.6"/>`,
+  feast: `${F.symposiast(57, 74, 1, 1.12)}${grapes(88, 30)}`,
+  wedding: `${F.standingWoman(48, 94, 1, { veil: true, arm: "veil" }, 1.18)}${F.standingWoman(80, 94, -1, { arm: "torch" }, 1.08)}`,
+  hearth: `${use("hearth", 58, 52, 1.6)}${F.standingWoman(40, 94, 1, { arm: "forward" }, 1.15)}`,
   warship: `${use("fleet", 21, 20, 3.3)}${waves(88, 26, 94, 5)}`,
   grainship: `<path d="M22 70 C30 80 84 81 96 64 L91 62.5 C82 70 44 71 24 66.5 Z"/>
     <path d="M24 66.5 C20 62 21 56 25 53 C24.5 58 25.5 62 28 66.6 Z"/>
@@ -70,17 +59,8 @@ export const VIGNETTES: Record<string, string> = {
     <path d="M55 66 L60 80 L65 66 Z"/>
     <path d="M40 80 C48 72 54 84 62 78 C70 72 74 84 82 76" class="line" style="stroke-width:2.6"/><circle cx="83" cy="75" r="2.2"/>
     <path d="M37.5 39.5 C40 42 44 43.6 48 44 M82.5 39.5 C80 42 76 43.6 72 44" class="cut line" style="stroke-width:.8"/>`,
-  sickness: `<rect x="57.6" y="22" width="4.8" height="66" rx="1.4"/>
-    <path d="M57 22 H63 L62.4 26 H57.6 Z"/>
-    <path d="M70 30 C76 36 46 38 50 46 C54 54 70 50 70 59 C70 68 50 64 50 73 C50 80 60 82 66 80" class="line" style="stroke-width:3.6"/>
-    <ellipse cx="69" cy="28.5" rx="3.6" ry="2.4" transform="rotate(20 69 28.5)"/><circle cx="70" cy="28" r=".7" class="cut"/>
-    <path d="M30 86 H90" class="line" style="stroke-width:1.4"/>`,
-  letter: `<rect x="28" y="36" width="30" height="42" rx="2.4"/><rect x="62" y="36" width="30" height="42" rx="2.4"/>
-    <rect x="32" y="40" width="22" height="34" class="cut"/><rect x="66" y="40" width="22" height="34" class="cut"/>
-    <path d="M35 46 H51 M35 51 H49 M35 56 H51 M35 61 H46 M35 66 H50 M69 46 H85 M69 51 H82 M69 56 H85 M69 61 H80" class="line" style="stroke-width:1.2"/>
-    <path d="M58 44 H62 M58 70 H62" class="line" style="stroke-width:2.2"/>
-    <circle cx="60" cy="57" r="6.4"/><path d="M57 54 L63 60 M63 54 L57 60" class="cut line" style="stroke-width:1.2"/>
-    <path d="M56 63 C52 72 48 80 44 86 M64 63 C68 72 72 80 76 86" class="line" style="stroke-width:1.2"/>`,
+  sickness: `${F.sickBed(52, 76, 1, 1)}${F.standingMan(88, 94, -1, { arm: "staff" }, .95)}`,
+  letter: `${F.seatedMan(56, 94, 1, { hold: "tablet" }, 1.25)}`,
   dice: `<path d="M30 52 L46 44 L62 52 L46 60 Z"/><path d="M30 52 V70 L46 78 V60 Z"/><path d="M62 52 V70 L46 78 V60 Z"/>
     <path d="M30 52 L46 60 L62 52 M46 60 V78" class="cut line" style="stroke-width:1"/>
     <ellipse cx="46" cy="52" rx="2" ry="1.2" class="cut"/>
@@ -98,18 +78,10 @@ export const VIGNETTES: Record<string, string> = {
     <path d="M50 70 L54 78 L60 74 L66 78 L70 70 L60 66 Z M48 79 L54 78 M72 79 L66 78" class="cut line" style="stroke-width:.9"/>
     <path d="M54 35 V68 M57.3 35 V68 M60.6 35 V68 M64 35 V68 M67 35 V68" class="line" style="stroke-width:.8"/>
     <rect x="52" y="66" width="16" height="3"/>`,
-  mask: `<path d="M40 34 C40 26 50 22 60 22 C70 22 80 26 80 34 C82 50 78 64 72 72 C68 78 64 82 60 82 C56 82 52 78 48 72 C42 64 38 50 40 34 Z"/>
-    <path d="M45 44 C48 40 53 40 56 44 C53 47 48 47 45 44 Z M64 44 C67 40 72 40 75 44 C72 47 67 47 64 44 Z" class="cut"/>
-    <path d="M44 37 C48 33 53 33 56 36 M64 36 C67 33 72 33 76 37" class="cut line" style="stroke-width:1.3"/>
-    <path d="M52 66 C56 62 64 62 68 66 C64 70 56 70 52 66 Z" class="cut"/>
-    <path d="M60 46 L58 57 H62" class="cut line" style="stroke-width:1.1"/>
-    <path d="M40 34 C32 38 28 48 30 60 M80 34 C88 38 92 48 90 60" class="line" style="stroke-width:1.6"/>`,
+  mask: `${F.standingMan(46, 94, 1, { arm: "mouth" }, 1.12)}${F.standingMan(78, 94, -1, { arm: "wrapped" }, 1.12)}`,
   dagger: `${use("scheming", 26, 20, 3, 28)}
     <circle cx="82" cy="80" r="2"/><circle cx="76" cy="85" r="1.4"/><circle cx="88" cy="86" r="1.2"/>`,
-  arms: `<path d="M80 88 L34 26" class="line" style="stroke-width:2.6"/><path d="M29 18 C29.4 23.4 31.4 27.4 35 29.4 L36.8 27.6 C35.8 23.4 33.2 20.2 29 18 Z"/>
-    <circle cx="56" cy="62" r="23"/><circle cx="56" cy="62" r="18.5" class="cut line" style="stroke-width:1.2"/>
-    <g class="cut">${use("horse", 41.6, 47.6, 1.2)}</g>
-    ${use("helmet", 66, 18, 1.25)}`,
+  arms: `${F.hoplite(58, 96, 1, { blazon: `<g class="cut">${use("horse", 43.8, 49.4, .9)}</g>` }, 1.12)}`,
   horse: `${use("horse", 30, 28, 2.5)}
     <path d="M36 26 C30 30 30 40 36 44 C32 44 26 40 26 34 C26 28 31 24 36 26 Z"/>
     <circle cx="86" cy="30" r="1.2"/><circle cx="80" cy="22" r="1"/><circle cx="92" cy="40" r="1"/>`,
@@ -118,7 +90,7 @@ export const VIGNETTES: Record<string, string> = {
     <path d="M53 86 V74 C53 70 56 68 60 68 C64 68 67 70 67 74 V86 Z" class="cut"/>
     <path d="M24 52 H42 M24 62 H96 M24 72 H96 M78 52 H96 M33 44 V52 M87 44 V52 M30 52 V62 M48 62 V72 M72 62 V72 M90 52 V62 M36 72 V86 M84 72 V86" class="cut line" style="stroke-width:.7"/>
     <rect x="31.5" y="46" width="3" height="4" class="cut"/><rect x="85.5" y="46" width="3" height="4" class="cut"/>`,
-  assembly: `${use("assembly", 24, 22, 3)}`,
+  assembly: `<path d="M30 92 V84 H58 V92 Z"/><path d="M33 88 H55" class="cut line" style="stroke-width:.6"/>${F.standingMan(44, 84, 1, { arm: "raised" }, 1.08)}${F.head(78, 66, -1, { beard: true }, 1.3)}${F.head(91, 73, -1, {}, 1.3)}${F.head(76, 82, -1, { beard: true }, 1.3)}`,
   harvest: `${use("grain", 11, 22, 2.9)}${use("grain", 23, 30, 2.4, 14)}
     <path d="M70 34 C92 34 100 56 86 70 C86 58 80 48 70 44 Z"/><path d="M71 41 C76 54 74 70 68 86" class="line" style="stroke-width:3"/>`,
   palm: `${use("palm", 28, 24, 2.6)}
