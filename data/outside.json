@@ -1,0 +1,171 @@
+{
+ "_note": "Outside powers. Phase 1 keeps these as pressure and chronicle names only; the engine need not load this file.",
+ "outside": [
+  {
+   "id": "carthage",
+   "kind": "history",
+   "name": "Carthage",
+   "role": "Outside pressure: the Carthage clock",
+   "card": "docs/research/cast-405-395.md",
+   "source": "Diodorus 13.114.1, 14.47.1 to 14.47.2, 14.95.1 to 14.96.4",
+   "people": [
+    {
+     "id": "himilcon",
+     "name": "Himilcon",
+     "role": "General of Carthage; made the peace of 405 and led the war of 397/396",
+     "facts": [
+      {
+       "text": "Fled Syracuse by night, about 396, after paying off Dionysius.",
+       "cite": "Diodorus 14.75.4",
+       "quote": "Himilcon during the night conveyed the three hundred talents to the acropolis",
+       "file": "sources/diodorus/english/book14.loeb.txt"
+      }
+     ],
+     "kind": "history",
+     "source": "Diodorus 14.75.4",
+     "card": "docs/research/cast-405-395.md"
+    },
+    {
+     "id": "magon",
+     "name": "Magon",
+     "role": "Carthaginian admiral in 396, general about 393/392",
+     "facts": [
+      {
+       "text": "Admiral under Himilcon.",
+       "cite": "Diodorus 14.59.1",
+       "quote": "he dispatched Magon his admiral",
+       "file": "sources/diodorus/english/book14.loeb.txt"
+      },
+      {
+       "text": "Led a large army about 393/392.",
+       "cite": "Diodorus 14.95.1",
+       "quote": "no less than eighty thousand in number and under the command of Magon",
+       "file": "sources/diodorus/english/book14-78-96.txt"
+      }
+     ],
+     "kind": "history",
+     "source": "Diodorus 14.59.1; Diodorus 14.95.1",
+     "card": "docs/research/cast-405-395.md"
+    }
+   ],
+   "facts": [
+    {
+     "text": "The peace of 405 left Syracuse to Dionysius.",
+     "cite": "Diodorus 13.114.1",
+     "quote": "the Syracusans shall be subject to Dionysius",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "sparta",
+   "kind": "history",
+   "name": "Sparta",
+   "role": "A friend of the tyranny that poses as a friend of liberty",
+   "card": "docs/research/cast-405-395.md",
+   "source": "Diodorus 14.10.2 to 14.10.3, 14.70.1 to 14.70.3",
+   "people": [
+    {
+     "id": "aristus",
+     "name": "Aristus",
+     "role": "Spartan envoy, about 404",
+     "facts": [
+      {
+       "text": "Came to strengthen the tyranny while promising liberty.",
+       "cite": "Diodorus 14.10.2",
+       "quote": "ostensibly pretending that they would overthrow the government, but in truth with intent to increase the power of the tyranny",
+       "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+      }
+     ],
+     "kind": "history",
+     "source": "Diodorus 14.10.2",
+     "card": "docs/research/cast-405-395.md"
+    },
+    {
+     "id": "pharacidas",
+     "name": "Pharacidas",
+     "role": "Spartan admiral of the allied fleet, 396",
+     "facts": [
+      {
+       "text": "Blocked the move against Dionysius in the assembly.",
+       "cite": "Diodorus 14.70.2",
+       "quote": "he was on friendly terms with the tyrant",
+       "file": "sources/diodorus/english/book14.loeb.txt"
+      }
+     ],
+     "kind": "history",
+     "source": "Diodorus 14.70.2",
+     "card": "docs/research/cast-405-395.md"
+    }
+   ],
+   "disputes": [
+    "Diodorus 14.70.3 also names \"Aretes the Lacedaemonian\" who betrayed the Syracusans earlier. Whether he is Aristus is not settled in these texts."
+   ]
+  },
+  {
+   "id": "neighbours",
+   "kind": "history",
+   "name": "Catana, Naxos and Leontini, the nearby cities",
+   "role": "Nearby Greek cities, taken about 403",
+   "card": "docs/research/cast-405-395.md",
+   "source": "Diodorus 14.15.1 to 14.15.4",
+   "people": [
+    {
+     "id": "arcesilaus",
+     "name": "Arcesilaus",
+     "role": "General of Catana who betrayed it",
+     "facts": [
+      {
+       "text": "Offered to betray Catana.",
+       "cite": "Diodorus 14.15.1",
+       "quote": "Arcesilaüs, the general of the Catanians, had offered to betray the city",
+       "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+      }
+     ],
+     "kind": "history",
+     "source": "Diodorus 14.15.1",
+     "card": "docs/research/cast-405-395.md"
+    },
+    {
+     "id": "procles",
+     "name": "Procles",
+     "role": "Commander of Naxos who betrayed it",
+     "facts": [
+      {
+       "text": "Handed over Naxos.",
+       "cite": "Diodorus 14.15.2",
+       "quote": "Procles, the commander of the Naxians, on being won over by great promises",
+       "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+      }
+     ],
+     "kind": "history",
+     "source": "Diodorus 14.15.2",
+     "card": "docs/research/cast-405-395.md"
+    }
+   ]
+  },
+  {
+   "id": "italiotes",
+   "kind": "history",
+   "name": "The Italian Greeks",
+   "role": "Rhegium, Croton and the cities across the strait, a refuge for exiles",
+   "card": "docs/research/cast-405-395.md",
+   "source": "Diodorus 14.44.4 to 14.44.5, 14.103.4 to 14.103.5",
+   "people": [],
+   "facts": [
+    {
+     "text": "Rhegium refused a marriage with Dionysius, about 398.",
+     "cite": "Diodorus 14.44.5",
+     "quote": "the Rhegians voted not to accept the marriage connection",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    },
+    {
+     "text": "Croton sheltered the most Syracusan exiles.",
+     "cite": "Diodorus 14.103.4",
+     "quote": "had the largest number of exiles from Syracuse",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    }
+   ]
+  }
+ ]
+}

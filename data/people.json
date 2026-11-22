@@ -1,289 +1,1277 @@
 {
-  "note": "Phase 1 keeps to real people. A role stands in where the sources name no one. Traits, ambitions and opinions are invention in every record.",
-  "people": [
+ "note": "The cast for Phase 1. Each faction's leader is its first listed member who is free in the city, so order matters. History records cite docs/research/cast-405-395.md; the fields named in 'invented' are game invention. 'enters' is the first season someone can appear (format season-year).",
+ "people": [
+  {
+   "id": "dionysius",
+   "kind": "history",
+   "name": "Dionysius",
+   "faction": "ruler",
+   "role": "General with supreme power, tyrant of Syracuse",
+   "traits": [
+    "silverTongued",
+    "suspicious"
+   ],
+   "ambition": "Power",
+   "opinion": 0,
+   "kin": [
+    "leptines",
+    "thearides",
+    "theste",
+    "polyxenus",
+    "heloris",
+    "hermocratesDaughter"
+   ],
+   "family": [
     {
-      "id": "dionysius",
-      "name": "Dionysius",
-      "faction": "ruler",
-      "player": true,
-      "kind": "history",
-      "source": "Diodorus 13.96.4",
-      "card": "docs/research/dionysius-405-403.md",
-      "invented": [
-        "traits"
-      ],
-      "role": "Tyrant of Syracuse, general with supreme power",
-      "traits": [
-        "silverTongued",
-        "suspicious"
-      ],
-      "ambition": "Power",
-      "opinion": 0,
-      "marriageable": true
+     "person": "leptines",
+     "relation": "brother"
     },
     {
-      "id": "polyxenus",
-      "name": "Polyxenus",
-      "faction": "family",
-      "kind": "history",
-      "source": "Diodorus 13.96.3",
-      "card": "docs/research/dionysius-405-403.md",
-      "invented": [
-        "traits",
-        "ambition",
-        "opinion"
-      ],
-      "role": "Your brother-in-law, married to your sister",
-      "traits": [
-        "cautious",
-        "wellConnected"
-      ],
-      "ambition": "Safety",
-      "opinion": 1,
-      "kin": [
-        "leptines",
-        "thearides"
-      ],
-      "politicalType": "Spymaster"
+     "person": "thearides",
+     "relation": "brother"
     },
     {
-      "id": "leptines",
-      "name": "Leptines",
-      "faction": "family",
-      "kind": "history",
-      "source": "Diodorus 14.48.4, 14.102.3",
-      "card": "docs/research/dionysius-405-403.md",
-      "invented": [
-        "traits",
-        "ambition",
-        "opinion",
-        "holds the fleet in 405 (the sources make him admiral only by about 397)"
-      ],
-      "role": "Your brother, keeper of the fleet",
-      "traits": [
-        "bold",
-        "generous"
-      ],
-      "ambition": "Office",
-      "wants": "generalship",
-      "opinion": 1,
-      "kin": [
-        "thearides",
-        "polyxenus"
-      ]
+     "person": "theste",
+     "relation": "sister"
     },
     {
-      "id": "thearides",
-      "name": "Thearides",
-      "faction": "family",
-      "kind": "history",
-      "source": "Diodorus 14.102.3",
-      "card": "docs/research/dionysius-405-403.md",
-      "invented": [
-        "traits",
-        "ambition",
-        "opinion"
-      ],
-      "role": "Your other brother",
-      "traits": [
-        "dutiful",
-        "showy"
-      ],
-      "ambition": "Office",
-      "wants": "fleet",
-      "opinion": 1,
-      "marriageable": true,
-      "kin": [
-        "leptines",
-        "polyxenus"
-      ]
+     "person": "polyxenus",
+     "relation": "brother-in-law"
     },
     {
-      "id": "heloris",
-      "name": "Heloris",
-      "faction": "family",
-      "kind": "history",
-      "source": "Diodorus 14.8.5",
-      "card": "docs/research/dionysius-405-403.md",
-      "invented": [
-        "traits",
-        "ambition",
-        "opinion"
-      ],
-      "role": "Your friend, or as some say your adopted father",
-      "traits": [
-        "blunt",
-        "proud"
-      ],
-      "ambition": "Safety",
-      "opinion": 2
+     "person": "heloris",
+     "relation": "friend, or adoptive father"
     },
     {
-      "id": "philistus",
-      "name": "Philistus",
-      "faction": "rich",
-      "kind": "history",
-      "source": "Diodorus 13.91.4",
-      "card": "docs/research/dionysius-405-403.md",
-      "invented": [
-        "traits",
-        "ambition",
-        "opinion",
-        "his agenda"
-      ],
-      "role": "A man of great wealth, who paid your fine",
-      "traits": [
-        "shrewd",
-        "ambitious"
-      ],
-      "ambition": "Wealth",
-      "wants": "treasury",
-      "opinion": 1,
-      "agenda": "philistusTreasury"
+     "person": "doris",
+     "relation": "wife (about 398)"
     },
     {
-      "id": "hipparinus",
-      "name": "Hipparinus",
-      "faction": "rich",
-      "kind": "history",
-      "source": "Aristotle, Politics 1306a; Plutarch, Dion 3",
-      "card": "docs/research/dionysius-405-403.md",
-      "invented": [
-        "traits",
-        "ambition",
-        "opinion",
-        "holds the mint"
-      ],
-      "role": "A leading man, once your colleague as general",
-      "traits": [
-        "wealthy",
-        "patient"
-      ],
-      "ambition": "Power",
-      "opinion": 0,
-      "kin": [
-        "aristomache"
-      ]
+     "person": "aristomache",
+     "relation": "wife (about 398)"
     },
     {
-      "id": "aristomache",
-      "name": "Aristomache",
-      "faction": "rich",
-      "kind": "history",
-      "source": "Plutarch, Dion 3",
-      "card": "docs/research/dionysius-405-403.md",
-      "invented": [
-        "traits",
-        "ambition",
-        "opinion"
-      ],
-      "role": "Daughter of Hipparinus, unmarried",
-      "traits": [
-        "proud",
-        "patient"
-      ],
-      "ambition": "Safety",
-      "opinion": 0,
-      "marriageable": true,
-      "kin": [
-        "hipparinus"
-      ]
-    },
-    {
-      "id": "cavalryLeader",
-      "name": "the cavalry leader at Aetna",
-      "faction": "rich",
-      "status": "outside",
-      "kind": "invention",
-      "note": "A role. The cavalry fled to Aetna (Diodorus 13.113.3), but no source names their leader.",
-      "role": "Leader of the cavalry exiles",
-      "traits": [
-        "vengeful",
-        "brave"
-      ],
-      "ambition": "Revenge",
-      "opinion": -3,
-      "grudges": [
-        "you burned the gate of Achradina and shot down his men in the market-place, 405"
-      ]
-    },
-    {
-      "id": "demarchusBrother",
-      "name": "the brother of Demarchus",
-      "faction": "rich",
-      "kind": "invention",
-      "note": "A role. Demarchus is history: Dionysius had him put to death (Diodorus 13.96.3). No brother is named.",
-      "role": "Brother of a man you executed",
-      "traits": [
-        "vengeful",
-        "cautious"
-      ],
-      "ambition": "Revenge",
-      "opinion": -3,
-      "grudges": [
-        "you had his brother Demarchus put to death, 406"
-      ],
-      "rival": {
-        "scar": "Bereaved",
-        "rank": 1
-      }
-    },
-    {
-      "id": "nicoteles",
-      "name": "Nicoteles the Corinthian",
-      "faction": "citizens",
-      "kind": "history",
-      "source": "Diodorus 14.10.3",
-      "card": "docs/research/dionysius-405-403.md",
-      "invented": [
-        "traits",
-        "ambition",
-        "opinion",
-        "holds the assembly"
-      ],
-      "role": "A leader of the Syracusans",
-      "traits": [
-        "fiery",
-        "outsider"
-      ],
-      "ambition": "Power",
-      "opinion": -1
-    },
-    {
-      "id": "guardCaptain",
-      "name": "the captain of the guard",
-      "faction": "guard",
-      "kind": "invention",
-      "note": "A role. No source names the captain of Dionysius' guard in 405.",
-      "role": "Captain of your mercenaries",
-      "traits": [
-        "greedy",
-        "brave"
-      ],
-      "ambition": "Wealth",
-      "opinion": 0
-    },
-    {
-      "id": "doricus",
-      "name": "Doricus",
-      "faction": "guard",
-      "kind": "history",
-      "source": "Diodorus 14.7.6 to 14.7.7",
-      "card": "docs/research/dionysius-405-403.md",
-      "invented": [
-        "traits",
-        "ambition",
-        "opinion",
-        "placed with the guard"
-      ],
-      "role": "Your officer",
-      "traits": [
-        "harsh",
-        "loyal"
-      ],
-      "ambition": "Office",
-      "wants": "generalship",
-      "opinion": 2
+     "person": "hermocratesDaughter",
+     "relation": "first wife (dead)"
     }
-  ]
+   ],
+   "marriageable": true,
+   "status": "free",
+   "grudges": [],
+   "player": true,
+   "source": "Diodorus 13.91.3, 13.94.5, 13.96.3 to 13.96.4",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Son of a Hermocrates, not the general Hermocrates whose daughter he married.",
+     "cite": "Diodorus 13.91.3",
+     "quote": "Dionysius, the son of Hermocrates",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    },
+    {
+     "text": "Rose from clerk to tyrant.",
+     "cite": "Diodorus 13.96.4",
+     "quote": "from a scribe and ordinary private citizen",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    },
+    {
+     "text": "The assembly made him sole general.",
+     "cite": "Diodorus 13.94.5",
+     "quote": "to appoint him general with supreme power",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    },
+    {
+     "text": "Given a bodyguard at Leontini.",
+     "cite": "Diodorus 13.95.5",
+     "quote": "to give him a guard of six hundred soldiers",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    },
+    {
+     "text": "Lived in the naval station before the citadel was built.",
+     "cite": "Diodorus 13.96.2",
+     "quote": "he took up his quarters in the naval station",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "leptines",
+   "kind": "history",
+   "name": "Leptines",
+   "faction": "family",
+   "role": "The ruler's brother; admiral of the fleet by about 397",
+   "traits": [
+    "bold",
+    "generous"
+   ],
+   "ambition": "Office",
+   "opinion": 2,
+   "kin": [
+    "dionysius",
+    "thearides",
+    "theste"
+   ],
+   "family": [
+    {
+     "person": "dionysius",
+     "relation": "brother"
+    },
+    {
+     "person": "thearides",
+     "relation": "brother"
+    },
+    {
+     "person": "theste",
+     "relation": "sister"
+    },
+    {
+     "person": "philistus",
+     "relation": "later his son-in-law (no date)"
+    }
+   ],
+   "wants": "generalship",
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "politicalType": "Heir",
+   "rivalNote": "Heir: wins commands and the guard's favour. Historically he made his own peace in Italy and was relieved of the fleet (about 390, after our period).",
+   "player": false,
+   "source": "Diodorus 14.48.4, 14.60.2 to 14.60.4, 14.102.3; Plutarch Dion 11",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Admiral by about 397.",
+     "cite": "Diodorus 14.48.4",
+     "quote": "he left Leptines his admiral in command of the works",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    },
+    {
+     "text": "Brave but rash at the sea fight off Catana, about 396.",
+     "cite": "Diodorus 14.60.2",
+     "quote": "in no cowardly fashion, but without prudence",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    },
+    {
+     "text": "Beaten and fled.",
+     "cite": "Diodorus 14.60.4",
+     "quote": "Leptines was driven off and compelled to flee to the open sea",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    },
+    {
+     "text": "Later made peace in Italy on his own terms and lost the fleet (after 395).",
+     "cite": "Diodorus 14.102.3",
+     "quote": "to his own advantage, but without any profit to Dionysius",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    },
+    {
+     "text": "Gave a daughter to Philistus without asking Dionysius (no date).",
+     "cite": "Plutarch, Dion 11",
+     "quote": "who had two daughters by a woman whom he had corrupted when she was living with another man and then taken to wife, gave one of them to Philistus",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "thearides",
+   "kind": "history",
+   "name": "Thearides",
+   "faction": "family",
+   "role": "The ruler's younger brother",
+   "traits": [
+    "dutiful",
+    "showy"
+   ],
+   "ambition": "Office",
+   "opinion": 1,
+   "kin": [
+    "dionysius",
+    "leptines",
+    "theste"
+   ],
+   "family": [
+    {
+     "person": "dionysius",
+     "relation": "brother"
+    },
+    {
+     "person": "leptines",
+     "relation": "brother"
+    },
+    {
+     "person": "theste",
+     "relation": "sister"
+    }
+   ],
+   "wants": "fleet",
+   "marriageable": true,
+   "status": "free",
+   "grudges": [],
+   "politicalType": "Heir",
+   "rivalNote": "Heir in waiting. No text gives him a role between 405 and 395; he takes the fleet after Leptines (after 395).",
+   "player": false,
+   "source": "Diodorus 14.102.3, 14.103.2, 14.109.2; Plutarch Dion 6",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Named as Dionysius' other brother and later admiral.",
+     "cite": "Diodorus 14.102.3",
+     "quote": "appointed Thearides, his other brother, commander of the fleet",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    },
+    {
+     "text": "Later married Dionysius' daughter Arete.",
+     "cite": "Plutarch, Dion 6",
+     "quote": "Arete of his brother Thearides",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "polyxenus",
+   "kind": "history",
+   "name": "Polyxenus",
+   "faction": "family",
+   "role": "Brother-in-law of the ruler, of the house of Hermocrates; envoy",
+   "traits": [
+    "cautious",
+    "wellConnected"
+   ],
+   "ambition": "Safety",
+   "opinion": 1,
+   "kin": [
+    "theste",
+    "dionysius",
+    "hermocratesDaughter"
+   ],
+   "family": [
+    {
+     "person": "theste",
+     "relation": "wife"
+    },
+    {
+     "person": "dionysius",
+     "relation": "brother-in-law"
+    },
+    {
+     "person": "hermocratesDaughter",
+     "relation": "his sister's daughter"
+    }
+   ],
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "politicalType": "Spymaster",
+   "rivalNote": "Spymaster: contacts in Italy, Sparta and Corinth. Historically he later fled Sicily as Dionysius' enemy (no date).",
+   "player": false,
+   "source": "Diodorus 13.96.3, 14.8.5, 14.62.1, 14.63.4; Plutarch Dion 21",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Married Dionysius' sister to bind the house of Hermocrates.",
+     "cite": "Diodorus 13.96.3",
+     "quote": "gave his sister in marriage to Polyxenus, the brother of Hermocrates' wife",
+     "file": "sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+    },
+    {
+     "text": "Advised flight during the siege, about 404.",
+     "cite": "Diodorus 14.8.5",
+     "quote": "to use his swiftest horse and ride off",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    },
+    {
+     "text": "Envoy for help, 397/396.",
+     "cite": "Diodorus 14.62.1",
+     "quote": "as ambassador both to the Greeks in Italy and to the Lacedaemonians, as well as the Corinthians",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    },
+    {
+     "text": "Came back with a fleet.",
+     "cite": "Diodorus 14.63.4",
+     "quote": "bringing thirty warships from his allies",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    },
+    {
+     "text": "Later fled into exile (no date).",
+     "cite": "Plutarch, Dion 21",
+     "quote": "moved by fear to run away and go into exile from Sicily",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ],
+   "disputes": [
+    "Polyaenus 5.2.4 names a Hermocrates as the husband of Dionysius' sister. Diodorus and Plutarch say Polyxenus."
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "theste",
+   "kind": "history",
+   "name": "Theste",
+   "faction": "family",
+   "role": "The ruler's sister, wife of Polyxenus",
+   "traits": [
+    "blunt",
+    "proud"
+   ],
+   "ambition": "Safety",
+   "opinion": 1,
+   "kin": [
+    "dionysius",
+    "polyxenus",
+    "leptines",
+    "thearides"
+   ],
+   "family": [
+    {
+     "person": "dionysius",
+     "relation": "brother"
+    },
+    {
+     "person": "polyxenus",
+     "relation": "husband"
+    },
+    {
+     "person": "leptines",
+     "relation": "brother"
+    },
+    {
+     "person": "thearides",
+     "relation": "brother"
+    }
+   ],
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "player": false,
+   "source": "Plutarch, Dion 21",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Sister of Dionysius, married to Polyxenus.",
+     "cite": "Plutarch, Dion 21",
+     "quote": "had a sister, Theste, whose husband, Polyxenus, had become his enemy",
+     "file": "sources/plutarch/dion.perrin.txt"
+    },
+    {
+     "text": "When Polyxenus fled, she would not apologise for him.",
+     "cite": "Plutarch, Dion 21",
+     "quote": "it would have been well for me to be called the wife of Polyxenus the exile, rather than the sister of Dionysius the tyrant",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ],
+   "disputes": [
+    "Polyaenus 5.2.4 says a Hermocrates married Dionysius' sister and was banished to the Peloponnese. Diodorus and Plutarch name Polyxenus. Possibly two sisters, possibly one story told twice."
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "heloris",
+   "kind": "history",
+   "name": "Heloris",
+   "faction": "family",
+   "role": "Friend and counsellor, said by some to be the ruler's adoptive father",
+   "traits": [
+    "blunt",
+    "proud"
+   ],
+   "ambition": "Office",
+   "opinion": 2,
+   "kin": [
+    "dionysius"
+   ],
+   "family": [
+    {
+     "person": "dionysius",
+     "relation": "friend, or adoptive father"
+    }
+   ],
+   "wants": "citadel",
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "rivalNote": "Enemy in waiting. Historically banished (date unknown, between about 404 and 394) and became the general of the Italian Greeks against Dionysius. An Exiled scar fits him.",
+   "player": false,
+   "source": "Diodorus 14.8.5, 14.87.2, 14.90.5, 14.103.5",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Counsellor at the siege of the Island, about 404.",
+     "cite": "Diodorus 14.8.5",
+     "quote": "Heloris, one of his friends, or as some say, his adopted father",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    },
+    {
+     "text": "His advice to stand and die.",
+     "cite": "Diodorus 14.8.5",
+     "quote": "Tyranny is a fair winding-sheet",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    },
+    {
+     "text": "Later banished, and trusted by the Italian Greeks for his hatred.",
+     "cite": "Diodorus 14.103.5",
+     "quote": "because of his hatred, to lead a war against the tyrant",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    },
+    {
+     "text": "General of Rhegium by about 394.",
+     "cite": "Diodorus 14.90.5",
+     "quote": "their general Heloris arrived",
+     "file": "sources/diodorus/english/book14-78-96.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "andron",
+   "kind": "history",
+   "name": "Andron",
+   "faction": "family",
+   "role": "Trusted keeper of the fortress and the treasury while the ruler is away",
+   "traits": [
+    "loyal",
+    "cautious"
+   ],
+   "ambition": "Safety",
+   "opinion": 1,
+   "kin": [],
+   "wants": "treasury",
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "rivalNote": "A loyalty test, not a rival: tempted to seize the citadel and treasury, he confessed and was executed for not reporting at once. Polyaenus gives no date.",
+   "player": false,
+   "source": "Polyaenus, Stratagems 5.2.4",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Left in charge of fortress and treasury, and tempted to seize them.",
+     "cite": "Polyaenus 5.2.4",
+     "quote": "he left Andron in charge of the fortress and the treasury",
+     "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt"
+    },
+    {
+     "text": "Executed for keeping quiet.",
+     "cite": "Polyaenus 5.2.4",
+     "quote": "because he had not revealed the proposal",
+     "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "doris",
+   "kind": "history",
+   "name": "Doris",
+   "faction": "family",
+   "role": "Daughter of Xenetus of Locri; the ruler's wife from about 398",
+   "traits": [
+    "proud",
+    "outsider"
+   ],
+   "ambition": "Power",
+   "opinion": 0,
+   "kin": [],
+   "family": [
+    {
+     "person": "dionysius",
+     "relation": "husband (about 398)"
+    },
+    {
+     "person": "aristomache",
+     "relation": "co-wife"
+    }
+   ],
+   "marriageable": true,
+   "status": "outside",
+   "enters": "summer-398",
+   "entersNote": "Diodorus places the marriage in about 398 (range 399 to 397)",
+   "grudges": [],
+   "politicalType": "Heir",
+   "rivalNote": "Heir by proxy: she bore the eldest son, and her rivalry with Aristomache is in Plutarch.",
+   "player": false,
+   "source": "Diodorus 14.44.6 to 14.44.7; Plutarch Dion 3",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Chosen from Locri after Rhegium refused.",
+     "cite": "Diodorus 14.44.6",
+     "quote": "Doris, the daughter of Xenetus, who at that time was their most esteemed citizen",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    },
+    {
+     "text": "Brought over on the first quinquereme.",
+     "cite": "Diodorus 14.44.7",
+     "quote": "a quinquereme, the first one he had built",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    },
+    {
+     "text": "Bore the eldest son first.",
+     "cite": "Plutarch, Dion 3",
+     "quote": "Doris had the good fortune to become a mother first",
+     "file": "sources/plutarch/dion.perrin.txt"
+    },
+    {
+     "text": "Her mother was put to death, accused of drugging Aristomache (no date).",
+     "cite": "Plutarch, Dion 3",
+     "quote": "accused the mother of his Locrian wife of giving Aristomache drugs to prevent conception, and put her to death",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "hipparinus",
+   "kind": "history",
+   "name": "Hipparinus",
+   "faction": "rich",
+   "role": "Leading man of Syracuse, once Dionysius' fellow general",
+   "traits": [
+    "wealthy",
+    "patient"
+   ],
+   "ambition": "Power",
+   "opinion": 1,
+   "kin": [
+    "aristomache"
+   ],
+   "family": [
+    {
+     "person": "aristomache",
+     "relation": "daughter"
+    }
+   ],
+   "wants": "generalship",
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "politicalType": "Climber",
+   "rivalNote": "Kingmaker: Aristotle says he put Dionysius forward. He can climb by marrying his daughter into the ruler's house.",
+   "player": false,
+   "source": "Aristotle, Politics 1306a; Plutarch Dion 3",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Backed Dionysius' rise.",
+     "cite": "Aristotle, Politics 1306a",
+     "quote": "Hipparinus put forward Dionysius at Syracuse",
+     "file": "sources/sicily-tyrants/aristotle-politics-5.rackham.txt"
+    },
+    {
+     "text": "Fellow general in 406/405.",
+     "cite": "Plutarch, Dion 3",
+     "quote": "had been a colleague of Dionysius when he was first chosen general with full powers",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "philistus",
+   "kind": "history",
+   "name": "Philistus",
+   "faction": "rich",
+   "role": "Rich backer of the tyranny, later its historian",
+   "traits": [
+    "shrewd",
+    "ambitious"
+   ],
+   "ambition": "Office",
+   "opinion": 2,
+   "kin": [],
+   "family": [
+    {
+     "person": "leptines",
+     "relation": "later his father-in-law (no date)"
+    }
+   ],
+   "wants": "treasury",
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "politicalType": "Climber",
+   "rivalNote": "Climber: lends, petitions, marries into the family. Historically banished for marrying Leptines' daughter without leave (no date).",
+   "agenda": "philistusTreasury",
+   "player": false,
+   "source": "Diodorus 13.91.4, 14.8.5; Plutarch Dion 11",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Paid Dionysius' fine in the assembly, 406/405.",
+     "cite": "Diodorus 13.91.4",
+     "quote": "Philistus, who later composed his History, a man of great wealth, paid the fine",
+     "file": "sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+    },
+    {
+     "text": "Advised against flight, about 404.",
+     "cite": "Diodorus 14.8.5",
+     "quote": "dragged by the leg",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    },
+    {
+     "text": "Long commanded the citadel garrison.",
+     "cite": "Plutarch, Dion 11",
+     "quote": "for a long time was commander of the garrison that guarded the citadel",
+     "file": "sources/plutarch/dion.perrin.txt"
+    },
+    {
+     "text": "A story of an affair with Dionysius' mother.",
+     "cite": "Plutarch, Dion 11",
+     "quote": "There was a story, too, that he was very intimate with the mother of the elder Dionysius",
+     "file": "sources/plutarch/dion.perrin.txt"
+    },
+    {
+     "text": "Banished after marrying Leptines' daughter (no date).",
+     "cite": "Plutarch, Dion 11",
+     "quote": "banished Philistus from Sicily",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "aristomache",
+   "kind": "history",
+   "name": "Aristomache",
+   "faction": "rich",
+   "role": "Daughter of Hipparinus; the ruler's wife from about 398",
+   "traits": [
+    "patient",
+    "proud"
+   ],
+   "ambition": "Safety",
+   "opinion": 0,
+   "kin": [
+    "hipparinus"
+   ],
+   "family": [
+    {
+     "person": "hipparinus",
+     "relation": "father"
+    },
+    {
+     "person": "dionysius",
+     "relation": "husband (about 398)"
+    },
+    {
+     "person": "doris",
+     "relation": "co-wife"
+    }
+   ],
+   "marriageable": true,
+   "status": "free",
+   "grudges": [],
+   "player": false,
+   "source": "Diodorus 14.44.8; Plutarch Dion 3",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "The most notable maiden of Syracuse.",
+     "cite": "Diodorus 14.44.8",
+     "quote": "the most notable maiden among them, Aristomachê",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    },
+    {
+     "text": "Married on the same day as Doris.",
+     "cite": "Plutarch, Dion 3",
+     "quote": "he married both wives on one day",
+     "file": "sources/plutarch/dion.perrin.txt"
+    },
+    {
+     "text": "Long childless.",
+     "cite": "Plutarch, Dion 3",
+     "quote": "was for a long time a barren wife",
+     "file": "sources/plutarch/dion.perrin.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "theodorus",
+   "kind": "history",
+   "name": "Theodorus",
+   "faction": "rich",
+   "role": "Cavalryman and assembly speaker for liberty",
+   "traits": [
+    "bold",
+    "blunt"
+   ],
+   "ambition": "Power",
+   "opinion": -2,
+   "kin": [],
+   "wants": "generalship",
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "politicalType": "Champion",
+   "rivalNote": "Champion: speaks for liberty in the assembly. Attested only in about 396; present from the start is a game choice.",
+   "player": false,
+   "source": "Diodorus 14.64.5 to 14.70.2",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Respected by the cavalry.",
+     "cite": "Diodorus 14.64.5",
+     "quote": "Theodorus, a Syracusan, who was held in high esteem among the cavalry and was considered a man of action",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    },
+    {
+     "text": "Asked Dionysius to step down, about 396.",
+     "cite": "Diodorus 14.69.4",
+     "quote": "if he is willing to lay down his office of his own accord, let us allow him to leave the city with his possessions",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "cavalryLeader",
+   "kind": "history",
+   "name": "the leader of the exiles at Aetna",
+   "faction": "rich",
+   "role": "Commander of the exiled cavalry at Aetna (no text names him)",
+   "traits": [
+    "vengeful",
+    "brave"
+   ],
+   "ambition": "Revenge",
+   "opinion": -3,
+   "kin": [],
+   "marriageable": false,
+   "status": "outside",
+   "grudges": [
+    "you burned the gate of Achradina and shot down his men in the market-place, 405"
+   ],
+   "rival": {
+    "scar": "Exiled",
+    "rank": 1
+   },
+   "rivalNote": "The role is history; the man is unnamed. His scar and rank are invention.",
+   "player": false,
+   "source": "Diodorus 13.113.2 to 13.113.3, 14.9.5 to 14.9.8",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "The cavalry who resisted were killed.",
+     "cite": "Diodorus 13.113.2",
+     "quote": "surrounded by the mercenaries and shot down to a man",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    },
+    {
+     "text": "The rest held Aetna.",
+     "cite": "Diodorus 13.113.3",
+     "quote": "fled from the city and occupied Aetnê",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    },
+    {
+     "text": "Thousands gathered there, about 404.",
+     "cite": "Diodorus 14.9.5",
+     "quote": "more than seven thousand of them were gathered with the cavalry at Aetnê",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters",
+    "grudges",
+    "rival",
+    "name"
+   ]
+  },
+  {
+   "id": "demarchusBrother",
+   "kind": "invention",
+   "name": "the brother of Demarchus",
+   "faction": "rich",
+   "role": "Brother of a man you executed",
+   "traits": [
+    "vengeful",
+    "cautious"
+   ],
+   "ambition": "Revenge",
+   "opinion": -3,
+   "kin": [
+    "demarchus"
+   ],
+   "family": [
+    {
+     "person": "demarchus",
+     "relation": "brother (executed)"
+    }
+   ],
+   "marriageable": false,
+   "status": "free",
+   "grudges": [
+    "you had his brother Demarchus put to death, 406/405"
+   ],
+   "rival": {
+    "scar": "Bereaved",
+    "rank": 1
+   },
+   "rivalNote": "Invented in the paper test. Demarchus is history (Diodorus 13.96.3); no text names any kin.",
+   "player": false,
+   "card": "docs/research/cast-405-395.md",
+   "invented": [
+    "everything except Demarchus' execution"
+   ]
+  },
+  {
+   "id": "nicoteles",
+   "kind": "history",
+   "name": "Nicoteles",
+   "faction": "citizens",
+   "role": "A Corinthian, leader of the Syracusans",
+   "traits": [
+    "fiery",
+    "outsider"
+   ],
+   "ambition": "Power",
+   "opinion": -1,
+   "kin": [],
+   "wants": "assembly",
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "politicalType": "Champion",
+   "rivalNote": "Champion of the people. Historically killed by the Spartan envoy Aristus, about 404.",
+   "player": false,
+   "source": "Diodorus 14.10.3",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "A leader of the people, killed about 404.",
+     "cite": "Diodorus 14.10.3",
+     "quote": "slew Nicoteles the Corinthian, a leader of the Syracusans",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "damon",
+   "kind": "invention",
+   "name": "Damon the smith",
+   "faction": "citizens",
+   "role": "A smith who speaks for the poor in the assembly",
+   "traits": [
+    "blunt",
+    "generous"
+   ],
+   "ambition": "Power",
+   "opinion": -1,
+   "kin": [],
+   "wants": "assembly",
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "politicalType": "Champion",
+   "rivalNote": "Invented, so the people have a voice after Nicoteles. The sources name no other leader of the common citizens in these years.",
+   "player": false,
+   "card": "docs/research/cast-405-395.md",
+   "invented": [
+    "everything"
+   ]
+  },
+  {
+   "id": "aristotle",
+   "kind": "history",
+   "name": "Aristotle the Spartan",
+   "faction": "guard",
+   "role": "Commander of the mercenaries",
+   "traits": [
+    "proud",
+    "outsider"
+   ],
+   "ambition": "Wealth",
+   "opinion": 0,
+   "kin": [],
+   "wants": "citadel",
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "rivalNote": "Kingmaker: if the guard goes unpaid he leads it. Attested as commander only in about 396, when he was arrested and sent to Sparta; commanding from the start is a game choice.",
+   "player": false,
+   "source": "Diodorus 14.78.1 to 14.78.2",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Commander of the hostile mercenaries, arrested about 396.",
+     "cite": "Diodorus 14.78.1",
+     "quote": "arrested Aristotle, their commander",
+     "file": "sources/diodorus/english/book14-78-96.txt"
+    },
+    {
+     "text": "The mercenaries took Leontini instead of pay.",
+     "cite": "Diodorus 14.78.2",
+     "quote": "in lieu of their pay the city and territory of the Leontines",
+     "file": "sources/diodorus/english/book14-78-96.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "guardCaptain",
+   "kind": "invention",
+   "name": "the captain of the guard",
+   "faction": "guard",
+   "role": "A captain of your mercenaries",
+   "traits": [
+    "greedy",
+    "brave"
+   ],
+   "ambition": "Wealth",
+   "opinion": 0,
+   "kin": [],
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "rivalNote": "Invented in the paper test. No text names the guard's captain in 405 (Diodorus 13.96.1 names nobody). Aristotle the Spartan is the attested commander by about 396; the engine may use one or the other.",
+   "player": false,
+   "card": "docs/research/cast-405-395.md",
+   "invented": [
+    "everything"
+   ]
+  },
+  {
+   "id": "doricus",
+   "kind": "history",
+   "name": "Doricus",
+   "faction": "guard",
+   "role": "Your officer, set over the citizen soldiers",
+   "traits": [
+    "harsh",
+    "loyal"
+   ],
+   "ambition": "Office",
+   "opinion": 2,
+   "kin": [],
+   "marriageable": false,
+   "status": "free",
+   "grudges": [],
+   "rivalNote": "Loyalist. Historically killed by his own soldiers at Herbessus, about 404.",
+   "player": false,
+   "source": "Diodorus 14.7.6 to 14.7.7",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Appointed commander; killed by the citizen soldiers he struck at, about 404.",
+     "cite": "Diodorus 14.7.7",
+     "quote": "slew the commander, whose name was Doricus",
+     "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "biton",
+   "kind": "history",
+   "name": "Biton",
+   "faction": "guard",
+   "role": "A Syracusan garrison commander",
+   "traits": [
+    "dutiful",
+    "loyal"
+   ],
+   "ambition": "Office",
+   "opinion": 1,
+   "kin": [],
+   "wants": "citadel",
+   "marriageable": false,
+   "status": "free",
+   "enters": "summer-397",
+   "entersNote": "attested at Motya, about 397 (range 398 to 396)",
+   "grudges": [],
+   "player": false,
+   "source": "Diodorus 14.53.5",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Put in charge of the garrison at Motya, about 397.",
+     "cite": "Diodorus 14.53.5",
+     "quote": "under the command of Biton of Syracuse",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "archylus",
+   "kind": "history",
+   "name": "Archylus of Thurii",
+   "faction": "guard",
+   "role": "Leader of the picked troops",
+   "traits": [
+    "brave",
+    "greedy"
+   ],
+   "ambition": "Wealth",
+   "opinion": 1,
+   "kin": [],
+   "marriageable": false,
+   "status": "outside",
+   "enters": "summer-397",
+   "entersNote": "attested at Motya, about 397 (range 398 to 396)",
+   "grudges": [],
+   "player": false,
+   "source": "Diodorus 14.52.5, 14.53.4",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "First over the wall at Motya, about 397.",
+     "cite": "Diodorus 14.53.4",
+     "quote": "who had been the first to mount the wall, with one hundred minas",
+     "file": "sources/diodorus/english/book14.loeb.txt"
+    }
+   ],
+   "invented": [
+    "traits",
+    "ambition",
+    "opinion",
+    "wants",
+    "politicalType",
+    "marriageable",
+    "enters"
+   ]
+  },
+  {
+   "id": "hermocratesDaughter",
+   "kind": "history",
+   "name": "the daughter of Hermocrates",
+   "faction": "family",
+   "role": "The ruler's first wife",
+   "traits": [],
+   "ambition": "Safety",
+   "opinion": 0,
+   "kin": [
+    "dionysius",
+    "polyxenus"
+   ],
+   "family": [
+    {
+     "person": "dionysius",
+     "relation": "husband"
+    },
+    {
+     "person": "polyxenus",
+     "relation": "her mother's brother"
+    }
+   ],
+   "marriageable": false,
+   "status": "dead",
+   "grudges": [],
+   "player": false,
+   "source": "Diodorus 13.96.3, 13.112.4, 14.44.5; Plutarch Dion 3",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Married at the start of the tyranny.",
+     "cite": "Diodorus 13.96.3",
+     "quote": "Dionysius straightway married the daughter of Hermocrates",
+     "file": "sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+    }
+   ],
+   "disputes": [
+    "Diodorus 14.44.5: she was \"slain at the time the cavalry revolted\".",
+    "Plutarch, Dion 3: she was abused by the rebels \"and in consequence put an end to her own life\"."
+   ]
+  },
+  {
+   "id": "daphnaeus",
+   "kind": "history",
+   "name": "Daphnaeus",
+   "faction": "rich",
+   "role": "Former general, executed 405",
+   "traits": [],
+   "ambition": "Safety",
+   "opinion": 0,
+   "kin": [],
+   "marriageable": false,
+   "status": "dead",
+   "grudges": [],
+   "player": false,
+   "source": "Diodorus 13.86.4, 13.96.3",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "General for the relief of Acragas.",
+     "cite": "Diodorus 13.86.4",
+     "quote": "they elected Daphnaeus general",
+     "file": "sources/diodorus/english/book13.loeb.txt"
+    },
+    {
+     "text": "Executed.",
+     "cite": "Diodorus 13.96.3",
+     "quote": "his most influential opponents, Daphnaeus and Demarchus, put to death",
+     "file": "sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+    }
+   ]
+  },
+  {
+   "id": "demarchus",
+   "kind": "history",
+   "name": "Demarchus",
+   "faction": "rich",
+   "role": "Opponent of the ruler, executed 405",
+   "traits": [],
+   "ambition": "Safety",
+   "opinion": 0,
+   "kin": [
+    "demarchusBrother"
+   ],
+   "family": [
+    {
+     "person": "demarchusBrother",
+     "relation": "brother (invented)"
+    }
+   ],
+   "marriageable": false,
+   "status": "dead",
+   "grudges": [],
+   "player": false,
+   "source": "Diodorus 13.96.3",
+   "card": "docs/research/cast-405-395.md",
+   "facts": [
+    {
+     "text": "Executed.",
+     "cite": "Diodorus 13.96.3",
+     "quote": "his most influential opponents, Daphnaeus and Demarchus, put to death",
+     "file": "sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+    }
+   ]
+  }
+ ]
 }

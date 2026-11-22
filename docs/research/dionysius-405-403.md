@@ -58,4 +58,4 @@ The game should show both versions and not choose between them.
 
 - The name of the cavalry leader at Aetna.
 - The name of the captain of Dionysius' guard in 405.
-- Any marriage between Philistus and Leptines' daughter. That is unverified, so don't use it.
+- ~~Any marriage between Philistus and Leptines' daughter.~~ Corrected 2026-11-22: Plutarch, *Dion* 11, says Leptines gave one of his daughters to Philistus without telling Dionysius, who then banished Philistus. Plutarch gives no date. See `cast-405-395.md`.
