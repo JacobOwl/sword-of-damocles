@@ -2,6 +2,12 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Built by the events thread (07, 2026-11-22): the Damocles banquet
+- **New event "A sword on a horse-hair"** (`data/events.json`, history): a courtier praises your fortune at a feast. You can hang a sword over his couch (what Cicero tells; he loses standing and warmth, plots are a little harder), reward the flattery, or smile it away. It fires in about 80 of 100 careful-bot games.
+- **Both readings of which Dionysius are shown.** The event's facts quote Livius.org (Dionysius II) and Wikipedia (Dionysius I) from the saved excerpts; the doubt is listed as uncertain. Review steps are on the card (`docs/research/damocles.md`, last section) for when Cicero 5.57 is saved.
+- **Changed:** two switch tests (another thread's) now test the rule, not luck: "clues" allows a man who said no to join later if a later join is recorded (it happens when a new wrong changes his mind), and "partial blows" checks the seize branch directly, since bot games reach it only about 3 times in 300. `partialBlow` in `src/core/season.ts` is exported for that test. Standard digest re-pinned for the one added event (verified: without it, the old digest matches).
+- **Broke:** nothing: 72 of 72 tests; 100 seeds, 0 crashes, 0 broken states; 271 quotes checked, 0 not found.
+
 ## Built by the web-app thread (17, 2026-11-22), step 1 of 5: the plan and the engine boundary
 - **`docs/architecture.md`**: the two halves (rules engine in `src/core/`, browser UI in `ui/`), the rules each follows, the stack (TypeScript, no UI framework, Vite next), the target folder layout, the five migration steps, and the road to Godot.
 - **`tests/core-boundary.test.ts`**: the engine imports only itself and `data/`; uses no `Math.random`, `Date`, browser or Node globals; a game saved as JSON plays on exactly the same; a bot game replays in both scenarios.
