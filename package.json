@@ -9,7 +9,8 @@
     "typecheck": "tsc --noEmit",
     "check": "npm test",
     "sim": "node scripts/sim.ts",
-    "build": "node scripts/build-ui.ts"
+    "build": "node scripts/build-ui.ts",
+    "census": "node scripts/census.ts"
   },
   "engines": {
     "node": ">=22.18"

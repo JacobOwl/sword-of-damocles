@@ -1,0 +1,552 @@
+[
+{
+"name": "Hermocrates",
+"group": "siceliot",
+"sex": "m",
+"near": "son of Hermocrates",
+"who": "the father of Dionysius"
+},
+{
+"name": "Athenagoras",
+"group": "siceliot",
+"sex": "m",
+"who": "leader of the people at Syracuse, 415"
+},
+{
+"name": "Diocles",
+"group": "siceliot",
+"sex": "m",
+"near": "Syracusan",
+"who": "a Syracusan commander, 409"
+},
+{
+"name": "Heracleides",
+"group": "siceliot",
+"sex": "m",
+"near": "Sicanus",
+"who": "a Syracusan general, 415"
+},
+{
+"name": "Sicanus",
+"group": "siceliot",
+"sex": "m",
+"near": "Heracleides",
+"who": "a Syracusan general, 415"
+},
+{
+"name": "Eucles",
+"group": "siceliot",
+"sex": "m",
+"who": "a Syracusan general, 414"
+},
+{
+"name": "Tellias",
+"group": "siceliot",
+"sex": "m",
+"near": "richest",
+"who": "a rich man of Acragas, 406"
+},
+{
+"name": "Lysimachus",
+"group": "siceliot",
+"sex": "m",
+"who": "father of a Syracusan general"
+},
+{
+"name": "Execestes",
+"group": "siceliot",
+"sex": "m",
+"who": "father of a Syracusan general"
+},
+{
+"name": "Hippocrates",
+"group": "siceliot",
+"sex": "m",
+"who": "tyrant of Gela, about 498 to 491"
+},
+{
+"name": "Telines",
+"group": "siceliot",
+"sex": "m",
+"who": "an ancestor of the tyrants of Gela"
+},
+{
+"name": "Thrasybulus",
+"group": "siceliot",
+"sex": "m",
+"near": "brother",
+"who": "brother of Hieron, ruler of Syracuse, 466"
+},
+{
+"name": "Thrasydaeus",
+"group": "siceliot",
+"sex": "m",
+"who": "son of Theron of Acragas"
+},
+{
+"name": "Polyzelus",
+"group": "siceliot",
+"sex": "m",
+"who": "brother of Hieron of Syracuse"
+},
+{
+"name": "Megacles",
+"group": "siceliot",
+"sex": "m",
+"who": "brother of Dion of Syracuse"
+},
+{
+"name": "Timocrates",
+"group": "siceliot",
+"sex": "m",
+"who": "a friend of the younger Dionysius"
+},
+{
+"name": "Exaenetus",
+"group": "siceliot",
+"sex": "m",
+"who": "a runner of Acragas, Olympic victor"
+},
+{
+"name": "Antisthenes",
+"group": "siceliot",
+"sex": "m",
+"near": "Acragas",
+"who": "a man of Acragas"
+},
+{
+"name": "Empedion",
+"group": "siceliot",
+"sex": "m",
+"who": "an envoy of the Selinuntines, 409"
+},
+{
+"name": "Menes",
+"group": "siceliot",
+"sex": "m",
+"near": "Camarina",
+"who": "a man of Camarina, 406"
+},
+{
+"name": "Argeius",
+"group": "siceliot",
+"sex": "m",
+"who": "a general of Acragas, 406"
+},
+{
+"name": "Theodotes",
+"group": "siceliot",
+"sex": "m",
+"who": "a Syracusan noble at the younger Dionysius' court"
+},
+{
+"name": "Hicetas",
+"group": "siceliot",
+"sex": "m",
+"near": "Syracusan",
+"who": "a Syracusan, friend of Dion"
+},
+{
+"name": "Timaeus",
+"group": "siceliot",
+"sex": "m",
+"near": "says",
+"who": "the historian of Sicily whom Diodorus cites"
+},
+{
+"name": "Deinocrates",
+"group": "siceliot",
+"sex": "m",
+"who": "a Syracusan exile leader, about 316"
+},
+{
+"name": "Pasiphilus",
+"group": "siceliot",
+"sex": "m",
+"who": "a general of Agathocles"
+},
+{
+"name": "Archagathus",
+"group": "siceliot",
+"sex": "m",
+"who": "son of Agathocles"
+},
+{
+"name": "Telesides",
+"group": "siceliot",
+"sex": "m",
+"who": "an envoy of Dion's Sicilian allies"
+},
+{
+"name": "Themistus",
+"group": "siceliot",
+"sex": "m",
+"who": "a Syracusan, husband of Gelo's daughter, 214"
+},
+{
+"name": "Adranodorus",
+"group": "siceliot",
+"sex": "m",
+"who": "a Syracusan regent, 215"
+},
+{
+"name": "Zoippus",
+"group": "siceliot",
+"sex": "m",
+"who": "a Syracusan regent, 215"
+},
+{
+"name": "Philistion",
+"group": "siceliot",
+"sex": "m",
+"who": "an officer at Syracuse, 212"
+},
+{
+"name": "Crinippus",
+"group": "siceliot",
+"sex": "m",
+"who": "father of Terillus, tyrant of Himera"
+},
+{
+"name": "Damarete",
+"group": "siceliot",
+"sex": "f",
+"find": "Damaret\\S*",
+"who": "the wife of Gelon of Syracuse"
+},
+{
+"name": "Arete",
+"group": "siceliot",
+"sex": "f",
+"who": "a daughter of Dionysius"
+},
+{
+"name": "Sophrosyne",
+"group": "siceliot",
+"sex": "f",
+"who": "a daughter of Dionysius"
+},
+{
+"name": "Harmonia",
+"group": "siceliot",
+"sex": "f",
+"who": "daughter of Gelo of Syracuse, 214"
+},
+{
+"name": "Heraclia",
+"group": "siceliot",
+"sex": "f",
+"who": "daughter of Hiero of Syracuse, 214"
+},
+{
+"name": "Damarata",
+"group": "siceliot",
+"sex": "f",
+"who": "daughter of Hiero of Syracuse, 214"
+},
+{
+"name": "Texena",
+"group": "siceliot",
+"sex": "f",
+"who": "the wife of Agathocles"
+},
+{
+"name": "Phyton",
+"group": "italiote",
+"sex": "m",
+"who": "general of Rhegium, 388"
+},
+{
+"name": "Anaxilas",
+"group": "italiote",
+"sex": "m",
+"who": "tyrant of Rhegium"
+},
+{
+"name": "Micythus",
+"group": "italiote",
+"sex": "m",
+"who": "regent of Rhegium after Anaxilas"
+},
+{
+"name": "Archytas",
+"group": "italiote",
+"sex": "m",
+"who": "a leader of the Pythagoreans in Italy"
+},
+{
+"name": "Xenetus",
+"group": "italiote",
+"sex": "m",
+"who": "a Locrian, father of Doris"
+},
+{
+"name": "Nypsius",
+"group": "italiote",
+"sex": "m",
+"who": "a Neapolitan commander for the younger Dionysius"
+},
+{
+"name": "Ducetius",
+"group": "sikel",
+"sex": "m",
+"near": "leader",
+"who": "leader of the Sikels, 450s"
+},
+{
+"name": "Archonides",
+"group": "sikel",
+"sex": "m",
+"near": "Herbit",
+"who": "leader of Herbita, 403"
+},
+{
+"name": "Agyris",
+"group": "sikel",
+"sex": "m",
+"who": "lord of Agyrium, 392"
+},
+{
+"name": "Hanno",
+"group": "punic",
+"sex": "m",
+"near": "Himilcon",
+"who": "father of the general Himilcon"
+},
+{
+"name": "Himilcar",
+"group": "punic",
+"sex": "m",
+"who": "a Carthaginian general, 406"
+},
+{
+"name": "Hamilcar",
+"group": "punic",
+"sex": "m",
+"near": "grandson",
+"who": "the Carthaginian general of 480"
+},
+{
+"name": "Hannibal",
+"group": "punic",
+"sex": "m",
+"near": "foremost",
+"who": "Carthage's foremost citizen, 410"
+},
+{
+"name": "Hasdrubal",
+"group": "punic",
+"sex": "m",
+"who": "a son of the general Mago"
+},
+{
+"name": "Mago",
+"group": "punic",
+"sex": "m",
+"near": "general",
+"who": "a Carthaginian general"
+},
+{
+"name": "Gisco",
+"group": "punic",
+"sex": "m",
+"who": "son of Hanno, recalled from exile, 340"
+},
+{
+"name": "Gisgo",
+"group": "punic",
+"sex": "m",
+"who": "a Carthaginian envoy, 215"
+},
+{
+"name": "Bostar",
+"group": "punic",
+"sex": "m",
+"who": "a Carthaginian envoy, 215"
+},
+{
+"name": "Adherbal",
+"group": "punic",
+"sex": "m",
+"who": "a Carthaginian admiral, 249"
+},
+{
+"name": "Carthalo",
+"group": "punic",
+"sex": "m",
+"who": "a Carthaginian commander, 249"
+},
+{
+"name": "Malchus",
+"group": "punic",
+"sex": "m",
+"who": "an early Carthaginian general"
+},
+{
+"name": "Maharbal",
+"group": "punic",
+"sex": "m",
+"who": "a Carthaginian commander, 216"
+},
+{
+"name": "Sapho",
+"group": "punic",
+"sex": "m",
+"who": "a son of Hamilcar the Magonid"
+},
+{
+"name": "Himilco",
+"group": "punic",
+"sex": "m",
+"who": "a Carthaginian commander, 307"
+},
+{
+"name": "Bomilcar",
+"group": "punic",
+"sex": "m",
+"near": "general",
+"who": "a Carthaginian general, 308"
+},
+{
+"name": "Muttines",
+"group": "libyan",
+"sex": "m",
+"who": "a Libyphoenician cavalry leader from Hippacra"
+},
+{
+"name": "Zarzas",
+"group": "libyan",
+"sex": "m",
+"who": "a Libyan captain of mercenaries, 238"
+},
+{
+"name": "Spendius",
+"group": "campanian",
+"sex": "m",
+"who": "a leader of the mercenaries in the Mercenary War (Polybius calls him a Campanian)"
+},
+{
+"name": "Decius",
+"group": "campanian",
+"sex": "m",
+"near": "Campanian",
+"who": "a Campanian captain at Rhegium, 280"
+},
+{
+"name": "Pacuvius",
+"group": "campanian",
+"sex": "m",
+"who": "a noble of Capua, 216"
+},
+{
+"name": "Vibius",
+"group": "campanian",
+"sex": "m",
+"who": "a man of Capua, 216"
+},
+{
+"name": "Magius",
+"group": "campanian",
+"sex": "m",
+"who": "a man of Capua, 216"
+},
+{
+"name": "Seppius",
+"group": "campanian",
+"sex": "m",
+"who": "a Campanian magistrate, 211"
+},
+{
+"name": "Autaritus",
+"group": "celt",
+"sex": "m",
+"who": "leader of the Gauls in the Mercenary War"
+},
+{
+"name": "Allucius",
+"group": "iberian",
+"sex": "m",
+"who": "a young Spanish chief, 210"
+},
+{
+"name": "Indibilis",
+"group": "iberian",
+"sex": "m",
+"who": "a Spanish chief, 212"
+},
+{
+"name": "Mandonius",
+"group": "iberian",
+"sex": "m",
+"who": "a Spanish chief, brother of Indibilis"
+},
+{
+"name": "Edesco",
+"group": "iberian",
+"sex": "m",
+"who": "a Spanish chief, 209"
+},
+{
+"name": "Gylippus",
+"group": "greekAbroad",
+"sex": "m",
+"who": "a Spartan commander"
+},
+{
+"name": "Aristus",
+"group": "greekAbroad",
+"sex": "m",
+"who": "a Spartan envoy to Syracuse, 404"
+},
+{
+"name": "Pharacidas",
+"group": "greekAbroad",
+"sex": "m",
+"who": "a Spartan admiral, 396"
+},
+{
+"name": "Dexippus",
+"group": "greekAbroad",
+"sex": "m",
+"who": "a Spartan at Acragas, 406"
+},
+{
+"name": "Pollis",
+"group": "greekAbroad",
+"sex": "m",
+"who": "a Spartan"
+},
+{
+"name": "Lysander",
+"group": "greekAbroad",
+"sex": "m",
+"who": "a Spartan commander"
+},
+{
+"name": "Xanthippus",
+"group": "greekAbroad",
+"sex": "m",
+"near": "Lacedaemonian",
+"who": "a Spartan who trained Carthage's army, 255"
+},
+{
+"name": "Ariston",
+"group": "greekAbroad",
+"sex": "m",
+"near": "Corinthian",
+"who": "a Corinthian helmsman at Syracuse, 413"
+},
+{
+"name": "Pyrrhicus",
+"group": "greekAbroad",
+"sex": "m",
+"who": "a Corinthian, father of Ariston"
+},
+{
+"name": "Acestorides",
+"group": "greekAbroad",
+"sex": "m",
+"near": "Corinthian",
+"who": "a Corinthian elected general at Syracuse"
+}
+]
