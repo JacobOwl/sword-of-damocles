@@ -7,7 +7,7 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Phase 3] All 216 years, generations, selectable start dates, full mercenary market (land as pay; Dionysius I gave mercenaries citizenship and land).
 - [Phase 3] Other starting characters: demagogue, mercenary captain, rich exile.
 - [Phase 4] Legends-style browser for every person, city and war; chronicle in a biased voice (Philistus close to Dionysius, Timaeus hostile to tyrants).
-- [Phase 4] Coin-mosaic portraits from real coin photographs.
+- [Phase 4] Coin-mosaic portraits from real coin photographs, replacing the Phase 1 placeholder portraits (drawn busts laid in tiles, invention).
 - [Optional] Board game of the power-object system for Tabletop Simulator.
 - [Optional] Calibrating the engine against history over 1,000 seeds, as a sanity check only.
 - [Optional] Reuse the engine for an invented world (Bo'saal).

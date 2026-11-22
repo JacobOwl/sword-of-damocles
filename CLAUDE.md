@@ -67,5 +67,5 @@ Leder Games (Root, Oath, Arcs), Republic of Rome, John Company, CK3, Dwarf Fortr
 
 ## Where things live
 
-`docs/` decisions and design (`design.md`, `rulebook.md` later, `scope.md`, `later.md`, `decisions.md`, `handoff.md`, `research/`, `playtests/`), `data/` content, `src/core/` simulation, `ui/` browser UI, `tests/`, `scripts/`.
+`docs/` decisions and design (`design.md`, `rulebook.md` later, `scope.md`, `later.md`, `decisions.md`, `handoff.md`, `research/`, `playtests/`), `data/` content, `src/core/` simulation, `ui/` browser UI, `tests/`, `scripts/`, `tools/` (the mosaic editor for portrait art; the pictures are in `ui/art/`).
 Syracuse history research lives in a separate private project. Copy needed facts into `docs/research/` with their sources; don't link to its records by id.

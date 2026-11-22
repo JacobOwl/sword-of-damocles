@@ -14,10 +14,11 @@ Current phase: **1, "The Citadel"**. Change this file only by a logged decision.
 - Carthage as outside pressure only, a clock, not a simulated city.
 - A plain-text chronicle, read from the action log.
 - Seeded headless runs; 100-seed check before every merge.
+- Placeholder mosaic portraits for the cast, made in `tools/mosaic-editor.html`. Their looks are invention. (Jacob, 2026-11-22.)
 
 ## Out (cut for now)
 
-City map of Syracuse, supply and sieges, mercenary market, generations, choosing the start date, the full island, a simulated Carthage (the centerpiece of Phase 2), coin art, the history browser, the biased-historian voice, the board game.
+City map of Syracuse, supply and sieges, mercenary market, generations, choosing the start date, the full island, a simulated Carthage (the centerpiece of Phase 2), coin art, the history browser, the biased-historian voice, the board game. (Coin art here means real coin photographs; placeholder portraits are In.)
 
 ## Gate to Phase 2
 
