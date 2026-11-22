@@ -2,6 +2,25 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Built by the rule-switches thread (09, 2026-11-22)
+- **Five rule switches, off by default** (`data/switches.json`; engine in `src/core/switches.ts`, `src/core/clues.ts` and small hooks in `ai.ts`, `actions.ts`, `ops.ts`, `season.ts`, `chronicle.ts`). The start screen has a "Rule switches" fold with a checkbox and a one-line summary for each; the save and the footer remember them.
+  - **Warnings are clues:** plots keep a list of deeds; each warning tells of the newest one (grievance, faction, the man who said no, the guard's new silver). Lines are in `data/warnings.json` under `clues`. Plot cards show "What you have heard".
+  - **Blows can miss:** beating your defense by 1 or 2 wounds you; by 3 or 4 costs an office and half your silver; 5 or more kills or exiles as before. Margins are `knobs` in the switch's data.
+  - **People escalate:** ask, wait a season, demand in public, then never again for that office; old enemies return a rank higher.
+  - **A Pretender needs a coalition:** rank 3 and Take his place steps need a second faction Angry or worse with you.
+  - **Chronicle as story:** `storyBook()` in `src/core/chronicle.ts`; the UI chronicle shows seasons by person, a Lives section and How it ended.
+- `npm run sim` takes `--switches a,b` and `--switch-sweep` (none, each alone, all), with new counts: wounds, offices lost to a blow, the odds a strike kills, repeated asks, the same man made an enemy, returning enemies, fresh warning lines, the most-repeated chronicle sentence, the top ender's share.
+- The careful and other bots read told clues when picking suspects (`clueHit` in `bots.ts`); with the switch off it changes nothing.
+- `tests/switches.test.ts`: off by default, unknown switch refused, every switch alone and together with five players and no broken state, replay with switches, clues filled and true, no one asks more than twice, partial blows happen, Pretenders need a coalition, the story chronicle shows no ids.
+- Report: `docs/playtests/2026-11-22-switches.md` (500 seeds × 4 players × 7 switch sets × 2 packages).
+- **Works with the island scenario too** (merged after Phase 2 slice 1): all five switches on, Reap what you sow, 100 island games each for the simple, careful, patron and iron-hand players: 0 crashes, 0 broken states; the careful player survives 90, the patron 94. The sweep tables in the report are for the citadel scenario only.
+
+## Questions from the rule-switches thread
+- Which switches should be on for your next playtest? The report suggests People escalate and Warnings are clues; then A Pretender needs a coalition; Blows can miss with Standard balance.
+- Blows can miss: is a wound (one lost action) enough of a cost? Should the wounded ruler also lose defense for a season?
+- Coalition: is "Angry or worse" the right bar for a second faction, or should Uneasy count? (With Uneasy, the rich families qualify from the first season and the switch did almost nothing.)
+- The feud record from the design council (V6): build it as a sixth switch?
+
 ## Built by the art thread (2026-11-22)
 - **Art direction** in `docs/art-direction.md`: the catalogue look, four materials, colours, type, icons, event pictures, motion, words, and a section for the island map.
 - **Icons** (`ui/icons.ts`): 25 black-figure silhouettes for factions (sword, hearth, horse, grain, helmet; Carthage a palm), offices, action areas and stores. Used in the ledger, offices, factions, action menu, who is who, court and character sheets.
@@ -125,6 +144,7 @@ UI only: no file in `src/core/` or `data/` changed, so the rules and the 100-see
 - `tsconfig.json` now checks `scripts/` and `ui/` too and reads JSON. `esbuild` added as a dev dependency for the UI build.
 
 ## Broke
+- Rule-switches thread: nothing new broke (0 crashes or broken states in 28,000 switch-sweep games). Two text bugs fixed (a man leading his own plot; the Take his place ending). The "exiled men arrested again" bug below did not reproduce in 1,000 games.
 - Nothing new broke: no crash or broken state in 20,000 balance games (1,000 seeds x 5 players x 4 packages).
 - **The balance finding, corrected:** the old "1 survivor in 100" was mostly the simple bot. Under standard rules a careful bot survives the decade in 52% of games, a patron 34%, an iron hand 7%, a careless one 0%. Standard's problem is shape: blows land about 90% of the time and deaths bunch in years 2 and 3. Full tables in the sweep report.
 - Found by the sweep, not fixed (rules questions): Nicoteles and the citizens' assembly end most reigns once plots are slower; long reigns repeat (the same man becomes your enemy 5 or 6 times in a decade); political rivals flicker on and off (9 to 15 a game for careful players); Carthage takes the city in 5 to 8% of patron games; Nemeses almost never appear.

@@ -32,6 +32,10 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Phase 2 second test?] Losing Syracuse as a turn, not the end: play on as an exile at Aetna or Rhegium and plot a return (design council V11; also in Jacob's pitch doc). Exile records and the `where` field are to be designed so it fits later.
 - [Phase 2?] Two playable checkpoints before the full island: the citadel under the first-test preset, then the island against the old Carthage clock (design council, risks).
 - [Phase 2?] A switch that raises the army's pay after each victory, to brake a winning ruler (design council, Systems seat; compare Diodorus 14.78.2).
+- [Phase 2?] The feud record (design council V6): one dated record per person with you, settlements that pause rather than erase, rank from surviving you. The council's strongest consensus; thread 09 plans it as its own rule switch, off by default, after the five switches merge. 2026-11-22.
+- [Phase 2?] Plots with a method and a moment you can counter (research proposal 3). "Blows can miss" is only its smallest version: a narrow blow wounds or costs an office. Parked by thread 09, 2026-11-22.
+- [Phase 2?] Set the council's `thread` and `cause` log fields at write time on plot, clue and rival lines, once thread 10's engine refactor adds them, so the story chronicle can group by storyline without matching names in text. Parked by thread 09, 2026-11-22.
+
 - [Phase 1 or later] Painted figure scenes for events (people in red-figure, not only emblems), once the emblems have been judged in play. Art thread, 2026-11-22.
 - [Phase 1 or later] Sound: a lyre phrase for a new season, a low drone when a plot is named. Out of this pass by the art direction. Art thread, 2026-11-22.
 - [Phase 1?] Date the chronicle's years the way Diodorus does (Olympiad and Athenian archon), e.g. "the Ninety-fourth Olympiad was celebrated" (Diodorus 14.3.1). Needs care: Diodorus' years don't line up neatly with the game's. Art thread, 2026-11-22.

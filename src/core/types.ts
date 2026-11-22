@@ -49,6 +49,8 @@ export interface Person {
   blockedUntil: number; // a Block cancels their next action
   informer: boolean; // reports to you about any plot they are in
   enters: number; // season they enter the story (0 = from the start)
+  asks?: Record<string, { stage: number; last: number }>; // switch "escalation": how far each petition has gone
+  pastRivalries?: number; // switch "escalation": times he was your rival before
 }
 
 // A political rival wants your place, not your death (rules v2, Jacob's change of 2026-11-22).
@@ -84,7 +86,12 @@ export interface Plot {
   informer?: string;
   started: number;
   guardBacking: boolean;
+  deeds?: Deed[]; // switch "clues": what the plotters did, so warnings can come from it
+  heard?: string[]; // switch "clues": the clues you were told, in order
 }
+
+// Something a plot did, kept so a warning can tell of it (switch "clues").
+export interface Deed { season: number; kind: string; who?: string; target?: string; faction?: string; grudge?: string; told?: boolean; shown?: boolean }
 
 export interface Request {
   id: string;
@@ -95,6 +102,7 @@ export interface Request {
   season: number;
   owed?: boolean;
   agendaStep?: boolean;
+  demand?: boolean; // switch "escalation": asked once and refused, now he demands it
 }
 
 export interface Building { what: "citadel" | "granary" | "wall"; slotsLeft: number }
@@ -128,11 +136,13 @@ export type Input =
   | { t: "choose"; event: string; choice: string }
   | { t: "end" };
 
+// Options for a new game, beyond the seed and the balance package.
+
 export interface Args { target?: string; second?: string; option?: string }
 
 // The island scenario (Phase 2). A citadel game (Phase 1) has no island and runs exactly as before.
 export type Scenario = "citadel" | "island";
-export interface GameOpts { scenario?: Scenario }
+export interface GameOpts { scenario?: Scenario; switches?: string[] }
 export type Side = "syracuse" | "ally" | "free" | "tributary" | "carthage" | "exiles";
 export interface CityState { id: string; side: Side; walls: number; men: number; grain: number; lean: number; fear: number; sacked: boolean; since: number }
 export interface Army {
@@ -173,6 +183,7 @@ export interface GameState {
   version: 1;
   seed: number;
   tuning?: string; // id of the balance package in data/tuning.json (missing = the default)
+  switches?: string[]; // optional rule switches from data/switches.json (missing = none)
   rng: number;
   season: number; // 0 = autumn 405 BC
   step: Step;

@@ -14,6 +14,8 @@ import { traitMods, politicalRank } from "./actions.ts";
 import type { FactionId, GameState, Mod, OfficeId, Person, Plot } from "./types.ts";
 import { FACTIONS } from "./types.ts";
 import { T } from "./tuning.ts";
+import { on } from "./switches.ts";
+import { deed } from "./clues.ts";
 
 const hidden = false;
 const rankOf = (p: Person) => p.rival?.rank ?? 0;
@@ -56,6 +58,7 @@ export function startPlot(s: GameState, p: Person, why: string) {
     known: [], started: s.season, guardBacking: false };
   s.plots.push(pl);
   s.counters.plots = (s.counters.plots ?? 0) + 1;
+  deed(s, pl, { kind: "start", who: p.id });
   event(s, p.id, `${capital(p.name)} starts a plot against you.${memoryLine(p)}`, why, hidden);
   return pl;
 }
@@ -73,9 +76,10 @@ function recruit(s: GameState, p: Person, pl: Plot) {
   if (rankOf(p) >= 2) mods.push({ label: "a Schemer", value: 1 });
   if (p.status === "outside" && q.status === "outside" && p.rival?.scars.includes("Exiled")) mods.push({ label: "exiles together", value: 1 });
   const r = roll(s, p.id, `${capital(p.name)} tries to recruit ${q.name}`, mods, T(s).recruitNeed, pl.known.includes(p.id) && !!pl.informer);
-  if (!r.ok) return true;
-  if (q.bound && d6(s) < 5) { event(s, q.id, `${capital(q.name)} is bound to you, and refuses ${p.name}.`, "bound by marriage or office", hidden); return true; }
+  if (!r.ok) { deed(s, pl, { kind: "refused", who: p.id, target: q.id }); return true; }
+  if (q.bound && d6(s) < 5) { event(s, q.id, `${capital(q.name)} is bound to you, and refuses ${p.name}.`, "bound by marriage or office", hidden); deed(s, pl, { kind: "refused", who: p.id, target: q.id }); return true; }
   pl.members.push(q.id);
+  deed(s, pl, { kind: "join", who: q.id });
   if (q.informer) { pl.informer = q.id; pl.known = [...pl.members]; }
   const why = q.grudges[0]?.reason ?? "a grudge";
   event(s, q.id, `${capital(q.name)} joins ${p.name}'s plot (${why}).`, `recruited; grudge: ${why}`, !!pl.informer);
@@ -86,12 +90,26 @@ function recruit(s: GameState, p: Person, pl: Plot) {
 
 function request(s: GameState, p: Person, kind: GameState["requests"][number]["kind"], extra: Partial<GameState["requests"][number]>, text: string, why: string) {
   if (s.requests.some((r) => r.from === p.id)) return false;
-  s.requests.push({ id: nextId(s, "req"), from: p.id, kind, season: s.season, owed: p.owedFavor, ...extra });
+  // People escalate (switch "escalation"): ask, wait, demand, then act. Never the same plea every season.
+  let demand = false;
+  if (on(s, "escalation") && (kind === "office" || kind === "silver") && !extra.agendaStep) {
+    const a = p.asks?.[extra.office ?? kind];
+    if (a && a.stage >= 2) return false; // refused twice: he will not ask again
+    if (a && s.season - a.last < 2) return false; // he waits a season before coming back
+    if (a && a.stage === 1) {
+      demand = true;
+      const f = factionOf(s, p.id);
+      text = `${capital(p.name)} ${kind === "office" ? `demands ${officeName(extra.office!)}` : "demands the silver you owe his loyalty"}, in front of ${f ? s.factions[f].short : "the court"}. He asked once already.`;
+      why = `${why}; refused once, he comes back with a demand`;
+    }
+  }
+  s.requests.push({ id: nextId(s, "req"), from: p.id, kind, season: s.season, owed: p.owedFavor, ...(demand ? { demand: true } : {}), ...extra });
   event(s, p.id, text, why);
   return true;
 }
 function askOffice(s: GameState, p: Person, why: string): boolean {
-  const want = p.wants && s.offices[p.wants] !== p.id ? p.wants : (["mint", "fleet", "assembly", "treasury"] as OfficeId[]).find((o) => s.offices[o] === PLAYER);
+  const done = (o: OfficeId) => on(s, "escalation") && (p.asks?.[o]?.stage ?? 0) >= 2; // he gave up asking for it
+  const want = p.wants && s.offices[p.wants] !== p.id && !done(p.wants) ? p.wants : (["mint", "fleet", "assembly", "treasury"] as OfficeId[]).find((o) => s.offices[o] === PLAYER && !done(o));
   if (!want || s.offices[want] !== PLAYER) return false;
   return request(s, p, "office", { office: want }, `${capital(p.name)} petitions you for ${officeName(want)}.`, why);
 }
@@ -226,6 +244,17 @@ function agendaTurn(s: GameState, p: Person) {
     }
   }
   if (ag.id === "yourFall" && !plotOf(s, p.id)) return void startPlot(s, p, `Agenda: Your fall`);
+  if (ag.id === "takePlace" && on(s, "coalition") && !coalition(s, p)) {
+    // A Pretender needs a coalition (switch): with no second faction against you, his bid stalls.
+    if (s.flags[`stalledBid_${p.id}`] === undefined) event(s, p.id, `${capital(p.name)}'s bid for your place stalls: no faction but his own will stand with him.`, "a Pretender needs a second faction Angry or worse with you");
+    s.flags[`stalledBid_${p.id}`] = s.season;
+    return following(s, p, "a Pretender courts a second faction");
+  }
+  if (ag.id === "takePlace" && s.flags[`stalledBid_${p.id}`] !== undefined) {
+    delete s.flags[`stalledBid_${p.id}`];
+    const f = coalition(s, p)!;
+    event(s, p.id, `${capital(s.factions[f].short)} now stand with ${p.name}, and his bid for your place moves again.`, `${s.factions[f].short} are ${["Rebellious", "Angry"][s.factions[f].mood]} with you`);
+  }
   const mods: Mod[] = [...againstYou(s, p)];
   if (ag.id === "takePlace") {
     if (influence(s, p.id) >= playerInfluence(s)) mods.push({ label: "his influence matches yours", value: 1 });
@@ -241,10 +270,11 @@ function stepDone(s: GameState, p: Person) {
   event(s, p.id, `${capital(p.name)} completes a step of ${def.name}: ${def.steps[ag.step]}.`, `agenda ${def.name}`);
   ag.step += 1;
   if (p.rival) rankChange(s, p.id, 1, "he completed an agenda step");
-  if (ag.id === "yourFall") { const pl = plotOf(s, p.id); if (pl) pl.bonus += 1; }
+  if (ag.id === "yourFall") { const pl = plotOf(s, p.id); if (pl) { pl.bonus += 1; deed(s, pl, { kind: "arms", who: p.id }); } }
   if (ag.step >= def.steps.length) {
     ag.done = true;
-    event(s, p.id, `${capital(p.name)} completes ${def.name}. ${def.completes}`, "agenda complete");
+    // Take his place: the ending says the one way it happened, not the list of all four.
+    event(s, p.id, `${capital(p.name)} completes ${def.name}.${ag.id === "takePlace" ? "" : ` ${def.completes}`}`, "agenda complete");
     if (ag.id === "yourFall") { const pl = plotOf(s, p.id); if (pl) pl.bonus += 2; }
     if (ag.id === "takePlace") politicalVictory(s, p);
   }
@@ -293,6 +323,7 @@ function factionTurn(s: GameState, f: FactionId, canAgenda: boolean) {
     if (own && !fa.backing) {
       own.backers.push(f);
       fa.backing = own.id;
+      deed(s, own, { kind: "backing", faction: f });
       event(s, f, `${name} put their weight behind a plot.`, `${name} are ${fa.mood === 0 ? "Rebellious" : "Angry"}`, !!own.informer);
       return;
     }
@@ -349,7 +380,7 @@ function agendaStep(s: GameState, f: FactionId) {
   if (ag.id === "guardCitizens" && step === "Refuse a duty") { s.guard.refusing = true; event(s, f, "The guard refuses a duty. They will not stand at your door this season.", "Agenda: Citizens of Syracuse"); }
   if (ag.id === "kingmakers") {
     const best = s.plots.slice().sort((a, b) => plotStrength(s, b).total - plotStrength(s, a).total)[0];
-    if (best) { best.guardBacking = true; event(s, f, "The guard sells its loyalty to a plot against you.", "the guard are kingmakers", !!best.informer); }
+    if (best) { best.guardBacking = true; deed(s, best, { kind: "guard" }); event(s, f, "The guard sells its loyalty to a plot against you.", "the guard are kingmakers", !!best.informer); }
   }
   advanceAgenda(s, f, step);
 }
@@ -393,6 +424,11 @@ export function advanceAgenda(s: GameState, f: FactionId, why: string) {
 
 // ---------- Political rivals: made by ambition ----------
 
+// Switch "coalition": the strongest faction, other than his own, that is Angry or worse with you.
+export function coalition(s: GameState, p: Person): FactionId | undefined {
+  return FACTIONS.filter((f) => f !== p.faction && s.factions[f].mood <= 1).sort((a, b) => s.factions[a].mood - s.factions[b].mood || power(s, b) - power(s, a))[0];
+}
+
 export function updatePolitical(s: GameState) {
   const you = playerInfluence(s);
   const max = DATA.maxPolitical;
@@ -409,7 +445,10 @@ export function updatePolitical(s: GameState) {
       p.political.outSeasons = 0;
       const r = p.political.rank;
       if (r === 1 && (officesOf(s, p.id).length >= 2 || leverageOver(s, p.id, PLAYER) > 0)) politicalRank(s, p.id, 1, officesOf(s, p.id).length >= 2 ? "he holds two offices" : "he holds a secret over you");
-      else if (r === 2 && inf >= you) politicalRank(s, p.id, 1, `his influence (${inf}) has reached yours (${you})`);
+      else if (r === 2 && inf >= you && (!on(s, "coalition") || coalition(s, p))) {
+        const f = on(s, "coalition") ? coalition(s, p) : undefined;
+        politicalRank(s, p.id, 1, `his influence (${inf}) has reached yours (${you})${f ? `, and ${s.factions[f].short} stand with him` : ""}`);
+      }
       continue;
     }
     if (!["Office", "Power"].includes(p.ambition) || !close || p.status !== "free") continue;
