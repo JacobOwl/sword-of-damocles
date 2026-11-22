@@ -2,8 +2,9 @@
 
 New ideas land here, not in the build. Tag each with the phase it might belong to. Jacob decides what moves into `scope.md`.
 
-- [Phase 2] Fully simulated Carthage with its own council, families and generals (the centerpiece).
-- [Phase 2] Island map: 6 to 8 cities, armies with supply; reuse the Feeding an Army logistics ideas.
+- [Moved into scope 2026-11-22] Fully simulated Carthage and the island map with armies and supply are now Phase 2 scope (`scope.md`, `docs/phase2-plan.md`).
+- [Phase 3] The rest of the island's cities: Selinus, Himera, Camarina, Naxos, Enna and the Sikel towns, Segesta and Eryx.
+- [Phase 3] The full Feeding an Army logistics (wagons, baggage, depots), beyond Phase 2's months of food.
 - [Phase 3] All 216 years, generations, selectable start dates, full mercenary market (land as pay; Dionysius I gave mercenaries citizenship and land).
 - [Phase 3] Other starting characters: demagogue, mercenary captain, rich exile.
 - [Phase 4] Legends-style browser for every person, city and war; chronicle in a biased voice (Philistus close to Dionysius, Timaeus hostile to tyrants).
@@ -11,7 +12,7 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Optional] Board game of the power-object system for Tabletop Simulator.
 - [Optional] Calibrating the engine against history over 1,000 seeds, as a sanity check only.
 - [Optional] Reuse the engine for an invented world (Bo'saal).
-- [Phase 1 or 2, Jacob to decide] Simple conquest or raids on nearby cities (Leontini, Catana, Naxos, Carthage's tribute towns). In the paper test, the player reached outside the city 3 times in 10 seasons. Phase 1 has no island, so each one was resolved as a single roll.
+- [Done in Phase 2 by the island map, 2026-11-22] Simple conquest or raids on nearby cities (Leontini, Catana, Naxos, Carthage's tribute towns). In the paper test, the player reached outside the city 3 times in 10 seasons. Phase 1 has no island, so each one was resolved as a single roll.
 - [Phase 1?] Dinners as the main stage for drama: who is invited, where they sit, what the wine loosens. This is from Jacob's pitch doc (background only), and it barely came up in the paper test.
 - [Phase 3?] Playing on as an exile who plots a return. Also from Jacob's pitch doc.
 - [Phase 1?] Let the player use the scheming actions too (start a plot against a rival, lend). Rules v2 says they are open to anyone; the prototype gives them to the computer's people only.

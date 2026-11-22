@@ -97,3 +97,12 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **One 192 px WebP per person**, tile size 7, transparent outside the coin, in `ui/art/portraits/<person id>.webp`, about 20 KB each. The build inlines them, so the game stays one file. Why: the largest slot is 92 px, and 192 covers it at double density; tile size 7 is the smallest that still reads as tiles at 46 px.
 - **Faction colours on the coins are invention:** the ruler and his family on blood red, the rich families on deep sea blue, the citizens on olive, the guard on teal. Jacob's to change.
 
+
+## 2026-11-22 (Phase 2 becomes the first test target, thread 10)
+
+- **Phase 2, "The Island", is the target of the first real test, not Phase 1** (Jacob: "phase 2 should be the goal as our initial testing stage instead of 1"). Read as: Phase 1 is the foundation, built and kept playable as its own scenario, and Phase 2's content (the island map, a simulated Carthage, armies with supply) is pulled in now. The "ten seasons make a story you would retell" test applies to the island game. Why: Jacob's call; the court game alone has no outside world to push against, and Carthage as a clock is the thinnest part of it.
+- **`scope.md` now says Phase 2**, lists what is in and out, and moves the gate to Phase 3. CLAUDE.md's phase line changed to match.
+- **The decade stays 405 to 395 BC** (a default, Jacob's to change): it holds the great war of 397 to 396 (Motya, Himilcon's march, the siege and plague at Syracuse), and the cast is built for it.
+- **Eight cities and one fortress** (a default): Syracuse, Leontini, Catana, Messana, Gela, Acragas, Motya, Panormus, and Aetna. Selinus, Himera, Camarina, Naxos and the Sikel towns are parked.
+- **Phase 1 is a scenario, not deleted.** A game has a scenario, `island` or `citadel`; the citadel game must replay exactly as before.
+- **Milestones** are in `docs/phase2-plan.md`: the map and cities, Carthage simulated, armies with supply, cities that change sides, the test pass.
