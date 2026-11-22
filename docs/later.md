@@ -36,8 +36,8 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Phase 2?] Plots with a method and a moment you can counter (research proposal 3). "Blows can miss" is only its smallest version: a narrow blow wounds or costs an office. Parked by thread 09, 2026-11-22.
 - [Phase 2?] Set the council's `thread` and `cause` log fields at write time on plot, clue and rival lines, once thread 10's engine refactor adds them, so the story chronicle can group by storyline without matching names in text. Parked by thread 09, 2026-11-22.
 
-- [Phase 1 or later] Painted figure scenes for events (people in red-figure, not only emblems), once the emblems have been judged in play. Art thread, 2026-11-22.
-- [Phase 1 or later] Sound: a lyre phrase for a new season, a low drone when a plot is named. Out of this pass by the art direction. Art thread, 2026-11-22.
+- Done (art thread, second round): painted figures in eight event pictures (`ui/figures.ts`).
+- Done (art thread, second round): sound (`ui/sound.ts`), off by default.
 - Done (art thread, second round): the chronicle names each year as Diodorus does, from `data/calendar.json`.
 - [Phase 1?] Fix "1 offices" in the ledger's influence line (plural with one office). Seen by the art thread, 2026-11-22; not fixed, it's outside the art pass.
 - [Source to save] Diodorus 14.77.1 to 14.77.3, the Libyan revolt after 396. Not among the saved texts (book14.loeb.txt jumps from 14.76 to 14.77.4). The island's Libyan revolt rule is invention until it is saved. Jacob, could you paste or save it? Parked by the Phase 2 thread, 2026-11-22.

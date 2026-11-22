@@ -105,8 +105,10 @@ h2 { border-bottom: 0; background: linear-gradient(var(--rule), var(--rule)) 0 c
 .tondo .clay { fill: var(--clay); }
 .tondo .line { fill: none; stroke: var(--clay); stroke-linecap: round; stroke-linejoin: round; }
 .tondo .cut { fill: var(--glaze); } .tondo .cut.line { fill: none; stroke: var(--glaze); }
-.matter { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 4px 16px; border-left: 0; padding: 12px 0 14px; border-bottom: 1px dotted var(--rule); margin: 0; }
-.matter .tondo { width: 96px; height: 96px; grid-row: 1 / span 3; }
+.tondo .hair { stroke: var(--clay); stroke-width: .45; }
+.tondo .cushion { stroke: var(--glaze); stroke-width: .5; }
+.matter { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 4px 16px; border-left: 0; padding: 12px 0 14px; border-bottom: 1px dotted var(--rule); margin: 0; }
+.matter .tondo { width: 120px; height: 120px; grid-row: 1 / span 3; }
 .matter > :not(.tondo) { grid-column: 2; }
 .matter h3 { font-size: 1.2rem; }
 .matter.no-art { grid-template-columns: minmax(0, 1fr); border-left: 3px solid var(--gold); padding-left: 12px; }

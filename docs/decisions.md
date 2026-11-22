@@ -165,3 +165,4 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Not built:** one returning exile per city (needs the island's cities). Parked in `later.md`.
 - **A counted side effect, not fixed:** political rivals who never drop off hold the cap of two, so fewer new ones rise. Report: `docs/playtests/2026-11-22-feud.md`.
 - New count for the sweeps: people who became your Nemesis, counted once per man. The old "Nemeses" count adds every climb back to rank 4.
+- **Painted figures in eight event pictures** (`ui/figures.ts`, red-figure style, invention): feast, assembly, wedding, hearth, arms, whispering, sickness, letter. The other fourteen stay emblems. Art thread, 2026-11-22.
