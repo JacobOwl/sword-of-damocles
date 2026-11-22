@@ -2,11 +2,13 @@
 
 kind: history. This card backs every `kind: history` record in `data/island-events.json`. It is written by `node tools/build-island-events-card.mjs` from the data, so edit the data, not this file. Every quote is checked against the saved texts in Jacob's Phoenician-Punic World repo (read-only) by `node scripts/verify-cast-quotes.mjs ../phoenician-punic-world`.
 
-18 events: 14 from the sources, 4 invented.
+37 events: 26 from the sources, 11 invented.
 
 Texts used:
+- `sources/diodorus/book14-19-40.loeb.excerpts.txt`
 - `sources/diodorus/english/book14-1-18-97-117.loeb.txt`
 - `sources/diodorus/english/book14-78-96.txt`
+- `sources/diodorus/english/book14-gap-sections.txt`
 - `sources/diodorus/english/book14.loeb.txt`
 
 ## What is history and what is game
@@ -133,6 +135,109 @@ Source: Diodorus 14.63.1, 14.77.4.
 - Afterwards the Carthaginians believed the gods were fighting them and voted to propitiate them. Diodorus 14.77.4: "Consequently they voted by every means to propitiate the gods who had been sinned against" (`sources/diodorus/english/book14.loeb.txt`)
 - Invented: trigger; the choices; all numbers.
 
+### Rhegium takes alarm
+
+Source: Diodorus 14.40.1 to 14.40.7, 14.44.4.
+
+- Rhegium feared Dionysius' growing power after he enslaved its kinsmen of Naxos and Catana. Diodorus 14.40.1: "The inhabitants of Rhegium, who were colonists of Chalcis, were angered to see the growing power of Dionysius." (`sources/diodorus/book14-19-40.loeb.excerpts.txt`)
+- The Syracusan exiles living in Rhegium pressed for war. Diodorus 14.40.2: "who had been exiled by Dionysius, for most of them were at that time resident in Rhegium" (`sources/diodorus/book14-19-40.loeb.excerpts.txt`)
+- The Messenian Laomedon persuaded the soldiers not to fight a man who had done them no wrong. Diodorus 14.40.5: "for he advised them not begin a war against Dionysius who had done them no wrong." (`sources/diodorus/book14-19-40.loeb.excerpts.txt`)
+- Dionysius waited at the border, then made peace when both cities sent envoys. Diodorus 14.40.6 to 14.40.7: "At the outset Dionysius had led out his army to the border of the Syracusan territory," (`sources/diodorus/book14-19-40.loeb.excerpts.txt`)
+- Later he bound the Messenians to him with a gift of land. Diodorus 14.44.4: "he made a present to the Messenians of a large piece of territory on their borders, binding them to him by such a benefaction" (`sources/diodorus/english/book14.loeb.txt`)
+- Invented: trigger (three or more towns yours or allied); the chance that the Messenians turn back; all numbers.
+
+### Heloris before Messana
+
+Source: Diodorus 14.87.1 to 14.87.2.
+
+- Rhegium took in the men Dionysius had expelled, settled the Naxians and Catanians at Mylae, and sent Heloris against Messana. Diodorus 14.87.1: "offered asylum to those who were expelled by Dionysius and were active against him, and then settled in Mylae the surviving Naxians and Catanians, prepared an army, and dispatched as its general Heloris to lay siege to" (`sources/diodorus/english/book14-gap-sections.txt`)
+- His reckless attack on the citadel was beaten by the Messenians and Dionysius' mercenaries; more than five hundred fell. Diodorus 14.87.2: "When Heloris made a reckless attack upon the acropolis, the Messenians and the mercenaries of Dionysius, who were holding the city, closed ranks and advanced against him" (`sources/diodorus/english/book14-gap-sections.txt`)
+- Invented: trigger (Heloris in exile while Messana is yours or allied); reinforcing and the offer; all numbers.
+
+### New people for an empty city
+
+Source: Diodorus 14.58.3, 14.78.5.
+
+- Himilcon razed Messana so that no one would know the site had been lived in. Diodorus 14.58.3: "Himilcon threw down the walls of" (`sources/diodorus/english/book14.loeb.txt`)
+- Dionysius settled a thousand Locrians, four thousand Medmaeans and six hundred Peloponnesian Messenians there; Sparta was offended, and he moved the Messenians. Diodorus 14.78.5: "But when he observed that the Lacedaemonians were offended that the Messenians whom they had driven out were settled in a renowned city, he removed them" (`sources/diodorus/english/book14-78-96.txt`)
+- Invented: trigger (Messana yours and nearly empty); settling veterans; all numbers.
+
+### Envoys in dismay
+
+Source: Diodorus 14.54.2, 14.48.4.
+
+- As Dionysius laid waste Carthage's territory, the Halicyaeans in dismay sent envoys and made an alliance. Diodorus 14.54.2: "While he was laying waste the countryside, the Halicyaeans in dismay sent an embassy to him and concluded an alliance" (`sources/diodorus/english/book14.loeb.txt`)
+- Earlier the Sicani, fearing the size of his army, all went over to him. Diodorus 14.48.4: "Now the Sicani, fearing the great size of the army, all went over to the Syracusans" (`sources/diodorus/english/book14.loeb.txt`)
+- Invented: trigger (any free or tribute town near your army in enemy land; the source names Halicyae); hostages and refusing; all numbers.
+- Note: This is the event form of the island's own rule that towns go over to a great army.
+
+### Your friends driven out
+
+Source: Diodorus 14.88.5.
+
+- After Dionysius' defeat at Tauromenium, Acragas and Messana banished his partisans and renounced his alliance. Diodorus 14.88.5: "After this disaster the Acragantini and Messenians banished the partisans of Dionysius, asserted their freedom, and renounced their alliance with the tyrant" (`sources/diodorus/english/book14-78-96.txt`)
+- Invented: trigger (a lost battle or army, and a town that does not love you); silver and threats; all numbers.
+
+### The lord of Agyrium
+
+Source: Diodorus 14.95.4, 14.95.6, 14.96.1.
+
+- Agyris had the strongest armament in Sicily after Dionysius, and twenty thousand citizens. Diodorus 14.95.4: "This man possessed the strongest armament of any of the tyrants of Sicily at that time after Dionysius" (`sources/diodorus/english/book14-78-96.txt`)
+- Dionysius entered the city with a small company and won him with the promise of land. Diodorus 14.95.6: "after entering the city with a small company, persuaded Agyris to join him as a genuine ally and promised to make him a present of a large portion of neighbouring territory" (`sources/diodorus/english/book14-78-96.txt`)
+- Invented: trigger (Carthage's army in the interior; the source tells it of Magon's campaign); sending envoys; all numbers.
+
+### The Sicels waver
+
+Source: Diodorus 14.58.1.
+
+- The Sicels, who had long hated Dionysius, went over to Carthage, all but Assorus; he strengthened the forts and stored the Leontine harvest in its citadels. Diodorus 14.58.1: "The Siceli, who had hated Dionysius from of old and now had an opportunity to revolt, went over in a body, with the exception of the people of Assorus, to the Carthaginians" (`sources/diodorus/english/book14.loeb.txt`)
+- He was most concerned to fortify the citadels of Leontini and store the harvest of the plains there. Diodorus 14.58.1: "He was most concerned, however, to fortify the citadels of the Leontines and to store in them the harvest from the plains" (`sources/diodorus/english/book14.loeb.txt`)
+- Invented: trigger; buying them off with land; all numbers (the Sicels are shown as men joining Carthage's army).
+
+### The hill of Taurus
+
+Source: Diodorus 14.59.2, 14.88.1 to 14.88.4.
+
+- Sicels walled the peak of Taurus and named it Tauromenium. Diodorus 14.59.2: "since those who gathered remained ( menein ) upon Taurus, they named the city Tauromenium" (`sources/diodorus/english/book14.loeb.txt`)
+- The Sicels held that the land had been their ancestors' before the Greeks founded Naxos. Diodorus 14.88.1: "that these parts of the island had been the possession of the Siceli, when Greeks first landed there and founded Naxos" (`sources/diodorus/english/book14-78-96.txt`)
+- Dionysius attacked on a moonless stormy winter night, broke in, and was thrown out; more than six hundred died. Diodorus 14.88.2 to 14.88.4: "more than six hundred of Dionysius' troops were slain and most of them lost their complete armour, while Dionysius himself saved only his corslet" (`sources/diodorus/english/book14-78-96.txt`)
+- Invented: trigger; the treaty and leaving them; all numbers.
+- Note: A failure here counts as a lost battle, so towns that do not love you may drive out your friends (Diodorus 14.88.5, the event 'Your friends driven out').
+
+### The Sicel lords
+
+Source: Diodorus 14.78.7.
+
+- After the war Dionysius campaigned against the Sicels, took Menaenum and Morgantina, and made treaties with Agyris, Damon and the Herbitaeans and Assorini. Diodorus 14.78.7: "in the course of which he took Menaenum and Morgantinum and struck a treaty with Agyris, the tyrant of the Agyrinaeans, and Damon, the lord of the Centoripans" (`sources/diodorus/english/book14-78-96.txt`)
+- Invented: trigger (peace made with Carthage); all numbers.
+
+### Archonides founds a city
+
+Source: Diodorus 14.16.1 to 14.16.2.
+
+- Archonides of Herbita, after peace with Dionysius, founded Halaesa with mercenaries and refugees. Diodorus 14.16.1: "For he had not only many mercenaries but also a mixed throng who had streamed into the city in connection with the war against Dionysius" (`sources/diodorus/english/book14-1-18-97-117.loeb.txt`)
+- He occupied a hill eight stades from the sea and called the city Halaesa Archonidion. Diodorus 14.16.2: "he occupied a hill lying eight stades from the sea, on which he founded the city of Halaesa" (`sources/diodorus/english/book14-1-18-97-117.loeb.txt`)
+- Invented: trigger (peace with Carthage, or three towns yours or allied); hiring and gifts; all numbers.
+- Note: Diodorus also reports that some said Halaesa was founded by the Carthaginians (14.16.4).
+
+### The Italian Greeks choose a general
+
+Source: Diodorus 14.103.4 to 14.103.5.
+
+- The Italian Greeks gave Croton, with the most Syracusan exiles, the conduct of the war. Diodorus 14.103.4: "Since the city of the Crotoniates was the most heavily populated and had the largest number of exiles from Syracuse, they gave over to them the command of the war" (`sources/diodorus/english/book14-1-18-97-117.loeb.txt`)
+- They chose Heloris as general, trusting his hatred of the tyrant. Diodorus 14.103.5: "chose as general Heloris the Syracusan. Since this man had been banished by Dionysius" (`sources/diodorus/english/book14-1-18-97-117.loeb.txt`)
+- Invented: trigger (four or more towns yours or allied, and Heloris in exile); the choices; all numbers.
+- Note: Diodorus places this after 395; the game lets it happen whenever the situation arises. Italy stays names only in Phase 2.
+
+### Carthage in mourning
+
+Source: Diodorus 14.76.2 to 14.77.5.
+
+- Carthage was suddenly anxious for its own homeland. Diodorus 14.76.2: "of a sudden were forced to be anxious for their own fatherland" (`sources/diodorus/english/book14.loeb.txt`)
+- The city was seized by superstitious fear and voted to propitiate the gods. Diodorus 14.77.4: "the entire city was seized by superstitious fear and dread" (`sources/diodorus/english/book14.loeb.txt`)
+- They made their most renowned citizens priests of Demeter and Kore, and chose Greeks living among them to serve. Diodorus 14.77.5: "they appointed their most renowned citizens to be priests of these goddesses" (`sources/diodorus/english/book14.loeb.txt`)
+- Invented: trigger (Carthage's army lost or sent home); your choices; all numbers.
+
 ## Invented events
 
 These have no source. Some borrow a situation the sources describe; the note says which.
@@ -141,3 +246,10 @@ These have no source. Some borrow a situation the sources describe; the note say
 - **Fever in the lines**: The causes the physicians name follow Diodorus 14.70.4 to 14.70.5 (crowding, the season, the water, marshy ground), but this event is invention.
 - **Punic silver for a captain**
 - **The harvest is waiting**
+- **Carthage's envoys**
+- **An offer to come over**
+- **A rumor from Carthage: the general on trial**: The Hundred is the game's bloc from Aristotle, Politics 1273a, written decades later (see data/carthage.json). The accuser is one of the generated cast.
+- **A rumor from Carthage: a merchant's word**
+- **A rumor from Carthage: the dockyards cry for war**
+- **A rumor from Libya**: Diodorus tells of the Libyans' great rising after the war of 396 (14.77, not among the saved sections). This event is invention.
+- **The captain of the garrison**

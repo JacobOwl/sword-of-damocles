@@ -3,19 +3,38 @@
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
 
-## Built by the island events thread (16, 2026-11-22), slice 1
-- **A second event library for the island**, `data/island-events.json` (18 events: 14 from Diodorus book 14, 4 invented), card `docs/research/island-events.md`, written by `node tools/build-island-events-card.mjs` from the data (safe to rerun). The quote checker now reads the island events too (293 of 293 found).
-- **Engine:** `src/core/island-events.ts`, with small hooks in `src/core/events.ts`. Events can now name **towns** as parts (`places`, chosen by side, lean, fear, grain, walls, sieges, distance from an army, a recent change of side), give parts to **the generated cast** (a town's first man, a council member of the Elders, the Hundred or the people, a hired captain) and to **Carthage's named men** (Himilcon, Magon, or whoever is general), check **armies and Carthage** in `when.island` (war, armies' food, men and sieges, Carthage's goal, plague, revolt, stores and blocs), and change them (lean, grain, men, walls, fear and side of a town; an army's men, food and siege lines; lifting a siege; sending Carthage's army home; Carthage's blocs, treasury, hired men, levy, fleet, plague; a general's fall; peace). Every change is logged with its reason and shown in plain words on the choice before you pick.
-- **Pacing:** in island games, one extra draw a season from the island's events only (a second 30% of the time; at most two open). Citadel games never see them.
-- **Pictures:** four new emblems in `ui/vignettes.ts` (gate, siege tower, amphorae, camp).
-- **Tests:** `tests/island-events.test.ts` (shape, no dates, parts and effects exist, no ids in text, 54 of 55 choices run without breaking a game, never in a citadel game, fire in island games and replay exactly). `tests/events.test.ts` now checks the court events only; `tests/look.test.ts` checks both libraries' pictures.
-- **Checks:** 79 of 79 tests pass. Citadel 100 seeds unchanged (10.8 seasons; killed 27, deposed 41, exiled 32; tyrannies 13). Island, 100 seeds for each of the five players: 0 crashes, 0 broken states. The careful player sees 3.5 island events a game (27 seasons); the simple bot far fewer, since it rarely takes the field. `npm run sim -- --scenario island` now prints the island event count.
+## Built by the island events thread (16, 2026-11-22), slices 1 and 2
+- **A second event library for the island**, `data/island-events.json`: **37 events, 26 from the sources and 11 invented**. The card is `docs/research/island-events.md`, written by `node tools/build-island-events-card.mjs` from the data (safe to rerun). The quote checker reads the island events too (326 of 326 found).
+  - Slice 1 covers sieges, supply, plague and mercenaries: the gate at midnight, the mole to Motya, siege towers, heralds to the temples, Greeks who fought for Carthage, the first man on the wall, ships on the beach, the late baggage, cutting their foragers, the grain convoy, fever in the lines, plague in the Punic camp, Himilcon's bargain, pay in land (Leontini), Punic silver for a captain, envoys to the Campanians, the allies' harvest, and the goddesses' temple.
+  - Slice 2 covers embassies, the Italian Greeks, Sicels, Carthage's council and defections: Rhegium takes alarm (Laomedon), Heloris before Messana, new people for an empty Messana, envoys in dismay (Halicyae), Carthage's envoys to an ally, your friends driven out after a defeat (14.88.5), a first man's offer to come over, Agyris of Agyrium, the Sicels wavering, the hill of Taurus, the Sicel lords, Archonides founding Halaesa, Croton choosing Heloris, Carthage in mourning, and the captain of a garrison. Four "rumor from Carthage" events let you meddle in its politics: the Hundred putting the general on trial, a merchant of the Elders wanting peace, the dockyard speakers crying for war, and Libya's grievance. Each rumor is played by one of the generated councillors.
+- **Engine:** `src/core/island-events.ts`, with small hooks in `src/core/events.ts`.
+  - Events can name **towns** as parts (`places`).
+  - Parts can go to **the generated cast** (a town's first man, a councillor of the Elders, the Hundred or the people, or a hired captain) and to **Carthage's named men**.
+  - Conditions can check **armies and Carthage** in `when.island`.
+  - Effects can change towns (lean, grain, men, walls, fear, side, opening the gates), armies (men, food, siege lines, lifting a siege, Carthage sailing home) and Carthage (bloc mood and power, treasury, hired men, levy, fleet, plague, a general's fall, peace).
+  - Every effect is shown in plain words on the choice and logged with its reason.
+  - Battles now set the flags `battleWon` and `battleLost`.
+- **Pacing:** island games get one extra draw a season from the island events only, a second one 30% of the time, with at most two island events open. Citadel games never see them.
+- **Pictures:** seven new emblems in `ui/vignettes.ts`: a gate under the moon, a siege tower, amphorae, a camp under birds, a herald's staff, a walled hill town, and the sign of Tanit between columns.
+- **Tests:** `tests/island-events.test.ts` checks:
+  - the shape of every event, and that none uses dates;
+  - that every part and effect exists, and no ids show in the text;
+  - that every choice runs without breaking a game (110 of 111 run);
+  - that island events never fire in a citadel game;
+  - that they fire in island games and replay exactly.
+- **Checks:**
+  - 79 of 79 tests pass.
+  - Citadel, 100 seeds: unchanged by this work (killed 32, deposed 44, exiled 23, survived 1, after thread 07's Damocles event).
+  - Island, 100 seeds for each of the five players: 0 crashes, 0 broken states.
+  - Island events a game: careful 10, patron 9, simple 4.5, careless 4, iron hand 3.5.
 
 ## Questions from the island events thread
-- **Sieges are rare for the bots** (about 0.7 a game for the careful player), so the siege events (the mole, the towers, the gate at midnight) will mostly be met in your own play. Is that the right rarity, or should events be a reason to besiege?
-- **Himilcon's bargain** sends Carthage's army home without counting it as a lost army, so Himilcon's end (disgrace, starving himself) still never fires. Should taking the bargain disgrace the general?
-- **The court event "The mercenaries' demand"** tells the same story as the island's "Pay in land", and both can fire in an island game. Keep both, or hide the court one in island games?
-
+- **Sieges are rare for the bots** (under one a game), so you will mostly meet the siege events (the mole, the towers, the gate at midnight) in your own play. Is that rare enough, or too rare?
+- **Himilcon's bargain** sends Carthage's army home without counting it as a lost army, so Himilcon's end (disgrace, starving himself) still never fires from it. Should taking the bargain disgrace him?
+- **Duplicates:** the court's "The mercenaries' demand" tells the same story as the island's "Pay in land", and both can fire in an island game. Keep both, or hide the court one in island games? The court events "Leptines attacks", "Himilcon's offer" and "War on Carthage" overlap the island's own war in the same way.
+- **Italy and the Sicels** stay as names (scope): their events move your towns, armies and Carthage, never an Italian or Sicel map piece. Heloris' two events need him in exile first, so they are rare.
+- **Rumors from Carthage are always true.** Should some be false (for example, unless you have sent an embassy lately)?
+- **Pre-existing, found while testing:** when Carthage storms Syracuse in the factions step, that season's court events stay open at the end of the game. It is harmless, but the court test only checks the simple bot in the citadel.
 ## Built by the web-app thread (17, 2026-11-22), step 1 of 5: the plan and the engine boundary
 - **`docs/architecture.md`**: the two halves (rules engine in `src/core/`, browser UI in `ui/`), the rules each follows, the stack (TypeScript, no UI framework, Vite next), the target folder layout, the five migration steps, and the road to Godot.
 - **`tests/core-boundary.test.ts`**: the engine imports only itself and `data/`; uses no `Math.random`, `Date`, browser or Node globals; a game saved as JSON plays on exactly the same; a bot game replays in both scenarios.

@@ -221,3 +221,9 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 ## 2026-11-22 (a proper web app, step 2: thread 17)
 - **The browser game builds with Vite 8 and `vite-plugin-singlefile`** into the same single page; `npm run dev` gives a live-reloading page. Why: a standard build with a dev server, while the Artifact link still gets one self-contained page.
 - **UI restructures are checked by a scripted walk-through** (`npm run walk`) that must record identical pages before and after. Why: "behaviour identical" needs a check, not a promise.
+
+## 2026-11-22 (island and Carthage events, slice 2: thread 16)
+- **19 more island events**: Rhegium and Messana, Heloris and Croton, the Sicels (Agyris, Taurus, Archonides, the Sicel lords), embassies and defections, and four rumors from Carthage's council that you can meddle in with silver or words. Why: the coordinator's brief and the paper test's wish for factions that act on their own and rivals you can work against.
+- **Rumors from Carthage use the generated councillors** (a judge of the Hundred, a merchant of the Elders, a dockyard speaker) as named parts, so Carthage's politics have faces. They are tagged invention: the blocs come from Aristotle, written decades later.
+- **Italy and the Sicels stay names only**, as `scope.md` says. Their events act through your towns, armies and Carthage.
+

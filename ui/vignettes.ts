@@ -125,6 +125,22 @@ export const VIGNETTES: Record<string, string> = {
     <path d="M24 86 H96" class="line" style="stroke-width:1.4"/>
     <path d="M48 30 C52 25 56 25 60 29 C64 25 68 25 72 30 C68 28 64 29 60 33 C56 29 52 28 48 30 Z"/>
     <path d="M28 36 C30 34 32 34 34 36 C36 34 38 34 40 36 C38 35.4 36 36 34 38 C32 36 30 35.4 28 36 Z"/>`,
+  herald: `${F.standingMan(50, 94, 1, { arm: "forward" }, 1.15)}
+    <path d="M78 30 V88" class="line" style="stroke-width:2"/>
+    <path d="M78 34 C70 30 70 22 76 20 C80 19 82 24 78 26 C74 28 74 24 76 23 M78 34 C86 30 86 22 80 20 C76 19 74 24 78 26 C82 28 82 24 80 23" class="line" style="stroke-width:1.6"/>
+    <path d="M73 40 C76 42 80 42 83 40" class="line" style="stroke-width:1.2"/>`,
+  hilltown: `<path d="M18 88 C30 74 38 56 50 44 C54 40 66 40 70 44 C80 54 90 72 102 88 Z"/>
+    <path d="M46 46 V34 H48 V30 H52 V34 H56 V30 H60 V34 H64 V30 H68 V34 H72 V46 Z"/>
+    <path d="M56 46 V40 C56 37 62 37 62 40 V46 Z" class="cut"/>
+    <path d="M32 74 C38 70 42 72 46 66 M70 62 C76 68 80 66 86 74 M54 60 C58 58 62 60 66 56" class="cut line" style="stroke-width:.9"/>
+    <path d="M28 86 C34 80 40 82 44 78 M74 80 C80 82 84 80 90 86" class="cut line" style="stroke-width:.8"/>
+    <circle cx="86" cy="26" r="6"/>`,
+  tanit: `<path d="M60 42 L46 82 H74 Z"/><rect x="42" y="38" width="36" height="4"/>
+    <path d="M42 40 C38 40 37 34 40 32 M78 40 C82 40 83 34 80 32" class="line" style="stroke-width:2"/>
+    <circle cx="60" cy="30" r="7"/>
+    <path d="M24 86 V34 M30 86 V34 M90 86 V34 M96 86 V34" class="line" style="stroke-width:2.2"/>
+    <path d="M22 34 C22 28 32 28 32 34 Z M88 34 C88 28 98 28 98 34 Z M21 86 H33 M87 86 H99"/>
+    <path d="M38 88 H82" class="line" style="stroke-width:1.4"/>`,
 };
 
 export const VIGNETTE_NAMES = Object.keys(VIGNETTES);
