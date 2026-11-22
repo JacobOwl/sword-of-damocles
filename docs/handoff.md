@@ -36,7 +36,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - Checked at 1280 px and 390 px: no sideways scroll; about 45 faces painted within 9 seconds of opening the view.
 
 ## Questions from the cast-generator thread
-- **Women's names.** The saved texts name seven Sicilian Greek women and no Carthaginian woman. The game leaves a quarter of Greek women and 60% of Carthaginian women unnamed ("the daughter of Tellias", "the wife of Bostar"), as the sources do. Keep, or name more of them from fewer names?
+- **Women's names.** Nine Punic women's names were added (from thread 15's card), written plainly for players (Amashtart, Ahatmilkat, Batshalom). The game leaves a quarter of Greek women and about a third of Carthaginian women unnamed ("the daughter of Tellias", "the wife of Bostar"), as the sources do. Keep these shares?
 - **Annobal and Bodashtart**, a Punic name from Roman Leptis Magna and a Phoenician king of Sidon, pad the thin Carthaginian list. Keep or cut?
 - **Births and deaths:** about 55 births and 47 deaths in a decade among 165 people. Too busy for the log, or the right texture? (The island slice can show only deaths and heirs of people who matter.)
 - **The families page:** useful as its own view, or should these people only appear where they matter (a city's first man on the island map, the captain on an army, the elders on Carthage's council)? Thread 10 has the lookups for that.

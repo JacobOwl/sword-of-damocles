@@ -26,7 +26,7 @@ test("every name is attested: a passage, a file, a citation, a known group", () 
     assert.ok(names.groups[n.group], `${n.name}: unknown group ${n.group}`);
     assert.ok(["m", "f"].includes(n.sex));
     const plain = (t: string) => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-    assert.ok(plain(n.facts?.[0]?.quote ?? "").includes(plain(n.name).slice(0, 4)), `${n.name}: the quote does not show the name`);
+    assert.ok(plain(n.facts?.[0]?.quote ?? "").includes(plain(n.spelled ?? n.name).slice(0, 4)), `${n.name}: the quote does not show the name`);
     assert.ok(n.facts[0].file.startsWith("sources/") && n.facts[0].cite && n.source);
   }
   for (const b of CENSUS_DATA.bodies) for (const g of Object.keys(b.groups)) {
