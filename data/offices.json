@@ -1,0 +1,17 @@
+{
+  "note": "The six power objects. Their effects are invention (rules v1 and v2).",
+  "offices": [
+    { "id": "citadel", "name": "the citadel", "title": "Citadel", "kind": "invention", "holder": null, "built": false,
+      "effect": "Defense +2 against plots. Lets you take an office from a holder who is outside the walls, with no roll." },
+    { "id": "treasury", "name": "the treasury", "title": "Treasury", "kind": "invention", "holder": "dionysius",
+      "effect": "Whoever holds it decides who is paid. Without it, the guard's pay is not taken out for you." },
+    { "id": "mint", "name": "the mint", "title": "Mint", "kind": "invention", "holder": "hipparinus",
+      "effect": "Lets you Strike coin." },
+    { "id": "fleet", "name": "the fleet", "title": "Fleet", "kind": "invention", "holder": "leptines",
+      "effect": "Brings 2 months of grain each winter if its holder is friendly. Needed for raids by sea." },
+    { "id": "generalship", "name": "the generalship", "title": "Generalship", "kind": "invention", "holder": "dionysius",
+      "effect": "Commands the army. Needed to March on a place or raid by land." },
+    { "id": "assembly", "name": "the assembly", "title": "Assembly", "kind": "invention", "holder": "nicoteles",
+      "effect": "Passes laws and levies. Holding it gives +1 on your votes." }
+  ]
+}

@@ -1,0 +1,201 @@
+// Every state change goes through these functions. Each one writes a line to the one log, with its reason,
+// so the chronicle and the player can always see why something happened.
+import { DATA, originById } from "./data.ts";
+import { d6 } from "./rng.ts";
+import { PLAYER, activeRivals, capital, moodName, nameOf, officeName, power, band, seasonName } from "./state.ts";
+import type { FactionId, GameState, LogEntry, Mod, OfficeId, Scar, Status } from "./types.ts";
+import { FACTIONS } from "./types.ts";
+
+export function log(s: GameState, e: Omit<LogEntry, "n" | "season" | "step">): LogEntry {
+  const entry = { n: s.log.length, season: s.season, step: s.step, ...e } as LogEntry;
+  s.log.push(entry);
+  return entry;
+}
+export const event = (s: GameState, actor: string, text: string, why?: string, visible = true) =>
+  log(s, { actor, text, why, visible, kind: "event" });
+const change = (s: GameState, actor: string, text: string, why: string, visible = true) =>
+  log(s, { actor, text, why, visible, kind: "change" });
+
+// A roll: one die plus modifiers, 4+ (or `need`) succeeds. Traits add at most 2 either way.
+export function roll(s: GameState, actor: string, what: string, mods: Mod[], need = 4, visible = true) {
+  const die = d6(s);
+  const total = die + mods.reduce((a, m) => a + m.value, 0);
+  const ok = total >= need;
+  log(s, { actor, text: `${what}: rolled ${die}${mods.map((m) => ` ${m.value >= 0 ? "+" : "-"}${Math.abs(m.value)} ${m.label}`).join("")} = ${total}, needs ${need}. ${ok ? "Success." : "Failure."}`,
+    visible, kind: "roll", roll: { die, mods, total, need, ok } });
+  return { die, total, ok };
+}
+
+export function silver(s: GameState, d: number, why: string) {
+  if (!d) return;
+  s.silver = Math.max(0, s.silver + d);
+  change(s, "world", `Silver ${d > 0 ? "+" : ""}${d} (now ${s.silver}).`, why);
+}
+export function grain(s: GameState, d: number, why: string) {
+  if (!d) return;
+  s.grain = Math.max(0, s.grain + d);
+  change(s, "world", `Grain ${d > 0 ? "+" : ""}${d} months (now ${s.grain}).`, why);
+}
+export function land(s: GameState, d: number, why: string) {
+  s.land = Math.max(0, s.land + d);
+  change(s, "world", `Land ${d > 0 ? "+" : ""}${d} (now ${s.land}).`, why);
+}
+export function clock(s: GameState, d: number, why: string) {
+  if (!d) return;
+  const before = s.clock;
+  s.clock = Math.max(0, Math.min(10, s.clock + d));
+  if (s.clock !== before) change(s, "world", `The Carthage clock ${d > 0 ? "rises" : "falls"} to ${s.clock} of 10.`, why);
+}
+export function guardSet(s: GameState, key: "strength" | "upkeep", d: number, why: string) {
+  s.guard[key] = Math.max(0, s.guard[key] + d);
+  change(s, "guard", `Guard ${key} ${d > 0 ? "+" : ""}${d} (now ${s.guard[key]}).`, why);
+}
+
+export function mood(s: GameState, f: FactionId, d: number, why: string, visible = true) {
+  const fa = s.factions[f];
+  const before = fa.mood;
+  fa.mood = Math.max(0, Math.min(4, fa.mood + d));
+  if (fa.mood !== before) change(s, f, `${capital(fa.short)} ${fa.mood > before ? "warm" : "sour"} to ${moodName(fa.mood)}.`, why, visible);
+  if (fa.mood > 1 && fa.backing) {
+    const pl = s.plots.find((p) => p.id === fa.backing);
+    if (pl) pl.backers = pl.backers.filter((b) => b !== f);
+    fa.backing = undefined;
+    change(s, f, `${capital(fa.short)} stop backing the plot.`, "a faction stops backing a plot once its mood rises above Angry", false);
+  }
+}
+export function powerChange(s: GameState, f: FactionId, d: number, why: string) {
+  if (!d) return;
+  const fa = s.factions[f];
+  const before = power(s, f);
+  fa.base += d;
+  // Keep the total inside 0..10 without letting the base run away.
+  const held = before - (fa.base - d);
+  fa.base = Math.max(-held, Math.min(10 - held, fa.base));
+  const after = power(s, f);
+  if (after !== before) change(s, f, `${capital(fa.name)} power ${after > before ? "+" : ""}${after - before} (now ${after}, ${band(after)}).`, why);
+}
+
+export function opinion(s: GameState, pid: string, d: number, why: string, visible = true) {
+  const p = s.people[pid];
+  if (!p || p.player || !d) return;
+  const before = p.opinion;
+  p.opinion = Math.max(-3, Math.min(3, p.opinion + d));
+  if (p.opinion !== before) change(s, pid, `${capital(p.name)}'s opinion of you ${d > 0 ? "rises" : "falls"} to ${fmt(p.opinion)}.`, why, visible);
+}
+export const fmt = (n: number) => (n > 0 ? `+${n}` : `${n}`);
+
+export function grudge(s: GameState, pid: string, reason: string) {
+  const p = s.people[pid];
+  if (!p || p.player || p.status === "dead") return;
+  p.grudges.push({ reason, season: s.season });
+  change(s, pid, `${capital(p.name)} holds a grudge: ${reason}.`, reason);
+}
+export function clearGrudge(s: GameState, pid: string, why: string): boolean {
+  const p = s.people[pid];
+  if (!p.grudges.length) return false;
+  const g = p.grudges.shift()!;
+  change(s, pid, `${capital(p.name)} lets go of a grudge (${g.reason}).`, why);
+  return true;
+}
+
+export function setOffice(s: GameState, o: OfficeId, holder: string | null, why: string) {
+  const before = s.offices[o];
+  if (before === holder) return;
+  s.offices[o] = holder;
+  change(s, holder ?? "world", holder ? `${capital(nameOf(s, holder))} ${holder === PLAYER ? "hold" : "holds"} ${officeName(o)}.` : `${capital(officeName(o))} stands empty.`, why);
+}
+
+export function setStatus(s: GameState, pid: string, status: Status, why: string) {
+  const p = s.people[pid];
+  p.status = status;
+  const words = ({ free: "is free in the city", held: "is held under guard", outside: "is outside the walls", dead: "is dead", absent: "is away" } as Record<string, string>)[status];
+  change(s, pid, `${capital(p.name)} ${words}.`, why);
+  if (status !== "free") {
+    // An office needs its holder in the city; held, exiled or dead holders lose it.
+    for (const o of Object.keys(s.offices) as OfficeId[]) {
+      if (s.offices[o] === pid && (status === "dead" || status === "held")) setOffice(s, o, PLAYER, `${p.name} can no longer hold it`);
+    }
+  }
+  if (status === "held" || status === "dead") leaveAllPlots(s, pid, status === "dead" ? "dead" : "held under guard");
+}
+
+export function leaveAllPlots(s: GameState, pid: string, why: string) {
+  for (const pl of s.plots) {
+    if (!pl.members.includes(pid)) continue;
+    pl.members = pl.members.filter((m) => m !== pid);
+    change(s, pid, `${capital(s.people[pid].name)} is out of a plot.`, why, pl.known.includes(pid));
+    if (pl.leader === pid && pl.members.length) {
+      pl.leader = pl.members[0];
+      change(s, pl.leader, `${capital(s.people[pl.leader].name)} takes over the plot.`, "its leader is gone", false);
+    }
+  }
+  s.plots = s.plots.filter((pl) => pl.members.length > 0);
+}
+
+export function memory(s: GameState, pid: string, text: string) {
+  const p = s.people[pid];
+  if (!p?.rival) return;
+  p.rival.memory.push({ season: s.season, text: `${text}, ${seasonName(s.season)}` });
+}
+
+// Rivals. Origins (scars) come from data/rivals.json; rank changes are logged with their reason.
+export function makeRival(s: GameState, pid: string, scar: Scar, what: string) {
+  const p = s.people[pid];
+  if (!p || p.player || p.status === "dead") return;
+  if (p.rival) {
+    if (!p.rival.scars.includes(scar)) p.rival.scars.push(scar);
+    memory(s, pid, what);
+    change(s, pid, `${capital(p.name)} carries a new scar: ${scar}.`, what);
+    return;
+  }
+  const max = DATA.maxEnemies;
+  if (activeRivals(s).length >= max) {
+    if (!s.waiting.includes(pid)) s.waiting.push(pid);
+    change(s, pid, `${capital(p.name)} would be your rival, and waits in the wings.`, `${what}; you already have ${max} rivals`);
+    (p as any).pendingScar = scar;
+    return;
+  }
+  p.rival = { rank: 1, scars: [scar], memory: [], since: s.season };
+  memory(s, pid, what);
+  s.counters.rivals = (s.counters.rivals ?? 0) + 1;
+  event(s, pid, `${capital(p.name)} becomes your rival (${originById(scar)?.name ?? scar}).`, what);
+}
+
+export function rankChange(s: GameState, pid: string, d: number, why: string) {
+  const p = s.people[pid];
+  if (!p?.rival) return;
+  let r = p.rival.rank + d;
+  if (r >= 4 && activeRivals(s).some((x) => x.id !== pid && x.rival!.rank >= 4)) r = 3; // only one Nemesis
+  r = Math.min(4, r);
+  if (r <= 0) return endRival(s, pid, why);
+  if (r === p.rival.rank) return;
+  const up = r > p.rival.rank;
+  p.rival.rank = r;
+  const title = DATA.ranks.find((x) => x.rank === r)!.title;
+  event(s, pid, `${capital(p.name)} ${up ? "rises" : "falls"} to rank ${r}, ${title}.`, why);
+  if (r === 4) {
+    p.agenda = { id: "yourFall", step: 0, done: false };
+    s.counters.nemeses = (s.counters.nemeses ?? 0) + 1;
+    event(s, pid, `${capital(p.name)} is now your Nemesis, and works openly toward your fall.`, why);
+  }
+}
+export function endRival(s: GameState, pid: string, why: string) {
+  const p = s.people[pid];
+  if (!p?.rival) return;
+  p.rival = undefined;
+  if (p.agenda?.id === "yourFall") p.agenda = undefined;
+  event(s, pid, `${capital(p.name)} is no longer your rival.`, why);
+  // A waiting rival takes the open slot.
+  const next = s.waiting.shift();
+  if (next && s.people[next].status !== "dead") makeRival(s, next, (s.people[next] as any).pendingScar ?? "Humiliated", "an old wrong, waiting its turn");
+}
+
+export function factionOf(s: GameState, pid: string): FactionId | undefined {
+  const f = s.people[pid]?.faction;
+  return FACTIONS.includes(f as FactionId) ? (f as FactionId) : undefined;
+}
+
+export function nextId(s: GameState, prefix: string) {
+  s.ids += 1;
+  return `${prefix}${s.ids}`;
+}

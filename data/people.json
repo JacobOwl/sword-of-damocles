@@ -1,0 +1,289 @@
+{
+  "note": "Phase 1 keeps to real people. A role stands in where the sources name no one. Traits, ambitions and opinions are invention in every record.",
+  "people": [
+    {
+      "id": "dionysius",
+      "name": "Dionysius",
+      "faction": "ruler",
+      "player": true,
+      "kind": "history",
+      "source": "Diodorus 13.96.4",
+      "card": "docs/research/dionysius-405-403.md",
+      "invented": [
+        "traits"
+      ],
+      "role": "Tyrant of Syracuse, general with supreme power",
+      "traits": [
+        "silverTongued",
+        "suspicious"
+      ],
+      "ambition": "Power",
+      "opinion": 0,
+      "marriageable": true
+    },
+    {
+      "id": "polyxenus",
+      "name": "Polyxenus",
+      "faction": "family",
+      "kind": "history",
+      "source": "Diodorus 13.96.3",
+      "card": "docs/research/dionysius-405-403.md",
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion"
+      ],
+      "role": "Your brother-in-law, married to your sister",
+      "traits": [
+        "cautious",
+        "wellConnected"
+      ],
+      "ambition": "Safety",
+      "opinion": 1,
+      "kin": [
+        "leptines",
+        "thearides"
+      ],
+      "politicalType": "Spymaster"
+    },
+    {
+      "id": "leptines",
+      "name": "Leptines",
+      "faction": "family",
+      "kind": "history",
+      "source": "Diodorus 14.48.4, 14.102.3",
+      "card": "docs/research/dionysius-405-403.md",
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "holds the fleet in 405 (the sources make him admiral only by about 397)"
+      ],
+      "role": "Your brother, keeper of the fleet",
+      "traits": [
+        "bold",
+        "generous"
+      ],
+      "ambition": "Office",
+      "wants": "generalship",
+      "opinion": 1,
+      "kin": [
+        "thearides",
+        "polyxenus"
+      ]
+    },
+    {
+      "id": "thearides",
+      "name": "Thearides",
+      "faction": "family",
+      "kind": "history",
+      "source": "Diodorus 14.102.3",
+      "card": "docs/research/dionysius-405-403.md",
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion"
+      ],
+      "role": "Your other brother",
+      "traits": [
+        "dutiful",
+        "showy"
+      ],
+      "ambition": "Office",
+      "wants": "fleet",
+      "opinion": 1,
+      "marriageable": true,
+      "kin": [
+        "leptines",
+        "polyxenus"
+      ]
+    },
+    {
+      "id": "heloris",
+      "name": "Heloris",
+      "faction": "family",
+      "kind": "history",
+      "source": "Diodorus 14.8.5",
+      "card": "docs/research/dionysius-405-403.md",
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion"
+      ],
+      "role": "Your friend, or as some say your adopted father",
+      "traits": [
+        "blunt",
+        "proud"
+      ],
+      "ambition": "Safety",
+      "opinion": 2
+    },
+    {
+      "id": "philistus",
+      "name": "Philistus",
+      "faction": "rich",
+      "kind": "history",
+      "source": "Diodorus 13.91.4",
+      "card": "docs/research/dionysius-405-403.md",
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "his agenda"
+      ],
+      "role": "A man of great wealth, who paid your fine",
+      "traits": [
+        "shrewd",
+        "ambitious"
+      ],
+      "ambition": "Wealth",
+      "wants": "treasury",
+      "opinion": 1,
+      "agenda": "philistusTreasury"
+    },
+    {
+      "id": "hipparinus",
+      "name": "Hipparinus",
+      "faction": "rich",
+      "kind": "history",
+      "source": "Aristotle, Politics 1306a; Plutarch, Dion 3",
+      "card": "docs/research/dionysius-405-403.md",
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "holds the mint"
+      ],
+      "role": "A leading man, once your colleague as general",
+      "traits": [
+        "wealthy",
+        "patient"
+      ],
+      "ambition": "Power",
+      "opinion": 0,
+      "kin": [
+        "aristomache"
+      ]
+    },
+    {
+      "id": "aristomache",
+      "name": "Aristomache",
+      "faction": "rich",
+      "kind": "history",
+      "source": "Plutarch, Dion 3",
+      "card": "docs/research/dionysius-405-403.md",
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion"
+      ],
+      "role": "Daughter of Hipparinus, unmarried",
+      "traits": [
+        "proud",
+        "patient"
+      ],
+      "ambition": "Safety",
+      "opinion": 0,
+      "marriageable": true,
+      "kin": [
+        "hipparinus"
+      ]
+    },
+    {
+      "id": "cavalryLeader",
+      "name": "the cavalry leader at Aetna",
+      "faction": "rich",
+      "status": "outside",
+      "kind": "invention",
+      "note": "A role. The cavalry fled to Aetna (Diodorus 13.113.3), but no source names their leader.",
+      "role": "Leader of the cavalry exiles",
+      "traits": [
+        "vengeful",
+        "brave"
+      ],
+      "ambition": "Revenge",
+      "opinion": -3,
+      "grudges": [
+        "you burned the gate of Achradina and shot down his men in the market-place, 405"
+      ]
+    },
+    {
+      "id": "demarchusBrother",
+      "name": "the brother of Demarchus",
+      "faction": "rich",
+      "kind": "invention",
+      "note": "A role. Demarchus is history: Dionysius had him put to death (Diodorus 13.96.3). No brother is named.",
+      "role": "Brother of a man you executed",
+      "traits": [
+        "vengeful",
+        "cautious"
+      ],
+      "ambition": "Revenge",
+      "opinion": -3,
+      "grudges": [
+        "you had his brother Demarchus put to death, 406"
+      ],
+      "rival": {
+        "scar": "Bereaved",
+        "rank": 1
+      }
+    },
+    {
+      "id": "nicoteles",
+      "name": "Nicoteles the Corinthian",
+      "faction": "citizens",
+      "kind": "history",
+      "source": "Diodorus 14.10.3",
+      "card": "docs/research/dionysius-405-403.md",
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "holds the assembly"
+      ],
+      "role": "A leader of the Syracusans",
+      "traits": [
+        "fiery",
+        "outsider"
+      ],
+      "ambition": "Power",
+      "opinion": -1
+    },
+    {
+      "id": "guardCaptain",
+      "name": "the captain of the guard",
+      "faction": "guard",
+      "kind": "invention",
+      "note": "A role. No source names the captain of Dionysius' guard in 405.",
+      "role": "Captain of your mercenaries",
+      "traits": [
+        "greedy",
+        "brave"
+      ],
+      "ambition": "Wealth",
+      "opinion": 0
+    },
+    {
+      "id": "doricus",
+      "name": "Doricus",
+      "faction": "guard",
+      "kind": "history",
+      "source": "Diodorus 14.7.6 to 14.7.7",
+      "card": "docs/research/dionysius-405-403.md",
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "placed with the guard"
+      ],
+      "role": "Your officer",
+      "traits": [
+        "harsh",
+        "loyal"
+      ],
+      "ambition": "Office",
+      "wants": "generalship",
+      "opinion": 2
+    }
+  ]
+}

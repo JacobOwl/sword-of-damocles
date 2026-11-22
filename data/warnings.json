@@ -1,0 +1,21 @@
+{
+  "note": "Flavour lines for the three plot warnings. Invention.",
+  "kind": "invention",
+  "whispers": [
+    "A toast at dinner goes undrunk.",
+    "A guest leaves your table early, without a word.",
+    "Two men fall silent when your steward passes.",
+    "Someone has been asking which nights you sleep at the dockyards.",
+    "A slave is seen carrying letters out by the Achradina gate."
+  ],
+  "rumors": [
+    "Men say {faction} are meeting at night.",
+    "Your friends hear that {faction} have money moving.",
+    "In the market they say {faction} have had enough of you."
+  ],
+  "named": [
+    "A frightened man names {names}.",
+    "Your informers bring you a name: {names}.",
+    "The name on every tongue is {names}."
+  ]
+}

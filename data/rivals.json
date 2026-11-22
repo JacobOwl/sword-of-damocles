@@ -1,0 +1,135 @@
+{
+  "note": "Rivals (rules v2). Enemies are made by wounds (origins, called scars). Political rivals are made by ambition (types). Both are data so new kinds can be added. All invention.",
+  "origins": [
+    {
+      "id": "Hunted",
+      "name": "Hunted",
+      "kind": "invention",
+      "madeBy": "You failed to imprison them.",
+      "effect": "+1 against Imprison and Watch.",
+      "hooks": {
+        "defendImprison": 1,
+        "defendWatch": 1
+      }
+    },
+    {
+      "id": "Exiled",
+      "name": "Exiled",
+      "kind": "invention",
+      "madeBy": "You exiled them.",
+      "effect": "Acts only from outside the walls. Recruits other exiles at +1.",
+      "hooks": {
+        "recruitExiles": 1
+      }
+    },
+    {
+      "id": "Bereaved",
+      "name": "Bereaved",
+      "kind": "invention",
+      "madeBy": "You killed their close kin.",
+      "effect": "Can't be bribed. +1 on every roll against you.",
+      "hooks": {
+        "noBribe": 1,
+        "againstYou": 1
+      }
+    },
+    {
+      "id": "Humiliated",
+      "name": "Humiliated",
+      "kind": "invention",
+      "madeBy": "You refused, stripped or shamed them in public.",
+      "effect": "Plants rumors at +1. Their grudge can't be cleared by a bribe.",
+      "hooks": {
+        "rumor": 1,
+        "noBribeClear": 1
+      }
+    },
+    {
+      "id": "Survivor",
+      "name": "Survivor",
+      "kind": "invention",
+      "madeBy": "They survived a failed plot against you.",
+      "effect": "+1 to any plot strike they lead.",
+      "hooks": {
+        "strike": 1
+      }
+    }
+  ],
+  "ranks": [
+    {
+      "rank": 1,
+      "title": "Malcontent",
+      "plotBonus": 0,
+      "effect": "Can start a plot."
+    },
+    {
+      "rank": 2,
+      "title": "Schemer",
+      "plotBonus": 1,
+      "effect": "Recruits twice a season. Adds +1 to plot strength."
+    },
+    {
+      "rank": 3,
+      "title": "Faction leader",
+      "plotBonus": 2,
+      "effect": "Can lead a plot without a faction behind it. Adds +2."
+    },
+    {
+      "rank": 4,
+      "title": "Nemesis",
+      "plotBonus": 3,
+      "effect": "Gains the agenda Your fall, shown in full. Adds +3. Only one at a time."
+    }
+  ],
+  "maxEnemies": 3,
+  "maxPolitical": 2,
+  "politicalTypes": [
+    {
+      "id": "Climber",
+      "name": "Climber",
+      "kind": "invention",
+      "leansOn": "Lend, petitions for offices, marriage into your family"
+    },
+    {
+      "id": "Spymaster",
+      "name": "Spymaster",
+      "kind": "invention",
+      "leansOn": "Collecting leverage, rumors, trading secrets"
+    },
+    {
+      "id": "Heir",
+      "name": "Heir",
+      "kind": "invention",
+      "leansOn": "Winning commands and the guard's favour, waiting for you to stumble"
+    },
+    {
+      "id": "Champion",
+      "name": "Champion",
+      "kind": "invention",
+      "leansOn": "Building a following, winning votes, speaking for the people"
+    }
+  ],
+  "politicalRanks": [
+    {
+      "rank": 1,
+      "title": "Contender",
+      "effect": "Bids for offices."
+    },
+    {
+      "rank": 2,
+      "title": "Power behind the throne",
+      "effect": "Holds 2 or more offices, or leverage over you."
+    },
+    {
+      "rank": 3,
+      "title": "Pretender",
+      "effect": "Gains the agenda Take his place, shown in full."
+    }
+  ],
+  "politicalTypeByFaction": {
+    "rich": "Climber",
+    "family": "Heir",
+    "citizens": "Champion",
+    "guard": "Heir"
+  }
+}

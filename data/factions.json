@@ -1,0 +1,109 @@
+{
+  "note": "The four factions of Phase 1. Starting power and mood are invention (rules v2). The factions themselves are history.",
+  "factions": [
+    {
+      "id": "citizens",
+      "name": "The common citizens",
+      "short": "the citizens",
+      "kind": "invention",
+      "note": "A game grouping of the Syracusan demos.",
+      "power": 5,
+      "mood": "Uneasy",
+      "wants": "Grain, a voice in the assembly and no tyrant.",
+      "agenda": "peoplesAssembly",
+      "goals": [
+        {
+          "text": "a share of the land being given out",
+          "metBy": "giveLand"
+        },
+        {
+          "text": "bread before the winter",
+          "metBy": "grainHandout"
+        },
+        {
+          "text": "a law that serves the people",
+          "metBy": "lawForCitizens"
+        }
+      ],
+      "leader": "nicoteles"
+    },
+    {
+      "id": "rich",
+      "name": "The rich families",
+      "short": "the rich families",
+      "kind": "invention",
+      "note": "Crippled by the exile of the cavalry to Aetna (Diodorus 13.113.3).",
+      "power": 5,
+      "mood": "Angry",
+      "wants": "Their land and silver safe, and office for their own men.",
+      "agenda": "cavalryHome",
+      "goals": [
+        {
+          "text": "terms for the exiles at Aetna",
+          "metBy": "offerTerms"
+        },
+        {
+          "text": "an office for one of their own",
+          "metBy": "grantOffice"
+        },
+        {
+          "text": "a marriage into the ruler's house",
+          "metBy": "marriage"
+        }
+      ],
+      "leader": "hipparinus"
+    },
+    {
+      "id": "guard",
+      "name": "The mercenary guard",
+      "short": "the guard",
+      "kind": "invention",
+      "note": "The ruler's hired bodyguard (Diodorus 13.95.5 gives six hundred at first).",
+      "power": 4,
+      "mood": "Content",
+      "wants": "Pay, land, and to be needed.",
+      "agenda": "guardCitizens",
+      "goals": [
+        {
+          "text": "houses on the Island",
+          "metBy": "grantGuard"
+        },
+        {
+          "text": "their pay on time",
+          "metBy": "payGuard"
+        },
+        {
+          "text": "citizenship",
+          "metBy": "grantGuard"
+        }
+      ],
+      "leader": "guardCaptain"
+    },
+    {
+      "id": "family",
+      "name": "The ruler's family",
+      "short": "the family",
+      "kind": "invention",
+      "note": "Dionysius' brothers, in-laws and friends.",
+      "power": 3,
+      "mood": "Content",
+      "wants": "A share in power, and to be named the heir.",
+      "agenda": "nameHeir",
+      "goals": [
+        {
+          "text": "an office for a brother",
+          "metBy": "grantOffice"
+        },
+        {
+          "text": "a good marriage for the house",
+          "metBy": "marriage"
+        },
+        {
+          "text": "an office for a brother",
+          "metBy": "grantOffice"
+        }
+      ],
+      "leader": "polyxenus"
+    }
+  ]
+}

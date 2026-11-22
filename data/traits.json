@@ -1,0 +1,27 @@
+{
+  "note": "Traits are invention. Each gives +1 or -1 where it applies. Traits add or subtract at most 2 in total on one roll (rules v2).",
+  "traits": [
+    { "id": "silverTongued", "name": "Silver-tongued", "kind": "invention", "actor": { "petition": 1, "proposeLaw": 1, "envoy": 1, "offerTerms": 1, "plantRumor": 1 } },
+    { "id": "suspicious", "name": "Suspicious", "kind": "invention", "actor": { "watch": 1, "imprison": 1 } },
+    { "id": "shrewd", "name": "Shrewd", "kind": "invention", "target": { "imprison": -1, "seize": -1, "watch": -1 } },
+    { "id": "ambitious", "name": "Ambitious", "kind": "invention", "actor": { "buildFollowing": 1, "recruit": 1 } },
+    { "id": "cautious", "name": "Cautious", "kind": "invention", "actor": { "raid": -1, "march": -1 }, "target": { "recruit": -1 } },
+    { "id": "wellConnected", "name": "Well-connected", "kind": "invention", "actor": { "recruit": 1, "plantRumor": 1 } },
+    { "id": "bold", "name": "Bold", "kind": "invention", "actor": { "raid": 1, "march": 1 } },
+    { "id": "generous", "name": "Generous", "kind": "invention", "actor": { "buildFollowing": 1 } },
+    { "id": "dutiful", "name": "Dutiful", "kind": "invention", "target": { "recruit": -1 } },
+    { "id": "showy", "name": "Showy", "kind": "invention", "actor": { "buildFollowing": 1 }, "target": { "watch": 1 } },
+    { "id": "blunt", "name": "Blunt", "kind": "invention", "actor": { "plantRumor": -1, "petition": -1 } },
+    { "id": "proud", "name": "Proud", "kind": "invention", "target": { "petition": -1, "offerTerms": -1 } },
+    { "id": "wealthy", "name": "Wealthy", "kind": "invention", "actor": { "buildFollowing": 1 }, "target": { "seize": 1 } },
+    { "id": "patient", "name": "Patient", "kind": "invention", "actor": { "recruit": 1 }, "note": "A Patient plot leader waits for better odds before striking." },
+    { "id": "fiery", "name": "Fiery", "kind": "invention", "actor": { "buildFollowing": 1, "petition": -1 } },
+    { "id": "outsider", "name": "Outsider", "kind": "invention", "actor": { "petition": -1 }, "note": "Nicoteles was a Corinthian (Diodorus 14.10.3)." },
+    { "id": "harsh", "name": "Harsh", "kind": "invention", "actor": { "imprison": 1, "buildFollowing": -1 } },
+    { "id": "loyal", "name": "Loyal", "kind": "invention", "target": { "recruit": -1 } },
+    { "id": "vengeful", "name": "Vengeful", "kind": "invention", "actor": { "recruit": 1 }, "target": { "offerTerms": -1 } },
+    { "id": "brave", "name": "Brave", "kind": "invention", "actor": { "raid": 1, "march": 1 }, "target": { "imprison": -1 } },
+    { "id": "greedy", "name": "Greedy", "kind": "invention", "target": { "recruit": 1, "turnInformer": 1 } },
+    { "id": "grim", "name": "Grim", "kind": "invention", "target": { "petition": -1, "offerTerms": -1 } }
+  ]
+}

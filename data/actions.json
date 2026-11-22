@@ -1,0 +1,355 @@
+{
+  "note": "The action menu from rules v2. The same menu is used by the people and factions the game controls. All invention.",
+  "areas": [
+    "Court",
+    "City",
+    "War",
+    "Spies",
+    "Embassy",
+    "Scheming"
+  ],
+  "actions": [
+    {
+      "id": "feast",
+      "area": "Court",
+      "name": "Host a feast",
+      "kind": "invention",
+      "cost": "1 silver",
+      "roll": "4+ to loosen tongues",
+      "success": "The guest of honour and the two coolest guests +1 opinion, and the guest of honour's secrets come out.",
+      "failure": "Guests +1 opinion, and nothing comes out."
+    },
+    {
+      "id": "grantOffice",
+      "area": "Court",
+      "name": "Grant an office",
+      "ruler": true,
+      "kind": "invention",
+      "cost": "an office you hold",
+      "roll": "auto",
+      "success": "Recipient +2 opinion, and their faction gains the office's power. Anyone else who wanted it gains a grudge."
+    },
+    {
+      "id": "revokeOffice",
+      "area": "Court",
+      "name": "Revoke an office",
+      "ruler": true,
+      "kind": "invention",
+      "cost": "none",
+      "roll": "auto, or a roll if the holder has armed friends",
+      "success": "The office returns to you. Holder -3 opinion and a grudge, and they are Humiliated.",
+      "failure": "The holder resists, and there is fighting in the streets."
+    },
+    {
+      "id": "marriage",
+      "area": "Court",
+      "name": "Arrange a marriage",
+      "kind": "invention",
+      "cost": "a free relative",
+      "roll": "auto if their house agrees (opinion 0 or better)",
+      "success": "Both houses +2 opinion, a dowry of 1 to 2 silver, and their house is bound to you."
+    },
+    {
+      "id": "petition",
+      "area": "Court",
+      "name": "Petition for support",
+      "kind": "invention",
+      "cost": "none",
+      "roll": "a die plus their opinion of you, 4+",
+      "success": "They speak for you: their faction +1 mood.",
+      "failure": "Nothing."
+    },
+    {
+      "id": "bribe",
+      "area": "Court",
+      "name": "Bribe",
+      "kind": "invention",
+      "cost": "1 or 3 silver",
+      "roll": "auto",
+      "success": "+1 opinion per silver. 3 silver also clears one grudge."
+    },
+    {
+      "id": "pardon",
+      "area": "Court",
+      "name": "Pardon",
+      "kind": "invention",
+      "cost": "none",
+      "roll": "auto",
+      "success": "Clears a grudge and frees them if held. A plotter rolls to leave the plot."
+    },
+    {
+      "id": "imprison",
+      "area": "Court",
+      "name": "Imprison",
+      "kind": "invention",
+      "cost": "none",
+      "roll": "4+, guard Loyal or Content +1",
+      "success": "Held. Removed from any plot. Their faction -1 mood, and -1 power if they lead it.",
+      "failure": "They flee the city and become a rival (Hunted)."
+    },
+    {
+      "id": "execute",
+      "area": "Court",
+      "name": "Execute",
+      "kind": "invention",
+      "cost": "someone you hold",
+      "roll": "auto",
+      "success": "Permanent. Their faction -1 power. Their kin gain a grudge, and the nearest may become a rival (Bereaved)."
+    },
+    {
+      "id": "exile",
+      "area": "Court",
+      "name": "Exile",
+      "kind": "invention",
+      "cost": "someone held or in the city",
+      "roll": "auto",
+      "success": "They leave the city and become a rival (Exiled)."
+    },
+    {
+      "id": "grainHandout",
+      "area": "City",
+      "name": "Hand out grain",
+      "kind": "invention",
+      "cost": "2 months of grain",
+      "roll": "auto",
+      "success": "The common citizens +1 mood."
+    },
+    {
+      "id": "giveLand",
+      "area": "City",
+      "name": "Give land",
+      "kind": "invention",
+      "cost": "1 portion of land",
+      "roll": "auto",
+      "success": "That faction +1 mood, and its goal is met if land was the goal."
+    },
+    {
+      "id": "proposeLaw",
+      "area": "City",
+      "name": "Propose a law or levy",
+      "kind": "invention",
+      "cost": "none",
+      "roll": "an assembly vote: each faction's power counts for or against, then one die",
+      "success": "The law is in force. The winning side +1 power.",
+      "failure": "The law fails, and cannot be put again this season."
+    },
+    {
+      "id": "seize",
+      "area": "City",
+      "name": "Seize property",
+      "kind": "invention",
+      "cost": "none",
+      "roll": "4+, guard Loyal +1",
+      "success": "+2 to 3 silver. The rich families -1 power and -1 mood. The target gains a grudge.",
+      "failure": "The silver is hidden, but the rich families' mood falls anyway."
+    },
+    {
+      "id": "strikeCoin",
+      "area": "City",
+      "name": "Strike coin",
+      "kind": "invention",
+      "cost": "needs the mint",
+      "roll": "auto",
+      "success": "+2 silver, and the rich families -1 mood."
+    },
+    {
+      "id": "build",
+      "area": "City",
+      "name": "Build",
+      "kind": "invention",
+      "cost": "2 actions plus silver",
+      "roll": "auto",
+      "slots": 2,
+      "success": "Citadel (4 silver, defense +2), granary (3 silver, grain lasts longer) or wall (3 silver, +2 against a Carthaginian landing)."
+    },
+    {
+      "id": "payGuard",
+      "area": "War",
+      "name": "Pay the guard's arrears",
+      "kind": "invention",
+      "cost": "what they are owed",
+      "roll": "auto",
+      "success": "Arrears cleared. The guard +1 mood if they were owed for a season or more."
+    },
+    {
+      "id": "hire",
+      "area": "War",
+      "name": "Hire mercenaries",
+      "kind": "invention",
+      "cost": "2 silver",
+      "roll": "auto",
+      "success": "Guard strength +1 and upkeep +1."
+    },
+    {
+      "id": "grantGuard",
+      "area": "War",
+      "name": "Grant land or citizenship to the guard",
+      "kind": "invention",
+      "cost": "1 portion of land",
+      "roll": "auto",
+      "success": "The guard +1 mood, and their goal or agenda is met. The common citizens -1 mood."
+    },
+    {
+      "id": "disarm",
+      "area": "War",
+      "name": "Disarm the citizens",
+      "ruler": true,
+      "kind": "invention",
+      "cost": "none",
+      "roll": "4+, guard Loyal +1",
+      "success": "The common citizens -2 power and -2 mood. Their plots lose 2 strength.",
+      "failure": "Street fighting, and the Carthage clock +1."
+    },
+    {
+      "id": "raid",
+      "area": "War",
+      "name": "Raid",
+      "reach": true,
+      "kind": "invention",
+      "cost": "the fleet or the army",
+      "roll": "4+, Bold leader +1, walled target -1",
+      "success": "+2 to 3 silver or grain, and the leader +1 opinion.",
+      "failure": "Ships or men lost. The Carthage clock +1 if it was a Carthaginian town."
+    },
+    {
+      "id": "march",
+      "area": "War",
+      "name": "March on",
+      "reach": true,
+      "kind": "invention",
+      "cost": "the army (the generalship)",
+      "roll": "4+, by target",
+      "success": "Take the place.",
+      "failure": "It becomes a siege: the next march there gets +1."
+    },
+    {
+      "id": "watch",
+      "area": "Spies",
+      "name": "Watch a person",
+      "kind": "invention",
+      "cost": "none",
+      "roll": "4+, Suspicious +1, Shrewd target -1",
+      "success": "See their grudges, plots and agenda. Defense +1 this season if they are in a plot.",
+      "failure": "Nothing found. On a natural 1 they notice, and their opinion of you falls by 1."
+    },
+    {
+      "id": "plantRumor",
+      "area": "Spies",
+      "name": "Plant a rumor",
+      "kind": "invention",
+      "cost": "none",
+      "roll": "4+",
+      "success": "Two people each -1 opinion of the other. If they share a plot, the weaker one leaves it.",
+      "failure": "Traced back to you: both -1 opinion of you."
+    },
+    {
+      "id": "turnInformer",
+      "area": "Spies",
+      "name": "Turn an informer",
+      "kind": "invention",
+      "cost": "1 silver",
+      "roll": "4+, better if they like you",
+      "success": "They report on their plot every season: its stage and members are visible.",
+      "failure": "Their plot learns someone tried, and they resent it."
+    },
+    {
+      "id": "forceFavor",
+      "area": "Spies",
+      "name": "Force a favor",
+      "kind": "invention",
+      "cost": "1 leverage over them",
+      "roll": "auto",
+      "success": "They speak for you: their faction +1 mood, and it votes your way in your next vote."
+    },
+    {
+      "id": "block",
+      "area": "Spies",
+      "name": "Block",
+      "kind": "invention",
+      "cost": "1 leverage over them",
+      "roll": "auto",
+      "success": "Cancels the next action they take."
+    },
+    {
+      "id": "expose",
+      "area": "Spies",
+      "name": "Expose",
+      "kind": "invention",
+      "cost": "1 leverage over them",
+      "roll": "auto",
+      "success": "Their secret goes public: influence -2, a grudge, and a political rival drops a rank."
+    },
+    {
+      "id": "envoy",
+      "area": "Embassy",
+      "name": "Envoy to Carthage",
+      "reach": true,
+      "kind": "invention",
+      "cost": "1 silver",
+      "roll": "4+, Silver-tongued +1, a raid on Carthage this year -2",
+      "success": "The Carthage clock -1.",
+      "failure": "No change."
+    },
+    {
+      "id": "buyGrain",
+      "area": "Embassy",
+      "name": "Buy grain abroad",
+      "reach": true,
+      "kind": "invention",
+      "cost": "1 silver",
+      "roll": "auto",
+      "success": "Grain +2."
+    },
+    {
+      "id": "offerTerms",
+      "area": "Embassy",
+      "name": "Offer terms to exiles",
+      "reach": true,
+      "kind": "invention",
+      "cost": "none",
+      "roll": "4+, -1 if they hold a grudge",
+      "success": "The exile comes home. A rival drops one rank.",
+      "failure": "They refuse, and a rival gains a rank."
+    },
+    {
+      "id": "startPlot",
+      "area": "Scheming",
+      "name": "Start a plot",
+      "kind": "invention",
+      "cost": "a grudge, and a rival rank or an Angry faction",
+      "roll": "auto",
+      "success": "A plot at Whispers.",
+      "aiOnly": true
+    },
+    {
+      "id": "recruit",
+      "area": "Scheming",
+      "name": "Recruit",
+      "kind": "invention",
+      "cost": "someone with a grudge",
+      "roll": "4+, Schemer +1",
+      "success": "They join.",
+      "aiOnly": true
+    },
+    {
+      "id": "buildFollowing",
+      "area": "Scheming",
+      "name": "Build a following",
+      "kind": "invention",
+      "cost": "none",
+      "roll": "4+",
+      "success": "The agenda step Build a following succeeds.",
+      "aiOnly": true
+    },
+    {
+      "id": "lend",
+      "area": "Scheming",
+      "name": "Lend",
+      "kind": "invention",
+      "cost": "wealth",
+      "roll": "auto",
+      "success": "The borrower owes a favor.",
+      "aiOnly": true
+    }
+  ]
+}
