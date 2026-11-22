@@ -20,8 +20,19 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **`docs/architecture.md`**: the two halves (rules engine in `src/core/`, browser UI in `ui/`), the rules each follows, the stack (TypeScript, no UI framework, Vite next), the target folder layout, the five migration steps, and the road to Godot.
 - **`tests/core-boundary.test.ts`**: the engine imports only itself and `data/`; uses no `Math.random`, `Date`, browser or Node globals; a game saved as JSON plays on exactly the same; a bot game replays in both scenarios.
 - **`npm run replays`** (`scripts/export-replays.ts`): writes `dist/replays.json` (not kept in git), 20 whole games with their inputs and the log each must produce, for checking a later port.
+
+## Built by the events thread (07, 2026-11-22): the Damocles banquet
+- **New event "A sword on a horse-hair"** (`data/events.json`, history): a courtier praises your fortune at a feast. You can hang a sword over his couch (what Cicero tells; he loses standing and warmth, plots are a little harder), reward the flattery, or smile it away. It fires in about 80 of 100 careful-bot games.
+- **Both readings of which Dionysius are shown.** The event's facts quote Livius.org (Dionysius II) and Wikipedia (Dionysius I) from the saved excerpts; the doubt is listed as uncertain. Review steps are on the card (`docs/research/damocles.md`, last section) for when Cicero 5.57 is saved.
+- **Changed:** two switch tests (another thread's) now test the rule, not luck: "clues" allows a man who said no to join later if a later join is recorded (it happens when a new wrong changes his mind), and "partial blows" checks the seize branch directly, since bot games reach it only about 3 times in 300. `partialBlow` in `src/core/season.ts` is exported for that test. Standard digest re-pinned for the one added event (verified: without it, the old digest matches).
+- **Broke:** nothing: 72 of 72 tests; 100 seeds, 0 crashes, 0 broken states; 271 quotes checked, 0 not found.
+
+## Built by the web-app thread (17, 2026-11-22), steps 1 and 2 of 5
+- **Step 1 (PR #26):** `docs/architecture.md` (the two halves, rules for each, stack, target layout, migration steps, road to Godot); `tests/core-boundary.test.ts` (the engine imports only itself and `data/`, no `Math.random`/`Date`/browser/Node globals, JSON save plays on the same, bot games replay); `npm run replays` writes `dist/replays.json` for checking a later port.
+- **Step 2: Vite.** `npm run dev` serves the game with live reload; `npm run build` builds with Vite (`vite.config.ts`, page shell `ui/index.html`) into the same one-file page and the same `--fragment` for the Artifact. esbuild is no longer a direct dependency. Stylesheets are `<link>`s in `ui/index.html`.
+- **`npm run walk`** (`scripts/ui-walk.mjs`): plays the built page with a fixed seed and clicks at 1280 and 390 px, both scenarios, and records 83 pages. The Vite page and the old esbuild page record identically.
 - **Changed:** nothing in the game. **Broke:** nothing: 72 of 72 tests, typecheck clean, 100-seed run unchanged (tyrannies 13, plots 432, deaths in events 23).
-- **Next:** step 2, the Vite build; then one click layer, splitting `ui/main.ts`, and moving UI files (announced to the other threads first).
+- **Next:** one click layer, then splitting `ui/main.ts` (after thread 14 merges its UI hooks), then moving UI files.
 
 ## Questions from the web-app thread
 - **Which Godot route?** Translating the engine to GDScript or C#, or running the TypeScript engine inside Godot. Not needed now; the architecture doc lists both, unverified.

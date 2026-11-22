@@ -5,10 +5,12 @@ A political simulation of Syracuse that writes its own history. Phase 1 is The C
 ## Play
 
 - In the browser: https://claude.ai/artifact/8KqQzj6x3QrXRjQKzVZNK4 (Jacob's private link).
-- Locally: `npm install`, then `npm run build`, then open `ui/dist/index.html`.
+- Locally: `npm install`, then `npm run dev` for a live-reloading page, or `npm run build` and open `ui/dist/index.html`.
+- How the code is laid out: `docs/architecture.md`.
 
 ## Checks
 
 - `npm test`: unit tests, content validation and 100 headless games.
 - `npm run sim -- --seeds 100`: plays 100 seeds with a simple bot and prints the counts (tyrannies, plots, deaths, rivals).
 - `npm run typecheck`.
+- `npm run walk -- <page> <out.json>`: a scripted walk through the built page, to compare before and after a UI change.
