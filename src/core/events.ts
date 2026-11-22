@@ -525,7 +525,7 @@ export function botAnswer(s: GameState) {
         const view = viewChoice(s, inst, c).roll!;
         v += view.chance * scoreEffects(s, inst, c.roll.success.effects ?? []) + (1 - view.chance) * scoreEffects(s, inst, c.roll.failure.effects ?? []);
       }
-      v += nextRandom(s) * 0.5;
+      // No random tie-break here: the game's own random stream must only move on replayable steps.
       if (!best || v > best.v) best = { id: c.id, v };
     }
     if (best) chooseEvent(s, inst.uid, best.id);

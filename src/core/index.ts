@@ -8,3 +8,5 @@ export { openEvents, EVENTS, eventById } from "./events.ts";
 export type { ChoiceView, EventDef } from "./events.ts";
 export { fullChronicle, chronicleText, seasonEntries } from "./chronicle.ts";
 export { rankTitle, originById, agendaById } from "./data.ts";
+export { PACKAGES, DEFAULT_TUNING, knobsFor, packageName } from "./tuning.ts";
+export { BOTS, botById } from "./bots.ts";

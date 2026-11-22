@@ -129,7 +129,9 @@ export function leaveAllPlots(s: GameState, pid: string, why: string) {
       change(s, pl.leader, `${capital(s.people[pl.leader].name)} takes over the plot.`, "its leader is gone", false);
     }
   }
+  const before = s.plots.length;
   s.plots = s.plots.filter((pl) => pl.members.length > 0);
+  if (s.plots.length < before) s.flags.plotBroken = s.season; // for the breathing-room knob
 }
 
 export function memory(s: GameState, pid: string, text: string) {
