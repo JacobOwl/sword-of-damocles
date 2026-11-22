@@ -3,6 +3,7 @@ import { DATA } from "./data.ts";
 import { T, DEFAULT_TUNING, knobsFor } from "./tuning.ts";
 import type { Faction, FactionId, GameOpts, GameState, OfficeId, Person, Plot } from "./types.ts";
 import { checkSwitches } from "./switches.ts";
+import { newIsland } from "./island.ts";
 import { FACTIONS, MOODS, OFFICES } from "./types.ts";
 
 export const PLAYER = "dionysius";
@@ -55,7 +56,7 @@ export function newGame(seed: number, tuning: string = DEFAULT_TUNING, opts: Gam
       agenda: { id: f.agenda, step: 0, done: false }, actedAgainst: false, disarmed: false, powerShown: f.power,
     };
   }
-  return {
+  const s: GameState = {
     version: 1, seed, tuning, ...(switches.length ? { switches } : {}), rng: seed | 0, season: 0, step: "world", slots: st.actionsPerSeason,
     silver: st.silver, grain: st.grain, clock: st.clock, land: st.land,
     guard: { strength: st.guard.strength, upkeep: st.guard.upkeep, arrearsSeasons: 0, owed: 0, refusing: false, forSale: false },
@@ -63,6 +64,8 @@ export function newGame(seed: number, tuning: string = DEFAULT_TUNING, opts: Gam
     waiting: [], watches: [], sieges: {}, flags: {}, counters: {}, ids: 0, log: [], inputs: [], invasions: 0, leverage: [], blockedSlots: 0,
     events: { open: [], queue: [], fired: {}, count: 0 },
   };
+  if (opts.scenario === "island") { s.scenario = "island"; s.island = newIsland(); }
+  return s;
 }
 
 export const P = (s: GameState, id: string) => s.people[id];
@@ -114,7 +117,8 @@ export const isPlayerTyranny = (s: GameState) => government(s) === "Tyranny (you
 
 export function guardDefends(s: GameState): boolean {
   const g = s.guard;
-  return g.arrearsSeasons === 0 && s.factions.guard.mood > 1 && !g.refusing && !s.plots.some((p) => p.guardBacking);
+  const away = s.island?.armies.some((a) => a.side === "syracuse" && a.guard > 0 && a.at !== "syracuse") ?? false; // the guard is in the field
+  return g.arrearsSeasons === 0 && s.factions.guard.mood > 1 && !g.refusing && !s.plots.some((p) => p.guardBacking) && !away;
 }
 
 export function defense(s: GameState): { total: number; parts: { label: string; value: number }[] } {

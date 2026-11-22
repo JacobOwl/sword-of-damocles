@@ -14,6 +14,8 @@ import type { Args, FactionId, GameState, Mod, OfficeId, Person } from "./types.
 import { FACTIONS, OFFICES } from "./types.ts";
 import { T } from "./tuning.ts";
 import { on } from "./switches.ts";
+import { ISLAND_IMPL } from "./island-actions.ts";
+import { bloc } from "./island.ts";
 
 export interface Option { value: string; label: string }
 interface Impl {
@@ -677,6 +679,7 @@ export const IMPL: Record<string, Impl> = {
       silver(s, -1, "gifts for Carthage");
       event(s, PLAYER, ok ? "Your envoy is heard in Carthage." : "Your envoy comes back with nothing.", "Envoy to Carthage");
       if (ok) clock(s, -1, "a good embassy");
+      if (ok && s.island) bloc(s, "elders", 1, "Syracuse's envoy spoke of trade and peace");
     },
   },
   buyGrain: {
@@ -708,6 +711,13 @@ export const IMPL: Record<string, Impl> = {
     },
   },
 };
+
+// The island actions (Phase 2) live in island-actions.ts.
+Object.assign(IMPL, ISLAND_IMPL);
+// An action belongs to every scenario unless it names one.
+export const inScenario = (s: GameState, a: { scenario?: string }) => !a.scenario || a.scenario === (s.scenario ?? "citadel");
+// In the island game the Carthage clock is Carthage's anger: the same number, read by Carthage's council.
+const words = (s: GameState, t: string | undefined) => (t && s.island ? t.replace(/[Tt]he Carthage clock/g, "Carthage's anger") : t);
 
 function raider(s: GameState): { by: "fleet" | "army"; leader: string } | null {
   const f = s.offices.fleet;
@@ -805,7 +815,7 @@ export interface MenuItem {
   targets?: Option[]; secondLabel?: string; blocked: string | null;
 }
 export function menu(s: GameState): MenuItem[] {
-  return DATA.actions.filter((a) => !a.aiOnly).map((a) => {
+  return DATA.actions.filter((a) => !a.aiOnly && inScenario(s, a)).map((a) => {
     const impl = IMPL[a.id];
     const targets = impl.target?.(s);
     let blocked: string | null = null;
@@ -814,7 +824,7 @@ export function menu(s: GameState): MenuItem[] {
     else if (targets && targets.length === 0) blocked = "no one to choose";
     else if (!impl.target && impl.check) blocked = impl.check(s, {});
     if (!blocked && s.building && a.id !== "build" && false) blocked = null;
-    return { id: a.id, name: a.name, area: a.area, cost: a.cost, roll: a.roll, success: a.success, failure: a.failure, ruler: a.ruler, reach: a.reach,
+    return { id: a.id, name: a.name, area: a.area, cost: a.cost, roll: words(s, a.roll)!, success: words(s, a.success)!, failure: words(s, a.failure), ruler: a.ruler, reach: a.reach,
       targets, secondLabel: impl.secondLabel, blocked };
   });
 }
@@ -839,7 +849,7 @@ export function preview(s: GameState, action: string, args: Args): { ok: boolean
 export function validate(s: GameState, action: string, args: Args): string | null {
   const impl = IMPL[action];
   const def = actionById(action);
-  if (!impl || !def || def.aiOnly) return "unknown action";
+  if (!impl || !def || def.aiOnly || !inScenario(s, def)) return "unknown action";
   if (s.over) return "the game is over";
   if (s.step !== "player") return "not your turn";
   if (s.slots < 1) return "no actions left this season";

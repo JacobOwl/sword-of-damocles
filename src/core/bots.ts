@@ -6,10 +6,11 @@ import {
   PLAYER, alive, band, defense, holds, influence, leaderOf, officesOf, others, playerInfluence, plotOf, power,
 } from "./state.ts";
 import { leverageOver } from "./state.ts";
-import { perform, preview, vote } from "./actions.ts";
+import { inScenario, perform, preview, vote } from "./actions.ts";
 import { DATA } from "./data.ts";
 import type { Args, FactionId, GameState, OfficeId, Person } from "./types.ts";
 import { FACTIONS } from "./types.ts";
+import { islandChoices } from "./island-bot.ts";
 
 export interface Choice { a: string; args?: Args; min?: number } // min: lowest chance worth rolling for
 export interface Bot { id: string; name: string; summary: string; choices: (s: GameState, r: () => number) => Choice[] }
@@ -50,6 +51,7 @@ const KEY: OfficeId[] = ["citadel", "treasury"];
 
 // Carthage at the gates and enemies behind walls you can march on.
 function outside(s: GameState, out: Choice[], minMarch: number) {
+  if (s.island) out.push(...islandChoices(s)); // the island game (Phase 2): armies, embassies, peace
   if (s.clock >= 7 && !s.walls && s.silver >= 3) out.push({ a: "build", args: { target: "wall" } });
   if (s.clock >= 7 && s.silver >= 1) out.push({ a: "envoy", min: 0.34 });
   const hunted = others(s).some((p) => p.status === "outside" && p.rival && p.faction === "rich");
@@ -250,7 +252,7 @@ const careless: Bot = {
   summary: "Picks any legal action at random and lets petitions lapse. A floor, not a strategy.",
   choices: (s, r) => {
     const opts: Choice[] = [];
-    for (const def of DATA.actions.filter((a) => !a.aiOnly)) {
+    for (const def of DATA.actions.filter((a) => !a.aiOnly && inScenario(s, a))) {
       const t = preview(s, def.id, {});
       if (t.ok) { opts.push({ a: def.id }); continue; }
       const targets = (menuTargets(s, def.id) ?? []).slice(0, 6);

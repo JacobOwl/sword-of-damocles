@@ -1,0 +1,44 @@
+// What a headless player does on the island (Phase 2), for the checks and balance runs.
+// It sees only what the map shows: armies, sides, walls, grain, and the odds the preview gives.
+import { PLAYER, holds } from "./state.ts";
+import { NODES, carthageArmy, city, friendly, path, reachable, yourArmy, cityWalls } from "./island.ts";
+import type { Args, GameState } from "./types.ts";
+
+export interface IslandChoice { a: string; args?: Args; min?: number }
+
+export function islandChoices(s: GameState): IslandChoice[] {
+  const out: IslandChoice[] = [];
+  if (!s.island || !holds(s, PLAYER, "generalship")) return out;
+  const isl = s.island;
+  const ya = yourArmy(s);
+  const ca = carthageArmy(s);
+  const danger = s.plots.some((pl) => pl.stage >= 2);
+  if (isl.war && isl.carthage.offer >= s.season - 1 && (!ya || (ca && ca.men > ya.men) || s.grain <= 3)) out.push({ a: "acceptPeace" });
+  if (!ya) {
+    const wantWar = isl.war && ca;
+    const wantSpoils = !isl.war && s.silver >= 7 && s.grain >= 6 && !danger && s.season >= 6;
+    if (wantWar || wantSpoils) out.push({ a: "muster", args: { second: danger || s.guard.strength < 3 ? "levy" : "guard" } });
+    for (const n of NODES) {
+      const c = city(s, n.id);
+      if ((c.side === "tributary" || c.side === "free") && c.lean >= 1 && s.silver >= 4) out.push({ a: "embassyCity", args: { target: n.id }, min: 0.5 });
+    }
+    return out;
+  }
+  const near = (id: string) => reachable(s, ya.at).includes(id);
+  if (ya.siege) out.push({ a: "assault", min: 0.5 });
+  if (ya.food <= 0 && !friendly("syracuse", city(s, ya.at).side)) out.push({ a: "forage" });
+  if (ca) {
+    if (ca.siege === "syracuse" && ya.at !== "syracuse" && near("syracuse")) out.push({ a: "sendArmy", args: { target: "syracuse", second: "spare" } });
+    if (ya.men >= ca.men && ca.at !== ya.at && near(ca.at)) out.push({ a: "sendArmy", args: { target: ca.at, second: "spare" } });
+    if (ya.men < ca.men && ya.at !== "syracuse" && near("syracuse")) out.push({ a: "sendArmy", args: { target: "syracuse", second: "spare" } });
+  }
+  if (!ya.siege && ya.food >= 1) {
+    const targets = NODES.filter((n) => !friendly("syracuse", city(s, n.id).side) && city(s, n.id).side !== "exiles" && near(n.id))
+      .sort((a, b) => cityWalls(s, a.id) - cityWalls(s, b.id) || (path(ya.at, a.id)!.days.at(-1)! - path(ya.at, b.id)!.days.at(-1)!));
+    const t = targets.find((n) => cityWalls(s, n.id) === 0 || ya.men >= 8);
+    if (t) out.push({ a: "sendArmy", args: { target: t.id, second: city(s, t.id).side === "carthage" ? "sack" : "spare" } });
+  }
+  if (!isl.war && !ya.siege && friendly("syracuse", city(s, ya.at).side) && (ya.food <= 0 || s.silver <= 2)) out.push({ a: "disband" });
+  if (!ya.siege && ya.food <= 0 && ya.at !== "syracuse" && near("syracuse")) out.push({ a: "sendArmy", args: { target: "syracuse", second: "spare" } });
+  return out;
+}

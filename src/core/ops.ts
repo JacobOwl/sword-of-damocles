@@ -45,7 +45,7 @@ export function clock(s: GameState, d: number, why: string) {
   if (!d) return;
   const before = s.clock;
   s.clock = Math.max(0, Math.min(10, s.clock + d));
-  if (s.clock !== before) change(s, "world", `The Carthage clock ${d > 0 ? "rises" : "falls"} to ${s.clock} of 10.`, why);
+  if (s.clock !== before) change(s, "world", `${s.island ? "Carthage's anger" : "The Carthage clock"} ${d > 0 ? "rises" : "falls"} to ${s.clock} of 10.`, why);
 }
 export function guardSet(s: GameState, key: "strength" | "upkeep", d: number, why: string) {
   s.guard[key] = Math.max(0, s.guard[key] + d);

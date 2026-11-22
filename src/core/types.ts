@@ -137,9 +137,47 @@ export type Input =
   | { t: "end" };
 
 // Options for a new game, beyond the seed and the balance package.
-export interface GameOpts { switches?: string[] }
 
 export interface Args { target?: string; second?: string; option?: string }
+
+// The island scenario (Phase 2). A citadel game (Phase 1) has no island and runs exactly as before.
+export type Scenario = "citadel" | "island";
+export interface GameOpts { scenario?: Scenario; switches?: string[] }
+export type Side = "syracuse" | "ally" | "free" | "tributary" | "carthage" | "exiles";
+export interface CityState { id: string; side: Side; walls: number; men: number; grain: number; lean: number; fear: number; sacked: boolean; since: number }
+export interface Army {
+  id: string;
+  side: "syracuse" | "carthage";
+  at: string; // a node id from data/island.json
+  men: number; // strength points (about 5,000 men each)
+  food: number; // seasons of food carried
+  commander: string;
+  guard: number; // points that are your mercenary guard (they don't defend you at home while away)
+  guardStart: number; // guard points that marched out
+  since: number;
+  moved: number; // last season it marched
+  siege?: string; // the city it besieges
+  siegeSince: number;
+  onTake: "spare" | "sack";
+}
+export interface Bloc { id: string; power: number; mood: number }
+export interface CarthagePerson { id: string; name: string; status: "free" | "command" | "disgraced" | "dead" }
+export interface CarthageState {
+  blocs: Record<string, Bloc>;
+  goal: string;
+  goalWhy: string;
+  silver: number;
+  mercs: number;
+  levy: number;
+  ships: number;
+  plagueUntil: number;
+  general?: string;
+  people: Record<string, CarthagePerson>;
+  armiesLost: number;
+  offer: number; // season it last offered peace (-1 never)
+  revolt: boolean;
+}
+export interface IslandState { cities: Record<string, CityState>; armies: Army[]; war: boolean; warSince: number; carthage: CarthageState }
 
 export interface GameState {
   version: 1;
@@ -178,4 +216,6 @@ export interface GameState {
   leverage: Leverage[];
   blockedSlots: number;
   events?: EventsState;
+  scenario?: Scenario; // missing = citadel (Phase 1)
+  island?: IslandState;
 }

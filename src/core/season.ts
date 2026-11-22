@@ -9,6 +9,8 @@ import { clock, event, grain, log, makeRival, mood, powerChange, rankChange, sil
 import { factionStep, peopleStep, updatePolitical, botTurn } from "./ai.ts";
 import { perform, refuse } from "./actions.ts";
 import type { FactionId, GameOpts, GameState, Input, Plot } from "./types.ts";
+import { islandWorld } from "./island.ts";
+import { carthageStep } from "./carthage.ts";
 import { FACTIONS } from "./types.ts";
 import { writeChronicle } from "./chronicle.ts";
 import { botAnswer, chooseEvent, drawEvents, settleEvents } from "./events.ts";
@@ -59,7 +61,8 @@ function worldStep(s: GameState) {
     if (s.guard.arrearsSeasons === 1) mood(s, "guard", -1, "a season of arrears, and the captain says so out loud");
   }
   if (q === 3) clock(s, 1, "a year passes and Carthage rebuilds");
-  if (s.clock >= 10) invasion(s);
+  if (s.island) islandWorld(s); // the island game: cities, armies, sieges (Carthage's own council acts later)
+  else if (s.clock >= 10) invasion(s);
 }
 
 function invasion(s: GameState) {
@@ -288,6 +291,8 @@ export function beginSeason(s: GameState) {
   if (s.over) return finish(s);
   s.step = "factions";
   factionStep(s);
+  if (s.island) carthageStep(s); // Carthage's council and general, after the Syracusan factions
+  if (s.over) return finish(s);
   s.step = "player";
   if (s.blockedSlots) {
     s.slots = Math.max(0, s.slots - s.blockedSlots);
@@ -349,7 +354,7 @@ export function replay(seed: number, inputs: Input[], tuning?: string, opts: Gam
 // A whole game played by a headless player, for the checks and the balance runs.
 // "simple" is the first bot (it shares the game's dice); the others are in bots.ts.
 export function runBotGame(seed: number, opts: { bot?: string; tuning?: string } & GameOpts = {}): GameState {
-  const s = startGame(seed, opts.tuning, { switches: opts.switches });
+  const s = startGame(seed, opts.tuning, { switches: opts.switches, scenario: opts.scenario });
   const bot = opts.bot && opts.bot !== "simple" ? botById(opts.bot) : undefined;
   if (opts.bot && opts.bot !== "simple" && !bot) throw new Error(`unknown bot: ${opts.bot}`);
   const r = botRandom(seed);

@@ -13,3 +13,10 @@ export { PACKAGES, DEFAULT_TUNING, knobsFor, packageName } from "./tuning.ts";
 export { BOTS, botById } from "./bots.ts";
 export { SWITCHES, switchById, on as switchOn } from "./switches.ts";
 export type { SwitchDef } from "./switches.ts";
+// The island scenario (Phase 2).
+export {
+  NODES, ROUTES, ISLAND, CARTHAGE, nodeDef, nodeName, sideName, cityWalls, cityMen, cityGrain, yourArmy, carthageArmy, armyName,
+  menWords, carthagePersonName, path, reachable,
+} from "./island.ts";
+export { carthageAgenda, goalDef, blocDef, actDef, prefers, moodWord } from "./carthage.ts";
+export { inScenario } from "./actions.ts";

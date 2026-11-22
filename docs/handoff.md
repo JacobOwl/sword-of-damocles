@@ -13,6 +13,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - The careful and other bots read told clues when picking suspects (`clueHit` in `bots.ts`); with the switch off it changes nothing.
 - `tests/switches.test.ts`: off by default, unknown switch refused, every switch alone and together with five players and no broken state, replay with switches, clues filled and true, no one asks more than twice, partial blows happen, Pretenders need a coalition, the story chronicle shows no ids.
 - Report: `docs/playtests/2026-11-22-switches.md` (500 seeds × 4 players × 7 switch sets × 2 packages).
+- **Works with the island scenario too** (merged after Phase 2 slice 1): all five switches on, Reap what you sow, 100 island games each for the simple, careful, patron and iron-hand players: 0 crashes, 0 broken states; the careful player survives 90, the patron 94. The sweep tables in the report are for the citadel scenario only.
 
 ## Questions from the rule-switches thread
 - Which switches should be on for your next playtest? The report suggests People escalate and Warnings are clues; then A Pretender needs a coalition; Blows can miss with Standard balance.
@@ -48,6 +49,28 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **One dice stream per system** from the seed: decide before the engine refactor or not at all; it changes CLAUDE.md's "one seeded RNG". (V11)
 - **Ideas ranked by the council:** "mark this moment" button and a story sweep (tied first), an ambition chosen at the start, dice streams, playing on as an exile, disputed numbers. Parked in `later.md`.
 - **Carthage's blocs:** keep the Elders and the Hundred as tagged invention from later sources, or use the council's general, council mood and two rival houses? (V7)
+
+## Built by the Phase 2 thread (10, 2026-11-22): the island, slice 1
+
+Play it: the browser game now starts **the island** by default (a "Game" choice on the start screen keeps **the citadel**, Phase 1, exactly as before; a test pins its digest). `npm run sim -- --seeds 100 --scenario island` gives the island summary.
+- **Data:** `data/island.json` (8 cities and Aetna, their sides in 405 from the peace terms, roads in marching days, every rule number), `data/carthage.json` (four blocs, four men, five goals, thirteen acts, thresholds). Card: `docs/research/island-405-395.md` (all 24 quotes checked by `scripts/verify-cast-quotes.mjs`). The Elders, the Hundred and the people of Carthage are tagged invention from a later description (Aristotle), per the design council.
+- **Engine:** `src/core/island.ts` (cities, roads, armies, food, sieges, plague in camps, battles, assaults, taking, sparing or sacking a city, mustering), `src/core/carthage.ts` (the council picks a goal by bloc power, two acts a season from its menu in the goal's order, its general's own priority list, plague, Libyan revolt, peace offers, silver to your enemies, your fleet intercepting the crossing), `src/core/island-actions.ts` (your eight actions: Muster the army, Send the army, Storm the walls, Forage, Disband, Embassy to a city, Declare war, Accept Carthage's terms), `src/core/island-bot.ts` (what the headless players do on the island). Hooks: the world step runs the island instead of the old invasion roll; Carthage acts after the Syracusan factions; the guard does not defend you while it is away with the army; in the island game the Carthage clock is called Carthage's anger and is what its council reads. Raid and March on are citadel-only.
+- **Browser game:** a new view, The island (`ui/island.ts`): the map of Sicily (Natural Earth coastline cut by `scripts/make-island-map.mjs`, palette from the art direction), armies as flags, sieges ringed, a cities table, and a Carthage panel (goal and why, each bloc's power, mood and what it wants now, what Carthage will do next in order, its men). Checked at 1366 and 390 px wide, no sideways scroll.
+- **Tests:** `tests/island.test.ts` (scenario separation, replay, 30 games for every bot with no broken state, war actually happens, no code ids in the log or the view). `scripts/sim-check.ts` checks island values; `scripts/sim.ts --scenario island` fails if no battle, siege or city changes hands.
+- **100 seeds, island:** simple bot: 0 crashes, 0 broken; average 11.4 seasons; wars 0.21 a game, landings 0.31, battles 0.17. Careful bot: 0 crashes, 0 broken; average 29.0 seasons, 62 survive; wars 0.85 a game, landings 1.33, sieges 0.84, battles 1.03 (you win 0.20, lose 0.68), cities taken by you 1.39, lost 0.68, going over to Carthage 0.66, peaces 0.36. Citadel 100 seeds unchanged (10.8 seasons; killed 27, deposed 41, exiled 32; tyrannies 13).
+
+## Broke or odd in the island (found, not tuned)
+- **Carthage never loses an army** in 100 careful games: a beaten army always has a friendly town to fall back to, so Himilcon's end (disgrace, starving himself) never fires. Possible fixes, all Jacob's: a beaten army that is also hungry breaks; a second defeat in a year breaks it; plague halves it more often.
+- **Plague in a siege camp** is rare (0.04 a game) even after lowering the size it needs from 10 to 6 points, because armies rarely sit through a summer before a city.
+- **You lose most battles** (0.68 lost to 0.20 won): the bot attacks when its army is merely equal, and Carthage gets "its own ground" near its towns.
+- **The Libyans revolt about once a game** and Quiet Libya is Carthage's goal for about 5 seasons of 40: every war levy sours them.
+- The bot never sacks a city, so the fear-and-hatred rule is untested by the sweep.
+
+## Questions from the Phase 2 thread
+- Keep the decade 405 to 395, or start nearer the war so the island test reaches it sooner?
+- Should you see all of Carthage's council (as now), or only what spies and envoys learn?
+- Should you (Dionysius) be able to lead the army in person, away from the court? The design council recommends this "commission" as the hinge between the map and the plots (`docs/council/2026-11-22-design-council.md`); it is parked in `docs/later.md`.
+- Army sizes: one strength point is about 5,000 men, so armies show as "about 40,000 men". Diodorus' numbers are larger and disputed (card). Fine, or show only words (small, large, vast)?
 
 ## Built by the portrait thread (2026-11-22)
 - **Placeholder portraits for all 24 people** in `ui/art/portraits/<person id>.webp`: mosaic coins, 192 px, about 20 KB each. `scripts/build-ui.ts` inlines them as `window.__PORTRAITS`; `ui/portraits.ts` reads that map and keeps the initial-in-a-circle fallback (which the headless tests still use). The dead still show greyed out.
