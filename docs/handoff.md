@@ -7,7 +7,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - Verdicts that touch thread 09 (feud record, clue warnings and partial success in a first-test preset, story counts) and thread 10 (the engine refactor first, commissions, one food counter, Carthage's sourced skeleton, history as conditions) were sent to those threads.
 
 ## Questions from the design council (Jacob's to decide)
-- **Size of the first island test:** the council recommends 5 places, one food counter per army and no routes, then growing; `scope.md` says 8 cities with routes. (V1, V3)
+- ~~Size of the first island test~~: decided by Jacob, 2026-11-22: keep the current plan (8 cities and Aetna, routes, foraging).
 - **The hinge:** a commission (one of your three actions sends a named man, or you, with men and a purpose; the general commands by default, anyone else costs standing). The plan says only the general gives orders. (V2)
 - **Replace "drift toward 5"** with power that people carry, as a switch first? (V4)
 - **A named "First island test" preset** (island, Reap what you sow, clue warnings and partial success on), and a pause after year 4? (V1, V5)
