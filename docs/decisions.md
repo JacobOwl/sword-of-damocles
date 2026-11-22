@@ -63,6 +63,15 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Every claim about another game is marked** as opened this session (with the link) or as general knowledge. Why: confident errors are the worst failure.
 - **The nemesis patent note stands as before** (a private hobby game is unaffected). The note adds that "waiting in the wings" is the part of v2 closest to the patent's described behaviour, in case the game is ever published.
 
+## 2026-11-22 (interface polish, thread 07)
+
+- **Every name opens a character sheet, and the court is its own view.** Why: Jacob wants CK3-style characters whose opinions, rivalries and ties are visible, and the old list hid most of that.
+- **The player now sees what shifted and why** (opinion, mood, power, offices, stores), from the same log. Before, these lines showed only in the designer view. Why: a death must never feel random, and the reasons were already logged.
+- **The chronicle is rendered from the visible log in the UI**, not by changing the engine's chronicle. It drops dice and turns agenda steps into deeds. Why: other threads are changing the engine; UI and rules stay separate. Grouping by storyline (research note, proposal 2) is not done.
+- **Real people carry a small "real person" marker; invented people "invented".** From the cast's `kind` field. Per the decision that real people get a marker.
+- **Portraits go through one map, `ui/portraits.ts`.** Placeholders until the mosaic editor or coin photos supply art.
+- No rules, data or balance changed. The 100-seed counts are the same as before.
+
 ## 2026-11-22 (balance packages and better headless players)
 
 - **Balance numbers moved into data** (`data/tuning.json`) as named packages. Standard stays the default and plays exactly as before. Why: the rules choices are Jacob's, so the alternatives are options, not changes.

@@ -17,5 +17,9 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Phase 1?] Let the player use the scheming actions too (start a plot against a rival, lend). Rules v2 says they are open to anyone; the prototype gives them to the computer's people only.
 - [Phase 1?] Events drawn from the cast's sourced stories, as data: Andron tempted to seize the citadel and treasury (Polyaenus 5.2.4), Theste's answer when her husband fled (Plutarch, *Dion* 21), the charge that Doris' mother drugged Aristomache (Plutarch, *Dion* 3), Theodorus' liberty speech and the Spartan veto (Diodorus 14.64 to 14.70). Parked by the cast thread, 2026-11-22.
 - [Phase 1?] The 13 proposals in `docs/game-research.md` (clue-based warnings, storyline chronicle, plot methods and moments, a council, escalating petitions, secrets from deeds, tradeable promises, pacing, storylets, a shared danger, stress, and more). Parked for Jacob to pick, 2026-11-22.
+- [Phase 1?] A `gender` (or pronoun) field in `data/people.json`, so the engine's sentences and the UI stop guessing. Parked by the interface thread, 2026-11-22.
+- [Phase 1?] Group each season of the chronicle by storyline (one plot, one rival, one faction) and lead with the cause, as the research note proposes. The UI chronicle is ready for it once log entries carry a storyline tag. Parked by the interface thread, 2026-11-22.
+- [Phase 1?] Named relationship bonds (friend, sworn enemy) shown on the character sheet, if the engine gets them. Parked by the interface thread, 2026-11-22.
+
 - [Phase 1?] Make Nemeses reachable. Under every balance package they appear under 0.1 times a game, because rank 4 needs four rank-ups. Found by the balance sweep, 2026-11-22.
 - [Phase 1?] Smarter bots for the political actions (Force a favor before votes, Expose to stop Pretenders), so the sweep tests that side of the game too. Balance thread, 2026-11-22.

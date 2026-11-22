@@ -7,6 +7,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Four new headless players** in `src/core/bots.ts`: careful, patron, iron hand (id `tyrant`), careless (random). They see only what the screen shows you and use their own random stream, so their games replay from inputs like yours. The simple bot is unchanged.
 - **`npm run sim`** now takes `--bot`, `--tuning`, `--sweep` (every player against every package), `--markdown` and `--json`. New story counts: seasons of warning before a strike, whether you knew the leader, the odds of the blow, near coin flips, plots broken, who ended your rule.
 - **The report:** `docs/playtests/2026-11-22-balance-sweep.md` (1,000 seeds per player and package, the comparison, a recommendation and five problems found).
+- Merged with the interface polish (#5): the Balance menu sits beside Begin; the plot card reads its strike threshold from the package; three help lines in `ui/help.ts` now say their numbers are for Standard balance.
 - `tests/balance.test.ts`: default and unknown packages, the standard digest, knob names, replay under every package, 40 games for every player under every package with no broken state.
 
 ## Built
@@ -30,6 +31,19 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - `tests/cast.test.ts` (shape, kin, offices, scars, no code ids in names, roles or grudges) and `scripts/verify-cast-quotes.mjs` (`node scripts/verify-cast-quotes.mjs ../phoenician-punic-world`; 75 of 75 quotes found).
 - Corrected `docs/research/dionysius-405-403.md`: Philistus' marriage to Leptines' daughter is in Plutarch, *Dion* 11 (no date).
 - 100 seeds with the new cast: average 9.8 seasons (was 8.4); killed 29, exiled 41, deposed 29, survived 1; tyrannies 1; plots 3.71 a game, 70 blows landed of 79 strikes; enemies 1.67, political rivals 2.60, Pretenders 0.46, Nemeses 0.11 a game; factions Dominant 2.09 a game, Marginal 0.04. No crashes, no broken states. Still lopsided against the bot; not tuned.
+
+## Built by the interface thread (2026-11-22)
+UI only: no file in `src/core/` or `data/` changed, so the rules and the 100-seed counts are untouched.
+- **Character sheets.** Click any name, anywhere (feed, chronicle, offices, rivals, petitions), to open that person's sheet: portrait slot, a "real person" or "invented" marker, role, faction, offices, what they think of you with the reasons from the log ("to 0, you refused his petition, Spring 404 BC"), grudges, traits in plain words ("His own rolls: Recruit +1"), ambition, influence, enemy and political-rival ranks with tracks, memories and agendas, what you know of their plots, family ties from `people.json` (clickable), what they did lately, and for real people the quoted passages with citations. Buttons for every action you can take toward them open that action with them already chosen.
+- **The court**, a new view: everyone by faction as cards, with portrait, marker, office, flags (enemy rank, rival rank, plotting, informer) and opinion in words (Hates you, Bitter, Cool, Indifferent, Warm, Friendly, Devoted). The dead are listed at the foot; people who enter later are counted, not named.
+- **Dangers column.** Plots get a four-step track (Whispers, Rumors, Named, Strike), when they can first strike, the names you have, and, once you have an informer, strength against your defense as a bar. A short "what you can do" line. Enemies and political rivals are one "Rivals" list with portraits. "Who is who" is a compact list with opinions.
+- **A readable season.** Rolls are sentences ("needed 4, rolled 2, +1 Dominant, so 3. Failure."). Agenda steps read as deeds ("The citizens build a following, a step toward the people's assembly"). A "What shifted" list shows opinion, mood, power, office and store changes with reasons (before, players never saw these). "How last season ended" folds the previous season's results.
+- **The chronicle** is its own view, oldest first, by year and season, three paragraphs a season (the city, you, what followed), turning points in bold, omens in italics, names clickable, no dice. Built from the visible log in `ui/story.ts`; the engine's own chronicle text is unchanged.
+- **Onboarding.** A six-step "How a season works" guide on the first game (dismissable; remembered in the browser), a "How to play" view with a glossary, and tooltips (hover, focus or tap) on the ledger, faction power, moods, agendas, plot stages, ranks and markers.
+- **Portraits.** `ui/portraits.ts` has one `PORTRAITS` map (person id to image URL or data URL). Empty for now; everyone gets a tessera roundel in their faction's colour with an initial. The art thread can fill the map without touching the screens.
+- **Phone width** checked at 390 px: no sideways scroll, ledger in a grid, sheet as a full-height dialog.
+- `tests/ui.test.ts`: every sheet, the court, the chronicle and every season feed render for 20 finished bot games with no code ids, "undefined" or "NaN" shown; names link longest first; pronouns.
+- Code: `ui/main.ts` (shell), `ui/text.ts` (helpers, pronouns, name links), `ui/people.ts` (sheet, court), `ui/story.ts` (feed, chronicle), `ui/help.ts` (guide, glossary, tooltips), `ui/portraits.ts`.
 
 ## Changed
 - `data/events/` removed (no events yet; content is in the other data files). `tests/smoke.test.ts` replaced by real tests.
@@ -62,6 +76,9 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - The 4 scheming actions are for the computer's people only.
 
 ## Questions for the next design session
+- **Interface questions (thread 07).** The data has no gender field, so the UI finds women from how relatives describe them ("sister", "wife"); the engine's own sentences still say "him" for everyone. Add a field to `people.json`? Is "real person" the right marker wording? Should the guide also appear in later games? The help text restates rules from `src/core`; if a rule changes, `ui/help.ts` needs the same change.
+- **Friction seen in play (thread 07, not fixed, engine or balance):** feasting until silver hits 0 leaves the guard unpaid and the defense at 4, and a plot struck in the fourth season (seed 7). The Pretender ending lists all four ways to lose instead of the one that happened (from `docs/game-research.md`; not seen in my runs). Several plots show the same Whispers lines, because warnings are drawn from a flavour pool rather than from what the plotters did (see `docs/game-research.md`, proposal 1).
+
 - **Pick a balance package** (or keep Standard): play one game each of Standard and Reap what you sow. The sweep report recommends Reap what you sow to test first; Slow fuse if that feels too easy. Fair fight makes most strikes coin flips. Once you pick, the default is one line in `data/tuning.json`.
 - **Nicoteles' road to power** dominates the endings in the softer packages: the citizens' agenda gives him the generalship, and two offices make him a Pretender. Change it (rival influence 2 per office against your 1; the generalship going to the assembly rather than its leader; Pretenders needing a second faction), or keep it as the city's main political threat?
 - **Repetition in long reigns** (research ★5): should a refused man escalate (ask, demand, act) instead of cycling enemy, pardon, enemy?
