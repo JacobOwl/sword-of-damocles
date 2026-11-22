@@ -366,3 +366,15 @@ table.cities thead th { font-family: var(--display); font-weight: 400; color: va
 
 /* The island's invented families (ui/census.ts) */
 .census .census-card { cursor: default; }
+
+/* Switches "Your council argues" and "Secrets and leverage" */
+.council .seat { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; border-bottom: 1px dotted var(--rule); }
+.council .seat-t { flex: 1; min-width: 0; }
+.council .counsel-q { margin: 2px 0 0; font-style: italic; }
+.counsel { border-left: 2px solid var(--rule); padding-left: 8px; display: flex; flex-direction: column; gap: 2px; }
+.counsel .label { display: block; }
+.tag.deadly { color: var(--blood); border-color: var(--blood); }
+.secrets { margin: 4px 0 8px; padding-left: 18px; }
+.secrets li { margin: 2px 0; }
+.secrets-ledger .ledger-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 4px 24px; }
+.secrets-ledger h3 { font-size: 1rem; margin: 6px 0 2px; }

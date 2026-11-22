@@ -178,7 +178,9 @@ export function councilBrief(s: GameState) {
         const g = scapegoat(s, a);
         if (g) line = { seat, who, text: C.brief.accuse.replace("{target}", g.name), accuse: g.id, truth: false, lie: true };
       } else {
-        const t = s.plots.flatMap((p) => p.members).map((m) => s.people[m]).find((m) => m.id !== a.id && knowsGuilt(s, a, m));
+        // Only news: a plotter inside the walls whose name you don't have, and not one another man named already.
+        const t = s.plots.flatMap((pl) => pl.members.filter((m) => !pl.known.includes(m))).map((m) => s.people[m])
+          .find((m) => m.id !== a.id && m.status === "free" && knowsGuilt(s, a, m) && !c.brief.some((l) => l.accuse === m.id));
         if (t) line = { seat, who, text: C.brief.accuseTrue.replace("{target}", t.name), accuse: t.id, truth: true };
       }
     }
