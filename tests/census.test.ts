@@ -102,3 +102,21 @@ test("every face uses the mosaic editor's choices", () => {
     if (L.sex === "f") assert.equal(L.beard, "none");
   }
 });
+
+import { runBotGame, replay, leaderOfCity, councilOf, captainOf, censusPersonName } from "../src/core/index.ts";
+
+test("in a game: island games have the census, citadel games do not, and island games replay with it", () => {
+  const citadel = runBotGame(5);
+  assert.equal(citadel.census, undefined);
+  const a = runBotGame(5, { scenario: "island", bot: "careful" });
+  assert.ok(a.census && Object.keys(a.census.people).length > 100);
+  const b = replay(5, a.inputs, undefined, { scenario: "island" });
+  assert.deepEqual(b.census, a.census);
+  assert.ok(leaderOfCity(a, "leontini"));
+  assert.ok(councilOf(a, "elders").length >= 2);
+  assert.ok(captainOf(a, "carthage"));
+  assert.doesNotMatch(censusPersonName(a, leaderOfCity(a, "motya")!, true), /\b[ch]\d+\b|undefined/);
+  const lines = a.log.filter((e) => e.actor === "world" && e.visible && / heads the house| died, aged | rises to be /.test(e.text));
+  assert.ok(lines.length > 0, "the feed shows some deaths and heirs");
+  for (const e of lines) assert.doesNotMatch(e.text + (e.why ?? ""), /\b[ch]\d+\b|undefined|NaN/);
+});

@@ -33,6 +33,13 @@ function run(bot: string, tuning: string, quiet: boolean, switches: string[] = [
     const b = brokenState(s);
     if (b.length) { r.broken++; if (!quiet || r.broken <= 3) console.log(`${bot}/${tuning} seed ${seed}: broken state: ${b.join("; ")}`); }
     for (const [k, v] of Object.entries(s.counters)) r.sum[k] = (r.sum[k] ?? 0) + v;
+    if (s.census) {
+      const ps = Object.values(s.census.people);
+      r.sum.censusAlive = (r.sum.censusAlive ?? 0) + ps.filter((p) => p.alive).length;
+      r.sum.censusBorn = (r.sum.censusBorn ?? 0) + s.log.filter((e) => e.actor === "world" && / was born to /.test(e.text)).length;
+      r.sum.censusDied = (r.sum.censusDied ?? 0) + ps.filter((p) => !p.alive).length;
+      r.sum.censusHeirs = (r.sum.censusHeirs ?? 0) + s.log.filter((e) => e.actor === "world" && / now heads the house| rises to be /.test(e.text)).length;
+    }
     // Repetition: the most times one person made the same petition, and the most times one person became your enemy.
     const asks: Record<string, number> = {}, enemy: Record<string, number> = {};
     for (const e of s.log) {
@@ -111,6 +118,8 @@ function printOne(r: Summary) {
     console.log(`Cities taken by you ${per2("citiesTaken")} (sacked ${per2("sacks")}), lost to Carthage ${per2("citiesLost")}, allies won by embassy ${per2("alliances")}, towns going over to you ${per2("wonOver")}, towns giving in from fear ${per2("fearSurrenders")}, cities going over to Carthage ${per2("defections")}. Armies lost: yours ${per2("armiesLostYours")}, Carthage's ${per2("armiesLostCarthage")} (broken after a defeat ${per2("armiesBroken")}). Plague in a siege camp ${per2("campPlagues")}, in Carthage ${per2("carthagePlagues")}. Libyan revolts ${per2("libyanRevolts")}. Peace offers ${per2("peaceOffers")}, peaces made ${per2("peaces")}. Carthaginian silver to your enemies ${per2("carthageSilver")}.`);
     const goals = ["rebuild", "tribute", "war", "peace", "libya"].map((g) => `${g} ${per2(`carthageGoal_${g}`)}`).join(", ");
     console.log(`Seasons under each of Carthage's goals: ${goals}.`);
+    const avg = (k: string) => ((r.sum[k] ?? 0) / r.n).toFixed(1);
+    console.log(`The invented families, on average a game: ${avg("censusAlive")} people alive at the end, ${avg("censusBorn")} born, ${avg("censusDied")} dead (counting those dead at the end), ${avg("censusHeirs")} new heads of houses.`);
     const war = (r.sum.battles ?? 0) + (r.sum.islandSieges ?? 0) + (r.sum.citiesTaken ?? 0) + (r.sum.citiesLost ?? 0);
     if (!war) { console.log("BROKEN: no battle, siege or city changing hands in any game."); process.exitCode = 1; }
   }
