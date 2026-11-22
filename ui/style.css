@@ -339,3 +339,27 @@ dialog.sheet::backdrop { background: rgba(43,29,18,.45); }
 .matter .choices { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
 .matter .choice { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
 .matter .choice button { text-align: left; }
+
+/* The island (Phase 2): map, cities, Carthage. Map colours follow the Phoenician-Punic World maps. */
+.island { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 22px; margin-top: 14px; }
+@media (max-width: 900px) { .island { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 600px) { table.cities .notes { display: none; } }
+.mapfig { margin: 0; }
+.island-map { width: 100%; height: auto; display: block; border: 1px solid var(--rule); }
+.island-map .sea-bg { fill: #dfe5d8; }
+.island-map .land path { fill: #e2d1a4; stroke: #8a7550; stroke-width: 1; }
+.island-map .road { stroke: #8a7550; stroke-width: 1; stroke-dasharray: 3 3; opacity: .7; }
+.island-map .sea { stroke: var(--punic); stroke-width: 1; stroke-dasharray: 5 4; fill: none; opacity: .6; }
+.island-map .days { font-family: var(--num); font-size: 10px; fill: var(--muted); text-anchor: middle; paint-order: stroke; stroke: #e2d1a4; stroke-width: 3px; }
+.island-map .place { font-family: var(--display); font-size: 13px; fill: var(--ink); text-anchor: middle; paint-order: stroke; stroke: #efe4c8; stroke-width: 3.5px; stroke-linejoin: round; }
+.island-map .mark { stroke: var(--ink); stroke-width: 1; }
+.island-map .siege { fill: none; stroke: var(--blood); stroke-width: 1.5; stroke-dasharray: 2 2; }
+.island-map .men { font-family: var(--num); font-weight: 700; font-size: 11px; fill: var(--ink); paint-order: stroke; stroke: #efe4c8; stroke-width: 3px; }
+.tablewrap { overflow-x: auto; }
+table.cities { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.cities th, table.cities td { text-align: left; padding: 4px 8px 4px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+table.cities thead th { font-family: var(--display); font-weight: 400; color: var(--muted); }
+.side::before { content: ""; display: inline-block; width: .7em; height: .7em; background: var(--c); border: 1px solid var(--ink); margin-right: 5px; vertical-align: -1px; }
+.carthage ul.blocs { list-style: none; padding: 0; margin: 4px 0 8px; }
+.carthage ul.blocs li { margin-bottom: 6px; }
+.carthage h3 { margin-top: 10px; }

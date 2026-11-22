@@ -6,7 +6,7 @@ import type { Args, GameState, LogEntry } from "../src/core/index.ts";
 export const ui = {
   s: null as GameState | null,
   designer: false,
-  view: "play" as "play" | "court" | "chronicle" | "help",
+  view: "play" as "play" | "island" | "court" | "chronicle" | "help",
   tab: "season", // phone sub-tab inside the play view
   openAction: null as string | null,
   args: {} as Args,

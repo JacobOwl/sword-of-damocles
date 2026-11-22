@@ -14,6 +14,7 @@ const str = (k: string, d: string) => { const i = argv.indexOf(k); return i > 0 
 const has = (k: string) => argv.includes(k);
 const N = num("--seeds", 100);
 const first = num("--from", 1);
+const SCENARIO = str("--scenario", "citadel") as "citadel" | "island"; // island = Phase 2
 
 export interface Summary {
   bot: string; tuning: string; n: number; crashes: number; broken: number;
@@ -25,7 +26,7 @@ function run(bot: string, tuning: string, quiet: boolean): Summary {
   const r: Summary = { bot, tuning, n: N, crashes: 0, broken: 0, seasons: [], ends: {}, sum: {}, by: {}, neverTyrant: 0, tyrantEverySeason: 0 };
   for (let seed = first; seed < first + N; seed++) {
     let s: GameState;
-    try { s = runBotGame(seed, { bot, tuning }); } catch (e) { r.crashes++; console.log(`seed ${seed}: CRASH ${(e as Error).stack}`); continue; }
+    try { s = runBotGame(seed, { bot, tuning, scenario: SCENARIO }); } catch (e) { r.crashes++; console.log(`seed ${seed}: CRASH ${(e as Error).stack}`); continue; }
     const b = brokenState(s);
     if (b.length) { r.broken++; if (!quiet || r.broken <= 3) console.log(`${bot}/${tuning} seed ${seed}: broken state: ${b.join("; ")}`); }
     for (const [k, v] of Object.entries(s.counters)) r.sum[k] = (r.sum[k] ?? 0) + v;
@@ -69,7 +70,7 @@ function printOne(r: Summary) {
   const l = storyLine(r);
   const ends = Object.entries(r.ends).map(([k, v]) => `${k} ${v}`).join(", ");
   const per2 = (k: string) => `${r.sum[k] ?? 0} (${per(r, k)} a game)`;
-  console.log(`\n${N} seeds (${first} to ${first + N - 1}), played by the ${r.bot} bot, balance package ${r.tuning}.`);
+  console.log(`\n${N} seeds (${first} to ${first + N - 1}), played by the ${r.bot} bot, balance package ${r.tuning}, ${SCENARIO === "island" ? "the island scenario (Phase 2)" : "the citadel scenario (Phase 1)"}.`);
   console.log(`Crashes: ${r.crashes}. Broken states: ${r.broken}.`);
   console.log(`Average length: ${l.mean} seasons of 40 (median ${l.median}; one game in ten ends by season ${l.p10}). Still ruling after one year ${l.year1}, three years ${l.year3}, five years ${l.year5}.`);
   console.log(`How games ended: ${ends}.`);
@@ -80,6 +81,14 @@ function printOne(r: Summary) {
   console.log(`Events: ${per2("events")}, of which from the sources: ${per2("historyEvents")}. Deaths in events: ${per2("eventDeaths")}.`);
   console.log(`Enemies made: ${per2("rivals")}. Nemeses: ${per2("nemeses")}. Political rivals: ${per2("politicalRivals")}. Pretenders: ${per2("pretenders")}. Deposed by a rival: ${per2("politicalFalls")}.`);
   console.log(`Factions falling Marginal: ${per2("marginal")}. Becoming Dominant: ${per2("dominant")}. Carthaginian sieges: ${per2("sieges")}.`);
+  if (SCENARIO === "island") {
+    console.log(`The island: wars ${per2("wars")}, Carthaginian landings ${per2("landings")}, sieges ${per2("islandSieges")}, battles ${per2("battles")} (you won ${per2("battlesWon")}, lost ${per2("battlesLost")}), assaults ${per2("assaults")}, cities stormed ${per2("stormed")}, starved ${per2("starved")}.`);
+    console.log(`Cities taken by you ${per2("citiesTaken")} (sacked ${per2("sacks")}), lost to Carthage ${per2("citiesLost")}, allies won by embassy ${per2("alliances")}, cities going over to Carthage ${per2("defections")}. Armies lost: yours ${per2("armiesLostYours")}, Carthage's ${per2("armiesLostCarthage")}. Plague in a siege camp ${per2("campPlagues")}, in Carthage ${per2("carthagePlagues")}. Libyan revolts ${per2("libyanRevolts")}. Peace offers ${per2("peaceOffers")}, peaces made ${per2("peaces")}. Carthaginian silver to your enemies ${per2("carthageSilver")}.`);
+    const goals = ["rebuild", "tribute", "war", "peace", "libya"].map((g) => `${g} ${per2(`carthageGoal_${g}`)}`).join(", ");
+    console.log(`Seasons under each of Carthage's goals: ${goals}.`);
+    const war = (r.sum.battles ?? 0) + (r.sum.islandSieges ?? 0) + (r.sum.citiesTaken ?? 0) + (r.sum.citiesLost ?? 0);
+    if (!war) { console.log("BROKEN: no battle, siege or city changing hands in any game."); process.exitCode = 1; }
+  }
   console.log(`Who ended your rule: ${Object.entries(r.by).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${v}`).join(", ") || "no one"}.`);
 }
 

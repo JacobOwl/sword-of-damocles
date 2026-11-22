@@ -1,6 +1,7 @@
 // The people and factions the game controls. They use the same menu as you, through short priority lists,
 // and every move records its reason so you can read why it happened.
 import { DATA, agendaById } from "./data.ts";
+import { islandChoices } from "./island-bot.ts";
 import { d6, nextRandom, pick } from "./rng.ts";
 import {
   PLAYER, alive, band, capital, defense, influence, isPlayerTyranny, leaderOf, membersOf, nameOf, officeName, officesOf,
@@ -443,6 +444,7 @@ function botChoices(s: GameState): { a: string; args: Args }[] {
   if (s.building) push("build", { target: s.building.what });
   if (s.guard.owed > 0) push("payGuard");
   if (s.grain <= 4) { push("buyGrain"); push("buyGrain"); }
+  if (s.island) for (const c of islandChoices(s)) push(c.a, c.args ?? {}); // the island game (Phase 2)
   // Break plots you can see.
   for (const pl of s.plots) for (const m of pl.known) if (s.people[m].status === "free") push("imprison", { target: m });
   for (const p of others(s)) if (p.status === "held" && p.rival) push("exile", { target: p.id });

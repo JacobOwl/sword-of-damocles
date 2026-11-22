@@ -6,6 +6,7 @@ import { esc } from "./text.ts";
 export const TIPS: Record<string, string> = {
   silver: "Silver, in talents. You spend it on feasts, bribes, mercenaries, envoys and building. The guard's pay comes out of it each season. Levies, striking coin and raids bring it in.",
   grain: "Months of grain in the city's stores. It falls by 2 each season. The summer harvest adds 6, and a friendly fleet brings 2 each winter. Under 3 months, the hungry may riot.",
+  anger: "Carthage's anger toward Syracuse, 0 to 10. It rises 1 each summer, and more when you take Carthage's towns or its tribute. Carthage's council reads it: high anger pushes its blocs toward war. See The island.",
   carthage: "The Carthage clock. It rises 1 each summer, and more for riots or attacks on Carthage's towns. At 10 a Carthaginian army lands.",
   land: "Portions of land you can hand out: to a faction, or to the guard as pay or citizenship.",
   guard: "Your mercenary guard. While it is paid and not too angry, its strength counts toward your defense. Unpaid, it can sell itself to a plot.",

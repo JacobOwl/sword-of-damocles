@@ -1,0 +1,391 @@
+{
+  "kind": "invention",
+  "note": "Carthage as a simulated city in the island scenario (Phase 2). Its bodies and men are history, carded in docs/research/island-405-395.md; Aristotle wrote about fifty years after this decade, so his picture may not fit 405 exactly. Every power, mood, store, threshold and action rule here is invention.",
+  "actsPerSeason": 2,
+  "start": {
+    "kind": "invention",
+    "silver": 8,
+    "mercs": 1,
+    "levy": 2,
+    "ships": 4,
+    "goal": "rebuild"
+  },
+  "blocs": [
+    {
+      "id": "elders",
+      "name": "the Elders",
+      "kind": "invention",
+      "card": "docs/research/island-405-395.md",
+      "source": "Aristotle, Politics 1273a; Diodorus 14.47.2 to 14.47.3",
+      "power": 6,
+      "mood": "Content",
+      "votes": true,
+      "detail": "The council of the great merchant houses. They count silver and fear for trade.",
+      "wants": "Rebuild while trade pays; war only if Carthage's anger is 8 or more, or a Punic town falls; peace once an army is lost or plague is in the city.",
+      "facts": [
+        {
+          "text": "The kings bring business to the people only if they and the Elders disagree.",
+          "cite": "Aristotle, Politics 1273a",
+          "quote": "The reference of some matters and not of others to the popular assembly rests with the kings in consultation with the Elders in case they agree unanimously, but failing that, these matters also lie with the people",
+          "file": "sources/governance/aristotle-politics-2.11.txt"
+        },
+        {
+          "text": "Members of the senate were sent with silver to hire mercenaries.",
+          "cite": "Diodorus 14.47.3",
+          "quote": "dispatched members of the senate with large sums of money to recruit mercenaries in Europe",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        }
+      ],
+      "basis": "Invention from a later description: Aristotle, Politics 1273a, written about 340 to 330 BC, two generations after this decade. Diodorus names only a senate for 397 (14.47.2). Kept with its quotes, so the source is visible."
+    },
+    {
+      "id": "hundred",
+      "name": "the Hundred",
+      "kind": "invention",
+      "card": "docs/research/island-405-395.md",
+      "source": "Aristotle, Politics 1273a",
+      "power": 5,
+      "mood": "Content",
+      "votes": true,
+      "detail": "The highest magistracy, chosen by the Boards of Five. In the game they guard Carthage's hold on Sicily and its tribute.",
+      "wants": "Keep the tribute; war if Carthage's anger is 6 or more, or a tribute town or Punic town is lost; peace only after two armies are lost.",
+      "facts": [
+        {
+          "text": "The Boards of Five elect the Hundred.",
+          "cite": "Aristotle, Politics 1273a",
+          "quote": "the election by these boards of the supreme magistracy of the Hundred",
+          "file": "sources/governance/aristotle-politics-2.11.txt"
+        }
+      ],
+      "basis": "Invention from a later description: Aristotle, Politics 1273a, written about 340 to 330 BC, two generations after this decade. Diodorus names only a senate for 397 (14.47.2). Kept with its quotes, so the source is visible."
+    },
+    {
+      "id": "people",
+      "name": "the people of Carthage",
+      "kind": "invention",
+      "card": "docs/research/island-405-395.md",
+      "source": "Aristotle, Politics 1273a",
+      "power": 4,
+      "mood": "Uneasy",
+      "votes": true,
+      "detail": "The assembly. When the kings and the Elders disagree, the people decide, and anyone may speak against a proposal.",
+      "wants": "Rebuild after the plague; war if Carthage's anger is 7 or more, or a Punic town falls, and stay at war once in it; peace when plague is in the city.",
+      "facts": [
+        {
+          "text": "In the assembly the people have the sovereign decision.",
+          "cite": "Aristotle, Politics 1273a",
+          "quote": "the people have the sovereign decision, and anybody who wishes may speak against the proposals introduced",
+          "file": "sources/governance/aristotle-politics-2.11.txt"
+        }
+      ],
+      "basis": "Invention from a later description: Aristotle, Politics 1273a, written about 340 to 330 BC, two generations after this decade. Diodorus names only a senate for 397 (14.47.2). Kept with its quotes, so the source is visible."
+    },
+    {
+      "id": "libyans",
+      "name": "the Libyan subjects",
+      "kind": "history",
+      "card": "docs/research/island-405-395.md",
+      "source": "Diodorus 14.45.3, 14.54.5",
+      "power": 3,
+      "mood": "Uneasy",
+      "votes": false,
+      "detail": "The farmers of Carthage's African land. They have no vote, but they fill the levies, and if they rise, Carthage must turn home.",
+      "wants": "To be left alone. Every levy sours them; if they turn Rebellious, Carthage's goal becomes Quiet Libya.",
+      "facts": [
+        {
+          "text": "Plague struck Carthage's subjects in Libya before the war of 397.",
+          "cite": "Diodorus 14.45.3",
+          "quote": "the plague which had broken out among them and had destroyed the larger part of the inhabitants of Libya",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        },
+        {
+          "text": "Carthage raised its army of 396 from all Libya and from hired men.",
+          "cite": "Diodorus 14.54.5",
+          "quote": "they gathered armaments from all Libya as well as from Iberia",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        }
+      ]
+    }
+  ],
+  "people": [
+    {
+      "id": "himilcon",
+      "name": "Himilcon",
+      "kind": "history",
+      "card": "docs/research/island-405-395.md",
+      "source": "Diodorus 14.54.5, 14.76.3 to 14.76.4",
+      "role": "General of Carthage",
+      "general": 3,
+      "traits": [
+        "bold"
+      ],
+      "invented": [
+        "general",
+        "traits"
+      ],
+      "facts": [
+        {
+          "text": "Given supreme command for the war of 396.",
+          "cite": "Diodorus 14.54.5",
+          "quote": "lawfully according Himilcon sovereign power",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        },
+        {
+          "text": "After the disaster at Syracuse he starved himself to death.",
+          "cite": "Diodorus 14.76.4",
+          "quote": "In the end he passed sentence of death upon himself and starved himself to death",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        }
+      ]
+    },
+    {
+      "id": "magon",
+      "name": "Magon",
+      "kind": "history",
+      "card": "docs/research/island-405-395.md",
+      "source": "Diodorus 14.59.1, 14.95.1",
+      "role": "Admiral of Carthage",
+      "general": 2,
+      "traits": [
+        "cautious"
+      ],
+      "invented": [
+        "general",
+        "traits"
+      ],
+      "facts": [
+        {
+          "text": "Led a large army about 393/392.",
+          "cite": "Diodorus 14.95.1",
+          "quote": "no less than eighty thousand in number and under the command of Magon",
+          "file": "sources/diodorus/english/book14-78-96.txt"
+        }
+      ]
+    },
+    {
+      "id": "hanno",
+      "name": "Hanno the elder",
+      "kind": "invention",
+      "role": "Head of a great merchant house, for the Elders",
+      "bloc": "elders",
+      "general": 1,
+      "traits": [
+        "cautious"
+      ]
+    },
+    {
+      "id": "bomilcar",
+      "name": "Bomilcar",
+      "kind": "invention",
+      "role": "A man of the Hundred who wants a command",
+      "bloc": "hundred",
+      "general": 2,
+      "traits": [
+        "bold"
+      ]
+    }
+  ],
+  "goals": [
+    {
+      "id": "rebuild",
+      "kind": "invention",
+      "name": "Rebuild",
+      "text": "Carthage mends its losses and trades.",
+      "priorities": [
+        "quiet",
+        "propitiate",
+        "trade",
+        "ships",
+        "fortify",
+        "hire"
+      ]
+    },
+    {
+      "id": "tribute",
+      "kind": "invention",
+      "name": "Guard the tribute",
+      "text": "Carthage holds what the peace gave it.",
+      "priorities": [
+        "quiet",
+        "fortify",
+        "hire",
+        "silver",
+        "trade",
+        "ships"
+      ]
+    },
+    {
+      "id": "war",
+      "kind": "invention",
+      "name": "War on the tyrant",
+      "text": "Carthage means to break Syracuse.",
+      "priorities": [
+        "general",
+        "invade",
+        "reinforce",
+        "hire",
+        "levy",
+        "ships",
+        "silver",
+        "trade"
+      ]
+    },
+    {
+      "id": "peace",
+      "kind": "invention",
+      "name": "Peace at a price",
+      "text": "Carthage wants out of the war.",
+      "priorities": [
+        "peace",
+        "recall",
+        "propitiate",
+        "quiet",
+        "trade"
+      ]
+    },
+    {
+      "id": "libya",
+      "kind": "invention",
+      "name": "Quiet Libya",
+      "text": "Carthage's own land is in revolt.",
+      "priorities": [
+        "recall",
+        "quiet",
+        "trade",
+        "hire"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "trade",
+      "kind": "invention",
+      "name": "Trade",
+      "text": "Carthage's ships trade along the coasts.",
+      "silver": 2,
+      "mood": {
+        "elders": 1
+      }
+    },
+    {
+      "id": "hire",
+      "kind": "invention",
+      "name": "Hire mercenaries",
+      "text": "Carthage sends men with silver to hire soldiers abroad.",
+      "cost": 3,
+      "mercs": 2
+    },
+    {
+      "id": "levy",
+      "kind": "invention",
+      "name": "Raise a Libyan levy",
+      "text": "Carthage calls up its Libyan subjects.",
+      "levy": 2,
+      "mood": {
+        "libyans": -1
+      }
+    },
+    {
+      "id": "ships",
+      "kind": "invention",
+      "name": "Build ships",
+      "text": "Carthage's yards build warships and transports.",
+      "cost": 2,
+      "ships": 1
+    },
+    {
+      "id": "fortify",
+      "kind": "invention",
+      "name": "Garrison a town",
+      "text": "Carthage sends men to hold a town of its own in Sicily.",
+      "cost": 1,
+      "men": 1,
+      "maxMen": 4
+    },
+    {
+      "id": "general",
+      "kind": "invention",
+      "name": "Name a general",
+      "text": "The council gives one man the command."
+    },
+    {
+      "id": "invade",
+      "kind": "invention",
+      "name": "Send an army to Sicily",
+      "text": "Carthage ships an army to Sicily.",
+      "minMen": 6,
+      "minShips": 3
+    },
+    {
+      "id": "reinforce",
+      "kind": "invention",
+      "name": "Send more men",
+      "text": "Carthage ships more men to its army in Sicily.",
+      "minMen": 2,
+      "minShips": 2
+    },
+    {
+      "id": "silver",
+      "kind": "invention",
+      "name": "Send silver to the tyrant's enemies",
+      "text": "Carthaginian silver finds a man in Syracuse who hates you.",
+      "cost": 2,
+      "minAnger": 5
+    },
+    {
+      "id": "peace",
+      "kind": "invention",
+      "name": "Offer peace",
+      "text": "Carthage's envoys come to Syracuse with terms."
+    },
+    {
+      "id": "recall",
+      "kind": "invention",
+      "name": "Recall the army",
+      "text": "The council calls its army home."
+    },
+    {
+      "id": "propitiate",
+      "kind": "invention",
+      "name": "Propitiate the gods",
+      "text": "Carthage makes offerings to win back the gods.",
+      "cost": 1,
+      "mood": {
+        "people": 1
+      }
+    },
+    {
+      "id": "quiet",
+      "kind": "invention",
+      "name": "Quiet the Libyans",
+      "text": "Carthage remits a year's dues in Libya.",
+      "cost": 2,
+      "mood": {
+        "libyans": 1
+      },
+      "maxMood": 1
+    }
+  ],
+  "numbers": {
+    "kind": "invention",
+    "tradeAtWar": 1,
+    "mercUpkeepPer": 3,
+    "plagueChance": 0.06,
+    "plagueSeasons": 4,
+    "warAnger": {
+      "elders": 8,
+      "hundred": 6,
+      "people": 7
+    },
+    "peaceArmiesLost": {
+      "elders": 1,
+      "hundred": 2
+    },
+    "silverForRebuild": 10,
+    "warWeary": {
+      "elders": 8,
+      "people": 12
+    },
+    "moodHeals": true
+  }
+}
