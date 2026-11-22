@@ -143,3 +143,12 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Your guard can march with the army, and then does not defend you at home.** The first link between the map and the sword. The fuller link (you or a named man leading in person, a keeper left in the citadel) is the council's "commission" recommendation, parked for Jacob.
 - **Carthage's ships feed its armies in ports; yours eat from friendly towns.** Why: an asymmetry from the sea, and the reason Motya and Panormus matter.
 - **Two rule numbers changed after the first runs, both because a rule never fired or ran away:** blocs below Uneasy recover a step each summer if nothing soured them (Libya was in revolt a third of every game), and war weariness (the Elders want peace after 8 seasons of war, the people after 12; wars never ended). Plague in a siege camp now needs 6 strength points, not 10 (it never happened). Not tuned to history.
+
+## 2026-11-22 (the feud record switch, thread 09)
+
+- **The design council's feud record (V6) is built as a sixth rule switch, "One feud record", off by default.** Why: the council made it its strongest consensus but left the choice to Jacob, and today's rival system stays the default until he picks.
+- **What it does:** one dated record per person, never wiped; settlements pause a rivalry and keep its rank; one grievance starts at most one feud; rank comes from surviving you, and a second survival makes a Nemesis (once per man); an execution passes the feud to the nearest kin, said plainly; political rivals stay until something decisive happens. Titles come from the decisive chapter.
+- **Two choices of mine, Jacob's to change:** a man becomes a Nemesis by survival only once (without this, one exile climbing back and forth counted as a new Nemesis each time), and a resumed feud keeps the paused rank, at most 3.
+- **Not built:** one returning exile per city (needs the island's cities). Parked in `later.md`.
+- **A counted side effect, not fixed:** political rivals who never drop off hold the cap of two, so fewer new ones rise. Report: `docs/playtests/2026-11-22-feud.md`.
+- New count for the sweeps: people who became your Nemesis, counted once per man. The old "Nemeses" count adds every climb back to rank 4.

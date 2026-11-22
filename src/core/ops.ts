@@ -6,6 +6,7 @@ import { PLAYER, activeRivals, capital, moodName, nameOf, officeName, power, ban
 import type { FactionId, GameState, LogEntry, Mod, OfficeId, Scar, Status } from "./types.ts";
 import { FACTIONS } from "./types.ts";
 import { on } from "./switches.ts";
+import { chapter, feudOn, feudOf, feudPause, feudStart, feudSurvive } from "./feud.ts";
 
 export function log(s: GameState, e: Omit<LogEntry, "n" | "season" | "step">): LogEntry {
   const entry = { n: s.log.length, season: s.season, step: s.step, ...e } as LogEntry;
@@ -108,6 +109,7 @@ export function setOffice(s: GameState, o: OfficeId, holder: string | null, why:
 
 export function setStatus(s: GameState, pid: string, status: Status, why: string) {
   const p = s.people[pid];
+  const was = p.status;
   p.status = status;
   const words = ({ free: "is free in the city", held: "is held under guard", outside: "is outside the walls", dead: "is dead", absent: "is away" } as Record<string, string>)[status];
   change(s, pid, `${capital(p.name)} ${words}.`, why);
@@ -117,6 +119,7 @@ export function setStatus(s: GameState, pid: string, status: Status, why: string
       if (s.offices[o] === pid && (status === "dead" || status === "held")) setOffice(s, o, PLAYER, `${p.name} can no longer hold it`);
     }
   }
+  if (was === "outside" && status === "free" && feudOf(p)) feudSurvive(s, pid, "came home from exile", "the Returned");
   if (status === "held" || status === "dead") leaveAllPlots(s, pid, status === "dead" ? "dead" : "held under guard");
 }
 
@@ -147,6 +150,7 @@ export function makeRival(s: GameState, pid: string, scar: Scar, what: string) {
   if (!p || p.player || p.status === "dead") return;
   if (p.rival) {
     if (!p.rival.scars.includes(scar)) p.rival.scars.push(scar);
+    chapter(s, p, "scar", what);
     memory(s, pid, what);
     change(s, pid, `${capital(p.name)} carries a new scar: ${scar}.`, what);
     return;
@@ -159,14 +163,18 @@ export function makeRival(s: GameState, pid: string, scar: Scar, what: string) {
     return;
   }
   // Switch "escalation": an old enemy comes back worse, a rank for each time he was your rival before (at most rank 3).
-  const past = on(s, "escalation") ? p.pastRivalries ?? 0 : 0;
-  const rank = Math.min(3, 1 + past);
+  // Switch "feud": a grievance already in his record starts nothing new; a paused feud resumes at its rank.
+  const fromFeud = feudOn(s) ? feudStart(s, p, scar, what) : -1;
+  if (fromFeud === 0) { change(s, pid, `${capital(p.name)}'s grievance is already in his record with you; it starts no new feud.`, what); return; }
+  const past = fromFeud < 0 && on(s, "escalation") ? p.pastRivalries ?? 0 : 0;
+  const rank = fromFeud > 0 ? fromFeud : Math.min(3, 1 + past);
   p.rival = { rank, scars: [scar], memory: [], since: s.season };
   memory(s, pid, what);
   s.counters.rivals = (s.counters.rivals ?? 0) + 1;
-  if (past) s.counters.returningRivals = (s.counters.returningRivals ?? 0) + 1;
+  if (past || fromFeud > 1) s.counters.returningRivals = (s.counters.returningRivals ?? 0) + 1;
   const title = DATA.ranks.find((x) => x.rank === rank)?.title;
-  event(s, pid, past
+  if (fromFeud > 0 && feudOf(p)!.chapters.some((c) => c.kind === "settled")) event(s, pid, `${capital(p.name)}'s old feud with you comes due, at rank ${rank}.`, what);
+  else event(s, pid, past
     ? `${capital(p.name)} is your rival again (${originById(scar)?.name ?? scar}), and comes back as a ${title}.`
     : `${capital(p.name)} becomes your rival (${originById(scar)?.name ?? scar}).`, past ? `${what}; he was your rival ${past === 1 ? "once" : `${past} times`} before` : what);
 }
@@ -186,12 +194,15 @@ export function rankChange(s: GameState, pid: string, d: number, why: string) {
   if (r === 4) {
     p.agenda = { id: "yourFall", step: 0, done: false };
     s.counters.nemeses = (s.counters.nemeses ?? 0) + 1;
+    // Counts each man once, however often he climbs back to Nemesis (for the balance runs).
+    if (s.flags[`nemesis_${pid}`] === undefined) { s.flags[`nemesis_${pid}`] = s.season; s.counters.nemesisPeople = (s.counters.nemesisPeople ?? 0) + 1; }
     event(s, pid, `${capital(p.name)} is now your Nemesis, and works openly toward your fall.`, why);
   }
 }
 export function endRival(s: GameState, pid: string, why: string) {
   const p = s.people[pid];
   if (!p?.rival) return;
+  if (feudOn(s)) feudPause(s, p, p.rival.rank, why);
   p.rival = undefined;
   if (on(s, "escalation")) p.pastRivalries = (p.pastRivalries ?? 0) + 1;
   if (p.agenda?.id === "yourFall") p.agenda = undefined;

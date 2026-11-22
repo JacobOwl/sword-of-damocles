@@ -15,7 +15,10 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - Report: `docs/playtests/2026-11-22-switches.md` (500 seeds × 4 players × 7 switch sets × 2 packages).
 - **Works with the island scenario too** (merged after Phase 2 slice 1): all five switches on, Reap what you sow, 100 island games each for the simple, careful, patron and iron-hand players: 0 crashes, 0 broken states; the careful player survives 90, the patron 94. The sweep tables in the report are for the citadel scenario only.
 
+- **Sixth switch, One feud record** (council V6; `src/core/feud.ts`, hooks in `ops.ts`, `actions.ts`, `season.ts`, `ai.ts`): one record per person, settlements that pause, rank from surviving you, the feud passed to kin on execution, political rivals that stay until a turning point. Character sheets show "Feud with you"; the story chronicle titles people ("the Returned"). `npm run sim -- --switch-sweep --sets none,feud,escalation+feud` compares sets. Report: `docs/playtests/2026-11-22-feud.md`.
+
 ## Questions from the rule-switches thread
+- One feud record: political rivals now stay until something decisive happens, and they hold the cap of two. Is that a slow squeeze you like, or should the cap rise when the switch is on?
 - Which switches should be on for your next playtest? The report suggests People escalate and Warnings are clues; then A Pretender needs a coalition; Blows can miss with Standard balance.
 - Blows can miss: is a wound (one lost action) enough of a cost? Should the wounded ruler also lose defense for a season?
 - Coalition: is "Angry or worse" the right bar for a second faction, or should Uneasy count? (With Uneasy, the rich families qualify from the first season and the switch did almost nothing.)

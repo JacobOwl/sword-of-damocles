@@ -91,3 +91,23 @@ test("the story chronicle: seasons, lives and the ending read without ids or bro
     assert.ok(b.ending);
   }
 });
+
+test("feud: one record per person, a grievance starts at most one feud, execution passes it on", () => {
+  let paused = 0, inherited = 0, survived = 0;
+  for (const s of games(["feud"], ["simple", "careful", "patron", "tyrant"], 20)) {
+    for (const p of Object.values(s.people)) {
+      const f = p.feud;
+      if (!f) continue;
+      assert.equal(new Set(f.counted).size, f.counted.length, `${p.id}: a grievance counted twice`);
+      assert.ok(f.chapters.filter((c) => c.kind === "rivalry").length <= 1, `${p.id}: the feud began twice`);
+      for (let i = 1; i < f.chapters.length; i++) assert.ok(f.chapters[i].season >= f.chapters[i - 1].season, "chapters out of order");
+      paused += f.chapters.filter((c) => c.kind === "settled").length;
+      survived += f.survived;
+    }
+    for (const e of s.log.filter((e) => e.kind === "event" && /^You have .* put to death\.$/.test(e.text))) {
+      const after = s.log.slice(e.n, e.n + 40);
+      if (after.some((x) => /swears that .* death will not be forgotten/.test(x.text))) inherited++;
+    }
+  }
+  assert.ok(paused > 0 && survived > 0 && inherited > 0, `paused ${paused}, survived ${survived}, inherited ${inherited}`);
+});

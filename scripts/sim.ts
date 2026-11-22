@@ -38,7 +38,7 @@ function run(bot: string, tuning: string, quiet: boolean, switches: string[] = [
     for (const e of s.log) {
       if (e.kind !== "event") continue;
       if (/petitions you for|demands /.test(e.text)) { const k = e.actor + e.text.replace(/demands|petitions you for/, "").replace(/,.*$/, ""); asks[k] = (asks[k] ?? 0) + 1; }
-      if (/becomes your rival|is your rival again/.test(e.text)) enemy[e.actor] = (enemy[e.actor] ?? 0) + 1;
+      if (/becomes your rival|is your rival again|old feud with you comes due/.test(e.text)) enemy[e.actor] = (enemy[e.actor] ?? 0) + 1;
     }
     r.sum.maxSameAsk = (r.sum.maxSameAsk ?? 0) + Math.max(0, ...Object.values(asks));
     r.sum.maxSameEnemy = (r.sum.maxSameEnemy ?? 0) + Math.max(0, ...Object.values(enemy));
@@ -83,7 +83,7 @@ export function storyLine(r: Summary) {
     marginal: per(r, "marginal"), dominant: per(r, "dominant"), tyrannies: pct(r.n - r.neverTyrant, r.n), executions: per(r, "executions"),
     deathOdds: strikes ? pct(r.sum.strikeDeathChance ?? r.sum.strikeChance ?? 0, strikes) : "-",
     wounded: per(r, "blowsWounded"), seized: per(r, "blowsSeized"), fatal: per(r, "blows"),
-    moreThanTwice: per(r, "enemyMoreThanTwice"), sameSentence: per(r, "maxSameSentence"),
+    moreThanTwice: per(r, "enemyMoreThanTwice"), nemesisPeople: per(r, "nemesisPeople"), sameSentence: per(r, "maxSameSentence"),
     sameAsk: per(r, "maxSameAsk"), sameEnemy: per(r, "maxSameEnemy"), returning: per(r, "returningRivals"),
     freshWarnings: r.sum.warnings ? pct(r.sum.distinctWarnings ?? 0, r.sum.warnings) : "-",
     topShare: top.length ? pct(top[0][1], r.n) : "-",
@@ -130,14 +130,17 @@ const SWITCH_COLS: [string, keyof ReturnType<typeof storyLine>][] = [
   ["Plots a game", "plots"], ["Strikes a game", "strikes"], ["Fatal blows a game", "fatal"], ["Wounded a game", "wounded"], ["Office lost to a blow", "seized"],
   ["Blow odds", "odds"], ["Odds a strike kills or exiles", "deathOdds"], ["Seasons warned", "warned"], ["Leader known", "leaderKnown"],
   ["Different warning lines", "freshWarnings"], ["Most asks for one thing by one man", "sameAsk"], ["Most times one man became your enemy", "sameEnemy"], ["People made your enemy more than twice", "moreThanTwice"], ["Most-repeated chronicle sentence", "sameSentence"],
-  ["Enemies", "enemies"], ["Returning enemies", "returning"], ["Nemeses", "nemeses"], ["Political rivals", "political"], ["Pretenders", "pretenders"],
+  ["Enemies", "enemies"], ["Returning enemies", "returning"], ["Nemeses", "nemeses"], ["People who became your Nemesis", "nemesisPeople"], ["Political rivals", "political"], ["Pretenders", "pretenders"],
   ["Most common ender", "topEnder"], ["Share of games he ends", "topShare"], ["Different enders", "enders"],
 ];
 
 if (has("--switch-sweep")) {
   const bots = has("--bots") ? str("--bots", "").split(",") : ["careful", "patron", "tyrant", "simple"];
   const tunings = has("--tunings") ? str("--tunings", "").split(",") : [DEFAULT_TUNING];
-  const sets: [string, string[]][] = [["none", []], ...SWITCHES.map((w) => [w.id, [w.id]] as [string, string[]]), ["all", SWITCHES.map((w) => w.id)]];
+  // --sets none,feud,escalation+feud picks the switch sets to compare (default: none, each alone, all).
+  const sets: [string, string[]][] = has("--sets")
+    ? str("--sets", "").split(",").map((x) => [x, x === "none" ? [] : x === "all" ? SWITCHES.map((w) => w.id) : x.split("+")] as [string, string[]])
+    : [["none", []], ...SWITCHES.map((w) => [w.id, [w.id]] as [string, string[]]), ["all", SWITCHES.map((w) => w.id)]];
   let bad = 0;
   const all: { set: string; r: Summary }[] = [];
   for (const t of tunings) for (const b of bots) for (const [name, sw] of sets) { const r = run(b, t, true, sw); all.push({ set: name, r }); bad += r.crashes + r.broken; }
