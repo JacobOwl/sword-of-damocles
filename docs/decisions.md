@@ -221,3 +221,6 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 ## 2026-11-22 (a proper web app, step 2: thread 17)
 - **The browser game builds with Vite 8 and `vite-plugin-singlefile`** into the same single page; `npm run dev` gives a live-reloading page. Why: a standard build with a dev server, while the Artifact link still gets one self-contained page.
 - **UI restructures are checked by a scripted walk-through** (`npm run walk`) that must record identical pages before and after. Why: "behaviour identical" needs a check, not a promise.
+
+## 2026-11-22 (Damocles event updated, thread 07)
+- **"A sword on a horse-hair" is now settled on Dionysius I.** It quotes Cicero's Latin 5.57, 5.59 and 5.61 (saved by PR #30) and keeps Livius.org's Dionysius II reading as a disagreement. Only the timing is invention. Five more court stories from the same passage are parked in `docs/later.md`.
