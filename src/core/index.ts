@@ -10,3 +10,10 @@ export { fullChronicle, chronicleText, seasonEntries } from "./chronicle.ts";
 export { rankTitle, originById, agendaById } from "./data.ts";
 export { PACKAGES, DEFAULT_TUNING, knobsFor, packageName } from "./tuning.ts";
 export { BOTS, botById } from "./bots.ts";
+// The island scenario (Phase 2).
+export {
+  NODES, ROUTES, ISLAND, CARTHAGE, nodeDef, nodeName, sideName, cityWalls, cityMen, cityGrain, yourArmy, carthageArmy, armyName,
+  menWords, carthagePersonName, path, reachable,
+} from "./island.ts";
+export { carthageAgenda, goalDef, blocDef, actDef, prefers, moodWord } from "./carthage.ts";
+export { inScenario } from "./actions.ts";

@@ -1,0 +1,117 @@
+{
+  "kind": "invention",
+  "note": "The island scenario (Phase 2). The cities, their sides in 405 BC and where they stand are history, carded in docs/research/island-405-395.md. Walls, men, grain, lean and every rule number are invention. Route lengths are invention too: straight-line distance between the sites, times 1.3 for the road, at 20 km a day.",
+  "rules": {
+    "kind": "invention",
+    "marchDays": 20,
+    "winterMarchDays": 10,
+    "foodMax": 3,
+    "foodOnMuster": 2,
+    "grainOnMuster": 2,
+    "resupplyGrain": 2,
+    "siegeGrainLoss": 2,
+    "siegeGrainLossPort": 1,
+    "linesMax": 2,
+    "assaultBase": 4,
+    "wallWeight": 2,
+    "plagueMinMen": 10,
+    "plagueOn": 1,
+    "plagueOnMarsh": 2,
+    "battleDivisor": 2,
+    "menPerPoint": 5000,
+    "upkeepPerPoints": 6,
+    "embassyNeed": 5,
+    "allySilver": 1,
+    "tributeSilver": 1,
+    "angerTributeLost": 2,
+    "angerPunicLost": 3,
+    "angerFreeTaken": 1,
+    "angerEmbassyDefect": 1
+  },
+  "sides": {
+    "syracuse": "yours",
+    "ally": "your ally",
+    "free": "free",
+    "tributary": "pays tribute to Carthage",
+    "carthage": "Carthaginian",
+    "exiles": "held by the exiles"
+  },
+  "nodes": [
+    {
+      "id": "syracuse", "name": "Syracuse", "type": "city", "kind": "history", "source": "Diodorus 13.114.1", "card": "docs/research/island-405-395.md",
+      "side": "syracuse", "walls": 2, "men": 2, "grain": 0, "port": true, "marsh": true, "lean": 3, "lat": 37.07008, "lon": 15.28334,
+      "detail": "Your city. Its grain is your grain store, and its walls grow if you build the Epipolae wall.",
+      "facts": [{ "text": "The peace of 405 left Syracuse to Dionysius.", "cite": "Diodorus 13.114.1", "quote": "the Syracusans shall be subject to Dionysius", "file": "sources/diodorus/english/book13.loeb.txt" },
+                { "text": "The marshy ground by the city bred plague in a besieging camp.", "cite": "Diodorus 14.70.5", "quote": "the terrain was marshy", "file": "sources/diodorus/english/book14.loeb.txt" }]
+    },
+    {
+      "id": "leontini", "name": "Leontini", "type": "city", "kind": "history", "source": "Diodorus 13.114.1, 14.14.3 to 14.15.4", "card": "docs/research/island-405-395.md",
+      "side": "free", "walls": 2, "men": 2, "grain": 5, "port": false, "lean": 0, "lat": 37.285478, "lon": 14.998115,
+      "detail": "Free under the peace. Taking it breaks the treaty with Carthage.",
+      "facts": [{ "text": "Free under the peace of 405.", "cite": "Diodorus 13.114.1", "quote": "the inhabitants of Leontini and Messenê and the Siceli shall all live under laws of their own making", "file": "sources/diodorus/english/book13.loeb.txt" },
+                { "text": "Stood a first siege because Dionysius had no engines.", "cite": "Diodorus 14.14.4", "quote": "Dionysius, having no engines of war, gave up the siege for the time being", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" }]
+    },
+    {
+      "id": "catana", "name": "Catana", "type": "city", "kind": "history", "source": "Diodorus 14.14.1, 14.15.1 to 14.15.3", "card": "docs/research/island-405-395.md",
+      "side": "free", "walls": 2, "men": 2, "grain": 5, "port": true, "lean": -1, "lat": 37.502959, "lon": 15.088142,
+      "detail": "A Chalcidian city to the north. Its general was willing to sell it.",
+      "facts": [{ "text": "Betrayed to Dionysius by its general, about 403.", "cite": "Diodorus 14.15.1", "quote": "Arcesilaüs, the general of the Catanians, had offered to betray the city to him", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" }]
+    },
+    {
+      "id": "messana", "name": "Messana", "type": "city", "kind": "history", "source": "Diodorus 13.114.1, 14.56.1, 14.57.4 to 14.57.6", "card": "docs/research/island-405-395.md",
+      "side": "free", "walls": 2, "men": 3, "grain": 6, "port": true, "straits": true, "lean": 0, "lat": 38.19225, "lon": 15.55663,
+      "detail": "Free under the peace. It holds the straits to Italy and a harbour for a great fleet.",
+      "facts": [{ "text": "Himilcon wanted its harbour and the straits.", "cite": "Diodorus 14.56.1", "quote": "it had an excellent harbour, capable of accommodating all his ships", "file": "sources/diodorus/english/book14.loeb.txt" },
+                { "text": "Taken by Himilcon in 396; its people fled to the hill forts.", "cite": "Diodorus 14.57.4", "quote": "the great mass of the common people took to flight through the surrounding mountains", "file": "sources/diodorus/english/book14.loeb.txt" }]
+    },
+    {
+      "id": "gela", "name": "Gela", "type": "city", "kind": "history", "source": "Diodorus 13.114.1, 14.47.6", "card": "docs/research/island-405-395.md",
+      "side": "tributary", "walls": 0, "men": 1, "grain": 4, "port": false, "lean": 1, "lat": 37.0630925, "lon": 14.2584705,
+      "detail": "Pays tribute to Carthage and may not rebuild its walls.",
+      "facts": [{ "text": "Tributary and unwalled under the peace.", "cite": "Diodorus 13.114.1", "quote": "those of Gela and Camarina may dwell in their cities, which shall be unfortified, but shall pay tribute to the Carthaginians", "file": "sources/diodorus/english/book13.loeb.txt" },
+                { "text": "Sent its levy to Dionysius in 397.", "cite": "Diodorus 14.47.6", "quote": "He received first the levy from Camarina, then those of Gela and Acragas", "file": "sources/diodorus/english/book14.loeb.txt" }]
+    },
+    {
+      "id": "acragas", "name": "Acragas", "type": "city", "kind": "history", "source": "Diodorus 13.114.1, 14.47.6", "card": "docs/research/island-405-395.md",
+      "side": "tributary", "walls": 0, "men": 2, "grain": 5, "port": false, "lean": 1, "lat": 37.290594, "lon": 13.585475,
+      "detail": "Pays tribute to Carthage and may not rebuild its walls.",
+      "facts": [{ "text": "Tributary under the peace.", "cite": "Diodorus 13.114.1", "quote": "the inhabitants of Selinus, Acragas, and Himera", "file": "sources/diodorus/english/book13.loeb.txt" }]
+    },
+    {
+      "id": "motya", "name": "Motya", "type": "city", "kind": "history", "source": "Diodorus 14.47.4, 14.48.3, 14.53.1 to 14.53.4", "card": "docs/research/island-405-395.md",
+      "side": "carthage", "walls": 3, "men": 2, "grain": 6, "port": true, "lean": -3, "lat": 37.867415, "lon": 12.468308,
+      "detail": "Carthage's island town and its chief base in Sicily. Reached by a causeway and moles.",
+      "facts": [{ "text": "Carthage's chief base in Sicily.", "cite": "Diodorus 14.47.4", "quote": "a Carthaginian colony, which they used as their chief base of operations", "file": "sources/diodorus/english/book14.loeb.txt" },
+                { "text": "Sacked in 397; the plunder was great.", "cite": "Diodorus 14.53.3", "quote": "the plunder yielded much silver and not a little gold", "file": "sources/diodorus/english/book14.loeb.txt" }]
+    },
+    {
+      "id": "panormus", "name": "Panormus", "type": "city", "kind": "history", "source": "Diodorus 14.48.5, 14.55.4", "card": "docs/research/island-405-395.md",
+      "side": "carthage", "walls": 2, "men": 2, "grain": 6, "port": true, "lean": -3, "lat": 38.11123, "lon": 13.35244,
+      "detail": "A Carthaginian harbour on the north coast, where Carthage's armies can land.",
+      "facts": [{ "text": "Himilcon landed his army there in 396.", "cite": "Diodorus 14.55.4", "quote": "After Himilcon had put in at Panormus and disembarked his army", "file": "sources/diodorus/english/book14.loeb.txt" }]
+    },
+    {
+      "id": "aetna", "name": "Aetna", "type": "fort", "kind": "history", "source": "Diodorus 13.113.3, 14.14.2, 14.58.2", "card": "docs/research/island-405-395.md",
+      "side": "exiles", "walls": 3, "men": 1, "grain": 4, "port": false, "lean": -2, "lat": 37.57, "lon": 14.9, "approx": true,
+      "detail": "The fortress where the exiled horsemen hold out. Where exactly it stood is uncertain; the map places it roughly.",
+      "facts": [{ "text": "The exiled horsemen held it after 405.", "cite": "Diodorus 13.113.3", "quote": "occupied Aetnê", "file": "sources/diodorus/english/book13.loeb.txt" },
+                { "text": "An exceptionally strong fortress.", "cite": "Diodorus 14.58.2", "quote": "since it was an exceptionally strong fortress", "file": "sources/diodorus/english/book14.loeb.txt" }]
+    }
+  ],
+  "carthage": { "name": "Carthage", "lat": 36.853, "lon": 10.323, "landings": ["motya", "panormus"] },
+  "routes": [
+    { "from": "syracuse", "to": "leontini", "days": 2 },
+    { "from": "leontini", "to": "catana", "days": 2 },
+    { "from": "catana", "to": "messana", "days": 6 },
+    { "from": "catana", "to": "aetna", "days": 2 },
+    { "from": "leontini", "to": "aetna", "days": 2 },
+    { "from": "syracuse", "to": "gela", "days": 6 },
+    { "from": "gela", "to": "acragas", "days": 4 },
+    { "from": "gela", "to": "aetna", "days": 5 },
+    { "from": "acragas", "to": "motya", "days": 8 },
+    { "from": "acragas", "to": "panormus", "days": 6 },
+    { "from": "panormus", "to": "motya", "days": 5 },
+    { "from": "aetna", "to": "panormus", "days": 10 },
+    { "from": "messana", "to": "panormus", "days": 13 }
+  ]
+}

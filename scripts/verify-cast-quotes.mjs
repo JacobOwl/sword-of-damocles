@@ -24,7 +24,7 @@ const walk = (o, where) => {
     for (const [k, v] of Object.entries(o)) walk(v, o.id ?? where);
   }
 };
-for (const f of ["data/people.json", "data/factions.json", "data/outside.json", "data/events.json"]) walk(JSON.parse(readFileSync(f, "utf8")), f);
+for (const f of ["data/people.json", "data/factions.json", "data/outside.json", "data/events.json", "data/island.json", "data/carthage.json"]) walk(JSON.parse(readFileSync(f, "utf8")), f);
 let bad = 0;
 for (const f of facts) {
   const hay = text(f.file);
