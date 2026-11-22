@@ -1,0 +1,50 @@
+{
+  "note": "Words that set the scene and change nothing in the game: the title page, the card that opens each season, and the chronicle's opening and closing lines. The UI picks a line from what is true in the city, by a hash of the seed and the season, never with the game's dice, so a replay stays exact. All lines are invention unless tagged history. Conditions: grainLow (under 3 months), carthageNear (clock 7 or more), plotNamed (a known plot has a name), plotKnown (any warned plot), guardUnpaid, tyranny (you hold citadel, generalship and treasury), quiet (no warned plot and no rival).",
+  "title": [
+    {
+      "id": "titleEpigraph", "kind": "history", "name": "Heloris on tyranny",
+      "text": "Tyranny is a fair winding-sheet.",
+      "by": "Heloris, to Dionysius, as Diodorus tells it (14.8.5)",
+      "source": "Diodorus 14.8.5", "card": "docs/research/art-motifs.md"
+    },
+    {
+      "id": "coinLegend", "kind": "history", "name": "ΣΥΡΑΚΟΣΙΩΝ on the coins",
+      "text": "ΣΥΡΑΚΟΣΙΩΝ",
+      "by": "\"Of the Syracusans\", as struck on the city's silver in these years",
+      "source": "ANS 2015.1.1, tetradrachm of Syracuse, 405 to 400 BC", "card": "docs/research/art-motifs.md"
+    }
+  ],
+  "seasons": [
+    { "id": "autumn1", "kind": "invention", "season": "Autumn", "text": "The vintage is in. Ploughs go out to the wet fields and the seed goes down behind them." },
+    { "id": "autumn2", "kind": "invention", "season": "Autumn", "text": "The last merchantmen of the year crowd the Great Harbour before the seas close." },
+    { "id": "autumn3", "kind": "invention", "season": "Autumn", "text": "Must ferments in the jars. Every tavern in Achradina has an opinion about you." },
+    { "id": "winter1", "kind": "invention", "season": "Winter", "text": "Rain on the Island. Ships stay hauled up, and men have time to talk." },
+    { "id": "winter2", "kind": "invention", "season": "Winter", "text": "The olive presses creak through the short days. Smoke hangs over the roofs at dusk." },
+    { "id": "winter3", "kind": "invention", "season": "Winter", "text": "North wind across Epipolae. The watch on the walls stamps its feet and counts the hours." },
+    { "id": "spring1", "kind": "invention", "season": "Spring", "text": "The seas open. Sails on the horizon could be grain, or envoys, or worse." },
+    { "id": "spring2", "kind": "invention", "season": "Spring", "text": "The barley ripens on the plain of the Anapus. Young men drill in the agora." },
+    { "id": "spring3", "kind": "invention", "season": "Spring", "text": "Swallows over the spring of Arethusa. Everyone is suddenly busy, and everyone is watching." },
+    { "id": "summer1", "kind": "invention", "season": "Summer", "text": "Threshing floors ring with flails. Dust and chaff blow down to the harbour." },
+    { "id": "summer2", "kind": "invention", "season": "Summer", "text": "Cicadas in the olive groves. The heat keeps the streets empty at noon and the dinners late." },
+    { "id": "summer3", "kind": "invention", "season": "Summer", "text": "The campaigning season. Somewhere, men are sharpening bronze." },
+    { "id": "grain1", "kind": "invention", "if": "grainLow", "text": "Bread is dear. Mothers queue at the granaries before dawn and go home with half a measure." },
+    { "id": "grain2", "kind": "invention", "if": "grainLow", "text": "The bakers' ovens in Achradina stand cold. Hungry cities remember who fed them." },
+    { "id": "carthage1", "kind": "invention", "if": "carthageNear", "text": "Fishermen swear they saw purple sails off Plemmyrium. Carthage is stirring." },
+    { "id": "carthage2", "kind": "invention", "if": "carthageNear", "text": "Traders from the west say the Punic yards are busy day and night." },
+    { "id": "named1", "kind": "invention", "if": "plotNamed", "text": "You know a name now. You see it in every face that smiles at you." },
+    { "id": "named2", "kind": "invention", "if": "plotNamed", "text": "You sleep in a different room each night. The hair above you is very thin." },
+    { "id": "known1", "kind": "invention", "if": "plotKnown", "text": "Conversations stop when you enter. Something is being arranged without you." },
+    { "id": "known2", "kind": "invention", "if": "plotKnown", "text": "Your food is tasted twice. Your watchers bring you scraps of talk and no names." },
+    { "id": "unpaid1", "kind": "invention", "if": "guardUnpaid", "text": "The guard counts what it is owed, out loud, where you can hear." },
+    { "id": "tyranny1", "kind": "invention", "if": "tyranny", "text": "Citadel, treasury, command: all in one hand. The city calls it peace. It is quiet, which is not the same." },
+    { "id": "tyranny2", "kind": "invention", "if": "tyranny", "text": "Men bow lower than they used to. You cannot tell any more what they think." },
+    { "id": "quiet1", "kind": "invention", "if": "quiet", "text": "A calm season, as far as anyone can see. In Syracuse that is never very far." },
+    { "id": "quiet2", "kind": "invention", "if": "quiet", "text": "No whispers reach you. Either all is well, or your watchers are not watching." }
+  ],
+  "chronicle": [
+    { "id": "opening", "kind": "invention", "text": "Here is set down what was done at Syracuse under Dionysius, season by season, as it was seen from the Island." },
+    { "id": "colophonDead", "kind": "invention", "if": "killed", "text": "Here the chronicle ends, as he did." },
+    { "id": "colophonSurvived", "kind": "invention", "if": "survived", "text": "Here the chronicle ends. The sword still hangs; it has not yet fallen." },
+    { "id": "colophonOther", "kind": "invention", "text": "Here the chronicle of this reign ends." }
+  ]
+}

@@ -2,6 +2,22 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Built by the art thread (2026-11-22)
+- **Art direction** in `docs/art-direction.md`: the catalogue look, four materials, colours, type, icons, event pictures, motion, words, and a section for the island map.
+- **Icons** (`ui/icons.ts`): 25 black-figure silhouettes for factions (sword, hearth, horse, grain, helmet; Carthage a palm), offices, action areas and stores. Used in the ledger, offices, factions, action menu, who is who, court and character sheets.
+- **Event pictures** (`ui/vignettes.ts`): 22 red-figure cup tondi; each event names one with `art` in `data/events.json`.
+- **Title page** (`ui/title.ts`): a painted panel of an empty couch under the sword, the title in inscription capitals, Heloris' saying, a coin tray of the cast. The start options keep their ids; thread 10 will add a scenario choice inside `.begin-options`.
+- **Season cards and the sword overhead** (`ui/ambient.ts`): a card with the new season and one line of flavour from `data/flavor.json` (click, key or 3.6 seconds); a sword in the masthead that sways more as the worst known plot advances.
+- **Ending as a stele, chronicle as a book** (opening line, drop capitals, colophon), meander rules, parchment specks, silver-coin action slots, page-turn motion. All motion stops under reduced motion.
+- `tests/look.test.ts`: pictures and icons exist for every event, faction, office and area; flavour covers every season and condition; the flavour and the sword never change the state.
+- Rules untouched. 100 seeds: 0 crashes, 0 broken states; killed 27, deposed 41, exiled 32; tyrannies 13 (same as before).
+
+## Questions from the art thread
+- Does the look land? Title page, season cards, event pictures: keep, tone down or change?
+- Season cards appear at every season change. Too much? (A switch to turn them off is cheap.)
+- The sword overhead: readable as a danger gauge, or too subtle?
+- Faction emblems: horse for the rich families (their cavalry), grain for the citizens, helmet for the guard, hearth for the family, palm for Carthage. Any you'd change?
+
 ## Built by the design council (thread 11, 2026-11-22)
 - Docs only: `docs/council/2026-11-22-design-council.md` (eleven verdicts with positions, votes and dissents) and the full statements in `docs/council/2026-11-22/`. No code, data or rules changed, so the 100-seed counts are untouched.
 - Verdicts that touch thread 09 (feud record, clue warnings and partial success in a first-test preset, story counts) and thread 10 (the engine refactor first, commissions, one food counter, Carthage's sourced skeleton, history as conditions) were sent to those threads.
