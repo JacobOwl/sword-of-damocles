@@ -191,3 +191,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Only quotes, not whole texts.** The cloud's network is closed except GitHub, and the web reader returns short passages. Enough for the three gaps; whole chapters wait for Jacob if ever needed.
 - **Which Dionysius Damocles served stays open.** Livius.org says Dionysius II, Wikipedia says Dionysius I; Cicero's own 5.57 would settle it and is not saved.
 - **No game data changed.** The calendar (thread 12), events (thread 06) and names (thread 13) stay with their threads.
+
+## 2026-11-22 (art thread 12: the last three Diodorus years)
+
+- **Done:** `data/calendar.json` now names 401 (Exaenetus, 14.19.1), 400 (Laches, with the Ninety-fifth Olympiad, 14.35.1) and 399 (Aristocrates, 14.38.1), quoted from the excerpts the source-search thread saved (`sources/diodorus/book14-19-40.loeb.excerpts.txt`). Every year of the decade now has its Diodorus line. `docs/research/calendar.md` updated. Checks: 68 tests pass; 100 seeds in both scenarios, 0 crashes, 0 broken states; 257 quotes checked, 0 not found.
