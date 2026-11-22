@@ -1,12 +1,24 @@
 // What a headless player does on the island (Phase 2), for the checks and balance runs.
 // It sees only what the map shows: armies, sides, walls, grain, and the odds the preview gives.
 import { PLAYER, holds } from "./state.ts";
-import { NODES, carthageArmy, city, friendly, path, reachable, yourArmy, cityWalls } from "./island.ts";
+import { NODES, battleMods, carthageArmy, city, friendly, path, reachable, yourArmy, cityWalls } from "./island.ts";
 import type { Args, GameState } from "./types.ts";
 
 export interface IslandChoice { a: string; args?: Args; min?: number }
 
-export function islandChoices(s: GameState): IslandChoice[] {
+// How a bot fights: the iron hand sacks Carthage's towns and any town that leans against it; the others spare.
+export interface IslandStyle { sack?: boolean }
+// The edge your army would have in a battle where Carthage's army stands, from the same numbers the battle uses.
+function edge(s: GameState, ya: NonNullable<ReturnType<typeof yourArmy>>, ca: NonNullable<ReturnType<typeof carthageArmy>>): number {
+  const sum = (m: { value: number }[]) => m.reduce((x, y) => x + y.value, 0);
+  const at = ya.at;
+  ya.at = ca.at; // look, don't move: put it back at once
+  const e = sum(battleMods(s, ya)) - sum(battleMods(s, ca));
+  ya.at = at;
+  return e;
+}
+
+export function islandChoices(s: GameState, style: IslandStyle = {}): IslandChoice[] {
   const out: IslandChoice[] = [];
   if (!s.island || !holds(s, PLAYER, "generalship")) return out;
   const isl = s.island;
@@ -29,14 +41,15 @@ export function islandChoices(s: GameState): IslandChoice[] {
   if (ya.food <= 0 && !friendly("syracuse", city(s, ya.at).side)) out.push({ a: "forage" });
   if (ca) {
     if (ca.siege === "syracuse" && ya.at !== "syracuse" && near("syracuse")) out.push({ a: "sendArmy", args: { target: "syracuse", second: "spare" } });
-    if (ya.men >= ca.men && ca.at !== ya.at && near(ca.at)) out.push({ a: "sendArmy", args: { target: ca.at, second: "spare" } });
-    if (ya.men < ca.men && ya.at !== "syracuse" && near("syracuse")) out.push({ a: "sendArmy", args: { target: "syracuse", second: "spare" } });
+    if (edge(s, ya, ca) >= 1 && ca.at !== ya.at && near(ca.at)) out.push({ a: "sendArmy", args: { target: ca.at, second: "spare" } });
+    if (edge(s, ya, ca) < 1 && ya.at !== "syracuse" && near("syracuse")) out.push({ a: "sendArmy", args: { target: "syracuse", second: "spare" } });
   }
   if (!ya.siege && ya.food >= 1) {
-    const targets = NODES.filter((n) => !friendly("syracuse", city(s, n.id).side) && city(s, n.id).side !== "exiles" && near(n.id))
+    const blocked = (id: string) => !!ca && path(ya.at, id)!.nodes.includes(ca.at) && edge(s, ya, ca) < 1; // don't walk into a battle you would likely lose
+    const targets = NODES.filter((n) => !friendly("syracuse", city(s, n.id).side) && city(s, n.id).side !== "exiles" && near(n.id) && !blocked(n.id))
       .sort((a, b) => cityWalls(s, a.id) - cityWalls(s, b.id) || (path(ya.at, a.id)!.days.at(-1)! - path(ya.at, b.id)!.days.at(-1)!));
     const t = targets.find((n) => cityWalls(s, n.id) === 0 || ya.men >= 8);
-    if (t) out.push({ a: "sendArmy", args: { target: t.id, second: city(s, t.id).side === "carthage" ? "sack" : "spare" } });
+    if (t) out.push({ a: "sendArmy", args: { target: t.id, second: style.sack && (city(s, t.id).side === "carthage" || city(s, t.id).lean < 0) ? "sack" : "spare" } });
   }
   if (!isl.war && !ya.siege && friendly("syracuse", city(s, ya.at).side) && (ya.food <= 0 || s.silver <= 2)) out.push({ a: "disband" });
   if (!ya.siege && ya.food <= 0 && ya.at !== "syracuse" && near("syracuse")) out.push({ a: "sendArmy", args: { target: "syracuse", second: "spare" } });

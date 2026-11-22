@@ -144,6 +144,19 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Carthage's ships feed its armies in ports; yours eat from friendly towns.** Why: an asymmetry from the sea, and the reason Motya and Panormus matter.
 - **Two rule numbers changed after the first runs, both because a rule never fired or ran away:** blocs below Uneasy recover a step each summer if nothing soured them (Libya was in revolt a third of every game), and war weariness (the Elders want peace after 8 seasons of war, the people after 12; wars never ended). Plague in a siege camp now needs 6 strength points, not 10 (it never happened). Not tuned to history.
 
+## 2026-11-22 (the island, slice 2: towns that change sides, thread 10)
+- **Done:** towns go over to a large army nearby (one roll a season per town, every modifier shown); a town that fears you may give in when your army arrives; fear fades one step each summer; an optional switch "Beaten armies can break" (off by default); the bots stop walking into battles they would likely lose, and the iron hand sacks Carthage's towns and towns that lean against it. The city table shows the chance a town goes over next season.
+- **Decided:** the old rule (in war, every town with lean -1 or less went over to Carthage at once when its army outnumbered yours) is replaced by the roll. Why: it was all at once and showed no odds.
+- **Decided:** Carthage's own towns (Motya, Panormus) never go over, following 14.48.1. Going over to you makes a town your ally, not yours.
+- **Decided:** armies breaking is a switch, not a rule, because the handoff named it as Jacob's choice. With it on, about one Carthaginian army in five games breaks (careful bot); Himilcon's end can now fire.
+- **Open:** the fear rule fires only in unit tests; no bot sacks often enough in the sweeps to test it (see handoff).
+
+## 2026-11-22 (art thread, second round: dating and sound)
+
+- **The chronicle names each year as Diodorus does** (the archon at Athens, and the Olympiad when there was one), from `data/calendar.json`, every line quoted from the saved Loeb text. Card: `docs/research/calendar.md`. Years 401 to 399 show none until Diodorus 14.19 to 14.40 is saved. The game's years start in autumn and Diodorus' in midsummer, so the line says "In Diodorus, the year ...", not a date.
+- **Sound, made in the browser** (`ui/sound.ts`, no recordings): a plucked lyre in a Dorian scale for each new season, wind and water underneath (more wind in winter, cicadas in summer), a low drone while a known plot is at Rumors or Named, a pebble click when you act, a falling or rising phrase at the end. **Off by default**; a lyre button in the masthead turns it on, and the choice is remembered on that device. Why off: browsers block sound until you click, and sound that starts by itself annoys.
+- **The island map is drawn as an engraved chart** (`ui/island-art.ts`, a drawing kit with no game logic): sea hatching and water-lines along the coast, specked land, hill strokes and Mount Aetna placed by eye, Natural Earth rivers with their usual ancient names (Halycus, Himeras, Symaethus), a compass, a cartouche; towers for walled cities, roofs for open towns, a palisaded hill for the fort, a ring of stakes for a siege, shields with a helmet or a palm for armies. The map thread (10) keeps the logic in `ui/island.ts`. Art thread, 2026-11-22.
+
 ## 2026-11-22 (the feud record switch, thread 09)
 
 - **The design council's feud record (V6) is built as a sixth rule switch, "One feud record", off by default.** Why: the council made it its strongest consensus but left the choice to Jacob, and today's rival system stays the default until he picks.

@@ -155,6 +155,7 @@ export interface Army {
   side: "syracuse" | "carthage";
   at: string; // a node id from data/island.json
   men: number; // strength points (about 5,000 men each)
+  beaten?: number; // the season it last lost a battle (switch "armiesBreak")
   food: number; // seasons of food carried
   commander: string;
   guard: number; // points that are your mercenary guard (they don't defend you at home while away)
@@ -182,7 +183,7 @@ export interface CarthageState {
   offer: number; // season it last offered peace (-1 never)
   revolt: boolean;
 }
-export interface IslandState { cities: Record<string, CityState>; armies: Army[]; war: boolean; warSince: number; carthage: CarthageState }
+export interface IslandState { cities: Record<string, CityState>; armies: Army[]; war: boolean; warSince: number; carthage: CarthageState; sacks?: string[] } // sacks: the cities you sacked, in order
 
 export interface GameState {
   version: 1;
