@@ -26,7 +26,13 @@
     "angerTributeLost": 2,
     "angerPunicLost": 3,
     "angerFreeTaken": 1,
-    "angerEmbassyDefect": 1
+    "angerEmbassyDefect": 1,
+    "goOverDays": 6,
+    "goOverNeed": 7,
+    "aweMen": 6,
+    "surrenderNeed": 6,
+    "breakWithin": 4,
+    "goOverNote": "Going over and surrender under fear follow Diodorus 14.48.1 and 14.48.4 (towns awed by a great army), 14.58.1 (the Siceli going over to Carthage) and 14.15.4 (the Leontines, afraid after the sacks of Naxos and Catana). The numbers are invention."
   },
   "sides": {
     "syracuse": "yours",

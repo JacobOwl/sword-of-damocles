@@ -16,6 +16,7 @@ import { FACTIONS } from "./types.ts";
 import { T } from "./tuning.ts";
 import { on } from "./switches.ts";
 import { deed } from "./clues.ts";
+import { feudOn } from "./feud.ts";
 
 const hidden = false;
 const rankOf = (p: Person) => p.rival?.rank ?? 0;
@@ -439,7 +440,8 @@ export function updatePolitical(s: GameState) {
     if (p.political) {
       if (!close) {
         p.political.outSeasons += 1;
-        if (p.political.outSeasons >= 2) { p.political = undefined; event(s, p.id, `${capital(p.name)} is no longer a political rival.`, "you out-climbed him"); }
+        // Switch "feud": a political rival does not drop away after quiet seasons; it takes a turning point.
+        if (p.political.outSeasons >= 2 && !feudOn(s)) { p.political = undefined; event(s, p.id, `${capital(p.name)} is no longer a political rival.`, "you out-climbed him"); }
         continue;
       }
       p.political.outSeasons = 0;

@@ -14,6 +14,7 @@ import type { Args, FactionId, GameState, Mod, OfficeId, Person } from "./types.
 import { FACTIONS, OFFICES } from "./types.ts";
 import { T } from "./tuning.ts";
 import { on } from "./switches.ts";
+import { chapter, feudInherit, feudOn, feudOf, feudSurvive } from "./feud.ts";
 import { ISLAND_IMPL } from "./island-actions.ts";
 import { bloc } from "./island.ts";
 
@@ -150,6 +151,7 @@ export const IMPL: Record<string, Impl> = {
       const p = s.people[a.target!];
       setOffice(s, o, p.id, "you granted it");
       event(s, PLAYER, `You grant ${officeName(o)} to ${p.name}.`, "Grant an office");
+      if (feudOf(p)) chapter(s, p, "settlement", `you gave him ${officeName(o)}`);
       opinion(s, p.id, 2, `you gave him ${officeName(o)}`);
       for (const r of s.requests.filter((r) => r.kind === "office" && r.office === o && r.from !== p.id)) refuse(s, r.id, true);
       resolveRequests(s, (r) => r.from === p.id && r.kind === "office");
@@ -263,6 +265,7 @@ export const IMPL: Record<string, Impl> = {
     run: (s, a) => {
       const p = s.people[a.target!];
       event(s, PLAYER, `You pardon ${p.name}.`, "Pardon");
+      if (feudOf(p)) chapter(s, p, "settlement", "you pardoned him");
       clearGrudge(s, p.id, "your pardon");
       if (p.status === "held") setStatus(s, p.id, "free", "pardoned");
       const pl = plotOf(s, p.id);
@@ -299,8 +302,9 @@ export const IMPL: Record<string, Impl> = {
       } else {
         event(s, p.id, `${capital(p.name)} slips through your guards and flees the city.`, "Imprison failed");
         setStatus(s, p.id, "outside", "he fled");
-        if (p.rival) rankChange(s, p.id, 1, "he escaped you");
+        if (p.rival && !feudOn(s)) rankChange(s, p.id, 1, "he escaped you");
         makeRival(s, p.id, "Hunted", "you tried to take him and he escaped");
+        feudSurvive(s, p.id, "slipped through your guards", "the Escaped");
       }
     },
   },
@@ -317,7 +321,11 @@ export const IMPL: Record<string, Impl> = {
       const kin = p.kin.map((k) => s.people[k]).filter((k) => k && alive(k));
       for (const k of kin) { grudge(s, k.id, `you executed his kin ${p.name}`); opinion(s, k.id, -2, `you executed ${p.name}`); }
       const nearest = kin[0];
-      if (nearest) {
+      if (feudOn(s)) {
+        // Switch "feud": the record closes and passes to the nearest kin, always, and the game says so.
+        feudInherit(s, p, nearest);
+        if (nearest) makeRival(s, nearest.id, "Bereaved", `you executed ${p.name}, and the feud passes to him`);
+      } else if (nearest) {
         if (wasRival) {
           makeRival(s, nearest.id, "Bereaved", `you executed ${p.name}, and the feud passes to him`);
           if (nearest.rival) nearest.rival.rank = Math.max(1, wasRival.rank - 1);

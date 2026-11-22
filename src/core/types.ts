@@ -51,7 +51,12 @@ export interface Person {
   enters: number; // season they enter the story (0 = from the start)
   asks?: Record<string, { stage: number; last: number }>; // switch "escalation": how far each petition has gone
   pastRivalries?: number; // switch "escalation": times he was your rival before
+  feud?: Feud; // switch "feud": his one record with you, never deleted
 }
+
+// Switch "feud" (design council V6): one dated record per person with you.
+export interface Chapter { season: number; kind: string; text: string }
+export interface Feud { chapters: Chapter[]; counted: string[]; survived: number; pausedRank?: number; title?: string; closed?: boolean; wasNemesis?: boolean }
 
 // A political rival wants your place, not your death (rules v2, Jacob's change of 2026-11-22).
 export interface Political { type: string; rank: number; since: number; outSeasons: number }
@@ -150,6 +155,7 @@ export interface Army {
   side: "syracuse" | "carthage";
   at: string; // a node id from data/island.json
   men: number; // strength points (about 5,000 men each)
+  beaten?: number; // the season it last lost a battle (switch "armiesBreak")
   food: number; // seasons of food carried
   commander: string;
   guard: number; // points that are your mercenary guard (they don't defend you at home while away)
@@ -177,7 +183,7 @@ export interface CarthageState {
   offer: number; // season it last offered peace (-1 never)
   revolt: boolean;
 }
-export interface IslandState { cities: Record<string, CityState>; armies: Army[]; war: boolean; warSince: number; carthage: CarthageState }
+export interface IslandState { cities: Record<string, CityState>; armies: Army[]; war: boolean; warSince: number; carthage: CarthageState; sacks?: string[] } // sacks: the cities you sacked, in order
 
 export interface GameState {
   version: 1;

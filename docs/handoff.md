@@ -22,7 +22,10 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - Report: `docs/playtests/2026-11-22-switches.md` (500 seeds × 4 players × 7 switch sets × 2 packages).
 - **Works with the island scenario too** (merged after Phase 2 slice 1): all five switches on, Reap what you sow, 100 island games each for the simple, careful, patron and iron-hand players: 0 crashes, 0 broken states; the careful player survives 90, the patron 94. The sweep tables in the report are for the citadel scenario only.
 
+- **Sixth switch, One feud record** (council V6; `src/core/feud.ts`, hooks in `ops.ts`, `actions.ts`, `season.ts`, `ai.ts`): one record per person, settlements that pause, rank from surviving you, the feud passed to kin on execution, political rivals that stay until a turning point. Character sheets show "Feud with you"; the story chronicle titles people ("the Returned"). `npm run sim -- --switch-sweep --sets none,feud,escalation+feud` compares sets. Report: `docs/playtests/2026-11-22-feud.md`.
+
 ## Questions from the rule-switches thread
+- One feud record: political rivals now stay until something decisive happens, and they hold the cap of two. Is that a slow squeeze you like, or should the cap rise when the switch is on?
 - Which switches should be on for your next playtest? The report suggests People escalate and Warnings are clues; then A Pretender needs a coalition; Blows can miss with Standard balance.
 - Blows can miss: is a wound (one lost action) enough of a cost? Should the wounded ruler also lose defense for a season?
 - Coalition: is "Angry or worse" the right bar for a second faction, or should Uneasy count? (With Uneasy, the rich families qualify from the first season and the switch did almost nothing.)
@@ -56,6 +59,20 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **One dice stream per system** from the seed: decide before the engine refactor or not at all; it changes CLAUDE.md's "one seeded RNG". (V11)
 - **Ideas ranked by the council:** "mark this moment" button and a story sweep (tied first), an ambition chosen at the start, dice streams, playing on as an exile, disputed numbers. Parked in `later.md`.
 - **Carthage's blocs:** keep the Elders and the Hundred as tagged invention from later sources, or use the council's general, council mood and two rival houses? (V7)
+
+## Built by the Phase 2 thread (10, 2026-11-22): the island, slice 2 (towns that change sides)
+- **Towns go over to a great army** (`goOverMods` and `goingOver` in `src/core/island.ts`): each season, a free or tribute town within 6 days of your army, or (in war) a free town, ally or town you took near Carthage's army, rolls d6 plus its lean, fear, "awed by the size" (6+ points), "the strongest on the island", minus 2 if the other army is near and 1 for strong walls; 7 or more and it goes over. Carthage's own towns never do (14.48.1). The roll and every modifier are in the log; the city table shows "may go over to you (2 in 6 next season)".
+- **Fear after a sack** (`surrenderMods`): when your army reaches a town that fears you, it rolls to open its gates before a siege, naming the last town you sacked ("they remember the sack of Catana"). Fear fades a step each summer.
+- **Switch "Beaten armies can break"** (`data/switches.json`, off): a beaten army with no food, or beaten twice within a year, scatters. With it on (careful bot, 100 seeds) Carthage loses 0.25 armies a game, 0.21 of them broken; without it, 0.
+- **The bots** no longer march into Carthage's army unless their battle numbers are better by 1; the iron hand sacks Carthage's towns and towns that lean against it.
+- The old war rule (every town leaning against you went over at once when Carthage's army outnumbered yours) is gone.
+- `tests/island.test.ts`: five new tests (going over, fear surrender, fear fading, the switch, replay with the switch).
+- Checks: 57 of 57 tests pass. Citadel 100 seeds unchanged (10.8 seasons; killed 27, deposed 41, exiled 32; tyrannies 13). Island, 100 seeds for each of the five players: 0 crashes, 0 broken states. Careful bot: wars 0.86, battles 0.33 (won 0.06, lost 0.22), cities taken 1.31, towns going over to you 0.72, to Carthage 0.14.
+
+## Broke or odd after slice 2 (found, not tuned)
+- **The fear rule never fires in the sweeps.** Only the iron hand sacks, and it rarely lives past season 9. It works in its unit test. Your playtest is the real test.
+- **Battles fell from about 1 a game to 0.33** now the bot avoids bad fights; when Carthage attacks it still wins most (it is usually larger). Most of the careful bot's gains now come from towns going over (0.72 a game), not fighting.
+- **Carthage still never loses an army with the switch off.**
 
 ## Built by the Phase 2 thread (10, 2026-11-22): the island, slice 1
 

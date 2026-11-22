@@ -106,6 +106,13 @@ export function sheet(s: GameState, id: string) {
   } else if (!me && s.waiting.includes(id)) {
     rivalry = `<section><h3>Rivalry</h3><p class="small warn">Would be your enemy, and waits for a place among your rivals.</p></section>`;
   }
+  // Switch "One feud record": his whole record with you, oldest first, never wiped.
+  const fr = p.feud;
+  if (fr && fr.chapters.length) {
+    const paused = !p.rival && fr.pausedRank && !fr.closed ? `<p class="small">Paused at rank ${fr.pausedRank}. A new wrong brings it back there.</p>` : "";
+    rivalry += `<section><h3>Feud with you${fr.title ? `: ${esc(p.name.charAt(0).toUpperCase() + p.name.slice(1))} ${esc(fr.title)}` : ""}</h3>${paused}
+      <ul class="small">${fr.chapters.map((c) => `<li>${esc(seasonName(c.season))}: ${linkNames(c.text)}</li>`).join("")}</ul></section>`;
+  }
 
   // What you know of his secrets.
   const secrets = me ? "" : `<section><h3>What you know</h3><p class="small">${secret

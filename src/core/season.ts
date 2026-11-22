@@ -17,6 +17,7 @@ import { botAnswer, chooseEvent, drawEvents, settleEvents } from "./events.ts";
 import { T } from "./tuning.ts";
 import { on, switchById } from "./switches.ts";
 import { clueWarning } from "./clues.ts";
+import { feudOn, feudSurvive } from "./feud.ts";
 import { botById, botRandom, playSeason } from "./bots.ts";
 
 // ---------- World ----------
@@ -236,6 +237,7 @@ function strike(s: GameState, pl: Plot) {
   for (const f of pl.backers) { powerChange(s, f, -2, "its plot was exposed"); s.factions[f].backing = undefined; }
   const hadRank = leader.rival?.rank;
   makeRival(s, pl.leader, "Survivor", "his plot failed and he lived");
+  feudSurvive(s, pl.leader, "lived through his own failed blow", "the Survivor");
   // A balance knob (0 in standard): a leader who survives his failed blow comes back stronger.
   if (T(s).rankOnFailedPlot && hadRank !== undefined) rankChange(s, pl.leader, T(s).rankOnFailedPlot, "he survived his own failed blow, and learned from it");
   for (const m of pl.members) if (s.people[m].status === "held" && s.people[m].rival) rankChange(s, m, -1, "his plot was exposed while he was held");
@@ -264,6 +266,7 @@ function partialBlow(s: GameState, pl: Plot, margin: number): boolean {
     for (const o of officesOf(s, pl.leader)) setOffice(s, o, PLAYER, `${leader.name} fled the city`);
     if (leader.status === "free") setStatus(s, pl.leader, "outside", "he fled after his blow failed to kill");
     makeRival(s, pl.leader, "Survivor", "his blow wounded you, and he got away");
+    feudSurvive(s, pl.leader, "struck at you and got away", "the Bold");
   } else {
     s.counters.blowsSeized = (s.counters.blowsSeized ?? 0) + 1;
     const o = takeable[0];
@@ -273,7 +276,8 @@ function partialBlow(s: GameState, pl: Plot, margin: number): boolean {
     leader.exposed = true;
     backersHit(-1);
     makeRival(s, pl.leader, "Survivor", `he struck at you and took ${officeName(o)}`);
-    rankChange(s, pl.leader, 1, `he struck at you and took ${officeName(o)}`);
+    if (feudOn(s)) feudSurvive(s, pl.leader, `struck at you and took ${officeName(o)}`, "the Usurper");
+    else rankChange(s, pl.leader, 1, `he struck at you and took ${officeName(o)}`);
   }
   s.plots = s.plots.filter((p) => p !== pl);
   s.flags.plotBroken = s.season;

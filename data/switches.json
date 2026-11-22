@@ -39,6 +39,20 @@
       "name": "Chronicle as story",
       "summary": "The chronicle follows people instead of listing events: each season is told by who it was about, with what led to it, and at the end each person's thread through the decade is gathered into a short life. No rules change.",
       "research": "docs/game-research.md, proposal 2"
+    },
+    {
+      "id": "feud",
+      "kind": "invention",
+      "name": "One feud record",
+      "summary": "Each person keeps one record with you that is never wiped. A pardon, a gift or an office pauses a feud; it does not end it, and a new wrong brings it back at its old rank. The same grievance can't start a feud twice. Enemies rise by surviving you: escaping your guards, living through their own failed blow, coming home from exile. Survive you twice and he is your Nemesis. Execute a man and his nearest kin takes up the feud. A political rival stays one until something decisive happens.",
+      "research": "docs/council/2026-11-22-design-council.md, verdict V6"
+    },
+    {
+      "id": "armiesBreak",
+      "kind": "invention",
+      "name": "Beaten armies can break",
+      "summary": "Island game only. An army beaten in battle with no food left, or beaten for the second time within a year, scatters instead of falling back. Before, a beaten army always fell back to a friendly town, so Carthage almost never lost an army.",
+      "research": "docs/handoff.md, \"Broke or odd in the island\""
     }
   ]
 }

@@ -16,7 +16,7 @@ export type { SwitchDef } from "./switches.ts";
 // The island scenario (Phase 2).
 export {
   NODES, ROUTES, ISLAND, CARTHAGE, nodeDef, nodeName, sideName, cityWalls, cityMen, cityGrain, yourArmy, carthageArmy, armyName,
-  menWords, carthagePersonName, path, reachable,
+  menWords, carthagePersonName, path, reachable, goOverMods, surrenderMods,
 } from "./island.ts";
 export { carthageAgenda, goalDef, blocDef, actDef, prefers, moodWord } from "./carthage.ts";
 export { inScenario } from "./actions.ts";
