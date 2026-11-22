@@ -2,6 +2,11 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Built by the art thread, second round (2026-11-22)
+- **Diodorus' years** in the chronicle and on each autumn's season card (`data/calendar.json`, `docs/research/calendar.md`).
+- **Sound** (`ui/sound.ts`), off until you click the lyre in the masthead.
+- Questions: is the sound worth keeping, too loud or too quiet? Should the drone start at Rumors or only at Named?
+
 ## Built by the art thread (2026-11-22)
 - **Art direction** in `docs/art-direction.md`: the catalogue look, four materials, colours, type, icons, event pictures, motion, words, and a section for the island map.
 - **Icons** (`ui/icons.ts`): 25 black-figure silhouettes for factions (sword, hearth, horse, grain, helmet; Carthage a palm), offices, action areas and stores. Used in the ledger, offices, factions, action menu, who is who, court and character sheets.

@@ -34,9 +34,10 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Phase 2?] A switch that raises the army's pay after each victory, to brake a winning ruler (design council, Systems seat; compare Diodorus 14.78.2).
 - [Phase 1 or later] Painted figure scenes for events (people in red-figure, not only emblems), once the emblems have been judged in play. Art thread, 2026-11-22.
 - [Phase 1 or later] Sound: a lyre phrase for a new season, a low drone when a plot is named. Out of this pass by the art direction. Art thread, 2026-11-22.
-- [Phase 1?] Date the chronicle's years the way Diodorus does (Olympiad and Athenian archon), e.g. "the Ninety-fourth Olympiad was celebrated" (Diodorus 14.3.1). Needs care: Diodorus' years don't line up neatly with the game's. Art thread, 2026-11-22.
+- Done (art thread, second round): the chronicle names each year as Diodorus does, from `data/calendar.json`.
 - [Phase 1?] Fix "1 offices" in the ledger's influence line (plural with one office). Seen by the art thread, 2026-11-22; not fixed, it's outside the art pass.
 - [Source to save] Diodorus 14.77.1 to 14.77.3, the Libyan revolt after 396. Not among the saved texts (book14.loeb.txt jumps from 14.76 to 14.77.4). The island's Libyan revolt rule is invention until it is saved. Jacob, could you paste or save it? Parked by the Phase 2 thread, 2026-11-22.
 - [Phase 2?] The design council's "commission" (`docs/council/2026-11-22-design-council.md`): you or a named man lead the army with a purpose, the general by default; if you go, you name a keeper of the citadel whose loyalty enters the sword check; homecoming is a logged step. Jacob to pick. Parked by the Phase 2 thread, 2026-11-22.
 - [Phase 2?] A `where` field on every person (court, field, exile, abroad) instead of reusing statuses, per the design council's engineering notes. Needed for the commission.
 - [Phase 2?] Character sheets for Carthage's men (Himilcon, Magon, Hanno, Bomilcar) like the Syracusans'.
+- [Source to save] Diodorus 14.19 to 14.40 (Loeb translation on Bill Thayer's LacusCurtius, https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/ , the Book 14 pages). The chronicle names each year by Diodorus' archon; the years 401, 400 and 399 show none because these chapters aren't saved. Jacob, could you save them? Art thread, 2026-11-22.
