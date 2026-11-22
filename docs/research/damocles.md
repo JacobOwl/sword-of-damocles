@@ -1,33 +1,26 @@
 # The sword of Damocles (Cicero, Tusculan Disputations 5.61 to 5.62)
 
-kind: history. Found by the source-search thread (15), 2026-11-22. Quotes in `sources/cicero/tusculan-5-61.excerpts.txt`.
+kind: history, with a disagreement. Found by the source-search thread (15), 2026-11-22. Quotes in `sources/cicero/tusculan-5-61.excerpts.txt`.
 
 ## What is saved
 
 The story in 5.61, in short exact quotes from Gavin Betts' translation on Livius.org (copyright, so quotes only): Damocles, "one of his flatterers", praises Dionysius' wealth and "denied that there had ever been anyone more fortunate"; Dionysius asks "do you wish to taste it yourself and make trial of my fortune?"; Damocles is set "on a golden couch covered with a most beautiful woven rug", with "chosen boys of outstanding beauty" at the table and "the most select foods"; then "a shining sword, fastened from the ceiling by a horse-hair" hangs over his neck; he no longer looks at the waiters or reaches for the table, "the very wreaths slipped off", and "he begged the tyrant that he should be allowed to depart because he no longer wanted to be fortunate."
 
-Cicero's moral after the story (5.62), in Latin: "Satisne videtur declarasse Dionysius nihil esse ei beatum, cui semper aliqui terror impendeat?" Wikipedia's translation: "Doesn't Dionysius seem to have made it plenty clear that nothing is happy for him over whom terror always looms?"
+Cicero's moral after the story (5.62) is only saved as Wikipedia's translation: "Doesn't Dionysius seem to have made it plenty clear that nothing is happy for him over whom terror always looms?"
 
-## Which Dionysius: settled, Dionysius I (the game's Dionysius)
+## Which Dionysius: the sources found disagree
 
-Cicero's own Latin, saved 2026-11-22 in `sources/cicero/tusculan-5-57-63.latin.txt`, settles it. The passage that leads into the story describes one man, and the story begins "hic quidem tyrannus", "this same tyrant":
+- **Livius.org (page editor's introduction, not Cicero):** "the tyrant Dionysius II of Syracuse".
+- **Wikipedia:** "a courtier in the court of Dionysius I of Syracuse".
+- Both say the story probably came from Timaeus of Tauromenium (Livius: "the History of Timaeus of Tauromenium"; Wikipedia: "apparently figured in the lost history of Sicily by Timaeus").
+- **What would settle it:** Cicero's own text a few sections earlier (5.57 to 5.60), where he introduces the tyrant he is talking about. **Not saved** (see below). From memory, 5.57 describes Dionysius I (his age when he seized power and the length of his reign), which would make Damocles a courtier of the game's Dionysius. That is **unverified**; do not build on it until 5.57 is saved and quoted.
 
-- 5.57: "Duodequadraginta annos tyrannus Syracusanorum fuit Dionysius, cum quinque et viginti natus annos dominatum occupavisset." (Plain rendering, mine: Dionysius was tyrant of the Syracusans for 38 years, having seized power at 25.) Thirty-eight years fits Dionysius I (405 to 367).
-- 5.59: "Cumque duas uxores haberet, Aristomachen civem suam, Doridem autem Locrensem" (he had two wives, Aristomache, a Syracusan, and Doris of Locri). These are Dionysius I's two wives, both in the game's cast.
-- 5.61: "Quamquam hic quidem tyrannus ipse iudicavit, quam esset beatus." ... "Nam cum quidam ex eius adsentatoribus, Damocles" (this tyrant himself judged how happy he was: for when one of his flatterers, Damocles...).
+## Not reached (logged in `docs/later.md`)
 
-So Livius.org's "Dionysius II" does not match Cicero; Cicero means the father. What Cicero does not say is when: the story has no year, so placing it in 405 to 395 is the game's choice (invention).
+The public-domain Yonge translation (1877; Project Gutenberg ebook 14988, Standard Ebooks) and the Latin text. The cloud reader was refused by Gutenberg and Standard Ebooks, the archive.org scan stops in Book II, and the Latin Library was refused earlier.
 
-Cicero also says his sources disagree about the tyrant's birth (5.58, "etsi id quidem alius alio modo tradidit") and that he takes his picture of Dionysius "a bonis auctoribus" (from good authors, 5.57), without naming them. That the story came from Timaeus is Livius' and Wikipedia's claim, not Cicero's.
+## A sword on a horse-hair: the game's event
 
-## The game's event
+`damoclesBanquet` in `data/events.json` (added 2026-11-22, events thread). It quotes 5.61 and both modern attributions, and the event's source line in the game says which Dionysius is disputed. Damocles is not in the cast, so a friendly courtier takes his part. Everything mechanical is invention.
 
-"A sword on a horse-hair" (`data/events.json`) now quotes the Latin of 5.57, 5.59 and 5.61 for who the tyrant is, and keeps Livius.org's Dionysius II reading as a disagreement. Cicero gives no year, so when the banquet happens is invention.
-
-## The other court stories in the same passage (5.58 to 5.60, 5.63)
-
-All in the Latin file, for the events thread if wanted: he taught his daughters to shave him rather than trust a barber, then took the blades away and had them singe his beard with hot walnut shells (5.58); he trusted his body to foreigners and wild barbarians (5.58); he visited his wives at night only after a search, and slept behind a broad trench crossed by a little wooden bridge that he drew up himself (5.59); he spoke to the people from a high tower (5.59); he had a friend and a young man killed over a joke about handing his sword to the boy during a ball game (5.60); and he asked the two Pythagoreans, one the pledge for the other's life, to take him as a third friend (5.63).
-
-## Not reached
-
-Yonge's public-domain English (Gutenberg ebook 14988): every copy the cloud reader reached stops in Book I or II. The Latin settles the question; English for players can use the Betts quotes or a fresh plain rendering marked as such.
+**Review when 5.57 is saved.** If Cicero means Dionysius I, mark the disagreement settled here and in the event's facts. If he means Dionysius II, the event is a what-if for this ruler: say so in its text, or move it to a later phase.
