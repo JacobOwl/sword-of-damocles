@@ -3,7 +3,7 @@
 A single-player political simulation and story generator set in Syracuse, 480 to 264 BC. You play a person, not a state; every campaign writes a history.
 Private hobby project for Jacob. He makes the design calls and playtests; Claude writes the code.
 
-**Current phase: 1, "The Citadel"** (Syracuse only, 405 to 395 BC). What is in and out is in `docs/scope.md`. Nothing outside it gets built.
+**Current phase: 2, "The Island"** (Syracuse and the island, 405 to 395 BC; Phase 1, "The Citadel", is its foundation and stays playable as a scenario). What is in and out is in `docs/scope.md`. Nothing outside it gets built.
 
 ## Start and end of every session
 
@@ -36,7 +36,7 @@ Don't tune the simulation to match real historical rates. Count, look for broken
 - `docs/scope.md` lists what is in the current phase and what is cut. A phase has to be playable before the next starts. One active build at a time.
 - Any new idea, even a good one ("while I'm here..."), goes to `docs/later.md`, not into the build. Tell Jacob it was parked.
 - If Jacob asks for something outside the phase, say so and offer to park it or to change `scope.md` explicitly.
-- The test that matters for Phase 1: do ten seasons produce a story you would retell? If not, fix that before adding features.
+- The test that matters for Phase 2: do ten seasons produce a story you would retell? If not, fix that before adding features.
 
 ## History and invention
 
