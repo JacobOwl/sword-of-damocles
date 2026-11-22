@@ -80,3 +80,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Recommendation, not a decision:** playtest Reap what you sow first. Jacob decides.
 - **Not tuned to history.** Targets were about play: careless should lose, careful should usually but not always win, each style should have its own typical ending, and a blow should come after warnings.
 
+## 2026-11-22 (placeholder portraits)
+
+- **Mosaic portraits are in Phase 1 as placeholders** (Jacob, on a decision card). `scope.md` now lists them as In; real coin photographs stay parked for Phase 4. Why: faces on the character sheets and court cards make plots and rivals easier to follow in playtests, and the change is UI only.
+- **The art is made in Jacob's mosaic editor, expanded for the game** (`tools/mosaic-editor.html`, also at https://claude.ai/artifact/Pcu7iE69Dyhk1q2876QFPC). It draws a bust in profile from choices (sex, age, hair, beard, headwear, faction colours) and lays it in tiles. Every look is invention, and the looks file says so; no source describes these faces.
+- **One 192 px WebP per person**, tile size 7, transparent outside the coin, in `ui/art/portraits/<person id>.webp`, about 20 KB each. The build inlines them, so the game stays one file. Why: the largest slot is 92 px, and 192 covers it at double density; tile size 7 is the smallest that still reads as tiles at 46 px.
+- **Faction colours on the coins are invention:** the ruler and his family on blood red, the rich families on deep sea blue, the citizens on olive, the guard on teal. Jacob's to change.
+

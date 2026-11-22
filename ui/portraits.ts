@@ -1,12 +1,12 @@
 // Portrait slots. Every person is drawn through portrait(), so real art can drop in later without touching the screens.
 //
-// To add a portrait: put an entry in PORTRAITS, keyed by the person's id in data/people.json, whose value is an image
-// URL or a data: URL (a mosaic from the art editor, or a coin photo). Until then each person gets a placeholder:
-// a tessera pattern in their faction's colour with their initial.
+// The pictures are ui/art/portraits/<person id>.webp, placeholder mosaics made in tools/mosaic-editor.html (their looks are
+// invention). scripts/build-ui.ts inlines them into the page as window.__PORTRAITS. A person with no picture (and every
+// person in the headless tests) gets the fallback: a tessera pattern in their faction's colour with their initial.
 import { PLAYER } from "../src/core/index.ts";
 import { esc, ui } from "./text.ts";
 
-export const PORTRAITS: Record<string, string> = {};
+export const PORTRAITS: Record<string, string> = (globalThis as { __PORTRAITS?: Record<string, string> }).__PORTRAITS ?? {};
 
 const FACTION_TINT: Record<string, string> = { citizens: "#4f6b3a", rich: "#7a5424", guard: "#6d2a22", family: "#5b2a63", ruler: "#2b1d12" };
 
