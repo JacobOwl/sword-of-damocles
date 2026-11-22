@@ -51,7 +51,12 @@ export interface Person {
   enters: number; // season they enter the story (0 = from the start)
   asks?: Record<string, { stage: number; last: number }>; // switch "escalation": how far each petition has gone
   pastRivalries?: number; // switch "escalation": times he was your rival before
+  feud?: Feud; // switch "feud": his one record with you, never deleted
 }
+
+// Switch "feud" (design council V6): one dated record per person with you.
+export interface Chapter { season: number; kind: string; text: string }
+export interface Feud { chapters: Chapter[]; counted: string[]; survived: number; pausedRank?: number; title?: string; closed?: boolean; wasNemesis?: boolean }
 
 // A political rival wants your place, not your death (rules v2, Jacob's change of 2026-11-22).
 export interface Political { type: string; rank: number; since: number; outSeasons: number }

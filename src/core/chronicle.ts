@@ -3,6 +3,7 @@
 import { seasonName } from "./state.ts";
 import { log } from "./ops.ts";
 import { on } from "./switches.ts";
+import { titledName } from "./feud.ts";
 import type { GameState, LogEntry } from "./types.ts";
 
 const SKIP = /^(Your watchers learn nothing|.* keeps his head down|.* does nothing this season)/;
@@ -122,7 +123,7 @@ export function storyBook(s: GameState): StoryBook {
     const p = s.people[id];
     const nm = p.name.charAt(0).toUpperCase() + p.name.slice(1);
     const fate = { dead: `${nm} is dead.`, outside: `${nm} ends outside the walls.`, held: `${nm} ends in your prison.` }[p.status as string] ?? "";
-    return { id, name: p.name, n: beats.length, text: `${beats.join(" ")}${fate ? ` ${fate}` : ""}` };
+    return { id, name: titledName(p), n: beats.length, text: `${beats.join(" ")}${fate ? ` ${fate}` : ""}` };
   }).sort((a, b) => b.n - a.n).map(({ id, name, text }) => ({ id, name, text }));
   let ending: string | undefined;
   if (s.over) {

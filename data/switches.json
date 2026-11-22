@@ -41,6 +41,13 @@
       "research": "docs/game-research.md, proposal 2"
     },
     {
+      "id": "feud",
+      "kind": "invention",
+      "name": "One feud record",
+      "summary": "Each person keeps one record with you that is never wiped. A pardon, a gift or an office pauses a feud; it does not end it, and a new wrong brings it back at its old rank. The same grievance can't start a feud twice. Enemies rise by surviving you: escaping your guards, living through their own failed blow, coming home from exile. Survive you twice and he is your Nemesis. Execute a man and his nearest kin takes up the feud. A political rival stays one until something decisive happens.",
+      "research": "docs/council/2026-11-22-design-council.md, verdict V6"
+    },
+    {
       "id": "armiesBreak",
       "kind": "invention",
       "name": "Beaten armies can break",
