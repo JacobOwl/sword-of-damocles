@@ -191,3 +191,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Only quotes, not whole texts.** The cloud's network is closed except GitHub, and the web reader returns short passages. Enough for the three gaps; whole chapters wait for Jacob if ever needed.
 - **Which Dionysius Damocles served stays open.** Livius.org says Dionysius II, Wikipedia says Dionysius I; Cicero's own 5.57 would settle it and is not saved.
 - **No game data changed.** The calendar (thread 12), events (thread 06) and names (thread 13) stay with their threads.
+
+## 2026-11-22 (Punic women's names in the generated cast, thread 13)
+- **Nine Carthaginian and Phoenician women's names join `data/names.json`**, from the source-search thread's card (`docs/research/punic-womens-names.md`). The game writes the scholars' forms plainly (Am-'ashtart as Amashtart, and so on); those spellings are invention and the records keep the scholars' form. Why: until now the saved texts gave no Carthaginian woman's name, so 60% of Carthaginian women were unnamed and the rest all Amoashtart.
+- **Unnamed Carthaginian women drop from 60% to 35%** (`naming.unnamedWomen.punic`). Invention, Jacob's to change.
