@@ -56,3 +56,19 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Disagreements are shown, not settled:** the first wife's death (Diodorus or Plutarch), the sister's husband (Polyxenus or Hermocrates), and whether Aretes is Aristus.
 - **Invented people are in Phase 1** (Jacob, 2026-11-22). Real people are preferred, but the game will need many invented ones, as in CK3. Each person keeps its `history` or `invention` tag, and later the UI shows a small note such as "real person". `scope.md` moved "invented people" from Out to In. Consequences: the invented guard captain and the brother of Demarchus stay, and the citizens get an invented spokesman, Damon the smith, since the sources name only Nicoteles.
 - **The guard is led by Aristotle the Spartan**, attested as its commander in about 396; the invented captain serves under him.
+
+## 2026-11-22 (research on political games)
+
+- **Wrote `docs/game-research.md`**, a ranked, report-only list of what to borrow from other political and story games, what to avoid and what v2 is missing. Why: Jacob asked for substantial work while away, and the coordinator asked for this research. Nothing is decided; Jacob picks.
+- **Every claim about another game is marked** as opened this session (with the link) or as general knowledge. Why: confident errors are the worst failure.
+- **The nemesis patent note stands as before** (a private hobby game is unaffected). The note adds that "waiting in the wings" is the part of v2 closest to the patent's described behaviour, in case the game is ever published.
+
+## 2026-11-22 (interface polish, thread 07)
+
+- **Every name opens a character sheet, and the court is its own view.** Why: Jacob wants CK3-style characters whose opinions, rivalries and ties are visible, and the old list hid most of that.
+- **The player now sees what shifted and why** (opinion, mood, power, offices, stores), from the same log. Before, these lines showed only in the designer view. Why: a death must never feel random, and the reasons were already logged.
+- **The chronicle is rendered from the visible log in the UI**, not by changing the engine's chronicle. It drops dice and turns agenda steps into deeds. Why: other threads are changing the engine; UI and rules stay separate. Grouping by storyline (research note, proposal 2) is not done.
+- **Real people carry a small "real person" marker; invented people "invented".** From the cast's `kind` field. Per the decision that real people get a marker.
+- **Portraits go through one map, `ui/portraits.ts`.** Placeholders until the mosaic editor or coin photos supply art.
+- No rules, data or balance changed. The 100-seed counts are the same as before.
+
