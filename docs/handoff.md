@@ -2,6 +2,35 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Built by the art thread (2026-11-22)
+- **Art direction** in `docs/art-direction.md`: the catalogue look, four materials, colours, type, icons, event pictures, motion, words, and a section for the island map.
+- **Icons** (`ui/icons.ts`): 25 black-figure silhouettes for factions (sword, hearth, horse, grain, helmet; Carthage a palm), offices, action areas and stores. Used in the ledger, offices, factions, action menu, who is who, court and character sheets.
+- **Event pictures** (`ui/vignettes.ts`): 22 red-figure cup tondi; each event names one with `art` in `data/events.json`.
+- **Title page** (`ui/title.ts`): a painted panel of an empty couch under the sword, the title in inscription capitals, Heloris' saying, a coin tray of the cast. The start options keep their ids; thread 10 will add a scenario choice inside `.begin-options`.
+- **Season cards and the sword overhead** (`ui/ambient.ts`): a card with the new season and one line of flavour from `data/flavor.json` (click, key or 3.6 seconds); a sword in the masthead that sways more as the worst known plot advances.
+- **Ending as a stele, chronicle as a book** (opening line, drop capitals, colophon), meander rules, parchment specks, silver-coin action slots, page-turn motion. All motion stops under reduced motion.
+- `tests/look.test.ts`: pictures and icons exist for every event, faction, office and area; flavour covers every season and condition; the flavour and the sword never change the state.
+- Rules untouched. 100 seeds: 0 crashes, 0 broken states; killed 27, deposed 41, exiled 32; tyrannies 13 (same as before).
+
+## Questions from the art thread
+- Does the look land? Title page, season cards, event pictures: keep, tone down or change?
+- Season cards appear at every season change. Too much? (A switch to turn them off is cheap.)
+- The sword overhead: readable as a danger gauge, or too subtle?
+- Faction emblems: horse for the rich families (their cavalry), grain for the citizens, helmet for the guard, hearth for the family, palm for Carthage. Any you'd change?
+
+## Built by the design council (thread 11, 2026-11-22)
+- Docs only: `docs/council/2026-11-22-design-council.md` (eleven verdicts with positions, votes and dissents) and the full statements in `docs/council/2026-11-22/`. No code, data or rules changed, so the 100-seed counts are untouched.
+- Verdicts that touch thread 09 (feud record, clue warnings and partial success in a first-test preset, story counts) and thread 10 (the engine refactor first, commissions, one food counter, Carthage's sourced skeleton, history as conditions) were sent to those threads.
+
+## Questions from the design council (Jacob's to decide)
+- ~~Size of the first island test~~: decided by Jacob, 2026-11-22: keep the current plan (8 cities and Aetna, routes, foraging).
+- **The hinge:** a commission (one of your three actions sends a named man, or you, with men and a purpose; the general commands by default, anyone else costs standing). The plan says only the general gives orders. (V2)
+- **Replace "drift toward 5"** with power that people carry, as a switch first? (V4)
+- **A named "First island test" preset** (island, Reap what you sow, clue warnings and partial success on), and a pause after year 4? (V1, V5)
+- **One dice stream per system** from the seed: decide before the engine refactor or not at all; it changes CLAUDE.md's "one seeded RNG". (V11)
+- **Ideas ranked by the council:** "mark this moment" button and a story sweep (tied first), an ambition chosen at the start, dice streams, playing on as an exile, disputed numbers. Parked in `later.md`.
+- **Carthage's blocs:** keep the Elders and the Hundred as tagged invention from later sources, or use the council's general, council mood and two rival houses? (V7)
+
 ## Built by the portrait thread (2026-11-22)
 - **Placeholder portraits for all 24 people** in `ui/art/portraits/<person id>.webp`: mosaic coins, 192 px, about 20 KB each. `scripts/build-ui.ts` inlines them as `window.__PORTRAITS`; `ui/portraits.ts` reads that map and keeps the initial-in-a-circle fallback (which the headless tests still use). The dead still show greyed out.
 - **The mosaic editor** in `tools/mosaic-editor.html` (Jacob's Carthage Mosaic Editor plus a Portrait mode, a cast sheet and zip export). To change a face: open the editor, Save, Open saved settings, load `ui/art/portrait-looks.json`, change the person, then on The cast set Tiles to size 7, tick Transparent outside the coin, choose 192 px and WebP, Save all as a zip, and copy the files over `ui/art/portraits/` (drop the `-192` from the names). Save the looks file back too. The build inputs for the editor are in the project files under `mosaic-editor/`.

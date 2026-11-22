@@ -8,7 +8,8 @@ import { esc, ui } from "./text.ts";
 
 export const PORTRAITS: Record<string, string> = (globalThis as { __PORTRAITS?: Record<string, string> }).__PORTRAITS ?? {};
 
-const FACTION_TINT: Record<string, string> = { citizens: "#4f6b3a", rich: "#7a5424", guard: "#6d2a22", family: "#5b2a63", ruler: "#2b1d12" };
+// The same colours as the coin fields of the mosaic portraits (docs/art-direction.md).
+const FACTION_TINT: Record<string, string> = { citizens: "#5a5a28", rich: "#2a4a5a", guard: "#2f5e57", family: "#7a2e24", ruler: "#7a2e24" };
 
 export function initial(name: string) {
   // The first capitalised word ("the brother of Demarchus" gives D), else the first word.

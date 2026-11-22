@@ -6,6 +6,7 @@ import {
 import type { FactionId, GameState, Person } from "../src/core/index.ts";
 import { tipAttr } from "./help.ts";
 import { portrait } from "./portraits.ts";
+import { FACTION_ICON, icon } from "./icons.ts";
 import { esc, fieldWords, isReal, linkNames, opChip, opinionHistory, opinionWord, pr, record, sign, ui, who } from "./text.ts";
 
 const STATUS: Record<string, string> = { free: "In the city", held: "In your prison", outside: "Outside the walls", dead: "Dead", absent: "Not yet in the story" };
@@ -61,7 +62,7 @@ export function sheet(s: GameState, id: string) {
     <div>
       <h2 id="sheet-title">${esc(me ? "Dionysius (you)" : capital(p.name))}</h2>
       <div class="small"><i>${esc(p.role)}</i></div>
-      <div class="small">${marker(id)} · ${esc(factionName(s, p.faction))} · ${esc(statusWord(p))}${offs.length ? ` · holds <b>${esc(offs.map(officeShort).join(", "))}</b>` : ""}</div>
+      <div class="small">${marker(id)} · <span class="fmark f-${esc(p.faction)}">${icon(FACTION_ICON[p.faction] ?? "")}${esc(factionName(s, p.faction))}</span> · ${esc(statusWord(p))}${offs.length ? ` · holds <b>${esc(offs.map(officeShort).join(", "))}</b>` : ""}</div>
       <div class="small flags">${flags(s, p)}</div>
     </div>
     <button type="button" class="close" id="sheet-close" aria-label="Close">×</button>
@@ -164,14 +165,14 @@ export function court(s: GameState) {
     const ps = Object.values(s.people).filter((p) => !p.player && p.faction === f && alive(p))
       .sort((a, b) => (a.id === lead?.id ? -1 : b.id === lead?.id ? 1 : officesOf(s, b.id).length - officesOf(s, a.id).length));
     return `<section class="court-faction">
-      <div class="fhead"><h2>${esc(fa.name)}</h2><span class="small"><span class="num">${pow}</span> <span class="band ${band(pow)}" ${tipAttr("power")}>${band(pow)}</span> · <span class="mood mood-${fa.mood}" ${tipAttr("mood")}>${moodName(fa.mood)}</span></span></div>
+      <div class="fhead"><h2><span class="f-${f}">${icon(FACTION_ICON[f])}</span>${esc(fa.name)}</h2><span class="small"><span class="num">${pow}</span> <span class="band ${band(pow)}" ${tipAttr("power")}>${band(pow)}</span> · <span class="mood mood-${fa.mood}" ${tipAttr("mood")}>${moodName(fa.mood)}</span></span></div>
       <div class="cards">${ps.map((p) => card(s, p, p.id === lead?.id)).join("")}</div>
     </section>`;
   }).join("");
   const you = s.people[PLAYER];
   return `<div class="court">
     <p class="small muted">Everyone who matters in Syracuse, by faction. Click a card to open the full sheet. The number is what they think of you.</p>
-    <section class="court-faction"><div class="fhead"><h2>You</h2></div><div class="cards">${card(s, you, false)}</div></section>
+    <section class="court-faction"><div class="fhead"><h2><span class="f-ruler">${icon("sword")}</span>You</h2></div><div class="cards">${card(s, you, false)}</div></section>
     ${sections}
     ${dead.length || later ? `<p class="small muted">${dead.length ? `The dead: ${dead.map((p) => who(p.id)).join(", ")}.` : ""}${later ? ` ${later} more will enter the story later.` : ""}</p>` : ""}
   </div>`;
