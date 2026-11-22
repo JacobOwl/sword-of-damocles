@@ -195,6 +195,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 ## 2026-11-22 (Punic women's names in the generated cast, thread 13)
 - **Nine Carthaginian and Phoenician women's names join `data/names.json`**, from the source-search thread's card (`docs/research/punic-womens-names.md`). The game writes the scholars' forms plainly (Am-'ashtart as Amashtart, and so on); those spellings are invention and the records keep the scholars' form. Why: until now the saved texts gave no Carthaginian woman's name, so 60% of Carthaginian women were unnamed and the rest all Amoashtart.
 - **Unnamed Carthaginian women drop from 60% to 35%** (`naming.unnamedWomen.punic`). Invention, Jacob's to change.
+
 ## 2026-11-22 (a proper web app, step 1: thread 17)
 - **The browser game stays TypeScript with no UI framework; Vite replaces the hand-written esbuild script next.** Why: screens are already plain functions tested headless, every thread can add to them, and Godot is the long-term home (Jacob), so the browser UI should stay cheap. Plan in `docs/architecture.md`.
 - **The engine's purity is now tested** (`tests/core-boundary.test.ts`) and **conformance replays can be exported** (`npm run replays`) for a later port. Why: Godot is the goal; a port is checked by replaying the same games.
