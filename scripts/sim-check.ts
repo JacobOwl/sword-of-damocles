@@ -29,6 +29,19 @@ export function brokenState(s: GameState): string[] {
     if (s.census) bad.push(...censusProblems(s.census, s.over?.season ?? s.season).map((x) => `census: ${x}`));
     if (s.island.cities.syracuse.side !== "syracuse" && s.over?.reason !== "fallen") bad.push("Syracuse changed hands but the game went on");
   }
+  // Switch "council": each seat holds one living man, no man holds two seats.
+  if (s.council) {
+    const held = Object.values(s.council.seats).filter((x): x is string => !!x);
+    if (new Set(held).size !== held.length) bad.push("one man in two council seats");
+    if (!s.over) for (const id of held) if (s.people[id] ? s.people[id].status === "dead" : !s.census?.people[id]?.alive) bad.push(`council seat held by the dead or missing ${id}`);
+  }
+  // Switch "secrets": every secret is about someone who exists, held only by people who exist, with sane rests.
+  if (s.secrets) for (const x of s.secrets.list) {
+    if (!(x.census ? s.census?.people[x.about] : s.people[x.about])) bad.push(`secret about missing ${x.about}`);
+    for (const k of x.known) if (!s.people[k]) bad.push(`secret held by missing ${k}`);
+    if (x.tpl !== "none" && !x.text) bad.push(`secret ${x.id} has no words`);
+  }
+  if (s.requests.some((r) => r.blackmail && !s.secrets?.list.some((x) => x.id === r.blackmail))) bad.push("blackmail with no secret");
   return bad;
 }
 

@@ -35,7 +35,9 @@ export function stableHash(seed: number, key: string): number {
 }
 
 function fill(t: string, args: Record<string, string>, s: GameState) {
-  return t.replace(/\{(\w+)\}/g, (_m, k) => (k in args ? (s.people[args[k]] ? s.people[args[k]].name : args[k]) : k));
+  const nm = (k: string) => (s.people[args[k]] ? s.people[args[k]].name : args[k]);
+  return t.replace(/\{(\w+)\}'s/g, (_m, k) => (k in args ? (nm(k).endsWith("s") ? `${nm(k)}'` : `${nm(k)}'s`) : k))
+    .replace(/\{(\w+)\}/g, (_m, k) => (k in args ? nm(k) : k));
 }
 
 function add(s: GameState, tpl: Tpl, about: string, args: Record<string, string> = {}, known: string[] = [], census = false): Secret {
@@ -129,7 +131,7 @@ export function useHold(s: GameState, holder: string, over: string, why: string,
   if (holder === PLAYER) {
     s.counters.holdsUsed = (s.counters.holdsUsed ?? 0) + 1;
     if (!x.census) yourDeed(s, "blackmailed", { target: over }, [over]);
-    event(s, PLAYER, x.weight === 2 ? `You remind ${secretName(s, x)} that you know he ${x.text}. The hold rests for ${K.holdRest} seasons.` : `You use what you know: ${secretLine(s, x)}. That secret is spent.`, why);
+    event(s, PLAYER, x.weight === 2 ? `You let ${secretName(s, x)} know what you know: ${secretLine(s, x)}. The hold rests for ${K.holdRest} seasons.` : `You use what you know: ${secretLine(s, x)}. That secret is spent.`, why);
   }
   return x;
 }

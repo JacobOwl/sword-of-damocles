@@ -2,9 +2,9 @@
   "note": "Switch \"council\" (off by default): the men at your table argue over what you do. Each seat is filled by the first man on its list who is free in the city and not your open enemy, or by the man you seat there. Each gives counsel from his faction, his traits, his ambition and what he knows. A man who plots against you, wants your place or hates you gives counsel that serves himself, and can lie. The idea comes from King of Dragon Pass and Suzerain (docs/game-research.md, proposal 4); the war council of about 404 BC in Diodorus 14.8.5 is the model scene (docs/research/council-and-secrets.md). Rules and lines are invention.",
   "knobs": { "seatInfluence": 1, "overruleTraits": ["proud", "ambitious", "blunt", "fiery"] },
   "seats": [
-    { "id": "kin", "kind": "invention", "name": "the kinsman", "duty": "speaks for your house", "from": ["leptines", "thearides", "polyxenus", "theste"], "concern": ["plot", "guard", "carthage"] },
+    { "id": "kin", "kind": "invention", "name": "the kinsman", "duty": "speaks for your house", "from": ["leptines", "thearides", "polyxenus"], "concern": ["plot", "guard", "carthage"] },
     { "id": "friend", "kind": "invention", "name": "the old friend", "duty": "says what others will not", "from": ["heloris", "andron", "polyxenus", "doricus"], "concern": ["plot", "faction", "grain"] },
-    { "id": "purse", "kind": "invention", "name": "the purse", "duty": "keeps the silver", "from": ["philistus", "hipparinus", "aristomache"], "concern": ["silver", "guard", "faction"] },
+    { "id": "purse", "kind": "invention", "name": "the purse", "duty": "keeps the silver", "from": ["philistus", "hipparinus"], "concern": ["silver", "guard", "faction"] },
     { "id": "sword", "kind": "invention", "name": "the sword", "duty": "speaks for the soldiers", "from": ["doricus", "biton", "aristotle", "guardCaptain", "archylus"], "concern": ["guard", "carthage", "plot"] },
     { "id": "houses", "kind": "invention", "scenario": "island", "name": "the voice of the rich houses", "duty": "speaks for the grain-lords", "census": "rich", "concern": ["carthage", "grain", "silver"] }
   ],
@@ -55,8 +55,8 @@
     "purse": "The treasury cannot bear it."
   },
   "brief": {
-    "accuse": "Watch {target}. He meets men at night, and he hates you.",
-    "accuseTrue": "Watch {target}. My people say he has joined something against you.",
+    "accuse": "Watch {target}. There are meetings at night, and old hatred behind them.",
+    "accuseTrue": "Watch {target}. My people say something is afoot against you, and that name is in it.",
     "plot": "Someone is plotting. Look at the men with old grudges.",
     "guard": "The guard is owed {owed} silver. Pay them before someone else does.",
     "silver": "The treasury has {silver} silver. We cannot spend like this.",

@@ -89,7 +89,8 @@ function knowsGuilt(s: GameState, a: Person, t: Person): boolean {
 // else whoever you trust most. Never his fellow plotters.
 export function scapegoat(s: GameState, a: Person): Person | undefined {
   const pl = plotOf(s, a.id);
-  const ok = (p: Person | undefined): p is Person => !!p && !p.player && p.id !== a.id && p.status === "free" && alive(p) && !pl?.members.includes(p.id) && !plotOf(s, p.id);
+  const caught = new Set(s.council!.said.filter((x) => x.by === a.id && x.checked && !x.truth).map((x) => x.about)); // he won't try the same lie twice
+  const ok = (p: Person | undefined): p is Person => !!p && !p.player && p.id !== a.id && !caught.has(p.id) && p.status === "free" && alive(p) && !pl?.members.includes(p.id) && !plotOf(s, p.id);
   const honest = seated(s).filter((x) => !x.census && x.who !== a.id && !isFalse(s, x.who)).map((x) => s.people[x.who]).filter(ok);
   if (honest.length) return honest[0];
   const want = a.wants ? s.offices[a.wants] : null;
@@ -125,7 +126,7 @@ export function counsel(s: GameState, action: string, args: Args, chance?: numbe
     if (a && t) {
       const harm = HARM.includes(action), severe = SEVERE.includes(action);
       const fals = isFalse(s, a.id);
-      const accused = s.council!.said.some((x) => x.by === a.id && x.about === t.id && x.season >= s.season - 1);
+      const accused = s.council!.said.some((x) => x.by === a.id && x.about === t.id && x.season >= s.season - 2);
       if (t.id === a.id) parts.push(harm ? { v: -3, k: "selfHarm" } : tags.includes("gift") || action === "grantOffice" ? { v: 3, k: "self" } : { v: 0, k: "" });
       else if (harm && a.kin.includes(t.id)) parts.push({ v: -2, k: "kin" });
       else if (harm && fals && plotOf(s, a.id) && plotOf(s, a.id) === plotOf(s, t.id)) parts.push({ v: -3, k: "innocent", lie: true });
@@ -191,8 +192,8 @@ export function councilBrief(s: GameState) {
     c.brief.push(line);
     if (line.accuse) {
       const fresh = !c.said.some((x) => x.by === who && x.about === line!.accuse && x.season >= s.season - 2);
-      c.said.push({ season: s.season, by: who, about: line.accuse, truth: !!line.truth });
       if (fresh) {
+        c.said.push({ season: s.season, by: who, about: line.accuse, truth: !!line.truth });
         s.counters.councilAccusations = (s.counters.councilAccusations ?? 0) + 1;
         if (!line.truth) s.counters.councilLies = (s.counters.councilLies ?? 0) + 1;
         event(s, who, `At your council, ${a!.name} says ${s.people[line.accuse].name} is plotting against you.`, `${a!.name}, ${d.name}`);
@@ -252,6 +253,7 @@ export function councilSeasonEnd(s: GameState) {
     s.counters.unseated = (s.counters.unseated ?? 0) + 1;
     event(s, who, `${capital(p.name)}, who sat at your council as ${seatName(seat)}, is named as a plotter. His seat is empty.`, "a plotter at your table");
   }
+  fillSeats(s); // the dead, the held and the exiled leave their seats
 }
 
 // Influence from a seat at your table (political rivals).

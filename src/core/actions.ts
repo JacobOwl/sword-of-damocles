@@ -753,10 +753,10 @@ const SECRET_IMPL: Record<string, Impl> = {
       actAgainst(s, p.id);
       if (ok) {
         const x = learn(s, PLAYER, p.id, "his servants talked", "kept") ?? learn(s, PLAYER, p.id, "his servants talked", "seen");
-        if (!x) event(s, PLAYER, `${capital(p.name)}'s servants take your silver, but he hides nothing you don't already know.`, "Pay his servants");
+        if (!x) event(s, PLAYER, `The servants of ${p.name} take your silver, but he hides nothing you don't already know.`, "Pay his servants");
         return;
       }
-      event(s, PLAYER, `${capital(p.name)}'s servants take your silver and tell you nothing.`, "Pay his servants failed");
+      event(s, PLAYER, `The servants of ${p.name} take your silver and tell you nothing.`, "Pay his servants failed");
       if (die === 1) { opinion(s, p.id, -1, "he found out you paid his servants"); yourDeed(s, "servantsPaid", { target: p.id }, [p.id]); }
     },
   },

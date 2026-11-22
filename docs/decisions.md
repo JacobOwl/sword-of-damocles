@@ -204,3 +204,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **The browser game stays TypeScript with no UI framework; Vite replaces the hand-written esbuild script next.** Why: screens are already plain functions tested headless, every thread can add to them, and Godot is the long-term home (Jacob), so the browser UI should stay cheap. Plan in `docs/architecture.md`.
 - **The engine's purity is now tested** (`tests/core-boundary.test.ts`) and **conformance replays can be exported** (`npm run replays`) for a later port. Why: Godot is the goal; a port is checked by replaying the same games.
 - **Open:** which Godot route (translate or embed), for later.
+
+## 2026-11-22 (council and secrets switches, thread 14)
+- **Two new rule switches, both off by default: "Your council argues" and "Secrets and leverage".** Why: Jacob's wish for CK3-style interactions and Varys or Littlefinger rivals; the research proposals 4 and 6 (`docs/game-research.md`), parked in `docs/later.md` for Jacob to pick, are built only as switches, like the earlier ones, so nothing changes until he turns them on.
+- **Which invented townsman hides what is decided from a hash of the seed and his name, not the game's dice**, so turning the switch on doesn't shift the island's census. Same seed, same answer, every time.
+- **The council rolls no dice.** What a man says follows from state, so a player can learn whom to trust.
+- **Open:** see the questions in `docs/handoff.md` (how hard secrets should push political rivals, the council on events, women's seats).
+
