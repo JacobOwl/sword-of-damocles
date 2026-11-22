@@ -250,7 +250,7 @@ function strike(s: GameState, pl: Plot) {
 
 // Switch "partialBlows": a blow that only just beats your defense wounds you or costs you an office.
 // Returns false when the margin is wide enough to kill or exile you as before.
-function partialBlow(s: GameState, pl: Plot, margin: number): boolean {
+export function partialBlow(s: GameState, pl: Plot, margin: number): boolean {
   const k = (switchById("partialBlows") as any).knobs as { wound: number; seize: number };
   if (margin > k.seize) return false;
   const leader = s.people[pl.leader];

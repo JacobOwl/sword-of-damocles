@@ -204,3 +204,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **The browser game stays TypeScript with no UI framework; Vite replaces the hand-written esbuild script next.** Why: screens are already plain functions tested headless, every thread can add to them, and Godot is the long-term home (Jacob), so the browser UI should stay cheap. Plan in `docs/architecture.md`.
 - **The engine's purity is now tested** (`tests/core-boundary.test.ts`) and **conformance replays can be exported** (`npm run replays`) for a later port. Why: Godot is the goal; a port is checked by replaying the same games.
 - **Open:** which Godot route (translate or embed), for later.
+
+## 2026-11-22 (the Damocles banquet event, thread 07)
+- **The Damocles story is an event, not a fixed scene.** Hanging the sword is the sourced choice (`history: true`) among three; the game never forces it. Why: events offer what Dionysius did as one choice, per the events decision.
+- **Which Dionysius stays open in the game.** Both modern readings are quoted; Cicero 5.57 would settle it and is not yet saved (`docs/later.md`). The event's dating (from Spring 404) is invention for this decade either way.
+- **A refusal is not forever.** Under "Warnings are clues", a man who said no can join the same plot later after a new wrong; the deeds list records both, so every clue stays true.
