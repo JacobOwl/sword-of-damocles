@@ -1,0 +1,105 @@
+{
+  "note": "Multi-season schemes that advance on their own (rules v2). All invention.",
+  "agendas": [
+    {
+      "id": "peoplesAssembly",
+      "name": "The people's assembly",
+      "kind": "invention",
+      "owner": "citizens",
+      "steps": [
+        "Build a following",
+        "Win a vote",
+        "Recall a general",
+        "Elect their own"
+      ],
+      "completes": "The assembly takes the generalship from you."
+    },
+    {
+      "id": "cavalryHome",
+      "name": "The cavalry come home",
+      "kind": "invention",
+      "owner": "rich",
+      "steps": [
+        "Petition",
+        "Fund the exiles",
+        "Win a friend at court",
+        "Force terms"
+      ],
+      "completes": "The exiles return. The rich families gain 3 power."
+    },
+    {
+      "id": "guardCitizens",
+      "name": "Citizens of Syracuse",
+      "kind": "invention",
+      "owner": "guard",
+      "steps": [
+        "Demand",
+        "Demand louder",
+        "Refuse a duty"
+      ],
+      "completes": "They become citizens. If you refused, they become kingmakers instead.",
+      "grantedBy": "grantGuard"
+    },
+    {
+      "id": "kingmakers",
+      "name": "Choose the next ruler",
+      "kind": "invention",
+      "owner": "guard",
+      "steps": [
+        "Sell their loyalty",
+        "Sell it again",
+        "Sell it for good"
+      ],
+      "completes": "The guard backs whichever plot pays best, and does not defend you."
+    },
+    {
+      "id": "nameHeir",
+      "name": "Name the heir",
+      "kind": "invention",
+      "owner": "family",
+      "steps": [
+        "Win an office",
+        "Win a second office",
+        "Win the guard"
+      ],
+      "completes": "The family names your successor, and one of your brothers becomes dangerous."
+    },
+    {
+      "id": "philistusTreasury",
+      "name": "Keeper of the treasury",
+      "kind": "invention",
+      "owner": "philistus",
+      "steps": [
+        "Lend to you",
+        "Win a friend at court",
+        "Petition"
+      ],
+      "completes": "He holds the treasury, or a grudge if you refused him.",
+      "wants": "treasury"
+    },
+    {
+      "id": "yourFall",
+      "name": "Your fall",
+      "kind": "invention",
+      "owner": "nemesis",
+      "steps": [
+        "Gather the discontented",
+        "Buy a gate",
+        "Choose the night"
+      ],
+      "completes": "Their plot gains +2 strength for good."
+    },
+    {
+      "id": "takePlace",
+      "name": "Take his place",
+      "kind": "invention",
+      "owner": "pretender",
+      "steps": [
+        "Gather support",
+        "Win the swords or the vote",
+        "Make the move"
+      ],
+      "completes": "You lose your place: the assembly recalls you, the guard or the strongest faction switches to them, they hold too many offices to remove, or a vote exiles you."
+    }
+  ]
+}

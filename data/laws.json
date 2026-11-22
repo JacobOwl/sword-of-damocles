@@ -1,0 +1,13 @@
+{
+  "note": "Laws and levies you can put to the assembly. All invention.",
+  "laws": [
+    { "id": "taxPeople", "name": "A steady tax on the people", "kind": "invention", "for": [], "against": ["citizens"],
+      "income": 2, "moods": { "citizens": -1 }, "detail": "+2 silver every season." },
+    { "id": "harbourDues", "name": "Harbour dues on merchants", "kind": "invention", "for": [], "against": ["rich"],
+      "income": 1, "moods": { "rich": -1 }, "detail": "+1 silver every season." },
+    { "id": "levyRich", "name": "A levy on the rich families", "kind": "invention", "for": ["citizens"], "against": ["rich"],
+      "once": { "silver": 3 }, "moods": { "rich": -1 }, "detail": "+3 silver once. Can be raised again.", "repeatable": true },
+    { "id": "publicGrain", "name": "Public grain for the poor", "kind": "invention", "for": ["citizens"], "against": ["rich"],
+      "income": -1, "grain": 1, "moods": { "citizens": 1 }, "servesCitizens": true, "detail": "-1 silver and +1 month of grain every season." }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "kind": "invention",
+  "note": "The starting table for autumn 405 BC (rules v1 and v2). The numbers are invention; the situation is history, carded in docs/research/dionysius-405-403.md.",
+  "silver": 6, "grain": 8, "clock": 2, "land": 1,
+  "guard": { "strength": 3, "upkeep": 2 },
+  "actionsPerSeason": 3,
+  "seasons": 40,
+  "maxRivals": 3
+}

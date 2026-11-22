@@ -1,0 +1,17 @@
+{
+  "note": "Places outside the walls, reached only by actions marked reach. Odds and rewards are invention.",
+  "places": [
+    { "id": "tributeTowns", "name": "Carthage's tribute towns", "kind": "history", "source": "Diodorus 13.114.1", "card": "docs/research/dionysius-405-403.md",
+      "raid": true, "march": false, "walled": true, "carthaginian": true, "detail": "Selinus, Acragas, Himera, Gela and Camarina pay tribute to Carthage under the peace." },
+    { "id": "catana", "name": "Catana", "kind": "history", "source": "Diodorus 14.15.1", "card": "docs/research/dionysius-405-403.md",
+      "raid": true, "march": true, "walled": true, "marchMod": 0, "reward": { "silver": 2 }, "detail": "A Chalcidian city to the north." },
+    { "id": "naxos", "name": "Naxos", "kind": "history", "source": "Diodorus 14.15.2", "card": "docs/research/dionysius-405-403.md",
+      "raid": true, "march": true, "walled": true, "marchMod": 0, "reward": { "silver": 2 }, "detail": "A Chalcidian city beyond Catana." },
+    { "id": "leontini", "name": "Leontini", "kind": "history", "source": "Diodorus 13.114.1, 14.15.4", "card": "docs/research/dionysius-405-403.md",
+      "raid": false, "march": true, "walled": true, "marchMod": 0, "reward": { "land": 2 }, "treaty": true,
+      "detail": "Free under the peace with Carthage. Taking it breaks the treaty." },
+    { "id": "aetna", "name": "the fortress at Aetna", "kind": "history", "source": "Diodorus 13.113.3, 14.14.2", "card": "docs/research/dionysius-405-403.md",
+      "raid": false, "march": true, "walled": true, "marchMod": -1, "exiles": true,
+      "detail": "Where the cavalry exiles hold out." }
+  ]
+}
