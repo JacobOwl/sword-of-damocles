@@ -189,7 +189,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Sources found later can be saved in this repo**, under `sources/`, as short exact quotes with their link and licence. Why: the phoenician-punic-world repo is read-only for this game. `scripts/verify-cast-quotes.mjs` now reads a file from this repo first and from that repo otherwise, and it now also checks `data/calendar.json` (7 more quotes, all found).
 - **Saved:** Diodorus 14.19 to 14.40 (the three archon years 401 to 399 and every Sicilian line, from LacusCurtius, public domain); Cicero's Damocles story, 5.61 (short quotes from a copyrighted translation, as citations only); nine women's names from inscriptions and Livy. Cards: `docs/research/diodorus-401-399.md`, `damocles.md`, `punic-womens-names.md`.
 - **Only quotes, not whole texts.** The cloud's network is closed except GitHub, and the web reader returns short passages. Enough for the three gaps; whole chapters wait for Jacob if ever needed.
-- **Which Dionysius Damocles served stays open.** Livius.org says Dionysius II, Wikipedia says Dionysius I; Cicero's own 5.57 would settle it and is not saved.
+- **Which Dionysius Damocles served: Dionysius I**, settled the same day from Cicero's Latin (5.57: tyrant 38 years, from age 25; 5.59: wives Aristomache and Doris of Locri; 5.61: "hic quidem tyrannus"). Livius.org's "Dionysius II" is wrong for Cicero. The story has no date, so its year in the game is invention.
 - **No game data changed.** The calendar (thread 12), events (thread 06) and names (thread 13) stay with their threads.
 
 ## 2026-11-22 (Punic women's names in the generated cast, thread 13)
