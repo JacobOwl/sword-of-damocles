@@ -184,3 +184,23 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 ## 2026-11-22 (the generated cast, slice 3: faces and a page, thread 13)
 - **Generated people get mosaic portraits drawn in the browser by the editor's own code**, copied by `scripts/build-mosaic-runtime.mjs` into `ui/mosaic-runtime.ts`. Why: the people differ every game, so the faces can't be pre-made files; copying the editor's code keeps one source for the art style (thread 12's), instead of a second drawing of faces.
 - **A view "The families" lists the invented cast in island games.** Why: 165 people need a place to be seen before thread 10 shows them on the map and in Carthage's council. Jacob's to keep or fold away.
+
+## 2026-11-22 (missing source texts, thread 15)
+- **Sources found later can be saved in this repo**, under `sources/`, as short exact quotes with their link and licence. Why: the phoenician-punic-world repo is read-only for this game. `scripts/verify-cast-quotes.mjs` now reads a file from this repo first and from that repo otherwise, and it now also checks `data/calendar.json` (7 more quotes, all found).
+- **Saved:** Diodorus 14.19 to 14.40 (the three archon years 401 to 399 and every Sicilian line, from LacusCurtius, public domain); Cicero's Damocles story, 5.61 (short quotes from a copyrighted translation, as citations only); nine women's names from inscriptions and Livy. Cards: `docs/research/diodorus-401-399.md`, `damocles.md`, `punic-womens-names.md`.
+- **Only quotes, not whole texts.** The cloud's network is closed except GitHub, and the web reader returns short passages. Enough for the three gaps; whole chapters wait for Jacob if ever needed.
+- **Which Dionysius Damocles served stays open.** Livius.org says Dionysius II, Wikipedia says Dionysius I; Cicero's own 5.57 would settle it and is not saved.
+- **No game data changed.** The calendar (thread 12), events (thread 06) and names (thread 13) stay with their threads.
+
+## 2026-11-22 (Punic women's names in the generated cast, thread 13)
+- **Nine Carthaginian and Phoenician women's names join `data/names.json`**, from the source-search thread's card (`docs/research/punic-womens-names.md`). The game writes the scholars' forms plainly (Am-'ashtart as Amashtart, and so on); those spellings are invention and the records keep the scholars' form. Why: until now the saved texts gave no Carthaginian woman's name, so 60% of Carthaginian women were unnamed and the rest all Amoashtart.
+- **Unnamed Carthaginian women drop from 60% to 35%** (`naming.unnamedWomen.punic`). Invention, Jacob's to change.
+
+## 2026-11-22 (art thread 12: the last three Diodorus years)
+
+- **Done:** `data/calendar.json` now names 401 (Exaenetus, 14.19.1), 400 (Laches, with the Ninety-fifth Olympiad, 14.35.1) and 399 (Aristocrates, 14.38.1), quoted from the excerpts the source-search thread saved (`sources/diodorus/book14-19-40.loeb.excerpts.txt`). Every year of the decade now has its Diodorus line. `docs/research/calendar.md` updated. Checks: 68 tests pass; 100 seeds in both scenarios, 0 crashes, 0 broken states; 257 quotes checked, 0 not found.
+
+## 2026-11-22 (a proper web app, step 1: thread 17)
+- **The browser game stays TypeScript with no UI framework; Vite replaces the hand-written esbuild script next.** Why: screens are already plain functions tested headless, every thread can add to them, and Godot is the long-term home (Jacob), so the browser UI should stay cheap. Plan in `docs/architecture.md`.
+- **The engine's purity is now tested** (`tests/core-boundary.test.ts`) and **conformance replays can be exported** (`npm run replays`) for a later port. Why: Godot is the goal; a port is checked by replaying the same games.
+- **Open:** which Godot route (translate or embed), for later.

@@ -1,0 +1,40 @@
+# Diodorus Siculus, Library of History, Book 14, chapters 19 to 40: EXCERPTS ONLY. English: Loeb Classical Library, vol. VI (C. H. Oldfather, 1954). Source: Bill Thayer's LacusCurtius, https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/14B*.html (14.19-31), 14C*.html (14.32-39), 14D*.html (14.40-78). The page states: "The text is in the public domain." Read 2026-11-22 through the cloud's web-reading tool, which returns short exact quotes, not whole pages, so this file holds only the lines below. Footnote markers removed.
+# What these chapters hold: 14.19 to 14.31 are Cyrus' march and the Ten Thousand (no Sicily, Syracuse, Dionysius or Carthage on that page, checked). 14.32 to 14.39 are Athens, Sparta and Persia, with two Sicilian lines (14.34.3, 14.37.5). 14.40 is Rhegium against Dionysius (the whole chapter, in consecutive pieces). The full text of 14.19 to 14.39 is still not saved; Jacob may save it from the three pages above if wanted.
+# Format: section<TAB>exact words. Several lines may share a section; small gaps between them are possible.
+14.19.1	At the close of the year Exaenetus was archon in Athens
+14.34.3	some of them, sailing to Sicily, took service as mercenaries with Dionysius
+14.35.1	At the close of this year, in Athens Laches was archon
+14.35.1	the Ninety-fifth Olympiad was held, that in which Minos of Athens won the "stadion."
+14.37.5	While these events were taking place, Dionysius founded in Sicily a city just below the crest of Mount Aetnê
+14.37.5	and named it Adranum, after a certain famous temple.
+14.38.1	At the end of the year in Athens Aristocrates entered the office of archon
+14.40.1	The inhabitants of Rhegium, who were colonists of Chalcis, were angered to see the growing power of Dionysius.
+14.40.1	For he had sold into slavery the Naxians and Catanians, their kinsmen,
+14.40.1	and to the Rhegians, because they were of the same blood as these unfortunate peoples,
+14.40.1	this act was the cause of no ordinary concern, since all feared the same disaster would befall them.
+14.40.2	They therefore decided to take the field speedily against the tyrant before he became entirely secure.
+14.40.2	Their decision upon war was forthwith supported strongly also by the Syracusans
+14.40.2	who had been exiled by Dionysius, for most of them were at that time resident in Rhegium
+14.40.2	and were continually discussing the matter and pointing out that all the Syracusans
+14.40.2	would seize the occasion to join in an attack.
+14.40.3	In the end the Rhegians appointed generals and sent out with them six thousand infantry
+14.40.3	six hundred cavalry, and fifty triremes.
+14.40.3	The generals crossed the strait and induced the generals of the Messenians to join in the war,
+14.40.3	declaring that it would be a terrible thing for them to stand idly by when Greek cities,
+14.40.3	and their neighbours, had been totally destroyed by the tyrant.
+14.40.4	Now the generals were won over by the Rhegians and, without obtaining a vote of the people,
+14.40.4	led forth their forces which consisted of four thousand infantry, four hundred cavalry, and thirty triremes.
+14.40.4	But when the armaments we have mentioned had advanced as far as the borders of Messenê,
+14.40.4	opposition broke out among the soldiers due to a harangue delivered by the Messenian Laomedon;
+14.40.5	for he advised them not begin a war against Dionysius who had done them no wrong.
+14.40.5	Accordingly the Messenian troops, since the people had not approved the war,
+14.40.5	followed his advice at once, and, deserting their generals, turned back home;
+14.40.6	and the Rhegians, since they were not strong enough alone for a battle,
+14.40.6	when they saw that the Messenians were disbanding their army, also turned back speedily to Rhegium.
+14.40.6	At the outset Dionysius had led out his army to the border of the Syracusan territory,
+14.40.6	awaiting the attack of the enemy;
+14.40.6	but when he learned of their retirement, he led his forces back to Syracuse.
+14.40.7	When the Rhegians and Messenians sent ambassadors to treat upon terms of peace,
+14.40.7	he decided that it was to his advantage to put an end to enmity against these states
+14.40.7	and concluded peace.
+14.41.1	When Dionysius observed that some of the Greeks were deserting to the Carthaginian domain,

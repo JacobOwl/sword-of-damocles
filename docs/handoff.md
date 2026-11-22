@@ -2,6 +2,26 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Built by the web-app thread (17, 2026-11-22), step 1 of 5: the plan and the engine boundary
+- **`docs/architecture.md`**: the two halves (rules engine in `src/core/`, browser UI in `ui/`), the rules each follows, the stack (TypeScript, no UI framework, Vite next), the target folder layout, the five migration steps, and the road to Godot.
+- **`tests/core-boundary.test.ts`**: the engine imports only itself and `data/`; uses no `Math.random`, `Date`, browser or Node globals; a game saved as JSON plays on exactly the same; a bot game replays in both scenarios.
+- **`npm run replays`** (`scripts/export-replays.ts`): writes `dist/replays.json` (not kept in git), 20 whole games with their inputs and the log each must produce, for checking a later port.
+- **Changed:** nothing in the game. **Broke:** nothing: 72 of 72 tests, typecheck clean, 100-seed run unchanged (tyrannies 13, plots 432, deaths in events 23).
+- **Next:** step 2, the Vite build; then one click layer, splitting `ui/main.ts`, and moving UI files (announced to the other threads first).
+
+## Questions from the web-app thread
+- **Which Godot route?** Translating the engine to GDScript or C#, or running the TypeScript engine inside Godot. Not needed now; the architecture doc lists both, unverified.
+
+## Built by the source-search thread (15, 2026-11-22): the missing source texts
+- **Saved in this repo** (`sources/`, short exact quotes with link and licence): Diodorus 14.19 to 14.41.1 (archons for 401, 400 and 399, and every Sicilian line: Messenian mercenaries, Adranum, Rhegium's failed war in 14.40); Cicero's Damocles story (5.61); the Sibbolet gravestone (KAI 92). Cards: `docs/research/diodorus-401-399.md`, `damocles.md`, `punic-womens-names.md` (nine women's names, eight from Cooke 1903 and Livy, already saved in the phoenician-punic-world repo).
+- **Changed:** `scripts/verify-cast-quotes.mjs` reads a file from this repo first, then the other repo, and now checks `data/calendar.json` too (254 of 254 found).
+- **Broke:** nothing. 68 of 68 tests pass; the 100-seed run is unchanged (tyrannies 13, plots 432, deaths in events 23).
+- **Not saved:** whole chapters (the cloud reader gives short quotes only), Yonge's or the Latin Cicero 5.57 to 5.63, Benz's name list. In `docs/later.md`.
+
+## Questions from the source-search thread
+- **Which Dionysius had Damocles at court?** Livius.org says Dionysius II, Wikipedia says Dionysius I. Cicero 5.57 would settle it; could you save Book 5, sections 57 to 63, from Gutenberg?
+- **Rhegium's war of 399 (Diodorus 14.40)** fell apart because Messana's generals marched without a vote. Worth an event for the island?
+
 ## Built by the cast-generator thread (13, 2026-11-22), slice 1: the generated cast
 - **Names from the sources** (`data/names.json`): 94 personal names, each with the passage where a real person bears it (Diodorus, Thucydides, Herodotus, Plutarch, Plato, Justin, Polybius, Livy, two inscriptions), in nine groups: Sicilian Greeks, Italian Greeks, Sikels, Carthaginians, Libyans, Campanians, Iberians, Gauls, Peloponnesians. Card: `docs/research/names.md` (its list is rebuilt by `node tools/build-names-card.mjs`). `tools/name-finder.mjs` is the drafting aid that found the passages; every quote is checked by `node scripts/verify-cast-quotes.mjs ../phoenician-punic-world` (247 of 247 found).
 - **The generator** (`src/core/census.ts`, rules in `data/census.json`, all invention): about 165 invented people in 40 houses (the rich and the citizens of Syracuse, the leading men of Leontini, Catana, Messana, Gela, Acragas, Motya and Panormus, the exiles at Aetna, the Elders, the Hundred and the people's speakers at Carthage), each with a father's name, age, spouse, children, one or two traits from `data/traits.json`, an ambition, a role (the first man of Leontini, a grain-lord, a judge of the Hundred) and the parts of a face for the mosaic portraits. Plus four captains hired by each side.
@@ -16,7 +36,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - Checked at 1280 px and 390 px: no sideways scroll; about 45 faces painted within 9 seconds of opening the view.
 
 ## Questions from the cast-generator thread
-- **Women's names.** The saved texts name seven Sicilian Greek women and no Carthaginian woman. The game leaves a quarter of Greek women and 60% of Carthaginian women unnamed ("the daughter of Tellias", "the wife of Bostar"), as the sources do. Keep, or name more of them from fewer names?
+- **Women's names.** Nine Punic women's names were added (from thread 15's card), written plainly for players (Amashtart, Ahatmilkat, Batshalom). The game leaves a quarter of Greek women and about a third of Carthaginian women unnamed ("the daughter of Tellias", "the wife of Bostar"), as the sources do. Keep these shares?
 - **Annobal and Bodashtart**, a Punic name from Roman Leptis Magna and a Phoenician king of Sidon, pad the thin Carthaginian list. Keep or cut?
 - **Births and deaths:** about 55 births and 47 deaths in a decade among 165 people. Too busy for the log, or the right texture? (The island slice can show only deaths and heirs of people who matter.)
 - **The families page:** useful as its own view, or should these people only appear where they matter (a city's first man on the island map, the captain on an army, the elders on Carthage's council)? Thread 10 has the lookups for that.

@@ -1,0 +1,85 @@
+# Architecture
+
+How the game is built, and the rules every thread follows when adding to it. Written 2026-11-22 (thread 17), when Jacob chose to keep the game in the browser but make it a proper app, with Godot as the long-term home.
+
+## The two halves
+
+The game is two programs that talk in one direction.
+
+1. **The rules engine**, `src/core/`. It holds every rule: seasons, factions, plots, the island, Carthage, the census. It reads its content from `data/`, keeps the whole game in one plain state object, and writes everything that happens to one log. It knows nothing about screens.
+2. **The browser UI**, `ui/`. It reads the state, draws it, and sends the player's choices back to the engine through a handful of calls (`startGame`, `act`, `chooseEvent`, `refuseRequest`, `endSeason`, `replay`). It holds no rules.
+
+The headless runner (`npm run sim`), the tests and the balance sweeps use the engine with no UI at all. A later Godot game would replace the second half, or both (see "The road to Godot").
+
+## Rules for the engine (`src/core/`)
+
+These keep the engine portable. `tests/core-boundary.test.ts` checks the first four automatically.
+
+- **Imports:** only other `src/core/*.ts` files and `data/*.json`. No `ui/`, no `node:` modules, no npm packages.
+- **No outside world:** no `Math.random`, `Date`, timers, network, `window`, `document` or storage. All chance goes through the one seeded stream in `rng.ts`; game time is the season counter.
+- **State is plain data:** numbers, strings, booleans, arrays and plain objects, so a game survives `JSON.stringify` and plays on exactly the same. No class instances, `Map`, `Set` or functions inside the state (they are fine as local variables).
+- **Replayable:** a game is its seed, options and the list of the player's inputs (`s.inputs`). Every player choice goes through one of the calls above so it is recorded.
+- **Every change is logged with its reason** (CLAUDE.md). The UI and chronicle read the log; they never work out what happened by comparing states.
+- **Content is data.** People, factions, events, actions, places and numbers live in `data/`. Code says how a kind of thing works; data says which ones exist.
+- **`src/core/index.ts` is the public face.** The UI imports only from it. Add an export there when the UI needs something new.
+
+## Rules for the UI (`ui/`)
+
+- **Screens are functions from state to HTML text.** `court(g)`, `sheet(g, id)` and the rest return a string and touch no page. That is why `tests/ui.test.ts` can render every screen for finished games with no browser. Keep new screens this way.
+- **No rules in the UI.** If a screen needs to know whether something is allowed, what it costs or what its odds are, ask the engine (`menu`, `preview`, `secondOptions`, `openEvents`). If the engine can't answer, add the answer to the engine.
+- **The UI never changes the game state directly.** It calls the engine. UI-only state (which view is open, which action is unfolded) lives in `ui.ts`'s `ui` object, not in the game state.
+- **Buttons carry `data-` attributes** (`data-view`, `data-act`, `data-person` ...) rather than ids where there can be many. Clicks are matched by those attributes.
+- **No code ids or bare numbers in front of the player** (CLAUDE.md). The UI tests fail if an id shows.
+- **Look and feel:** `docs/art-direction.md`.
+
+## Stack
+
+- **TypeScript everywhere**, run directly by Node 22's type stripping for tests and scripts (no compile step to test). So use only erasable TypeScript: no `enum`, no `namespace`, no parameter properties; import with the `.ts` extension.
+- **No UI framework.** Screens are plain functions returning HTML text, wired by a small event layer. Why: the screens are already written this way and tested headless; every thread can add to them without learning a framework; Node runs them in tests without a loader; and since Godot is the long-term home, the browser UI should stay cheap to keep rather than deep to leave. If a screen ever needs fine-grained live updates (an animated map, drag and drop), that one component can use a small library inside it without changing the rest.
+- **Build:** today `scripts/build-ui.ts` bundles with esbuild into one self-contained page, `ui/dist/index.html`, with fonts linked from Google Fonts and portraits inlined. `npm run build -- --fragment <path>` also writes the page without its outer skeleton, which is what is published to the Artifact link (https://claude.ai/artifact/8KqQzj6x3QrXRjQKzVZNK4). Step 2 below moves this to Vite, which adds a live-reloading dev server; the output stays one self-contained page.
+
+## Target layout
+
+Where files are heading. Steps 3 to 5 below move them; until then the current flat `ui/` layout is right.
+
+```
+src/core/            the rules engine (stays where it is)
+data/                all content (stays)
+ui/
+  index.html         the page shell (step 2)
+  main.ts            starts the app, nothing else
+  app/               the shell: render loop, views and tabs, saving, the click layer, the character-sheet dialog
+  views/             one file per screen: title, season, city, dangers, island, court, families, chronicle, help, ending
+  components/        pieces used on several screens: portraits, icons, figures, vignettes, chips, tooltips
+  lib/               helpers with no screen of their own: text (esc, linkNames, pronouns), sound, mosaic runtime
+  styles/            style.css, art.css
+  art/               pictures and art data (stays)
+tests/               unchanged
+scripts/             unchanged, plus export-replays.ts
+```
+
+A **view or component** is a file that exports functions `(g: GameState, ...) => string`. If it needs clicks, it also exports its handlers, for example `{ click: { "[data-grant]": (el, g) => ... } }`, which the click layer registers once. If it needs to touch the page after drawing (the census portraits are painted after render), it exports an `afterRender(g)`.
+
+## Migration steps
+
+Each step is one small pull request that keeps `npm test`, the typecheck and `npm run sim -- --seeds 100` passing, and keeps the game behaving the same. Before each UI step, a scripted browser walk-through (same seed, same clicks) is recorded before and after, and the pages must match.
+
+1. **This document, the engine boundary test and the replay export.** No game files move. (Done with this PR.)
+2. **Vite build.** `npm run dev` for a live-reloading page; `npm run build` still writes `ui/dist/index.html` and the fragment. CSS is imported by the code instead of read by the build script.
+3. **One click layer.** Replace the per-render wiring in `ui/main.ts` with handlers registered once, matched by `data-` attributes.
+4. **Split `ui/main.ts`** into `ui/app/` (shell, saving, dialog, clicks) and `ui/views/` (title, season, city, dangers, ending).
+5. **Move the other UI files** into `views/`, `components/` and `lib/`, timed for a moment when no other thread has a UI pull request open, and announced to them first.
+
+## The road to Godot
+
+Godot is the goal for later (Jacob, 2026-11-22). The engine is being kept so that a port is a translation, not a redesign. What carries over unchanged: all of `data/` (Godot reads JSON natively), the rules as described in `docs/design.md` and the code, the seed-and-inputs save format, and the log with its reasons.
+
+**The conformance replays are the bridge.** `npm run replays` writes `dist/replays.json`: whole games as a seed, scenario, balance, switches and the list of inputs, with the log each one must produce (every sentence, die and total, plus a checksum). A port is correct when it replays every case and produces the same log. Generate the file from the commit being ported; it changes whenever a rule does, so it is not kept in the repo.
+
+Three ways to get there, in the order I would try them. None has been tried yet.
+
+1. **Translate the engine to GDScript or C#.** Most work (the engine is about 6,000 lines of TypeScript), but the result is native and fast, and the replays check it case by case. One known trap: the random stream (`rng.ts`, mulberry32) uses 32-bit integer arithmetic. GDScript integers are 64-bit, so every step needs masking to 32 bits; C# `int` and `uint` match JavaScript directly.
+2. **Run the existing TypeScript engine inside Godot** through a JavaScript runtime. For C# Godot, a .NET JavaScript interpreter could run the bundled engine; for GDScript there are community addons that embed a JavaScript engine. Least work up front, and the browser and Godot versions would share one engine. Unverified: I have not checked which of these runtimes are maintained or fast enough; check before choosing.
+3. **Godot web export talking to the engine in the page** through Godot's JavaScript bridge. Works only for the web build, so it is a stepping stone at most.
+
+What would make a port harder, and so is avoided now: rules hidden in the UI, state that is not plain data, randomness outside the seeded stream, and content written as code.

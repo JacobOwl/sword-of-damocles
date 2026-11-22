@@ -2,6 +2,7 @@
 // The texts live in Jacob's Phoenician-Punic World repo (read-only), so pass its path:
 //   node scripts/verify-cast-quotes.mjs ../phoenician-punic-world
 // Each fact names its file; a quote with "..." is checked piece by piece. Exits 1 on any miss.
+// A file saved in this repo's own sources/ folder (excerpts found later) is read from here first.
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
@@ -13,7 +14,7 @@ if (!root || !existsSync(join(root, "sources"))) {
 const norm = (s) => s.replace(/[’‘]/g, "'").replace(/[­]/g, "").replace(/‑/g, "-").replace(/\s+/g, " ").toLowerCase();
 const cache = new Map();
 const text = (f) => {
-  if (!cache.has(f)) cache.set(f, norm(readFileSync(join(root, f), "utf8")));
+  if (!cache.has(f)) cache.set(f, norm(readFileSync(existsSync(f) ? f : join(root, f), "utf8")));
   return cache.get(f);
 };
 const facts = [];
@@ -24,7 +25,7 @@ const walk = (o, where) => {
     for (const [k, v] of Object.entries(o)) walk(v, o.id ?? where);
   }
 };
-for (const f of ["data/people.json", "data/factions.json", "data/outside.json", "data/events.json", "data/island.json", "data/carthage.json", "data/names.json", "data/secrets.json"]) walk(JSON.parse(readFileSync(f, "utf8")), f);
+for (const f of ["data/people.json", "data/factions.json", "data/outside.json", "data/events.json", "data/island.json", "data/carthage.json", "data/names.json", "data/calendar.json", "data/secrets.json"]) walk(JSON.parse(readFileSync(f, "utf8")), f);
 let bad = 0;
 for (const f of facts) {
   const hay = text(f.file);
