@@ -1,4 +1,4 @@
-// Checks that every quoted passage in the cast data really appears in the saved source text.
+// Checks that every quoted passage in the cast and event data really appears in the saved source text.
 // The texts live in Jacob's Phoenician-Punic World repo (read-only), so pass its path:
 //   node scripts/verify-cast-quotes.mjs ../phoenician-punic-world
 // Each fact names its file; a quote with "..." is checked piece by piece. Exits 1 on any miss.
@@ -24,7 +24,7 @@ const walk = (o, where) => {
     for (const [k, v] of Object.entries(o)) walk(v, o.id ?? where);
   }
 };
-for (const f of ["data/people.json", "data/factions.json", "data/outside.json"]) walk(JSON.parse(readFileSync(f, "utf8")), f);
+for (const f of ["data/people.json", "data/factions.json", "data/outside.json", "data/events.json"]) walk(JSON.parse(readFileSync(f, "utf8")), f);
 let bad = 0;
 for (const f of facts) {
   const hay = text(f.file);

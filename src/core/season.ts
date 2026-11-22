@@ -11,6 +11,7 @@ import { perform, refuse } from "./actions.ts";
 import type { FactionId, GameState, Input, Plot } from "./types.ts";
 import { FACTIONS } from "./types.ts";
 import { writeChronicle } from "./chronicle.ts";
+import { botAnswer, chooseEvent, drawEvents, settleEvents } from "./events.ts";
 
 // ---------- World ----------
 function worldStep(s: GameState) {
@@ -59,6 +60,7 @@ function worldStep(s: GameState) {
 
 function invasion(s: GameState) {
   s.invasions += 1;
+  s.flags.invaded = s.season;
   const mods = [{ label: "the guard", value: s.guard.arrearsSeasons === 0 ? s.guard.strength : 0 }];
   if (s.walls) mods.push({ label: "the walls", value: 2 });
   if (holds(s, PLAYER, "generalship")) mods.push({ label: "you command the army", value: 1 });
@@ -224,6 +226,8 @@ export function beginSeason(s: GameState) {
   s.step = "people";
   peopleStep(s);
   if (s.over) return finish(s);
+  drawEvents(s); // events from data/events.json, at the end of the people step
+  if (s.over) return finish(s);
   s.step = "factions";
   factionStep(s);
   s.step = "player";
@@ -236,6 +240,7 @@ export function beginSeason(s: GameState) {
 export function endSeason(s: GameState) {
   if (s.step !== "player" || s.over) return;
   s.inputs.push({ t: "end" });
+  settleEvents(s); // events you left unanswered take their default choice
   for (const r of s.requests.slice()) refuse(s, r.id, true);
   powerStep(s);
   if (!s.over) swordStep(s);
@@ -260,6 +265,8 @@ export function startGame(seed: number): GameState {
   return s;
 }
 
+export { chooseEvent };
+
 export function act(s: GameState, action: string, args = {}) {
   return perform(s, action, args);
 }
@@ -275,6 +282,7 @@ export function replay(seed: number, inputs: Input[]): GameState {
   for (const i of inputs) {
     if (i.t === "act") perform(s, i.action, i.args);
     else if (i.t === "refuse") refuseRequest(s, i.request);
+    else if (i.t === "choose") chooseEvent(s, i.event, i.choice);
     else endSeason(s);
   }
   return s;
@@ -285,6 +293,7 @@ export function runBotGame(seed: number): GameState {
   const s = startGame(seed);
   let n = 0;
   while (!s.over && n++ < 200) {
+    botAnswer(s);
     botTurn(s);
     endSeason(s);
   }

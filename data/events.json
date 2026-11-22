@@ -1,0 +1,813 @@
+{
+  "note": "Events: things that happen to Syracuse and its people, drawn from the game's state. Each has a trigger (when), the people it needs (roles), and defined choices with set effects. History events quote the saved source text they come from and list what the game invents (the trigger, the casting, every number). The engine is src/core/events.ts; the research card is docs/research/events-405-395.md.",
+  "pacing": { "kind": "invention", "draws": 1, "secondChance": 0.35, "maxOpen": 3, "cooldown": 8 },
+  "events": [
+    {
+      "id": "andronTempted", "kind": "history", "name": "The keeper's confession", "weight": 3,
+      "when": { "from": "winter-405" },
+      "roles": { "keeper": { "id": "andron", "opinion": { "min": 0 } }, "tempter": { "faction": ["family", "rich"], "opinion": { "max": 0 }, "notId": ["theste", "doris", "aristomache"] } },
+      "text": "Andron, who keeps the fortress and the treasure on the Island, comes to you at last. {Tempter} urged him to seize both while your back was turned. He confesses every detail, but he did not come to you at once.",
+      "why": "Andron is trusted with the treasury, and {tempter} has no love for you",
+      "choices": [
+        { "id": "execute", "label": "Put Andron to death for his silence", "history": true,
+          "text": "Andron dies for the days he kept quiet. {Tempter} is taken to prison. The court learns what a late confession costs.",
+          "effects": [ { "status": "keeper", "to": "dead" }, { "status": "tempter", "to": "held" }, { "grudge": "tempter", "reason": "you threw him in prison on Andron's word" }, { "mood": "family", "by": -1 }, { "plotBonus": -1, "why": "fear runs through the court" } ] },
+        { "id": "thank", "label": "Thank Andron, and imprison {tempter}",
+          "text": "Andron weeps with relief. From now on he will tell you what he hears.",
+          "effects": [ { "opinion": "keeper", "by": 2 }, { "informer": "keeper" }, { "status": "tempter", "to": "held" }, { "grudge": "tempter", "reason": "you threw him in prison on Andron's word" } ] },
+        { "id": "banish", "label": "Banish {tempter} to the Peloponnese, to spare the family", "history": true,
+          "effects": [ { "status": "tempter", "to": "outside" }, { "rival": "tempter", "scar": "Exiled", "reason": "you banished him on Andron's word" }, { "opinion": "keeper", "by": 1 }, { "mood": "family", "by": 1 } ] },
+        { "id": "watch", "label": "Say nothing, and have both watched", "default": true,
+          "effects": [ { "reveal": "keeper", "seasons": 2 }, { "reveal": "tempter", "seasons": 2 }, { "opinion": "keeper", "by": -1, "why": "he expected some answer from you" } ] }
+      ],
+      "source": "Polyaenus, Stratagems 5.2.4", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "Andron left in charge of fortress and treasury; Hermocrates urges him to seize them.", "cite": "Polyaenus 5.2.4", "quote": "he left Andron in charge of the fortress and the treasury. Hermocrates advised Andron to seize both of these", "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt" },
+        { "text": "Executed for not reporting at once; the tempter imprisoned, then banished to please his wife.", "cite": "Polyaenus 5.2.4", "quote": "because he had not revealed the proposal that had been made to him, immediately upon the tyrant's return", "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt" }
+      ],
+      "invented": ["trigger", "who plays the tempter (Polyaenus names a Hermocrates, the sister's husband)", "the choices other than execution and banishment", "all numbers"]
+    },
+    {
+      "id": "polyxenusFlees", "kind": "history", "name": "A flight by night", "weight": 4,
+      "roles": { "flier": { "id": "polyxenus", "opinion": { "max": 0 }, "grudge": true } },
+      "text": "Polyxenus, your sister's husband, has become your enemy. At dawn word comes that, moved by fear, he slipped out of the city and is making for the coast.",
+      "why": "Polyxenus holds a grudge against you, and fears what you will do",
+      "choices": [
+        { "id": "ride", "label": "Send riders after him",
+          "roll": { "need": 4, "mods": [ { "label": "you command the army", "value": 1, "if": { "playerHolds": ["generalship"] } }, { "label": "Polyxenus is well-connected", "value": -1, "ifRole": { "role": "flier", "is": { "trait": "wellConnected" } } } ],
+            "success": { "text": "The riders bring Polyxenus back in chains.", "effects": [ { "status": "flier", "to": "held" }, { "grudge": "flier", "reason": "you dragged him back in chains" }, { "mood": "family", "by": -1 } ] },
+            "failure": { "text": "Polyxenus is gone, over the sea.", "effects": [ { "status": "flier", "to": "outside" }, { "rival": "flier", "scar": "Exiled", "reason": "he fled from you into exile" }, { "then": "thesteAnswer", "after": 1 } ] } } },
+        { "id": "letter", "label": "Write that he may come home safe",
+          "roll": { "need": 5, "mods": [ { "trait": "you", "action": "petition" } ],
+            "success": { "text": "Polyxenus turns back, ashamed and grateful.", "effects": [ { "opinion": "flier", "by": 2 }, { "clearGrudge": "flier" } ] },
+            "failure": { "text": "Polyxenus does not believe a word of it.", "effects": [ { "status": "flier", "to": "outside" }, { "rival": "flier", "scar": "Exiled", "reason": "he fled from you into exile" }, { "then": "thesteAnswer", "after": 1 } ] } } },
+        { "id": "letGo", "label": "Let him run", "history": true, "default": true,
+          "effects": [ { "status": "flier", "to": "outside" }, { "rival": "flier", "scar": "Exiled", "reason": "he fled from you into exile" }, { "then": "thesteAnswer", "after": 1 } ] }
+      ],
+      "source": "Plutarch, Dion 21", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Polyxenus became an enemy and fled Sicily in fear. No date.", "cite": "Plutarch, Dion 21", "quote": "whose husband, Polyxenus, had become his enemy. When, therefore, Polyxenus was moved by fear to run away and go into exile from Sicily", "file": "sources/plutarch/dion.perrin.txt" } ],
+      "invented": ["trigger (a grudge, and no warmth toward you)", "the riders and the letter", "all numbers"]
+    },
+    {
+      "id": "thesteAnswer", "kind": "history", "name": "Theste's answer", "chained": true,
+      "roles": { "wife": { "id": "theste" }, "flier": { "id": "polyxenus", "status": ["outside", "held", "free"] } },
+      "text": "You send for your sister Theste and upbraid her: she knew of her husband's flight and did not tell you. She answers without fear. Had she known, she says, she would have sailed with him: \"it would have been well for me to be called the wife of Polyxenus the exile, rather than the sister of Dionysius the tyrant.\"",
+      "why": "her husband fled, and you think she knew",
+      "choices": [
+        { "id": "admire", "label": "Admire her boldness", "history": true, "default": true,
+          "text": "You let her go with honour. The city hears of it and admires her.",
+          "effects": [ { "opinion": "wife", "by": 2 }, { "mood": "citizens", "by": 1, "why": "the Syracusans admired Theste's answer" }, { "mood": "family", "by": 1 } ] },
+        { "id": "confine", "label": "Confine her to the women's rooms",
+          "effects": [ { "status": "wife", "to": "held" }, { "grudge": "wife", "reason": "you confined her for her husband's flight" }, { "mood": "family", "by": -1 } ] },
+        { "id": "send", "label": "Send her after him",
+          "effects": [ { "status": "wife", "to": "outside" }, { "opinion": "wife", "by": -2 }, { "mood": "family", "by": -1 } ] }
+      ],
+      "source": "Plutarch, Dion 21", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "Theste's answer.", "cite": "Plutarch, Dion 21", "quote": "it would have been well for me to be called the wife of Polyxenus the exile, rather than the sister of Dionysius the tyrant", "file": "sources/plutarch/dion.perrin.txt" },
+        { "text": "Dionysius admired her, and so did the Syracusans.", "cite": "Plutarch, Dion 21", "quote": "The tyrant is said to have admired Theste for this bold speech. And the Syracusans also admired the virtue of the woman", "file": "sources/plutarch/dion.perrin.txt" }
+      ],
+      "invented": ["the choices other than admiring her", "all numbers"]
+    },
+    {
+      "id": "rhegiumRefuses", "kind": "history", "name": "No bride from Rhegium", "weight": 4,
+      "when": { "from": "spring-399", "until": "summer-397" },
+      "text": "You sent envoys to Rhegium asking for a bride from among its citizens, and promised them land and strength in return. After much debate their assembly has voted no.",
+      "why": "you need children to secure your rule, and friends on the Strait before a war",
+      "choices": [
+        { "id": "locri", "label": "Send the same envoys to Locri", "history": true, "default": true, "effects": [ { "flag": "locriAsked" } ] },
+        { "id": "remember", "label": "Swear that Rhegium will pay for this", "effects": [ { "mood": "guard", "by": 1, "why": "soldiers like talk of war" }, { "clock": 1, "why": "the cities on the Strait look to Carthage" } ] },
+        { "id": "shrug", "label": "Take it quietly", "effects": [ { "mood": "rich", "by": 1, "why": "the rich families like a cautious ruler" } ] }
+      ],
+      "source": "Diodorus 14.44.4 to 14.44.6", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Rhegium votes against the marriage; Dionysius turns to Locri. About 398.", "cite": "Diodorus 14.44.5 to 14.44.6", "quote": "the Rhegians voted not to accept the marriage connection ... Now that Dionysius had failed of this design, he dispatched his ambassadors for the same purpose to the people of the Locrians", "file": "sources/diodorus/english/book14.loeb.txt" } ],
+      "invented": ["the choices other than Locri", "all numbers"]
+    },
+    {
+      "id": "doubleWedding", "kind": "history", "name": "Two brides on one day", "weight": 8, "once": false, "cooldown": 3,
+      "when": { "any": [ { "flag": { "locriAsked": true } }, { "from": "summer-398" } ] },
+      "roles": { "locrian": { "id": "doris", "status": ["outside", "free"], "marriageable": true }, "bride": { "id": "aristomache", "marriageable": true }, "father": { "id": "hipparinus", "optional": true } },
+      "text": "The Locrians agree to the match: Doris, daughter of Xenetus, their most esteemed citizen. In Syracuse the most notable maiden is Aristomache, daughter of Hipparinus. You could send your first quinquereme, fitted with silver and gold, for the one, and a chariot drawn by four white horses for the other.",
+      "why": "Doris has come into the story, and Aristomache is unmarried",
+      "choices": [
+        { "id": "both", "label": "Marry both on the same day, and feast the city", "history": true, "cost": { "silver": 2 },
+          "text": "You marry both on one day, and give public dinners for the soldiers and most of the citizens.",
+          "effects": [ { "marry": "locrian" }, { "marry": "bride" }, { "mood": "citizens", "by": 1 }, { "mood": "guard", "by": 1 }, { "flag": "wed" }, { "then": "eldestSon", "after": 4 } ] },
+        { "id": "doris", "label": "Marry Doris of Locri alone", "cost": { "silver": 1 },
+          "effects": [ { "marry": "locrian" }, { "opinion": "father", "by": -1, "why": "you passed over his daughter for a foreigner" }, { "mood": "rich", "by": -1 }, { "flag": "wed" }, { "then": "eldestSon", "after": 4 } ] },
+        { "id": "aristomache", "label": "Marry Aristomache alone",
+          "effects": [ { "marry": "bride" }, { "mood": "rich", "by": 1 }, { "flag": "wed" } ] },
+        { "id": "wait", "label": "Not yet", "default": true }
+      ],
+      "source": "Diodorus 14.44.6 to 14.45.1; Plutarch, Dion 3", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "Doris of Locri and the quinquereme.", "cite": "Diodorus 14.44.6 to 14.44.7", "quote": "sued for the hand of Doris, the daughter of Xenetus, who at that time was their most esteemed citizen", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "The chariot for Aristomache.", "cite": "Diodorus 14.44.8", "quote": "the most notable maiden among them, Aristomachê, for whom he dispatched a chariot drawn by four white horses", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "Public dinners after both marriages.", "cite": "Diodorus 14.45.1", "quote": "After Dionysius had taken in marriage both maidens at the same time, he gave a series of public dinners for the soldiers and the larger part of the citizens", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "Plutarch: both on one day.", "cite": "Plutarch, Dion 3", "quote": "It is said that he married both wives on one day", "file": "sources/plutarch/dion.perrin.txt" }
+      ],
+      "invented": ["marrying only one, or neither", "all numbers"]
+    },
+    {
+      "id": "eldestSon", "kind": "history", "name": "A son from Locri", "chained": true,
+      "roles": { "mother": { "id": "doris", "married": true } },
+      "text": "Doris of Locri has borne you a son, your eldest. The city had hoped its own countrywoman would be honoured above the stranger.",
+      "why": "Doris became a mother first",
+      "choices": [
+        { "id": "feast", "label": "Feast the birth before the whole city", "cost": { "silver": 1 },
+          "effects": [ { "mood": "family", "by": 1 }, { "opinion": "mother", "by": 1 }, { "mood": "citizens", "by": 1 }, { "mood": "rich", "by": -1, "why": "the Syracusans wished their countrywoman honoured above the stranger" }, { "then": "dorisMother", "after": 3 } ] },
+        { "id": "quiet", "label": "Give thanks quietly", "default": true,
+          "effects": [ { "mood": "family", "by": 1 }, { "then": "dorisMother", "after": 3 } ] }
+      ],
+      "source": "Plutarch, Dion 3", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Doris bore the eldest son.", "cite": "Plutarch, Dion 3", "quote": "Doris had the good fortune to become a mother first, and by presenting Dionysius with his eldest son she atoned for her foreign birth", "file": "sources/plutarch/dion.perrin.txt" } ],
+      "invented": ["timing (four seasons after the wedding)", "the choices", "all numbers"]
+    },
+    {
+      "id": "dorisMother", "kind": "history", "name": "The charge against the Locrian mother", "chained": true,
+      "roles": { "locrian": { "id": "doris", "married": true }, "wife": { "id": "aristomache", "married": true } },
+      "text": "Aristomache has borne you no child. At court they whisper that the mother of your Locrian wife has been giving her drugs to prevent it.",
+      "why": "Aristomache is still childless, and the court looks for someone to blame",
+      "choices": [
+        { "id": "execute", "label": "Accuse the Locrian mother and put her to death", "history": true,
+          "effects": [ { "opinion": "locrian", "by": -2 }, { "grudge": "locrian", "reason": "you put her mother to death" }, { "opinion": "wife", "by": 1 }, { "mood": "rich", "by": 1 }, { "plotBonus": -1, "why": "the court learns how far your suspicion reaches" } ] },
+        { "id": "dismiss", "label": "Dismiss the charge as court gossip",
+          "effects": [ { "opinion": "locrian", "by": 1 }, { "opinion": "wife", "by": -1 }, { "mood": "rich", "by": -1 } ] },
+        { "id": "home", "label": "Send the mother home to Locri", "default": true, "effects": [ { "opinion": "locrian", "by": -1 } ] }
+      ],
+      "source": "Plutarch, Dion 3", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "The charge and the execution. No date.", "cite": "Plutarch, Dion 3", "quote": "he accused the mother of his Locrian wife of giving Aristomache drugs to prevent conception, and put her to death", "file": "sources/plutarch/dion.perrin.txt" } ],
+      "invented": ["timing", "the choices other than execution", "all numbers"]
+    },
+    {
+      "id": "councilOfFriends", "kind": "history", "name": "Counsel in the Island", "weight": 6, "once": false, "cooldown": 12,
+      "when": { "any": [ { "plotStage": { "min": 3 } }, { "mood": { "citizens": { "max": 0 } } }, { "flag": { "besieged": { "within": 0 } } } ] },
+      "roles": { "heloris": { "id": "heloris", "optional": true }, "polyxenus": { "id": "polyxenus", "optional": true }, "philistus": { "id": "philistus", "optional": true } },
+      "text": "Danger is close, and your friends gather in the Island to counsel you. It may be time to think not of how to win, but of how this ends.",
+      "why": "a plot has been named, or the city is in revolt, or Carthage is at the walls",
+      "choices": [
+        { "id": "stand", "label": "Heloris: \"Tyranny is a fair winding-sheet.\" Stand, and die a ruler if you must", "needs": ["heloris"], "history": true,
+          "effects": [ { "mood": "guard", "by": 1, "why": "you will not run" }, { "opinion": "heloris", "by": 1 }, { "mood": "family", "by": 1 } ] },
+        { "id": "flee", "label": "Polyxenus: take your swiftest horse and ride for the Campanians", "needs": ["polyxenus"], "history": true,
+          "effects": [ { "end": "fled", "text": "You ride out of Syracuse on your swiftest horse. The tyranny is over; your life is not." } ] },
+        { "id": "hold", "label": "Philistus: leave only when dragged out by the leg. Send for Campanian horsemen", "needs": ["philistus"], "history": true, "cost": { "silver": 2 },
+          "effects": [ { "guard": "strength", "by": 2, "why": "Campanian horsemen cut their way through to you" }, { "opinion": "philistus", "by": 1 }, { "then": "campanianHorse", "after": 2 } ] },
+        { "id": "ruse", "label": "Ask the city's leave to sail away with five ships, and wait", "history": true,
+          "text": "The city believes the tyranny is ending. Men drift home to their fields.",
+          "effects": [ { "plotBonus": -2, "why": "the plotters think they have already won" }, { "mood": "citizens", "by": 1 } ] },
+        { "id": "alone", "label": "Thank them, and decide nothing", "default": true }
+      ],
+      "source": "Diodorus 14.8.4 to 14.9.1", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "The council and the three counsels, about 404.", "cite": "Diodorus 14.8.5", "quote": "Heloris, one of his friends, or as some say, his adopted father, declared to him, \"Tyranny is a fair winding-sheet\"", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" },
+        { "text": "Polyxenus' advice.", "cite": "Diodorus 14.8.5", "quote": "advised him to use his swiftest horse and ride off into the domain of the Carthaginians to the Campanians", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" },
+        { "text": "Philistus' advice.", "cite": "Diodorus 14.8.5", "quote": "it was not fitting to dash from the tyranny on a galloping horse but to be cast out, dragged by the leg", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" },
+        { "text": "The five ships and the city relaxing.", "cite": "Diodorus 14.9.1", "quote": "having given the tyrant permission to sail away with five ships, took matters with rather less concern", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" }
+      ],
+      "invented": ["trigger", "that it can come more than once", "all numbers"]
+    },
+    {
+      "id": "campanianHorse", "kind": "history", "name": "The Campanians' price", "chained": true,
+      "text": "The Campanian horsemen you sent for have cut their way through to you. Now they want the price you promised.",
+      "why": "you promised them any price they asked",
+      "choices": [
+        { "id": "payOff", "label": "Pay them, and send them away", "history": true, "cost": { "silver": 2 },
+          "text": "They ride off. Word comes later that they took the town of Entella by treachery.",
+          "effects": [ { "guard": "strength", "by": -2, "why": "the Campanians ride away" } ] },
+        { "id": "keep", "label": "Keep them on in the guard", "default": true, "effects": [ { "guard": "upkeep", "by": 1 }, { "mood": "citizens", "by": -1, "why": "fickle foreigners in the city" } ] },
+        { "id": "land", "label": "Settle them on land", "cost": { "land": 1 }, "effects": [ { "mood": "guard", "by": 1 }, { "mood": "citizens", "by": -1 } ] }
+      ],
+      "source": "Diodorus 14.8.6, 14.9.2 to 14.9.9", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "Twelve hundred Campanian cavalry.", "cite": "Diodorus 14.9.2", "quote": "being in number twelve hundred cavalry", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" },
+        { "text": "Paid and sent away; they seize Entella.", "cite": "Diodorus 14.9.8 to 14.9.9", "quote": "To the Campanians he awarded the gifts that were due and then dispatched them from the city, having regard to their fickleness", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" }
+      ],
+      "invented": ["keeping them or giving them land", "all numbers"]
+    },
+    {
+      "id": "aristusOfSparta", "kind": "history", "name": "The Spartan envoy", "weight": 4,
+      "when": { "until": "summer-402" },
+      "roles": { "victim": { "id": "nicoteles" } },
+      "text": "Aristus, a distinguished Spartan, has landed. In public he promises the citizens their liberty. In private he tells you Sparta wants your rule made stronger, and that Nicoteles the Corinthian, a leader of the citizens, trusts him.",
+      "why": "Sparta has won its war in Greece and wants friends in the west",
+      "choices": [
+        { "id": "letHim", "label": "Let Aristus do his work", "history": true,
+          "text": "Aristus kills Nicoteles, betraying the men who trusted him.",
+          "effects": [ { "status": "victim", "to": "dead", "why": "Aristus betrayed those who trusted him" }, { "mood": "citizens", "by": -1 }, { "power": "citizens", "by": -1 }, { "flag": "spartanFriend" } ] },
+        { "id": "useHim", "label": "Use him only to learn the citizens' plans", "effects": [ { "reveal": "victim", "seasons": 2 }, { "revealPlotOf": "victim" }, { "flag": "spartanFriend" } ] },
+        { "id": "sendHome", "label": "Send him home with gifts", "default": true, "cost": { "silver": 1 } },
+        { "id": "refuse", "label": "Send him home with nothing" }
+      ],
+      "source": "Diodorus 14.10.2 to 14.10.3", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Aristus pretends to free the city, kills Nicoteles. About 404.", "cite": "Diodorus 14.10.3", "quote": "promised to restore their liberty; then he slew Nicoteles the Corinthian, a leader of the Syracusans, made strong the tyrant by betraying those who put their faith in him", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" } ],
+      "invented": ["the choices other than letting him", "all numbers"]
+    },
+    {
+      "id": "harvestArms", "kind": "history", "name": "The empty houses", "weight": 3,
+      "when": { "seasonOfYear": ["summer"], "disarmed": false, "mood": { "citizens": { "max": 2 } } },
+      "text": "Harvest time. The citizens are out in the fields, and their houses in the city stand empty.",
+      "why": "the citizens are Uneasy or worse, and the harvest takes them out of the city",
+      "choices": [
+        { "id": "take", "label": "Search their houses and carry off their arms", "history": true,
+          "text": "Your mercenaries go from house to house. When the citizens come home, their weapons are gone.",
+          "effects": [ { "disarm": true, "why": "you took their arms while they reaped" } ] },
+        { "id": "leave", "label": "Let them bring in the harvest", "default": true }
+      ],
+      "source": "Diodorus 14.10.4", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Disarming the citizens at harvest, about 404.", "cite": "Diodorus 14.10.4", "quote": "sending the Syracusans out to harvest their crops, entered their homes and carried off the arms of them all", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" } ],
+      "invented": ["trigger", "all numbers"]
+    },
+    {
+      "id": "epipolaeWall", "kind": "history", "name": "Sixty thousand hands", "weight": 3, "once": false, "cooldown": 8,
+      "when": { "walls": false, "silver": { "min": 3 }, "clock": { "min": 4 } },
+      "text": "Your master-builders say the heights of Epipolae command the city. A wall there would mean Syracuse can never again be cut off from its countryside, as it was in the war with Athens.",
+      "why": "Carthage stirs, and the heights are open",
+      "choices": [
+        { "id": "allHands", "label": "Raise it in twenty days with the whole countryside, and work beside them", "history": true, "cost": { "silver": 3, "slots": 1 },
+          "text": "You lay aside your dignity and haul stone with the workers. Some work into the night. The wall stands in twenty days.",
+          "effects": [ { "walls": true }, { "mood": "citizens", "by": 1, "why": "you toiled beside them" }, { "grain": -1, "why": "sixty thousand workers must eat" } ] },
+        { "id": "hired", "label": "Pay for the wall, and leave the work to others", "cost": { "silver": 4 }, "effects": [ { "walls": true } ] },
+        { "id": "later", "label": "Not now", "default": true }
+      ],
+      "source": "Diodorus 14.18", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "Sixty thousand men on the wall, about 402/401.", "cite": "Diodorus 14.18.4", "quote": "he selected some sixty thousand capable men and parcelled out to them the space to be walled", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" },
+        { "text": "He worked beside them.", "cite": "Diodorus 14.18.7", "quote": "he laid aside the dignity of his office and reduced himself to the ranks", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" },
+        { "text": "Twenty days.", "cite": "Diodorus 14.18.8", "quote": "the wall was brought to completion in twenty days", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" }
+      ],
+      "invented": ["trigger", "the hired option", "all numbers"]
+    },
+    {
+      "id": "armsWorkshops", "kind": "history", "name": "The arms workshops", "weight": 3,
+      "when": { "from": "spring-399", "clock": { "min": 3 } },
+      "text": "You could prepare for a great war: gather skilled workmen from your cities and, with high wages, from Italy, Greece and even Carthage's lands, and fill the porticoes and back rooms of the temples with forges.",
+      "why": "a war with Carthage is coming, sooner or later",
+      "choices": [
+        { "id": "workshops", "label": "Fill the city with workshops, and dine with the best workers", "history": true, "cost": { "silver": 3 },
+          "text": "The porticoes ring with hammers. Your engineers invent a new engine, the catapult.",
+          "effects": [ { "guard": "strength", "by": 1 }, { "mood": "citizens", "by": 1, "why": "wages, prizes and your table" }, { "flag": "armed" } ] },
+        { "id": "buy", "label": "Order arms from abroad", "cost": { "silver": 2 }, "effects": [ { "guard": "strength", "by": 1 }, { "flag": "armed" } ] },
+        { "id": "no", "label": "Not yet", "default": true }
+      ],
+      "source": "Diodorus 14.41.3 to 14.42.1", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "Workmen gathered with high wages, about 399.", "cite": "Diodorus 14.41.3", "quote": "attracting them by high wages from Italy and Greece as well as Carthaginian territory", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "The catapult invented; Dionysius among the workers.", "cite": "Diodorus 14.42.1", "quote": "the catapult was invented at this time in Syracuse", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger", "the buy option", "all numbers"]
+    },
+    {
+      "id": "warOnCarthage", "kind": "history", "name": "War, while Carthage is sick", "weight": 4,
+      "when": { "clock": { "max": 6 }, "any": [ { "flag": { "armed": true } }, { "from": "spring-397" } ] },
+      "text": "Plague has struck Carthage and Libya. You could call the assembly and urge war now, before the enemy recovers.",
+      "why": "Carthage is weak, and you are armed",
+      "choices": [
+        { "id": "plunder", "label": "Declare war, and let the people plunder the Phoenicians in the city", "history": true,
+          "text": "The assembly votes for war. The crowd strips the Phoenician merchants' houses and ships in the harbour.",
+          "effects": [ { "clock": 3 }, { "mood": "citizens", "by": 1 }, { "silver": 2, "why": "plunder from the Phoenician merchants" }, { "flag": "atWar" } ] },
+        { "id": "clean", "label": "Declare war, but protect the merchants' goods", "effects": [ { "clock": 3 }, { "mood": "guard", "by": 1 }, { "flag": "atWar" } ] },
+        { "id": "peace", "label": "Keep the peace for now", "default": true }
+      ],
+      "source": "Diodorus 14.45.2 to 14.46.1", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "War urged while Carthage suffers plague, 398.", "cite": "Diodorus 14.45.3", "quote": "the Carthaginians were inactive because of the plague", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "Phoenician property plundered.", "cite": "Diodorus 14.46.1", "quote": "the Syracusans, with the permission of Dionysius, seized as plunder the property of the Phoenicians", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "The citizens hoped to win liberty with arms in hand.", "cite": "Diodorus 14.45.5", "quote": "once they had got weapons in their hand, they could strike for their liberty", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger", "protecting the merchants", "all numbers"]
+    },
+    {
+      "id": "theodorusSpeaks", "kind": "history", "name": "Theodorus speaks for liberty", "weight": 6,
+      "when": { "from": "spring-398", "any": [ { "flag": { "atWar": true } }, { "clock": { "min": 8 } } ] },
+      "roles": { "speaker": { "id": "theodorus" } },
+      "text": "You call the assembly to praise the citizens and promise a quick end to the war. Before you can dismiss it, Theodorus, a man of action, held in high esteem among the cavalry, stands to speak for liberty: if you will lay down your office, let you leave with your possessions; if not, they have weapons in their hands and allies about them.",
+      "why": "the war has put arms in the citizens' hands",
+      "choices": [
+        { "id": "spartan", "label": "Look to the Spartan admiral to speak for you", "history": true,
+          "roll": { "need": 4, "mods": [ { "label": "Sparta is your friend", "value": 2, "if": { "flag": { "spartanFriend": true } } }, { "label": "Spartan ships are in the harbour", "value": 1, "if": { "flag": { "spartanShips": true } } }, { "label": "the citizens are Angry", "value": -1, "if": { "mood": { "citizens": { "max": 1 } } } } ],
+            "success": { "text": "The Spartan declares he came to fight Carthage, not to overthrow you. The mercenaries crowd around you; the citizens curse the Spartans and do nothing.", "effects": [ { "mood": "citizens", "by": -1 }, { "rival": "speaker", "scar": "Humiliated", "reason": "the Spartans shouted down his call for liberty" } ] },
+            "failure": { "text": "No one speaks for you. The assembly breaks up in uproar, and Theodorus' name is on every tongue.", "effects": [ { "mood": "citizens", "by": -2 }, { "influence": "speaker", "by": 2 }, { "startPlot": "speaker", "why": "the assembly would not hear you, and he saw it" } ] } } },
+        { "id": "seize", "label": "Have the guard drag Theodorus from the platform",
+          "effects": [ { "status": "speaker", "to": "held" }, { "grudge": "speaker", "reason": "you had him dragged from the assembly" }, { "mood": "rich", "by": -2 }, { "mood": "citizens", "by": -1 } ] },
+        { "id": "promise", "label": "Promise to lay down your power when the war is won",
+          "effects": [ { "mood": "citizens", "by": 2 }, { "mood": "rich", "by": 1 }, { "flag": "promised" }, { "then": "promiseComesDue", "after": 6 } ] },
+        { "id": "banquets", "label": "Dissolve the assembly, then win the crowd back with gifts and banquets", "history": true, "cost": { "silver": 2 },
+          "effects": [ { "mood": "citizens", "by": 1, "why": "gifts and public banquets" }, { "grudge": "speaker", "reason": "you shut the assembly on his speech" } ] },
+        { "id": "dissolve", "label": "Dissolve the assembly", "default": true,
+          "effects": [ { "mood": "citizens", "by": -1 }, { "grudge": "speaker", "reason": "you shut the assembly on his speech" } ] }
+      ],
+      "source": "Diodorus 14.64.5, 14.69.4, 14.70.1 to 14.70.3", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "Theodorus rises, about 396.", "cite": "Diodorus 14.64.5", "quote": "Theodorus, a Syracusan, who was held in high esteem among the cavalry and was considered a man of action, made bold to speak", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "His demand.", "cite": "Diodorus 14.69.4", "quote": "if he is willing to lay down his office of his own accord, let us allow him to leave the city with his possessions", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "Pharacidas vetoes.", "cite": "Diodorus 14.70.2", "quote": "not to overthrow the rule of Dionysius", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "Gifts and banquets after.", "cite": "Diodorus 14.70.3", "quote": "later he won the favour of the multitude by kindly words, honouring some of them with gifts and inviting some to general banquets", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["the roll for the Spartan's answer", "seizing him, the promise", "all numbers"]
+    },
+    {
+      "id": "polyxenusEmbassy", "kind": "history", "name": "An embassy for ships", "weight": 4,
+      "when": { "clock": { "min": 7 } },
+      "roles": { "envoy": { "id": "polyxenus", "opinion": { "min": 0 } } },
+      "text": "Carthage is coming. You could send your brother-in-law Polyxenus to the Greeks of Italy, to Sparta and to Corinth, begging for ships, with ample money to hire soldiers.",
+      "why": "the Carthage clock is high, and Polyxenus is on good terms with you",
+      "choices": [
+        { "id": "send", "label": "Send Polyxenus with ample funds", "history": true, "cost": { "silver": 2 }, "effects": [ { "then": "polyxenusReturns", "after": 2 } ] },
+        { "id": "no", "label": "Rely on your own ships", "default": true }
+      ],
+      "source": "Diodorus 14.62.1", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Polyxenus sent as ambassador, about 396.", "cite": "Diodorus 14.62.1", "quote": "sent his brother-in-law Polyxenus as ambassador both to the Greeks in Italy and to the Lacedaemonians, as well as the Corinthians", "file": "sources/diodorus/english/book14.loeb.txt" } ],
+      "invented": ["trigger", "all numbers"]
+    },
+    {
+      "id": "polyxenusReturns", "kind": "history", "name": "Thirty ships from the allies", "chained": true,
+      "roles": { "envoy": { "id": "polyxenus" } },
+      "text": "Polyxenus is back from the Peloponnese and Italy, bringing thirty warships from your allies, with the Spartan Pharacidas as admiral.",
+      "why": "the embassy you sent",
+      "effects": [ { "clock": -2, "why": "thirty allied warships" }, { "flag": "spartanShips" }, { "flag": "spartanFriend" }, { "opinion": "envoy", "by": 1 } ],
+      "source": "Diodorus 14.63.4", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Thirty warships under Pharacidas.", "cite": "Diodorus 14.63.4", "quote": "bringing thirty warships from his allies, with Pharacidas the Lacedaemonian as admiral", "file": "sources/diodorus/english/book14.loeb.txt" } ],
+      "invented": ["timing", "all numbers"]
+    },
+    {
+      "id": "mercenaryDemand", "kind": "history", "name": "The mercenaries want their pay", "weight": 5, "once": false, "cooldown": 8,
+      "when": { "arrears": { "min": 1 }, "guardMood": { "max": 2 } },
+      "roles": { "commander": { "id": "aristotle", "optional": true } },
+      "text": "The mercenaries are hostile, and you fear they may depose you. They gather under arms and demand their pay, with some sharpness.",
+      "why": "the guard is unpaid and Uneasy or worse",
+      "choices": [
+        { "id": "leontini", "label": "Arrest Aristotle, send him to Sparta for trial, and give the men land at Leontini instead of pay", "needs": ["commander"], "history": true,
+          "effects": [ { "status": "commander", "to": "outside", "why": "sent to Sparta to face trial" }, { "rival": "commander", "scar": "Exiled", "reason": "you arrested him and sent him to Sparta" }, { "payArrears": true }, { "guard": "strength", "by": -1, "why": "many go off to farm at Leontini" }, { "mood": "guard", "by": 1 } ] },
+        { "id": "dust", "label": "Go out to them in mean clothes, with dust on your head, and give yourself up to them", "history": true,
+          "roll": { "need": 4, "mods": [ { "trait": "you", "action": "petition" } ],
+            "success": { "text": "Seeing you so humbled, they cannot bring themselves to touch you.", "effects": [ { "mood": "guard", "by": 1 } ] },
+            "failure": { "text": "They jeer. Someone shoves you, and no one stops him.", "effects": [ { "mood": "guard", "by": -1 }, { "plotBonus": 1, "why": "the guard has seen you humbled" } ] } } },
+        { "id": "wait", "label": "Promise them pay soon", "default": true, "effects": [ { "mood": "guard", "by": -1 } ] }
+      ],
+      "source": "Diodorus 14.78.1 to 14.78.3; Polyaenus 5.2.1", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "Aristotle arrested; Leontini given instead of pay, about 396.", "cite": "Diodorus 14.78.2", "quote": "offered to the mercenaries, who numbered about ten thousand, in lieu of their pay the city and territory of the Leontines", "file": "sources/diodorus/english/book14-78-96.txt" },
+        { "text": "Dust on his head.", "cite": "Polyaenus 5.2.1", "quote": "He came out to them in mean clothes, with dust on his head", "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt" }
+      ],
+      "invented": ["trigger", "the roll", "all numbers"]
+    },
+    {
+      "id": "himilconOffer", "kind": "history", "name": "Carthage's secret offer", "weight": 8,
+      "when": { "flag": { "invaded": { "within": 1 } }, "clock": { "max": 6 } },
+      "text": "Beaten back, the Carthaginian general sends to you in secret, behind the citizens' backs: let his own Carthaginians sail home by night, and three hundred talents are yours.",
+      "why": "Carthage's army was thrown back from the walls",
+      "choices": [
+        { "id": "take", "label": "Take the silver, and let them slip away", "history": true,
+          "text": "The silver comes to the Island by night. Carthage lives to come again, and the citizens stay afraid of it.",
+          "effects": [ { "silver": 4 }, { "clock": 1, "why": "Carthage keeps an army to come back with" }, { "plotBonus": -1, "why": "fear of Carthage keeps the city close to you" } ] },
+        { "id": "destroy", "label": "Refuse, and destroy them on the shore", "default": true, "effects": [ { "clock": -3 }, { "mood": "citizens", "by": 1 }, { "mood": "guard", "by": 1 } ] }
+      ],
+      "source": "Diodorus 14.75.1 to 14.75.3", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "Three hundred talents for a secret retreat, 396.", "cite": "Diodorus 14.75.1", "quote": "promised to give him the three hundred talents which they had there in their camp", "file": "sources/diodorus/english/book14.loeb.txt" },
+        { "text": "His reason, as Diodorus gives it.", "cite": "Diodorus 14.75.3", "quote": "should never find a time of ease to assert their freedom", "file": "sources/diodorus/english/book14.loeb.txt" }
+      ],
+      "invented": ["trigger", "all numbers"]
+    },
+    {
+      "id": "marsyasDream", "kind": "history", "name": "The captain's dream", "weight": 3,
+      "roles": { "dreamer": { "faction": "guard" } },
+      "text": "{Dreamer}, whom you raised to high command, dreamed of killing you and told the dream over wine. The story is all through the barracks.",
+      "why": "you are suspicious, and in the barracks dreams get told",
+      "choices": [
+        { "id": "kill", "label": "Put {dreamer} to death: what a man dreams by night, he plans by day", "history": true,
+          "effects": [ { "status": "dreamer", "to": "dead" }, { "mood": "guard", "by": -1 }, { "plotBonus": -1, "why": "no one dares even dream against you" } ] },
+        { "id": "laugh", "label": "Laugh it off, and toast {dreamer} at dinner", "effects": [ { "opinion": "dreamer", "by": 1 }, { "mood": "guard", "by": 1 } ] },
+        { "id": "watch", "label": "Have {dreamer} watched", "default": true, "effects": [ { "reveal": "dreamer", "seasons": 2 } ] }
+      ],
+      "source": "Plutarch, Dion 9", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Marsyas killed for a dream. No date.", "cite": "Plutarch, Dion 9", "quote": "he slew Marsyas, one of those whom he had advanced to positions of high command, for having dreamed that he killed him", "file": "sources/plutarch/dion.perrin.txt" } ],
+      "invented": ["who dreams (Plutarch names Marsyas, who is not in the cast; a member of the guard takes his place)", "the choices other than death", "all numbers"]
+    },
+    {
+      "id": "borrowedSpear", "kind": "history", "name": "The borrowed spear", "weight": 3,
+      "roles": { "brother": { "id": "leptines" } },
+      "text": "Describing a place to you, Leptines drew its plan on the ground with a spear he took from one of your bodyguards. No one is meant to bear arms in your presence.",
+      "why": "you trust no one near you with a weapon, not even your brother",
+      "choices": [
+        { "id": "killGuard", "label": "Put to death the guard who handed over the spear", "history": true,
+          "effects": [ { "mood": "guard", "by": -1 }, { "opinion": "brother", "by": -1 }, { "plotBonus": -1, "why": "no guard will let a weapon near you again" } ] },
+        { "id": "rebuke", "label": "Rebuke Leptines before the court", "effects": [ { "opinion": "brother", "by": -2 }, { "grudge": "brother", "reason": "you shamed him before the court" } ] },
+        { "id": "pass", "label": "Let it pass", "default": true, "effects": [ { "plotBonus": 1, "why": "your guards grow careless" } ] }
+      ],
+      "source": "Plutarch, Dion 9", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Leptines and the spear. No date.", "cite": "Plutarch, Dion 9", "quote": "drew the plan of it on the ground with a spear which he took from one of his body-guards, he was extremely angry with him, and had the man who gave him the spear put to death", "file": "sources/plutarch/dion.perrin.txt" } ],
+      "invented": ["the choices other than death", "all numbers"]
+    },
+    {
+      "id": "philistusMatch", "kind": "history", "name": "A marriage made without you", "weight": 3,
+      "roles": { "brother": { "id": "leptines" }, "groom": { "id": "philistus" } },
+      "text": "Leptines has given one of his two daughters to Philistus in marriage, without so much as telling you.",
+      "why": "Leptines and Philistus are close, and neither asked you",
+      "choices": [
+        { "id": "banish", "label": "Banish Philistus from Sicily, and put Leptines' wife in fetters", "history": true,
+          "effects": [ { "status": "groom", "to": "outside" }, { "rival": "groom", "scar": "Exiled", "reason": "you banished him for his marriage" }, { "opinion": "brother", "by": -2 }, { "grudge": "brother", "reason": "you put his wife in fetters" }, { "mood": "rich", "by": -1 } ] },
+        { "id": "bless", "label": "Bless the match", "effects": [ { "opinion": "groom", "by": 1 }, { "opinion": "brother", "by": 1 }, { "bound": "groom" }, { "influence": "groom", "by": 1, "why": "married into your family" } ] },
+        { "id": "warn", "label": "Accept it, but make plain the choice was yours to make", "default": true, "effects": [ { "opinion": "brother", "by": -1 }, { "opinion": "groom", "by": -1 } ] }
+      ],
+      "source": "Plutarch, Dion 11", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "The marriage and the banishment. Plutarch gives no date; it may fall after 395.", "cite": "Plutarch, Dion 11", "quote": "gave one of them to Philistus without so much as telling Dionysius, the tyrant was wroth, put the wife of Leptines into fetters and prison, and banished Philistus from Sicily", "file": "sources/plutarch/dion.perrin.txt" } ],
+      "invented": ["that it can happen in 405 to 395 at all", "the choices other than banishment", "all numbers"]
+    },
+    {
+      "id": "secretOfConspiracies", "kind": "history", "name": "The man with the secret", "weight": 2,
+      "text": "A foreigner in the city claims an infallible secret for revealing conspiracies, and will tell it to you alone. Alone with you, he says: claim, as I do, that you have such a secret, and no one will dare plot against you.",
+      "why": "a clever stranger has heard how much you fear plots",
+      "choices": [
+        { "id": "reward", "label": "Reward him well, and tell your guards what he \"revealed\"", "history": true, "cost": { "silver": 1 },
+          "effects": [ { "plotBonus": -1, "why": "everyone believes you can see plots coming" } ] },
+        { "id": "out", "label": "Have him thrown out", "default": true }
+      ],
+      "source": "Polyaenus, Stratagems 5.2.3", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "The foreigner's advice. No date.", "cite": "Polyaenus 5.2.3", "quote": "Only claim, as I have done, that you possess the secret which I am pretending to reveal; and no-one will venture into any conspiracy against you", "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt" } ],
+      "invented": ["all numbers"]
+    },
+    {
+      "id": "whatTheyHeard", "kind": "history", "name": "What the musicians hear", "weight": 2,
+      "text": "Your agents say the flute-girls and courtesans of the city hear everything their lovers say about you.",
+      "why": "you want to know who your enemies are",
+      "choices": [
+        { "id": "torture", "label": "Have them questioned under torture", "history": true,
+          "effects": [ { "revealPlots": true }, { "mood": "citizens", "by": -1, "why": "the city hears what was done to them" } ] },
+        { "id": "pay", "label": "Pay them for what they hear", "cost": { "silver": 1 },
+          "roll": { "need": 4, "mods": [], "success": { "effects": [ { "revealPlots": true } ] }, "failure": { "text": "They tell you only what you want to hear." } } },
+        { "id": "leave", "label": "Leave them be", "default": true }
+      ],
+      "source": "Polyaenus, Stratagems 5.2.13", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Musicians and courtesans questioned. No date.", "cite": "Polyaenus 5.2.13", "quote": "they were made to confess under torture, what were the opinions which they had heard their lovers express about the tyranny", "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt" } ],
+      "invented": ["paying them instead", "all numbers"]
+    },
+    {
+      "id": "reportOfDeath", "kind": "history", "name": "A report of your death", "weight": 2,
+      "when": { "plotStage": { "min": 1 } },
+      "text": "Your enemies are stirring. You could put out word that you are at the point of death, and watch who rejoices.",
+      "why": "there are whispers of a plot",
+      "choices": [
+        { "id": "feign", "label": "Feign a mortal illness, and mark who rejoices", "history": true,
+          "roll": { "need": 4, "mods": [ { "trait": "you", "action": "watch" } ],
+            "success": { "text": "You appear in public with your guards, and the men who rejoiced go pale.", "effects": [ { "revealPlots": true }, { "mood": "citizens", "by": -1, "why": "they see how you test them" } ] },
+            "failure": { "text": "The rumour runs ahead of you. The city thinks you weak.", "effects": [ { "plotBonus": 1, "why": "the plotters think you are failing" } ] } } },
+        { "id": "no", "label": "Do not tempt the gods", "default": true }
+      ],
+      "source": "Polyaenus, Stratagems 5.2.15 to 5.2.16", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "The feigned illness. No date.", "cite": "Polyaenus 5.2.16", "quote": "Dionysius pretended to be ill, and ordered a report to be spread about, that he was at the point of death", "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt" } ],
+      "invented": ["the roll and its failure", "all numbers"]
+    },
+    {
+      "id": "demeterOrnaments", "kind": "history", "name": "Demeter's ornaments", "weight": 2,
+      "when": { "silver": { "max": 2 } },
+      "text": "The treasury is empty. You could tell the assembly that Demeter has appeared to you and asked for the women's ornaments to be brought to her temple, as your own household has already done.",
+      "why": "you are short of silver",
+      "choices": [
+        { "id": "goddess", "label": "Proclaim the goddess's wish, then borrow her gold", "history": true,
+          "effects": [ { "silver": 3, "why": "the goddess's loan" }, { "mood": "rich", "by": -1 }, { "mood": "citizens", "by": -1 } ] },
+        { "id": "no", "label": "Leave the gods out of it", "default": true }
+      ],
+      "source": "Pseudo-Aristotle, Oeconomica 2.2.20", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "The ornaments of Demeter. No date.", "cite": "Oeconomica 2.2.20", "quote": "declared that Demeter had appeared to him, and bade him convey all the women’s ornaments into her temple", "file": "sources/sicily-tyrants/pseudo-aristotle-oeconomica-2-2.armstrong.txt" } ],
+      "invented": ["all numbers"]
+    },
+    {
+      "id": "tinCoinage", "kind": "history", "name": "Coins of tin", "weight": 2,
+      "when": { "silver": { "max": 2 }, "playerHolds": ["mint"] },
+      "text": "You hold the mint and have no silver. You could strike coins of tin, and have the assembly vote that whatever a man receives counts as silver.",
+      "why": "you are short of silver, and you hold the mint",
+      "choices": [
+        { "id": "tin", "label": "Strike the tin, and have the vote passed", "history": true,
+          "effects": [ { "silver": 3, "why": "tin passed for silver" }, { "mood": "rich", "by": -2, "why": "their wealth is paid back in tin" } ] },
+        { "id": "no", "label": "Keep the coin honest", "default": true }
+      ],
+      "source": "Pseudo-Aristotle, Oeconomica 2.2.20", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Tin coinage. No date.", "cite": "Oeconomica 2.2.20", "quote": "he minted a coinage of tin", "file": "sources/sicily-tyrants/pseudo-aristotle-oeconomica-2-2.armstrong.txt" } ],
+      "invented": ["all numbers"]
+    },
+    {
+      "id": "asclepiusOfferings", "kind": "history", "name": "The offerings of Asclepius", "weight": 2,
+      "when": { "silver": { "max": 3 } },
+      "text": "The people refuse a new tax: they have paid too often already. Meanwhile the temple of Asclepius is full of offerings of silver and gold.",
+      "why": "the treasury is low, and the people will not pay",
+      "choices": [
+        { "id": "sell", "label": "Sell the god's offerings in the market, then order the buyers to give them back", "history": true,
+          "effects": [ { "silver": 3, "why": "the sale of the offerings" }, { "mood": "citizens", "by": -1 }, { "mood": "rich", "by": -1 } ] },
+        { "id": "no", "label": "Let the temple be", "default": true }
+      ],
+      "source": "Polyaenus, Stratagems 5.2.19", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "The temple offerings sold and reclaimed. No date.", "cite": "Polyaenus 5.2.19", "quote": "whoever had sacrilegiously bought any of the offerings from the temple of Asclepius, should on pain of death immediately return them to the temple", "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt" } ],
+      "invented": ["all numbers"]
+    },
+    {
+      "id": "newCitizens", "kind": "history", "name": "Sharing out the land", "weight": 4,
+      "when": { "until": "summer-403", "land": { "min": 1 } },
+      "text": "The land of Syracuse is yours to share out. Your friends and officers expect the best of it. The freed slaves could be enrolled as citizens.",
+      "why": "after the troubles, the land is yours to give",
+      "choices": [
+        { "id": "friends", "label": "Give the best land to friends and officers", "history": true, "cost": { "land": 1 },
+          "effects": [ { "mood": "family", "by": 1 }, { "mood": "guard", "by": 1 }, { "mood": "citizens", "by": -1 } ] },
+        { "id": "freedmen", "label": "Free slaves, and enrol them as New Citizens", "history": true,
+          "effects": [ { "power": "citizens", "by": 1, "why": "the New Citizens" }, { "mood": "citizens", "by": 1 }, { "mood": "rich", "by": -1, "why": "they lose their slaves" } ] },
+        { "id": "equal", "label": "Divide it equally among citizens and resident foreigners", "history": true, "cost": { "land": 1 },
+          "effects": [ { "mood": "citizens", "by": 1 }, { "mood": "rich", "by": -1 } ] },
+        { "id": "keep", "label": "Keep the land for now", "default": true }
+      ],
+      "source": "Diodorus 14.7.4", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Land to friends and officers, equal portions to the rest, freedmen as New Citizens. About 404.", "cite": "Diodorus 14.7.4", "quote": "including under the name of citizens the manumitted slaves whom he designated as New Citizens", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" } ],
+      "invented": ["making the three into separate choices (Diodorus has him do all of them)", "all numbers"]
+    },
+    {
+      "id": "wordsInTheRanks", "kind": "history", "name": "Words in the ranks", "weight": 6,
+      "when": { "mood": { "citizens": { "max": 2 } }, "any": [ { "flag": { "marched": { "within": 1 } } }, { "flag": { "fighting": { "within": 1 } } } ] },
+      "roles": { "commander": { "id": "doricus" } },
+      "text": "In camp the citizen soldiers, arms in hand, gather in groups and reproach each other for not joining the cavalry against you. Doricus, their commander, warned one outspoken man; the man answered back, and Doricus stepped up to strike him.",
+      "why": "the citizens are armed for the campaign, and Uneasy or worse",
+      "choices": [
+        { "id": "back", "label": "Back Doricus: discipline first",
+          "roll": { "need": 4, "mods": [ { "label": "the citizens are Angry", "value": -1, "if": { "mood": { "citizens": { "max": 1 } } } }, { "label": "the guard is Loyal", "value": 1, "if": { "guardMood": { "min": 4 } } } ],
+            "success": { "text": "The man is flogged and the ranks fall silent.", "effects": [ { "mood": "citizens", "by": -1 } ] },
+            "failure": { "text": "The soldiers kill Doricus and cry to the citizens to strike for their freedom.", "effects": [ { "status": "commander", "to": "dead", "why": "his own soldiers killed him" }, { "mood": "citizens", "by": -2 }, { "clock": 1, "why": "revolt in the army" } ] } } },
+        { "id": "standDown", "label": "Order Doricus to stand down", "effects": [ { "opinion": "commander", "by": -1 }, { "mood": "guard", "by": -1 }, { "mood": "citizens", "by": 1 } ] },
+        { "id": "home", "label": "Break off the campaign and hurry home", "history": true, "default": true, "effects": [ { "mood": "guard", "by": -1, "why": "a campaign abandoned" } ] }
+      ],
+      "source": "Diodorus 14.7.6 to 14.8.1", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "Doricus killed at Herbessus, about 404.", "cite": "Diodorus 14.7.7", "quote": "The soldiers, in anger at this, slew the commander, whose name was Doricus", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" },
+        { "text": "Dionysius broke off the siege.", "cite": "Diodorus 14.8.1", "quote": "broke off the siege and hastened to Syracuse", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" }
+      ],
+      "invented": ["trigger (any march or street fighting)", "the roll that decides whether Doricus dies", "all numbers"]
+    },
+    {
+      "id": "termsForAetna", "kind": "history", "name": "Terms for Aetna", "weight": 4,
+      "when": { "until": "summer-401" },
+      "roles": { "exile": { "id": "cavalryLeader", "status": "outside" } },
+      "text": "You could bury the dead of both sides with honour, and send envoys to the exiles at Aetna pledging that you bear them no enmity if they come home.",
+      "why": "thousands of exiles still hold Aetna",
+      "choices": [
+        { "id": "offer", "label": "Offer terms to all the exiles", "history": true, "cost": { "silver": 1 },
+          "roll": { "need": 4, "mods": [ { "trait": "you", "action": "offerTerms" }, { "label": "the rich families are Content or better", "value": 1, "if": { "mood": { "rich": { "min": 3 } } } } ],
+            "success": { "text": "Men who left wives and children in the city come home. The rest stay at Aetna.", "effects": [ { "power": "rich", "by": 1, "why": "exiles return" }, { "mood": "rich", "by": 1 } ] },
+            "failure": { "text": "The exiles answer that you deserve the same favour as the dead, and pray the gods grant it soon.", "effects": [ { "grudge": "exile", "reason": "you offered terms no exile could trust" }, { "rank": "exile", "by": 1 } ] } } },
+        { "id": "no", "label": "Let them rot at Aetna", "default": true }
+      ],
+      "source": "Diodorus 14.9.6 to 14.9.8", "card": "docs/research/events-405-395.md",
+      "facts": [
+        { "text": "Terms offered, about 404.", "cite": "Diodorus 14.9.6", "quote": "asking the exiles to accept terms and return to their native land, and giving his pledged word that he would not bear enmity against them", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" },
+        { "text": "Some came back; the rest prayed he would die.", "cite": "Diodorus 14.9.7", "quote": "they prayed to the gods that they might, the sooner the better, see him obtain it", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt" }
+      ],
+      "invented": ["the roll", "all numbers"]
+    },
+    {
+      "id": "leptinesAttacks", "kind": "history", "name": "Leptines wants battle", "weight": 4,
+      "when": { "any": [ { "clock": { "min": 7 } }, { "flag": { "atWar": true } } ] },
+      "roles": { "admiral": { "id": "leptines", "office": "fleet" } },
+      "text": "Leptines, your admiral, wants to take the thirty best ships far ahead of the rest and fall on the Carthaginian fleet.",
+      "why": "Carthage's fleet is near, and Leptines commands yours",
+      "choices": [
+        { "id": "attack", "label": "Let him attack", "history": true,
+          "roll": { "need": 4, "mods": [ { "trait": "admiral", "action": "raid" } ],
+            "success": { "text": "Leptines sinks a good part of the enemy's van and comes home in glory.", "effects": [ { "clock": -2 }, { "opinion": "admiral", "by": 1 } ] },
+            "failure": { "text": "Leptines fights bravely but without prudence, is driven off, and flees to the open sea. Many ships are lost.", "effects": [ { "flag": "fleetDamaged" }, { "clock": 1 }, { "mood": "family", "by": -1 } ] } } },
+        { "id": "hold", "label": "Order him to keep the line", "default": true, "effects": [ { "opinion": "admiral", "by": -1 } ] }
+      ],
+      "source": "Diodorus 14.60.2 to 14.60.4", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "Leptines at Catana, 397/396.", "cite": "Diodorus 14.60.2", "quote": "Leptines advanced with his thirty best vessels far ahead of the rest and joined battle, in no cowardly fashion, but without prudence", "file": "sources/diodorus/english/book14.loeb.txt" } ],
+      "invented": ["the roll (history has him beaten)", "all numbers"]
+    },
+    {
+      "id": "veteransPay", "kind": "history", "name": "The old soldiers' pay", "weight": 2,
+      "when": { "silver": { "max": 3 }, "arrears": { "max": 0 } },
+      "text": "The soldiers' pay weighs on the treasury. You could stop paying the old veterans, but the young men say it would be cruel to starve those who spent their youth in your service.",
+      "why": "the guard costs more than the treasury takes in",
+      "choices": [
+        { "id": "trick", "label": "Post the old men to the forts at equal pay, then stop their pay once they are scattered", "history": true,
+          "effects": [ { "guard": "upkeep", "by": -1 }, { "mood": "guard", "by": -1, "why": "the trick on the veterans gets out" } ] },
+        { "id": "no", "label": "Keep paying them", "default": true }
+      ],
+      "source": "Polyaenus, Stratagems 5.2.11", "card": "docs/research/events-405-395.md",
+      "facts": [ { "text": "The veterans' pay. No date.", "cite": "Polyaenus 5.2.11", "quote": "Dionysius wished to deprive the old soldiers of their pay", "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt" } ],
+      "invented": ["all numbers"]
+    },
+
+    {
+      "id": "symposiumInsult", "kind": "invention", "name": "Wine at your table", "weight": 3,
+      "roles": { "mocker": {}, "target": {} },
+      "text": "At your dinner, deep in the wine, {mocker} mocks {target} before the whole table. Everyone looks at you.",
+      "why": "wine loosens tongues",
+      "choices": [
+        { "id": "laugh", "label": "Laugh along with {mocker}", "effects": [ { "opinion": "mocker", "by": 1 }, { "opinion": "target", "by": -1 }, { "grudge": "target", "reason": "you laughed at him at your own table" } ] },
+        { "id": "rebuke", "label": "Rebuke {mocker}", "effects": [ { "opinion": "target", "by": 1 }, { "opinion": "mocker", "by": -1 } ] },
+        { "id": "both", "label": "Send them both home", "effects": [ { "opinion": "mocker", "by": -1 }, { "opinion": "target", "by": -1 } ] },
+        { "id": "subject", "label": "Change the subject", "default": true }
+      ]
+    },
+    {
+      "id": "debtCalledIn", "kind": "invention", "name": "A debt called in", "weight": 4,
+      "roles": { "lender": { "owedFavor": true } },
+      "text": "{Lender} reminds you, politely and then less politely, that you owe him.",
+      "why": "you borrowed from {lender}",
+      "choices": [
+        { "id": "repay", "label": "Repay him with interest", "cost": { "silver": 2 }, "effects": [ { "clearFavor": "lender" }, { "opinion": "lender", "by": 1 } ] },
+        { "id": "voice", "label": "Repay him with a voice at court instead", "effects": [ { "clearFavor": "lender" }, { "influence": "lender", "by": 1, "why": "a voice at court" } ] },
+        { "id": "refuse", "label": "Tell him the debt can wait", "default": true, "effects": [ { "opinion": "lender", "by": -2 }, { "grudge": "lender", "reason": "you would not repay what you owed" } ] }
+      ]
+    },
+    {
+      "id": "houseInRuin", "kind": "invention", "name": "A house in ruin", "weight": 2,
+      "roles": { "debtor": { "faction": "rich", "notId": ["aristomache"] } },
+      "text": "{Debtor}'s house is ruined by debt. Creditors circle the estates.",
+      "why": "bad years, bad loans",
+      "choices": [
+        { "id": "lend", "label": "Lend {debtor} enough to stand", "cost": { "silver": 1 }, "effects": [ { "opinion": "debtor", "by": 2 }, { "bound": "debtor" } ] },
+        { "id": "buy", "label": "Buy the estates cheap", "cost": { "silver": 1 }, "effects": [ { "land": 1 }, { "grudge": "debtor", "reason": "you bought his estates for nothing" } ] },
+        { "id": "leave", "label": "Let the creditors have them", "default": true, "effects": [ { "opinion": "debtor", "by": -1 }, { "influence": "debtor", "by": -1, "why": "ruined" } ] }
+      ]
+    },
+    {
+      "id": "matchBetweenHouses", "kind": "invention", "name": "A match between houses", "weight": 2,
+      "roles": { "first": { "faction": "rich" }, "second": { "faction": ["guard", "family", "citizens"], "notId": ["theste", "doris"] } },
+      "text": "{First} and {second} want to join their houses by marriage, and ask for your blessing.",
+      "why": "two houses look for allies",
+      "choices": [
+        { "id": "bless", "label": "Bless the match", "effects": [ { "opinion": "first", "by": 1 }, { "opinion": "second", "by": 1 }, { "mood": "rich", "by": 1 } ] },
+        { "id": "forbid", "label": "Forbid it: you choose who marries whom", "effects": [ { "opinion": "first", "by": -1 }, { "opinion": "second", "by": -1 }, { "grudge": "first", "reason": "you forbade his match" } ] },
+        { "id": "ignore", "label": "Give no answer", "default": true, "effects": [ { "influence": "first", "by": 1, "why": "the houses ally without you" }, { "influence": "second", "by": 1, "why": "the houses ally without you" } ] }
+      ]
+    },
+    {
+      "id": "fever", "kind": "invention", "name": "A fever", "weight": 2, "cooldown": 6,
+      "roles": { "sick": {} },
+      "text": "A fever has taken hold of {sick}. The physicians shake their heads.",
+      "why": "summer fevers come every year to the marshes by the Great Harbour",
+      "choices": [
+        { "id": "physician", "label": "Send your own physician", "cost": { "silver": 1 },
+          "roll": { "need": 3, "mods": [], "success": { "text": "{Sick} recovers, and knows whom to thank.", "effects": [ { "opinion": "sick", "by": 2 } ] }, "failure": { "text": "Nothing could be done.", "effects": [ { "status": "sick", "to": "dead", "why": "a fever" } ] } } },
+        { "id": "gods", "label": "Leave it to the gods", "default": true,
+          "roll": { "need": 4, "mods": [], "success": { "text": "{Sick} recovers." }, "failure": { "text": "{Sick} dies of the fever.", "effects": [ { "status": "sick", "to": "dead", "why": "a fever" } ] } } }
+      ]
+    },
+    {
+      "id": "bloodInAgora", "kind": "invention", "name": "Blood in the agora", "weight": 3,
+      "roles": { "merc": { "faction": "guard" } },
+      "text": "In a brawl in the agora, one of your mercenaries has killed a citizen. A crowd wants him handed over. {Merc} wants him protected.",
+      "why": "foreign soldiers and citizens share the same streets",
+      "choices": [
+        { "id": "hand", "label": "Hand the mercenary to the citizens' court", "effects": [ { "mood": "guard", "by": -1 }, { "mood": "citizens", "by": 1 }, { "opinion": "merc", "by": -1 } ] },
+        { "id": "money", "label": "Pay blood-money to the family", "cost": { "silver": 1 } },
+        { "id": "protect", "label": "Protect your man", "default": true, "effects": [ { "mood": "citizens", "by": -1 }, { "opinion": "merc", "by": 1 } ] }
+      ]
+    },
+    {
+      "id": "fireAchradina", "kind": "invention", "name": "Fire in Achradina", "weight": 2,
+      "roles": { "rich": { "faction": "rich", "optional": true } },
+      "text": "Fire sweeps through the crowded streets of Achradina in the night. Granaries burn with the houses.",
+      "why": "dry weather and crowded wooden roofs",
+      "effects": [ { "grain": -1, "why": "the fire burned the granaries" } ],
+      "choices": [
+        { "id": "rebuild", "label": "Pay to rebuild", "cost": { "silver": 2 }, "effects": [ { "mood": "citizens", "by": 1 } ] },
+        { "id": "blame", "label": "Blame {rich}'s slaves, and fine the house", "needs": ["rich"], "effects": [ { "silver": 1 }, { "opinion": "rich", "by": -2 }, { "grudge": "rich", "reason": "you blamed his house for the fire" }, { "mood": "citizens", "by": 1 } ] },
+        { "id": "nothing", "label": "Let them rebuild themselves", "default": true, "effects": [ { "mood": "citizens", "by": -1 } ] }
+      ]
+    },
+    {
+      "id": "storm", "kind": "invention", "name": "A storm off Plemmyrium", "weight": 2,
+      "when": { "seasonOfYear": ["winter", "autumn"] },
+      "text": "A storm drives ships onto the rocks off Plemmyrium.",
+      "why": "the winter sea",
+      "effects": [ { "flag": "fleetDamaged", "why": "ships lost in the storm" } ],
+      "choices": [
+        { "id": "rebuild", "label": "Pay the shipwrights to work through the season", "cost": { "silver": 2 }, "effects": [ { "clearFlag": "fleetDamaged" } ] },
+        { "id": "accept", "label": "The fleet will have to wait", "default": true }
+      ]
+    },
+    {
+      "id": "omen", "kind": "invention", "name": "A bad omen", "weight": 2,
+      "roles": { "scapegoat": { "faction": "rich", "grudge": true, "optional": true } },
+      "text": "At the sacrifice, the seers find the liver of the victim misshapen. The city talks of nothing else.",
+      "why": "the gods are watched closely in a frightened city",
+      "choices": [
+        { "id": "seers", "label": "Pay the seers to read it as a sign of victory", "cost": { "silver": 1 }, "effects": [ { "mood": "citizens", "by": 1 } ] },
+        { "id": "blame", "label": "Have the seers name {scapegoat} as hateful to the gods", "needs": ["scapegoat"], "effects": [ { "opinion": "scapegoat", "by": -1 }, { "mood": "citizens", "by": 1 }, { "mood": "rich", "by": -1 } ] },
+        { "id": "ignore", "label": "Ignore it", "default": true, "effects": [ { "mood": "citizens", "by": -1 } ] }
+      ]
+    },
+    {
+      "id": "poetsVerses", "kind": "invention", "name": "A poet's verses", "weight": 2,
+      "text": "At the festival a poet recites verses that mock you. The crowd laughs, then looks to see what you will do.",
+      "why": "you are the obvious target",
+      "choices": [
+        { "id": "quarries", "label": "Send him to the stone quarries", "effects": [ { "mood": "citizens", "by": -1 }, { "mood": "rich", "by": -1 } ] },
+        { "id": "reward", "label": "Laugh, and pay him to write better verses about you", "cost": { "silver": 1 }, "effects": [ { "mood": "citizens", "by": 1 } ] },
+        { "id": "ignore", "label": "Pretend you did not hear", "default": true }
+      ]
+    },
+    {
+      "id": "slaveStory", "kind": "invention", "name": "A slave with a story", "weight": 3,
+      "roles": { "master": { "inPlot": true } },
+      "text": "A slave from the household of {master} asks to speak with you alone. His master has guests at night, he says, and the doors are barred.",
+      "why": "slaves see everything in a house",
+      "choices": [
+        { "id": "free", "label": "Free him, and hear it all", "cost": { "silver": 1 }, "effects": [ { "revealPlotOf": "master" }, { "reveal": "master", "seasons": 2 } ] },
+        { "id": "back", "label": "Send him back to his master", "default": true, "effects": [ { "opinion": "master", "by": 1 } ] }
+      ]
+    },
+    {
+      "id": "widowsEstate", "kind": "invention", "name": "A disputed estate", "weight": 2,
+      "roles": { "claimant": { "faction": "rich" }, "rivalClaimant": { "faction": ["rich", "citizens", "guard"] } },
+      "text": "{Claimant} and {rivalClaimant} both claim the estate of a dead man, and both ask you to judge.",
+      "why": "a rich man died without a clear heir",
+      "choices": [
+        { "id": "first", "label": "Judge for {claimant}", "effects": [ { "opinion": "claimant", "by": 1 }, { "opinion": "rivalClaimant", "by": -1 }, { "grudge": "rivalClaimant", "reason": "you judged against him" } ] },
+        { "id": "second", "label": "Judge for {rivalClaimant}", "effects": [ { "opinion": "rivalClaimant", "by": 1 }, { "opinion": "claimant", "by": -1 }, { "grudge": "claimant", "reason": "you judged against him" } ] },
+        { "id": "seize", "label": "Take the estate for the treasury", "effects": [ { "silver": 2 }, { "opinion": "claimant", "by": -1 }, { "opinion": "rivalClaimant", "by": -1 }, { "mood": "rich", "by": -1 } ] },
+        { "id": "drag", "label": "Let the courts drag on", "default": true }
+      ]
+    },
+    {
+      "id": "grainShip", "kind": "invention", "name": "A grain ship from Egypt", "weight": 3,
+      "when": { "grain": { "max": 4 } },
+      "text": "A merchant ship heavy with Egyptian grain puts in at the Great Harbour, asking a high price.",
+      "why": "the stores are low, and merchants can smell it",
+      "choices": [
+        { "id": "buy", "label": "Buy the cargo", "cost": { "silver": 1 }, "effects": [ { "grain": 3 } ] },
+        { "id": "seize", "label": "Seize it", "effects": [ { "grain": 3 }, { "mood": "rich", "by": -1, "why": "merchants fear for their ships" }, { "clock": 1, "why": "the merchants carry their complaint to Carthage" } ] },
+        { "id": "let", "label": "Let it sail on", "default": true }
+      ]
+    },
+    {
+      "id": "captainsDice", "kind": "invention", "name": "The captain's dice", "weight": 3,
+      "roles": { "captain": { "id": "guardCaptain" } },
+      "text": "The captain of the guard has lost heavily at dice, and creditors are at the door. He hints that there are men in the city who would pay those debts.",
+      "why": "the captain is greedy and owes money",
+      "choices": [
+        { "id": "pay", "label": "Pay his debts", "cost": { "silver": 1 }, "effects": [ { "opinion": "captain", "by": 2 }, { "bound": "captain" } ] },
+        { "id": "dismiss", "label": "Dismiss him from the guard", "effects": [ { "status": "captain", "to": "outside" }, { "rival": "captain", "scar": "Exiled", "reason": "you threw him out of the guard" }, { "guard": "strength", "by": -1 } ] },
+        { "id": "let", "label": "Let him sort it out himself", "default": true, "effects": [ { "opinion": "captain", "by": -1 }, { "grudge": "captain", "reason": "you left him to his creditors" } ] }
+      ]
+    },
+    {
+      "id": "festival", "kind": "invention", "name": "The spring festival", "weight": 3,
+      "when": { "seasonOfYear": ["spring"] },
+      "text": "The spring festival comes round. The city waits to see how open your hand will be.",
+      "why": "the festival of the season",
+      "choices": [
+        { "id": "lavish", "label": "Pay for games and a public feast", "cost": { "silver": 2 }, "effects": [ { "mood": "citizens", "by": 1 }, { "mood": "guard", "by": 1 } ] },
+        { "id": "modest", "label": "A modest sacrifice", "cost": { "silver": 1 },
+          "roll": { "need": 4, "mods": [], "success": { "effects": [ { "mood": "citizens", "by": 1 } ] }, "failure": { "text": "The crowd thinks it mean." } } },
+        { "id": "nothing", "label": "Spend nothing", "default": true, "effects": [ { "mood": "citizens", "by": -1 } ] }
+      ]
+    },
+    {
+      "id": "carthaginianSilver", "kind": "invention", "name": "Carthaginian silver", "weight": 2,
+      "roles": { "taker": { "faction": "rich", "opinion": { "max": 0 } } },
+      "text": "Your watchers report that a Carthaginian merchant has been carrying silver to {taker}'s house by night.",
+      "why": "Carthage buys friends in Syracuse",
+      "choices": [
+        { "id": "arrest", "label": "Arrest {taker}", "effects": [ { "status": "taker", "to": "held" }, { "grudge": "taker", "reason": "you arrested him on a merchant's word" }, { "mood": "rich", "by": -1 } ] },
+        { "id": "feed", "label": "Let it go on, and feed him false news",
+          "roll": { "need": 4, "mods": [ { "trait": "you", "action": "watch" } ],
+            "success": { "text": "Carthage acts on your lies.", "effects": [ { "clock": -1 } ] },
+            "failure": { "text": "{Taker} sees through it.", "effects": [ { "clock": 1 }, { "opinion": "taker", "by": -1 } ] } } },
+        { "id": "ignore", "label": "Pretend you do not know", "default": true, "effects": [ { "clock": 1, "why": "Carthage learns your secrets" } ] }
+      ]
+    },
+    {
+      "id": "lightCoins", "kind": "invention", "name": "Light coins", "weight": 3,
+      "roles": { "minter": { "office": "mint" } },
+      "text": "Coins from the mint are coming out light, and everyone knows whose hand is on the mint: {minter}'s.",
+      "why": "{minter} holds the mint",
+      "choices": [
+        { "id": "strip", "label": "Strip {minter} of the mint", "effects": [ { "office": "mint", "to": "you" }, { "opinion": "minter", "by": -2 }, { "rival": "minter", "scar": "Humiliated", "reason": "you stripped him of the mint" } ] },
+        { "id": "fine", "label": "Fine {minter} the difference", "effects": [ { "silver": 2 }, { "opinion": "minter", "by": -1 }, { "grudge": "minter", "reason": "you fined him for the coin" } ] },
+        { "id": "ignore", "label": "Look the other way", "default": true, "effects": [ { "mood": "citizens", "by": -1, "why": "bad coin in the market" } ] }
+      ]
+    },
+    {
+      "id": "letterFromExiles", "kind": "invention", "name": "A letter from the exiles", "weight": 3,
+      "roles": { "exile": { "status": "outside", "rival": true }, "reader": { "grudge": true } },
+      "text": "Your men stop a messenger on the road from {exile}. He carries a sealed letter for {reader}.",
+      "why": "{exile} looks for friends inside the walls",
+      "choices": [
+        { "id": "read", "label": "Read it, seal it again, and send it on",
+          "roll": { "need": 4, "mods": [ { "trait": "you", "action": "watch" } ],
+            "success": { "text": "You read every word, and the letter goes on its way.", "effects": [ { "reveal": "reader", "seasons": 2 }, { "revealPlotOf": "reader" } ] },
+            "failure": { "text": "{Reader} notices the broken seal.", "effects": [ { "opinion": "reader", "by": -1 } ] } } },
+        { "id": "arrest", "label": "Arrest {reader}", "effects": [ { "status": "reader", "to": "held" }, { "grudge": "reader", "reason": "you arrested him for a letter he never read" } ] },
+        { "id": "burn", "label": "Burn the letter", "default": true }
+      ]
+    },
+    {
+      "id": "promiseComesDue", "kind": "invention", "name": "Your promise comes due", "chained": true,
+      "roles": { "leader": { "faction": "citizens", "leader": true, "optional": true } },
+      "text": "The citizens remember your promise to lay down your power once the war was won. They are waiting.",
+      "why": "you promised the assembly",
+      "choices": [
+        { "id": "keep", "label": "Keep your word, and step down", "effects": [ { "end": "abdicated", "text": "You lay down your power and live on in Syracuse as a private man. The city remembers that a tyrant once kept his word." } ] },
+        { "id": "assembly", "label": "Give the assembly back to {leader}", "needs": ["leader"], "effects": [ { "office": "assembly", "to": "leader" }, { "mood": "citizens", "by": 1 }, { "power": "citizens", "by": 1 } ] },
+        { "id": "delay", "label": "Say the danger is not yet past", "default": true, "effects": [ { "mood": "citizens", "by": -2, "why": "you broke your promise" }, { "mood": "rich", "by": -1, "why": "you broke your promise" } ] }
+      ]
+    }
+  ]
+}

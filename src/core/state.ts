@@ -57,6 +57,7 @@ export function newGame(seed: number): GameState {
     guard: { strength: st.guard.strength, upkeep: st.guard.upkeep, arrearsSeasons: 0, owed: 0, refusing: false, forSale: false },
     granary: false, walls: false, laws: [], offices, citadelBuilt: false, factions, people, plots: [], requests: [],
     waiting: [], watches: [], sieges: {}, flags: {}, counters: {}, ids: 0, log: [], inputs: [], invasions: 0, leverage: [], blockedSlots: 0,
+    events: { open: [], queue: [], fired: {}, count: 0 },
   };
 }
 

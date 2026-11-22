@@ -36,5 +36,6 @@ console.log(`Tyrannies set up: ${per("tyrannies")}. Games with no tyranny: ${nev
 console.log(`Plots: ${per("plots")}. Strikes: ${per("strikes")}. Blows that landed: ${per("blows")}. Failed plots: ${per("plotsFailed")}.`);
 console.log(`Deaths by execution: ${per("executions")}.`);
 console.log(`Enemies made: ${per("rivals")}. Nemeses: ${per("nemeses")}. Political rivals: ${per("politicalRivals")}. Pretenders: ${per("pretenders")}. Deposed by a rival: ${per("politicalFalls")}.`);
+console.log(`Events: ${per("events")}, of which from the sources: ${per("historyEvents")}. Deaths in events: ${per("eventDeaths")}.`);
 console.log(`Factions falling Marginal: ${per("marginal")}. Becoming Dominant: ${per("dominant")}. Carthaginian sieges: ${per("sieges")}.`);
 if (crashes || broken) process.exitCode = 1;
