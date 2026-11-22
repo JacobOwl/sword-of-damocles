@@ -6,57 +6,38 @@ import {
 } from "../src/core/index.ts";
 import type { Army, GameState } from "../src/core/index.ts";
 import { esc, linkNames } from "./text.ts";
-import sicily from "./art/sicily.json" with { type: "json" };
+import * as A from "./island-art.ts";
 
-// The map's frame: an equirectangular projection squeezed by the cosine of Sicily's latitude.
-const BOX = sicily.box;
-const K = 260; // px per degree of latitude
-const COS = Math.cos((37.5 * Math.PI) / 180);
-const LEFT = 70; // room for the arrow to Carthage
-const W = Math.round((BOX.e - BOX.w) * COS * K) + LEFT;
-const H = Math.round((BOX.n - BOX.s) * K);
-const X = (lon: number) => LEFT + (lon - BOX.w) * COS * K;
-const Y = (lat: number) => (BOX.n - lat) * K;
 
 const SIDE_COLOR: Record<string, string> = {
   syracuse: "var(--blood)", ally: "#b0563f", free: "var(--muted)", tributary: "#8a6aa0", carthage: "var(--punic)", exiles: "#2a4a5a",
 };
 
 function mapSvg(g: GameState): string {
+  // Drawn with the map kit in ui/island-art.ts (the art thread); this function only decides what goes where.
   const isl = g.island!;
-  const coast = sicily.rings.map((r) => `<path d="M${r.map(([x, y]) => `${X(x).toFixed(1)},${Y(y).toFixed(1)}`).join("L")}Z"/>`).join("");
   const at = (id: string) => NODES.find((n) => n.id === id)!;
-  const roads = ROUTES.map((r) => {
-    const a = at(r.from), b = at(r.to);
-    const mx = (X(a.lon) + X(b.lon)) / 2, my = (Y(a.lat) + Y(b.lat)) / 2;
-    return `<line x1="${X(a.lon).toFixed(1)}" y1="${Y(a.lat).toFixed(1)}" x2="${X(b.lon).toFixed(1)}" y2="${Y(b.lat).toFixed(1)}" class="road"/>
-      <text x="${mx.toFixed(1)}" y="${(my - 3).toFixed(1)}" class="days">${r.days}d</text>`;
-  }).join("");
+  const P = (id: string): [number, number] => { const n = at(id); return [A.X(n.lon), A.Y(n.lat)]; };
+  const roads = ROUTES.map((r) => A.routePath(P(r.from), P(r.to), (r as { sea?: boolean }).sea ? "sea" : "road", r.days)).join("");
+  const LABEL: Record<string, [number, number, "start" | "middle" | "end"]> = {
+    aetna: [-14, 4, "end"], catana: [16, 6, "start"], messana: [-12, -14, "end"], panormus: [0, -16, "middle"], motya: [12, 18, "start"],
+    leontini: [-14, 8, "end"], syracuse: [0, 30, "middle"],
+  };
   const marks = NODES.map((n) => {
     const c = isl.cities[n.id];
-    const x = X(n.lon), y = Y(n.lat);
-    const col = SIDE_COLOR[c.side] ?? "var(--muted)";
-    const sieged = isl.armies.some((a) => a.siege === n.id);
-    const shape = n.type === "fort"
-      ? `<path d="M${x},${y - 8}L${x + 7},${y + 5}L${x - 7},${y + 5}Z" fill="${col}" class="mark"/>`
-      : `<rect x="${x - 6}" y="${y - 6}" width="12" height="12" fill="${col}" class="mark"${cityWalls(g, n.id) ? "" : ` stroke-dasharray="2 2"`}/>`;
-    const ring = sieged ? `<circle cx="${x}" cy="${y}" r="13" class="siege"/>` : "";
-    const below = n.lat > 37.9 || n.id === "aetna" ? -12 : 20;
-    const dx = n.id === "aetna" ? -14 : n.id === "catana" ? 22 : 0;
-    return `<g>${ring}${shape}<text x="${x + dx}" y="${y + below}" class="place">${esc(n.name)}${n.approx ? "?" : ""}</text></g>`;
+    const [x, y] = P(n.id);
+    return A.cityMark(x, y, {
+      name: n.name, side: c.side, walled: cityWalls(g, n.id) > 0, fort: n.type === "fort", capital: n.id === "syracuse",
+      besieged: isl.armies.some((a) => a.siege === n.id), approx: !!n.approx, label: LABEL[n.id],
+    });
   }).join("");
   const armies = isl.armies.map((a, i) => {
-    const n = at(a.at);
-    const x = X(n.lon) + (a.side === "syracuse" ? 14 : -14) , y = Y(n.lat) - 12 - i * 2;
-    const col = a.side === "syracuse" ? "var(--blood)" : "var(--punic)";
-    return `<g class="army"><line x1="${x}" y1="${y + 12}" x2="${x}" y2="${y - 6}" stroke="${col}" stroke-width="1.5"/><path d="M${x},${y - 6}L${x + (a.side === "syracuse" ? 12 : -12)},${y - 2}L${x},${y + 2}Z" fill="${col}"/>
-      <text x="${x + (a.side === "syracuse" ? 14 : -14)}" y="${y + 4}" class="men" text-anchor="${a.side === "syracuse" ? "start" : "end"}">${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k</text></g>`;
+    const [x, y] = P(a.at);
+    const dir = a.side === "syracuse" ? 1 : -1;
+    return A.armyMark(x + dir * 22, y - 20 - i * 4, { side: a.side, men: `${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k`, label: armyName(g, a), dir });
   }).join("");
-  const cy = Y(37.2);
-  const toCarthage = `<g class="offmap"><path d="M${LEFT + 40},${cy} L8,${cy + 40}" class="sea"/><text x="6" y="${cy + 58}" class="place" style="text-anchor:start">To Carthage</text><text x="6" y="${cy + 74}" class="days" style="text-anchor:start">two days' sail</text></g>`;
-  return `<svg viewBox="0 0 ${W} ${H}" class="island-map" role="img" aria-label="Map of Sicily: ${NODES.map((n) => `${n.name}, ${sideName(isl.cities[n.id].side)}`).join("; ")}">
-    <rect width="${W}" height="${H}" class="sea-bg"/>
-    <g class="land">${coast}</g>${roads}${toCarthage}${marks}${armies}
+  return `<svg viewBox="0 0 ${A.W} ${A.H}" class="island-map" role="img" aria-label="Map of Sicily: ${NODES.map((n) => `${n.name}, ${sideName(isl.cities[n.id].side)}`).join("; ")}">
+    ${A.islandBase()}${roads}${A.toCarthage(A.Y(37.2))}${marks}${armies}
   </svg>`;
 }
 
@@ -123,7 +104,7 @@ export function islandView(g: GameState): string {
     <div class="island-main">
       <h2>Sicily</h2>
       <figure class="mapfig">${mapSvg(g)}
-        <figcaption class="small muted">Squares are cities, the triangle a fortress; a dashed square has no walls. Flags are armies (red yours, purple Carthage's), with their men in thousands. Roads show marching days. Aetna's site is uncertain. Coastline: Natural Earth.</figcaption></figure>
+        <figcaption class="small muted">Towers are walled cities, roofs an open town, the hill a fortress; colours show each city's side. Shields are armies (the helmet yours, the palm Carthage's), with their men in thousands. Numbers on the roads are marching days. Aetna's site is uncertain. Coast and rivers: Natural Earth (today's); the hills are drawn by eye.</figcaption></figure>
       <h3>Armies</h3>${armies}
       ${abroad.length ? `<h3>This season abroad</h3><ul class="small">${abroad.map((e) => `<li>${linkNames(e.text)}${e.why ? ` <span class="muted">(${esc(e.why)})</span>` : ""}</li>`).join("")}</ul>` : ""}
       <h3>The cities</h3>

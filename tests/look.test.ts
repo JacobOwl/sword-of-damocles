@@ -44,3 +44,18 @@ test("season lines and the sword read the state without changing it", () => {
     assert.ok(d.stage >= 0 && d.stage <= 3);
   }
 });
+
+test("the island map kit draws every side, walls, forts, sieges and armies", async () => {
+  const A = await import("../ui/island-art.ts");
+  const base = A.islandBase();
+  assert.match(base, /class="coast"/);
+  assert.match(base, /class="river"/);
+  for (const side of ["syracuse", "ally", "free", "tributary", "carthage", "exiles"]) {
+    assert.ok(A.SIDE_COLOR[side], side);
+    const m = A.cityMark(10, 10, { name: "Gela", side, walled: side !== "free", besieged: side === "carthage" });
+    assert.match(m, /Gela/);
+  }
+  assert.match(A.cityMark(0, 0, { name: "Aetna", side: "exiles", fort: true }), /palisade/);
+  assert.match(A.armyMark(0, 0, { side: "carthage", men: "60k" }), /60k/);
+  assert.match(A.routePath([0, 0], [10, 10], "road", 3), />3</);
+});
