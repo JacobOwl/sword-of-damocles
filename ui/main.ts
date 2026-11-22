@@ -3,6 +3,7 @@ import {
   DATA, FACTIONS, OFFICES, PLAYER, act, agendaById, band, capital, defense, endSeason, government, influence,
   leaderOf, menu, moodName, officeName, officesOf, others, playerInfluence, plotStrength, power, preview, rankTitle,
   refuseRequest, replay, secondOptions, seasonName, stageName, startGame, backingFaction,
+  openEvents, chooseEvent,
   PACKAGES, DEFAULT_TUNING, knobsFor, packageName,
 } from "../src/core/index.ts";
 import type { Args, FactionId, GameState, Input, Plot } from "../src/core/index.ts";
@@ -130,7 +131,7 @@ function ledger(g: GameState) {
 
 function ending(g: GameState) {
   const o = g.over!;
-  const title = { killed: "You are dead", exiled: "Exile", deposed: "Deposed", fallen: "The city falls", survived: "You held Syracuse" }[o.reason] ?? "The end";
+  const title = { killed: "You are dead", exiled: "Exile", deposed: "Deposed", fallen: "The city falls", survived: "You held Syracuse", fled: "Flight", abdicated: "You stepped down" }[o.reason] ?? "The end";
   return `<div class="ending">
     <h2>${esc(title)}</h2>
     <p>${linkNames(o.text)}</p>
@@ -181,8 +182,30 @@ function seasonCol(g: GameState) {
   return `${!guideDone() && !g.over ? guide() : ""}
     ${lastSeasonSummary(g)}
     <div><h2>${esc(seasonName(season))}</h2>${f.empty ? `<p class="muted">Nothing has happened yet.</p>` : f.groups + f.shifts}</div>
+    ${matters(g)}
     ${requests(g)}
     ${g.over ? "" : actions(g)}`;
+}
+
+// Events waiting for your answer (data/events.json). Answering costs no action unless the choice says so.
+function matters(g: GameState) {
+  const evs = g.over ? [] : openEvents(g);
+  if (!evs.length) return "";
+  return `<div><h2>Matters before you</h2>
+    <p class="small muted">Answering costs no action unless it says so. If you end the season without answering, the choice marked “if you give no answer” is taken.</p>
+    ${evs.map((ev) => `<div class="matter">
+      <h3>${esc(ev.title)}</h3>
+      <p>${linkNames(ev.text)}</p>
+      ${ev.def.kind === "history" ? `<p class="small muted">From the sources: ${esc(ev.def.source)}. What follows from your choice is the game's.</p>` : ""}
+      <div class="choices">${ev.choices.map((c) => {
+        const bits = [...(c.cost.length ? [`Costs ${c.cost.join(", ")}.`] : [])];
+        if (c.effects.length) bits.push(`${c.effects.join(". ")}.`);
+        let odds = "";
+        if (c.roll) odds = `Needs <span class="need">${c.roll.need}+</span> on one die${c.roll.mods.length ? `, with ${c.roll.mods.map((m) => `${esc(m.label)} ${sign(m.value)}`).join(", ")}` : ""}. Chance <span class="chance">${Math.round(c.roll.chance * 100)}%</span>.${c.roll.success.length ? ` If it works: ${esc(c.roll.success.join(". "))}.` : ""}${c.roll.failure.length ? ` If not: ${esc(c.roll.failure.join(". "))}.` : ""}`;
+        return `<div class="choice"><button data-choose="${esc(ev.inst.uid)}" data-choice="${esc(c.id)}" ${c.blocked ? "disabled" : ""}>${esc(c.label)}</button>
+          <span class="small">${esc(bits.join(" "))}${odds ? ` ${odds}` : ""}${c.blocked ? ` <span class="muted">(${esc(c.blocked)})</span>` : ""}${c.isDefault ? ` <span class="tag">if you give no answer</span>` : ""}</span></div>`;
+      }).join("")}</div>
+    </div>`).join("")}</div>`;
 }
 
 function requests(g: GameState) {
@@ -401,6 +424,7 @@ function wire(g: GameState) {
     const ga = r && grantArgs(g, r);
     if (ga) { act(g, ga.a, ga.args); save(); render(); }
   }));
+  app.querySelectorAll<HTMLButtonElement>("[data-choose]").forEach((b) => (b.onclick = () => { chooseEvent(g, b.dataset.choose!, b.dataset.choice!); save(); render(); }));
   app.querySelectorAll<HTMLButtonElement>("[data-refuse]").forEach((b) => (b.onclick = () => { refuseRequest(g, b.dataset.refuse!); save(); render(); }));
 }
 

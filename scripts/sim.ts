@@ -77,6 +77,7 @@ function printOne(r: Summary) {
   console.log(`Plots: ${per2("plots")}. Strikes: ${per2("strikes")}. Blows that landed: ${per2("blows")}. Failed plots: ${per2("plotsFailed")}.`);
   console.log(`Before a strike: ${l.warned} seasons of warnings on average; you knew the leader's name in ${l.leaderKnown} of strikes. Average odds of the blow: ${l.odds}; near coin flips (26 to 74%): ${l.coinFlips}.`);
   console.log(`Deaths by execution: ${per2("executions")}.`);
+  console.log(`Events: ${per2("events")}, of which from the sources: ${per2("historyEvents")}. Deaths in events: ${per2("eventDeaths")}.`);
   console.log(`Enemies made: ${per2("rivals")}. Nemeses: ${per2("nemeses")}. Political rivals: ${per2("politicalRivals")}. Pretenders: ${per2("pretenders")}. Deposed by a rival: ${per2("politicalFalls")}.`);
   console.log(`Factions falling Marginal: ${per2("marginal")}. Becoming Dominant: ${per2("dominant")}. Carthaginian sieges: ${per2("sieges")}.`);
   console.log(`Who ended your rule: ${Object.entries(r.by).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${v}`).join(", ") || "no one"}.`);

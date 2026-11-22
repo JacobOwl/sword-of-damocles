@@ -10,6 +10,7 @@ Current phase: **1, "The Citadel"**. Change this file only by a logged decision.
 - About 15 people with traits, ambitions, money, relationships and grudges (each grudge has a reason).
 - Real people first. Invented people are allowed where the sources run out, as in CK3, and every person is tagged `history` or `invention`. The UI will later mark real people with a small note.
 - Plots and the sword check, with warnings before the blow.
+- Events as data (`data/events.json`): drawn from the game's state, with defined choices and set effects. Sourced stories from the cast's years plus invented everyday ones (feasts, debts, fevers, scandals). Added by Jacob's decision, 2026-11-22.
 - Carthage as outside pressure only, a clock, not a simulated city.
 - A plain-text chronicle, read from the action log.
 - Seeded headless runs; 100-seed check before every merge.

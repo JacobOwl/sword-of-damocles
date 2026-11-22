@@ -113,9 +113,19 @@ export interface LogEntry {
 
 export interface Mod { label: string; value: number }
 
+// Events (data/events.json): one that has fired and waits for your answer, and the bookkeeping.
+export interface EventInstance { uid: string; id: string; roles: Record<string, string>; season: number }
+export interface EventsState {
+  open: EventInstance[];
+  queue: { id: string; season: number; roles: Record<string, string> }[]; // follow-ups waiting their season
+  fired: Record<string, number>; // event id -> last season it fired
+  count: number;
+}
+
 export type Input =
   | { t: "act"; action: string; args: Args }
   | { t: "refuse"; request: string }
+  | { t: "choose"; event: string; choice: string }
   | { t: "end" };
 
 export interface Args { target?: string; second?: string; option?: string }
@@ -155,4 +165,5 @@ export interface GameState {
   invasions: number;
   leverage: Leverage[];
   blockedSlots: number;
+  events?: EventsState;
 }

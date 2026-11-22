@@ -331,3 +331,11 @@ dialog.sheet::backdrop { background: rgba(43,29,18,.45); }
   .gloss dd { margin-bottom: 6px; }
   .views button { font-size: .95rem; }
 }
+
+/* Events: matters before you */
+.matter { border-left: 3px solid var(--gold); padding: 2px 0 6px 12px; margin: 10px 0 16px; }
+.matter h3 { font-size: 1.1rem; color: var(--accent); }
+.matter p { margin: 4px 0; }
+.matter .choices { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+.matter .choice { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.matter .choice button { text-align: left; }
