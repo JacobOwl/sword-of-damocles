@@ -23,7 +23,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 
 ## Built by the events thread (07, 2026-11-22): the Damocles banquet
 - **New event "A sword on a horse-hair"** (`data/events.json`, history): a courtier praises your fortune at a feast. You can hang a sword over his couch (what Cicero tells; he loses standing and warmth, plots are a little harder), reward the flattery, or smile it away. It fires in about 80 of 100 careful-bot games.
-- **Both readings of which Dionysius are shown.** The event's facts quote Livius.org (Dionysius II) and Wikipedia (Dionysius I) from the saved excerpts; the doubt is listed as uncertain. Review steps are on the card (`docs/research/damocles.md`, last section) for when Cicero 5.57 is saved.
+- **Settled on Dionysius I** (updated after PR #30): the event quotes Cicero's Latin 5.57, 5.59 and 5.61, and keeps Livius.org's Dionysius II reading as a disagreement. Only the timing is invention. Five more court stories from the same passage are parked in `docs/later.md`.
 - **Changed:** two switch tests (another thread's) now test the rule, not luck: "clues" allows a man who said no to join later if a later join is recorded (it happens when a new wrong changes his mind), and "partial blows" checks the seize branch directly, since bot games reach it only about 3 times in 300. `partialBlow` in `src/core/season.ts` is exported for that test. Standard digest re-pinned for the one added event (verified: without it, the old digest matches).
 - **Broke:** nothing: 72 of 72 tests; 100 seeds, 0 crashes, 0 broken states; 271 quotes checked, 0 not found.
 

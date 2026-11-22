@@ -20,6 +20,10 @@ So Livius.org's "Dionysius II" does not match Cicero; Cicero means the father. W
 
 Cicero also says his sources disagree about the tyrant's birth (5.58, "etsi id quidem alius alio modo tradidit") and that he takes his picture of Dionysius "a bonis auctoribus" (from good authors, 5.57), without naming them. That the story came from Timaeus is Livius' and Wikipedia's claim, not Cicero's.
 
+## The game's event
+
+"A sword on a horse-hair" (`data/events.json`) now quotes the Latin of 5.57, 5.59 and 5.61 for who the tyrant is, and keeps Livius.org's Dionysius II reading as a disagreement. Cicero gives no year, so when the banquet happens is invention.
+
 ## The other court stories in the same passage (5.58 to 5.60, 5.63)
 
 All in the Latin file, for the events thread if wanted: he taught his daughters to shave him rather than trust a barber, then took the blades away and had them singe his beard with hot walnut shells (5.58); he trusted his body to foreigners and wild barbarians (5.58); he visited his wives at night only after a search, and slept behind a broad trench crossed by a little wooden bridge that he drew up himself (5.59); he spoke to the people from a high tower (5.59); he had a friend and a young man killed over a joke about handing his sword to the boy during a ball game (5.60); and he asked the two Pythagoreans, one the pledge for the other's life, to take him as a third friend (5.63).
