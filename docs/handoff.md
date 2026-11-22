@@ -2,6 +2,12 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Built by the art thread, second round (2026-11-22)
+- **Diodorus' years** in the chronicle and on each autumn's season card (`data/calendar.json`, `docs/research/calendar.md`).
+- **Sound** (`ui/sound.ts`), off until you click the lyre in the masthead.
+- **The island map's look** (`ui/island-art.ts`, `ui/art/map-art.json` from `node scripts/make-map-art.mjs ../phoenician-punic-world`). On a phone the map scrolls sideways instead of shrinking the names.
+- Questions: is the sound worth keeping, too loud or too quiet? Should the drone start at Rumors or only at Named?
+
 ## Built by the rule-switches thread (09, 2026-11-22)
 - **Five rule switches, off by default** (`data/switches.json`; engine in `src/core/switches.ts`, `src/core/clues.ts` and small hooks in `ai.ts`, `actions.ts`, `ops.ts`, `season.ts`, `chronicle.ts`). The start screen has a "Rule switches" fold with a checkbox and a one-line summary for each; the save and the footer remember them.
   - **Warnings are clues:** plots keep a list of deeds; each warning tells of the newest one (grievance, faction, the man who said no, the guard's new silver). Lines are in `data/warnings.json` under `clues`. Plot cards show "What you have heard".

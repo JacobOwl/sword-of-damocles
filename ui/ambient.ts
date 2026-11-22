@@ -2,6 +2,7 @@
 // and the lines of flavour they use (data/flavor.json). Everything here only reads the state.
 // Lines are picked by a hash of the seed and the season, never with the game's dice, so replays stay exact.
 import flavorJson from "../data/flavor.json" with { type: "json" };
+import calendarJson from "../data/calendar.json" with { type: "json" };
 import { DATA, government, others, seasonName } from "../src/core/index.ts";
 import type { GameState } from "../src/core/index.ts";
 import { icon } from "./icons.ts";
@@ -51,6 +52,13 @@ export function seasonLine(g: GameState, season = g.season): string {
   return (pool[h % pool.length] ?? time[0]).text;
 }
 
+// Diodorus' name for the game year that begins in autumn of `year` BC (data/calendar.json), if the text is saved.
+const YEARS = (calendarJson as unknown as { years: { year: number; text: string; source: string }[] }).years;
+export function diodorusYear(year: number) {
+  const y = YEARS.find((x) => x.year === year);
+  return y ? { text: `In Diodorus, ${y.text}`, cite: y.source.replace(/^Diodorus /, "") } : null;
+}
+
 export const chronicleLine = (id: string) => FLAVOR.chronicle.find((l) => l.id === id)?.text ?? "";
 export function colophon(g: GameState) {
   const r = g.over?.reason;
@@ -77,6 +85,7 @@ export function showSeasonCard(g: GameState) {
   const [kind, ...rest] = name.split(" ");
   const line = seasonLine(g);
   const year = Math.floor(g.season / 4) + 1;
+  const dy = diodorusYear(405 - (year - 1));
   const el = document.createElement("div");
   el.className = "season-card";
   el.setAttribute("role", "dialog");
@@ -87,6 +96,7 @@ export function showSeasonCard(g: GameState) {
     <p class="sc-kicker">Year ${year} of your rule · season ${g.season + 1} of ${DATA.start.seasons}</p>
     <h2 class="sc-season">${esc(kind)}</h2>
     <p class="sc-year">${esc(rest.join(" "))}</p>
+    ${g.season % 4 === 0 && dy ? `<p class="sc-diod">${esc(dy.text)} <span class="cite">(${esc(dy.cite)})</span></p>` : ""}
     <p class="sc-line"><span class="dropcap">${esc(line.charAt(0))}</span>${esc(line.slice(1))}</p>
     <p class="sc-go">Click or press any key</p>
     <div class="tesserae" aria-hidden="true"></div>

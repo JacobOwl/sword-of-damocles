@@ -1,0 +1,82 @@
+{
+  "note": "How Diodorus names each year of the game: by the archon at Athens, and the Olympiad when one was celebrated. 'year' is the BC year in which the game's year begins (autumn 405 is year 405). Diodorus' years run from midsummer and the game's from autumn, and Diodorus sometimes puts Sicilian events in the wrong year, so read each as 'about'. The chronicle shows these lines; they change nothing in play. Years 401, 400 and 399 are missing because Diodorus 14.19 to 14.40 is not among the saved texts (see docs/later.md).",
+  "years": [
+    {
+      "id": "year405",
+      "kind": "history",
+      "name": "Alexias's archonship",
+      "year": 405,
+      "text": "the year Alexias was archon at Athens",
+      "source": "Diodorus 13.104.1",
+      "quote": "At the end of this year Alexias was archon in Athens",
+      "file": "sources/diodorus/english/book13.loeb.txt",
+      "card": "docs/research/calendar.md"
+    },
+    {
+      "id": "year404",
+      "kind": "history",
+      "name": "Olympiad without an archon",
+      "year": 404,
+      "text": "the year Athens had no archon, and the Ninety-fourth Olympiad was celebrated",
+      "source": "Diodorus 14.3.1",
+      "quote": "There was no archon in Athens because of the overthrow of the government",
+      "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt",
+      "card": "docs/research/calendar.md"
+    },
+    {
+      "id": "year403",
+      "kind": "history",
+      "name": "Eucleides's archonship",
+      "year": 403,
+      "text": "the year Eucleides was archon at Athens",
+      "source": "Diodorus 14.12.1",
+      "quote": "Eucleides was archon in Athens",
+      "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt",
+      "card": "docs/research/calendar.md"
+    },
+    {
+      "id": "year402",
+      "kind": "history",
+      "name": "Micion's archonship",
+      "year": 402,
+      "text": "the year Micion was archon at Athens",
+      "source": "Diodorus 14.17.1",
+      "quote": "At the close of the year Micion was archon in Athens",
+      "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt",
+      "card": "docs/research/calendar.md"
+    },
+    {
+      "id": "year398",
+      "kind": "history",
+      "name": "Ithycles's archonship",
+      "year": 398,
+      "text": "the year Ithycles was archon at Athens",
+      "source": "Diodorus 14.44.1",
+      "quote": "Ithycles was archon in Athens",
+      "file": "sources/diodorus/english/book14.loeb.txt",
+      "card": "docs/research/calendar.md"
+    },
+    {
+      "id": "year397",
+      "kind": "history",
+      "name": "Lysiades's archonship",
+      "year": 397,
+      "text": "the year Lysiades was archon at Athens",
+      "source": "Diodorus 14.47.1",
+      "quote": "in Athens Lysiades became archon",
+      "file": "sources/diodorus/english/book14.loeb.txt",
+      "card": "docs/research/calendar.md"
+    },
+    {
+      "id": "year396",
+      "kind": "history",
+      "name": "Phormion's archonship",
+      "year": 396,
+      "text": "the year Phormion was archon at Athens, and the Ninety-sixth Olympiad was celebrated",
+      "source": "Diodorus 14.54.1",
+      "quote": "in Athens Phormion assumed the archon ship",
+      "file": "sources/diodorus/english/book14.loeb.txt",
+      "card": "docs/research/calendar.md"
+    }
+  ]
+}
