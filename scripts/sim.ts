@@ -1,24 +1,11 @@
 // Headless check: play N seeds with the simple bot, look for crashes and broken state, print the counts.
 // Usage: npm run sim -- --seeds 100
-import { runBotGame, others, power, FACTIONS, OFFICES } from "../src/core/index.ts";
-import type { GameState } from "../src/core/index.ts";
+import { runBotGame } from "../src/core/index.ts";
+import { brokenState } from "./sim-check.ts";
 
 const arg = (k: string, d: number) => { const i = process.argv.indexOf(k); return i > 0 ? Number(process.argv[i + 1]) : d; };
 const N = arg("--seeds", 100);
 const first = arg("--from", 1);
-
-export function brokenState(s: GameState): string[] {
-  const bad: string[] = [];
-  const num = (v: number, lo: number, hi: number, what: string) => { if (!Number.isFinite(v) || v < lo || v > hi) bad.push(`${what} = ${v}`); };
-  num(s.silver, 0, 999, "silver"); num(s.grain, 0, 999, "grain"); num(s.clock, 0, 10, "clock"); num(s.land, 0, 99, "land");
-  for (const f of FACTIONS) { num(power(s, f), 0, 10, `${f} power`); num(s.factions[f].mood, 0, 4, `${f} mood`); }
-  for (const p of others(s)) num(p.opinion, -3, 3, `${p.id} opinion`);
-  for (const o of OFFICES) { const h = s.offices[o]; if (h && (!s.people[h] || s.people[h].status === "dead")) bad.push(`${o} held by the dead or missing ${h}`); }
-  for (const pl of s.plots) for (const m of pl.members) if (!s.people[m] || ["dead", "held"].includes(s.people[m].status)) bad.push(`plot member ${m} is ${s.people[m]?.status}`);
-  const nem = others(s).filter((p) => p.rival && p.rival.rank >= 4 && p.status !== "dead").length;
-  if (nem > 1) bad.push(`${nem} Nemeses at once`);
-  return bad;
-}
 
 const sum: Record<string, number> = {};
 const ends: Record<string, number> = {};

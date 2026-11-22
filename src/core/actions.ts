@@ -759,7 +759,7 @@ export function refuse(s: GameState, id: string, quiet = false) {
   s.requests = s.requests.filter((x) => x.id !== id);
   const p = s.people[r.from];
   event(s, p.id, quiet ? `${capital(p.name)}'s petition goes unanswered.` : `You refuse ${p.name}'s petition.`, "Refuse");
-  if (r.kind === "citizenship") { s.flags.guardRefused = (s.flags.guardRefused ?? 0) + 1; mood(s, "guard", -1, "you refused them citizenship"); return; }
+  if (r.kind === "citizenship") { s.flags.guardRefused = (s.flags.guardRefused ?? 0) + 1; return; }
   p.infl -= 1;
   opinion(s, p.id, -1, "you refused his petition");
   p.refusals += 1;

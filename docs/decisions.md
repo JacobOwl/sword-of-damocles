@@ -39,3 +39,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Factions and major characters pursue their own agendas.** These are multi-season schemes that advance whether or not the player acts. Why: in the test the factions only reacted.
 - **Rivals grow out of play, in the spirit of a nemesis system.** Survivors of the player's actions become named rivals with new traits and rank, and they remember. Why: Jacob liked most that plots formed from his own actions. Note: Warner Bros. holds a US patent on parts of its Nemesis system. That doesn't matter for a private hobby game, but our rules should be our own design.
 - **Next:** v2 rules (the action menu, faction power, agendas and rivals), a short re-test of 3 or 4 seasons, then `docs/rulebook.md`. Phase 0 is still in progress, even though CLAUDE.md and `scope.md` say Phase 1. Fix that wording when the rulebook lands.
+
+## 2026-11-22 (prototype of rules v2)
+
+- **Built a playable browser prototype** of rules v2 instead of another chat test. Why: Jacob asked for something beyond messaging, and the v2 rules are concrete enough to run as code. Play it at https://claude.ai/artifact/8KqQzj6x3QrXRjQKzVZNK4 or build it with `npm run build`.
+- **Both kinds of rival are in the engine:** enemies (wounds) and political rivals (ambition), per Jacob's change to the v2 rivals section. Rival origins and types are data, so new kinds can be added without new code paths.
+- **Defaults chosen where v2 was silent** are listed in `docs/handoff.md`. They are invention and Jacob's to overrule. The two with the most effect: faction power drifts 1 toward 5 when nothing moves it, and a failed law gives no one power.
+- **Finding, not tuned:** with a simple bot player, no game lasts the decade (average 8.4 seasons). Plots grow to strength 10 to 17. Left for Jacob's playtest before any tuning, so the history isn't scripted.
