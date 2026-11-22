@@ -27,8 +27,21 @@ const knownPlotters = (s: GameState) => {
 };
 const worstStage = (s: GameState) => s.plots.reduce((a, pl) => Math.max(a, pl.stage), 0);
 // Who could be plotting: grudge holders you haven't cleared, the most dangerous first.
+// With "Warnings are clues" on, what you have heard points somewhere: a grievance or a faction you were told of
+// raises a suspect, and a man who came to tell you he said no is cleared. All of it is on the plot cards.
+function clueHit(s: GameState, p: Person): number {
+  let v = 0;
+  for (const pl of s.plots) for (const d of pl.deeds ?? []) {
+    if (!d.told) continue;
+    if (d.kind === "refused" && d.target === p.id) return -5;
+    if (d.grudge && p.grudges.some((g) => g.reason === d.grudge)) v += 2;
+    if (pl.stage >= 2 && d.faction && d.faction === p.faction) v += 1;
+  }
+  return v;
+}
 const suspects = (s: GameState) =>
-  free(s).filter((p) => (p.grudges.length || p.rival) && p.knownUntil < s.season).sort((a, b) => weight(s, b) - weight(s, a) || a.opinion - b.opinion);
+  free(s).filter((p) => (p.grudges.length || p.rival) && p.knownUntil < s.season)
+    .sort((a, b) => clueHit(s, b) - clueHit(s, a) || weight(s, b) - weight(s, a) || a.opinion - b.opinion);
 // Rumors name a faction; the player sees which one in the warning. The plot leader's faction is that faction.
 const rumoredFactions = (s: GameState) => new Set(s.plots.filter((pl) => pl.stage >= 2).map((pl) => s.people[pl.leader].faction));
 const upkeepReserve = (s: GameState) => (holds(s, PLAYER, "treasury") ? s.guard.upkeep : 0);

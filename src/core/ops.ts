@@ -5,6 +5,7 @@ import { d6 } from "./rng.ts";
 import { PLAYER, activeRivals, capital, moodName, nameOf, officeName, power, band, seasonName } from "./state.ts";
 import type { FactionId, GameState, LogEntry, Mod, OfficeId, Scar, Status } from "./types.ts";
 import { FACTIONS } from "./types.ts";
+import { on } from "./switches.ts";
 
 export function log(s: GameState, e: Omit<LogEntry, "n" | "season" | "step">): LogEntry {
   const entry = { n: s.log.length, season: s.season, step: s.step, ...e } as LogEntry;
@@ -157,10 +158,17 @@ export function makeRival(s: GameState, pid: string, scar: Scar, what: string) {
     (p as any).pendingScar = scar;
     return;
   }
-  p.rival = { rank: 1, scars: [scar], memory: [], since: s.season };
+  // Switch "escalation": an old enemy comes back worse, a rank for each time he was your rival before (at most rank 3).
+  const past = on(s, "escalation") ? p.pastRivalries ?? 0 : 0;
+  const rank = Math.min(3, 1 + past);
+  p.rival = { rank, scars: [scar], memory: [], since: s.season };
   memory(s, pid, what);
   s.counters.rivals = (s.counters.rivals ?? 0) + 1;
-  event(s, pid, `${capital(p.name)} becomes your rival (${originById(scar)?.name ?? scar}).`, what);
+  if (past) s.counters.returningRivals = (s.counters.returningRivals ?? 0) + 1;
+  const title = DATA.ranks.find((x) => x.rank === rank)?.title;
+  event(s, pid, past
+    ? `${capital(p.name)} is your rival again (${originById(scar)?.name ?? scar}), and comes back as a ${title}.`
+    : `${capital(p.name)} becomes your rival (${originById(scar)?.name ?? scar}).`, past ? `${what}; he was your rival ${past === 1 ? "once" : `${past} times`} before` : what);
 }
 
 export function rankChange(s: GameState, pid: string, d: number, why: string) {
@@ -185,6 +193,7 @@ export function endRival(s: GameState, pid: string, why: string) {
   const p = s.people[pid];
   if (!p?.rival) return;
   p.rival = undefined;
+  if (on(s, "escalation")) p.pastRivalries = (p.pastRivalries ?? 0) + 1;
   if (p.agenda?.id === "yourFall") p.agenda = undefined;
   event(s, pid, `${capital(p.name)} is no longer your rival.`, why);
   // A waiting rival takes the open slot.

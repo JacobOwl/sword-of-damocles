@@ -3,16 +3,18 @@ import { DATA, lawById } from "./data.ts";
 import { d6, pick } from "./rng.ts";
 import {
   PLAYER, alive, band, capital, defense, government, holds, nameOf, newGame, others, plotStrength, power, seasonName,
-  stageFor, stageName, isPlayerTyranny, membersOf, leaderOf,
+  stageFor, stageName, isPlayerTyranny, membersOf, leaderOf, officesOf, officeName,
 } from "./state.ts";
-import { clock, event, grain, log, makeRival, mood, powerChange, rankChange, silver, endRival, setStatus } from "./ops.ts";
+import { clock, event, grain, log, makeRival, mood, powerChange, rankChange, silver, endRival, setStatus, setOffice } from "./ops.ts";
 import { factionStep, peopleStep, updatePolitical, botTurn } from "./ai.ts";
 import { perform, refuse } from "./actions.ts";
-import type { FactionId, GameState, Input, Plot } from "./types.ts";
+import type { FactionId, GameOpts, GameState, Input, Plot } from "./types.ts";
 import { FACTIONS } from "./types.ts";
 import { writeChronicle } from "./chronicle.ts";
 import { botAnswer, chooseEvent, drawEvents, settleEvents } from "./events.ts";
 import { T } from "./tuning.ts";
+import { on, switchById } from "./switches.ts";
+import { clueWarning } from "./clues.ts";
 import { botById, botRandom, playSeason } from "./bots.ts";
 
 // ---------- World ----------
@@ -185,7 +187,8 @@ function warn(s: GameState, pl: Plot) {
   const lf = s.people[pl.leader].faction;
   const fname = lf === "ruler" ? "your own household" : s.factions[lf as FactionId].short;
   let text: string;
-  if (pl.stage === 1) text = `Whispers: ${pick(s, w.whispers)}`;
+  if (on(s, "clues")) { const c = clueWarning(s, pl); text = `${stageName(pl.stage)}: ${c}`; if (pl.deeds?.some((d) => d.season >= s.season - 1 && d.told && !d.shown)) { for (const d of pl.deeds) d.shown = true; (pl.heard ??= []).push(`${seasonName(s.season)}: ${c}`); } }
+  else if (pl.stage === 1) text = `Whispers: ${pick(s, w.whispers)}`;
   else if (pl.stage === 2) text = `Rumors: ${pick(s, w.rumors).replace("{faction}", fname)}`;
   else text = `Named: ${pick(s, w.named).replace("{names}", pl.known.map((k) => s.people[k].name).join(" and "))}`;
   if (pl.informer) text += ` Your informer says it has ${pl.members.length} members and strength ${plotStrength(s, pl).total}.`;
@@ -209,7 +212,11 @@ function strike(s: GameState, pl: Plot) {
   if (pl.known.includes(pl.leader)) s.counters.strikeLeaderKnown = (s.counters.strikeLeaderKnown ?? 0) + 1;
   s.counters.strikeChance = (s.counters.strikeChance ?? 0) + chance;
   if (chance > 0.25 && chance < 0.75) s.counters.strikeCoinFlips = (s.counters.strikeCoinFlips ?? 0) + 1;
+  // The chance the blow kills or exiles you: the same as above unless "Blows can miss" is on.
+  const worst = on(s, "partialBlows") ? (switchById("partialBlows") as any).knobs.seize : 0;
+  s.counters.strikeDeathChance = (s.counters.strikeDeathChance ?? 0) + [1, 2, 3, 4, 5, 6].filter((d) => d + add > def.total + worst).length / 6;
   event(s, pl.leader, `The plot strikes. Rolled ${die}${mods.map((m) => ` +${m.value} ${m.label}`).join("")} = ${total}, against your defense of ${def.total} (${def.parts.map((p) => `${p.value} ${p.label}`).join(", ")}). It must beat your defense.`, "the sword check");
+  if (total > def.total && on(s, "partialBlows") && partialBlow(s, pl, total - def.total)) return;
   if (total > def.total) {
     const fate = d6(s);
     s.counters.blows = (s.counters.blows ?? 0) + 1;
@@ -232,6 +239,42 @@ function strike(s: GameState, pl: Plot) {
   if (pl.guardBacking) event(s, "guard", "The guard that sold itself to the plot stands exposed.", "the plot failed");
   s.plots = s.plots.filter((p) => p !== pl);
   s.flags.plotBroken = s.season;
+}
+
+// Switch "partialBlows": a blow that only just beats your defense wounds you or costs you an office.
+// Returns false when the margin is wide enough to kill or exile you as before.
+function partialBlow(s: GameState, pl: Plot, margin: number): boolean {
+  const k = (switchById("partialBlows") as any).knobs as { wound: number; seize: number };
+  if (margin > k.seize) return false;
+  const leader = s.people[pl.leader];
+  const lead = capital(leader.name);
+  const takeable = (["treasury", "generalship", "fleet", "mint", "assembly"] as const).filter((o) => s.offices[o] === PLAYER);
+  const backersHit = (d: number) => { for (const f of pl.backers) { powerChange(s, f, d, "its plot was exposed"); s.factions[f].backing = undefined; } };
+  // Seizing an office needs the leader inside the walls; a blow led from outside can only wound.
+  if (margin <= k.wound || !takeable.length || leader.status !== "free") {
+    s.counters.blowsWounded = (s.counters.blowsWounded ?? 0) + 1;
+    event(s, pl.leader, `The blade finds you, but not deep enough. You live, wounded. ${lead} flees the city, and every plotter is named: ${pl.members.map((m) => s.people[m].name).join(", ")}.`, `the blow beat your defense by ${margin}; it takes ${k.wound + 1} or more to do worse than wound you`);
+    s.blockedSlots += 1;
+    event(s, PLAYER, "Your wound keeps you to your bed. You lose an action next season.", "wounded in the strike");
+    for (const m of pl.members) s.people[m].exposed = true;
+    backersHit(-1);
+    for (const o of officesOf(s, pl.leader)) setOffice(s, o, PLAYER, `${leader.name} fled the city`);
+    if (leader.status === "free") setStatus(s, pl.leader, "outside", "he fled after his blow failed to kill");
+    makeRival(s, pl.leader, "Survivor", "his blow wounded you, and he got away");
+  } else {
+    s.counters.blowsSeized = (s.counters.blowsSeized ?? 0) + 1;
+    const o = takeable[0];
+    event(s, pl.leader, `The plotters break into your house. You escape to the dockyards with your life, but ${lead} holds ${officeName(o)} by force, and your house is plundered.`, `the blow beat your defense by ${margin}; it takes ${k.seize + 1} or more to kill or exile you`);
+    setOffice(s, o, pl.leader, "he took it by force in the strike");
+    silver(s, -Math.ceil(s.silver / 2), "your house was plundered");
+    leader.exposed = true;
+    backersHit(-1);
+    makeRival(s, pl.leader, "Survivor", `he struck at you and took ${officeName(o)}`);
+    rankChange(s, pl.leader, 1, `he struck at you and took ${officeName(o)}`);
+  }
+  s.plots = s.plots.filter((p) => p !== pl);
+  s.flags.plotBroken = s.season;
+  return true;
 }
 
 // ---------- The public API ----------
@@ -274,8 +317,8 @@ function finish(s: GameState) {
   beginSeason(s);
 }
 
-export function startGame(seed: number, tuning?: string): GameState {
-  const s = newGame(seed, tuning);
+export function startGame(seed: number, tuning?: string, opts: GameOpts = {}): GameState {
+  const s = newGame(seed, tuning, opts);
   beginSeason(s);
   return s;
 }
@@ -292,8 +335,8 @@ export function refuseRequest(s: GameState, id: string) {
 }
 
 // Any game replays exactly from its seed and the list of your inputs.
-export function replay(seed: number, inputs: Input[], tuning?: string): GameState {
-  const s = startGame(seed, tuning);
+export function replay(seed: number, inputs: Input[], tuning?: string, opts: GameOpts = {}): GameState {
+  const s = startGame(seed, tuning, opts);
   for (const i of inputs) {
     if (i.t === "act") perform(s, i.action, i.args);
     else if (i.t === "refuse") refuseRequest(s, i.request);
@@ -305,8 +348,8 @@ export function replay(seed: number, inputs: Input[], tuning?: string): GameStat
 
 // A whole game played by a headless player, for the checks and the balance runs.
 // "simple" is the first bot (it shares the game's dice); the others are in bots.ts.
-export function runBotGame(seed: number, opts: { bot?: string; tuning?: string } = {}): GameState {
-  const s = startGame(seed, opts.tuning);
+export function runBotGame(seed: number, opts: { bot?: string; tuning?: string } & GameOpts = {}): GameState {
+  const s = startGame(seed, opts.tuning, { switches: opts.switches });
   const bot = opts.bot && opts.bot !== "simple" ? botById(opts.bot) : undefined;
   if (opts.bot && opts.bot !== "simple" && !bot) throw new Error(`unknown bot: ${opts.bot}`);
   const r = botRandom(seed);

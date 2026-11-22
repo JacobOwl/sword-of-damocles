@@ -1,5 +1,5 @@
 {
-  "note": "Flavour lines for the three plot warnings. Invention.",
+  "note": "Lines for the three plot warnings. Invention. 'whispers', 'rumors' and 'named' are the stock lines used when the switch 'Warnings are clues' is off. 'clues' are used when it is on: each tells of one thing the plotters really did. 'far' lines are for Whispers and give no faction; 'near' lines are for Rumors and Named. {grudge} is the grievance of the man concerned, {faction} his faction, {target} a man who was approached and said no.",
   "kind": "invention",
   "whispers": [
     "A toast at dinner goes undrunk.",
@@ -17,5 +17,77 @@
     "A frightened man names {names}.",
     "Your informers bring you a name: {names}.",
     "The name on every tongue is {names}."
-  ]
+  ],
+  "clues": {
+    "start": {
+      "far": [
+        "Someone who says {grudge} has begun to meet men after dark.",
+        "A man who cannot forget that {grudge} has been asking who else feels the same.",
+        "Your steward hears of a grievance aired too freely at a dinner: {grudge}."
+      ],
+      "near": [
+        "A man of {faction} who says {grudge} is gathering friends.",
+        "Among {faction}, someone who says {grudge} has stopped complaining and started counting heads."
+      ]
+    },
+    "join": {
+      "far": [
+        "A second man with a grievance has been seen at the same door. His complaint: {grudge}.",
+        "Someone new keeps the late hours of the others. He is heard to say {grudge}."
+      ],
+      "near": [
+        "A man of {faction} has joined them. His complaint is that {grudge}.",
+        "Someone from {faction} who says {grudge} has thrown in with them."
+      ]
+    },
+    "refused": {
+      "far": [
+        "{target} tells your steward he was sounded out against you, and said no. He will not say by whom.",
+        "{target} was approached by someone who wanted him against you. He refused, and now he is afraid."
+      ],
+      "near": [
+        "{target} says a man of {faction} sounded him out against you. He said no.",
+        "{target} came to your door: someone among {faction} tried to win him over, and failed."
+      ]
+    },
+    "backing": {
+      "far": [
+        "Someone is paying the debts of men who hate you.",
+        "Money is moving to men who have no reason to love you."
+      ],
+      "near": [
+        "{faction} have started paying someone's debts.",
+        "Silver from {faction} is reaching men with grievances against you."
+      ]
+    },
+    "guard": {
+      "far": [
+        "Your mercenaries have new silver, and it isn't yours."
+      ],
+      "near": [
+        "Your mercenaries have new silver, and it isn't yours. The captain will not meet your eye."
+      ]
+    },
+    "arms": {
+      "far": [
+        "Someone has been buying swords in Achradina, a few at a time."
+      ],
+      "near": [
+        "Someone of {faction} has been buying swords in Achradina, a few at a time."
+      ]
+    },
+    "quiet": {
+      "far": [
+        "Nothing new is heard, but the talk has not stopped.",
+        "The same unease at dinner. No one says why.",
+        "Your steward has nothing new, only a feeling.",
+        "Doors that were open at night are shut now."
+      ],
+      "near": [
+        "Nothing new this season. The same men still meet.",
+        "The talk goes quiet when your people come near. They are waiting for something.",
+        "No new names, but no one has left them either."
+      ]
+    }
+  }
 }

@@ -1,0 +1,44 @@
+{
+  "note": "Optional rule switches. Each one is off by default and can be turned on at the start screen, alone or together, with any balance package. All invention: rules, not history. Results for each are in docs/playtests/2026-11-22-switches.md. Jacob decides which, if any, become the default.",
+  "switches": [
+    {
+      "id": "clues",
+      "kind": "invention",
+      "name": "Warnings are clues",
+      "summary": "Each plot warning comes from something the plotters really did: who they tried to win over, which grudge they played on, which faction or the guard took their money. A failed approach can reach your ears. Before, warnings were drawn from a pool of stock lines.",
+      "research": "docs/game-research.md, proposal 1"
+    },
+    {
+      "id": "partialBlows",
+      "kind": "invention",
+      "name": "Blows can miss",
+      "summary": "A strike that beats your defense by 1 or 2 only wounds you (you lose an action next season, and the leader flees the city). By 3 or 4 you live, but the leader seizes one of your offices and your house is plundered. Only a margin of 5 or more kills or exiles you.",
+      "research": "docs/game-research.md, proposal 3 (the smallest version of it)",
+      "knobs": {
+        "wound": 2,
+        "seize": 4
+      }
+    },
+    {
+      "id": "escalation",
+      "kind": "invention",
+      "name": "People escalate",
+      "summary": "A man asks for an office once. Refused, he waits a season and comes back with a demand, in public. Refuse the demand and he never asks for it again: he holds a grudge and acts. A man who was your rival before comes back a rank higher.",
+      "research": "docs/game-research.md, proposal 5"
+    },
+    {
+      "id": "coalition",
+      "kind": "invention",
+      "name": "A Pretender needs a coalition",
+      "summary": "A political rival rises to Pretender only if a second faction, not his own, is Angry or worse with you. While none is, his steps toward taking your place stall. Keep the other factions above Angry and no single man can vote you out.",
+      "research": "docs/playtests/2026-11-22-balance-sweep.md, problem 1"
+    },
+    {
+      "id": "storyChronicle",
+      "kind": "invention",
+      "name": "Chronicle as story",
+      "summary": "The chronicle follows people instead of listing events: each season is told by who it was about, with what led to it, and at the end each person's thread through the decade is gathered into a short life. No rules change.",
+      "research": "docs/game-research.md, proposal 2"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 // The season's events and the chronicle, written for reading. Both come straight from the one action log.
-import { PLAYER, seasonName } from "../src/core/index.ts";
+import { PLAYER, seasonName, storyBook, switchOn } from "../src/core/index.ts";
 import type { GameState, LogEntry } from "../src/core/index.ts";
 import { esc, linkNames, rollLine, ui } from "./text.ts";
 
@@ -82,6 +82,7 @@ function chronicleSeason(s: GameState, season: number) {
 export function chronicleBook(s: GameState) {
   const last = s.over ? s.over.season : s.season - 1;
   if (last < 0) return `<article class="book"><h2>The chronicle</h2><p class="muted">The chronicle begins when the first season ends.</p></article>`;
+  if (switchOn(s, "storyChronicle")) return storyChronicleBook(s);
   const years: string[] = [];
   for (let y = 0; y * 4 <= last; y++) {
     const seasons: string[] = [];
@@ -98,4 +99,21 @@ export function lastSeasonSummary(s: GameState) {
   const f = seasonFeed(s, prev, ["player", "power", "sword"]);
   if (f.empty) return "";
   return `<details class="last"><summary><span class="label">How ${esc(seasonName(prev))} ended</span></summary>${f.groups}${f.shifts}</details>`;
+}
+
+// The rule switch "Chronicle as story": each season told by who it was about, then each person's thread.
+const sentences = (text: string) => text.split(/(?<=\.)\s+(?=[A-Z])/).map((x) => told(x)).join(" ");
+function storyChronicleBook(s: GameState) {
+  const b = storyBook(s);
+  const years: string[] = [];
+  for (let y = 0; y * 4 < b.seasons.length; y++) {
+    const ss = b.seasons.slice(y * 4, y * 4 + 4).map((x) => `<div class="cseason"><h4>${esc(x.name)}</h4>${x.paragraphs.map((p) => {
+      const t = linkNames(sentences(p));
+      return `<p>${TURNING.test(p) ? `<strong>${t}</strong>` : t}</p>`;
+    }).join("")}${x.omens.length ? `<p class="omens">${x.omens.map(linkNames).join(" ")}</p>` : ""}</div>`);
+    years.push(`<section class="cyear"><h3>Year ${y + 1} <span class="muted">${405 - y} to ${404 - y} BC</span></h3>${ss.join("")}</section>`);
+  }
+  const lives = b.lives.length ? `<section class="cyear"><h3>Lives</h3><p class="small muted">Each person's thread through your reign, from what you saw. Repeats are counted, not repeated.</p>${b.lives.map((l) => `<p><strong>${linkNames(l.name.charAt(0).toUpperCase() + l.name.slice(1))}.</strong> ${linkNames(sentences(l.text))}</p>`).join("")}</section>` : "";
+  const ending = b.ending ? `<section class="cyear"><h3>How it ended</h3><p>${linkNames(sentences(b.ending))}</p></section>` : "";
+  return `<article class="book"><h2>The chronicle</h2><p class="small muted">Told as a story: each season by who it was about, with where each turning point began. Everything here is what you saw happen.</p>${years.join("")}${ending}${lives}</article>`;
 }

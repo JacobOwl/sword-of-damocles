@@ -13,6 +13,7 @@ import {
 import type { Args, FactionId, GameState, Mod, OfficeId, Person } from "./types.ts";
 import { FACTIONS, OFFICES } from "./types.ts";
 import { T } from "./tuning.ts";
+import { on } from "./switches.ts";
 
 export interface Option { value: string; label: string }
 interface Impl {
@@ -106,7 +107,8 @@ function reveal(s: GameState, pid: string) {
   if (pl) {
     for (const m of T(s).watchRevealsPlot ? pl.members : [pid, pl.leader]) if (!pl.known.includes(m)) pl.known.push(m);
     const all = T(s).watchRevealsPlot && pl.members.length > 1 ? ` With him: ${pl.members.filter((m) => m !== pid).map((m) => nameOf(s, m)).join(", ")}.` : "";
-    event(s, PLAYER, `${capital(p.name)} is in a plot against you, led by ${nameOf(s, pl.leader)}.${all}`, "your spies found it");
+    const led = pl.leader === pid ? "and leads it himself" : `led by ${nameOf(s, pl.leader)}`;
+    event(s, PLAYER, `${capital(p.name)} is in a plot against you, ${led}.${all}`, "your spies found it");
   } else {
     event(s, PLAYER, `${capital(p.name)} is in no plot. ${p.grudges.length ? `Grudges: ${p.grudges.map((g) => g.reason).join("; ")}.` : "No grudges."}`, "your spies found it");
   }
@@ -149,6 +151,7 @@ export const IMPL: Record<string, Impl> = {
       opinion(s, p.id, 2, `you gave him ${officeName(o)}`);
       for (const r of s.requests.filter((r) => r.kind === "office" && r.office === o && r.from !== p.id)) refuse(s, r.id, true);
       resolveRequests(s, (r) => r.from === p.id && r.kind === "office");
+      if (p.asks?.[o]) delete p.asks[o];
       for (const q of others(s).filter((q) => alive(q) && q.id !== p.id && q.wants === o)) grudge(s, q.id, `you passed him over for ${officeName(o)}, ${s.season}`.replace(/, \d+$/, ""));
       const f = factionOf(s, p.id);
       if (f) meetGoal(s, f, "grantOffice");
@@ -763,14 +766,38 @@ export function refuse(s: GameState, id: string, quiet = false) {
   event(s, p.id, quiet ? `${capital(p.name)}'s petition goes unanswered.` : `You refuse ${p.name}'s petition.`, "Refuse");
   if (r.kind === "citizenship") { s.flags.guardRefused = (s.flags.guardRefused ?? 0) + 1; return; }
   p.infl -= 1;
-  opinion(s, p.id, -1, "you refused his petition");
+  opinion(s, p.id, -1, r.demand ? "you refused his demand" : "you refused his petition");
+  if (on(s, "escalation") && (r.kind === "office" || r.kind === "silver") && !r.agendaStep) return escalate(s, r, p);
   p.refusals += 1;
   if (p.refusals >= 2 || r.owed || r.agendaStep) {
     p.refusals = 0;
     grudge(s, p.id, r.office ? `you refused him ${officeName(r.office)}` : "you refused his petitions");
     makeRival(s, p.id, "Humiliated", r.office ? `you refused him ${officeName(r.office)}` : "you refused him");
     if (r.agendaStep && p.agenda) { p.agenda.done = true; p.agenda.result = "refused"; }
+    // With escalation on, an agenda's petition counts as his first ask: next time he demands.
+    if (r.agendaStep && r.office && on(s, "escalation")) (p.asks ??= {})[r.office] = { stage: 1, last: s.season };
   }
+}
+
+// Switch "escalation": the first refusal sends him away to come back with a demand; refusing the demand
+// ends the asking for good, with a grudge, and he turns to acting instead.
+function escalate(s: GameState, r: GameState["requests"][number], p: Person) {
+  const key = r.office ?? r.kind;
+  const what = r.office ? officeName(r.office) : "silver";
+  p.asks ??= {};
+  if (!r.demand && !r.owed) { // a man you owe a favour takes the first refusal as the last, as before
+    p.asks[key] = { stage: 1, last: s.season };
+    p.refusals = 1;
+    event(s, p.id, `${capital(p.name)} leaves without a word. He will be back for ${what}.`, "refused once; next time he will demand it");
+    return;
+  }
+  p.asks[key] = { stage: 2, last: s.season };
+  p.refusals = 0;
+  grudge(s, p.id, r.office ? `you refused him ${what} twice, the second time in public` : "you refused his demand in public");
+  makeRival(s, p.id, "Humiliated", r.office ? `you refused his demand for ${what}` : "you refused his demand");
+  const f = factionOf(s, p.id);
+  if (f && leaderOf(s, f)?.id === p.id) mood(s, f, -1, `you shamed ${p.name}, their leader, in public`);
+  event(s, p.id, `${capital(p.name)} will not ask you for ${what} again.`, "a refused demand: he turns from asking to acting");
 }
 
 export interface MenuItem {

@@ -4,7 +4,7 @@ import {
   leaderOf, menu, moodName, officeName, officesOf, others, playerInfluence, plotStrength, power, preview, rankTitle,
   refuseRequest, replay, secondOptions, seasonName, stageName, startGame, backingFaction,
   openEvents, chooseEvent,
-  PACKAGES, DEFAULT_TUNING, knobsFor, packageName,
+  PACKAGES, DEFAULT_TUNING, knobsFor, packageName, SWITCHES, switchById, switchOn,
 } from "../src/core/index.ts";
 import type { Args, FactionId, GameState, Input, Plot } from "../src/core/index.ts";
 import { guide, guideDone, howToPlay, installTips, setGuideDone, tipAttr } from "./help.ts";
@@ -20,9 +20,9 @@ const app = document.getElementById("app")!;
 function save() {
   const s = ui.s;
   if (!s) return;
-  try { localStorage.setItem(SAVE_KEY, JSON.stringify({ seed: s.seed, tuning: s.tuning, inputs: s.inputs, designer: ui.designer })); } catch { /* storage may be blocked */ }
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify({ seed: s.seed, tuning: s.tuning, switches: s.switches ?? [], inputs: s.inputs, designer: ui.designer })); } catch { /* storage may be blocked */ }
 }
-function load(): { seed: number; tuning?: string; inputs: Input[]; designer?: boolean } | null {
+function load(): { seed: number; tuning?: string; switches?: string[]; inputs: Input[]; designer?: boolean } | null {
   try { const v = localStorage.getItem(SAVE_KEY); return v ? JSON.parse(v) : null; } catch { return null; }
 }
 function clearSave() { try { localStorage.removeItem(SAVE_KEY); } catch { /* ignore */ } }
@@ -49,16 +49,21 @@ function splash() {
       </details>
     </div>
     <p class="small" id="tuning-note">${esc(PACKAGES.find((p) => p.id === DEFAULT_TUNING)?.summary)}</p>
+    <details class="switches"><summary class="small">Rule switches (all off by default)</summary>
+      <p class="small muted">Optional rules to try. Each works with any balance.</p>
+      ${SWITCHES.map((w) => `<p class="small"><label><input type="checkbox" class="switch" value="${esc(w.id)}"> <b>${esc(w.name)}.</b> ${esc(w.summary)}</label></p>`).join("")}
+    </details>
     <p class="small muted">The people and the situation come from Diodorus, Plutarch and others; each real person's sheet quotes the passages. Everything else, including every rule and number, is invention.</p>
   </div>`;
   document.getElementById("new")!.onclick = () => {
     const v = Number((document.getElementById("seed") as HTMLInputElement).value) || seed;
-    ui.s = startGame(v, (document.getElementById("tuning") as HTMLSelectElement).value); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render();
+    const switches = [...document.querySelectorAll<HTMLInputElement>("input.switch")].filter((x) => x.checked).map((x) => x.value);
+    ui.s = startGame(v, (document.getElementById("tuning") as HTMLSelectElement).value, { switches }); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render();
   };
   const sel = document.getElementById("tuning") as HTMLSelectElement;
   sel.onchange = () => { document.getElementById("tuning-note")!.textContent = PACKAGES.find((p) => p.id === sel.value)?.summary ?? ""; };
   const r = document.getElementById("resume");
-  if (r && saved) r.onclick = () => { ui.s = replay(saved.seed, saved.inputs, PACKAGES.some((p) => p.id === saved.tuning) ? saved.tuning : DEFAULT_TUNING); ui.designer = !!saved.designer; render(); };
+  if (r && saved) r.onclick = () => { ui.s = replay(saved.seed, saved.inputs, PACKAGES.some((p) => p.id === saved.tuning) ? saved.tuning : DEFAULT_TUNING, { switches: (saved.switches ?? []).filter((x) => switchById(x)) }); ui.designer = !!saved.designer; render(); };
 }
 
 // ---------- Main screen ----------
@@ -79,7 +84,7 @@ function render() {
     ${body}
     <div class="foot small">
       <label><input type="checkbox" id="designer" ${ui.designer ? "checked" : ""}> Designer view: show the moves you can't see in play</label>
-      <span class="muted">Seed ${g.seed} · ${esc(packageName(g.tuning))} balance</span>
+      <span class="muted">Seed ${g.seed} · ${esc(packageName(g.tuning))} balance${g.switches?.length ? ` · ${esc(g.switches.map((x) => switchById(x)?.name ?? "").join(", "))}` : ""}</span>
       <button id="restart">New game</button>
     </div>`;
   wire(g);
@@ -282,6 +287,8 @@ function dangersCol(g: GameState) {
   return `${plots(g)}${rivals(g)}${whoIsWho(g)}`;
 }
 
+const partialKnobs = () => (switchById("partialBlows") as any).knobs as { wound: number; seize: number };
+
 function plotTitle(g: GameState, pl: Plot) {
   const lf = g.people[pl.leader].faction;
   const fname = lf === "ruler" ? "your own household" : g.factions[lf as FactionId].short;
@@ -308,11 +315,11 @@ function plots(g: GameState) {
       <div class="fhead"><b>${esc(plotTitle(g, pl))}</b><span class="stage stage-${pl.stage} tipped" ${tipAttr("stage")}>${stageName(pl.stage)}</span></div>
       <div class="plottrack" aria-label="Warnings passed: ${pl.stage} of 3">${track}</div>
       <div class="small">${what} First warned ${esc(seasonName(pl.started))}.</div>
-      ${knownBtns}${meter}
+      ${knownBtns}${pl.heard?.length ? `<div class="small"><span class="label">What you have heard</span><ul class="heard">${pl.heard.map((h) => `<li>${linkNames(h)}</li>`).join("")}</ul></div>` : ""}${meter}
       <div class="small">${when}</div>
     </div>`;
   }).join("") : `<p class="small muted">No warnings. That you know of.</p>`;
-  const advice = ps.length ? `<p class="small muted">What you can do: <b>Watch</b> a suspect to see whether he is in it. <b>Turn an informer</b> to learn its size. <b>Imprison</b> a named plotter to take him out. Keep the guard paid: it is most of your defense.</p>` : "";
+  const advice = ps.length ? `<p class="small muted">What you can do: <b>Watch</b> a suspect to see whether he is in it. <b>Turn an informer</b> to learn its size. <b>Imprison</b> a named plotter to take him out. Keep the guard paid: it is most of your defense.${switchOn(g, "partialBlows") ? ` A blow that beats your defense by ${partialKnobs().wound} or less only wounds you; by ${partialKnobs().seize} or less it costs you an office; it must beat it by ${partialKnobs().seize + 1} or more to kill you.` : ""}</p>` : "";
   return `<div><h2>Plots against you</h2>${body}${advice}</div>`;
 }
 

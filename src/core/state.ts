@@ -1,7 +1,8 @@
 // Building a new game, and read-only questions about a game state.
 import { DATA } from "./data.ts";
 import { T, DEFAULT_TUNING, knobsFor } from "./tuning.ts";
-import type { Faction, FactionId, GameState, OfficeId, Person, Plot } from "./types.ts";
+import type { Faction, FactionId, GameOpts, GameState, OfficeId, Person, Plot } from "./types.ts";
+import { checkSwitches } from "./switches.ts";
 import { FACTIONS, MOODS, OFFICES } from "./types.ts";
 
 export const PLAYER = "dionysius";
@@ -27,8 +28,9 @@ export function seasonIndex(v: unknown): number {
 }
 export const seasonOfYear = (i: number) => SEASON_NAMES[i % 4];
 
-export function newGame(seed: number, tuning: string = DEFAULT_TUNING): GameState {
+export function newGame(seed: number, tuning: string = DEFAULT_TUNING, opts: GameOpts = {}): GameState {
   knobsFor(tuning); // fails early on an unknown package
+  const switches = checkSwitches(opts.switches); // fails early on an unknown switch
   const st = DATA.start;
   const people: Record<string, Person> = {};
   for (const p of DATA.people) {
@@ -54,7 +56,7 @@ export function newGame(seed: number, tuning: string = DEFAULT_TUNING): GameStat
     };
   }
   return {
-    version: 1, seed, tuning, rng: seed | 0, season: 0, step: "world", slots: st.actionsPerSeason,
+    version: 1, seed, tuning, ...(switches.length ? { switches } : {}), rng: seed | 0, season: 0, step: "world", slots: st.actionsPerSeason,
     silver: st.silver, grain: st.grain, clock: st.clock, land: st.land,
     guard: { strength: st.guard.strength, upkeep: st.guard.upkeep, arrearsSeasons: 0, owed: 0, refusing: false, forSale: false },
     granary: false, walls: false, laws: [], offices, citadelBuilt: false, factions, people, plots: [], requests: [],
