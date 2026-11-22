@@ -8,7 +8,7 @@ Card for `data/names.json` and the two history records in `data/census.json` (th
 - **The invented people who carry these names are invention**, every one: their families, ages, traits, ambitions, roles and faces.
 - **Dates vary.** Many attestations are earlier (the tyrants of the 480s and 460s) or later (Agathocles' Syracuse around 310, Hiero's daughters in 214, Capua in 216 to 211, the Mercenary War of 241 to 238, Spain in 212 to 209) than the game's decade. A name in use across these centuries was probably in use in 405 to 395, but that is an inference, not a fact from the sources.
 - **The groups are the game's**, not the sources': Sicilian Greeks, Italian Greeks, Sikels, Carthaginians, Libyans, Campanians, Iberians, Gauls, Peloponnesians.
-- **The sources name few women.** Seven Sicilian Greek women's names are saved, and no Carthaginian woman's name from an ancient author. The one Punic woman's name in the list (Amoashtart) is from a modern page about the inscriptions of Sidon, in the Phoenician homeland. So the game leaves some women unnamed, as the sources do ("the daughter of Hermocrates", Diodorus 14.44.5), more often for Carthaginians. That share is invention (`data/census.json`, `naming.unnamedWomen`).
+- **The sources name few women.** Seven Sicilian Greek women's names are saved. Carthaginian and Phoenician women's names: Amoashtart (a queen of Sidon, from a modern page), and nine found by the source-search thread (15) and carded in `docs/research/punic-womens-names.md`: one from Livy (Sophoniba), two from Carthage itself (Am-'ashtart, Sibbolet), three from later Neo-Punic stones in North Africa and three from Phoenician Cyprus. The game writes the scholars' spellings plainly (Amashtart, Ahatmilkat, Amatashtart, Amatosir, Batshalom): those spellings are invention, and each record keeps the scholars' form under `spelled`. The game still leaves some women unnamed, as the sources do ("the daughter of Hermocrates", Diodorus 14.44.5): a quarter of Greek women and about a third of Carthaginians. That share is invention (`data/census.json`, `naming.unnamedWomen`).
 - **Thin pools.** Italian Greek and Libyan men's names run out in a crowded place, so men borrow from the Sicilian Greek or Carthaginian lists there (`naming.maleFallback`). Carthaginian men's names are few (the same ten or so recur in every source); in a crowded Carthage the game may use a reserved name (Hanno, Mago) rather than give two living men the same two names.
 - **Kept off the living:** every name of the starting cast, and names that would be mistaken for real people of this decade or the island thread's invented Carthaginians (`reserved` in `data/census.json`).
 - **Two late or foreign extras**, each marked in its record: Annobal (a sufete of Leptis Magna in AD 1 to 2) and Bodashtart (a king of Sidon). Used because the Carthaginian pool is so thin. Cut them if they jar.
@@ -26,7 +26,7 @@ Card for `data/names.json` and the two history records in `data/census.json` (th
 
 ## Wanted (in `docs/later.md`)
 
-- Carthaginian and Phoenician women's names from Punic inscriptions (for example the Carthage tophet stelae), saved with a citation.
+- More Carthaginian women's names from Carthage itself (Benz 1972; the tophet stelae in CIS I).
 - More Italian Greek names (Rhegium, Locri, Croton, Thurii) and Sikel names from saved texts.
 
 ## The names
@@ -97,7 +97,7 @@ Names of Sikel leaders of the inland towns.
 - **Archonides** (man): leader of Herbita. Diodorus 14.16.1: "Archonides, the leader of Herbitê, after the" (`sources/diodorus/english/book14-1-18-97-117.loeb.txt`)
 - **Agyris** (man): lord of Agyrium. Diodorus 14.95.4: "he sent an embassy to Agyris, the lord of the Agyrinaeans. This" (`sources/diodorus/english/book14.loeb.txt`)
 
-### Carthaginians (19 men's names, 1 women's)
+### Carthaginians (19 men's names, 9 women's)
 
 Names of Carthaginians, from 480 to 202 BC. The saved texts name almost no Carthaginian women.
 
@@ -121,6 +121,14 @@ Names of Carthaginians, from 480 to 202 BC. The saved texts name almost no Carth
 - **Bodostor** (man): a Carthaginian prisoner held at Rome. Diodorus 24.12.1: "of food for five days, Bodostor died of despair and privation. Hamilcar" (`sources/diodorus/english/book24.loeb.txt`)
 - **Annobal** (man): a magistrate (sufete) of Leptis Magna, AD 1 to 2: a Punic name from a much later inscription. IRT 322: "Annobal ornator patriae amator concordiae" (`sources/language/leptis-magna-irt322-bilingual.txt`) *Four centuries after the game's decade, and from Libya rather than Carthage. Used because the saved texts name few Carthaginian men.*
 - **Bodashtart** (man): a king of Sidon (a Phoenician name from the homeland). Wikipedia, Eshmunazar II: "the dedicatory Bodashtart inscriptions found on the foundations of the Temple of Eshm" (`sources/gods-dead/plain/wiki-Eshmunazar_II.txt`) *Not Carthaginian and not from an ancient author: a modern page on Phoenician inscriptions from Sidon.*
+- **Sophoniba** (woman): wife of Syphax, daughter of Hasdrubal the Carthaginian. Livy 30.12.8: "Sophoniba, the wife of Syphax, daughter of Hasdrubal the Carthaginian" (`sources/livy/numidia-30-45-selected.txt`)
+- **Amashtart** (woman): a woman named on a curse tablet from Carthage. Cooke 1903, no. 50: "bind Am-'ashtart" (`sources/religion/cooke-1903-carthage-and-north-africa.txt`) *Carthage, 3rd to 2nd century BC (Cooke). The game writes it Amashtart, a plain spelling of the scholars' Am-'ashtart (invention).*
+- **Sibbolet** (woman): a businesswoman of Carthage, on her gravestone. KAI 92 (CIS I 5948): "Grave of ŠBLT (Sibbolet), businesswoman of the City" (`sources/inscriptions/sibbolet-kai92.excerpts.txt`) *Carthage, undated. The game writes it Sibbolet, a plain spelling of the scholars' ŠBLT (Sibbolet) (invention).*
+- **Ahatmilkat** (woman): daughter of Bo'-melqarth, on her gravestone at Maktar. Cooke 1903, no. 54: "This stone is set up to Ahath-milkath, daughter of Bo'-" (`sources/religion/cooke-1903-neopunic-incl-sulci.txt`) *Neo-Punic script, North Africa, later than the game's decade. The game writes it Ahatmilkat, a plain spelling of the scholars' Ahath-milkath (invention).*
+- **Rosh** (woman): daughter of 'Abd-eshmun, who set up a pillar to her mother at Jol. Cooke 1903, no. 68: "up by Rosh, daughter" (`sources/religion/cooke-1903-neopunic-incl-sulci.txt`) *Neo-Punic script, North Africa, later than the game's decade.*
+- **Amatashtart** (woman): a wife at Kition in Cyprus. Cooke 1903, no. 16 (CIS I 46): "to my wife, Amath-'ashtart, daughter of" (`sources/religion/cooke-1903-cyprus.txt`) *The Phoenician East (Kition, Cyprus), 4th to 3rd century BC. The game writes it Amatashtart, a plain spelling of the scholars' Amath-'ashtart (invention).*
+- **Amatosir** (woman): a basket-bearer of Queen Arsinoe at Idalion. Cooke 1903, no. 27 (CIS I 93): "Amath-osir, daughter of Mk" (`sources/religion/cooke-1903-cyprus.txt`) *The Phoenician East (Idalion, Cyprus), 254 BC. The game writes it Amatosir, a plain spelling of the scholars' Amath-osir (invention).*
+- **Batshalom** (woman): daughter of Mar-yehai, at Idalion. Cooke 1903, no. 27 (CIS I 93): "Bath-shalom, daughter of Mar-yehai" (`sources/religion/cooke-1903-cyprus.txt`) *The Phoenician East (Idalion, Cyprus), 254 BC. The game writes it Batshalom, a plain spelling of the scholars' Bath-shalom (invention).*
 
 ### Libyans (4 men's names, 0 women's)
 

@@ -401,13 +401,13 @@
   },
   "naming": {
     "kind": "invention",
-    "note": "A person is called by one name and the father's name (Tellias son of Menes). The game names about half of eldest sons after their father's father; modern scholars describe this Greek custom, but it is not carded from a saved source. Women are often known in the sources only as someone's daughter or wife; the game leaves that share of women unnamed, by group. When a group's attested names run out in one place, men borrow from a neighbouring group (Italian Greeks from Sicilian Greeks, Libyans from Carthaginians).",
+    "note": "A person is called by one name and the father's name (Tellias son of Menes). The game names about half of eldest sons after their father's father; modern scholars describe this Greek custom, but it is not carded from a saved source. Women are often known in the sources only as someone's daughter or wife; the game leaves that share of women unnamed, by group (fewer Carthaginians since nine Punic women's names were found, 2026-11-22). When a group's attested names run out in one place, men borrow from a neighbouring group (Italian Greeks from Sicilian Greeks, Libyans from Carthaginians).",
     "grandfatherName": 0.5,
     "unnamedWomen": {
       "siceliot": 0.25,
       "italiote": 0.25,
       "sikel": 0.5,
-      "punic": 0.6,
+      "punic": 0.35,
       "default": 0.5
     },
     "femaleFallback": {
