@@ -1,7 +1,7 @@
 // Events: data shape, every choice runs, replays, and events actually fire in headless games.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { EVENTS, PACING, forceEvent, openEvents, eventsState, chooseEvent as choose } from "../src/core/events.ts";
+import { COURT_EVENTS as EVENTS, PACING, forceEvent, openEvents, eventsState, chooseEvent as choose } from "../src/core/events.ts";
 import { startGame, endSeason, replay, runBotGame, DATA } from "../src/core/index.ts";
 import { brokenState } from "../scripts/sim-check.ts";
 

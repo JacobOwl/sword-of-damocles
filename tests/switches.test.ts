@@ -2,9 +2,12 @@
 // every game replayable, and each one doing what its summary says.
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { PLAYER } from "../src/core/state.ts";
 import { DATA, SWITCHES, startGame, replay, runBotGame, storyBook, act, endSeason } from "../src/core/index.ts";
 import type { GameState } from "../src/core/index.ts";
 import { brokenState } from "../scripts/sim-check.ts";
+import { startPlot } from "../src/core/ai.ts";
+import { partialBlow } from "../src/core/season.ts";
 import { ui } from "../ui/text.ts";
 import { chronicleBook } from "../ui/story.ts";
 
@@ -49,7 +52,14 @@ test("clues: every warning is filled in, and a man who said no is never in the p
       assert.ok(!/[{}]|undefined/.test(e.text), e.text);
       assert.ok(!stock.has(e.text.replace(/^\w+: /, "")), `stock line used: ${e.text}`);
     }
-    for (const pl of s.plots) for (const d of pl.deeds ?? []) if (d.kind === "refused" && d.told) { refused++; assert.ok(d.target && d.target !== pl.leader); }
+    // A man who said no can change his mind after a new wrong: then a later "join" deed must say so.
+    for (const pl of s.plots) for (const [i, d] of (pl.deeds ?? []).entries()) if (d.kind === "refused" && d.told) {
+      refused++;
+      assert.ok(d.target, "a refusal names who said no");
+      const inPlot = d.target === pl.leader || pl.members.includes(d.target!);
+      const joinedLater = (pl.deeds ?? []).slice(i + 1).some((x) => x.kind === "join" && x.who === d.target);
+      assert.ok(!inPlot || joinedLater, `${d.target} said no but is in the plot with no later join (seed ${s.seed})`);
+    }
   }
   assert.ok(refused > 0, "no refused approach was ever told");
 });
@@ -72,7 +82,21 @@ test("partial blows: a narrow blow wounds or costs an office, and the game goes 
     wounded += s.counters.blowsWounded ?? 0; seized += s.counters.blowsSeized ?? 0;
     for (const e of s.log.filter((e) => /blade finds you|by force, and your house/.test(e.text))) assert.ok(!s.over || s.over.season > e.season || s.over.reason !== "killed" || true);
   }
-  assert.ok(wounded > 0 && seized > 0, `wounded ${wounded}, seized ${seized}`);
+  assert.ok(wounded > 0, `wounded ${wounded}`);
+  // Seizing an office is rare in bot games (the player must hold an office and the margin be exactly 3 or 4),
+  // so it is checked directly rather than hoped for in a sample.
+  const k = (SWITCHES.find((w) => w.id === "partialBlows") as any).knobs as { wound: number; seize: number };
+  const setUp = () => {
+    const g = startGame(5, "reapWhatYouSow", { switches: ["partialBlows"] });
+    const leader = Object.values(g.people).find((p) => p.status === "free" && p.faction === "rich")!;
+    g.offices.treasury = PLAYER;
+    return { g, pl: startPlot(g, leader, "test"), leader };
+  };
+  { const { g, pl, leader } = setUp(); assert.equal(partialBlow(g, pl, k.seize), true);
+    assert.equal(g.counters.blowsSeized, 1); assert.equal(g.offices.treasury, leader.id); assert.ok(!g.plots.includes(pl)); }
+  { const { g, pl, leader } = setUp(); assert.equal(partialBlow(g, pl, k.wound), true);
+    assert.equal(g.counters.blowsWounded, 1); assert.equal(leader.status, "outside"); }
+  { const { g, pl } = setUp(); assert.equal(partialBlow(g, pl, k.seize + 1), false); assert.ok(g.plots.includes(pl)); }
 });
 
 test("coalition: a Pretender only rises with a second faction against you", () => {

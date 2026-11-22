@@ -189,7 +189,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Sources found later can be saved in this repo**, under `sources/`, as short exact quotes with their link and licence. Why: the phoenician-punic-world repo is read-only for this game. `scripts/verify-cast-quotes.mjs` now reads a file from this repo first and from that repo otherwise, and it now also checks `data/calendar.json` (7 more quotes, all found).
 - **Saved:** Diodorus 14.19 to 14.40 (the three archon years 401 to 399 and every Sicilian line, from LacusCurtius, public domain); Cicero's Damocles story, 5.61 (short quotes from a copyrighted translation, as citations only); nine women's names from inscriptions and Livy. Cards: `docs/research/diodorus-401-399.md`, `damocles.md`, `punic-womens-names.md`.
 - **Only quotes, not whole texts.** The cloud's network is closed except GitHub, and the web reader returns short passages. Enough for the three gaps; whole chapters wait for Jacob if ever needed.
-- **Which Dionysius Damocles served stays open.** Livius.org says Dionysius II, Wikipedia says Dionysius I; Cicero's own 5.57 would settle it and is not saved.
+- **Which Dionysius Damocles served: Dionysius I**, settled the same day from Cicero's Latin (5.57: tyrant 38 years, from age 25; 5.59: wives Aristomache and Doris of Locri; 5.61: "hic quidem tyrannus"). Livius.org's "Dionysius II" is wrong for Cicero. The story has no date, so its year in the game is invention.
 - **No game data changed.** The calendar (thread 12), events (thread 06) and names (thread 13) stay with their threads.
 
 ## 2026-11-22 (Punic women's names in the generated cast, thread 13)
@@ -211,3 +211,22 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **The council rolls no dice.** What a man says follows from state, so a player can learn whom to trust.
 - **Open:** see the questions in `docs/handoff.md` (how hard secrets should push political rivals, the council on events, women's seats).
 
+## 2026-11-22 (island and Carthage events, slice 1: thread 16)
+- **The island gets its own event library, `data/island-events.json`, run by the same engine.** `src/core/island-events.ts` adds conditions on towns, armies and Carthage, parts played by towns, the generated cast and Carthage's named men, and effects on towns, armies and Carthage's council and stores. Why: the court's 52 events never touch the map; the island needed its own stories without a second event system.
+- **Island events have their own draw each season (one, sometimes two; at most two open), only in island games.** Why: so the court's intrigue is not crowded out, and so citadel games draw exactly the same dice as before (the standard digest and the 100-seed counts are unchanged).
+- **History arrives as conditions, never dates** (council V8), and a test fails if an island event has a date window. What Dionysius did is one choice, marked as his.
+- **Slice 1: 18 events** (14 from Diodorus, 4 invented) on treachery at the gates, the mole to Motya, siege engines, the sack of a Punic town, Greeks who fought for Carthage, the first man on the wall, ships caught on the beach, supply, cutting Carthage's foragers, the grain convoy, fever in camp, plague in the Punic camp, Himilcon's bargain, mercenaries paid with Leontini, Carthage buying a captain, the Campanians courted, the allies' harvest and the goddesses' temple. Four new emblems.
+- **Battles now leave a flag (`battleWon`, `battleLost`)** so events can follow a defeat. Logged only in the state, not the chronicle.
+- **Open:** see the questions in `docs/handoff.md`.
+
+## 2026-11-22 (the Damocles banquet event, thread 07)
+- **The Damocles story is an event, not a fixed scene.** Hanging the sword is the sourced choice (`history: true`) among three; the game never forces it. Why: events offer what Dionysius did as one choice, per the events decision.
+- **Which Dionysius stays open in the game.** Both modern readings are quoted; Cicero 5.57 would settle it and is not yet saved (`docs/later.md`). The event's dating (from Spring 404) is invention for this decade either way.
+- **A refusal is not forever.** Under "Warnings are clues", a man who said no can join the same plot later after a new wrong; the deeds list records both, so every clue stays true.
+
+## 2026-11-22 (a proper web app, step 2: thread 17)
+- **The browser game builds with Vite 8 and `vite-plugin-singlefile`** into the same single page; `npm run dev` gives a live-reloading page. Why: a standard build with a dev server, while the Artifact link still gets one self-contained page.
+- **UI restructures are checked by a scripted walk-through** (`npm run walk`) that must record identical pages before and after. Why: "behaviour identical" needs a check, not a promise.
+
+## 2026-11-22 (Damocles event updated, thread 07)
+- **"A sword on a horse-hair" is now settled on Dionysius I.** It quotes Cicero's Latin 5.57, 5.59 and 5.61 (saved by PR #30) and keeps Livius.org's Dionysius II reading as a disagreement. Only the timing is invention. Five more court stories from the same passage are parked in `docs/later.md`.

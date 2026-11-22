@@ -9,7 +9,7 @@ import { VIGNETTES, vignette } from "../ui/vignettes.ts";
 import { FLAVOR, knownDanger, seasonLine, swordOverhead } from "../ui/ambient.ts";
 import { ui } from "../ui/text.ts";
 
-const events = JSON.parse(readFileSync("data/events.json", "utf8")).events as { id: string; art?: string }[];
+const events = [...JSON.parse(readFileSync("data/events.json", "utf8")).events, ...JSON.parse(readFileSync("data/island-events.json", "utf8")).events] as { id: string; art?: string }[];
 
 test("every event has a picture, and every picture is used", () => {
   for (const e of events) assert.ok(e.art && VIGNETTES[e.art], `${e.id} has no picture (art: ${e.art})`);
