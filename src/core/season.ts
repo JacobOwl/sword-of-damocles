@@ -11,6 +11,8 @@ import { perform, refuse } from "./actions.ts";
 import type { FactionId, GameState, Input, Plot } from "./types.ts";
 import { FACTIONS } from "./types.ts";
 import { writeChronicle } from "./chronicle.ts";
+import { T } from "./tuning.ts";
+import { botById, botRandom, playSeason } from "./bots.ts";
 
 // ---------- World ----------
 function worldStep(s: GameState) {
@@ -153,7 +155,7 @@ function swordStep(s: GameState) {
     if (!s.plots.includes(pl)) continue;
     if (pl.informer && pl.members.includes(pl.informer)) pl.known = [...pl.members];
     const str = plotStrength(s, pl).total;
-    const target = stageFor(str);
+    const target = stageFor(s, str);
     const before = pl.stage;
     if (target > pl.stage && pl.stageSince < s.season) { pl.stage += 1; pl.stageSince = s.season; }
     else if (target < pl.stage) { pl.stage = target; pl.stageSince = s.season; }
@@ -168,8 +170,9 @@ function swordStep(s: GameState) {
     const def = defense(s).total;
     const leader = s.people[pl.leader];
     const patient = leader.traits.includes("patient");
-    const canStrike = pl.stage === 3 && pl.namedSince >= 0 && pl.namedSince < s.season && str >= 6;
-    const keen = str + (patient ? 3 : 4) > def || s.season - pl.namedSince >= (patient ? 3 : 2);
+    const k = T(s);
+    const canStrike = pl.stage === 3 && pl.namedSince >= 0 && pl.namedSince < s.season && str >= k.minStrike;
+    const keen = str + (patient ? k.strikeMargin - 1 : k.strikeMargin) > def || s.season - pl.namedSince >= (patient ? k.namedWait + 1 : k.namedWait);
     if (canStrike && keen) strike(s, pl);
     if (s.over) return;
   }
@@ -197,6 +200,13 @@ function strike(s: GameState, pl: Plot) {
   const die = d6(s);
   const total = die + mods.reduce((a, m) => a + m.value, 0);
   s.counters.strikes = (s.counters.strikes ?? 0) + 1;
+  // For the balance runs: how long you were warned, whether you knew who led it, and the odds of the blow.
+  const add = mods.reduce((a, m) => a + m.value, 0);
+  const chance = [1, 2, 3, 4, 5, 6].filter((d) => d + add > def.total).length / 6;
+  s.counters.strikeWarnSeasons = (s.counters.strikeWarnSeasons ?? 0) + (s.season - pl.started + 1);
+  if (pl.known.includes(pl.leader)) s.counters.strikeLeaderKnown = (s.counters.strikeLeaderKnown ?? 0) + 1;
+  s.counters.strikeChance = (s.counters.strikeChance ?? 0) + chance;
+  if (chance > 0.25 && chance < 0.75) s.counters.strikeCoinFlips = (s.counters.strikeCoinFlips ?? 0) + 1;
   event(s, pl.leader, `The plot strikes. Rolled ${die}${mods.map((m) => ` +${m.value} ${m.label}`).join("")} = ${total}, against your defense of ${def.total} (${def.parts.map((p) => `${p.value} ${p.label}`).join(", ")}). It must beat your defense.`, "the sword check");
   if (total > def.total) {
     const fate = d6(s);
@@ -204,6 +214,7 @@ function strike(s: GameState, pl: Plot) {
     s.over = fate <= 3
       ? { reason: "exiled", text: `The plotters seize the Island. You escape with your life and go into exile. ${capital(leader.name)} led them.`, season: s.season }
       : { reason: "killed", text: `The sword falls. You are killed by men you trusted. ${capital(leader.name)} led them.`, season: s.season };
+    s.over.by = leader.id;
     event(s, pl.leader, s.over.text, "the plot beat your defense");
     return;
   }
@@ -211,10 +222,14 @@ function strike(s: GameState, pl: Plot) {
   event(s, pl.leader, `The plot fails. Every plotter is named: ${pl.members.map((m) => s.people[m].name).join(", ")}.`, "your defense held");
   for (const m of pl.members) s.people[m].exposed = true;
   for (const f of pl.backers) { powerChange(s, f, -2, "its plot was exposed"); s.factions[f].backing = undefined; }
+  const hadRank = leader.rival?.rank;
   makeRival(s, pl.leader, "Survivor", "his plot failed and he lived");
+  // A balance knob (0 in standard): a leader who survives his failed blow comes back stronger.
+  if (T(s).rankOnFailedPlot && hadRank !== undefined) rankChange(s, pl.leader, T(s).rankOnFailedPlot, "he survived his own failed blow, and learned from it");
   for (const m of pl.members) if (s.people[m].status === "held" && s.people[m].rival) rankChange(s, m, -1, "his plot was exposed while he was held");
   if (pl.guardBacking) event(s, "guard", "The guard that sold itself to the plot stands exposed.", "the plot failed");
   s.plots = s.plots.filter((p) => p !== pl);
+  s.flags.plotBroken = s.season;
 }
 
 // ---------- The public API ----------
@@ -254,8 +269,8 @@ function finish(s: GameState) {
   beginSeason(s);
 }
 
-export function startGame(seed: number): GameState {
-  const s = newGame(seed);
+export function startGame(seed: number, tuning?: string): GameState {
+  const s = newGame(seed, tuning);
   beginSeason(s);
   return s;
 }
@@ -270,8 +285,8 @@ export function refuseRequest(s: GameState, id: string) {
 }
 
 // Any game replays exactly from its seed and the list of your inputs.
-export function replay(seed: number, inputs: Input[]): GameState {
-  const s = startGame(seed);
+export function replay(seed: number, inputs: Input[], tuning?: string): GameState {
+  const s = startGame(seed, tuning);
   for (const i of inputs) {
     if (i.t === "act") perform(s, i.action, i.args);
     else if (i.t === "refuse") refuseRequest(s, i.request);
@@ -280,12 +295,17 @@ export function replay(seed: number, inputs: Input[]): GameState {
   return s;
 }
 
-// A whole game played by the simple bot, for the headless check.
-export function runBotGame(seed: number): GameState {
-  const s = startGame(seed);
+// A whole game played by a headless player, for the checks and the balance runs.
+// "simple" is the first bot (it shares the game's dice); the others are in bots.ts.
+export function runBotGame(seed: number, opts: { bot?: string; tuning?: string } = {}): GameState {
+  const s = startGame(seed, opts.tuning);
+  const bot = opts.bot && opts.bot !== "simple" ? botById(opts.bot) : undefined;
+  if (opts.bot && opts.bot !== "simple" && !bot) throw new Error(`unknown bot: ${opts.bot}`);
+  const r = botRandom(seed);
   let n = 0;
   while (!s.over && n++ < 200) {
-    botTurn(s);
+    if (bot) playSeason(s, bot, r);
+    else botTurn(s);
     endSeason(s);
   }
   return s;

@@ -12,6 +12,7 @@ import {
 import { traitMods, politicalRank } from "./actions.ts";
 import type { FactionId, GameState, Mod, OfficeId, Person, Plot } from "./types.ts";
 import { FACTIONS } from "./types.ts";
+import { T } from "./tuning.ts";
 
 const hidden = false;
 const rankOf = (p: Person) => p.rival?.rank ?? 0;
@@ -39,6 +40,9 @@ function canAct(s: GameState, p: Person) {
 
 function canStartPlot(s: GameState, p: Person): boolean {
   if (plotOf(s, p.id) || !hasGrudge(p)) return false;
+  // Breathing room (a balance knob; 0 in standard): after a plot is broken, the city is quiet for a while.
+  const br = T(s).breathingRoom;
+  if (br && s.flags.plotBroken !== undefined && s.season - s.flags.plotBroken <= br) return false;
   const f = factionOf(s, p.id);
   const angry = f ? s.factions[f].mood <= 1 : false;
   if (!(rankOf(p) >= 1 || angry)) return false;
@@ -67,7 +71,7 @@ function recruit(s: GameState, p: Person, pl: Plot) {
   const mods: Mod[] = [...traitMods(s, p.id, q.id, "recruit"), ...againstYou(s, p)];
   if (rankOf(p) >= 2) mods.push({ label: "a Schemer", value: 1 });
   if (p.status === "outside" && q.status === "outside" && p.rival?.scars.includes("Exiled")) mods.push({ label: "exiles together", value: 1 });
-  const r = roll(s, p.id, `${capital(p.name)} tries to recruit ${q.name}`, mods, 4, pl.known.includes(p.id) && !!pl.informer);
+  const r = roll(s, p.id, `${capital(p.name)} tries to recruit ${q.name}`, mods, T(s).recruitNeed, pl.known.includes(p.id) && !!pl.informer);
   if (!r.ok) return true;
   if (q.bound && d6(s) < 5) { event(s, q.id, `${capital(q.name)} is bound to you, and refuses ${p.name}.`, "bound by marriage or office", hidden); return true; }
   pl.members.push(q.id);
@@ -226,7 +230,7 @@ function agendaTurn(s: GameState, p: Person) {
     if (influence(s, p.id) >= playerInfluence(s)) mods.push({ label: "his influence matches yours", value: 1 });
     if (p.bound) mods.push({ label: "bound to you", value: -1 });
   }
-  const r = roll(s, p.id, `${capital(p.name)}: ${step}`, mods, 4, ag.id !== "philistusTreasury" || true);
+  const r = roll(s, p.id, `${capital(p.name)}: ${step}`, mods, ag.id === "takePlace" ? T(s).takePlaceNeed : 4, ag.id !== "philistusTreasury" || true);
   if (r.ok) stepDone(s, p);
 }
 
@@ -251,7 +255,7 @@ function politicalVictory(s: GameState, p: Person) {
   else if (s.factions.guard.mood <= 2) how = "the guard switches its backing to him";
   else if (officesOf(s, p.id).length >= 3) how = "he holds so many offices that no one can remove him";
   s.counters.politicalFalls = (s.counters.politicalFalls ?? 0) + 1;
-  s.over = { reason: "deposed", text: `${capital(p.name)} takes your place: ${how}. You live, but you no longer rule Syracuse.`, season: s.season };
+  s.over = { reason: "deposed", text: `${capital(p.name)} takes your place: ${how}. You live, but you no longer rule Syracuse.`, season: s.season, by: p.id };
   event(s, p.id, s.over.text, "Take his place");
 }
 
@@ -313,6 +317,15 @@ function agendaStep(s: GameState, f: FactionId) {
     delete s.flags[`blockAgenda_${f}`];
     return void event(s, f, `${name} make no progress on ${def.name}.`, "you blocked their leader");
   }
+  // Reap what you sow (a balance knob, off in standard): a Content or Loyal faction holds its agenda against you.
+  // Said once when it starts holding back, not every season.
+  const stallKey = `stalled_${f}`;
+  if (T(s).contentFactionsStall && def.againstRuler && fa.mood >= 3) {
+    if (s.flags[stallKey] === undefined) event(s, f, `${name} hold back from ${def.name} while they are ${fa.mood === 4 ? "Loyal" : "Content"}.`, "a content faction does not move against you");
+    s.flags[stallKey] = s.season;
+    return;
+  }
+  if (s.flags[stallKey] !== undefined) { delete s.flags[stallKey]; event(s, f, `${name} take up ${def.name} again.`, "they are no longer content"); }
   const lead = leaderOf(s, f);
   // Steps that ask you for something.
   if (ag.id === "guardCitizens" && lead) request(s, lead, "citizenship", {}, `${capital(lead.name)} demands citizenship for the guard.`, `Agenda: ${def.name}, step ${ag.step + 1} (${step})`);
@@ -385,7 +398,7 @@ export function updatePolitical(s: GameState) {
   for (const p of others(s)) {
     if (!alive(p)) { p.political = undefined; continue; }
     const inf = influence(s, p.id);
-    const close = inf >= 1 && inf >= you - 3;
+    const close = inf >= 1 && inf >= you - T(s).politicalRange;
     if (p.political) {
       if (!close) {
         p.political.outSeasons += 1;
@@ -402,7 +415,7 @@ export function updatePolitical(s: GameState) {
     if (s.people && Object.values(s.people).filter((x) => x.political && alive(x)).length >= max) continue;
     p.political = { type: (p as any).politicalType ?? DATA.people.find((x) => x.id === p.id)?.politicalType ?? DATA.politicalTypeByFaction[p.faction] ?? "Climber", rank: 1, since: s.season, outSeasons: 0 };
     s.counters.politicalRivals = (s.counters.politicalRivals ?? 0) + 1;
-    event(s, p.id, `${capital(p.name)} becomes a political rival (${p.political.type}). He wants your place, not your life.`, `Ambition: ${p.ambition}; his influence ${inf} is within 3 of yours (${you})`);
+    event(s, p.id, `${capital(p.name)} becomes a political rival (${p.political.type}). He wants your place, not your life.`, `Ambition: ${p.ambition}; his influence ${inf} is within ${T(s).politicalRange} of yours (${you})`);
   }
 }
 

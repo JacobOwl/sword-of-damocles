@@ -15,6 +15,7 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Phase 1?] Dinners as the main stage for drama: who is invited, where they sit, what the wine loosens. This is from Jacob's pitch doc (background only), and it barely came up in the paper test.
 - [Phase 3?] Playing on as an exile who plots a return. Also from Jacob's pitch doc.
 - [Phase 1?] Let the player use the scheming actions too (start a plot against a rival, lend). Rules v2 says they are open to anyone; the prototype gives them to the computer's people only.
-- [Phase 1?] A smarter headless player for `npm run sim`, so the counts reflect a careful ruler and not a careless one.
 - [Phase 1?] Events drawn from the cast's sourced stories, as data: Andron tempted to seize the citadel and treasury (Polyaenus 5.2.4), Theste's answer when her husband fled (Plutarch, *Dion* 21), the charge that Doris' mother drugged Aristomache (Plutarch, *Dion* 3), Theodorus' liberty speech and the Spartan veto (Diodorus 14.64 to 14.70). Parked by the cast thread, 2026-11-22.
 - [Phase 1?] The 13 proposals in `docs/game-research.md` (clue-based warnings, storyline chronicle, plot methods and moments, a council, escalating petitions, secrets from deeds, tradeable promises, pacing, storylets, a shared danger, stress, and more). Parked for Jacob to pick, 2026-11-22.
+- [Phase 1?] Make Nemeses reachable. Under every balance package they appear under 0.1 times a game, because rank 4 needs four rank-ups. Found by the balance sweep, 2026-11-22.
+- [Phase 1?] Smarter bots for the political actions (Force a favor before votes, Expose to stop Pretenders), so the sweep tests that side of the game too. Balance thread, 2026-11-22.

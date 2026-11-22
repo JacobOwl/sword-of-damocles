@@ -3,6 +3,7 @@
   "agendas": [
     {
       "id": "peoplesAssembly",
+      "againstRuler": true,
       "name": "The people's assembly",
       "kind": "invention",
       "owner": "citizens",
@@ -16,6 +17,7 @@
     },
     {
       "id": "cavalryHome",
+      "againstRuler": true,
       "name": "The cavalry come home",
       "kind": "invention",
       "owner": "rich",
@@ -42,6 +44,7 @@
     },
     {
       "id": "kingmakers",
+      "againstRuler": true,
       "name": "Choose the next ruler",
       "kind": "invention",
       "owner": "guard",
@@ -54,6 +57,7 @@
     },
     {
       "id": "nameHeir",
+      "againstRuler": true,
       "name": "Name the heir",
       "kind": "invention",
       "owner": "family",

@@ -12,6 +12,7 @@ import {
 } from "./ops.ts";
 import type { Args, FactionId, GameState, Mod, OfficeId, Person } from "./types.ts";
 import { FACTIONS, OFFICES } from "./types.ts";
+import { T } from "./tuning.ts";
 
 export interface Option { value: string; label: string }
 interface Impl {
@@ -103,8 +104,9 @@ function reveal(s: GameState, pid: string) {
   p.knownUntil = s.season + 1;
   const pl = plotOf(s, pid);
   if (pl) {
-    for (const m of [pid, pl.leader]) if (!pl.known.includes(m)) pl.known.push(m);
-    event(s, PLAYER, `${capital(p.name)} is in a plot against you, led by ${nameOf(s, pl.leader)}.`, "your spies found it");
+    for (const m of T(s).watchRevealsPlot ? pl.members : [pid, pl.leader]) if (!pl.known.includes(m)) pl.known.push(m);
+    const all = T(s).watchRevealsPlot && pl.members.length > 1 ? ` With him: ${pl.members.filter((m) => m !== pid).map((m) => nameOf(s, m)).join(", ")}.` : "";
+    event(s, PLAYER, `${capital(p.name)} is in a plot against you, led by ${nameOf(s, pl.leader)}.${all}`, "your spies found it");
   } else {
     event(s, PLAYER, `${capital(p.name)} is in no plot. ${p.grudges.length ? `Grudges: ${p.grudges.map((g) => g.reason).join("; ")}.` : "No grudges."}`, "your spies found it");
   }

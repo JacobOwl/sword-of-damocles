@@ -6,3 +6,5 @@ export { menu, preview, secondOptions, vote } from "./actions.ts";
 export { startGame, act, endSeason, refuseRequest, replay, runBotGame } from "./season.ts";
 export { fullChronicle, chronicleText, seasonEntries } from "./chronicle.ts";
 export { rankTitle, originById, agendaById } from "./data.ts";
+export { PACKAGES, DEFAULT_TUNING, knobsFor, packageName } from "./tuning.ts";
+export { BOTS, botById } from "./bots.ts";

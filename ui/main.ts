@@ -3,6 +3,7 @@ import {
   DATA, FACTIONS, OFFICES, PLAYER, act, agendaById, band, capital, defense, endSeason, fullChronicle, government, influence,
   leaderOf, menu, moodName, officeName, officesOf, others, playerInfluence, plotStrength, power, preview, rankTitle,
   refuseRequest, replay, secondOptions, seasonName, stageName, startGame, traitName, originById, backingFaction,
+  PACKAGES, DEFAULT_TUNING, knobsFor, packageName,
 } from "../src/core/index.ts";
 import type { Args, FactionId, GameState, LogEntry, Person, Input } from "../src/core/index.ts";
 
@@ -23,9 +24,9 @@ const sign = (n: number) => (n > 0 ? `+${n}` : `${n}`);
 // ---------- Saving: the seed and your inputs, replayed on load ----------
 function save() {
   if (!s) return;
-  try { localStorage.setItem(SAVE_KEY, JSON.stringify({ seed: s.seed, inputs: s.inputs, designer })); } catch { /* storage may be blocked */ }
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify({ seed: s.seed, tuning: s.tuning, inputs: s.inputs, designer })); } catch { /* storage may be blocked */ }
 }
-function load(): { seed: number; inputs: Input[]; designer?: boolean } | null {
+function load(): { seed: number; tuning?: string; inputs: Input[]; designer?: boolean } | null {
   try { const v = localStorage.getItem(SAVE_KEY); return v ? JSON.parse(v) : null; } catch { return null; }
 }
 function clearSave() { try { localStorage.removeItem(SAVE_KEY); } catch { /* ignore */ } }
@@ -43,17 +44,22 @@ function splash() {
     <div class="row" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
       <label for="seed" class="label">Seed</label>
       <input id="seed" type="number" value="${seed}" style="width:9em">
+      <label for="tuning" class="label">Balance</label>
+      <select id="tuning">${PACKAGES.map((p) => `<option value="${esc(p.id)}"${p.id === DEFAULT_TUNING ? " selected" : ""}>${esc(p.name)}</option>`).join("")}</select>
       <button class="primary" id="new">Begin</button>
-      ${saved ? `<button id="resume">Resume your game (seed ${esc(saved.seed)})</button>` : ""}
+      ${saved ? `<button id="resume">Resume your game (seed ${esc(saved.seed)}, ${esc(packageName(saved.tuning))})</button>` : ""}
     </div>
+    <p class="small" id="tuning-note">${esc(PACKAGES.find((p) => p.id === DEFAULT_TUNING)?.summary)}</p>
     <p class="small muted">The same seed and the same choices always give the same history. Everything here is invention except the people and the situation, which come from Diodorus, Plutarch and Aristotle.</p>
   </div>`;
   document.getElementById("new")!.onclick = () => {
     const v = Number((document.getElementById("seed") as HTMLInputElement).value) || seed;
-    s = startGame(v); lastSeen = 0; save(); render();
+    s = startGame(v, (document.getElementById("tuning") as HTMLSelectElement).value); lastSeen = 0; save(); render();
   };
+  const sel = document.getElementById("tuning") as HTMLSelectElement;
+  sel.onchange = () => { document.getElementById("tuning-note")!.textContent = PACKAGES.find((p) => p.id === sel.value)?.summary ?? ""; };
   const r = document.getElementById("resume");
-  if (r && saved) r.onclick = () => { s = replay(saved.seed, saved.inputs); designer = !!saved.designer; render(); };
+  if (r && saved) r.onclick = () => { s = replay(saved.seed, saved.inputs, PACKAGES.some((p) => p.id === saved.tuning) ? saved.tuning : DEFAULT_TUNING); designer = !!saved.designer; render(); };
 }
 
 // ---------- Main screen ----------
@@ -75,7 +81,7 @@ function render() {
     ${tab !== "chron" ? `<div class="foot-chron" style="margin-top:28px">${chronicle(g)}</div>` : ""}
     <div class="foot small">
       <label><input type="checkbox" id="designer" ${designer ? "checked" : ""}> Designer view: show the moves you can't see in play</label>
-      <span class="muted">Seed ${g.seed}</span>
+      <span class="muted">Seed ${g.seed} · ${esc(packageName(g.tuning))} balance</span>
       <button id="restart">New game</button>
     </div>`;
   wire(g);
@@ -265,7 +271,7 @@ function plots(g: GameState) {
       ${known.length ? `<div class="small">Names you have: ${known.map((k) => esc(Nm(k))).join(", ")}.</div>` : ""}
       ${pl.informer || designer ? `<div class="small">Strength ${st.total} (${esc(st.parts.map((p) => `${p.label} ${sign(p.value)}`).join(", "))}).</div>` : ""}</div>`;
   }).join("") : `<p class="small muted">No warnings. That you know of.</p>`;
-  return `<div><h2>Warnings</h2>${body}<p class="small muted">A plot must pass Whispers, Rumors and Named, a season at least at each, and reach strength 6, before it can strike. It must beat your defense of ${defense(g).total}.</p></div>`;
+  return `<div><h2>Warnings</h2>${body}<p class="small muted">A plot must pass Whispers, Rumors and Named, a season at least at each, and reach strength ${knobsFor(g.tuning).minStrike}, before it can strike. It must beat your defense of ${defense(g).total}.</p></div>`;
 }
 
 function rivals(g: GameState) {
@@ -294,7 +300,7 @@ function political(g: GameState) {
         <div class="small">${esc(r.type)} · influence <span class="num">${influence(g, p.id)}</span> against your ${playerInfluence(g)} · opinion <span class="op ${p.opinion < 0 ? "neg" : p.opinion > 0 ? "pos" : ""}">${sign(p.opinion)}</span>${p.bound ? " · bound to you" : ""}</div>
         ${p.agenda?.id === "takePlace" ? `<div class="small warn">Agenda, Take his place: ${esc(agendaById("takePlace").steps.map((st, i) => (i < p.agenda!.step ? `${st} (done)` : st)).join(", "))}</div>` : ""}</div>`;
     }).join("") : `<p class="small muted">No one is climbing toward your place yet.</p>`}
-    <p class="small muted">Political rivals are made by ambition: anyone after office or power whose influence comes within 3 of yours. They want your place, not your life. At most 2 at a time.</p></div>`;
+    <p class="small muted">Political rivals are made by ambition: anyone after office or power whose influence comes within ${knobsFor(g.tuning).politicalRange} of yours. They want your place, not your life. At most 2 at a time.</p></div>`;
 }
 
 function statusWord(p: Person) {

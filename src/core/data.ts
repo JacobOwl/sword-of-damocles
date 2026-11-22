@@ -16,7 +16,7 @@ export interface ActionDef {
   id: string; area: string; name: string; cost: string; roll: string; success: string; failure?: string;
   ruler?: boolean; reach?: boolean; slots?: number; aiOnly?: boolean;
 }
-export interface AgendaDef { id: string; name: string; owner: string; steps: string[]; completes: string; grantedBy?: string; wants?: string }
+export interface AgendaDef { id: string; name: string; owner: string; steps: string[]; completes: string; grantedBy?: string; wants?: string; againstRuler?: boolean }
 export interface LawDef {
   id: string; name: string; for: string[]; against: string[]; income?: number; grain?: number;
   once?: { silver: number }; moods?: Record<string, number>; detail: string; repeatable?: boolean; servesCitizens?: boolean;

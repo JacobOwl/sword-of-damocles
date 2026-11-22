@@ -1,5 +1,6 @@
 // Building a new game, and read-only questions about a game state.
 import { DATA } from "./data.ts";
+import { T, DEFAULT_TUNING, knobsFor } from "./tuning.ts";
 import type { Faction, FactionId, GameState, OfficeId, Person, Plot } from "./types.ts";
 import { FACTIONS, MOODS, OFFICES } from "./types.ts";
 
@@ -26,7 +27,8 @@ export function seasonIndex(v: unknown): number {
 }
 export const seasonOfYear = (i: number) => SEASON_NAMES[i % 4];
 
-export function newGame(seed: number): GameState {
+export function newGame(seed: number, tuning: string = DEFAULT_TUNING): GameState {
+  knobsFor(tuning); // fails early on an unknown package
   const st = DATA.start;
   const people: Record<string, Person> = {};
   for (const p of DATA.people) {
@@ -52,7 +54,7 @@ export function newGame(seed: number): GameState {
     };
   }
   return {
-    version: 1, seed, rng: seed | 0, season: 0, step: "world", slots: st.actionsPerSeason,
+    version: 1, seed, tuning, rng: seed | 0, season: 0, step: "world", slots: st.actionsPerSeason,
     silver: st.silver, grain: st.grain, clock: st.clock, land: st.land,
     guard: { strength: st.guard.strength, upkeep: st.guard.upkeep, arrearsSeasons: 0, owed: 0, refusing: false, forSale: false },
     granary: false, walls: false, laws: [], offices, citadelBuilt: false, factions, people, plots: [], requests: [],
@@ -113,20 +115,22 @@ export function guardDefends(s: GameState): boolean {
 }
 
 export function defense(s: GameState): { total: number; parts: { label: string; value: number }[] } {
-  const parts = [{ label: "base", value: 4 }];
-  if (s.citadelBuilt && holds(s, PLAYER, "citadel")) parts.push({ label: "the citadel", value: 2 });
+  const k = T(s);
+  const parts = [{ label: "base", value: k.defenseBase }];
+  if (s.citadelBuilt && holds(s, PLAYER, "citadel")) parts.push({ label: "the citadel", value: k.citadelDefense });
   if (guardDefends(s)) parts.push({ label: "the guard", value: s.guard.strength });
   const watched = s.watches.filter((w) => s.plots.some((pl) => pl.members.includes(w))).length;
-  if (watched) parts.push({ label: "watches on plotters", value: watched });
+  if (watched && k.watchDefense) parts.push({ label: "watches on plotters", value: watched * k.watchDefense });
   return { total: parts.reduce((a, b) => a + b.value, 0), parts };
 }
 
 export function memberWeight(s: GameState, pid: string, plot: Plot): number {
   const p = s.people[pid];
-  if (officesOf(s, pid).length) return 3;
+  const k = T(s);
+  if (officesOf(s, pid).length) return k.officeWeight;
   const f = p.faction as FactionId;
-  if (FACTIONS.includes(f) && leaderOf(s, f)?.id === pid) return 2;
-  return 1;
+  if (FACTIONS.includes(f) && leaderOf(s, f)?.id === pid) return k.leaderWeight;
+  return k.memberWeight;
 }
 
 export function plotStrength(s: GameState, plot: Plot): { total: number; parts: { label: string; value: number }[] } {
@@ -140,7 +144,7 @@ export function plotStrength(s: GameState, plot: Plot): { total: number; parts: 
     }
   }
   for (const f of plot.backers) {
-    const v = Math.floor(power(s, f) / 3);
+    const v = Math.floor(power(s, f) / T(s).backingDivisor);
     if (v) parts.push({ label: `${s.factions[f].name} backing`, value: v });
   }
   if (plot.guardBacking) parts.push({ label: "the guard's swords", value: s.guard.strength });
@@ -149,7 +153,7 @@ export function plotStrength(s: GameState, plot: Plot): { total: number; parts: 
 }
 
 export const stageName = (n: number) => ["None", "Whispers", "Rumors", "Named"][n] ?? "Named";
-export const stageFor = (strength: number) => (strength >= 5 ? 3 : strength >= 3 ? 2 : 1);
+export const stageFor = (s: GameState, strength: number) => (strength >= T(s).stageNamed ? 3 : strength >= T(s).stageRumors ? 2 : 1);
 
 export const activeRivals = (s: GameState) => others(s).filter((p) => p.rival && alive(p));
 export const plotOf = (s: GameState, pid: string) => s.plots.find((pl) => pl.members.includes(pid));

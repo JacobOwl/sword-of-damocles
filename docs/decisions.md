@@ -63,3 +63,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Every claim about another game is marked** as opened this session (with the link) or as general knowledge. Why: confident errors are the worst failure.
 - **The nemesis patent note stands as before** (a private hobby game is unaffected). The note adds that "waiting in the wings" is the part of v2 closest to the patent's described behaviour, in case the game is ever published.
 
+## 2026-11-22 (balance packages and better headless players)
+
+- **Balance numbers moved into data** (`data/tuning.json`) as named packages. Standard stays the default and plays exactly as before. Why: the rules choices are Jacob's, so the alternatives are options, not changes.
+- **Three alternative packages: Slow fuse, Fair fight, Reap what you sow.** Each changes only numbers or switches existing rules on, except two small new switches: "quiet seasons after a plot breaks" (research ★8) and "a content faction holds back agendas against you". Both are off in Standard. Why: the coordinator asked for 2 or 3 packages with their survival and story shapes; Jacob hasn't picked any research proposal, so these stay options.
+- **Four new headless players** (careful, patron, iron hand, careless) that see only what the player sees. Why: the simple bot made the rules look far harsher than they are (0% against 52% for a careful player under the same rules).
+- **Recommendation, not a decision:** playtest Reap what you sow first. Jacob decides.
+- **Not tuned to history.** Targets were about play: careless should lose, careful should usually but not always win, each style should have its own typical ending, and a blow should come after warnings.
+
