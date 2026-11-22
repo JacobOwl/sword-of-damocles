@@ -175,3 +175,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Births, deaths, marriages and heirs within the decade are in; generations (playing an heir) stay out**, per `scope.md`.
 - **Not tuned to ancient birth and death rates** (CLAUDE.md): rough chances, counted for broken results over 1,000 decades.
 - **Open:** women's names, the two late Punic names, how much of this the log should show (handoff questions).
+
+## 2026-11-22 (the generated cast, slice 2: in island games, thread 13)
+- **Every island game has a census, drawn from the game's one random stream at the start and stepped in the world step.** Why: one stream keeps replays exact; island games only, so the citadel scenario is untouched. Thread 10 agreed (its island tests replay rather than pin a digest).
+- **The feed shows what changes who leads** (a head of a house or a captain dies, an heir takes over, a house ends) and keeps births, marriages and comings of age in the designer view. Why: about 40 births a decade would bury the season feed. Jacob's to change.
+- **The census joins the broken-state check** of the 100-seed run.

@@ -10,6 +10,7 @@ import { factionStep, peopleStep, updatePolitical, botTurn } from "./ai.ts";
 import { perform, refuse } from "./actions.ts";
 import type { FactionId, GameOpts, GameState, Input, Plot } from "./types.ts";
 import { islandWorld } from "./island.ts";
+import { censusSeason } from "./census-game.ts";
 import { carthageStep } from "./carthage.ts";
 import { FACTIONS } from "./types.ts";
 import { writeChronicle } from "./chronicle.ts";
@@ -63,6 +64,7 @@ function worldStep(s: GameState) {
   }
   if (q === 3) clock(s, 1, "a year passes and Carthage rebuilds");
   if (s.island) islandWorld(s); // the island game: cities, armies, sieges (Carthage's own council acts later)
+  if (s.census) censusSeason(s); // the island game: births, deaths, marriages and heirs among the invented families
   else if (s.clock >= 10) invasion(s);
 }
 

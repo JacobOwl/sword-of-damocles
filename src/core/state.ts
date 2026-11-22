@@ -4,6 +4,7 @@ import { T, DEFAULT_TUNING, knobsFor } from "./tuning.ts";
 import type { Faction, FactionId, GameOpts, GameState, OfficeId, Person, Plot } from "./types.ts";
 import { checkSwitches } from "./switches.ts";
 import { newIsland } from "./island.ts";
+import { newCensus } from "./census-game.ts";
 import { FACTIONS, MOODS, OFFICES } from "./types.ts";
 
 export const PLAYER = "dionysius";
@@ -64,7 +65,7 @@ export function newGame(seed: number, tuning: string = DEFAULT_TUNING, opts: Gam
     waiting: [], watches: [], sieges: {}, flags: {}, counters: {}, ids: 0, log: [], inputs: [], invasions: 0, leverage: [], blockedSlots: 0,
     events: { open: [], queue: [], fired: {}, count: 0 },
   };
-  if (opts.scenario === "island") { s.scenario = "island"; s.island = newIsland(); }
+  if (opts.scenario === "island") { s.scenario = "island"; s.island = newIsland(); s.census = newCensus(s); }
   return s;
 }
 

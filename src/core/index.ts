@@ -20,3 +20,6 @@ export {
 } from "./island.ts";
 export { carthageAgenda, goalDef, blocDef, actDef, prefers, moodWord } from "./carthage.ts";
 export { inScenario } from "./actions.ts";
+// The generated cast (island games).
+export { leaderOfCity, councilOf, captainOf, peopleAt, censusPersonName, censusKin, censusLook } from "./census-game.ts";
+export type { Census, CensusPerson } from "./census.ts";

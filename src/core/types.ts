@@ -224,4 +224,5 @@ export interface GameState {
   events?: EventsState;
   scenario?: Scenario; // missing = citadel (Phase 1)
   island?: IslandState;
+  census?: import("./census.ts").Census; // the generated cast of invented people (island games only)
 }

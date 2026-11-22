@@ -1,6 +1,7 @@
 // Checks a finished game for impossible values. Used by the headless runner and the tests.
 import { others, power, FACTIONS, OFFICES } from "../src/core/index.ts";
 import type { GameState } from "../src/core/index.ts";
+import { censusProblems } from "../src/core/census.ts";
 
 export function brokenState(s: GameState): string[] {
   const bad: string[] = [];
@@ -25,6 +26,7 @@ export function brokenState(s: GameState): string[] {
     const c = s.island.carthage;
     num(c.silver, 0, 999, "Carthage silver"); num(c.mercs, 0, 99, "Carthage mercs"); num(c.levy, 0, 99, "Carthage levy");
     for (const b of Object.values(c.blocs)) { num(b.power, 0, 10, `${b.id} power`); num(b.mood, 0, 4, `${b.id} mood`); }
+    if (s.census) bad.push(...censusProblems(s.census, s.over?.season ?? s.season).map((x) => `census: ${x}`));
     if (s.island.cities.syracuse.side !== "syracuse" && s.over?.reason !== "fallen") bad.push("Syracuse changed hands but the game went on");
   }
   return bad;
