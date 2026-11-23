@@ -233,3 +233,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Rumors from Carthage use the generated councillors** (a judge of the Hundred, a merchant of the Elders, a dockyard speaker) as named parts, so Carthage's politics have faces. They are tagged invention: the blocs come from Aristotle, written decades later.
 - **Italy and the Sicels stay names only**, as `scope.md` says. Their events act through your towns, armies and Carthage.
 
+## 2026-11-23 (island events follow-ups: thread 16, decided by the coordinator on Jacob's "you decide")
+- **New switch "A bought retreat disgraces the general"** (`bargainDisgraces`, off by default): if you take Himilcon's bargain, he comes home in disgrace and Carthage counts the army as lost, so he may starve himself, as Diodorus says (14.76.4). Why: without it his end never fires.
+- **New switch "Rumors can lie"** (`falseRumors`, off by default): about one in three rumors from Carthage is false (`rumors.falseShare` in `data/island-events.json`). A false rumor changes nothing in Carthage. Two seasons later, word comes whether it was true. Each rumor says so when it arrives.
+- **Court events that repeat the island's own stories are hidden in island games:** "The mercenaries' demand" (the island has "Pay in land") and "Carthage's secret offer" (the island has "A bargain by night"). Events can now carry `"scenario": "citadel"`.
+- **Four more siege events,** mostly for the defender: a sally from the walls, talk of surrender in a besieged town, walls fallen down (Messana, 14.56.4), and Carthage's fleet in the Great Harbour (14.62.2). A careful player now meets about 1.2 siege events in a war game, up from 0.8. The simple bot meets about 0.3, because it rarely fights.
+- **Engine:** an effect can carry an `if` condition; conditions can check `switchOn` and `switchOff`.
+

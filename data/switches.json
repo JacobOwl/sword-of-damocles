@@ -67,6 +67,20 @@
       "name": "Secrets and leverage",
       "summary": "Leverage becomes named secrets: Philistus has married Leptines' daughter without telling you, Theodorus meets the exiles' riders by night. Watching a man shows what he is doing now; paying his servants tells what he did. A small secret is used up when you use it; a deadly one is a hold that rests and can be used again, even to make a man hand you his office. You have secrets too (the night alarm at Leontini, the rumors you planted, the men you blackmailed), and your rivals dig for them: they ask a price for silence, or tell the city. A hold on each side keeps both mouths shut. On the island you can send spies to a town's first man.",
       "research": "docs/game-research.md, proposal 6 (docs/research/council-and-secrets.md)"
+    },
+    {
+      "id": "bargainDisgraces",
+      "kind": "invention",
+      "name": "A bought retreat disgraces the general",
+      "summary": "If you take Himilcon's secret bargain and let his Carthaginians sail home by night, Carthage treats it as a lost army: the general comes home in disgrace, the council's war party loses weight, and Himilcon may end as Diodorus says he did, starving himself in the temples.",
+      "research": "docs/research/island-events.md (A bargain by night; Diodorus 14.76.3 to 14.76.4)"
+    },
+    {
+      "id": "falseRumors",
+      "kind": "invention",
+      "name": "Rumors can lie",
+      "summary": "News from Carthage's council and from Libya is sometimes false: about one story in three. A false story changes nothing in Carthage, whatever you paid to act on it. Two seasons later, word comes whether it was true. Each rumor says so when it arrives.",
+      "research": "docs/research/island-events.md (rumors from Carthage)"
     }
   ]
 }
