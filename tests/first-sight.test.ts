@@ -15,7 +15,11 @@ test("the line on what matters names Carthage's army when it is on the island, a
     assert.ok(s.over || /This season:/.test(html));
     assert.ok(!/\bundefined\b|NaN|\bdionysius\b|firstIslandTest/.test(html), html);
     const ca = carthageArmy(s);
-    if (ca && !s.over) { seen++; assert.ok(whatMatters(s).some((x) => /army/.test(x.text)), `seed ${seed}: ${html}`); }
+    if (ca && !s.over) {
+      seen++;
+      assert.ok(whatMatters(s).some((x) => /army/.test(x.text)), `seed ${seed}: ${html}`);
+      if (yourArmy(s) && ca.siege !== "syracuse") assert.ok(/Your army (is at|stands at the same place)/.test(html), `seed ${seed}: says where your own army is: ${html}`);
+    }
   }
   assert.ok(seen > 0, "some game has Carthage's army on the island by season 20");
 });

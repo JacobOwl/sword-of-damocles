@@ -107,6 +107,8 @@ function panel(g: GameState, i: ReturnType<typeof menu>[number]) {
   if (i.id === "hostDinner") return dinnerPanel(g, i); // switch "dinners": the table has its own panel
   const args = ui.args;
   const seconds = secondOptions(g, i.id, args);
+  // Marching: "spare it" is the default order, so the forecast and the button are ready once a place is picked.
+  if (i.id === "sendArmy" && args.target && !args.second && seconds.some((o) => o.value === "spare")) args.second = "spare";
   const thirds = thirdOptions(g, i.id, args);
   const notes = actionNotes(g, i.id, args);
   const pv = preview(g, i.id, args);

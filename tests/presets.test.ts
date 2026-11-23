@@ -51,7 +51,7 @@ test("a preset game is the same game as its options, and replays exactly", () =>
 
 // Pinned so nothing changes the test build under Jacob without a logged decision (freeze: 2026-11-24).
 // Re-pin only with a line in docs/decisions.md saying what changed.
-const PRESET_DIGEST = "5b15d46d5284be3c"; // 2026-11-23, thread 19: dice no longer drawn inside a sort (browser and Node replay alike); story chronicle repeat fixes
+const PRESET_DIGEST = "fda5fb102c1a022a"; // 2026-11-23, thread 19: dice no longer drawn inside a sort (browser and Node replay alike); story chronicle repeat fixes
 test("the first island test plays exactly as pinned (careful bot, seeds 1 to 10)", () => {
   const h = createHash("sha256");
   for (let seed = 1; seed <= 10; seed++) h.update(logDigest(runBotGame(seed, { bot: "careful", ...presetOpts("firstIslandTest") })));

@@ -343,3 +343,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Fixed:** dice drawn inside a sort comparator made replays depend on the JavaScript engine, so "Copy my game" could not reproduce a browser game in Node. Draws now happen before the sort. Standard and preset digests re-pinned for this reason only. A test guards it.
 - **Changed in other threads' tests (said here because they are theirs):** `tests/dinner.test.ts` (couch test follows the current holder) and `tests/works.test.ts` (threshold 20 to 15 finished works).
 
+
+## 2026-11-23 (three-lens review of the test build, stream 7, thread 19)
+- **Done:** report-only review at 1280 and 390 (`docs/playtests/2026-11-23-review.md`), every item marked cheap or costly, top five starred. The five starred items were cheap breakages and are fixed: the grudge line names the man ("<name> has not forgotten: you…"), Carthage's council reason groups blocs that agree, Send the army preselects "spare it", the "This season" line says where your own army is, and a second unknown plot is titled "A second plot".
+- **Re-pinned:** Standard digest 2a992b0770170009, preset digest fda5fb102c1a022a. Only log wording changed; the 100-seed summaries (Standard and preset) are identical before and after.
+- **Open:** every unstarred item in the review waits for Jacob's pick after he plays.

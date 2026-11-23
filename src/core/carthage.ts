@@ -55,20 +55,27 @@ function chooseGoal(s: GameState) {
   const c = isl.carthage;
   if (c.revolt) return setGoal(s, "libya", "the Libyan subjects are in revolt");
   const support: Record<string, number> = {};
-  const why: Record<string, string[]> = {};
+  const why: Record<string, [string, string][]> = {};
   const voters = CARTHAGE.blocs.filter((b: any) => b.votes);
   for (const b of voters) {
     const p = prefers(s, b.id);
     const st = c.blocs[b.id];
     const weight = Math.max(0, st.power - (st.mood <= 1 ? 2 : 0)); // an Angry bloc carries less weight
     support[p.goal] = (support[p.goal] ?? 0) + weight;
-    (why[p.goal] ??= []).push(`${b.name} (${p.why})`);
+    (why[p.goal] ??= []).push([b.name, p.why]);
   }
   const best = Object.keys(support).sort((a, b) => support[b] - support[a] || (a === c.goal ? -1 : b === c.goal ? 1 : 0))[0];
   // Aristotle: if the kings and the Elders agree, the matter is theirs; if not, the people decide.
   const eldersWant = prefers(s, "elders").goal;
   const decidedBy = eldersWant === best ? "the council" : "the people's assembly, since the Elders were against it";
-  setGoal(s, best, `${why[best].join(" and ")}; decided by ${decidedBy}`);
+  setGoal(s, best, `${groupWhy(why[best])}; decided by ${decidedBy}`);
+}
+// "the Elders and the Hundred, since Carthage's anger is 8" reads better than one bracket per bloc saying the same thing.
+function groupWhy(pairs: [string, string][]) {
+  const by = new Map<string, string[]>();
+  for (const [who, why] of pairs) by.set(why, [...(by.get(why) ?? []), who]);
+  const and = (xs: string[]) => (xs.length < 2 ? xs[0] : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`);
+  return [...by].map(([why, who]) => `${and(who)}, since ${why}`).join("; ");
 }
 function setGoal(s: GameState, goal: string, why: string) {
   const c = s.island!.carthage;
