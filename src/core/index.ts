@@ -30,3 +30,5 @@ export { counsel, seated, seatName, isFalse, councilName, COUNCIL } from "./coun
 export type { Counsel } from "./council.ts";
 export { about as secretsAbout, knownBy as secretsKnownBy, secretLine, usable as usableSecrets, seenHolders, silenceCost, SECRETS } from "./secrets.ts";
 export { logDigest } from "./digest.ts";
+// Switch "convoys", Grain and the sea (island games).
+export { CONVOYS, LANDINGS, convoysOn, atSea, pastConvoys, contractors, contractorLine, contractorName, contractorMods, catchMods, placeName as convoyPlace } from "./convoys.ts";

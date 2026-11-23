@@ -1,0 +1,82 @@
+{
+  "note": "Switch \"convoys\", Grain and the sea (off by default; island games only). Grain and silver cross the sea as convoys you can see on the map: bought grain, the fleet's winter grain and your allies' surplus sail to Syracuse; grain sails to your army on the coast; Carthage feeds its army and pays its mercenaries by sea. Each of your convoys is run by a contractor, the head of one of the rich houses, who may skim it. Storms take ships in winter, and an enemy fleet can catch a convoy with the same roll your fleet uses on Carthage's transports. The pattern is in the sources below (card docs/research/grain-and-sea.md); every rule and number here is invention.",
+  "kind": "invention",
+  "knobs": {
+    "boughtGrain": 2,
+    "fleetGrain": 2,
+    "surplusAt": 7,
+    "surplusSent": 2,
+    "armyGrain": 2,
+    "armyGrainCost": 2,
+    "armyFee": 1,
+    "carthageArmyGrain": 2,
+    "carthageMinShips": 2,
+    "carthagePay": 1,
+    "unpaidDesert": 6,
+    "stormWreck": 1,
+    "stormLate": 2,
+    "catchNeed": 5,
+    "escort": 1,
+    "carthageHuntShips": 4,
+    "skimNeed": 6,
+    "sellNeed": 8,
+    "auditRepay": 1,
+    "auditedSeasons": 4,
+    "starveWithin": 2
+  },
+  "landings": ["syracuse", "catana", "messana", "motya", "panormus", "gela", "acragas"],
+  "landingNote": "Ports in data/island.json, plus Gela and Acragas, which lie on the south coast: grain can be run onto their beaches. Leontini and the fortress at Aetna are inland, so an army there cannot be fed by sea.",
+  "places": {
+    "overseas": "the grain ports of Italy",
+    "carthage": "Carthage"
+  },
+  "sources": [
+    {
+      "id": "transports", "kind": "history", "name": "Transports carried an army's food",
+      "source": "Diodorus 14.47.7; 14.103.2", "card": "docs/research/grain-and-sea.md",
+      "facts": [
+        { "cite": "Diodorus 14.47.7", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "not less than five hundred merchantmen loaded with great numbers of engines of war and all the other supplies needed" },
+        { "cite": "Diodorus 14.103.2", "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt", "quote": "not less than three hundred vessels transporting food supplies" }
+      ]
+    },
+    {
+      "id": "interception", "kind": "history", "name": "Transports caught at sea",
+      "source": "Diodorus 14.55.2 to 14.55.3; 14.64.1", "card": "docs/research/grain-and-sea.md",
+      "facts": [
+        { "cite": "Diodorus 14.55.2", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "dispatched Leptines with thirty triremes under orders to ram and destroy all he could intercept" },
+        { "cite": "Diodorus 14.55.3", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "the rest, having all canvas spread and catching the wind with their sails, easily made their escape" },
+        { "cite": "Diodorus 14.64.1", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "seeing by chance a vessel approaching laden with food, sailed out against it with five ships, seized it, and brought it to the city" }
+      ]
+    },
+    {
+      "id": "carthageGrain", "kind": "history", "name": "Carthage fed its army in Sicily by sea",
+      "source": "Diodorus 14.63.4", "card": "docs/research/grain-and-sea.md",
+      "facts": [
+        { "cite": "Diodorus 14.63.4", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "He also dispatched merchant ships to Sardinia and Libya to secure grain and every kind of food" }
+      ]
+    },
+    {
+      "id": "supplyShapesWar", "kind": "history", "name": "Supply decided where to fight",
+      "source": "Diodorus 14.55.5; 14.96.1", "card": "docs/research/grain-and-sea.md",
+      "facts": [
+        { "cite": "Diodorus 14.55.5", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "because the transport of his food supplies was reduced, to renew the war in other areas" },
+        { "cite": "Diodorus 14.96.1", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "were continually cutting off the enemy's supplies" }
+      ]
+    },
+    {
+      "id": "escort", "kind": "history", "name": "Warships escorted the provisions",
+      "source": "Diodorus 14.64.1; Polyaenus 5", "card": "docs/research/grain-and-sea.md",
+      "facts": [
+        { "cite": "Diodorus 14.64.1", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "Dionysius and Leptines had set out with warships to escort a supply of provisions" }
+      ]
+    },
+    {
+      "id": "skimming", "kind": "history", "name": "Men who carried the cargo kept some of it",
+      "source": "Polyaenus 5.2.21; Cicero, Against Verres 2.3.24 (a later Roman parallel)", "card": "docs/research/grain-and-sea.md",
+      "facts": [
+        { "cite": "Polyaenus 5.2.21", "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt", "quote": "he was informed that the soldiers and sailors had stolen a thousand talents of gold" },
+        { "cite": "Cicero, Against Verres 2.3.24", "file": "sources/sicily-tyrants/cicero-verres-2-3.yonge.txt", "quote": "selected for his principal agent in distressing and plundering the fortunes of the cultivators of the land" }
+      ]
+    }
+  ]
+}

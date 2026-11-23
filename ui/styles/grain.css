@@ -1,0 +1,24 @@
+/* "Grain and the sea" (Workshop page only, ui/grain.html). The map's flows, then two columns that stack on a phone. */
+.grain h3 { font-family: var(--display); font-weight: 400; letter-spacing: .06em; margin: 18px 0 6px; }
+.grain .opening { text-align: center; font-style: italic; max-width: 56ch; margin: 6px auto 10px; }
+.grain-fig { margin: 0 auto; max-width: 980px; }
+.grain-fig svg { width: 100%; height: auto; display: block; }
+.grain-map .convoy .flow { fill: none; stroke-width: 2.2; stroke-dasharray: 7 4; }
+.grain-map .convoy.ours .flow { stroke: #8e2a1c; }
+.grain-map .convoy.carth .flow { stroke: #5b2a63; }
+.grain-map .convoy.arrived .flow { opacity: .35; stroke-dasharray: 2 4; }
+.grain-map .convoy.caught .flow, .grain-map .convoy.wrecked .flow, .grain-map .convoy.sold .flow { opacity: .55; stroke-dasharray: 2 3; }
+.grain-map .convoy .lost-x { stroke: #2b1d12; stroke-width: 2.4; }
+.grain-map .convoy .ship { color: #2b1d12; }
+.grain-map .convoy.carth .ship { color: #5b2a63; }
+.grain-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 30px; }
+.grain-cols > div + div { border-left: 1px solid var(--rule); padding-left: 30px; }
+.grain ul.convoys, .grain ul.contractors { list-style: none; padding: 0; margin: 0; }
+.grain ul.convoys li, .grain ul.contractors li { padding: 6px 0 6px 10px; border-left: 2px solid var(--rule); margin-bottom: 4px; }
+.grain ul.convoys li.carthage { border-left-color: var(--punic); }
+.grain ul.convoys li.syracuse { border-left-color: var(--blood); }
+.grain ul.convoys li.caught, .grain ul.convoys li.wrecked, .grain ul.convoys li.sold { color: var(--muted); }
+@media (max-width: 760px) {
+  .grain-cols { grid-template-columns: minmax(0, 1fr); }
+  .grain-cols > div + div { border-left: 0; padding-left: 0; }
+}

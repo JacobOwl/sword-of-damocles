@@ -413,7 +413,7 @@ export function islandWorld(s: GameState) {
       a.food = R.foodOnMuster;
       continue;
     }
-    if (a.side === "carthage" && def.port && isl.carthage.ships >= 2 && a.food < R.foodOnMuster) {
+    if (a.side === "carthage" && def.port && isl.carthage.ships >= 2 && a.food < R.foodOnMuster && !on(s, "convoys")) { // switch "convoys": its grain sails instead (convoys.ts)
       a.food = R.foodOnMuster;
       log(s, { actor: "carthage", text: `Carthage's ships bring food to ${armyName(s, a)} at ${nodeName(a.at)}.`, why: "it holds the sea", visible: true, kind: "change" });
       continue;

@@ -11,6 +11,7 @@ import { DATA } from "./data.ts";
 import type { Args, FactionId, GameState, OfficeId, Person } from "./types.ts";
 import { FACTIONS } from "./types.ts";
 import { islandChoices } from "./island-bot.ts";
+import { atSea, convoysOn } from "./convoys.ts";
 import { holdsDeadly, seenHolders, silenceCost } from "./secrets.ts";
 
 export interface Choice { a: string; args?: Args; min?: number } // min: lowest chance worth rolling for
@@ -67,7 +68,9 @@ function basics(s: GameState, out: Choice[]) {
   // Grain falls 2 at the start of next season and the citizens riot under 3, so end each season on 5 or more
   // (summer refills it, so spring can run lower).
   const need = s.season % 4 === 2 ? 3 : 5;
-  if (s.grain < need && s.silver >= 1) out.push({ a: "buyGrain" });
+  // Switch "convoys": bought grain lands a season late, so buy ahead, and count what is already at sea.
+  const sea = convoysOn(s) ? atSea(s).filter((v) => v.side === "syracuse" && v.cargo === "grain" && v.to === "syracuse").reduce((x, v) => x + v.amount, 0) : 0;
+  if (s.grain + sea < need + (convoysOn(s) ? 2 : 0) && s.silver >= 1) out.push({ a: "buyGrain" });
 }
 // Steady income from laws, against the guard's pay.
 const steady = (s: GameState) => s.laws.reduce((a, id) => a + (DATA.laws.find((l) => l.id === id)?.income ?? 0), 0);
