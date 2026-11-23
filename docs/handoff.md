@@ -41,6 +41,8 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
   - Island, 100 seeds for each of the five players: 0 crashes, 0 broken states.
   - Island events a game: careful 10, patron 9, simple 4.5, careless 4, iron hand 3.5.
 
+- **Follow-ups (2026-11-23):** two new switches, off by default: `bargainDisgraces` and `falseRumors` (see decisions). Court events that duplicate island stories are hidden on the island. There are four more siege events (41 island events in all, 336 quotes checked). Island events a game: careful 10.3, patron 7.1, simple 2.6, careless 2.1, iron hand 1.1. With both new switches on, the careful player sees 9.9, with 0 crashes and 0 broken states.
+
 ## Questions from the island events thread
 - **Sieges are rare for the bots** (under one a game), so you will mostly meet the siege events (the mole, the towers, the gate at midnight) in your own play. Is that rare enough, or too rare?
 - **Himilcon's bargain** sends Carthage's army home without counting it as a lost army, so Himilcon's end (disgrace, starving himself) still never fires from it. Should taking the bargain disgrace him?

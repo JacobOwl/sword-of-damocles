@@ -2,7 +2,7 @@
 
 kind: history. This card backs every `kind: history` record in `data/island-events.json`. It is written by `node tools/build-island-events-card.mjs` from the data, so edit the data, not this file. Every quote is checked against the saved texts in Jacob's Phoenician-Punic World repo (read-only) by `node scripts/verify-cast-quotes.mjs ../phoenician-punic-world`.
 
-37 events: 26 from the sources, 11 invented.
+41 events: 28 from the sources, 13 invented.
 
 Texts used:
 - `sources/diodorus/book14-19-40.loeb.excerpts.txt`
@@ -238,6 +238,21 @@ Source: Diodorus 14.76.2 to 14.77.5.
 - They made their most renowned citizens priests of Demeter and Kore, and chose Greeks living among them to serve. Diodorus 14.77.5: "they appointed their most renowned citizens to be priests of these goddesses" (`sources/diodorus/english/book14.loeb.txt`)
 - Invented: trigger (Carthage's army lost or sent home); your choices; all numbers.
 
+### Walls fallen down
+
+Source: Diodorus 14.56.4 to 14.56.5.
+
+- At Messana, with Himilcon near, the walls had fallen down and there was no time to repair them; families and goods were sent to neighbouring cities. Diodorus 14.56.4: "their walls had fallen down and that the situation allowed no time for their repair. Consequently they removed from the city their children and wives and most valuable possessions to neighbouring cities" (`sources/diodorus/english/book14.loeb.txt`)
+- Others trusted an old oracle that Carthaginians would carry water in Messana. Diodorus 14.56.5: "Carthaginians must be bearers of water in" (`sources/diodorus/english/book14.loeb.txt`)
+- Invented: trigger (any weakly walled town near Carthage's army; the source tells it of Messana); sending help; all numbers.
+
+### Ships in the Great Harbour
+
+Source: Diodorus 14.62.2.
+
+- Himilcon's fleet, decked with spoils, entered the Great Harbour of Syracuse in order and dismayed the city. Diodorus 14.62.2: "Himilcon decked his ships with the spoils taken from the enemy and put in at the great harbour of the Syracusans, and he caused great dismay among the inhabitants of the city" (`sources/diodorus/english/book14.loeb.txt`)
+- Invented: trigger; the choices; all numbers (Diodorus' 250 warships and 3,000 merchantmen are not used).
+
 ## Invented events
 
 These have no source. Some borrow a situation the sources describe; the note says which.
@@ -253,3 +268,5 @@ These have no source. Some borrow a situation the sources describe; the note say
 - **A rumor from Carthage: the dockyards cry for war**
 - **A rumor from Libya**: Diodorus tells of the Libyans' great rising after the war of 396 (14.77, not among the saved sections). This event is invention.
 - **The captain of the garrison**
+- **A sally from the walls**
+- **Talk of surrender**
