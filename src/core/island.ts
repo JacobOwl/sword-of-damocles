@@ -302,6 +302,7 @@ export function takeCity(s: GameState, a: Army, how: "surrendered" | "stormed" |
   if (a.side === "carthage") {
     if (id === "syracuse") {
       s.over = { reason: "fallen", text: "Syracuse falls to Carthage. You escape by sea with what you can carry.", season: s.season };
+      if (s.events) s.events.open = []; // no court matter waits on a fallen city
       event(s, "world", s.over.text, how === "starved" ? "the city starved" : "the walls were stormed");
       return;
     }

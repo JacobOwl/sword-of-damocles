@@ -7,6 +7,13 @@ Only these two need Jacob. Every other question below defaults to what the game 
 1. **When will you play the first island test?** Recommended: one sitting before Wednesday morning, the "First island test" preset, judged at season 10.
 2. **Should you be able to lead the army yourself, or send a named man?** Recommended: yes, as a switch you can try, off by default.
 
+## Built by the test-build thread (19, 2026-11-23), streams 2 and 3: the ten-season read and early pacing
+- **Ten-season counts:** `npm run sim -- --preset firstIslandTest --bot careful --upto 10` stops every game after ten seasons. `npm run story-sweep -- --seeds 20` writes one file per seed (turning points, then the chronicle) to `docs/playtests/ten-seasons/`.
+- **Report:** `docs/playtests/2026-11-23-ten-seasons.md`. 7 of 20 seeds would be retold, 13 are flat. Ranked failures: the same opening every seed, arrests that end stories, plots that rarely reach the blow in ten seasons, a one-event-deep early map, a repetitive chronicle.
+- **Early pacing:** three sourced peacetime island events (Diodorus 14.14 to 14.15): "A general's offer", "A herald before the walls", "A man who would be tyrant". Island events in seasons 1 to 10 went from 0.44 to 2.70 a game (careful bot). Card: `docs/research/island-events.md`.
+- **Fixed:** court matters stayed open after Carthage stormed Syracuse; the informer's line now names the man.
+- **Open, for Jacob:** the same-opening and arrest findings are design questions, not bugs; nothing tuned.
+
 ## Built by the test-build thread (19, 2026-11-23), stream 1: the first island test
 - **"First island test"** (`data/presets.json`, `src/core/presets.ts`): the first choice on the start screen, selected and marked recommended, with a one-line list of the rules it turns on and a "What to watch for" fold. "Set it up yourself" keeps the old choices. Standard stays the engine default. A game remembers its preset by name only (`s.preset`), so it replays from its options; switches a later thread marks `"besidePreset": true` in `data/switches.json` appear as unticked boxes marked new beside the preset (for the army switch, stream 5).
 - **Season-10 verdict** (`ui/views/verdict.ts`): after ten seasons of a preset game (or on the last page if the reign ends sooner) the season screen becomes five questions; "Save and play on" or "Skip". Answers live in the save.

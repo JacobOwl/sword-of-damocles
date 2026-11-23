@@ -27,6 +27,27 @@ Source: Diodorus 14.15.1 to 14.15.2.
 - Naxos was handed over by its commander, won over by great promises. Diodorus 14.15.2: "Procles, the commander of the Naxians, on being won over by great promises, delivered over his native city to Dionysius" (`sources/diodorus/english/book14-1-18-97-117.loeb.txt`)
 - Invented: trigger (any town your army besieges); the traitor is the town's first man from the generated cast; the promise and the refusal; all numbers.
 
+### A general's offer
+Peacetime, your army at home, any free town with a first man. Diodorus, Loeb translation, `sources/diodorus/english/book14-1-18-97-117.loeb.txt`.
+- After the peace Dionysius "was eager to attach to himself the neighbouring cities of the Chalcidians, namely, Naxos, Catanê, and Leontini" (14.14.1).
+- At Catana, "Arcesilaüs, the general of the Catanians, had offered to betray the city to him" (14.15.1).
+- At Naxos, "Procles, the commander of the Naxians, on being won over by great promises, delivered over his native city to Dionysius" (14.15.2).
+- Invention: the trigger, the traitor drawn from the generated cast, the town leaning your way (instead of a set night), the numbers.
+
+### A herald before the walls
+Peacetime, your army within six days of a free or tributary town. Same file.
+- At Leontini "he at first led out his army in battle-order and dispatched a herald to the Leontines, commanding them to surrender the city" (14.14.3).
+- They refused, and "Dionysius, having no engines of war, gave up the siege for the time being, but plundered their entire territory" (14.14.4).
+- Later "he ordered them to hand over their city and enjoy citizenship in Syracuse", and the Leontines, remembering Naxos and Catana, gave in (14.15.4).
+- Invention: the trigger, the odds and the bonus after a sack, the grain from plunder, the numbers.
+
+### A man who would be tyrant
+Peacetime, your army near a free or tributary town with a first man. Enna is not on the map. Same file.
+- Near Enna "he persuaded Aeimnestus, a native of the city, to make a bid for tyranny, promising to aid him in the undertaking" (14.14.6).
+- Aeimnestus "did not admit Dionysius into the city, Dionysius in anger changed sides and urged the Ennaeans to overthrow the tyrant" (14.14.7).
+- He did it "because he wanted to encourage the other cities to put faith in him" (14.14.8).
+- Invention: the trigger, the would-be tyrant drawn from the generated cast and coming to you, the odds.
+
 ### The mole to the island
 
 Source: Diodorus 14.48.2, 14.49.3.

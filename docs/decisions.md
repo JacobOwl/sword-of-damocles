@@ -281,3 +281,9 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** the "First island test" preset (listed first, recommended; island, Reap what you sow, Warnings are clues, Blows can miss, Chronicle as story, Beaten armies can break), the season-10 verdict, "Copy my game" with `npm run replay-save`, the island first-season guide, the "what to watch" note.
 - **Decided (small calls):** the verdict also appears if the reign ends before season 10; it can be skipped; answers are stored with the save, not in the game state, so they never change play. The preset's digest is pinned and changes only with a logged line.
 - **Fixed:** the story chronicle's logged text was always "A quiet season." (off-by-one season). Changes logged text only with that switch on; the Standard digest is unchanged.
+
+## 2026-11-23 (test build, streams 2 and 3, thread 19)
+- **Done:** ten-season counts and the story sweep; report in `docs/playtests/2026-11-23-ten-seasons.md`; three peacetime island events from Diodorus 14.14 to 14.15, as conditions, not dates.
+- **Decided (small calls):** fix the quiet early map with events, not by moving the start date or by tuning; the preset's digest re-pinned for the new events and the informer line (Standard digest unchanged).
+- **Open:** the same opening every seed and arrests that end stories (report, items 1 and 2) are Jacob's to weigh after his test.
+

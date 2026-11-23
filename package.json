@@ -14,7 +14,8 @@
     "replays": "node scripts/export-replays.ts",
     "dev": "vite",
     "walk": "node scripts/ui-walk.mjs",
-    "replay-save": "node scripts/replay-save.ts"
+    "replay-save": "node scripts/replay-save.ts",
+    "story-sweep": "node scripts/story-sweep.ts"
   },
   "engines": {
     "node": ">=22.18"
