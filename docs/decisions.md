@@ -276,3 +276,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Open, Jacob's:** whether to delete stale branches such as `claude/project-thread-jmqrof` (merging one by mistake would delete about 9,000 lines). Left alone.
 - **Part two of the plan (Jacob: "be ambitious and creative"):** eight ambitious bets beside the test build, all published to a separate Workshop page and never to the test link: the story museum, change the past, grain and the sea, great works, dinners, the other shore, exile and return (needs Jacob's change to scope.md), the Long Game on paper. Others parked in later.md.
 - **Jacob answered (2026-11-23):** yes, build "exile and return" as a scenario. Added to `scope.md` (Phase 2, separate scenario, off by default, Workshop page only). Bet B7 of the two-day plan can merge, after the Tuesday freeze.
+
+## 2026-11-23 (test build, stream 1, thread 19)
+- **Done:** the "First island test" preset (listed first, recommended; island, Reap what you sow, Warnings are clues, Blows can miss, Chronicle as story, Beaten armies can break), the season-10 verdict, "Copy my game" with `npm run replay-save`, the island first-season guide, the "what to watch" note.
+- **Decided (small calls):** the verdict also appears if the reign ends before season 10; it can be skipped; answers are stored with the save, not in the game state, so they never change play. The preset's digest is pinned and changes only with a logged line.
+- **Fixed:** the story chronicle's logged text was always "A quiet season." (off-by-one season). Changes logged text only with that switch on; the Standard digest is unchanged.
