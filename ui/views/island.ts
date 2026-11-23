@@ -7,6 +7,7 @@ import {
 import type { Army, GameState } from "../../src/core/index.ts";
 import { esc, linkNames } from "../lib/text.ts";
 import * as A from "../components/island-art.ts";
+import { nowLine } from "../components/now.ts";
 
 
 const SIDE_COLOR: Record<string, string> = {
@@ -124,7 +125,7 @@ export function islandView(g: GameState): string {
   const isl = g.island!;
   const armies = isl.armies.length ? `<ul>${isl.armies.map((a) => armyLine(g, a)).join("")}</ul>` : `<p class="muted small">No army is in the field.</p>`;
   const abroad = g.log.filter((e) => e.visible && e.season === g.season && (e.actor === "carthage" || /army|siege|Battle|march|gates|ally|tribute|Plague/i.test(e.text)) && e.kind !== "chronicle").slice(-12);
-  return `<div class="island">
+  return `${nowLine(g)}<div class="island">
     <div class="island-main">
       <h2>Sicily</h2>
       <figure class="mapfig">${mapSvg(g)}

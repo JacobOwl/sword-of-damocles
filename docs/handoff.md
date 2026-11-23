@@ -7,6 +7,12 @@ Only these two need Jacob. Every other question below defaults to what the game 
 1. **When will you play the first island test?** Recommended: one sitting before Wednesday morning, the "First island test" preset, judged at season 10.
 2. **Should you be able to lead the army yourself, or send a named man?** Recommended: yes, as a switch you can try, off by default.
 
+## Built by the test-build thread (19, 2026-11-23), stream 6: the island at first sight
+- **"This season:" line** (`ui/components/now.ts`) at the top of the season and island screens: the one most pressing thing (a blow that can fall, Carthage's army and its days from Syracuse, an army or the city about to go hungry a season ahead, the guard unpaid, anger near war), others after "Also".
+- **Battle forecast before you march** (`battleForecast` in `src/core/island.ts`, shown in the Send the army panel): where the march stops, the enemy army there, every modifier on both sides, and the chance to win, draw or lose. The target list says which army stands at each town.
+- **Not done:** the season screen is about 1,800 words at 1280 px with all three columns (about 1,100 on a phone), above the council's 1,000. Cutting it is a taste call; listed for the review.
+- Test: `tests/first-sight.test.ts`.
+
 ## Built by the test-build thread (19, 2026-11-23), stream 4: a chronicle worth retelling
 With "Chronicle as story" on (it is in the first island test), `storyBook` in `src/core/chronicle.ts` now:
 - tells the city's standing business once (Carthage trading, a content faction holding back), not every season;

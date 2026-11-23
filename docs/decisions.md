@@ -315,3 +315,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** the story chronicle tells repeated business once, varies repeats ("Again", then a count), names who remembers a grudge, drops bracketed numbers and family noise. Test: no sentence more than twice in ten seasons over 20 seeds.
 - **Decided (small call):** the generated families' births and heirs stay in the families view, not the story; their deaths are one line a season. Preset digest re-pinned (logged chronicle text only).
 
+## 2026-11-23 (test build, stream 6, thread 19)
+- **Done:** a "This season:" line on the season and island screens; the battle forecast (both sides' modifiers and chances) before you send the army.
+- **Decided (small call):** no cuts to the season screen's words before the review; the word count is reported, not trimmed.
+

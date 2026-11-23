@@ -386,3 +386,9 @@ table.cities thead th { font-family: var(--display); font-weight: 400; color: va
 .verdict .level legend { margin-bottom: 4px; }
 .copybox { max-width: 72ch; margin: 8px auto 24px; }
 .copybox textarea { font-family: var(--mono); font-size: .75rem; }
+
+/* "This season": the one line on what matters (ui/components/now.ts). */
+.now { margin: 0 0 12px; padding: 6px 10px; border-left: 3px solid var(--rule); background: rgba(122, 84, 36, .06); }
+.now-danger { border-left-color: var(--blood); }
+.now-warn { border-left-color: var(--gold); }
+.now-calm { border-left-color: var(--olive); }

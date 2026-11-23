@@ -19,7 +19,7 @@ export type { PresetDef } from "./presets.ts";
 // The island scenario (Phase 2).
 export {
   NODES, ROUTES, ISLAND, CARTHAGE, nodeDef, nodeName, sideName, cityWalls, cityMen, cityGrain, yourArmy, carthageArmy, armyName,
-  menWords, carthagePersonName, path, reachable, goOverMods, surrenderMods,
+  menWords, carthagePersonName, path, reachable, goOverMods, surrenderMods, battleForecast,
 } from "./island.ts";
 export { carthageAgenda, goalDef, blocDef, actDef, prefers, moodWord } from "./carthage.ts";
 export { inScenario } from "./actions.ts";
