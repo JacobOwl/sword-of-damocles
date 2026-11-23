@@ -1,5 +1,5 @@
 // The season column: what happened, the council, matters and petitions before you, and your actions.
-import { DATA, act, capital, chooseEvent, menu, refuseRequest, officeName, preview, secondOptions, thirdOptions, actionNotes, seasonName, openEvents } from "../../src/core/index.ts";
+import { DATA, act, capital, battleForecast, yourArmy, armyName, nodeName, menWords, chooseEvent, menu, refuseRequest, officeName, preview, secondOptions, thirdOptions, actionNotes, seasonName, openEvents } from "../../src/core/index.ts";
 import type { Args, GameState } from "../../src/core/index.ts";
 import { guide, guideDone } from "./help.ts";
 import { flags } from "./people.ts";
@@ -11,6 +11,7 @@ import { AREA_ICON, icon } from "../components/icons.ts";
 import { vignette } from "../components/vignettes.ts";
 import * as sound from "../lib/sound.ts";
 import type { Handlers } from "../app/clicks.ts";
+import { dinnerPanel, dinnerHandlers } from "./dinner.ts";
 
 export function seasonCol(g: GameState) {
   const season = g.over ? g.over.season : g.season;
@@ -91,7 +92,19 @@ function actions(g: GameState) {
     <p style="margin-top:14px"><button class="primary" id="end2">End the season</button> <span class="small muted">${g.slots} action${g.slots === 1 ? "" : "s"} left.</span></p></div>`;
 }
 
+// Sending the army into an enemy army: the battle it would fight, every modifier on both sides, before you commit.
+function battleNote(g: GameState, dest: string | undefined) {
+  const a = yourArmy(g);
+  if (!a || !dest) return "";
+  const f = battleForecast(g, a, dest);
+  if (!f) return "";
+  const list = (m: { label: string; value: number }[]) => m.map((x) => `${esc(x.label)} ${sign(x.value)}`).join(", ") || "nothing";
+  const pct = (x: number) => `${Math.round(x * 100)}%`;
+  return `<div class="small battle-note"><b>This march means a battle at ${esc(nodeName(f.at))}</b> against ${esc(armyName(g, f.foe))} (${esc(menWords(f.foe.men))}). Each side rolls one die. Yours adds ${list(f.mine)}; theirs adds ${list(f.theirs)}. You win ${pct(f.win)}, draw ${pct(f.draw)}, lose ${pct(f.lose)}.</div>`;
+}
+
 function panel(g: GameState, i: ReturnType<typeof menu>[number]) {
+  if (i.id === "hostDinner") return dinnerPanel(g, i); // switch "dinners": the table has its own panel
   const args = ui.args;
   const seconds = secondOptions(g, i.id, args);
   const thirds = thirdOptions(g, i.id, args);
@@ -104,6 +117,7 @@ function panel(g: GameState, i: ReturnType<typeof menu>[number]) {
     odds = `<span class="chance-bar" aria-hidden="true"><i style="width:${pct}%"></i></span> <span class="chance">${pct}%</span> chance. Needs <span class="need">${pv.need}+</span> on one die${pv.mods.length ? `, with ${pv.mods.map((m) => `${esc(m.label)} ${sign(m.value)}`).join(", ")}` : ", no modifiers"}.`;
   } else odds = `<span class="muted">${esc(capital(pv.why ?? ""))}.</span>`;
   const target = args.target && g.people[args.target] ? g.people[args.target] : null;
+  const fight = i.id === "sendArmy" ? battleNote(g, args.target) : "";
   return `<div class="panel">
     <div class="small"><b>Cost:</b> ${esc(i.cost)}. <b>Roll:</b> ${esc(i.roll)}.</div>
     <div class="small"><b>If it works:</b> ${esc(i.success)}${i.failure ? ` <b>If not:</b> ${esc(i.failure)}` : ""}</div>
@@ -114,7 +128,8 @@ function panel(g: GameState, i: ReturnType<typeof menu>[number]) {
     </div>` : ""}
     ${notes.length ? `<ul class="small prices">${notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
     ${target ? `<div class="small target-line">${portrait(target.id, "s")} ${who(target.id)} ${opChip(target.opinion, true)} ${flags(g, target)}</div>` : ""}
-    <div class="odds">${odds}</div>
+    ${fight}
+    <div class="odds">${fight && pv.ok ? `<span class="muted">The march itself is certain; the battle is not.</span>` : odds}</div>
     ${pv.ok ? counselLines(g, i.id, args, pv.chance) : ""}
     <div class="row"><button class="primary" id="do" ${pv.ok ? "" : "disabled"}>${esc(i.name)}</button><button id="cancel">Cancel</button></div>
   </div>`;
@@ -143,6 +158,7 @@ export const seasonHandlers: Handlers = {
     },
     "[data-choose]": (b, c) => { chooseEvent(c.g, b.dataset.choose!, b.dataset.choice!); sound.tick(); c.save(); c.render(); },
     "[data-refuse]": (b, c) => { refuseRequest(c.g, b.dataset.refuse!); c.save(); c.render(); },
+    ...dinnerHandlers.click,
   },
   change: {
     "[data-arg]": (sel, c) => {
@@ -152,5 +168,6 @@ export const seasonHandlers: Handlers = {
       c.render();
       (document.getElementById(sel.id) as HTMLElement | null)?.focus();
     },
+    ...dinnerHandlers.change,
   },
 };

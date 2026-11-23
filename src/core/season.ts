@@ -23,6 +23,7 @@ import { botById, botRandom, playSeason } from "./bots.ts";
 import { councilBrief, councilSeasonEnd } from "./council.ts";
 import { campaignCheck } from "./commission.ts";
 import { convoysArrive, convoysOn, convoysSail } from "./convoys.ts";
+import { worksSeason } from "./works.ts";
 
 // ---------- World ----------
 function worldStep(s: GameState) {
@@ -70,6 +71,7 @@ function worldStep(s: GameState) {
   if (s.island) islandWorld(s); // the island game: cities, armies, sieges (Carthage's own council acts later)
   if (s.island) convoysSail(s); // switch "convoys": the fleet's grain, allies' surplus, Carthage's grain and pay sail
   if (s.campaign) campaignCheck(s); // switch "commission": an army lost or home since last season
+  if (s.works) worksSeason(s); // switch "greatWorks": a season of work on each great work under way
   if (s.census) censusSeason(s); // the island game: births, deaths, marriages and heirs among the invented families
   else if (s.clock >= 10) invasion(s);
 }
@@ -97,6 +99,7 @@ function invasion(s: GameState) {
   s.clock = 8;
   if (s.flags.besieged !== undefined) {
     s.over = { reason: "fallen", text: "Syracuse falls to Carthage. You escape by sea with what you can carry.", season: s.season };
+      if (s.events) s.events.open = []; // no court matter waits on a fallen city
     event(s, "world", s.over.text, "a second failed defense");
   }
   s.flags.besieged = s.season;
@@ -368,13 +371,15 @@ export function replay(seed: number, inputs: Input[], tuning?: string, opts: Gam
 
 // A whole game played by a headless player, for the checks and the balance runs.
 // "simple" is the first bot (it shares the game's dice); the others are in bots.ts.
-export function runBotGame(seed: number, opts: { bot?: string; tuning?: string } & GameOpts = {}): GameState {
+// seasons: stop after that many seasons (the ten-season read); the game is left unfinished.
+export function runBotGame(seed: number, opts: { bot?: string; tuning?: string; seasons?: number } & GameOpts = {}): GameState {
   const s = startGame(seed, opts.tuning, { switches: opts.switches, scenario: opts.scenario, preset: opts.preset });
   const bot = opts.bot && opts.bot !== "simple" ? botById(opts.bot) : undefined;
   if (opts.bot && opts.bot !== "simple" && !bot) throw new Error(`unknown bot: ${opts.bot}`);
   const r = botRandom(seed);
   let n = 0;
-  while (!s.over && n++ < 200) {
+  const stop = opts.seasons ?? 200;
+  while (!s.over && n++ < stop) {
     botAnswer(s); // events first, then actions
     if (bot) playSeason(s, bot, r);
     else botTurn(s);

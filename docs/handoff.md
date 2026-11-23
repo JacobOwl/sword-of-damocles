@@ -7,6 +7,40 @@ Only these two need Jacob. Every other question below defaults to what the game 
 1. **When will you play the first island test?** Recommended: one sitting before Wednesday morning, the "First island test" preset, judged at season 10.
 2. **Should you be able to lead the army yourself, or send a named man?** Recommended: yes, as a switch you can try, off by default.
 
+## Built by the test-build thread (19, 2026-11-23), stream 6: the island at first sight
+- **"This season:" line** (`ui/components/now.ts`) at the top of the season and island screens: the one most pressing thing (a blow that can fall, Carthage's army and its days from Syracuse, an army or the city about to go hungry a season ahead, the guard unpaid, anger near war), others after "Also".
+- **Battle forecast before you march** (`battleForecast` in `src/core/island.ts`, shown in the Send the army panel): where the march stops, the enemy army there, every modifier on both sides, and the chance to win, draw or lose. The target list says which army stands at each town.
+- **Not done:** the season screen is about 1,800 words at 1280 px with all three columns (about 1,100 on a phone), above the council's 1,000. Cutting it is a taste call; listed for the review.
+- Test: `tests/first-sight.test.ts`.
+
+## Built by the test-build thread (19, 2026-11-23), stream 4: a chronicle worth retelling
+With "Chronicle as story" on (it is in the first island test), `storyBook` in `src/core/chronicle.ts` now:
+- tells the city's standing business once (Carthage trading, a content faction holding back), not every season;
+- drops bracketed numbers, and the generated families' births, heirs and captains (their deaths become one line, "Among the families, ... died");
+- tells a vote once ("The assembly passes a levy, over the objections of the rich families");
+- writes event answers as "A fever: you chose to leave it to the gods";
+- says "Again," the second time a deed repeats and counts it after that; "He did not forget" becomes "Hipparinus has not forgotten", once per grudge; "He wants your place" once a game; each warning line once, then "Nothing new from your informers";
+- "It began in" once per person, with names no longer lowercased.
+- Test: `tests/chronicle.test.ts` (no sentence told more than twice in ten seasons, 20 seeds). The plain chronicle (switch off) is unchanged.
+
+## Built by the great-works thread (23, 2026-11-23): bet B4, a switch, off by default, Workshop page only
+- **Switch "Great works"** (`greatWorks`, marked `workshop: true`): three works built over seasons, the Epipolae wall (1 season), the arms workshops (3) and the great fleet (3). You choose whose labour (peasants who miss the summer harvest and resent it, hired men, craftsmen of your cities who anger your allies, from Italy and Greece at high wages, or lured from Carthage's lands, a season faster and Carthage's anger +1 a season) and who is set over it (yourself at one action a season and a season faster; a hired foreman; or a man whose faction warms to you and who gains standing when it is done, and who skims silver if he hates you: the accounts show the loss, a hidden log line names him). Unpaid men down tools; two seasons unpaid loses a season's work. Two works at once at most; a work can be halted and taken up again.
+- **What they give:** walls +1 (the existing `walls`), engines +1 to storm walls (the existing `armed` flag), guard strength +1, Syracuse's defenders +1, and the fleet's 2 months of grain each autumn; with the fleet, the interception roll needs 4 instead of 5 and Carthage cannot blockade a besieged port of yours (two guarded lines in `carthage.ts` and `island.ts`, added after the island stream merged). The arms add 1 to Carthage's anger when done, the fleet 2. Timber comes from Mount Aetna if Aetna and Catana are not hostile, else from Italy at 1 silver more a season.
+- With the switch on, Build no longer offers the plain wall, and the events "The Epipolae wall" and "The arms workshops" are not drawn (the works take their place).
+- Files: `src/core/works.ts`, `data/works.json`, three actions in `data/actions.json`, `ui/views/works.ts` (a "The works" tab, only with the switch), `tests/works.test.ts`, `docs/research/great-works.md`, `sources/diodorus/book14-works.loeb.excerpts.txt`, `docs/playtests/2026-11-23-great-works.md`. One-line hooks, all guarded by the switch: `season.ts` (the season's work, after the island), `bots.ts` (the bots' choices), `events.ts` (the two events skipped), `actions.ts` (the menu, the wall out of Build), `shell.ts` (the tab).
+- **Workshop switches:** a switch marked `workshop: true` is hidden from the start screen unless a Workshop page's entry file lists it in `__WORKSHOP` (`ui/works-main.ts`, built with `npm run build -- --page works`); then it shows ticked beside each preset. The test link never shows it. Other bets can use the same mark.
+- Results: 0 crashes and 0 broken states over 100 seeds, both scenarios, four bots, on and off; the default and preset digests unchanged. Counts in `docs/playtests/2026-11-23-great-works.md`.
+
+## Questions from the great-works thread
+- Taste, Jacob's: should overseeing a work yourself cost an action every season (as now), or only once? Should the peasants resent the wall (as now) even though Diodorus says "all were zealous" (14.18.6)? Is two works at once right?
+- Should the citadel on the Island (14.7.2-3) also become a great work, instead of the two-action Build? Left as it is.
+## Built by the test-build thread (19, 2026-11-23), streams 2 and 3: the ten-season read and early pacing
+- **Ten-season counts:** `npm run sim -- --preset firstIslandTest --bot careful --upto 10` stops every game after ten seasons. `npm run story-sweep -- --seeds 20` writes one file per seed (turning points, then the chronicle) to `docs/playtests/ten-seasons/`.
+- **Report:** `docs/playtests/2026-11-23-ten-seasons.md`. 7 of 20 seeds would be retold, 13 are flat. Ranked failures: the same opening every seed, arrests that end stories, plots that rarely reach the blow in ten seasons, a one-event-deep early map, a repetitive chronicle.
+- **Early pacing:** three sourced peacetime island events (Diodorus 14.14 to 14.15): "A general's offer", "A herald before the walls", "A man who would be tyrant". Island events in seasons 1 to 10 went from 0.44 to 2.70 a game (careful bot). Card: `docs/research/island-events.md`.
+- **Fixed:** court matters stayed open after Carthage stormed Syracuse; the informer's line now names the man.
+- **Open, for Jacob:** the same-opening and arrest findings are design questions, not bugs; nothing tuned.
+
 ## Built by the test-build thread (19, 2026-11-23), stream 1: the first island test
 - **"First island test"** (`data/presets.json`, `src/core/presets.ts`): the first choice on the start screen, selected and marked recommended, with a one-line list of the rules it turns on and a "What to watch for" fold. "Set it up yourself" keeps the old choices. Standard stays the engine default. A game remembers its preset by name only (`s.preset`), so it replays from its options; switches a later thread marks `"besidePreset": true` in `data/switches.json` appear as unticked boxes marked new beside the preset (for the army switch, stream 5).
 - **Season-10 verdict** (`ui/views/verdict.ts`): after ten seasons of a preset game (or on the last page if the reign ends sooner) the season screen becomes five questions; "Save and play on" or "Skip". Answers live in the save.
@@ -45,6 +79,20 @@ Build the "First island test" preset (listed first on the start screen), the sea
 
 ## Questions from the Long Game thread (Jacob's, none urgent)
 The seven open questions at the end of `docs/phase3-draft.md`: two speeds or fixed eras; play anyone in your circle or only the heir; invented men in the station of real people born after the start; stop at 264 or run on; whether a person in a Punic city of Sicily is ever playable; which start to build after 405; auction or plain prices for hired companies.
+
+## Built by the story-museum thread (21, 2026-11-23): bet B1
+- **`npm run museum`** (`scripts/museum.ts`, finder `scripts/museum/shapes.ts`, shapes `data/story-shapes.json`): 1,200 island games on the First island test preset (400 each for the careful, patron and iron-hand bots) plus 400 for the Dionysius bot, read for 23 story shapes (a friend who turns, a warned blow survived, the enemy who came back, the city that turned twice, Syracuse besieged and holding, kin against you...) and 5 dull ones (a blow from nowhere, the same quarrel again, quiet years, the same words, over too soon). Report: `docs/playtests/museum/report.md`. Gallery: `dist/workshop/museum.html` (built from `tools/museum/gallery.html`), published as `museum.html` on the Workshop page. `--seeds`, `--bots`, `--dionysius`, `--out`, `--no-gallery`.
+- **Workshop page:** https://claude.ai/artifact/BVQogSjtUF5DRXKQ9u5VNr, hub source `tools/workshop/index.html`. Each bet adds its own file (museum.html, past.html, grain.html, works.html, dinners.html, shore.html, exile.html, long-game.html); the hub lights the entry when the file exists.
+- **Dionysius bot** (`src/core/dionysius-bot.ts`, card `docs/research/dionysius-bot.md`, quotes checked by `tests/museum.test.ts`): report only, not in `BOTS`.
+- **Tests:** `tests/museum.test.ts` (the shapes file, the finder on made-up logs, the Dionysius bot, a small museum run twice gives identical files).
+- **Changed:** nothing in the game. **Broke:** nothing.
+
+## Questions from the story-museum thread
+- **What the museum found (read it as signs, not targets):** see the report's tables. The patron's first ten seasons often hold no story shape at all, and the dullest ten reigns are all quiet survivals by the patron or careful ruler: years with no turn, and the same man becoming a political rival three times or more (the "flicker" already noted). Worth reading two of them before judging the gate.
+- **No game ended by a blow without warnings** in the four seasons before (the rule holds in 1,200 games).
+- **Never seen:** "the general home too popular" needs the army switch (thread 20); its words are guessed in the shapes file and must be matched to that switch's log line once it lands. "The city that turned twice" and "Syracuse besieged and holding" are rare (a few in a hundred).
+- **The Dionysius bot** survives the decade in about six games in ten, fortifies and disarms every time, but marries in under half (the cast offers few matches) and so rarely reaches his war on Carthage. Is that a fair reading of the rules, or should the marriage of 14.44 be an event?
+- **Weights and shapes are guesses.** Change them freely in `data/story-shapes.json`; tell the next thread which shapes you would retell.
 
 ## Built by the change-the-past thread (22, 2026-11-23): Workshop bet B2
 - **Go back to any season and take the other road.** `src/core/fork.ts` (engine, replay only, no new rules): `loadAt`, `decisions`, `rewrite`, `compare`, `hiddenRolls`. Tests in `tests/fork.test.ts` prove a branch matches its parent up to the split and replays from its own record.
@@ -372,3 +420,14 @@ UI only: no file in `src/core/` or `data/` changed, so the rules and the 100-see
 - Is the drift toward 5 the right fix for runaway faction power, or should agenda steps stop adding power?
 - The open questions in rules v2 still stand (three actions, steady income, conquest, the absent-holder rule, rival caps, dinners).
 - **Cast questions.** Who married Dionysius' sister: Diodorus and Plutarch say Polyxenus, Polyaenus a Hermocrates (the data follows the first two and shows the disagreement). Theodorus is attested only in about 396 but is in from the start, so the rich families have a voice for liberty: keep? Damon the smith is invented to speak for the citizens after Nicoteles: rename or cut?
+
+## Built by the dinners thread (24, bet B5, 2026-11-23)
+- **Switch "Dinners as the stage"** (off by default, not in any preset). It adds a new action, **Give a dinner**: you choose the couch beside yours, 2 to 4 other guests, and the wine (well watered, mixed as usual, or strong). The dinner has its own panel inside the action list (`ui/views/dinner.ts`). The panel shows only what you already know about the table: who holds the couch and who would take losing it badly, friends and quarrels from earlier dinners, men who want the same office, and enemies the guards will want to search. A "Suggest a table" button fills it in.
+- **The couch of honour** is a power object. Its holder gets +1 influence. The man who loses it thinks less of you, and holds a grudge if he is proud, vengeful or a political rival.
+- **15 moments** in three parts of the evening, cast only from the guests. **4 of them put a choice to you** under "Matters before you": an insult, someone taking the couch, "the bravest man alive", and the search at the door. Three moments are sourced from Plutarch, *Dion* 9; the rest are invention. Friendships and quarrels last: a plotter recruits his table friends first (+1), and never a man he quarrelled with there.
+- Files: `data/dinners.json`, `src/core/dinner.ts`, `ui/views/dinner.ts`, `scripts/dinner-sweep.ts`, `tests/dinner.test.ts`, the card `docs/research/dinners.md`, and the report `docs/playtests/2026-11-23-dinners.md`.
+- Small hooks in shared files: `events.ts` (the table's choices are chained events; dinner effects; `fireNow`), `ai.ts` (recruiting order and the bot's dinners), `actions.ts`, `types.ts`, `index.ts`, and `ui/views/season.ts` (4 lines: the panel and its clicks). The default and preset digests are unchanged, and the tests pass.
+- **Changed:** nothing outside the switch.
+- **Broke:** nothing found. 100 seeds in each scenario: 0 crashes, 0 broken states, with the switch on and off.
+- **Answered 2026-11-23 (taste calls delegated):** wives and sisters can be guests, and the card notes that the sources are silent. The old feast stays beside the dinner. Plotters' own dinners stay parked.
+- **Added (PR after #49):** Philoxenus and the quarries (Diodorus 15.6), as the moment "Your verses" with a pardon the next season. The Greek is saved as `sources/diodorus/book15-6.greek.txt` (Perseus, CC BY-SA 4.0). The English on the card is the game's own rendering. A published English translation of book 15 is still worth saving to check it.

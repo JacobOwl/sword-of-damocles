@@ -160,6 +160,30 @@ export function march(s: GameState, a: Army, dest: string, why: string) {
   arrive(s, a);
 }
 
+// Before you send an army: where it would stop this season and, if an enemy army bars the road, the battle it would
+// fight there, with every modifier on both sides and the chance of each result (a tie is a bloody draw). Reads only.
+export function battleForecast(s: GameState, a: Army, dest: string): { at: string; foe: Army; mine: Mod[]; theirs: Mod[]; win: number; draw: number; lose: number } | null {
+  const p = path(a.at, dest);
+  if (!p) return null;
+  const budget = marchBudget(s);
+  let stop = a.at;
+  for (let i = 1; i < p.nodes.length; i++) {
+    if (p.days[i] > budget) break;
+    stop = p.nodes[i];
+    if (s.island!.armies.some((o) => o.side !== a.side && o.at === stop)) break;
+  }
+  const foe = s.island!.armies.find((o) => o.side !== a.side && o.at === stop);
+  if (!foe || stop === a.at) return null;
+  const from = a.at;
+  a.at = stop; // look, don't move: put it back at once
+  const mine = battleMods(s, a), theirs = battleMods(s, foe);
+  a.at = from;
+  const d = sum(mine) - sum(theirs);
+  let win = 0, draw = 0;
+  for (let x = 1; x <= 6; x++) for (let y = 1; y <= 6; y++) { if (x + d > y) win++; else if (x + d === y) draw++; }
+  return { at: stop, foe, mine, theirs, win: win / 36, draw: draw / 36, lose: (36 - win - draw) / 36 };
+}
+
 export function arrive(s: GameState, a: Army) {
   const foe = s.island!.armies.find((o) => o.side !== a.side && o.at === a.at);
   if (foe) {
@@ -304,6 +328,7 @@ export function takeCity(s: GameState, a: Army, how: "surrendered" | "stormed" |
   if (a.side === "carthage") {
     if (id === "syracuse") {
       s.over = { reason: "fallen", text: "Syracuse falls to Carthage. You escape by sea with what you can carry.", season: s.season };
+      if (s.events) s.events.open = []; // no court matter waits on a fallen city
       event(s, "world", s.over.text, how === "starved" ? "the city starved" : "the walls were stormed");
       return;
     }
@@ -440,7 +465,8 @@ export function islandWorld(s: GameState) {
     if (!a.siege || a.siegeSince === s.season) continue;
     const id = a.siege;
     const def = nodeDef(id)!;
-    const blockade = a.side === "carthage" && isl.carthage.ships >= 4;
+    // Switch "greatWorks": your great fleet keeps the sea open to your own ports (Diodorus 14.50.4).
+    const blockade = a.side === "carthage" && isl.carthage.ships >= 4 && !(s.works?.fleet && friendly("syracuse", city(s, id).side));
     const loss = def.port && !blockade ? R.siegeGrainLossPort : R.siegeGrainLoss;
     cityGrainChange(s, id, -loss, `besieged by ${armyName(s, a)}`);
     if (cityGrain(s, id) === 0) {

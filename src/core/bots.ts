@@ -12,6 +12,7 @@ import type { Args, FactionId, GameState, OfficeId, Person } from "./types.ts";
 import { FACTIONS } from "./types.ts";
 import { islandChoices } from "./island-bot.ts";
 import { atSea, convoysOn } from "./convoys.ts";
+import { worksChoices } from "./works.ts";
 import { holdsDeadly, seenHolders, silenceCost } from "./secrets.ts";
 
 export interface Choice { a: string; args?: Args; min?: number } // min: lowest chance worth rolling for
@@ -57,6 +58,7 @@ const KEY: OfficeId[] = ["citadel", "treasury"];
 // Carthage at the gates and enemies behind walls you can march on.
 function outside(s: GameState, out: Choice[], minMarch: number, sack = false) {
   if (s.island) out.push(...islandChoices(s, { sack })); // the island game (Phase 2): armies, embassies, peace
+  out.push(...worksChoices(s)); // switch "greatWorks" (nothing when it is off)
   if (s.clock >= 7 && !s.walls && s.silver >= 3) out.push({ a: "build", args: { target: "wall" } });
   if (s.clock >= 7 && s.silver >= 1) out.push({ a: "envoy", min: 0.34 });
   const hunted = others(s).some((p) => p.status === "outside" && p.rival && p.faction === "rich");

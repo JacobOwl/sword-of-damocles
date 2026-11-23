@@ -11,10 +11,12 @@
     "sim": "node scripts/sim.ts",
     "build": "node scripts/build-ui.ts",
     "census": "node scripts/census.ts",
+    "museum": "node scripts/museum.ts",
     "replays": "node scripts/export-replays.ts",
     "dev": "vite",
     "walk": "node scripts/ui-walk.mjs",
     "replay-save": "node scripts/replay-save.ts",
+    "story-sweep": "node scripts/story-sweep.ts",
     "debrief": "node scripts/debrief.ts"
   },
   "engines": {

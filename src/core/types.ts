@@ -295,4 +295,6 @@ export interface GameState {
   council?: CouncilState; // switch "council"
   campaign?: Campaign; // switch "commission": the army in the field and who leads it
   convoys?: ConvoyState; // switch "convoys": grain and silver at sea, and the contractors who run your convoys
+  dinners?: import("./dinner.ts").DinnerState; // switch "dinners"
+  works?: import("./works.ts").WorksState; // switch "greatWorks"
 }

@@ -1,0 +1,58 @@
+<title>The Damocles Workshop</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+DW+Pica:ital@0;1&family=Cormorant+Garamond:wght@500;600&display=swap">
+<style>
+/* Layout: one catalogue column; each bet is an entry in the workshop's register, lit when its page exists.
+   Single light theme by choice (Jacob: parchment, no dark mode). */
+:root {
+  --page: #efe4c8; --panel: #e6d7b0; --ink: #2b1d12; --muted: #5a4733; --rule: #c9b78a;
+  --accent: #7a5424; --punic: #5b2a63; --olive: #28603f;
+  --display: "IM Fell English SC", Georgia, serif; --body: "IM Fell DW Pica", Georgia, serif; --num: "Cormorant Garamond", Georgia, serif;
+  color-scheme: light;
+}
+html, body { background: var(--page); color: var(--ink); }
+body { font-family: var(--body); font-size: 17px; line-height: 1.5; margin: 0; padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+main { max-width: 760px; margin: 0 auto; display: grid; gap: 26px; }
+h1, h2 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; line-height: 1.1; }
+h1 { font-size: clamp(1.9rem, 6vw, 2.7rem); letter-spacing: .04em; }
+.eyebrow { font-family: var(--display); letter-spacing: .14em; font-size: .8rem; color: var(--accent); text-transform: uppercase; }
+.lede { color: var(--muted); max-width: 62ch; margin: 8px 0 0; }
+.note { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding-block: 10px; font-style: italic; color: var(--muted); }
+ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+li { display: grid; grid-template-columns: 3.2rem 1fr; gap: 14px; padding-block: 16px; border-top: 1px solid var(--rule); }
+li:last-child { border-bottom: 1px solid var(--rule); }
+.mark { font-family: var(--num); font-size: 1.5rem; font-weight: 600; color: var(--accent); line-height: 1; padding-top: 2px; }
+li h2 { font-size: 1.25rem; }
+li p { margin: 4px 0 0; min-width: 0; }
+.state { font-family: var(--display); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+li.ready .state { color: var(--olive); }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+li:not(.ready) a.open { display: none; }
+</style>
+<main>
+  <header>
+    <div class="eyebrow">The Sword of Damocles · beside the test</div>
+    <h1>The Workshop</h1>
+    <p class="lede">Bigger experiments that are not in the game you are testing. The test link never changes because of anything here. Each entry lights up when its page is ready.</p>
+  </header>
+  <p class="note">Play your island test first. Everything below is for afterwards.</p>
+  <ol id="bets">
+    <li data-page="museum.html"><span class="mark">I</span><div><div class="state">Being built</div><h2>The story museum</h2><p>Twelve hundred games played by bots, read for the shapes of a story, and the ten best and ten dullest bound as chronicles you can read. <a class="open" href="museum.html">Open the museum</a></p></div></li>
+    <li data-page="past.html"><span class="mark">II</span><div><div class="state">Being built</div><h2>Change the past</h2><p>Go back to any season, make the other choice, and read both chronicles side by side. <a class="open" href="past.html">Open</a></p></div></li>
+    <li data-page="grain.html"><span class="mark">III</span><div><div class="state">Waits for the army switch</div><h2>Grain and the sea</h2><p>Convoys of grain and silver crossing the sea lanes, run by contractors who can skim or sell out. <a class="open" href="grain.html">Open</a></p></div></li>
+    <li data-page="works.html"><span class="mark">IV</span><div><div class="state">Being built</div><h2>Great works</h2><p>Walls, the arsenal and the ship-sheds as things you build over seasons, at a price. <a class="open" href="works.html">Open</a></p></div></li>
+    <li data-page="dinners.html"><span class="mark">V</span><div><div class="state">Being built</div><h2>Dinners as the stage</h2><p>Who is invited, where they sit and how much wine goes round. <a class="open" href="dinners.html">Open</a></p></div></li>
+    <li data-page="shore.html"><span class="mark">VI</span><div><div class="state">After your test</div><h2>The other shore</h2><p>The same decade told from Carthage's own records. <a class="open" href="shore.html">Open</a></p></div></li>
+    <li data-page="exile.html"><span class="mark">VII</span><div><div class="state">Needs your yes</div><h2>Fallen, not finished</h2><p>Lose Syracuse, flee with a few loyal men, and plot your way back. <a class="open" href="exile.html">Open</a></p></div></li>
+    <li data-page="long-game.html"><span class="mark">VIII</span><div><div class="state">Being written</div><h2>The Long Game on paper</h2><p>A draft rulebook for Phase 3 and five start-date dossiers. <a class="open" href="long-game.html">Open</a></p></div></li>
+  </ol>
+</main>
+<script>
+// Each bet ships its own page beside this one; an entry lights up once that page answers.
+for (const li of document.querySelectorAll("#bets li")) {
+  fetch(li.dataset.page, { method: "HEAD" }).then((r) => {
+    if (r.ok) { li.classList.add("ready"); li.querySelector(".state").textContent = "Ready to open"; }
+  }).catch(() => {});
+}
+</script>

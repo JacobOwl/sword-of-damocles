@@ -2,6 +2,7 @@
 // Every event, its trigger, its people and its choices live in data/events.json. This file only reads them:
 // it checks the conditions, casts the people, shows the odds, and applies the effects through ops.ts,
 // so every change is logged with its reason like any other move.
+import { REPLACED_EVENTS } from "./works.ts";
 import { DATA } from "./data.ts";
 import { nextRandom, pick } from "./rng.ts";
 import {
@@ -17,6 +18,7 @@ import {
   applyIslandEffect, castPart, castPlaces, checkIslandCond, describeIslandEffect, isPart, partName, scoreIslandEffect,
 } from "./island-events.ts";
 import type { CensusRole, IslandCond, PlaceCond, PunicRole } from "./island-events.ts";
+import { applyDinnerEffect, describeDinnerEffect } from "./dinner.ts";
 import type { EventInstance, EventsState, FactionId, GameState, Mod, OfficeId, Person } from "./types.ts";
 import { OFFICES } from "./types.ts";
 
@@ -90,9 +92,12 @@ export interface EventDef {
 
 import eventsJson from "../../data/events.json" with { type: "json" };
 import islandEventsJson from "../../data/island-events.json" with { type: "json" };
+import dinnersJson from "../../data/dinners.json" with { type: "json" };
 export const COURT_EVENTS = (eventsJson as any).events as EventDef[];
 export const ISLAND_EVENTS = ((islandEventsJson as any).events as EventDef[]).map((e) => ({ ...e, scenario: "island" as const }));
-export const EVENTS = [...COURT_EVENTS, ...ISLAND_EVENTS];
+// Switch "dinners": the matters a dinner can put before you. All chained, so they never come by chance.
+export const DINNER_EVENTS = (dinnersJson as any).asks as EventDef[];
+export const EVENTS = [...COURT_EVENTS, ...ISLAND_EVENTS, ...DINNER_EVENTS];
 export const PACING = (eventsJson as any).pacing as { draws: number; secondChance: number; maxOpen: number; cooldown: number };
 export const ISLAND_PACING = (islandEventsJson as any).pacing as { draws: number; secondChance: number; maxOpen: number };
 export const RUMORS = (islandEventsJson as any).rumors as { falseShare: number; clueAfter: number };
@@ -294,6 +299,8 @@ export function describe(s: GameState, inst: EventInstance, effects: Effect[]): 
     if (e.if && !checkCond(s, e.if)) continue;
     const isl = describeIslandEffect(s, inst.roles, e);
     if (isl !== null) { out.push(isl); continue; }
+    const din = describeDinnerEffect(s, inst.roles, e);
+    if (din !== null) { out.push(din); continue; }
     if (e.silver) out.push(`Silver ${sgn(e.silver)}`);
     else if (e.grain) out.push(`Grain ${sgn(e.grain)} months`);
     else if (e.land) out.push(`Land ${sgn(e.land)}`);
@@ -334,6 +341,7 @@ export function describe(s: GameState, inst: EventInstance, effects: Effect[]): 
 function eligible(s: GameState, def: EventDef): boolean {
   const ev = eventsState(s);
   if (def.chained) return false; // only fires when another event queues it
+  if (REPLACED_EVENTS.has(def.id) && on(s, "greatWorks")) return false; // the works take its place
   if (def.scenario === "island" && !s.island) return false;
   if (def.scenario === "citadel" && s.island) return false;
   const last = ev.fired[def.id];
@@ -364,6 +372,16 @@ function fire(s: GameState, def: EventDef, cast: Record<string, string>, why: st
   if (!def.choices?.length || s.over) return;
   const uid = `ev${ev.count}`;
   ev.open.push({ uid, id: def.id, roles: cast, season: s.season, ...(falseRumor !== undefined ? { falseRumor } : {}) });
+}
+
+// Put a chained event before the player now, with its people already chosen (switch "dinners": a matter at the table).
+export function fireNow(s: GameState, id: string, roles: Record<string, string>): boolean {
+  const def = eventById(id);
+  if (!def) return false;
+  const cast = castRoles(s, def, roles);
+  if (!cast) return false;
+  fire(s, def, cast, def.why);
+  return true;
 }
 
 // Called once a season, at the end of the people step.
@@ -472,6 +490,7 @@ export function apply(s: GameState, inst: EventInstance, effects: Effect[], why:
     if (inst.falseRumor && CARTHAGE_SIDE.has(Object.keys(e).find((k) => CARTHAGE_SIDE.has(k)) ?? "")) continue; // a false rumor changes nothing in Carthage
     const reason = e.why ? fill(s, e.why, inst.roles) : why;
     if (applyIslandEffect(s, inst.roles, e, reason)) continue;
+    if (applyDinnerEffect(s, inst.roles, e, reason)) continue;
     if (e.silver) silver(s, e.silver, reason);
     else if (e.grain) grain(s, e.grain, reason);
     else if (e.land) land(s, e.land, reason);

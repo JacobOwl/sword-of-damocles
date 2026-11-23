@@ -91,6 +91,21 @@
       "research": "docs/research/commission.md (Diodorus 14.72.1, 14.64.4; Polyaenus 5.2.4)"
     },
     {
+      "id": "dinners",
+      "kind": "invention",
+      "name": "Dinners as the stage",
+      "summary": "A new action, Give a dinner. You choose who reclines on the couch beside yours, two to four other guests, and how strong the wine is mixed. The couch of honour adds to its holder's standing, and the man who held it before may take it badly. Each part of the evening can bring a moment from the guests themselves: two men become friends, two fall out, a plotter lets slip a name, a story about someone else comes out, or you say too much about a man who is not there. Some moments put a choice to you. Friends from your table plot together more easily; men who quarrelled there never do.",
+      "research": "docs/research/dinners.md; bet B5 in docs/council/2026-11-23-two-day-plan.md"
+    },
+    {
+      "id": "greatWorks",
+      "kind": "invention",
+      "workshop": true,
+      "name": "Great works",
+      "summary": "Build power, not only hold it. Three great works can be begun: the Epipolae wall, the arms workshops and the great fleet. Each is built over seasons: you choose whose labour (peasants off the fields, hired men, craftsmen from your cities, from Italy and Greece, or lured from Carthage's lands) and who is set over it (yourself, at one action a season, a hired foreman, or a man whose people will be pleased). Every season it takes silver and food, unpaid men down tools, and the arms and the fleet anger Carthage. Done, they give walls, engines, armour, armed citizens and a fleet that brings grain. The old Build wall and the wall and workshop events give way to them.",
+      "research": "docs/research/great-works.md (Diodorus 14.18, 14.41 to 14.43)"
+    },
+    {
       "id": "convoys",
       "kind": "invention",
       "name": "Grain and the sea",

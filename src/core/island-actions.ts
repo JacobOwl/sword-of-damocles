@@ -4,7 +4,7 @@ import { PLAYER, capital, holds } from "./state.ts";
 import { event, silver, grain, clock } from "./ops.ts";
 import {
   ISLAND, NODES, assault, assaultMods, assaultNeed, bloc, city, cityWalls, disband, friendly, march, menWords, muster, musterSize,
-  nodeName, path, reachable, sideName, yourArmy, carthageArmy, hostileTo,
+  nodeName, path, reachable, sideName, yourArmy, carthageArmy, hostileTo, armyName,
 } from "./island.ts";
 import { endWar, startWar } from "./carthage.ts";
 import type { Args, GameState, Mod } from "./types.ts";
@@ -56,7 +56,8 @@ export const ISLAND_IMPL: Record<string, Impl> = {
       return reachable(s, a.at).map((id) => {
         const c = city(s, id);
         const d = path(a.at, id)!.days.at(-1);
-        return { value: id, label: `${nodeName(id)} (${d} days; ${sideName(c.side)})` };
+        const foe = s.island!.armies.find((o) => o.side !== "syracuse" && o.at === id);
+        return { value: id, label: `${nodeName(id)} (${d} days; ${sideName(c.side)}${foe ? `; ${armyName(s, foe)} is there` : ""})` };
       });
     },
     second: (s, a) => {
