@@ -6,7 +6,7 @@ import type { PresetDef } from "../../src/core/index.ts";
 import { esc } from "../lib/text.ts";
 import { titlePage } from "./title.ts";
 // Workshop switches (the bets of docs/council/2026-11-23-two-day-plan.md) show only on a Workshop build, ticked
-// beside each preset: SWORD_WORKSHOP=<ids> npm run build. The test link never shows them.
+// beside each preset: a Workshop page's entry file sets them (ui/works-main.ts). The test link never shows them.
 const workshopIds = (): string[] => (globalThis as any).__WORKSHOP ?? [];
 const shown = (w: { id: string; workshop?: boolean }) => !w.workshop || workshopIds().includes(w.id);
 

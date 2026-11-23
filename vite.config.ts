@@ -19,9 +19,7 @@ function portraits(): Plugin {
       for (const f of readdirSync(dir).filter((f) => f.endsWith(".webp")).sort()) {
         art[f.replace(/\.webp$/, "")] = `data:image/webp;base64,${readFileSync(`${dir}/${f}`).toString("base64")}`;
       }
-      // A Workshop build (SWORD_WORKSHOP=greatWorks,...) shows those switches on the start screen, ticked.
-      const workshop = (process.env.SWORD_WORKSHOP ?? "").split(",").filter(Boolean);
-      return [{ tag: "script", children: `window.__PORTRAITS=${JSON.stringify(art)};${workshop.length ? `window.__WORKSHOP=${JSON.stringify(workshop)};` : ""}`, injectTo: "body-prepend" }];
+      return [{ tag: "script", children: `window.__PORTRAITS=${JSON.stringify(art)};`, injectTo: "body-prepend" }];
     },
   };
 }

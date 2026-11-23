@@ -103,6 +103,10 @@ export const seasonHandlers: Handlers = {
 
 The key is a CSS selector, usually a `data-` attribute on the button. A handler gets the element and a context (`c.g`, `c.render()`, `c.save()`, `c.turn()`, `c.openSheet(id)`), so screens never import the shell. Handlers are set up once, not after every render. Today `views/season.ts` and `views/help.ts` have their own; the frame's (view buttons, tabs, names, end of season, sound, designer view, new game) are in the shell. The start screen's buttons and the character-sheet dialog still wire themselves, since they live outside the game page. If something must touch the page after drawing (the families' portraits are painted while idle), the shell calls it from `render()`.
 
+## Workshop pages
+
+Bets from the two-day plan ship as separate pages on the Workshop artifact, never at the test link. A Workshop page is a second page shell, `ui/<name>.html`, whose entry file adds its screens with `addView` from `ui/app/extras.ts` and then starts the game as usual. Build it with `npm run build -- --page <name>` (to `ui/dist-<name>/index.html`). The test page, `ui/index.html`, adds nothing, so it is unchanged. First one: `ui/past.html`, "Change the past" (engine half in `src/core/fork.ts`).
+
 ## Migration steps
 
 Each step is one small pull request that keeps `npm test`, the typecheck and `npm run sim -- --seeds 100` passing, and keeps the game behaving the same. Before each UI step, a scripted browser walk-through (same seed, same clicks) is recorded before and after, and the pages must match.
