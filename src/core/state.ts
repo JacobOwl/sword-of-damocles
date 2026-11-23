@@ -70,6 +70,7 @@ export function newGame(seed: number, tuning: string = DEFAULT_TUNING, opts: Gam
     waiting: [], watches: [], sieges: {}, flags: {}, counters: {}, ids: 0, log: [], inputs: [], invasions: 0, leverage: [], blockedSlots: 0,
     events: { open: [], queue: [], fired: {}, count: 0 },
   };
+  if (opts.preset) s.preset = opts.preset;
   if (opts.scenario === "island") { s.scenario = "island"; s.island = newIsland(); s.census = newCensus(s); }
   if (switches.includes("secrets")) initSecrets(s); // no dice: the same seed plays the same with the switch off
   if (switches.includes("council")) initCouncil(s);

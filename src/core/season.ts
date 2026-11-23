@@ -366,7 +366,7 @@ export function replay(seed: number, inputs: Input[], tuning?: string, opts: Gam
 // A whole game played by a headless player, for the checks and the balance runs.
 // "simple" is the first bot (it shares the game's dice); the others are in bots.ts.
 export function runBotGame(seed: number, opts: { bot?: string; tuning?: string } & GameOpts = {}): GameState {
-  const s = startGame(seed, opts.tuning, { switches: opts.switches, scenario: opts.scenario });
+  const s = startGame(seed, opts.tuning, { switches: opts.switches, scenario: opts.scenario, preset: opts.preset });
   const bot = opts.bot && opts.bot !== "simple" ? botById(opts.bot) : undefined;
   if (opts.bot && opts.bot !== "simple" && !bot) throw new Error(`unknown bot: ${opts.bot}`);
   const r = botRandom(seed);

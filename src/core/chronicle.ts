@@ -23,7 +23,7 @@ export function chronicleText(s: GameState, season: number): string {
 }
 
 export function writeChronicle(s: GameState) {
-  const text = on(s, "storyChronicle") ? ((x) => (x ? [...x.paragraphs, ...x.omens].join(" ") : "A quiet season."))(storyBook(s).seasons.find((x) => x.season === s.season)) : chronicleText(s, s.season);
+  const text = on(s, "storyChronicle") ? ((x) => (x ? [...x.paragraphs, ...x.omens].join(" ") : "A quiet season."))(storyBook(s, s.season).seasons.find((x) => x.season === s.season)) : chronicleText(s, s.season);
   log(s, { actor: "world", text: `${seasonName(s.season)}. ${text}`, visible: true, kind: "chronicle" });
 }
 
@@ -80,8 +80,10 @@ function beatsOf(xs: { season: number; text: string }[]): string[] {
 
 export interface StoryBook { seasons: { season: number; name: string; paragraphs: string[]; omens: string[] }[]; lives: { id: string; name: string; text: string }[]; ending?: string }
 
-export function storyBook(s: GameState): StoryBook {
-  const last = s.over ? s.over.season : s.season - 1;
+// upTo: the last season to tell. By default the last finished one; the chronicle step passes the season it is writing,
+// which is not finished yet (before, it got the season before, and every logged story chronicle read "A quiet season").
+export function storyBook(s: GameState, upTo?: number): StoryBook {
+  const last = upTo ?? (s.over ? s.over.season : s.season - 1);
   const seen: Record<string, Record<string, number>> = {}; // person -> sentence -> times
   const notable: Record<string, { season: number; text: string }[]> = {};
   const seasons: StoryBook["seasons"] = [];

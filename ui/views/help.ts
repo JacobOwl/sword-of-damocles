@@ -1,6 +1,6 @@
 // Onboarding: the first-season guide, the "How to play" page, and the tooltips (data-tip="key").
 // The words here explain rules that live in src/core and data/; if a rule changes there, change its line here.
-import { DATA } from "../../src/core/index.ts";
+import { DATA, knobsFor } from "../../src/core/index.ts";
 import { esc, ui } from "../lib/text.ts";
 import type { Handlers } from "../app/clicks.ts";
 
@@ -67,11 +67,27 @@ export function installTips() {
 }
 
 // ---------- First-season guide ----------
+// The island has its own guide (the map, Carthage, the moods), remembered apart from the citadel's,
+// so a player who dismissed the old one still sees it on his first island game.
 const GUIDE_KEY = "sword-of-damocles-guide-done";
-export function guideDone() { try { return localStorage.getItem(GUIDE_KEY) === "1"; } catch { return false; } }
-export function setGuideDone(v: boolean) { try { if (v) localStorage.setItem(GUIDE_KEY, "1"); else localStorage.removeItem(GUIDE_KEY); } catch { /* storage may be blocked */ } }
+const ISLAND_KEY = "sword-of-damocles-island-guide-done";
+const key = () => (ui.s?.island ? ISLAND_KEY : GUIDE_KEY);
+export function guideDone() { try { return localStorage.getItem(key()) === "1"; } catch { return false; } }
+export function setGuideDone(v: boolean) { try { if (v) localStorage.setItem(key(), "1"); else localStorage.removeItem(key()); } catch { /* storage may be blocked */ } }
 
 export function guide() {
+  const g = ui.s;
+  if (g?.island) return `<aside class="guide" aria-label="Your first season on the island">
+    <div class="fhead"><h2>Your first season</h2><button type="button" id="guide-done">Got it</button></div>
+    <ol>
+      <li><b>Read what happened.</b> The people, the factions, the towns and Carthage have already moved. Each move below gives its reason.</li>
+      <li><b>Take three actions.</b> Open one to see its target, its cost and your exact odds before you commit. The army is an action too: muster it, send it, storm a wall.</li>
+      <li><b>Watch the sword.</b> The sword over the title hangs lower as a plot you know of ripens. Plots warn you three times (Whispers, Rumors, Named) and grow from what you do to people. The Dangers column says who and why.</li>
+      <li><b>Look at the map.</b> The island tab shows the eight cities, who holds each, every army, and what Carthage wants now. Carthage's anger, in the ledger, is what its council reads when it chooses war.</li>
+      <li><b>Mind the moods.</b> Each faction runs from Rebellious to Loyal. ${knobsFor(g.tuning).contentFactionsStall ? "A faction that is Content or Loyal holds back its agenda against you; neglect it and the agenda marches on." : "An angry faction feeds plots."}</li>
+      <li><b>Click any name</b> to see what that person thinks of you and why. Then <b>end the season</b>.</li>
+    </ol>
+  </aside>`;
   return `<aside class="guide" aria-label="How a season works">
     <div class="fhead"><h2>How a season works</h2><button type="button" id="guide-done">Got it</button></div>
     <ol>

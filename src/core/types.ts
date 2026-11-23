@@ -180,7 +180,7 @@ export interface Args { target?: string; second?: string; option?: string }
 
 // The island scenario (Phase 2). A citadel game (Phase 1) has no island and runs exactly as before.
 export type Scenario = "citadel" | "island";
-export interface GameOpts { scenario?: Scenario; switches?: string[] }
+export interface GameOpts { scenario?: Scenario; switches?: string[]; preset?: string } // preset: a name from data/presets.json, kept for display
 export type Side = "syracuse" | "ally" | "free" | "tributary" | "carthage" | "exiles";
 export interface CityState { id: string; side: Side; walls: number; men: number; grain: number; lean: number; fear: number; sacked: boolean; since: number }
 export interface Army {
@@ -267,6 +267,7 @@ export interface GameState {
   blockedSlots: number;
   events?: EventsState;
   scenario?: Scenario; // missing = citadel (Phase 1)
+  preset?: string; // the ready-made setup it was started from (data/presets.json), if any
   island?: IslandState;
   census?: import("./census.ts").Census; // the generated cast of invented people (island games only)
   secrets?: SecretsState; // switch "secrets"
