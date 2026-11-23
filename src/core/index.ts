@@ -29,4 +29,7 @@ export type { Census, CensusPerson } from "./census.ts";
 export { counsel, seated, seatName, isFalse, councilName, COUNCIL } from "./council.ts";
 export type { Counsel } from "./council.ts";
 export { about as secretsAbout, knownBy as secretsKnownBy, secretLine, usable as usableSecrets, seenHolders, silenceCost, SECRETS } from "./secrets.ts";
+// Switch "dinners": the dinner table.
+export { DINNERS, wineById, couchHolder, friendsOf, foesOf, bonded, quarrelled, guestPool, parseGuests, suggestTable, castsFor, dinnersOn, dinnerLog } from "./dinner.ts";
+export type { DinnerState, DinnerRecord, Tie } from "./dinner.ts";
 export { logDigest } from "./digest.ts";

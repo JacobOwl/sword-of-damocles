@@ -89,6 +89,13 @@
       "name": "Lead the army yourself",
       "summary": "Island game only. When you muster, you choose who leads: yourself or a named man, even without the generalship (passing over the general angers the citizens). If you go, you name a keeper of the citadel: plots at home gain 1 while you are away, and your keeper's loyalty adds to or takes from your defense. You fight 1 better in person. The levy arms the citizens, so a plot with a citizen in it gains 1 while the army is out. When the army comes home, a victory brings cheers: for you, the citizens' goodwill; for a man you sent, influence and a following of his own. Every price is shown before you muster.",
       "research": "docs/research/commission.md (Diodorus 14.72.1, 14.64.4; Polyaenus 5.2.4)"
+    },
+    {
+      "id": "dinners",
+      "kind": "invention",
+      "name": "Dinners as the stage",
+      "summary": "A new action, Give a dinner. You choose who reclines on the couch beside yours, two to four other guests, and how strong the wine is mixed. The couch of honour adds to its holder's standing, and the man who held it before may take it badly. Each part of the evening can bring a moment from the guests themselves: two men become friends, two fall out, a plotter lets slip a name, a story about someone else comes out, or you say too much about a man who is not there. Some moments put a choice to you. Friends from your table plot together more easily; men who quarrelled there never do.",
+      "research": "docs/research/dinners.md; bet B5 in docs/council/2026-11-23-two-day-plan.md"
     }
   ]
 }

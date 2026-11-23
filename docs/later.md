@@ -13,7 +13,7 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Optional] Calibrating the engine against history over 1,000 seeds, as a sanity check only.
 - [Optional] Reuse the engine for an invented world (Bo'saal).
 - [Done in Phase 2 by the island map, 2026-11-22] Simple conquest or raids on nearby cities (Leontini, Catana, Naxos, Carthage's tribute towns). In the paper test, the player reached outside the city 3 times in 10 seasons. Phase 1 has no island, so each one was resolved as a single roll.
-- [Phase 1?] Dinners as the main stage for drama: who is invited, where they sit, what the wine loosens. This is from Jacob's pitch doc (background only), and it barely came up in the paper test.
+- [Built as a switch 2026-11-23, thread 24] Dinners as the main stage for drama: who is invited, where they sit, what the wine loosens. This is from Jacob's pitch doc.
 - [Moved into scope as a scenario, Jacob 2026-11-23] Playing on as an exile who plots a return. Also from Jacob's pitch doc.
 - [Phase 1?] Let the player use the scheming actions too (start a plot against a rival, lend). Rules v2 says they are open to anyone; the prototype gives them to the computer's people only.
 - [Phase 1?] Events drawn from the cast's sourced stories, as data: Andron tempted to seize the citadel and treasury (Polyaenus 5.2.4), Theste's answer when her husband fled (Plutarch, *Dion* 21), the charge that Doris' mother drugged Aristomache (Plutarch, *Dion* 3), Theodorus' liberty speech and the Spartan veto (Diodorus 14.64 to 14.70). Parked by the cast thread, 2026-11-22.
@@ -56,3 +56,7 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Phase 3?] The Elders of Syracuse as a seventh object that can broker but not command (Diodorus 21.18.1), suggested by the 289 dossier.
 - [Phase 3?] A readable Long Game page on the Workshop artifact (`long-game.html`), if Jacob wants one.
 - [Phase 2?, change-the-past thread 22, 2026-11-23] "Fixed fortune": dice that don't reshuffle when one choice changes (one random stream per season or per kind of roll), so the side-by-side comparison in "Change the past" shows what the choice did, not new luck. A switch at most; it moves every replay digest. Counts in `docs/playtests/2026-11-23-change-the-past.md`.
+- [Phase 2, dinners] Rival hosts: plotters and Pretenders give dinners of their own, where their friendships form, and your watchers report who dined with whom. (Thread 24.)
+- [Phase 2, dinners] A friend's grief: if you imprison, exile or kill a man, his friends from your table take it badly. (Thread 24.)
+- [Source request] Philoxenus sent to the quarries for criticising the tyrant's verses: Diodorus 15.6, which is not saved. LacusCurtius, book 15: https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/15A*.html (blocked from the cloud). With it saved, this could become a dinner moment. (Thread 24.)
+- [Source request] Did women recline at the tyrant's dinners? Nothing in the saved texts says either way. (Thread 24.)

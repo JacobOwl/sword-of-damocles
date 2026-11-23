@@ -20,6 +20,7 @@ import { secretsOn, learn, useHold, usable, exposeSecret, yourDeed, blackmailRef
 import { COUNCIL_IMPL, councilChecked, councilHeard } from "./council.ts";
 import { leaderOfCity, councilOf, censusPersonName } from "./census-game.ts";
 import { NODES } from "./island.ts";
+import { DINNER_IMPL } from "./dinner.ts";
 import { bloc } from "./island.ts";
 
 export interface Option { value: string; label: string }
@@ -828,7 +829,7 @@ const SECRET_IMPL: Record<string, Impl> = {
   },
 };
 
-Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL);
+Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL, DINNER_IMPL);
 // An action belongs to every scenario unless it names one.
 export const inScenario = (s: GameState, a: { scenario?: string; switch?: string }) => (!a.scenario || a.scenario === (s.scenario ?? "citadel")) && (!a.switch || on(s, a.switch));
 // In the island game the Carthage clock is Carthage's anger: the same number, read by Carthage's council.

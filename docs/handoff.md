@@ -372,3 +372,16 @@ UI only: no file in `src/core/` or `data/` changed, so the rules and the 100-see
 - Is the drift toward 5 the right fix for runaway faction power, or should agenda steps stop adding power?
 - The open questions in rules v2 still stand (three actions, steady income, conquest, the absent-holder rule, rival caps, dinners).
 - **Cast questions.** Who married Dionysius' sister: Diodorus and Plutarch say Polyxenus, Polyaenus a Hermocrates (the data follows the first two and shows the disagreement). Theodorus is attested only in about 396 but is in from the start, so the rich families have a voice for liberty: keep? Damon the smith is invented to speak for the citizens after Nicoteles: rename or cut?
+
+## Built by the dinners thread (24, bet B5, 2026-11-23)
+- **Switch "Dinners as the stage"** (off by default, not in any preset). It adds a new action, **Give a dinner**: you choose the couch beside yours, 2 to 4 other guests, and the wine (well watered, mixed as usual, or strong). The dinner has its own panel inside the action list (`ui/views/dinner.ts`). The panel shows only what you already know about the table: who holds the couch and who would take losing it badly, friends and quarrels from earlier dinners, men who want the same office, and enemies the guards will want to search. A "Suggest a table" button fills it in.
+- **The couch of honour** is a power object. Its holder gets +1 influence. The man who loses it thinks less of you, and holds a grudge if he is proud, vengeful or a political rival.
+- **15 moments** in three parts of the evening, cast only from the guests. **4 of them put a choice to you** under "Matters before you": an insult, someone taking the couch, "the bravest man alive", and the search at the door. Three moments are sourced from Plutarch, *Dion* 9; the rest are invention. Friendships and quarrels last: a plotter recruits his table friends first (+1), and never a man he quarrelled with there.
+- Files: `data/dinners.json`, `src/core/dinner.ts`, `ui/views/dinner.ts`, `scripts/dinner-sweep.ts`, `tests/dinner.test.ts`, the card `docs/research/dinners.md`, and the report `docs/playtests/2026-11-23-dinners.md`.
+- Small hooks in shared files: `events.ts` (the table's choices are chained events; dinner effects; `fireNow`), `ai.ts` (recruiting order and the bot's dinners), `actions.ts`, `types.ts`, `index.ts`, and `ui/views/season.ts` (4 lines: the panel and its clicks). The default and preset digests are unchanged, and the tests pass.
+- **Changed:** nothing outside the switch.
+- **Broke:** nothing found. 100 seeds in each scenario: 0 crashes, 0 broken states, with the switch on and off.
+- **Questions for Jacob:**
+  - Should wives and sisters (Aristomache, Theste) be possible guests? The game allows it. The saved texts say nothing either way, and a source check is parked.
+  - Should the plain feast stay beside the dinner, or should the dinner replace it when the switch is on?
+  - Rival hosts: should plotters and Pretenders give dinners of their own, which your watchers could report? Parked in `later.md`.

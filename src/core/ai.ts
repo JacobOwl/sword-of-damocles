@@ -18,6 +18,7 @@ import { on } from "./switches.ts";
 import { deed } from "./clues.ts";
 import { feudOn } from "./feud.ts";
 import { secretsOn, digForYou, useOnYou, useHold, usable } from "./secrets.ts";
+import { dinnersOn, recruitMods, recruitOrder, suggestTable } from "./dinner.ts";
 
 const hidden = false;
 const rankOf = (p: Person) => p.rival?.rank ?? 0;
@@ -71,10 +72,10 @@ function recruitCandidates(s: GameState, pl: Plot): Person[] {
 }
 
 function recruit(s: GameState, p: Person, pl: Plot) {
-  const c = recruitCandidates(s, pl);
+  const c = recruitOrder(s, p.id, recruitCandidates(s, pl)); // switch "dinners": friends first, never a man he quarrelled with
   if (!c.length) return false;
   const q = c[0];
-  const mods: Mod[] = [...traitMods(s, p.id, q.id, "recruit"), ...againstYou(s, p)];
+  const mods: Mod[] = [...traitMods(s, p.id, q.id, "recruit"), ...againstYou(s, p), ...recruitMods(s, p.id, q.id)];
   if (rankOf(p) >= 2) mods.push({ label: "a Schemer", value: 1 });
   if (p.status === "outside" && q.status === "outside" && p.rival?.scars.includes("Exiled")) mods.push({ label: "exiles together", value: 1 });
   const r = roll(s, p.id, `${capital(p.name)} tries to recruit ${q.name}`, mods, T(s).recruitNeed, pl.known.includes(p.id) && !!pl.informer);
@@ -537,6 +538,7 @@ function botChoices(s: GameState): { a: string; args: Args }[] {
   if (s.clock >= 7 && s.silver >= 1) push("envoy");
   if (s.factions.citizens.mood <= 2 && s.grain >= 6) push("grainHandout");
   for (const ex of others(s).filter((p) => p.status === "outside" && p.rival)) push("offerTerms", { target: ex.id });
+  if (dinnersOn(s) && s.silver >= 3) { const t = suggestTable(s); if (t) push("hostDinner", t); } // switch "dinners"
   if (s.silver >= 3) { const low = free.sort((a, b) => a.opinion - b.opinion)[0]; if (low) push("feast", { target: low.id }); }
   const any = free.filter((p) => p.knownUntil < s.season);
   if (any.length) push("watch", { target: pick(s, any).id });

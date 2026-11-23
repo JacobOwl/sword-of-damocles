@@ -11,6 +11,7 @@ import { AREA_ICON, icon } from "../components/icons.ts";
 import { vignette } from "../components/vignettes.ts";
 import * as sound from "../lib/sound.ts";
 import type { Handlers } from "../app/clicks.ts";
+import { dinnerPanel, dinnerHandlers } from "./dinner.ts";
 
 export function seasonCol(g: GameState) {
   const season = g.over ? g.over.season : g.season;
@@ -92,6 +93,7 @@ function actions(g: GameState) {
 }
 
 function panel(g: GameState, i: ReturnType<typeof menu>[number]) {
+  if (i.id === "hostDinner") return dinnerPanel(g, i); // switch "dinners": the table has its own panel
   const args = ui.args;
   const seconds = secondOptions(g, i.id, args);
   const thirds = thirdOptions(g, i.id, args);
@@ -143,6 +145,7 @@ export const seasonHandlers: Handlers = {
     },
     "[data-choose]": (b, c) => { chooseEvent(c.g, b.dataset.choose!, b.dataset.choice!); sound.tick(); c.save(); c.render(); },
     "[data-refuse]": (b, c) => { refuseRequest(c.g, b.dataset.refuse!); c.save(); c.render(); },
+    ...dinnerHandlers.click,
   },
   change: {
     "[data-arg]": (sel, c) => {
@@ -152,5 +155,6 @@ export const seasonHandlers: Handlers = {
       c.render();
       (document.getElementById(sel.id) as HTMLElement | null)?.focus();
     },
+    ...dinnerHandlers.change,
   },
 };

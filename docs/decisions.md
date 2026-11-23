@@ -300,3 +300,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - Absence costs: plots +1 while away, the keeper's loyalty in your defense, armed citizens +1 to plots with a citizen in them. Being there pays: +1 in battle. Why: the sourced danger at home (14.64.3-4; Polyaenus 5.2.4) and the council's verdict V2. Sizes are invention and untuned.
 - With the switch, the generalship is friction, not a gate: passing over the elected general costs 1 citizens' mood and 1 of his opinion (council V2, "unlawful, not forbidden").
 - Parked (later.md): purposes for commands, a commander turning on you, petitions while away.
+
+## 2026-11-23 (dinners as the stage, bet B5, thread 24)
+- **Done:** the switch "Dinners as the stage" (off by default; Workshop page only): the Give a dinner action, the couch of honour, 15 moments, 4 table choices, friendships and quarrels that change recruiting, a research card, 100-seed counts in both scenarios, and three sample dinners.
+- **Decided (small calls, all invention, all behind the switch):** no roll for a dinner; at most one moment for each of the three parts of the evening, and at most one choice put to you per dinner; strong wine costs 2 silver; the couch adds 1 influence; the table panel never shows hidden plots or grudges.
+- **Open, Jacob's:** women as guests; whether the dinner replaces the feast; rival hosts (in `later.md`).
