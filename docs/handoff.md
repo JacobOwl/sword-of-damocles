@@ -26,11 +26,12 @@ Only these two need Jacob. Every other question below defaults to what the game 
 - `Aristomache holds a grudge: you blamed his house for the fire.` Aristomache is a woman (Dionysius' wife); the fire event's grudge line says "his". Seed 7, careful bot, island. Not fixed here (it is the test build's wording).
 - In seed 26 (careful, island) the Achradina temple event fires in Autumn 397, a season after Magon's army lifted the siege (its army was still at Syracuse). Probably fine; noted in case it reads oddly in play.
 
-## Questions from the Carthage's-chronicle thread (Jacob's, none urgent)
-- Is the voice right? It is solemn and plain, past tense, Carthage calling Dionysius "the tyrant". Want it harsher (a hostile Punic record), or drier (a temple list)?
-- Should the side-by-side view be the default, rather than a button?
-- The voices sample: one biased history at the end of a game, or two side by side? (Phase 4; nothing is built.)
-- Whether Carthage named its years by two suffetes as early as 405 is unchecked (the evidence is about two centuries later). Keep the frame, or drop it for plain years?
+## Taste calls settled by the Carthage's-chronicle thread (Jacob delegated them, 2026-11-24)
+None of these changes a rule, so none needs a switch. Each is easy to reverse.
+- **Voice:** kept solemn and plain, past tense, Carthage calling Dionysius "the tyrant". Diodorus' own Carthage scenes read this way (mourning, offerings, the general in rags), and a harsher Punic voice would be invention with nothing to quote.
+- **Side by side:** stays a button; the chronicle alone is the default. Alone it reads as a book; side by side doubles the length and on a phone the two columns stack into one long page.
+- **The voices sample (Phase 4):** recommended form is two historians side by side at the end of a game, since the contrast is the point. Recorded in `later.md`; nothing is built.
+- **Suffetes as year names:** kept, with the page and the card saying plainly that the evidence is about two centuries later and the names are invention.
 
 ## Built by the grain-and-sea thread (26, 2026-11-23): Workshop bet B3 (switch, off by default)
 - **Switch `convoys`, "Grain and the sea"** (`data/convoys.json`, `src/core/convoys.ts`, card `docs/research/grain-and-sea.md`, tests `tests/convoys.test.ts`). Island games only. Not beside the preset and not in it: it is offered only in the rule switches list, and ticked for you on the Workshop page.
