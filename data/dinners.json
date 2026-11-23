@@ -1,0 +1,208 @@
+{
+  "note": "Switch \"dinners\" (bet B5, docs/council/2026-11-23-two-day-plan.md): a dinner is a scene. You choose who reclines on the couch beside yours, who else comes, and how strong the wine is mixed. Each of the three parts of the evening can bring one moment: friendships, quarrels, secrets that slip, a fight over the couch of honour. Rules, numbers and moments are invention unless a record says history; the sourced pieces are quoted in docs/research/dinners.md. Moments are data: the engine (src/core/dinner.ts) only casts them from the guests and applies their effects.",
+  "knobs": {
+    "minGuests": 2,
+    "maxGuests": 4,
+    "nothingWeight": 3,
+    "couchInfluence": 1,
+    "friendRecruit": 1,
+    "kept": 12
+  },
+  "courses": [
+    { "id": "meal", "kind": "invention", "n": 1, "name": "the meal" },
+    { "id": "libation", "kind": "invention", "n": 2, "name": "the libations" },
+    { "id": "drinking", "kind": "invention", "n": 3, "name": "the drinking" }
+  ],
+  "wines": [
+    { "id": "watered", "kind": "invention", "name": "Well watered", "label": "Well watered: sober talk", "cost": 1,
+      "text": "The wine is mixed with plenty of water, and the talk stays careful.",
+      "tones": { "bond": 1, "mend": 2, "quarrel": 0.3, "slip": 0.3, "tongue": 0, "couch": 1, "honour": 1, "test": 0.5 } },
+    { "id": "mixed", "kind": "invention", "name": "Mixed as usual", "label": "Mixed as usual", "cost": 1,
+      "text": "The wine is mixed in the usual way.",
+      "tones": { "bond": 1, "mend": 1, "quarrel": 1, "slip": 1, "tongue": 0.5, "couch": 1, "honour": 1, "test": 1 } },
+    { "id": "strong", "kind": "invention", "name": "Strong", "label": "Strong: tongues loosen, tempers too", "cost": 2,
+      "text": "The wine is mixed strong, and the bowl goes round again and again.",
+      "tones": { "bond": 1.5, "mend": 0.5, "quarrel": 2.5, "slip": 2.5, "tongue": 2, "couch": 1.5, "honour": 1, "test": 1.5 } }
+  ],
+  "moments": [
+    {
+      "id": "sharedCup", "kind": "invention", "course": 1, "tone": "bond", "weight": 3, "name": "A shared cup",
+      "roles": { "a": {}, "b": {} },
+      "pairs": [ { "a": "a", "b": "b", "is": ["sameFaction", "notBonded", "notQuarrelled"] } ],
+      "text": "{A} and {b} share a cup and talk late of their families. They leave as friends.",
+      "why": "guests of one faction at one table",
+      "effects": [ { "bond": ["a", "b"], "why": "they shared a cup at your table" } ]
+    },
+    {
+      "id": "acrossFactions", "kind": "invention", "course": 2, "tone": "bond", "weight": 2, "name": "An unlikely friendship",
+      "roles": { "a": { "opinion": { "min": 0 } }, "b": { "opinion": { "min": 0 } } },
+      "pairs": [ { "a": "a", "b": "b", "is": ["otherFaction", "notBonded", "notQuarrelled"] } ],
+      "text": "{A} and {b}, who never had much to say to each other, find they hate the same men. They drink to you, and to each other.",
+      "why": "two guests who think well of you",
+      "effects": [ { "bond": ["a", "b"], "why": "they found common ground at your table" }, { "opinion": "a", "by": 1 }, { "opinion": "b", "by": 1 } ]
+    },
+    {
+      "id": "honourToast", "kind": "invention", "course": 2, "tone": "honour", "weight": 3, "name": "A toast from the couch beside yours",
+      "roles": { "h": { "honour": true, "opinion": { "min": 0 } } },
+      "text": "{H} rises on the couch beside yours and pours the libation to your health, before the whole table.",
+      "why": "the place of honour, given and taken well",
+      "effects": [ { "opinion": "h", "by": 1 }, { "bondYou": "h", "why": "honoured at your table" } ]
+    },
+    {
+      "id": "honourSulk", "kind": "invention", "course": 1, "tone": "honour", "weight": 3, "name": "A cold guest of honour",
+      "roles": { "h": { "honour": true, "grudge": true } },
+      "text": "{H} takes the couch beside yours, but eats little and says less. The grudge is still there.",
+      "why": "an honour does not wipe out a wrong",
+      "effects": [ { "reveal": "h" } ]
+    },
+    {
+      "id": "grudgeAired", "kind": "invention", "course": 3, "tone": "slip", "weight": 3, "name": "A grievance aired",
+      "roles": { "a": { "grudge": true, "notHonour": true } },
+      "text": "Deep in the wine, {a} says too loudly what the table already knew: you did a wrong that is not forgotten.",
+      "why": "wine loosens a grudge",
+      "effects": [ { "reveal": "a" }, { "heardBy": "a", "why": "a grievance aired at your table" } ]
+    },
+    {
+      "id": "plotSlip", "kind": "invention", "course": 3, "tone": "slip", "weight": 4, "name": "A careless word",
+      "roles": { "a": { "inPlot": true } },
+      "text": "{A} lets slip a name that should not have been said at your table, then laughs too quickly.",
+      "why": "a plotter in his cups",
+      "effects": [ { "revealPlotOf": "a" } ]
+    },
+    {
+      "id": "secretOfAnother", "kind": "invention", "course": 3, "tone": "slip", "weight": 3, "name": "Another man's secret",
+      "roles": { "a": {}, "b": {} },
+      "pairs": [ { "a": "a", "b": "b", "is": ["notBonded"] } ],
+      "text": "{A}, pleased with the wine, tells a story about {b} that was never meant to be told. You hear it too.",
+      "why": "a story told across the couches",
+      "effects": [ { "slip": "b", "teller": "a", "why": "{a} told it at your table" } ]
+    },
+    {
+      "id": "pretenderTalk", "kind": "history", "course": 3, "tone": "slip", "weight": 4, "name": "If I ruled",
+      "roles": { "a": { "political": true }, "b": { "opinion": { "max": 0 } } },
+      "pairs": [ { "a": "a", "b": "b", "is": ["notQuarrelled"] } ],
+      "text": "{A} talks, half in jest, of what would be done differently if the city had another master. {B} listens closely. You were right to keep an eye on your clever friends.",
+      "why": "a political rival with wine in him",
+      "effects": [ { "reveal": "a" }, { "bond": ["a", "b"], "why": "they found they want the same thing" } ],
+      "source": "Plutarch, Dion 9 (the elder Dionysius on his clever friends); the scene is invention",
+      "card": "docs/research/dinners.md",
+      "facts": [ { "text": "Dionysius I distrusted his clever friends.", "cite": "Plutarch, Dion 9", "quote": "he was on his guard against his friends who were men of sense, because he knew that they would rather be tyrants than subjects of a tyrant", "file": "sources/plutarch/dion.perrin.txt" } ]
+    },
+    {
+      "id": "insult", "kind": "invention", "course": 3, "tone": "quarrel", "weight": 3, "name": "An insult across the couches",
+      "roles": { "a": {}, "b": {} },
+      "pairs": [ { "a": "a", "b": "b", "is": ["otherFaction", "notBonded", "notQuarrelled"] } ],
+      "text": "{A} mocks {b} before the whole table, and {b} answers in kind. Everyone looks at you.",
+      "why": "strong talk between men of different factions",
+      "effects": [ { "quarrel": ["a", "b"], "why": "{a} mocked {b} at your table" } ],
+      "ask": "dinnerInsult"
+    },
+    {
+      "id": "sameWant", "kind": "invention", "course": 2, "tone": "quarrel", "weight": 4, "name": "Two men, one office",
+      "roles": { "a": {}, "b": {} },
+      "pairs": [ { "a": "a", "b": "b", "is": ["sameWant", "notQuarrelled"] } ],
+      "text": "{A} and {b} both want the same office, and both know it now. The talk between their couches turns cold, then ugly.",
+      "why": "two men who want the same thing",
+      "effects": [ { "quarrel": ["a", "b"], "why": "they want the same office" } ]
+    },
+    {
+      "id": "mended", "kind": "invention", "course": 2, "tone": "mend", "weight": 5, "name": "A quarrel mended",
+      "roles": { "a": {}, "b": {} },
+      "pairs": [ { "a": "a", "b": "b", "is": ["quarrelled"] } ],
+      "text": "{A} and {b}, seated near each other, clasp hands over the bowl and put their old quarrel aside.",
+      "why": "an old quarrel, and wine enough to forgive it",
+      "effects": [ { "mend": ["a", "b"], "why": "they made peace at your table" } ]
+    },
+    {
+      "id": "couchTaken", "kind": "invention", "course": 1, "tone": "couch", "weight": 3, "name": "The couch of honour",
+      "roles": { "h": { "honour": true }, "a": { "notHonour": true, "covets": true } },
+      "text": "Before {h} can lie down, {a} has taken the couch beside yours, smiling, as if it were the obvious place.",
+      "why": "{a} wants to be seen next to you",
+      "ask": "couchTaken"
+    },
+    {
+      "id": "mostValiant", "kind": "history", "course": 2, "tone": "test", "weight": 3, "name": "The bravest man alive",
+      "roles": { "a": { "trait": ["blunt", "proud", "grim", "fiery"] } },
+      "text": "Over the wine you ask the table who is the bravest man alive. The others say your name. {A} does not.",
+      "why": "a guest who will not flatter",
+      "ask": "mostValiant",
+      "source": "Plutarch, Dion 9 (Dionysius I angry with Plato); the guest and the choices are invention",
+      "card": "docs/research/dinners.md",
+      "facts": [ { "text": "Dionysius I was angry with Plato for not calling him the bravest.", "cite": "Plutarch, Dion 9", "quote": "the man who was angry with Plato because he would not pronounce him the most valiant man alive", "file": "sources/plutarch/dion.perrin.txt" } ]
+    },
+    {
+      "id": "atTheDoor", "kind": "history", "course": 1, "tone": "test", "weight": 6, "name": "Searched at the door",
+      "roles": { "a": { "rival": true } },
+      "text": "Your guards stop {a} at the door: no one comes near you unsearched.",
+      "why": "an enemy invited to your table",
+      "ask": "atTheDoor",
+      "source": "Plutarch, Dion 9 (no one came to Dionysius I unsearched, not even his brother); the guest and the choices are invention",
+      "card": "docs/research/dinners.md",
+      "facts": [ { "text": "Even his brother and son were stripped and searched.", "cite": "Plutarch, Dion 9", "quote": "Neither his brother nor his son could visit him in his apartment wearing any clothes they pleased, but every one had to take off his own apparel before entering and put on another, after the guards had seen him stripped", "file": "sources/plutarch/dion.perrin.txt" } ]
+    },
+    {
+      "id": "yourTongue", "kind": "invention", "course": 3, "tone": "tongue", "weight": 2, "name": "Your own tongue",
+      "roles": { "x": { "absent": true, "enemy": true }, "a": { "opinion": { "max": 0 } } },
+      "text": "The wine works on you too. You say what you really think of {x}, who is not at the table. {A} remembers every word.",
+      "why": "the wine, and a host who drank it",
+      "effects": [ { "tongue": "x", "carrier": "a", "why": "{a} carried your words from the table" } ]
+    }
+  ],
+  "asks": [
+    {
+      "id": "dinnerInsult", "kind": "invention", "art": "feast", "name": "An insult at your table", "chained": true, "dinner": true,
+      "roles": { "a": {}, "b": {} },
+      "text": "{A} has mocked {b} before your guests, and {b} has answered. The table waits for you.",
+      "why": "a quarrel at your dinner",
+      "choices": [
+        { "id": "sideA", "label": "Laugh with {a}", "effects": [ { "opinion": "a", "by": 1 }, { "opinion": "b", "by": -1 }, { "grudge": "b", "reason": "you laughed at him at your own table" } ] },
+        { "id": "sideB", "label": "Rebuke {a}", "effects": [ { "opinion": "b", "by": 1 }, { "opinion": "a", "by": -1 } ] },
+        { "id": "both", "label": "Send them both home", "effects": [ { "opinion": "a", "by": -1 }, { "opinion": "b", "by": -1 }, { "mend": ["a", "b"], "why": "sent home together, they laughed at you instead" } ] },
+        { "id": "more", "label": "Call for more wine and change the subject", "default": true }
+      ]
+    },
+    {
+      "id": "couchTaken", "kind": "invention", "art": "feast", "name": "Someone on the couch of honour", "chained": true, "dinner": true,
+      "roles": { "h": {}, "a": {} },
+      "text": "{A} lies on the couch beside yours, the place you meant for {h}. {H} stands waiting.",
+      "why": "the couch of honour is worth fighting for",
+      "choices": [
+        { "id": "send", "label": "Send {a} to another couch", "effects": [ { "opinion": "a", "by": -1 }, { "grudge": "a", "reason": "you sent him from the couch of honour before the table" }, { "opinion": "h", "by": 1 } ] },
+        { "id": "keep", "label": "Let {a} keep it", "effects": [ { "couch": "a", "why": "{a} took it, and you let it stand" }, { "opinion": "a", "by": 1 }, { "opinion": "h", "by": -1 } ] },
+        { "id": "laugh", "label": "Laugh, and make room for both", "cost": { "silver": 1 }, "effects": [ { "opinion": "a", "by": 1 }, { "opinion": "h", "by": 1 } ] },
+        { "id": "nothing", "label": "Say nothing", "default": true, "effects": [ { "couch": "a", "why": "{a} took it, and no one stopped it" }, { "opinion": "h", "by": -1 } ] }
+      ]
+    },
+    {
+      "id": "mostValiant", "kind": "history", "art": "feast", "name": "The bravest man alive", "chained": true, "dinner": true,
+      "roles": { "a": {} },
+      "text": "{A} will not call you the bravest man alive. The table has gone quiet.",
+      "why": "a guest who will not flatter",
+      "choices": [
+        { "id": "angry", "label": "Let your anger show", "history": true, "effects": [ { "opinion": "a", "by": -1 }, { "grudge": "a", "reason": "you raged at his honest answer" }, { "plotBonus": -1, "why": "the court sees what honesty costs" } ] },
+        { "id": "laugh", "label": "Laugh at yourself", "effects": [ { "opinion": "a", "by": 1 } ] },
+        { "id": "reward", "label": "Praise the honest answer, and reward it", "cost": { "silver": 1 }, "effects": [ { "opinion": "a", "by": 1 }, { "influence": "a", "by": 1 }, { "bondYou": "a", "why": "you honoured an honest answer" } ] },
+        { "id": "pass", "label": "Let it pass", "default": true }
+      ],
+      "source": "Plutarch, Dion 9",
+      "card": "docs/research/dinners.md",
+      "facts": [ { "text": "Dionysius I was angry with Plato for not calling him the bravest.", "cite": "Plutarch, Dion 9", "quote": "the man who was angry with Plato because he would not pronounce him the most valiant man alive", "file": "sources/plutarch/dion.perrin.txt" } ],
+      "invented": ["the guest", "every choice but anger, and every effect"]
+    },
+    {
+      "id": "atTheDoor", "kind": "history", "art": "feast", "name": "Searched at the door", "chained": true, "dinner": true,
+      "roles": { "a": { "status": ["free"] } },
+      "text": "{A} waits at the door between your guards, and they look to you.",
+      "why": "an enemy at your table",
+      "choices": [
+        { "id": "search", "label": "Strip and search, as for your own brother", "history": true, "effects": [ { "opinion": "a", "by": -1 }, { "reveal": "a" }, { "plotBonus": -1, "why": "no blade comes near you unseen" } ] },
+        { "id": "trust", "label": "Wave the guest in", "default": true, "effects": [ { "opinion": "a", "by": 1 } ] },
+        { "id": "away", "label": "Turn the guest away after all", "effects": [ { "opinion": "a", "by": -2 }, { "grudge": "a", "reason": "you invited him to dinner and turned him away at your door" } ] }
+      ],
+      "source": "Plutarch, Dion 9",
+      "card": "docs/research/dinners.md",
+      "facts": [ { "text": "Even his brother and son were stripped and searched.", "cite": "Plutarch, Dion 9", "quote": "after the guards had seen him stripped", "file": "sources/plutarch/dion.perrin.txt" } ],
+      "invented": ["the guest", "the choices other than the search, and every effect"]
+    }
+  ]
+}
