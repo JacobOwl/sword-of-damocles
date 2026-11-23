@@ -144,7 +144,7 @@ export function storyBook(s: GameState, upTo?: number): StoryBook {
       // The same deed by the same hand: the second time "again", after that counted.
       const n = ((seen.all ??= {})[t] = (seen.all[t] ?? 0) + 1);
       if (n === 2) t = joinWith("Again, ", t);
-      else if (n > 2) t = t.replace(/^(.*?)\.(\s|$)/, `$1 (the ${ORD[n] ?? `${n}th`} time).$2`);
+      else if (n > 2) t = t.replace(/^(.*?)\.(\s.*)?$/, `$1 (the ${ORD[n] ?? `${n}th`} time).`); // the third time on, its first sentence and a count
       if (s.people[who] && TURN.test(e.text) && !began.has(who)) {
         const first = (notable[who] ?? []).find((x) => x.season < i);
         if (first && !/enters the story/.test(first.text)) { began.add(who); t += ` It began in ${seasonName(first.season)}: ${tidyLine(LOWER.test(first.text) ? first.text.charAt(0).toLowerCase() + first.text.slice(1) : first.text).replace(/\s*He wants your place, not your life\./, "")}`; }
@@ -163,8 +163,8 @@ export function storyBook(s: GameState, upTo?: number): StoryBook {
     });
     // Warnings: each line once in the story. A season with only old ones gets one line saying the talk goes on.
     const heard = es.filter((e) => e.kind === "warning").map((e) => e.text.replace(/^(Whispers|Rumors|Named): /, ""));
-    const omens = heard.filter((x) => !omenSeen.has(x));
-    for (const x of heard) omenSeen.add(x);
+    // Sentence by sentence: a clue already told is not told again, even inside a new warning.
+    const omens = heard.map((x) => x.split(/(?<=\.)\s+/).filter((t) => { const fresh = !omenSeen.has(t); omenSeen.add(t); return fresh; }).join(" ")).filter(Boolean);
     if (heard.length && !omens.length) { stale += 1; omens.push(stale === 1 ? "Nothing new from your informers: the same talk goes on." : `Nothing new from your informers (the ${ORD[stale] ?? `${stale}th`} season with nothing new).`); }
     seasons.push({ season: i, name: seasonName(i), paragraphs: paragraphs.length ? paragraphs : ["A quiet season."], omens });
   }

@@ -7,6 +7,12 @@ Only these two need Jacob. Every other question below defaults to what the game 
 1. **When will you play the first island test?** Recommended: one sitting before Wednesday morning, the "First island test" preset, judged at season 10.
 2. **Should you be able to lead the army yourself, or send a named man?** Recommended: yes, as a switch you can try, off by default.
 
+## Fixed by the test-build thread (19, 2026-11-23): games replayed differently in the browser and in Node
+- Found in the review walk-through: a game copied from the browser and replayed with `npm run replay-save` went its own way from about season 7. Cause: the people step drew a die inside a sort comparator (`src/core/ai.ts`), and Chromium's sort makes a different number of comparisons than Node's. Scores are now drawn once per person, then sorted.
+- `tests/determinism.test.ts` swaps every sort for a different one and checks that games play the same; it fails on the old code. Checked by hand too: three full preset games give the same log, step by step, in Chromium and in Node.
+- Digests re-pinned (Standard and the first island test); the rules did not change, only the order the dice fall in. Two other threads' tests leaned on particular seeds and were loosened: the dinner couch test now uses whoever holds the couch; the works test needs 15 finished works, not 20 (19 now).
+- Also: the story's repeat marker now keeps only the first sentence from the third time on, and warning lines are told once sentence by sentence.
+
 ## Built by the test-build thread (19, 2026-11-23), stream 6: the island at first sight
 - **"This season:" line** (`ui/components/now.ts`) at the top of the season and island screens: the one most pressing thing (a blow that can fall, Carthage's army and its days from Syracuse, an army or the city about to go hungry a season ahead, the guard unpaid, anger near war), others after "Also".
 - **Battle forecast before you march** (`battleForecast` in `src/core/island.ts`, shown in the Send the army panel): where the march stops, the enemy army there, every modifier on both sides, and the chance to win, draw or lose. The target list says which army stands at each town.
