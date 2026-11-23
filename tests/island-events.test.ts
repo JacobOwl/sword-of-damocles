@@ -62,7 +62,7 @@ test("every island event refers only to things that exist", () => {
     }
     for (const c of e.choices ?? []) for (const n of c.needs ?? []) assert.ok(roles.has(n) || places.has(n), `${e.id}/${c.id}: needs unknown part ${n}`);
     for (const ef of allEffects(e)) {
-      const keys = Object.keys(ef).filter((k) => !["by", "to", "reason", "scar", "why", "seasons", "after", "text", "hidden"].includes(k));
+      const keys = Object.keys(ef).filter((k) => !["by", "to", "reason", "scar", "why", "seasons", "after", "text", "hidden", "if"].includes(k));
       assert.equal(keys.length, 1, `${e.id}: effect ${JSON.stringify(ef)} should do one thing`);
       const k = keys[0];
       assert.ok(COURT_KEYS.has(k) || ISLAND_EFFECT_KEYS.has(k), `${e.id}: unknown effect ${k}`);
@@ -81,10 +81,10 @@ test("players never see code-style ids in island event text", () => {
 
 // Island states that fit most events: your army besieging a town of Carthage's (or one that changed sides), Carthage's
 // army before Syracuse or in the field, war, plague, a just-taken town, low stores.
-function setups(seed: number): GameState[] {
+function setups(seed: number, switches: string[] = []): GameState[] {
   const out: GameState[] = [];
   for (const kind of ["yourSiege", "theirSiege", "taken", "field", "winter"]) {
-    const s = startGame(seed, undefined, { scenario: "island" });
+    const s = startGame(seed, undefined, { scenario: "island", switches });
     const isl = s.island!;
     isl.war = true; isl.warSince = 0; s.flags.atWar = 0;
     s.flags.armed = 0; s.flags.carthagePlague = 0; s.flags.punicLost = 0; s.flags.battleWon = 0; s.flags.peaceMade = 0;
@@ -102,6 +102,7 @@ function setups(seed: number): GameState[] {
     if (kind === "winter") s.season = 5;
     if (kind === "taken" || kind === "winter") { city(s, "messana").side = "syracuse"; city(s, "messana").men = 1; }
     if (kind === "taken") { const ca = isl.armies.find((a) => a.side === "carthage")!; ca.at = "leontini"; }
+    if (kind === "field") { const ca = isl.armies.find((a) => a.side === "carthage")!; ca.at = "leontini"; ca.siege = "leontini"; }
     city(s, "leontini").side = "ally"; city(s, "leontini").since = 2;
     city(s, "catana").side = "ally";
     if (kind === "taken") { city(s, "catana").side = "syracuse"; city(s, "catana").since = 3; city(s, "motya").side = "syracuse"; city(s, "motya").since = 3; }
@@ -165,4 +166,54 @@ test("island events fire in island games, are all answered, and the game replays
     checked++;
   }
   assert.ok(checked >= 3, "no island game with answered events to replay");
+});
+
+test("switch 'A bought retreat disgraces the general': off, Himilcon goes home free; on, in disgrace, and may starve himself", () => {
+  for (const sw of [[], ["bargainDisgraces"]]) {
+    const s = setups(1, sw)[1];
+    assert.ok(forceEvent(s, "himilconsBargain"));
+    const o = openEvents(s).find((x) => x.def.id === "himilconsBargain")!;
+    s.step = "player";
+    assert.equal(choose(s, o.inst.uid, "take").ok, true);
+    assert.equal(carthageArmy(s), undefined);
+    const st = s.island!.carthage.people.himilcon.status;
+    if (sw.length) assert.equal(st, "disgraced"); else assert.equal(st, "free");
+    endSeason(s); endSeason(s);
+    if (sw.length) assert.ok(["disgraced", "dead"].includes(s.island!.carthage.people.himilcon.status));
+    assert.deepEqual(brokenState(s), []);
+  }
+});
+
+test("switch 'Rumors can lie': off, rumors are always true; on, about a third are false, change nothing in Carthage, and a clue follows", () => {
+  const rumors = ISLAND_EVENTS.filter((e) => e.rumor);
+  assert.ok(rumors.length >= 3);
+  let falses = 0, total = 0, clues = 0;
+  for (let seed = 1; seed <= 60; seed++) {
+    for (const sw of [[], ["falseRumors"]]) {
+      const s = setups(seed, sw)[1];
+      s.flags.punicLost = s.season; s.island!.carthage.blocs.libyans.mood = 1;
+      if (!forceEvent(s, "dockyardSpeakers")) continue;
+      const inst = eventsState(s).open.find((o) => o.id === "dockyardSpeakers")!;
+      if (!sw.length) { assert.equal(inst.falseRumor, undefined); assert.equal(eventsState(s).clues, undefined); continue; }
+      total++;
+      assert.match(openEvents(s).find((o) => o.def.id === "dockyardSpeakers")!.text, /about 1 in 3/);
+      const power = s.island!.carthage.blocs.people.power;
+      s.step = "player";
+      choose(s, inst.uid, "shout");
+      if (inst.falseRumor) { falses++; assert.equal(s.island!.carthage.blocs.people.power, power, "a false rumor changed Carthage"); }
+      for (let i = 0; i < 3 && !s.over; i++) endSeason(s);
+      if (s.log.some((e) => /^Later word from Carthage/.test(e.text))) clues++;
+    }
+  }
+  assert.ok(total >= 30, `only ${total} rumors cast`);
+  assert.ok(falses > total * 0.15 && falses < total * 0.55, `${falses} false of ${total}`);
+  assert.ok(clues >= total * 0.8, `clues came for only ${clues} of ${total}`);
+});
+
+test("court events that tell the island's own stories are hidden in island games", () => {
+  for (const id of ["mercenaryDemand", "himilconOffer"]) assert.equal(COURT_EVENTS.find((e) => e.id === id)?.scenario, "citadel");
+  for (let seed = 1; seed <= 30; seed++) {
+    const s = runBotGame(seed, { scenario: "island", bot: "careful" });
+    for (const id of ["mercenaryDemand", "himilconOffer"]) assert.equal(eventsState(s).fired[id], undefined, `seed ${seed}: ${id} fired on the island`);
+  }
 });

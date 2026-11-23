@@ -12,6 +12,7 @@ import {
   rankChange, roll, setOffice, setStatus, silver,
 } from "./ops.ts";
 import { startPlot } from "./ai.ts";
+import { on } from "./switches.ts";
 import {
   applyIslandEffect, castPart, castPlaces, checkIslandCond, describeIslandEffect, isPart, partName, scoreIslandEffect,
 } from "./island-events.ts";
@@ -36,6 +37,7 @@ export interface Cond {
   done?: string[]; notDone?: string[]; // other events that have (or have not) happened
   any?: Cond[];
   island?: IslandCond; // cities, armies and Carthage (island games only; see island-events.ts)
+  switchOn?: string; switchOff?: string; // an optional rule switch (data/switches.json) is on, or off
 }
 export interface RoleCond {
   id?: string | string[];
@@ -83,6 +85,7 @@ export interface EventDef {
   scenario?: "island" | "citadel"; // only in that kind of game (the island events are all "island")
   places?: Record<string, PlaceCond>; // towns the event is about, cast before the people
   art?: string;
+  rumor?: string; // news from Carthage: with switch "falseRumors" it may be false; this names what it claims, for the later clue
 }
 
 import eventsJson from "../../data/events.json" with { type: "json" };
@@ -92,6 +95,7 @@ export const ISLAND_EVENTS = ((islandEventsJson as any).events as EventDef[]).ma
 export const EVENTS = [...COURT_EVENTS, ...ISLAND_EVENTS];
 export const PACING = (eventsJson as any).pacing as { draws: number; secondChance: number; maxOpen: number; cooldown: number };
 export const ISLAND_PACING = (islandEventsJson as any).pacing as { draws: number; secondChance: number; maxOpen: number };
+export const RUMORS = (islandEventsJson as any).rumors as { falseShare: number; clueAfter: number };
 export const eventById = (id: string) => EVENTS.find((e) => e.id === id);
 
 export function eventsState(s: GameState): EventsState {
@@ -134,6 +138,8 @@ export function checkCond(s: GameState, c: Cond | undefined): boolean {
   for (const id of c.notDone ?? []) if (fired[id] !== undefined) return false;
   if (c.any && !c.any.some((x) => checkCond(s, x))) return false;
   if (c.island && !checkIslandCond(s, c.island)) return false;
+  if (c.switchOn && !on(s, c.switchOn)) return false;
+  if (c.switchOff && on(s, c.switchOff)) return false;
   return true;
 }
 
@@ -285,6 +291,7 @@ export function describe(s: GameState, inst: EventInstance, effects: Effect[]): 
   const who = (r: string) => (r === "you" ? "you" : capital(partName(s, inst.roles[r] ?? r)));
   for (const e of effects) {
     if (e.hidden) continue;
+    if (e.if && !checkCond(s, e.if)) continue;
     const isl = describeIslandEffect(s, inst.roles, e);
     if (isl !== null) { out.push(isl); continue; }
     if (e.silver) out.push(`Silver ${sgn(e.silver)}`);
@@ -344,16 +351,29 @@ function fire(s: GameState, def: EventDef, cast: Record<string, string>, why: st
   if (def.scenario === "island") s.counters.islandEvents = (s.counters.islandEvents ?? 0) + 1;
   const actor = Object.values(cast)[0] ?? "world";
   event(s, actor, fill(s, def.text, cast), fill(s, why, cast));
+  // Switch "falseRumors": some news from Carthage is false. Its effects on Carthage never happen, and later word tells which.
+  let falseRumor: boolean | undefined;
+  if (def.rumor && on(s, "falseRumors")) {
+    falseRumor = nextRandom(s) < RUMORS.falseShare;
+    const claim = fill(s, def.rumor, cast);
+    (ev.clues ??= []).push({ season: s.season + RUMORS.clueAfter, text: falseRumor ? `Later word from Carthage: the story that ${claim} was false.` : `Later word from Carthage confirms the story that ${claim}.` });
+    if (falseRumor) s.counters.falseRumors = (s.counters.falseRumors ?? 0) + 1;
+  }
   // Effects on the event itself happen as it fires; choices come after.
-  apply(s, { uid: "", id: def.id, roles: cast, season: s.season }, def.effects ?? [], def.name);
+  apply(s, { uid: "", id: def.id, roles: cast, season: s.season, falseRumor }, def.effects ?? [], def.name);
   if (!def.choices?.length || s.over) return;
   const uid = `ev${ev.count}`;
-  ev.open.push({ uid, id: def.id, roles: cast, season: s.season });
+  ev.open.push({ uid, id: def.id, roles: cast, season: s.season, ...(falseRumor !== undefined ? { falseRumor } : {}) });
 }
 
 // Called once a season, at the end of the people step.
 export function drawEvents(s: GameState) {
   const ev = eventsState(s);
+  // Switch "falseRumors": word arrives on whether earlier news from Carthage was true.
+  for (const c of (ev.clues ?? []).filter((x) => x.season <= s.season)) {
+    ev.clues!.splice(ev.clues!.indexOf(c), 1);
+    event(s, "carthage", c.text, "merchants and envoys bring the truth in time");
+  }
   // Follow-ups queued by earlier choices come first, if their people are still there.
   for (const q of ev.queue.filter((x) => x.season <= s.season)) {
     ev.queue.splice(ev.queue.indexOf(q), 1);
@@ -394,7 +414,8 @@ export function openEvents(s: GameState) {
   return eventsState(s).open.map((inst) => {
     const def = eventById(inst.id)!;
     const d = defaultChoice(s, inst);
-    return { inst, def, title: def.name, text: fill(s, def.text, inst.roles), choices: (def.choices ?? []).map((c) => ({ ...viewChoice(s, inst, c), isDefault: c === d })) };
+    const note = def.rumor && on(s, "falseRumors") ? ` This is a rumor: about ${Math.round(RUMORS.falseShare * 3)} in 3 such stories prove false, and you will learn which in time.` : "";
+    return { inst, def, title: def.name, text: fill(s, def.text, inst.roles) + note, choices: (def.choices ?? []).map((c) => ({ ...viewChoice(s, inst, c), isDefault: c === d })) };
   });
 }
 
@@ -442,10 +463,13 @@ export function settleEvents(s: GameState) {
 
 // ---------- Effects ----------
 
+const CARTHAGE_SIDE = new Set(["bloc", "blocPower", "generalFalls", "cSilver", "cMercs", "cLevy", "cShips", "cPlague"]);
 export function apply(s: GameState, inst: EventInstance, effects: Effect[], why: string) {
   const pid = (r: string) => (r === "you" ? PLAYER : inst.roles[r] ?? (s.people[r] ? r : undefined));
   for (const e of effects) {
     if (s.over) return;
+    if (e.if && !checkCond(s, e.if)) continue;
+    if (inst.falseRumor && CARTHAGE_SIDE.has(Object.keys(e).find((k) => CARTHAGE_SIDE.has(k)) ?? "")) continue; // a false rumor changes nothing in Carthage
     const reason = e.why ? fill(s, e.why, inst.roles) : why;
     if (applyIslandEffect(s, inst.roles, e, reason)) continue;
     if (e.silver) silver(s, e.silver, reason);

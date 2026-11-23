@@ -158,12 +158,13 @@ export interface LogEntry {
 export interface Mod { label: string; value: number }
 
 // Events (data/events.json): one that has fired and waits for your answer, and the bookkeeping.
-export interface EventInstance { uid: string; id: string; roles: Record<string, string>; season: number }
+export interface EventInstance { uid: string; id: string; roles: Record<string, string>; season: number; falseRumor?: boolean } // falseRumor: switch "falseRumors"
 export interface EventsState {
   open: EventInstance[];
   queue: { id: string; season: number; roles: Record<string, string> }[]; // follow-ups waiting their season
   fired: Record<string, number>; // event id -> last season it fired
   count: number;
+  clues?: { season: number; text: string }[]; // switch "falseRumors": later word on whether a rumor was true
 }
 
 export type Input =

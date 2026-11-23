@@ -6,13 +6,19 @@
     "secondChance": 0.3,
     "maxOpen": 2
   },
+  "rumors": {
+    "kind": "invention",
+    "falseShare": 0.33,
+    "clueAfter": 2,
+    "note": "Switch falseRumors only: the share of rumors from Carthage that are false, and how many seasons until word comes whether a rumor was true."
+  },
   "events": [
     {
       "id": "traitorAtTheGate",
       "kind": "history",
       "art": "gate",
       "name": "A gate at midnight",
-      "weight": 4,
+      "weight": 6,
       "once": false,
       "cooldown": 8,
       "when": {
@@ -238,7 +244,7 @@
       "kind": "history",
       "art": "siege",
       "name": "Towers six storeys high",
-      "weight": 3,
+      "weight": 5,
       "when": {
         "island": {
           "yourArmy": {
@@ -645,7 +651,7 @@
       "kind": "history",
       "art": "warship",
       "name": "Ships on the beach",
-      "weight": 4,
+      "weight": 5,
       "when": {
         "island": {
           "war": true,
@@ -1160,7 +1166,7 @@
       "kind": "invention",
       "art": "camp",
       "name": "Fever in the lines",
-      "weight": 3,
+      "weight": 4,
       "cooldown": 6,
       "when": {
         "seasonOfYear": [
@@ -1436,6 +1442,20 @@
             {
               "clock": 1,
               "why": "Carthage keeps men to come back with"
+            },
+            {
+              "generalFalls": "general",
+              "to": "disgraced",
+              "why": "Carthage counts his bought retreat as a lost army",
+              "if": {
+                "switchOn": "bargainDisgraces"
+              }
+            },
+            {
+              "flag": "carthageArmyLost",
+              "if": {
+                "switchOn": "bargainDisgraces"
+              }
             }
           ]
         },
@@ -3636,7 +3656,8 @@
       "invented": [
         "all of it"
       ],
-      "note": "The Hundred is the game's bloc from Aristotle, Politics 1273a, written decades later (see data/carthage.json). The accuser is one of the generated cast."
+      "note": "The Hundred is the game's bloc from Aristotle, Politics 1273a, written decades later (see data/carthage.json). The accuser is one of the generated cast.",
+      "rumor": "the Hundred meant to put {general} on trial"
     },
     {
       "id": "merchantWantsPeace",
@@ -3707,7 +3728,8 @@
       ],
       "invented": [
         "all of it"
-      ]
+      ],
+      "rumor": "{elder} would speak for peace"
     },
     {
       "id": "dockyardSpeakers",
@@ -3789,7 +3811,8 @@
       ],
       "invented": [
         "all of it"
-      ]
+      ],
+      "rumor": "{speaker} had the assembly crying for war"
     },
     {
       "id": "libyanGrievance",
@@ -3880,7 +3903,8 @@
       "invented": [
         "all of it"
       ],
-      "note": "Diodorus tells of the Libyans' great rising after the war of 396 (14.77, not among the saved sections). This event is invention."
+      "note": "Diodorus tells of the Libyans' great rising after the war of 396 (14.77, not among the saved sections). This event is invention.",
+      "rumor": "the Libyan villages were ready to rise"
     },
     {
       "id": "carthageMourns",
@@ -4063,6 +4087,435 @@
       ],
       "invented": [
         "all of it"
+      ]
+    },
+    {
+      "id": "sallyFromTheWalls",
+      "kind": "invention",
+      "art": "siege",
+      "name": "A sally from the walls",
+      "weight": 7,
+      "once": false,
+      "cooldown": 4,
+      "when": {
+        "island": {
+          "carthageArmy": {
+            "siege": true
+          }
+        }
+      },
+      "places": {
+        "town": {
+          "besiegedBy": "carthage",
+          "side": [
+            "syracuse",
+            "ally"
+          ]
+        }
+      },
+      "text": "Carthage's lines creep closer to the walls of {town} every day. The defenders say the enemy's siege works are badly guarded at night, and ask leave to sally out and burn them.",
+      "why": "Carthage's army is besieging {town}",
+      "choices": [
+        {
+          "id": "sally",
+          "label": "Sally out by night and burn the works",
+          "roll": {
+            "need": 4,
+            "mods": [
+              {
+                "label": "plague in their camp",
+                "value": 1,
+                "if": {
+                  "flag": {
+                    "carthagePlague": {
+                      "within": 2
+                    }
+                  }
+                }
+              },
+              {
+                "label": "their army is hungry",
+                "value": 1,
+                "if": {
+                  "island": {
+                    "carthageArmy": {
+                      "food": {
+                        "max": 0
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "success": {
+              "text": "The siege works burn, and the defenders come back with prisoners.",
+              "effects": [
+                {
+                  "siegeLines": "carthage",
+                  "by": -2,
+                  "why": "the works were burned"
+                },
+                {
+                  "armyMen": "carthage",
+                  "by": -1,
+                  "why": "a sally by night"
+                }
+              ]
+            },
+            "failure": {
+              "text": "The sally is caught in the open and cut to pieces before the gate.",
+              "effects": [
+                {
+                  "cityMen": "town",
+                  "by": -1,
+                  "why": "the sally failed"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "supply",
+          "label": "Run grain in by night to {town}",
+          "cost": {
+            "silver": 2
+          },
+          "effects": [
+            {
+              "cityGrain": "town",
+              "by": 2,
+              "why": "grain run in by night"
+            }
+          ]
+        },
+        {
+          "id": "hold",
+          "label": "Hold the walls and wait",
+          "default": true
+        }
+      ],
+      "invented": [
+        "all of it"
+      ]
+    },
+    {
+      "id": "talkOfSurrender",
+      "kind": "invention",
+      "art": "gate",
+      "name": "Talk of surrender",
+      "weight": 5,
+      "once": false,
+      "cooldown": 6,
+      "when": {
+        "island": {
+          "carthageArmy": {
+            "siege": true
+          }
+        }
+      },
+      "places": {
+        "town": {
+          "besiegedBy": "carthage",
+          "side": [
+            "syracuse",
+            "ally"
+          ],
+          "notId": [
+            "syracuse"
+          ],
+          "hasLeader": true
+        }
+      },
+      "roles": {
+        "leader": {
+          "census": "leader",
+          "of": "town"
+        }
+      },
+      "text": "In besieged {town}, {leader} says openly that Syracuse will not come, and that it is better to make terms with Carthage now than to be sold after a storm.",
+      "why": "{town} is besieged and no help has come",
+      "choices": [
+        {
+          "id": "promise",
+          "label": "Send word that your army is coming",
+          "if": {
+            "island": {
+              "yourArmy": true
+            }
+          },
+          "effects": [
+            {
+              "lean": "town",
+              "by": 1,
+              "why": "help is promised"
+            }
+          ]
+        },
+        {
+          "id": "silver",
+          "label": "Send silver to those who would hold out",
+          "cost": {
+            "silver": 2
+          },
+          "effects": [
+            {
+              "lean": "town",
+              "by": 1,
+              "why": "your silver strengthens the war party"
+            },
+            {
+              "cityMen": "town",
+              "by": 1,
+              "why": "men hired for the walls"
+            }
+          ]
+        },
+        {
+          "id": "letThem",
+          "label": "Let them decide",
+          "default": true,
+          "roll": {
+            "need": 3,
+            "mods": [
+              {
+                "label": "the town is nearly out of grain",
+                "value": -1,
+                "if": {
+                  "island": {
+                    "carthageArmy": {
+                      "siegeFor": {
+                        "min": 2
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "success": {
+              "text": "The assembly of {town} votes to hold out.",
+              "effects": []
+            },
+            "failure": {
+              "text": "{Leader} carries the assembly. {Town} opens its gates to Carthage.",
+              "effects": [
+                {
+                  "side": "town",
+                  "to": "tributary",
+                  "why": "it made terms with Carthage"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "invented": [
+        "all of it"
+      ]
+    },
+    {
+      "id": "wallsFallenDown",
+      "kind": "history",
+      "art": "walls",
+      "name": "Walls fallen down",
+      "weight": 4,
+      "once": false,
+      "cooldown": 8,
+      "when": {
+        "island": {
+          "war": true,
+          "carthageArmy": true
+        }
+      },
+      "places": {
+        "town": {
+          "side": [
+            "syracuse",
+            "ally",
+            "free"
+          ],
+          "walls": {
+            "max": 2
+          },
+          "carthageArmy": 6,
+          "besiegedBy": "none",
+          "notId": [
+            "syracuse"
+          ]
+        }
+      },
+      "text": "Carthage's army is close to {town}, whose old walls have fallen down in places. Some of its people are already carrying their wives, children and goods away to other towns. Others recall an old oracle and are sure that all will be well.",
+      "why": "Carthage's army is near {town}, and its walls are weak",
+      "choices": [
+        {
+          "id": "repair",
+          "label": "Pay to repair the walls in haste",
+          "cost": {
+            "silver": 2
+          },
+          "effects": [
+            {
+              "cityWalls": "town",
+              "by": 1,
+              "why": "the walls are patched in haste"
+            }
+          ]
+        },
+        {
+          "id": "men",
+          "label": "Send men from your guard to hold it",
+          "if": {
+            "guardStrength": {
+              "min": 2
+            }
+          },
+          "effects": [
+            {
+              "guard": "strength",
+              "by": -1,
+              "why": "men sent to {town}"
+            },
+            {
+              "cityMen": "town",
+              "by": 1
+            },
+            {
+              "lean": "town",
+              "by": 1,
+              "why": "you sent help"
+            }
+          ]
+        },
+        {
+          "id": "nothing",
+          "label": "Leave them to their oracle",
+          "default": true,
+          "history": true,
+          "effects": [
+            {
+              "cityMen": "town",
+              "by": -1,
+              "why": "families flee to other towns"
+            }
+          ]
+        }
+      ],
+      "source": "Diodorus 14.56.4 to 14.56.5",
+      "card": "docs/research/island-events.md",
+      "facts": [
+        {
+          "text": "At Messana, with Himilcon near, the walls had fallen down and there was no time to repair them; families and goods were sent to neighbouring cities.",
+          "cite": "Diodorus 14.56.4",
+          "quote": "their walls had fallen down and that the situation allowed no time for their repair. Consequently they removed from the city their children and wives and most valuable possessions to neighbouring cities",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        },
+        {
+          "text": "Others trusted an old oracle that Carthaginians would carry water in Messana.",
+          "cite": "Diodorus 14.56.5",
+          "quote": "Carthaginians must be bearers of water in",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        }
+      ],
+      "invented": [
+        "trigger (any weakly walled town near Carthage's army; the source tells it of Messana)",
+        "sending help",
+        "all numbers"
+      ]
+    },
+    {
+      "id": "fleetInTheHarbour",
+      "kind": "history",
+      "art": "warship",
+      "name": "Ships in the Great Harbour",
+      "weight": 6,
+      "when": {
+        "island": {
+          "carthageArmy": {
+            "at": "syracuse"
+          },
+          "ships": {
+            "min": 4
+          }
+        }
+      },
+      "text": "Carthage's fleet rows into the Great Harbour in order, oars flashing, decked with spoils taken from your ships. Behind it come the merchantmen in their hundreds. The whole city watches from the walls in dismay.",
+      "why": "Carthage's army and fleet have come to Syracuse",
+      "choices": [
+        {
+          "id": "walls",
+          "label": "Show yourself on the walls with your guard",
+          "effects": [
+            {
+              "mood": "citizens",
+              "by": 1,
+              "why": "you stand on the walls with them"
+            }
+          ]
+        },
+        {
+          "id": "fireShips",
+          "label": "Send fire-ships among them at night",
+          "cost": {
+            "slots": 1
+          },
+          "roll": {
+            "need": 5,
+            "mods": [
+              {
+                "label": "you hold the fleet yourself",
+                "value": 1,
+                "if": {
+                  "playerHolds": [
+                    "fleet"
+                  ]
+                }
+              }
+            ],
+            "success": {
+              "text": "Fire runs through the crowded anchorage.",
+              "effects": [
+                {
+                  "cShips": -2,
+                  "why": "ships burned in the harbour"
+                },
+                {
+                  "mood": "citizens",
+                  "by": 1
+                }
+              ]
+            },
+            "failure": {
+              "text": "The fire-ships are towed aside and burn out harmlessly.",
+              "effects": []
+            }
+          }
+        },
+        {
+          "id": "nothing",
+          "label": "Keep the gates shut",
+          "default": true,
+          "effects": [
+            {
+              "mood": "citizens",
+              "by": -1,
+              "why": "dismay at the sight of the enemy fleet"
+            }
+          ]
+        }
+      ],
+      "source": "Diodorus 14.62.2",
+      "card": "docs/research/island-events.md",
+      "facts": [
+        {
+          "text": "Himilcon's fleet, decked with spoils, entered the Great Harbour of Syracuse in order and dismayed the city.",
+          "cite": "Diodorus 14.62.2",
+          "quote": "Himilcon decked his ships with the spoils taken from the enemy and put in at the great harbour of the Syracusans, and he caused great dismay among the inhabitants of the city",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        }
+      ],
+      "invented": [
+        "trigger",
+        "the choices",
+        "all numbers (Diodorus' 250 warships and 3,000 merchantmen are not used)"
       ]
     }
   ]
