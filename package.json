@@ -15,7 +15,8 @@
     "dev": "vite",
     "walk": "node scripts/ui-walk.mjs",
     "replay-save": "node scripts/replay-save.ts",
-    "story-sweep": "node scripts/story-sweep.ts"
+    "story-sweep": "node scripts/story-sweep.ts",
+    "debrief": "node scripts/debrief.ts"
   },
   "engines": {
     "node": ">=22.18"
