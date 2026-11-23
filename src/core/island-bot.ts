@@ -4,6 +4,7 @@ import { PLAYER, holds } from "./state.ts";
 import { NODES, battleMods, carthageArmy, city, friendly, path, reachable, yourArmy, cityWalls } from "./island.ts";
 import type { Args, GameState } from "./types.ts";
 import { townHold } from "./secrets.ts";
+import { commanderOptions, commissionOn, keeperOptions } from "./commission.ts";
 
 export interface IslandChoice { a: string; args?: Args; min?: number }
 
@@ -21,7 +22,7 @@ function edge(s: GameState, ya: NonNullable<ReturnType<typeof yourArmy>>, ca: No
 
 export function islandChoices(s: GameState, style: IslandStyle = {}): IslandChoice[] {
   const out: IslandChoice[] = [];
-  if (!s.island || !holds(s, PLAYER, "generalship")) return out;
+  if (!s.island || (!holds(s, PLAYER, "generalship") && !commissionOn(s))) return out;
   const isl = s.island;
   const ya = yourArmy(s);
   const ca = carthageArmy(s);
@@ -30,7 +31,7 @@ export function islandChoices(s: GameState, style: IslandStyle = {}): IslandChoi
   if (!ya) {
     const wantWar = isl.war && ca;
     const wantSpoils = !isl.war && s.silver >= 7 && s.grain >= 6 && !danger && s.season >= 6;
-    if (wantWar || wantSpoils) out.push({ a: "muster", args: { second: danger || s.guard.strength < 3 ? "levy" : "guard" } });
+    if (wantWar || wantSpoils) out.push({ a: "muster", args: { second: danger || s.guard.strength < 3 ? "levy" : "guard", ...(commissionOn(s) ? leaderArgs(s, danger) : {}) } });
     for (const n of NODES) {
       const c = city(s, n.id);
       // Switch "secrets": send spies first, so the embassy can lean on its first man (the action is in the menu only with the switch).
@@ -57,4 +58,16 @@ export function islandChoices(s: GameState, style: IslandStyle = {}): IslandChoi
   if (!isl.war && !ya.siege && friendly("syracuse", city(s, ya.at).side) && (ya.food <= 0 || s.silver <= 2)) out.push({ a: "disband" });
   if (!ya.siege && ya.food <= 0 && ya.at !== "syracuse" && near("syracuse")) out.push({ a: "sendArmy", args: { target: "syracuse", second: "spare" } });
   return out;
+}
+
+// Switch "commission": with a plot at Rumors or worse, send the most loyal man who will go (the general first);
+// otherwise lead in person and leave the citadel to the most loyal keeper you know of.
+function leaderArgs(s: GameState, danger: boolean): Args {
+  const men = commanderOptions(s).filter((o) => o.value !== PLAYER).map((o) => s.people[o.value])
+    .filter((p) => p.opinion >= 1 && !s.plots.some((pl) => pl.known.includes(p.id)))
+    .sort((a, b) => (b.id === s.offices.generalship ? 1 : 0) - (a.id === s.offices.generalship ? 1 : 0) || b.opinion - a.opinion);
+  if (danger && men[0]) return { target: men[0].id };
+  const keepers = keeperOptions(s, { target: PLAYER }).map((o) => s.people[o.value])
+    .filter((p) => !s.plots.some((pl) => pl.known.includes(p.id))).sort((a, b) => b.opinion - a.opinion);
+  return { target: PLAYER, option: keepers[0]?.id ?? keeperOptions(s, { target: PLAYER })[0]?.value };
 }

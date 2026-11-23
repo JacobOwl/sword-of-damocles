@@ -1,0 +1,56 @@
+{
+  "note": "Switch \"commission\" (off by default; island games only): when you muster the army you choose who leads it, yourself or a named man. If you go, you name a keeper of the citadel, plots at home get easier while you are away, and the keeper's loyalty enters your defense. A man you send comes home popular if he wins. Every price is shown before you muster. The pattern is in the sources below; every rule and number here is invention.",
+  "kind": "invention",
+  "knobs": {
+    "awayPlot": 1,
+    "armedPlot": 1,
+    "inPerson": 1,
+    "keeperLoyal": 1,
+    "keeperSour": -1,
+    "keeperFalse": -2,
+    "keeperGone": -1,
+    "keeperInfluence": 1,
+    "unlawfulMood": -1,
+    "homeGlory": 1,
+    "homeShame": -1,
+    "heroInfluenceMax": 2,
+    "heroPower": 1
+  },
+  "commanders": ["leptines", "thearides", "polyxenus", "heloris", "hipparinus", "philistus", "theodorus", "nicoteles", "aristotle", "doricus", "guardCaptain", "biton", "archylus", "demarchusBrother", "damon", "andron"],
+  "keepers": ["andron", "leptines", "thearides", "polyxenus", "heloris", "philistus", "hipparinus", "doricus", "aristotle", "biton", "guardCaptain"],
+  "sources": [
+    {
+      "id": "ledInPerson", "kind": "history", "name": "Dionysius led his army in person",
+      "source": "Diodorus 14.72.1; 14.95.3", "card": "docs/research/commission.md",
+      "facts": [
+        { "cite": "Diodorus 14.72.1", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "while he himself, profiting by a moonless night, made a circuit with his army" },
+        { "cite": "Diodorus 14.95.3", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "speedily collected as many Syracusans and mercenaries as he could and set forth" }
+      ]
+    },
+    {
+      "id": "keeperAndron", "kind": "history", "name": "Andron keeps the fortress while the ruler is away",
+      "source": "Polyaenus, Stratagems 5.2.4", "card": "docs/research/commission.md",
+      "facts": [
+        { "cite": "Polyaenus 5.2.4", "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt", "quote": "When Dionysius left on a foreign expedition, he left Andron in charge of the fortress and the treasury" },
+        { "cite": "Polyaenus 5.2.4", "file": "sources/sicily-tyrants/polyaenus-book5.shepherd.txt", "quote": "Hermocrates advised Andron to seize both of these, while Dionysius was absent" }
+      ]
+    },
+    {
+      "id": "armedCitizens", "kind": "history", "name": "Syracusans armed for the war turn on the tyrant",
+      "source": "Diodorus 14.45.5; 14.64.3 to 14.64.4", "card": "docs/research/commission.md",
+      "facts": [
+        { "cite": "Diodorus 14.45.5", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "they hoped that once they had got weapons in their hand, they could strike for their liberty" },
+        { "cite": "Diodorus 14.64.3", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "without his presence, had won a victory over the Carthaginians, they were now puffed up with pride" },
+        { "cite": "Diodorus 14.64.4", "file": "sources/diodorus/english/book14.loeb.txt", "quote": "now because of the war they had weapons at their command" }
+      ]
+    },
+    {
+      "id": "houseSacked", "kind": "history", "name": "Syracuse's cavalry sacked the absent Dionysius' house",
+      "source": "Diodorus 13.112.3 to 13.112.4", "card": "docs/research/commission.md",
+      "facts": [
+        { "cite": "Diodorus 13.112.3", "file": "sources/diodorus/english/book13.loeb.txt", "quote": "they rode off with one accord to Syracuse" },
+        { "cite": "Diodorus 13.112.4", "file": "sources/diodorus/english/book13.loeb.txt", "quote": "plundered the house of Dionysius which was filled with silver and gold" }
+      ]
+    }
+  ]
+}

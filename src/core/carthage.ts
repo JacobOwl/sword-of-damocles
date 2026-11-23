@@ -243,11 +243,12 @@ function intercept(s: GameState, a: Army) {
   if (!friend) return;
   const die = d6(s);
   const who = f === PLAYER ? "Your fleet" : `${capital(nameOf(s, f))}'s ships`;
-  if (die >= 5) {
-    event(s, f, `${who} fall on the transports at sea (rolled ${die}, needs 5).`, "the fleet watches the crossing");
+  const need = s.works?.fleet ? 4 : 5; // switch "greatWorks": the great fleet watches the crossing in strength
+  if (die >= need) {
+    event(s, f, `${who} fall on the transports at sea (rolled ${die}, needs ${need}).`, s.works?.fleet ? "the great fleet watches the crossing" : "the fleet watches the crossing");
     loseMen(s, a, Math.ceil(a.men / 4), "transports sunk at sea");
     count(s, "intercepts");
-  } else log(s, { actor: f, text: `${who} miss the crossing (rolled ${die}, needs 5).`, why: "the fleet watches the crossing", visible: true, kind: "roll" });
+  } else log(s, { actor: f, text: `${who} miss the crossing (rolled ${die}, needs ${need}).`, why: "the fleet watches the crossing", visible: true, kind: "roll" });
 }
 
 // ---------- Carthage's general ----------

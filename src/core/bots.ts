@@ -286,7 +286,7 @@ const careless: Bot = {
 };
 
 import { IMPL } from "./actions.ts";
-const menuTargets = (s: GameState, a: string) => IMPL[a]?.target?.(s).map((o) => o.value);
+const menuTargets = (s: GameState, a: string) => IMPL[a]?.target?.(s)?.map((o) => o.value);
 const secondTargets = (s: GameState, a: string, args: Args) => IMPL[a]?.second?.(s, args).map((o) => o.value) ?? [];
 
 export const BOTS: Bot[] = [careful, patron, tyrant, careless];
@@ -299,7 +299,7 @@ export function playSeason(s: GameState, bot: Bot, r: () => number) {
   while (s.slots > 0 && !s.over && guard++ < 12) {
     let done = false;
     for (const c of bot.choices(s, r)) {
-      const key = `${c.a}:${c.args?.target ?? ""}:${c.args?.second ?? ""}`;
+      const key = `${c.a}:${c.args?.target ?? ""}:${c.args?.second ?? ""}:${c.args?.option ?? ""}`;
       if (tried.has(key) && !["buyGrain", "build"].includes(c.a)) continue;
       const pv = preview(s, c.a, c.args ?? {});
       if (!pv.ok) continue;

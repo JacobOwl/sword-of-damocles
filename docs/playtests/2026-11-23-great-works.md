@@ -37,4 +37,4 @@ Citadel: careful 70% / 71% full decade, patron 35% / 43%, tyrant 5% / 3%, carele
 - **The careless bot begins works and starves them.** It picks actions at random, so it begins works it can't pay for; 592 seasons of downed tools in 100 games. It is a floor, not a player, but it shows that an unpaid work nags every season until halted.
 - **The tyrant bot almost never builds**: it rarely has 8 silver to spare.
 - Killed and exiled shares move a few points for the careful bot, inside what 100 seeds can tell apart. No pattern is claimed.
-- The fleet's interception bonus is not built (see `docs/handoff.md`), so for now the fleet gives only grain and Carthage's anger.
+- The fleet's sea bonus (interception needs 4, no blockade of your ports) was added after these counts; the 100-seed sweep was rerun with it: 0 crashes, 0 broken states.

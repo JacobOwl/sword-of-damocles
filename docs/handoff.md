@@ -9,16 +9,21 @@ Only these two need Jacob. Every other question below defaults to what the game 
 
 ## Built by the great-works thread (23, 2026-11-23): bet B4, a switch, off by default, Workshop page only
 - **Switch "Great works"** (`greatWorks`, marked `workshop: true`): three works built over seasons, the Epipolae wall (1 season), the arms workshops (3) and the great fleet (3). You choose whose labour (peasants who miss the summer harvest and resent it, hired men, craftsmen of your cities who anger your allies, from Italy and Greece at high wages, or lured from Carthage's lands, a season faster and Carthage's anger +1 a season) and who is set over it (yourself at one action a season and a season faster; a hired foreman; or a man whose faction warms to you and who gains standing when it is done, and who skims silver if he hates you: the accounts show the loss, a hidden log line names him). Unpaid men down tools; two seasons unpaid loses a season's work. Two works at once at most; a work can be halted and taken up again.
-- **What they give:** walls +1 (the existing `walls`), engines +1 to storm walls (the existing `armed` flag), guard strength +1, Syracuse's defenders +1, and the fleet's 2 months of grain each autumn. The arms add 1 to Carthage's anger when done, the fleet 2. Timber comes from Mount Aetna if Aetna and Catana are not hostile, else from Italy at 1 silver more a season.
+- **What they give:** walls +1 (the existing `walls`), engines +1 to storm walls (the existing `armed` flag), guard strength +1, Syracuse's defenders +1, and the fleet's 2 months of grain each autumn; with the fleet, the interception roll needs 4 instead of 5 and Carthage cannot blockade a besieged port of yours (two guarded lines in `carthage.ts` and `island.ts`, added after the island stream merged). The arms add 1 to Carthage's anger when done, the fleet 2. Timber comes from Mount Aetna if Aetna and Catana are not hostile, else from Italy at 1 silver more a season.
 - With the switch on, Build no longer offers the plain wall, and the events "The Epipolae wall" and "The arms workshops" are not drawn (the works take their place).
 - Files: `src/core/works.ts`, `data/works.json`, three actions in `data/actions.json`, `ui/views/works.ts` (a "The works" tab, only with the switch), `tests/works.test.ts`, `docs/research/great-works.md`, `sources/diodorus/book14-works.loeb.excerpts.txt`, `docs/playtests/2026-11-23-great-works.md`. One-line hooks, all guarded by the switch: `season.ts` (the season's work, after the island), `bots.ts` (the bots' choices), `events.ts` (the two events skipped), `actions.ts` (the menu, the wall out of Build), `shell.ts` (the tab).
 - **Workshop switches:** a switch marked `workshop: true` is hidden from the start screen unless a Workshop page's entry file lists it in `__WORKSHOP` (`ui/works-main.ts`, built with `npm run build -- --page works`); then it shows ticked beside each preset. The test link never shows it. Other bets can use the same mark.
 - Results: 0 crashes and 0 broken states over 100 seeds, both scenarios, four bots, on and off; the default and preset digests unchanged. Counts in `docs/playtests/2026-11-23-great-works.md`.
 
 ## Questions from the great-works thread
-- **Not built yet, waiting for stream 3 to merge:** the fleet should make the interception roll easier (needs 4 instead of 5) and break Carthage's blockade of Syracuse; both rules live in `carthage.ts`/`island.ts`, which the island stream owns until it merges. Until then the fleet gives grain and anger only.
 - Taste, Jacob's: should overseeing a work yourself cost an action every season (as now), or only once? Should the peasants resent the wall (as now) even though Diodorus says "all were zealous" (14.18.6)? Is two works at once right?
 - Should the citadel on the Island (14.7.2-3) also become a great work, instead of the two-action Build? Left as it is.
+## Built by the test-build thread (19, 2026-11-23), streams 2 and 3: the ten-season read and early pacing
+- **Ten-season counts:** `npm run sim -- --preset firstIslandTest --bot careful --upto 10` stops every game after ten seasons. `npm run story-sweep -- --seeds 20` writes one file per seed (turning points, then the chronicle) to `docs/playtests/ten-seasons/`.
+- **Report:** `docs/playtests/2026-11-23-ten-seasons.md`. 7 of 20 seeds would be retold, 13 are flat. Ranked failures: the same opening every seed, arrests that end stories, plots that rarely reach the blow in ten seasons, a one-event-deep early map, a repetitive chronicle.
+- **Early pacing:** three sourced peacetime island events (Diodorus 14.14 to 14.15): "A general's offer", "A herald before the walls", "A man who would be tyrant". Island events in seasons 1 to 10 went from 0.44 to 2.70 a game (careful bot). Card: `docs/research/island-events.md`.
+- **Fixed:** court matters stayed open after Carthage stormed Syracuse; the informer's line now names the man.
+- **Open, for Jacob:** the same-opening and arrest findings are design questions, not bugs; nothing tuned.
 
 ## Built by the test-build thread (19, 2026-11-23), stream 1: the first island test
 - **"First island test"** (`data/presets.json`, `src/core/presets.ts`): the first choice on the start screen, selected and marked recommended, with a one-line list of the rules it turns on and a "What to watch for" fold. "Set it up yourself" keeps the old choices. Standard stays the engine default. A game remembers its preset by name only (`s.preset`), so it replays from its options; switches a later thread marks `"besidePreset": true` in `data/switches.json` appear as unticked boxes marked new beside the preset (for the army switch, stream 5).
@@ -28,6 +33,25 @@ Only these two need Jacob. Every other question below defaults to what the game 
 - **Fixed:** with "Chronicle as story" on, every season's logged chronicle read "A quiet season." (the chronicle step told the season before). The chronicle view was right; the logged text, the season card's source and `fullChronicle` were not.
 - Tests: `tests/presets.test.ts` pins the preset's digest (careful bot, seeds 1 to 10). Re-pin only with a line in `docs/decisions.md`.
 - Note for Jacob: `docs/playtests/first-island-test.md`.
+
+## Built by the army thread (20, 2026-11-23), stream 5: lead the army yourself (switch, off by default)
+- **Switch `commission`, "Lead the army yourself"** (`data/commission.json`, `src/core/commission.ts`, card `docs/research/commission.md`, tests `tests/commission.test.ts`). Island games only. Offered as an unticked box marked new beside the First island test preset (via stream 1's `besidePreset`), and in the rule switches list. Not inside the preset.
+- **The muster asks who leads it:** you, the general, or a named man from the real cast. If you go, it asks for a **keeper of the citadel**. Under the choices the screen lists every price before you commit.
+- **While you are away:** every plot gains 1; your keeper adds 1 to your defense if he thinks 2 or more of you, 0 if lukewarm, -1 if sour, -2 if he is in a plot, -1 if he is gone. You fight 1 better in person. A keeper gets 1 influence while he holds the keys.
+- **The levy arms the citizens:** while the army is out, a plot with a citizen in it gains 1 (Diodorus 14.45.5, 14.64.4).
+- **You can raise and order the army without the generalship** with the switch on, but passing over the elected general is unlawful: the citizens' mood falls 1 and the general thinks 1 less of you.
+- **Homecoming is a logged step** when the army disbands or is destroyed: the tally (battles won and lost, towns taken). You: a victory raises the citizens' mood 1, a beaten return lowers it 1. A man you sent: a victory gives him influence (1 a win or town, up to 2) and his faction 1 power; a defeat costs him 1 influence. A keeper who joined a plot is seen when you come home (Polyaenus 5.2.4, Andron).
+- **Small engine additions:** actions can now have a third choice (`args.option`), a label for the target, and a list of prices (`notes`); `Person.where` ("field"); `GameState.campaign`. The muster's target list is empty without the switch, so the default game is unchanged (digests untouched).
+- **Numbers** (100 seeds each, island, First island test preset; without the switch, then with it):
+  - careful: games ended early 5 to 12 (8 of them while you were away); campaigns 1.5 a game, led in person 1.4, sent a man 0.1; unlawful commands 0.65; victors' homecomings 0.46; towns taken 1.6 to 2.5.
+  - patron: ended early 15 to 17; campaigns 1.3; unlawful 1.1.
+  - simple: ended early 92 to 95. 0 crashes, 0 broken states in every run.
+- **Checks:** 101 of 101 tests; 100-seed runs (citadel and island) 0 crashes, 0 broken states; 363 quotes checked, 0 not found.
+
+## Questions from the army thread
+- The bots almost always lead in person and rarely send a man; more of your falls now happen while you are away. Is absence too cheap, too dear, or about right? (Report only: not tuned.)
+- Unlawful commands are common for the bots, because the assembly often takes the generalship from you. Should passing over the general cost more, or less?
+- Not built, parked in `docs/later.md`: a purpose for each command (take, garrison, negotiate), a disloyal commander turning his army on you, and petitions going unanswered while you are away.
 
 ## Next for the build (from the same council)
 Build the "First island test" preset (listed first on the start screen), the season-10 verdict prompt, and a short "what to watch" note; measure map events in seasons 1 to 10 over 100 seeds. Fixes and the test pass before new features.
@@ -366,3 +390,16 @@ UI only: no file in `src/core/` or `data/` changed, so the rules and the 100-see
 - Is the drift toward 5 the right fix for runaway faction power, or should agenda steps stop adding power?
 - The open questions in rules v2 still stand (three actions, steady income, conquest, the absent-holder rule, rival caps, dinners).
 - **Cast questions.** Who married Dionysius' sister: Diodorus and Plutarch say Polyxenus, Polyaenus a Hermocrates (the data follows the first two and shows the disagreement). Theodorus is attested only in about 396 but is in from the start, so the rich families have a voice for liberty: keep? Damon the smith is invented to speak for the citizens after Nicoteles: rename or cut?
+
+## Built by the dinners thread (24, bet B5, 2026-11-23)
+- **Switch "Dinners as the stage"** (off by default, not in any preset). It adds a new action, **Give a dinner**: you choose the couch beside yours, 2 to 4 other guests, and the wine (well watered, mixed as usual, or strong). The dinner has its own panel inside the action list (`ui/views/dinner.ts`). The panel shows only what you already know about the table: who holds the couch and who would take losing it badly, friends and quarrels from earlier dinners, men who want the same office, and enemies the guards will want to search. A "Suggest a table" button fills it in.
+- **The couch of honour** is a power object. Its holder gets +1 influence. The man who loses it thinks less of you, and holds a grudge if he is proud, vengeful or a political rival.
+- **15 moments** in three parts of the evening, cast only from the guests. **4 of them put a choice to you** under "Matters before you": an insult, someone taking the couch, "the bravest man alive", and the search at the door. Three moments are sourced from Plutarch, *Dion* 9; the rest are invention. Friendships and quarrels last: a plotter recruits his table friends first (+1), and never a man he quarrelled with there.
+- Files: `data/dinners.json`, `src/core/dinner.ts`, `ui/views/dinner.ts`, `scripts/dinner-sweep.ts`, `tests/dinner.test.ts`, the card `docs/research/dinners.md`, and the report `docs/playtests/2026-11-23-dinners.md`.
+- Small hooks in shared files: `events.ts` (the table's choices are chained events; dinner effects; `fireNow`), `ai.ts` (recruiting order and the bot's dinners), `actions.ts`, `types.ts`, `index.ts`, and `ui/views/season.ts` (4 lines: the panel and its clicks). The default and preset digests are unchanged, and the tests pass.
+- **Changed:** nothing outside the switch.
+- **Broke:** nothing found. 100 seeds in each scenario: 0 crashes, 0 broken states, with the switch on and off.
+- **Questions for Jacob:**
+  - Should wives and sisters (Aristomache, Theste) be possible guests? The game allows it. The saved texts say nothing either way, and a source check is parked.
+  - Should the plain feast stay beside the dinner, or should the dinner replace it when the switch is on?
+  - Rival hosts: should plotters and Pretenders give dinners of their own, which your watchers could report? Parked in `later.md`.

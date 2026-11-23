@@ -68,4 +68,4 @@ All of it except the works themselves and the facts quoted above:
 - Allies resenting commandeered craftsmen, and Carthage's anger at the craftsmen lured from its lands and at the finished arms and fleet. Diodorus does not say how Carthage heard of the works.
 - An overseer who is no friend of yours skimming the silver; an overseer's faction pleased; the overseer gaining standing when the work is done (14.41.4 says only that the leading citizens were set over the workmen).
 - What each work gives: walls +1; engines +1 to storm walls (the existing "armed" flag); guard strength +1; Syracuse's own defenders +1; the fleet's 2 months of grain each autumn.
-- The fleet's effect on Carthage's crossing (the interception roll) is not built yet: the roll is in `src/core/carthage.ts`, which a test-build stream owns until it merges. See `docs/handoff.md`.
+- The fleet's effect at sea: your interception roll against Carthage's transports needs 4 instead of 5, and Carthage's ships can no longer blockade a besieged port of yours. Diodorus' fleet "double his in number" (14.50.4) is the warrant; the numbers are invention.

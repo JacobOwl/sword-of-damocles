@@ -52,6 +52,7 @@ export interface Person {
   asks?: Record<string, { stage: number; last: number }>; // switch "escalation": how far each petition has gone
   pastRivalries?: number; // switch "escalation": times he was your rival before
   feud?: Feud; // switch "feud": his one record with you, never deleted
+  where?: "field"; // switch "commission": away with the army (missing = in the city, or wherever his status says)
 }
 
 // Switch "feud" (design council V6): one dated record per person with you.
@@ -215,6 +216,17 @@ export interface CarthageState {
   offer: number; // season it last offered peace (-1 never)
   revolt: boolean;
 }
+// Switch "commission": who leads the army in the field, who keeps the citadel, and the tallies at the start, for the homecoming.
+export interface Campaign {
+  army: string; // the army's id
+  leader: string; // PLAYER (you went yourself) or a person id
+  keeper?: string; // who keeps the citadel while you are away
+  since: number;
+  lawful: boolean; // led by the holder of the generalship (or sent by you as general)
+  armed: boolean; // the citizens' levy marched
+  won0: number; lost0: number; taken0: number; // counters at the muster
+  lost?: boolean; // the named leader died or fled while away
+}
 export interface IslandState { cities: Record<string, CityState>; armies: Army[]; war: boolean; warSince: number; carthage: CarthageState; sacks?: string[] } // sacks: the cities you sacked, in order
 
 export interface GameState {
@@ -260,5 +272,7 @@ export interface GameState {
   census?: import("./census.ts").Census; // the generated cast of invented people (island games only)
   secrets?: SecretsState; // switch "secrets"
   council?: CouncilState; // switch "council"
+  campaign?: Campaign; // switch "commission": the army in the field and who leads it
+  dinners?: import("./dinner.ts").DinnerState; // switch "dinners"
   works?: import("./works.ts").WorksState; // switch "greatWorks"
 }

@@ -40,7 +40,7 @@
     {
       "id": "fleet", "kind": "history", "name": "The great fleet",
       "source": "Diodorus 14.41.3, 14.42.2 to 14.42.5, 14.43.4", "card": "docs/research/great-works.md",
-      "summary": "Timber from Mount Aetna and Italy, ship-sheds round the Great Harbour, and ships of five banks of oars, the first ever built. When done, the fleet brings grain each autumn and holds the sea against Carthage.",
+      "summary": "Timber from Mount Aetna and Italy, ship-sheds round the Great Harbour, and ships of five banks of oars, the first ever built. When done, the fleet brings grain each autumn, catches Carthage's transports more often (5 or 6 becomes 4 to 6), and Carthage's ships can no longer starve your besieged ports.",
       "labour": "craftsmen", "seasons": 3, "silver": 3, "grain": 0,
       "timber": true,
       "done": [ { "fleet": true }, { "anger": 2, "why": "ships of five banks ride in the Great Harbour of Syracuse" } ],

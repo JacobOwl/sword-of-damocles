@@ -4517,6 +4517,338 @@
         "the choices",
         "all numbers (Diodorus' 250 warships and 3,000 merchantmen are not used)"
       ]
+    },
+    {
+      "id": "generalOffersTheGate",
+      "kind": "history",
+      "art": "letter",
+      "name": "A general's offer",
+      "weight": 5,
+      "once": false,
+      "cooldown": 10,
+      "when": {
+        "island": {
+          "war": false,
+          "yourArmy": false
+        }
+      },
+      "places": {
+        "town": {
+          "side": [
+            "free"
+          ],
+          "hasLeader": true
+        }
+      },
+      "roles": {
+        "traitor": {
+          "census": "leader",
+          "of": "town"
+        }
+      },
+      "text": "A slave comes to you by night from {town}. {Traitor}, who leads its men, will help you to the town if the price is right: great promises, and the safety of his kin.",
+      "why": "the peace leaves you free to look at your neighbours, and {traitor} has seen which way the island is going",
+      "choices": [
+        {
+          "id": "pay",
+          "label": "Send him silver and your promise",
+          "history": true,
+          "cost": {
+            "silver": 1
+          },
+          "effects": [
+            {
+              "lean": "town",
+              "by": 3,
+              "why": "its first man is in your pay"
+            }
+          ],
+          "text": "{Traitor} takes the silver. {town} now leans your way: if your army comes within reach, its gates may open."
+        },
+        {
+          "id": "refuse",
+          "label": "Send the slave home with nothing",
+          "default": true,
+          "effects": []
+        }
+      ],
+      "source": "Diodorus 14.14.1, 14.15.1 to 14.15.2",
+      "card": "docs/research/island-events.md",
+      "facts": [
+        {
+          "text": "After the peace, Dionysius wanted the neighbouring Chalcidian cities.",
+          "cite": "Diodorus 14.14.1",
+          "quote": "was eager to attach to himself the neighbouring cities of the Chalcidians, namely, Naxos, Catanê, and Leontini",
+          "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+        },
+        {
+          "text": "Catana's general offered to betray the city to him.",
+          "cite": "Diodorus 14.15.1",
+          "quote": "for Arcesilaüs, the general of the Catanians, had offered to betray the city to him",
+          "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+        },
+        {
+          "text": "Naxos was handed over by its commander, won over by great promises.",
+          "cite": "Diodorus 14.15.2",
+          "quote": "Procles, the commander of the Naxians, on being won over by great promises, delivered over his native city to Dionysius",
+          "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+        }
+      ],
+      "invented": [
+        "trigger (any free town with a first man, in peacetime, while your army is at home)",
+        "the traitor is the town's first man from the generated cast",
+        "the town leaning your way instead of a set night",
+        "all numbers"
+      ]
+    },
+    {
+      "id": "heraldBeforeTheWalls",
+      "kind": "history",
+      "art": "herald",
+      "name": "A herald before the walls",
+      "weight": 6,
+      "once": false,
+      "cooldown": 8,
+      "when": {
+        "island": {
+          "war": false,
+          "yourArmy": {
+            "siege": false,
+            "men": {
+              "min": 2
+            }
+          }
+        }
+      },
+      "places": {
+        "town": {
+          "side": [
+            "free",
+            "tributary"
+          ],
+          "yourArmy": 6
+        }
+      },
+      "text": "Your army stands within reach of {town}. You have no engines for a siege. Your officers say a herald might do what engines cannot: draw the army up in battle order where they can see it, and order {town} to hand over the city and take citizenship in Syracuse.",
+      "why": "your army is in the field within reach of {town}",
+      "choices": [
+        {
+          "id": "herald",
+          "label": "Send the herald",
+          "history": true,
+          "roll": {
+            "need": 5,
+            "mods": [
+              {
+                "label": "a town has been sacked",
+                "value": 1,
+                "if": {
+                  "flag": {
+                    "sacked": true
+                  }
+                }
+              }
+            ],
+            "success": {
+              "text": "{town} expects no help. Its people look at your lines, assent, and open their gates.",
+              "effects": [
+                {
+                  "takeCity": "town"
+                },
+                {
+                  "fear": "town",
+                  "by": 1
+                }
+              ]
+            },
+            "failure": {
+              "text": "{town} pays no attention to your herald and makes every preparation to stand a siege.",
+              "effects": [
+                {
+                  "lean": "town",
+                  "by": -1,
+                  "why": "they were ordered to give up their city"
+                },
+                {
+                  "cityMen": "town",
+                  "by": 1,
+                  "why": "they arm for a siege"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "plunder",
+          "label": "Plunder their fields instead",
+          "history": true,
+          "effects": [
+            {
+              "grain": 1
+            },
+            {
+              "lean": "town",
+              "by": -2,
+              "why": "you plundered their land"
+            },
+            {
+              "fear": "town",
+              "by": 1
+            }
+          ],
+          "text": "Your men strip the farms around {town} and drive the cattle home."
+        },
+        {
+          "id": "leave",
+          "label": "Leave them be",
+          "default": true,
+          "effects": []
+        }
+      ],
+      "source": "Diodorus 14.14.3 to 14.14.4, 14.15.4",
+      "card": "docs/research/island-events.md",
+      "facts": [
+        {
+          "text": "At Leontini Dionysius drew up his army and sent a herald ordering the city to surrender.",
+          "cite": "Diodorus 14.14.3",
+          "quote": "he at first led out his army in battle-order and dispatched a herald to the Leontines, commanding them to surrender the city",
+          "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+        },
+        {
+          "text": "The Leontines refused; with no engines, he gave up the siege and plundered their land.",
+          "cite": "Diodorus 14.14.4",
+          "quote": "Dionysius, having no engines of war, gave up the siege for the time being, but plundered their entire territory",
+          "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+        },
+        {
+          "text": "Later, ordered to hand over their city and take Syracusan citizenship, and fearing the fate of Naxos and Catana, the Leontines gave in.",
+          "cite": "Diodorus 14.15.4",
+          "quote": "he ordered them to hand over their city and enjoy citizenship in Syracuse",
+          "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+        }
+      ],
+      "invented": [
+        "trigger (any free or tributary town within six days of your army, in peacetime)",
+        "the odds, and the bonus once you have sacked a town",
+        "the grain from plunder",
+        "all numbers"
+      ]
+    },
+    {
+      "id": "tyrantOfEnna",
+      "kind": "history",
+      "art": "letter",
+      "name": "A man who would be tyrant",
+      "weight": 4,
+      "once": true,
+      "when": {
+        "island": {
+          "war": false,
+          "yourArmy": {
+            "men": {
+              "min": 2
+            }
+          }
+        }
+      },
+      "places": {
+        "town": {
+          "side": [
+            "free",
+            "tributary"
+          ],
+          "hasLeader": true,
+          "yourArmy": 8
+        }
+      },
+      "roles": {
+        "climber": {
+          "census": "leader",
+          "of": "town"
+        }
+      },
+      "text": "While your army is in the field near {town}, {climber} comes to your camp. He would make himself master of {town}, if you will back him, and he swears it will be your friend.",
+      "why": "your army is near {town}, and {climber} sees a chance",
+      "choices": [
+        {
+          "id": "back",
+          "label": "Back him with silver",
+          "history": true,
+          "cost": {
+            "silver": 1
+          },
+          "roll": {
+            "need": 4,
+            "mods": [],
+            "success": {
+              "text": "{climber} seizes {town}. For now he keeps his word.",
+              "effects": [
+                {
+                  "side": "town",
+                  "to": "ally"
+                }
+              ]
+            },
+            "failure": {
+              "text": "{climber} takes {town}, then shuts its gates in your face. Other towns hear how your friends keep faith.",
+              "effects": [
+                {
+                  "lean": "town",
+                  "by": -2,
+                  "why": "a tyrant you set up shut his gates on you"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "betray",
+          "label": "Tell the people of {town} what he plans",
+          "history": true,
+          "effects": [
+            {
+              "lean": "town",
+              "by": 2,
+              "why": "you gave a would-be tyrant up to them"
+            }
+          ],
+          "text": "The people of {town} stream into their market with their arms and deal with {climber} themselves. They remember who warned them."
+        },
+        {
+          "id": "no",
+          "label": "Send him away",
+          "default": true,
+          "effects": []
+        }
+      ],
+      "source": "Diodorus 14.14.6 to 14.14.8",
+      "card": "docs/research/island-events.md",
+      "facts": [
+        {
+          "text": "Near Enna, Dionysius persuaded a citizen, Aeimnestus, to bid for tyranny with his help.",
+          "cite": "Diodorus 14.14.6",
+          "quote": "he persuaded Aeimnestus, a native of the city, to make a bid for tyranny, promising to aid him in the undertaking",
+          "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+        },
+        {
+          "text": "Once in power, Aeimnestus did not let Dionysius in; Dionysius turned the Ennaeans against him.",
+          "cite": "Diodorus 14.14.7",
+          "quote": "did not admit Dionysius into the city, Dionysius in anger changed sides and urged the Ennaeans to overthrow the tyrant",
+          "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+        },
+        {
+          "text": "He did it to make other cities trust him.",
+          "cite": "Diodorus 14.14.8",
+          "quote": "because he wanted to encourage the other cities to put faith in him",
+          "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+        }
+      ],
+      "invented": [
+        "trigger (any free or tributary town near your army, in peacetime; Enna is not on the map)",
+        "the would-be tyrant is the town's first man from the generated cast, and he comes to you rather than you to him",
+        "the odds",
+        "all numbers"
+      ]
     }
   ]
 }
