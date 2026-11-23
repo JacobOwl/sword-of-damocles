@@ -244,3 +244,6 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 
 ## 2026-11-23 (a proper web app, step 3: thread 17)
 - **The UI is laid out as `ui/app/`, `ui/views/`, `ui/components/`, `ui/lib/` and `ui/styles/`**, and `ui/main.ts` only starts the app. Why: one 470-line file held every screen and every click; now a screen lives in its own file. Done in one step while no other thread had UI work open, so the moves happened once.
+
+## 2026-11-23 (the ball-game killings, thread 07)
+- **Kept as harsh as Cicero tells, with a cost.** The coordinator decided on Jacob's "You decide". Killing both men lowers the mood of the family and of the rich families, makes plots harder through fear, and turns any living kin of the dead into Bereaved enemies. Tested in `tests/events.test.ts`.
