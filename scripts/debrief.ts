@@ -45,9 +45,9 @@ let rec: Recorded;
 const file = argv.find((a, i) => !a.startsWith("--") && !(i > 0 && argv[i - 1].startsWith("--")));
 if (file) {
   const raw = JSON.parse(readFileSync(file, "utf8"));
-  const v = raw.game ?? raw; // accept { game: {...} } wrappers too
+  const v = raw && typeof raw.game === "object" ? raw.game : raw; // "Copy my game" text, a browser save, or { game: {...} }
   if (typeof v.seed !== "number" || !Array.isArray(v.inputs)) throw new Error("a save needs a seed and a list of inputs");
-  rec = { seed: v.seed, tuning: v.tuning, scenario: v.scenario === "island" ? "island" : "citadel", switches: v.switches ?? [], inputs: v.inputs };
+  rec = { seed: v.seed, tuning: v.tuning, scenario: v.scenario === "island" ? "island" : "citadel", switches: v.switches ?? [], ...(typeof v.preset === "string" ? { preset: v.preset } : {}), inputs: v.inputs };
 } else if (arg("--seed")) {
   const sw = arg("--switches");
   rec = recordOf(runBotGame(Number(arg("--seed")), { bot: arg("--bot") ?? "careful", scenario: arg("--scenario") === "citadel" ? "citadel" : "island", switches: sw ? sw.split(",") : [] }));

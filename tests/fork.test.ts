@@ -83,3 +83,16 @@ test("choices are told in words, with no ids", () => {
   assert.ok(hiddenRolls(games[0]).every((x) => x.die >= 1 && x.die <= 6));
   assert.equal(recordAt(recordOf(s), 1).inputs.length, s.inputs.length);
 });
+
+test("a game from the test preset, copied as text, comes back whole and can branch", async () => {
+  const { presetOpts } = await import("../src/core/presets.ts");
+  const o = presetOpts("firstIslandTest");
+  const g = runBotGame(21, { bot: "careful", ...o, preset: "firstIslandTest" });
+  // The shape "Copy my game" writes: the fields at the top level, plus a label and a digest.
+  const text = JSON.stringify({ game: "The Sword of Damocles", build: "test", ...recordOf(g), reached: g.season });
+  const raw = JSON.parse(text);
+  const r = { seed: raw.seed, tuning: raw.tuning, scenario: raw.scenario, switches: raw.switches, preset: raw.preset, inputs: raw.inputs };
+  assert.equal(JSON.stringify(play(r)), JSON.stringify(g));
+  const d = decisions(r).find((x) => (x.kind === "choose" || x.kind === "unanswered") && x.alternatives.some((a) => !a.blocked));
+  if (d) assert.equal(rewrite(r, { decision: d, choice: d.alternatives.find((a) => !a.blocked)!.id }, true).game.preset, "firstIslandTest");
+});

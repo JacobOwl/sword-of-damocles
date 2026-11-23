@@ -11,12 +11,12 @@ import { seasonName, government, capital } from "./state.ts";
 import type { GameOpts, GameState, Input, LogEntry, Scenario } from "./types.ts";
 
 // A recorded game: all it takes to rebuild one. The same shape as the browser's save and the replay export.
-export interface Recorded { seed: number; tuning?: string; scenario?: Scenario; switches?: string[]; inputs: Input[] }
+export interface Recorded { seed: number; tuning?: string; scenario?: Scenario; switches?: string[]; preset?: string; inputs: Input[] }
 
 export function recordOf(s: GameState): Recorded {
-  return { seed: s.seed, tuning: s.tuning, scenario: s.scenario ?? "citadel", switches: [...(s.switches ?? [])], inputs: s.inputs.map((i) => JSON.parse(JSON.stringify(i))) };
+  return { seed: s.seed, tuning: s.tuning, scenario: s.scenario ?? "citadel", switches: [...(s.switches ?? [])], ...(s.preset ? { preset: s.preset } : {}), inputs: s.inputs.map((i) => JSON.parse(JSON.stringify(i))) };
 }
-const optsOf = (r: Recorded): GameOpts => ({ scenario: r.scenario === "island" ? "island" : "citadel", switches: r.switches ?? [] });
+const optsOf = (r: Recorded): GameOpts => ({ scenario: r.scenario === "island" ? "island" : "citadel", switches: r.switches ?? [], ...(r.preset ? { preset: r.preset } : {}) });
 export const play = (r: Recorded): GameState => replay(r.seed, r.inputs, r.tuning, optsOf(r));
 
 // Where each season's inputs begin: starts[k] is the index of the first input of season k (after k "end"s).

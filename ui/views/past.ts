@@ -47,7 +47,7 @@ function decisionsOf(r: Recorded): Decision[] {
   return d;
 }
 
-const same = (a: Recorded, b: Recorded) => a.seed === b.seed && (a.tuning ?? "") === (b.tuning ?? "") && (a.scenario ?? "citadel") === (b.scenario ?? "citadel") && JSON.stringify(a.switches ?? []) === JSON.stringify(b.switches ?? []);
+const same = (a: Recorded, b: Recorded) => a.seed === b.seed && (a.tuning ?? "") === (b.tuning ?? "") && (a.scenario ?? "citadel") === (b.scenario ?? "citadel") && JSON.stringify(a.switches ?? []) === JSON.stringify(b.switches ?? []) && (a.preset ?? "") === (b.preset ?? "");
 const prefix = (a: Recorded, b: Recorded) => a.inputs.length <= b.inputs.length && JSON.stringify(a.inputs) === JSON.stringify(b.inputs.slice(0, a.inputs.length));
 // Keep the list in step with the game being played: a new game starts a new list.
 function sync(g: GameState) {
@@ -220,9 +220,9 @@ export const pastHandlers: Handlers = {
       const t = (document.getElementById("past-paste") as HTMLTextAreaElement | null)?.value ?? "";
       try {
         const raw = JSON.parse(t);
-        const v = raw.game ?? raw;
+        const v = raw && typeof raw.game === "object" ? raw.game : raw; // "Copy my game" gives the fields at the top level
         if (typeof v.seed !== "number" || !Array.isArray(v.inputs)) throw new Error("no seed or choices");
-        const r: Recorded = { seed: v.seed, tuning: v.tuning, scenario: v.scenario === "citadel" ? "citadel" : "island", switches: Array.isArray(v.switches) ? v.switches : [], inputs: v.inputs };
+        const r: Recorded = { seed: v.seed, tuning: v.tuning, scenario: v.scenario === "citadel" ? "citadel" : "island", switches: Array.isArray(v.switches) ? v.switches : [], ...(typeof v.preset === "string" ? { preset: v.preset } : {}), inputs: v.inputs };
         const g = play(r);
         past.lines = [{ name: "The game you brought", record: recordOf(g) }]; past.cur = 0; past.pick = null; past.pair = null;
         past.note = `Brought in: ${g.over ? "a finished game" : `a game at ${seasonName(g.season)}`}.`;

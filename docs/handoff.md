@@ -7,6 +7,15 @@ Only these two need Jacob. Every other question below defaults to what the game 
 1. **When will you play the first island test?** Recommended: one sitting before Wednesday morning, the "First island test" preset, judged at season 10.
 2. **Should you be able to lead the army yourself, or send a named man?** Recommended: yes, as a switch you can try, off by default.
 
+## Built by the test-build thread (19, 2026-11-23), stream 1: the first island test
+- **"First island test"** (`data/presets.json`, `src/core/presets.ts`): the first choice on the start screen, selected and marked recommended, with a one-line list of the rules it turns on and a "What to watch for" fold. "Set it up yourself" keeps the old choices. Standard stays the engine default. A game remembers its preset by name only (`s.preset`), so it replays from its options; switches a later thread marks `"besidePreset": true` in `data/switches.json` appear as unticked boxes marked new beside the preset (for the army switch, stream 5).
+- **Season-10 verdict** (`ui/views/verdict.ts`): after ten seasons of a preset game (or on the last page if the reign ends sooner) the season screen becomes five questions; "Save and play on" or "Skip". Answers live in the save.
+- **Copy my game** (foot of the page): one line of text with the seed, setup, every move, the verdict, the commit it was built from and a digest of the log. `npm run replay-save -- <file>` replays it, checks the digest, and prints the verdict and the chronicle (`--log` for every visible line, `--all` with hidden rolls).
+- **Island first-season guide** (`ui/views/help.ts`): your three actions, the sword, the map, the moods; remembered apart from the citadel guide.
+- **Fixed:** with "Chronicle as story" on, every season's logged chronicle read "A quiet season." (the chronicle step told the season before). The chronicle view was right; the logged text, the season card's source and `fullChronicle` were not.
+- Tests: `tests/presets.test.ts` pins the preset's digest (careful bot, seeds 1 to 10). Re-pin only with a line in `docs/decisions.md`.
+- Note for Jacob: `docs/playtests/first-island-test.md`.
+
 ## Next for the build (from the same council)
 Build the "First island test" preset (listed first on the start screen), the season-10 verdict prompt, and a short "what to watch" note; measure map events in seasons 1 to 10 over 100 seeds. Fixes and the test pass before new features.
 
@@ -15,7 +24,7 @@ Build the "First island test" preset (listed first on the start screen), the sea
 - **The Workshop page** `ui/past.html` + `ui/past-main.ts` + `ui/views/past.ts` + `ui/styles/past.css`: the full game plus a "Change the past" view (each season with its chronicle, "Go back to this season", your answers with the other choices as buttons, three ways to go on), "Two histories" side by side with the sentences one history lacks marked, a fates table and the dice after the split. Build: `npm run build -- --page past` (writes `ui/dist-past/index.html`). Published as `past.html` on the Workshop artifact (https://claude.ai/artifact/BVQogSjtUF5DRXKQ9u5VNr).
 - **For other Workshop pages:** `ui/app/extras.ts` lets a page's entry file add a view (`addView({ id, label, render, handlers, onEnding })`); `npm run build -- --page <name>` builds `ui/<name>.html`. The test page registers no extras and is unchanged.
 - **Debrief:** `npm run debrief -- <save.json>` or `-- --seed N [--bot careful] [--scenario island]`: hidden rolls and three other histories. Sample in `docs/playtests/debriefs/`. Check: `npm run debrief -- --sweep 100` (100 branches, 0 crashes, 0 broken; report in `docs/playtests/2026-11-23-change-the-past.md`).
-- **Waiting on:** the test build's "copy my game" button (stream 1). The Workshop page's "Bring in a game" box and the debrief read `{ seed, tuning, scenario, switches, inputs }` (also wrapped as `{ game: ... }`); if stream 1 picks another shape, adjust both readers.
+- **Reads "Copy my game"** (stream 1, PR #44): the Workshop page's "Bring in a game" box and the debrief take its text as it is (seed, tuning, scenario, switches, preset, inputs), a browser save, or `{ game: {...} }`.
 
 ## Questions from the change-the-past thread
 - After a change, the dice come in a new order, so part of every difference is luck (shown on the page). Do you want "fixed fortune" dice as a switch to try later? Parked in `later.md`; the game does what it does now until you say.
