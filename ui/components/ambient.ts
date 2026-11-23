@@ -1,12 +1,12 @@
 // Scene-setting that changes nothing in the game: the sword over the masthead, the card that opens each season,
 // and the lines of flavour they use (data/flavor.json). Everything here only reads the state.
 // Lines are picked by a hash of the seed and the season, never with the game's dice, so replays stay exact.
-import flavorJson from "../data/flavor.json" with { type: "json" };
-import calendarJson from "../data/calendar.json" with { type: "json" };
-import { DATA, government, others, seasonName } from "../src/core/index.ts";
-import type { GameState } from "../src/core/index.ts";
+import flavorJson from "../../data/flavor.json" with { type: "json" };
+import calendarJson from "../../data/calendar.json" with { type: "json" };
+import { DATA, government, others, seasonName } from "../../src/core/index.ts";
+import type { GameState } from "../../src/core/index.ts";
 import { icon } from "./icons.ts";
-import { esc } from "./text.ts";
+import { esc } from "../lib/text.ts";
 
 type Line = { id: string; text: string; season?: string; if?: string; by?: string };
 export const FLAVOR = flavorJson as unknown as { title: Line[]; seasons: Line[]; chronicle: Line[] };

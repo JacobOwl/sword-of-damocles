@@ -4,8 +4,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { BOTS, NODES, menu, replay, runBotGame, startGame } from "../src/core/index.ts";
 import { brokenState } from "../scripts/sim-check.ts";
-import { ui } from "../ui/text.ts";
-import { islandView } from "../ui/island.ts";
+import { ui } from "../ui/lib/text.ts";
+import { islandView } from "../ui/views/island.ts";
 
 const ACTIONS = ["muster", "sendArmy", "assault", "forage", "disband", "embassyCity", "declareWar", "acceptPeace"];
 

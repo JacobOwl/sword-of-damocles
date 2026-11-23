@@ -2,8 +2,8 @@
 // A lyre phrase opens each season, the harbour breathes underneath (wind in winter, cicadas in summer), a low drone
 // sounds while a plot you know of has a name, and a pebble clicks when you act. Off until the player turns it on;
 // the choice is remembered on this device. Nothing here reads or changes the game's dice.
-import type { GameState } from "../src/core/index.ts";
-import { knownDanger } from "./ambient.ts";
+import type { GameState } from "../../src/core/index.ts";
+import { knownDanger } from "../components/ambient.ts";
 
 const KEY = "sword-of-damocles-sound";
 let on = false;

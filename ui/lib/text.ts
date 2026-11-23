@@ -1,7 +1,7 @@
 // Shared UI state and small helpers for turning the simulation's words into readable, clickable text.
 // Nothing here changes the game; it only reads the state.
-import { DATA, PLAYER, capital } from "../src/core/index.ts";
-import type { Args, GameState, LogEntry } from "../src/core/index.ts";
+import { DATA, PLAYER, capital } from "../../src/core/index.ts";
+import type { Args, GameState, LogEntry } from "../../src/core/index.ts";
 
 export const ui = {
   s: null as GameState | null,

@@ -241,3 +241,6 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **The daughters become "the women of your house".** Dionysius' daughters could not be grown in 405 to 395, so the barber event changes who learns the trade; the change is listed on the event and the card.
 - **Standard digest re-pinned** (verified: without the six records the old digest matches).
 - **Restored work that PR #32 undid by accident.** Its squash merge came from an older base. It deleted the saved Cicero Latin (`sources/cicero/tusculan-5-57-63.latin.txt`, from PR #30) and put the Damocles event and card back to their "both readings" state (PR #31). Both are restored here from their own commits.
+
+## 2026-11-23 (a proper web app, step 3: thread 17)
+- **The UI is laid out as `ui/app/`, `ui/views/`, `ui/components/`, `ui/lib/` and `ui/styles/`**, and `ui/main.ts` only starts the app. Why: one 470-line file held every screen and every click; now a screen lives in its own file. Done in one step while no other thread had UI work open, so the moves happened once.
