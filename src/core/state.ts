@@ -9,6 +9,7 @@ import { initSecrets } from "./secrets.ts";
 import secretsKnobs from "../../data/secrets.json" with { type: "json" };
 const SECRET_INFLUENCE = secretsKnobs.knobs.influencePerSecret ?? 1;
 import { initCouncil } from "./council.ts";
+import { campaignDefense, campaignPlotParts, keeperInfluence } from "./commission.ts";
 import { FACTIONS, MOODS, OFFICES } from "./types.ts";
 
 export const PLAYER = "dionysius";
@@ -136,6 +137,7 @@ export function defense(s: GameState): { total: number; parts: { label: string; 
   if (guardDefends(s)) parts.push({ label: "the guard", value: s.guard.strength });
   const watched = s.watches.filter((w) => s.plots.some((pl) => pl.members.includes(w))).length;
   if (watched && k.watchDefense) parts.push({ label: "watches on plotters", value: watched * k.watchDefense });
+  parts.push(...campaignDefense(s)); // switch "commission": the keeper of the citadel while you are away
   return { total: parts.reduce((a, b) => a + b.value, 0), parts };
 }
 
@@ -164,6 +166,7 @@ export function plotStrength(s: GameState, plot: Plot): { total: number; parts: 
   }
   if (plot.guardBacking) parts.push({ label: "the guard's swords", value: s.guard.strength });
   if (plot.bonus) parts.push({ label: plot.bonus > 0 ? "preparations" : "disarmed citizens", value: plot.bonus });
+  parts.push(...campaignPlotParts(s, plot)); // switch "commission": you are away, the citizens are armed
   return { total: Math.max(0, parts.reduce((a, b) => a + b.value, 0)), parts };
 }
 
@@ -183,7 +186,7 @@ export function influence(s: GameState, pid: string): number {
   // With "secrets", each secret he holds counts half (knob influencePerSecret), at most 1 in all: a secret is a threat, not a following.
   const held = s.secrets ? Math.floor(Math.min(2, s.secrets.list.filter((x) => x.known.includes(pid) && x.about !== pid && x.publicSince === undefined).length) * SECRET_INFLUENCE) : s.leverage.filter((l) => l.holder === pid).length;
   const seat = s.council && Object.values(s.council.seats).includes(pid) ? 1 : 0;
-  let v = 2 * officesOf(s, pid).length + (p.owedFavor ? 1 : 0) + held + seat + p.infl;
+  let v = 2 * officesOf(s, pid).length + (p.owedFavor ? 1 : 0) + held + seat + keeperInfluence(s, pid) + p.infl;
   if (p.status === "held") v -= 2;
   return Math.max(0, Math.min(10, v));
 }
