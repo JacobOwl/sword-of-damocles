@@ -22,6 +22,7 @@ import { feudOn, feudSurvive } from "./feud.ts";
 import { botById, botRandom, playSeason } from "./bots.ts";
 import { councilBrief, councilSeasonEnd } from "./council.ts";
 import { campaignCheck } from "./commission.ts";
+import { worksSeason } from "./works.ts";
 
 // ---------- World ----------
 function worldStep(s: GameState) {
@@ -67,6 +68,7 @@ function worldStep(s: GameState) {
   if (q === 3) clock(s, 1, "a year passes and Carthage rebuilds");
   if (s.island) islandWorld(s); // the island game: cities, armies, sieges (Carthage's own council acts later)
   if (s.campaign) campaignCheck(s); // switch "commission": an army lost or home since last season
+  if (s.works) worksSeason(s); // switch "greatWorks": a season of work on each great work under way
   if (s.census) censusSeason(s); // the island game: births, deaths, marriages and heirs among the invented families
   else if (s.clock >= 10) invasion(s);
 }

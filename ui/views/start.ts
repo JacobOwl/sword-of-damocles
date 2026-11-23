@@ -5,6 +5,10 @@ import { DEFAULT_TUNING, PACKAGES, PRESETS, SWITCHES, packageName, presetById, s
 import type { PresetDef } from "../../src/core/index.ts";
 import { esc } from "../lib/text.ts";
 import { titlePage } from "./title.ts";
+// Workshop switches (the bets of docs/council/2026-11-23-two-day-plan.md) show only on a Workshop build, ticked
+// beside each preset: a Workshop page's entry file sets them (ui/works-main.ts). The test link never shows them.
+const workshopIds = (): string[] => (globalThis as any).__WORKSHOP ?? [];
+const shown = (w: { id: string; workshop?: boolean }) => !w.workshop || workshopIds().includes(w.id);
 
 // One plain line naming what a preset turns on.
 export function presetRules(p: PresetDef) {
@@ -13,7 +17,7 @@ export function presetRules(p: PresetDef) {
 }
 
 // Switches a thread marks "besidePreset" are offered as unticked boxes beside a preset, not inside it.
-const extras = () => SWITCHES.filter((w) => (w as { besidePreset?: boolean }).besidePreset);
+const extras = () => SWITCHES.filter((w) => ((w as { besidePreset?: boolean }).besidePreset && shown(w)) || workshopIds().includes(w.id));
 
 function presetCard(p: PresetDef, checked: boolean) {
   const ex = extras().filter((w) => !p.switches.includes(w.id));
@@ -23,7 +27,7 @@ function presetCard(p: PresetDef, checked: boolean) {
       <span class="small">${esc(p.summary)}</span>
       <span class="small muted">Rules on: ${esc(presetRules(p))}</span></span>
     </label>
-    ${ex.length ? `<div class="setup-extra">${ex.map((w) => `<p class="small"><label><input type="checkbox" class="extra" value="${esc(w.id)}"> <span class="tag new">new</span> <b>${esc(w.name)}.</b> ${esc(w.summary)}</label></p>`).join("")}</div>` : ""}
+    ${ex.length ? `<div class="setup-extra">${ex.map((w) => `<p class="small"><label><input type="checkbox" class="extra" value="${esc(w.id)}"${workshopIds().includes(w.id) ? " checked" : ""}> <span class="tag new">new</span> <b>${esc(w.name)}.</b> ${esc(w.summary)}</label></p>`).join("")}</div>` : ""}
     <details class="watch"><summary class="small">What to watch for</summary>
       <ul class="small">${p.watch.map((w) => `<li>${esc(w)}</li>`).join("")}</ul>
       <p class="small muted">At the end of season ${p.verdictSeason} the game asks for your verdict. Your answers stay in the game, and "Copy my game" at the foot of the page copies them with your moves.</p>
@@ -52,7 +56,7 @@ export function startScreen(saved: { tuning?: string; preset?: string } | null, 
           <p class="small note" id="tuning-note">${esc(PACKAGES.find((p) => p.id === DEFAULT_TUNING)?.summary)}</p>
           <details class="switches"><summary class="small">Rule switches (all off by default)</summary>
             <p class="small muted">Optional rules to try. Each works with any balance.</p>
-            ${SWITCHES.map((w) => `<p class="small"><label><input type="checkbox" class="switch" value="${esc(w.id)}"> <b>${esc(w.name)}.</b> ${esc(w.summary)}</label></p>`).join("")}
+            ${SWITCHES.filter(shown).map((w) => `<p class="small"><label><input type="checkbox" class="switch" value="${esc(w.id)}"${workshopIds().includes(w.id) ? " checked" : ""}> <b>${esc(w.name)}.</b> ${esc(w.summary)}</label></p>`).join("")}
           </details>
         </div>
       </fieldset>

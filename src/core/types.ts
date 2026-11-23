@@ -274,4 +274,5 @@ export interface GameState {
   council?: CouncilState; // switch "council"
   campaign?: Campaign; // switch "commission": the army in the field and who leads it
   dinners?: import("./dinner.ts").DinnerState; // switch "dinners"
+  works?: import("./works.ts").WorksState; // switch "greatWorks"
 }

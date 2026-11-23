@@ -441,7 +441,8 @@ export function islandWorld(s: GameState) {
     if (!a.siege || a.siegeSince === s.season) continue;
     const id = a.siege;
     const def = nodeDef(id)!;
-    const blockade = a.side === "carthage" && isl.carthage.ships >= 4;
+    // Switch "greatWorks": your great fleet keeps the sea open to your own ports (Diodorus 14.50.4).
+    const blockade = a.side === "carthage" && isl.carthage.ships >= 4 && !(s.works?.fleet && friendly("syracuse", city(s, id).side));
     const loss = def.port && !blockade ? R.siegeGrainLossPort : R.siegeGrainLoss;
     cityGrainChange(s, id, -loss, `besieged by ${armyName(s, a)}`);
     if (cityGrain(s, id) === 0) {

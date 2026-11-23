@@ -33,3 +33,6 @@ export { about as secretsAbout, knownBy as secretsKnownBy, secretLine, usable as
 export { DINNERS, wineById, couchHolder, friendsOf, foesOf, bonded, quarrelled, guestPool, parseGuests, suggestTable, castsFor, dinnersOn, dinnerLog } from "./dinner.ts";
 export type { DinnerState, DinnerRecord, Tie } from "./dinner.ts";
 export { logDigest } from "./digest.ts";
+// Switch "greatWorks" (bet B4).
+export { WORKS, workById, labourById, workOf, activeWorks, workDone, seasonCost, seasonsNeeded, overseerName, timberFrom, timberById, worksOn } from "./works.ts";
+export type { Work, WorkDef, WorksState } from "./works.ts";

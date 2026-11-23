@@ -3,7 +3,7 @@
 import switchesJson from "../../data/switches.json" with { type: "json" };
 import type { GameState } from "./types.ts";
 
-export interface SwitchDef { id: string; name: string; summary: string; kind: string; research?: string }
+export interface SwitchDef { id: string; name: string; summary: string; kind: string; research?: string; workshop?: boolean } // workshop: shown only on the Workshop page build
 export const SWITCHES = switchesJson.switches as SwitchDef[];
 export const switchById = (id: string) => SWITCHES.find((x) => x.id === id);
 export const on = (s: GameState, id: string) => !!s.switches?.includes(id);
