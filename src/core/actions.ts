@@ -16,6 +16,10 @@ import { T } from "./tuning.ts";
 import { on } from "./switches.ts";
 import { chapter, feudInherit, feudOn, feudOf, feudSurvive } from "./feud.ts";
 import { ISLAND_IMPL } from "./island-actions.ts";
+import { secretsOn, learn, useHold, usable, exposeSecret, yourDeed, blackmailRefused, blackmailGranted, holdsDeadly, censusSecret, townLeader, secretLine, SECRETS } from "./secrets.ts";
+import { COUNCIL_IMPL, councilChecked, councilHeard } from "./council.ts";
+import { leaderOfCity, councilOf, censusPersonName } from "./census-game.ts";
+import { NODES } from "./island.ts";
 import { bloc } from "./island.ts";
 
 export interface Option { value: string; label: string }
@@ -77,7 +81,7 @@ export function meetGoal(s: GameState, f: FactionId, metBy: string) {
 
 function resolveRequests(s: GameState, f: (r: GameState["requests"][number]) => boolean) {
   const done = s.requests.filter(f);
-  for (const r of done) event(s, r.from, `You grant ${nameOf(s, r.from)}'s petition.`, "granted");
+  for (const r of done) { event(s, r.from, `You grant ${nameOf(s, r.from)}'s petition.`, "granted"); if (r.blackmail) blackmailGranted(s, r.from, r.blackmail); }
   s.requests = s.requests.filter((r) => !f(r));
   return done.length;
 }
@@ -92,16 +96,19 @@ function hurtPolitical(s: GameState, pid: string, scar: string, what: string) {
   if (s.people[pid].political) makeRival(s, pid, scar, what);
 }
 
+// With the switch "secrets" on, leverage is a named secret: learn one (watchers see what a man does now), use one.
 function gainLeverage(s: GameState, holder: string, over: string, how: string) {
+  if (secretsOn(s)) { learn(s, holder, over, how, "seen"); return; }
   s.leverage.push({ holder, over, season: s.season });
   event(s, holder, holder === PLAYER ? `You now hold a secret over ${nameOf(s, over)} (${how}).` : `${capital(nameOf(s, holder))} now holds a secret over ${nameOf(s, over)}.`,
     how, holder === PLAYER);
 }
-function spendLeverage(s: GameState, holder: string, over: string) {
+function spendLeverage(s: GameState, holder: string, over: string, why = "you used what you know") {
+  if (secretsOn(s)) { useHold(s, holder, over, why); return; }
   const i = s.leverage.findIndex((l) => l.holder === holder && l.over === over);
   if (i >= 0) s.leverage.splice(i, 1);
 }
-const hasSecret = (s: GameState, p: Person) => !!(plotOf(s, p.id) || p.grudges.length || p.agenda || p.political);
+const hasSecret = (s: GameState, p: Person) => secretsOn(s) || !!(plotOf(s, p.id) || p.grudges.length || p.agenda || p.political);
 
 function reveal(s: GameState, pid: string) {
   const p = s.people[pid];
@@ -586,6 +593,7 @@ export const IMPL: Record<string, Impl> = {
       if (ok) {
         event(s, PLAYER, `Your watchers follow ${p.name}.`, "Watch a person");
         reveal(s, p.id);
+        councilChecked(s, p.id);
         if (hasSecret(s, p)) gainLeverage(s, PLAYER, p.id, "what your watchers saw");
       } else {
         event(s, PLAYER, `Your watchers learn nothing about ${p.name}.`, "Watch a person");
@@ -608,6 +616,7 @@ export const IMPL: Record<string, Impl> = {
         return;
       }
       event(s, PLAYER, `A story goes round that sets ${x.name} and ${y.name} against each other.`, "Plant a rumor");
+      yourDeed(s, "rumorMine", { target: x.id, second: y.id });
       const pl = plotOf(s, x.id);
       if (pl && pl.members.includes(y.id)) {
         const weaker = memberWeight(s, x.id, pl) <= memberWeight(s, y.id, pl) ? x : y;
@@ -633,6 +642,7 @@ export const IMPL: Record<string, Impl> = {
       if (ok) {
         p.informer = true;
         event(s, PLAYER, `${capital(p.name)} agrees to tell you what he hears.`, "Turn an informer");
+        yourDeed(s, "informerPaid", { target: p.id });
         const pl = plotOf(s, p.id);
         if (pl) { pl.informer = p.id; pl.known = [...pl.members]; event(s, PLAYER, `He is in a plot against you, and names everyone in it.`, "your informer"); gainLeverage(s, PLAYER, pl.leader, "your informer"); }
       } else {
@@ -645,7 +655,7 @@ export const IMPL: Record<string, Impl> = {
     target: (s) => people(s, (p) => leverageOver(s, PLAYER, p.id) > 0),
     run: (s, a) => {
       const p = s.people[a.target!];
-      spendLeverage(s, PLAYER, p.id);
+      spendLeverage(s, PLAYER, p.id, "Force a favor");
       const f = factionOf(s, p.id);
       event(s, PLAYER, `You remind ${p.name} what you know. He speaks for you.`, "Force a favor");
       if (f) { mood(s, f, 1, `${p.name} spoke for you`); s.flags[`vote_${f}`] = 1; }
@@ -655,7 +665,7 @@ export const IMPL: Record<string, Impl> = {
     target: (s) => people(s, (p) => leverageOver(s, PLAYER, p.id) > 0),
     run: (s, a) => {
       const p = s.people[a.target!];
-      spendLeverage(s, PLAYER, p.id);
+      spendLeverage(s, PLAYER, p.id, "Block");
       p.blockedUntil = s.season + 1;
       const f = factionOf(s, p.id);
       if (f && leaderOf(s, f)?.id === p.id) s.flags[`blockAgenda_${f}`] = s.season + 1;
@@ -666,9 +676,14 @@ export const IMPL: Record<string, Impl> = {
     target: (s) => people(s, (p) => leverageOver(s, PLAYER, p.id) > 0),
     run: (s, a) => {
       const p = s.people[a.target!];
-      spendLeverage(s, PLAYER, p.id);
-      p.infl -= 2;
-      event(s, PLAYER, `You make ${p.name}'s secret public.`, "Expose");
+      if (secretsOn(s)) {
+        const x = usable(s, PLAYER, p.id).sort((a, b) => b.weight - a.weight)[0];
+        if (x) exposeSecret(s, x, PLAYER, "Expose");
+      } else {
+        spendLeverage(s, PLAYER, p.id);
+        p.infl -= 2;
+        event(s, PLAYER, `You make ${p.name}'s secret public.`, "Expose");
+      }
       grudge(s, p.id, "you exposed his secret");
       const pl = plotOf(s, p.id);
       if (pl) { pl.known = Array.from(new Set([...pl.known, p.id, pl.leader])); }
@@ -681,11 +696,16 @@ export const IMPL: Record<string, Impl> = {
     odds: (s) => {
       const m = traitMods(s, PLAYER, undefined, "envoy");
       if (s.flags.raidYear === Math.floor(s.season / 4) + 1) m.push({ label: "you raided Carthage's towns this year", value: -2 });
+      const elder = s.island && secretsOn(s) ? townLeader(s, "carthage") : undefined;
+      if (elder && usable(s, PLAYER, elder).length) m.push({ label: "you hold a secret over an elder of Carthage", value: SECRETS.knobs.envoyHold });
       return m;
     },
     run: (s, _a, ok) => {
       silver(s, -1, "gifts for Carthage");
       event(s, PLAYER, ok ? "Your envoy is heard in Carthage." : "Your envoy comes back with nothing.", "Envoy to Carthage");
+      if (s.island?.war) yourDeed(s, "carthageTalks");
+      const elder = s.island && secretsOn(s) ? townLeader(s, "carthage") : undefined;
+      if (elder && usable(s, PLAYER, elder).length) useHold(s, PLAYER, elder, "your envoy reminds an elder of Carthage what you know");
       if (ok) clock(s, -1, "a good embassy");
       if (ok && s.island) bloc(s, "elders", 1, "Syracuse's envoy spoke of trade and peace");
     },
@@ -721,9 +741,66 @@ export const IMPL: Record<string, Impl> = {
 };
 
 // The island actions (Phase 2) live in island-actions.ts.
-Object.assign(IMPL, ISLAND_IMPL);
+// Switch "secrets": the household's secrets, holds that take offices, and spies in the island's towns.
+const SECRET_IMPL: Record<string, Impl> = {
+  payServants: {
+    target: (s) => people(s, (p) => p.status === "free" || p.status === "held"),
+    check: (s) => (s.silver < SECRETS.knobs.servantsCost ? `needs ${SECRETS.knobs.servantsCost} silver` : null),
+    odds: (s, a) => traitMods(s, PLAYER, a.target, "watch"),
+    run: (s, a, ok, die) => {
+      const p = s.people[a.target!];
+      silver(s, -SECRETS.knobs.servantsCost, `silver for ${p.name}'s servants`);
+      actAgainst(s, p.id);
+      if (ok) {
+        const x = learn(s, PLAYER, p.id, "his servants talked", "kept") ?? learn(s, PLAYER, p.id, "his servants talked", "seen");
+        if (!x) event(s, PLAYER, `The servants of ${p.name} take your silver, but he hides nothing you don't already know.`, "Pay his servants");
+        return;
+      }
+      event(s, PLAYER, `The servants of ${p.name} take your silver and tell you nothing.`, "Pay his servants failed");
+      if (die === 1) { opinion(s, p.id, -1, "he found out you paid his servants"); yourDeed(s, "servantsPaid", { target: p.id }, [p.id]); }
+    },
+  },
+  demandOffice: {
+    target: (s) => people(s, (p) => p.status === "free" && officesOf(s, p.id).length > 0 && holdsDeadly(s, PLAYER, p.id)),
+    second: (s, a) => (a.target ? officesOf(s, a.target).map((o) => ({ value: o, label: capital(officeName(o)) })) : []),
+    secondLabel: "Office",
+    run: (s, a) => {
+      const p = s.people[a.target!];
+      const o = a.second as OfficeId;
+      const x = useHold(s, PLAYER, p.id, "Demand his office", true);
+      s.counters.officesDemanded = (s.counters.officesDemanded ?? 0) + 1;
+      setOffice(s, o, PLAYER, `${p.name} gave it up rather than have it known that he ${x?.text ?? "has something to hide"}`);
+      grudge(s, p.id, `you forced him out of ${officeName(o)} with what you know`);
+      opinion(s, p.id, -1, "you forced him out of his office");
+      actAgainst(s, p.id);
+    },
+  },
+  spyTown: {
+    target: (s) => !s.island ? [] : [
+      ...NODES.filter((n) => n.id !== "syracuse" && leaderOfCity(s, n.id)).map((n) => ({ value: n.id, label: `${n.name}: ${capital(censusPersonName(s, leaderOfCity(s, n.id)!))}, its first man` })),
+      ...(councilOf(s, "elders").length ? [{ value: "carthage", label: `Carthage: ${capital(censusPersonName(s, councilOf(s, "elders")[0]))}, of the Elders` }] : []),
+    ],
+    check: (s) => (s.silver < SECRETS.knobs.spyTownCost ? `needs ${SECRETS.knobs.spyTownCost} silver` : null),
+    odds: (s) => traitMods(s, PLAYER, undefined, "watch"),
+    run: (s, a, ok) => {
+      silver(s, -SECRETS.knobs.spyTownCost, "silver for your spies");
+      const place = a.target!;
+      const where = place === "carthage" ? "Carthage" : NODES.find((n) => n.id === place)?.name ?? place;
+      const cid = townLeader(s, place);
+      if (!ok || !cid) { event(s, PLAYER, `Your spies in ${where} learn nothing.`, "Send spies to a town failed"); return; }
+      const x = censusSecret(s, cid, place === "carthage" ? "carthage" : "city", place);
+      if (!x) { event(s, PLAYER, `Your spies find that ${censusPersonName(s, cid, true)} hides nothing you could use.`, "Send spies to a town"); return; }
+      if (x.known.includes(PLAYER)) { event(s, PLAYER, `Your spies in ${where} learn nothing you did not know.`, "Send spies to a town"); return; }
+      x.known.push(PLAYER);
+      s.counters.townSecrets = (s.counters.townSecrets ?? 0) + 1;
+      event(s, PLAYER, `Your spies in ${where} learn that ${secretLine(s, x)}.${place === "carthage" ? " Your next envoy to Carthage can use it." : " Your next embassy there can use it."}`, "Send spies to a town");
+    },
+  },
+};
+
+Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL);
 // An action belongs to every scenario unless it names one.
-export const inScenario = (s: GameState, a: { scenario?: string }) => !a.scenario || a.scenario === (s.scenario ?? "citadel");
+export const inScenario = (s: GameState, a: { scenario?: string; switch?: string }) => (!a.scenario || a.scenario === (s.scenario ?? "citadel")) && (!a.switch || on(s, a.switch));
 // In the island game the Carthage clock is Carthage's anger: the same number, read by Carthage's council.
 const words = (s: GameState, t: string | undefined) => (t && s.island ? t.replace(/[Tt]he Carthage clock/g, "Carthage's anger") : t);
 
@@ -785,6 +862,7 @@ export function refuse(s: GameState, id: string, quiet = false) {
   if (r.kind === "citizenship") { s.flags.guardRefused = (s.flags.guardRefused ?? 0) + 1; return; }
   p.infl -= 1;
   opinion(s, p.id, -1, r.demand ? "you refused his demand" : "you refused his petition");
+  if (r.blackmail) blackmailRefused(s, p.id, r.blackmail);
   if (on(s, "escalation") && (r.kind === "office" || r.kind === "silver") && !r.agendaStep) return escalate(s, r, p);
   p.refusals += 1;
   if (p.refusals >= 2 || r.owed || r.agendaStep) {
@@ -876,6 +954,7 @@ export function perform(s: GameState, action: string, args: Args): { ok: boolean
   const why = validate(s, action, args);
   if (why) return { ok: false, error: why };
   const impl = IMPL[action];
+  if (s.council) councilHeard(s, action, args, preview(s, action, args).chance);
   s.inputs.push({ t: "act", action, args: { ...args } });
   s.slots -= 1;
   const mods = impl.odds?.(s, args) ?? null;

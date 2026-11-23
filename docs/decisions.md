@@ -205,6 +205,12 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **The engine's purity is now tested** (`tests/core-boundary.test.ts`) and **conformance replays can be exported** (`npm run replays`) for a later port. Why: Godot is the goal; a port is checked by replaying the same games.
 - **Open:** which Godot route (translate or embed), for later.
 
+## 2026-11-22 (council and secrets switches, thread 14)
+- **Two new rule switches, both off by default: "Your council argues" and "Secrets and leverage".** Why: Jacob's wish for CK3-style interactions and Varys or Littlefinger rivals; the research proposals 4 and 6 (`docs/game-research.md`), parked in `docs/later.md` for Jacob to pick, are built only as switches, like the earlier ones, so nothing changes until he turns them on.
+- **Which invented townsman hides what is decided from a hash of the seed and his name, not the game's dice**, so turning the switch on doesn't shift the island's census. Same seed, same answer, every time.
+- **The council rolls no dice.** What a man says follows from state, so a player can learn whom to trust.
+- **Open:** see the questions in `docs/handoff.md` (how hard secrets should push political rivals, the council on events, women's seats).
+
 ## 2026-11-22 (island and Carthage events, slice 1: thread 16)
 - **The island gets its own event library, `data/island-events.json`, run by the same engine.** `src/core/island-events.ts` adds conditions on towns, armies and Carthage, parts played by towns, the generated cast and Carthage's named men, and effects on towns, armies and Carthage's council and stores. Why: the court's 52 events never touch the map; the island needed its own stories without a second event system.
 - **Island events have their own draw each season (one, sometimes two; at most two open), only in island games.** Why: so the court's intrigue is not crowded out, and so citadel games draw exactly the same dice as before (the standard digest and the 100-seed counts are unchanged).
@@ -222,6 +228,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **The browser game builds with Vite 8 and `vite-plugin-singlefile`** into the same single page; `npm run dev` gives a live-reloading page. Why: a standard build with a dev server, while the Artifact link still gets one self-contained page.
 - **UI restructures are checked by a scripted walk-through** (`npm run walk`) that must record identical pages before and after. Why: "behaviour identical" needs a check, not a promise.
 
+## 2026-11-22 (island and Carthage events, slice 2: thread 16)
+- **19 more island events**: Rhegium and Messana, Heloris and Croton, the Sicels (Agyris, Taurus, Archonides, the Sicel lords), embassies and defections, and four rumors from Carthage's council that you can meddle in with silver or words. Why: the coordinator's brief and the paper test's wish for factions that act on their own and rivals you can work against.
+- **Rumors from Carthage use the generated councillors** (a judge of the Hundred, a merchant of the Elders, a dockyard speaker) as named parts, so Carthage's politics have faces. They are tagged invention: the blocs come from Aristotle, written decades later.
+- **Italy and the Sicels stay names only**, as `scope.md` says. Their events act through your towns, armies and Carthage.
+
 ## 2026-11-22 (Damocles event updated, thread 07)
 - **"A sword on a horse-hair" is now settled on Dionysius I.** It quotes Cicero's Latin 5.57, 5.59 and 5.61 (saved by PR #30) and keeps Livius.org's Dionysius II reading as a disagreement. Only the timing is invention. Five more court stories from the same passage are parked in `docs/later.md`.
 
@@ -229,3 +240,4 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Five more events from Cicero, Tusculan Disputations 5.58 to 5.63** (six records; the Pythagoreans story has a follow-up). Built at the coordinator's request under Jacob's green light for the week. Each gives what Dionysius did as one choice among three.
 - **The daughters become "the women of your house".** Dionysius' daughters could not be grown in 405 to 395, so the barber event changes who learns the trade; the change is listed on the event and the card.
 - **Standard digest re-pinned** (verified: without the six records the old digest matches).
+- **Restored work that PR #32 undid by accident.** Its squash merge came from an older base. It deleted the saved Cicero Latin (`sources/cicero/tusculan-5-57-63.latin.txt`, from PR #30) and put the Damocles event and card back to their "both readings" state (PR #31). Both are restored here from their own commits.

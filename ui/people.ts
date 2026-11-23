@@ -1,4 +1,5 @@
 // People: the character sheet (one person, opened from any name) and the court (everyone, by faction).
+import { sheetSecrets, secretsLedger } from "./intrigue.ts";
 import {
   DATA, PLAYER, agendaById, band, capital, influence, leaderOf, menu, moodName, officeName, officesOf, originById,
   playerInfluence, power, rankTitle, seasonName, traitName,
@@ -119,7 +120,7 @@ export function sheet(s: GameState, id: string) {
     ? (plot ? `<span class="warn">${P.He} is in a plot against you.</span>${plot.leader === id ? ` ${P.He} leads it.` : ""}` : `${P.He} is in no plot against you.`)
     : plot && plot.known.includes(id) ? `<span class="warn">${P.His} name has been given to you as a plotter.</span>`
     : `${P.His} secrets are hidden. Watch ${P.him} to learn whether ${P.he} plots.`}${p.informer ? ` ${P.He} reports to you about any plot ${P.he} joins.` : ""}${p.bound ? ` ${P.He} is bound to you.` : ""}</p>
-    ${leverageLine(s, id)}</section>`;
+    ${s.secrets ? sheetSecrets(s, id) : leverageLine(s, id)}</section>`;
 
   // Family ties, from the data, with clickable names.
   const fam = ((rec.family ?? []) as { person: string; relation: string }[]).filter((f) => s.people[f.person] && s.people[f.person].status !== "absent");
@@ -181,6 +182,7 @@ export function court(s: GameState) {
     <p class="small muted">Everyone who matters in Syracuse, by faction. Click a card to open the full sheet. The number is what they think of you.</p>
     <section class="court-faction"><div class="fhead"><h2><span class="f-ruler">${icon("sword")}</span>You</h2></div><div class="cards">${card(s, you, false)}</div></section>
     ${sections}
+    ${secretsLedger(s)}
     ${dead.length || later ? `<p class="small muted">${dead.length ? `The dead: ${dead.map((p) => who(p.id)).join(", ")}.` : ""}${later ? ` ${later} more will enter the story later.` : ""}</p>` : ""}
   </div>`;
 }

@@ -18,7 +18,7 @@ const TINT: Record<string, string> = { rich: "#2a4a5a", citizens: "#5a5a28", gua
 const done = new Map<string, string>();
 const keyOf = (L: any) => [L.id, L.age, L.hairCol, L.hair, L.beard].join("/");
 
-function face(s: GameState, id: string, dead: boolean) {
+export function face(s: GameState, id: string, dead: boolean) {
   const L = censusLook(s, id) as any;
   const url = done.get(keyOf(L));
   const tint = TINT[L.field ?? L.faction] ?? "#5b2a63";

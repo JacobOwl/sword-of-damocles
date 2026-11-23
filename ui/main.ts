@@ -12,6 +12,7 @@ import { court, flags, sheet } from "./people.ts";
 import { portrait } from "./portraits.ts";
 import { islandView } from "./island.ts";
 import { familiesView, paintCensusFaces } from "./census.ts";
+import { councilBlock, counselLines, blackmailNote } from "./intrigue.ts";
 import { chronicleBook, lastSeasonSummary, seasonFeed } from "./story.ts";
 import { esc, linkNames, opChip, pr, sign, ui, who } from "./text.ts";
 import { showSeasonCard, swordOverhead } from "./ambient.ts";
@@ -208,6 +209,7 @@ function seasonCol(g: GameState) {
   return `${!guideDone() && !g.over ? guide() : ""}
     ${lastSeasonSummary(g)}
     <div><h2>${esc(seasonName(season))}</h2>${f.empty ? `<p class="muted">Nothing has happened yet.</p>` : f.groups + f.shifts}</div>
+    ${councilBlock(g)}
     ${matters(g)}
     ${requests(g)}
     ${g.over ? "" : actions(g)}`;
@@ -246,7 +248,7 @@ function requests(g: GameState) {
       const grant = grantArgs(g, r);
       const pv = grant ? preview(g, grant.a, grant.args) : null;
       const risk = p.refusals ? `<span class="warn">You refused ${P.him} once already: refusing again makes an enemy.</span>` : "";
-      return `<div class="req">${portrait(p.id, "s")}<span class="t">${who(p.id)} ${esc(what)}. <span class="small">${opChip(p.opinion, true)}</span>${r.owed ? ` <i>You owe ${P.him} a favour.</i>` : ""} ${risk}</span>
+      return `<div class="req">${portrait(p.id, "s")}<span class="t">${who(p.id)} ${esc(what)}. <span class="small">${opChip(p.opinion, true)}</span>${r.owed ? ` <i>You owe ${P.him} a favour.</i>` : ""} ${risk}${blackmailNote(g, r.blackmail)}</span>
         <span class="req-btns"><button data-grant="${r.id}" ${pv?.ok ? "" : "disabled"}>Grant</button>
         <button data-refuse="${r.id}">Refuse</button></span>
         ${pv && !pv.ok ? `<span class="small muted">Can't grant: ${esc(pv.why)}</span>` : ""}</div>`;
@@ -300,6 +302,7 @@ function panel(g: GameState, i: ReturnType<typeof menu>[number]) {
     </div>` : ""}
     ${target ? `<div class="small target-line">${portrait(target.id, "s")} ${who(target.id)} ${opChip(target.opinion, true)} ${flags(g, target)}</div>` : ""}
     <div class="odds">${odds}</div>
+    ${pv.ok ? counselLines(g, i.id, args, pv.chance) : ""}
     <div class="row"><button class="primary" id="do" ${pv.ok ? "" : "disabled"}>${esc(i.name)}</button><button id="cancel">Cancel</button></div>
   </div>`;
 }

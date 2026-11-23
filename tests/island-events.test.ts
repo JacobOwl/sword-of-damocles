@@ -83,7 +83,7 @@ test("players never see code-style ids in island event text", () => {
 // army before Syracuse or in the field, war, plague, a just-taken town, low stores.
 function setups(seed: number): GameState[] {
   const out: GameState[] = [];
-  for (const kind of ["yourSiege", "theirSiege", "taken", "field"]) {
+  for (const kind of ["yourSiege", "theirSiege", "taken", "field", "winter"]) {
     const s = startGame(seed, undefined, { scenario: "island" });
     const isl = s.island!;
     isl.war = true; isl.warSince = 0; s.flags.atWar = 0;
@@ -98,6 +98,10 @@ function setups(seed: number): GameState[] {
     if (kind !== "taken") { ya.siege = target; ya.siegeSince = 1; }
     isl.carthage.general = "himilcon"; isl.carthage.people.himilcon.status = "command";
     isl.armies.push({ id: "carthage1", side: "carthage", at: kind === "theirSiege" ? "syracuse" : "gela", men: 8, food: 0, commander: "himilcon", guard: 0, guardStart: 0, since: 0, moved: -1, siegeSince: 1, siege: kind === "theirSiege" ? "syracuse" : undefined, onTake: "sack" });
+    s.people.heloris.status = "outside";
+    if (kind === "winter") s.season = 5;
+    if (kind === "taken" || kind === "winter") { city(s, "messana").side = "syracuse"; city(s, "messana").men = 1; }
+    if (kind === "taken") { const ca = isl.armies.find((a) => a.side === "carthage")!; ca.at = "leontini"; }
     city(s, "leontini").side = "ally"; city(s, "leontini").since = 2;
     city(s, "catana").side = "ally";
     if (kind === "taken") { city(s, "catana").side = "syracuse"; city(s, "catana").since = 3; city(s, "motya").side = "syracuse"; city(s, "motya").since = 3; }
@@ -145,7 +149,8 @@ test("island events fire in island games, are all answered, and the game replays
   for (let seed = 1; seed <= 60; seed++) {
     const s = runBotGame(seed, { scenario: "island", bot: "careful" });
     for (const e of ISLAND_EVENTS) if (eventsState(s).fired[e.id] !== undefined) seen.add(e.id);
-    assert.equal(eventsState(s).open.length, 0, `seed ${seed}: events left open`);
+    // A game that ends inside a season (Syracuse stormed in the factions step) may leave matters unanswered.
+    if (!s.over || s.over.season !== s.season) assert.equal(eventsState(s).open.length, 0, `seed ${seed}: events left open`);
     assert.deepEqual(brokenState(s), [], `seed ${seed}`);
   }
   assert.ok(seen.size >= 8, `only ${seen.size} island events fired in 60 careful games: ${[...seen].join(", ")}`);

@@ -1,0 +1,68 @@
+{
+  "note": "Switch \"council\" (off by default): the men at your table argue over what you do. Each seat is filled by the first man on its list who is free in the city and not your open enemy, or by the man you seat there. Each gives counsel from his faction, his traits, his ambition and what he knows. A man who plots against you, wants your place or hates you gives counsel that serves himself, and can lie. The idea comes from King of Dragon Pass and Suzerain (docs/game-research.md, proposal 4); the war council of about 404 BC in Diodorus 14.8.5 is the model scene (docs/research/council-and-secrets.md). Rules and lines are invention.",
+  "knobs": { "seatInfluence": 1, "overruleTraits": ["proud", "ambitious", "blunt", "fiery"] },
+  "seats": [
+    { "id": "kin", "kind": "invention", "name": "the kinsman", "duty": "speaks for your house", "from": ["leptines", "thearides", "polyxenus"], "concern": ["plot", "guard", "carthage"] },
+    { "id": "friend", "kind": "invention", "name": "the old friend", "duty": "says what others will not", "from": ["heloris", "andron", "polyxenus", "doricus"], "concern": ["plot", "faction", "grain"] },
+    { "id": "purse", "kind": "invention", "name": "the purse", "duty": "keeps the silver", "from": ["philistus", "hipparinus"], "concern": ["silver", "guard", "faction"] },
+    { "id": "sword", "kind": "invention", "name": "the sword", "duty": "speaks for the soldiers", "from": ["doricus", "biton", "aristotle", "guardCaptain", "archylus"], "concern": ["guard", "carthage", "plot"] },
+    { "id": "houses", "kind": "invention", "scenario": "island", "name": "the voice of the rich houses", "duty": "speaks for the grain-lords", "census": "rich", "concern": ["carthage", "grain", "silver"] }
+  ],
+  "tags": {
+    "war": ["raid", "march", "muster", "sendArmy", "assault", "declareWar", "hire"],
+    "harsh": ["imprison", "execute", "exile", "seize", "disarm", "revokeOffice", "expose", "demandOffice"],
+    "gift": ["feast", "bribe", "grainHandout", "giveLand", "grantGuard", "pardon", "grantOffice", "marriage"],
+    "spy": ["watch", "plantRumor", "turnInformer", "forceFavor", "block", "expose", "payServants", "demandOffice", "spyTown"],
+    "peace": ["envoy", "offerTerms", "acceptPeace", "embassyCity", "buyGrain"]
+  },
+  "factionLean": {
+    "citizens": { "grainHandout": 2, "giveLand": 1, "disarm": -2, "seize": 1, "proposeLaw": 1, "hire": -1, "declareWar": 1, "acceptPeace": -1 },
+    "rich": { "seize": -2, "grainHandout": -1, "giveLand": -1, "strikeCoin": -2, "feast": 1, "marriage": 1, "declareWar": -1, "acceptPeace": 1, "envoy": 1, "buyGrain": 1 },
+    "guard": { "payGuard": 2, "grantGuard": 2, "hire": 1, "disarm": 1, "muster": 1, "assault": 1, "acceptPeace": -1 },
+    "family": { "payGuard": 1, "build": 1, "watch": 1, "turnInformer": 1, "marriage": 1 }
+  },
+  "traitLean": {
+    "cautious": { "war": -1 }, "patient": { "war": -1 }, "bold": { "war": 1 }, "brave": { "war": 1 },
+    "harsh": { "harsh": 1 }, "vengeful": { "harsh": 1 }, "fiery": { "harsh": 1 },
+    "generous": { "gift": 1 }, "greedy": { "gift": -1 }, "wealthy": { "gift": -1 },
+    "shrewd": { "spy": 1 }, "wellConnected": { "peace": 1 }, "dutiful": {}, "loyal": {}, "proud": {}, "blunt": {}, "showy": { "gift": 1 }, "outsider": {}, "ambitious": {}, "grim": { "harsh": 1 }
+  },
+  "said": {
+    "2": ["Do it, and do it now.", "Yes. I have waited for you to say so.", "This is the right thing."],
+    "1": ["I would do it.", "It is sound.", "I see more good in it than harm."],
+    "-1": ["Think again.", "I would wait.", "I don't like it."],
+    "-2": ["Don't.", "I beg you, no.", "This would be a mistake."]
+  },
+  "reasons": {
+    "guilty": "My own people say {target} is in it.",
+    "innocent": "{target} is as loyal as any man here. I would stake my house on it.",
+    "noProof": "You have no proof against {target}, and the city will see it.",
+    "self": "You would not find a better man for it.",
+    "selfHarm": "You would wrong me, and the whole city would see it.",
+    "kin": "{target} is my kin. Think what you owe my house.",
+    "rivalOffice": "{target} is not the man for it.",
+    "factionFor": "{faction} will thank you for it.",
+    "factionAgainst": "{faction} will not forget it.",
+    "war": "War makes a ruler. Strike while they are weak.",
+    "noWar": "A march is easy to begin and hard to end.",
+    "harsh": "Fear keeps a city quiet.",
+    "mercy": "Every man you break has friends.",
+    "gift": "A gift now saves a sword later.",
+    "noGift": "Every coin you give away is a coin the guard won't see.",
+    "spy": "Know a man before you trust him.",
+    "peace": "Talk costs less than ships.",
+    "odds": "The dice are against you.",
+    "purse": "The treasury cannot bear it."
+  },
+  "brief": {
+    "accuse": "Watch {target}. There are meetings at night, and old hatred behind them.",
+    "accuseTrue": "Watch {target}. My people say something is afoot against you, and that name is in it.",
+    "plot": "Someone is plotting. Look at the men with old grudges.",
+    "guard": "The guard is owed {owed} silver. Pay them before someone else does.",
+    "silver": "The treasury has {silver} silver. We cannot spend like this.",
+    "grain": "The granaries hold {grain} months. Hungry men listen to anyone.",
+    "faction": "{faction} are {mood} with you. Do something for them.",
+    "carthage": "Carthage's anger stands at {clock} of 10. Make ready, or make friends.",
+    "quiet": "Nothing presses. Use the quiet."
+  }
+}

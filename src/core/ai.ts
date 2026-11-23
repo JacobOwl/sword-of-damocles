@@ -17,6 +17,7 @@ import { T } from "./tuning.ts";
 import { on } from "./switches.ts";
 import { deed } from "./clues.ts";
 import { feudOn } from "./feud.ts";
+import { secretsOn, digForYou, useOnYou, useHold } from "./secrets.ts";
 
 const hidden = false;
 const rankOf = (p: Person) => p.rival?.rank ?? 0;
@@ -187,6 +188,11 @@ function revengeTurn(s: GameState, p: Person) {
     if (did && rankOf(p) >= 2) recruit(s, p, pl);
     if (did) return;
   } else if (!pl && canStartPlot(s, p)) return void startPlot(s, p, `${p.rival ? "Your rival" : "Ambition: Revenge"}; grudge: ${p.grudges[0]?.reason}`);
+  // Switch "secrets": a Schemer or worse uses what he knows about you, or digs for it, before he spreads stories.
+  if (secretsOn(s) && rankOf(p) >= 2) {
+    if (useOnYou(s, p, `${capital(p.name)} is your rival`, (k, x, t, w) => request(s, p, k, x, t, w))) return;
+    if (!leverageOver(s, p.id, PLAYER) && digForYou(s, p, "your rival dug for your secrets")) return;
+  }
   rumorAgainstYou(s, p);
 }
 
@@ -204,10 +210,22 @@ function rumorAgainstYou(s: GameState, p: Person) {
 
 function politicalTurn(s: GameState, p: Person) {
   const type = p.political!.type;
+  // Switch "secrets": a political rival with a hold over you asks a price for his silence.
+  if (secretsOn(s) && type !== "Spymaster" && p.political!.rank >= 2 && useOnYou(s, p, `a ${type} uses what he knows`, (k, x, t, w) => request(s, p, k, x, t, w))) return;
   if (type === "Climber") {
     if (s.silver <= 3 && !p.owedFavor) return lend(s, p, "A Climber: he lends, and you owe him");
     if (askOffice(s, p, "A Climber bids for office")) return;
     return following(s, p, "A Climber");
+  }
+  if (type === "Spymaster" && secretsOn(s)) {
+    if (!leverageOver(s, p.id, PLAYER)) { if (!digForYou(s, p, "a Spymaster collects secrets")) following(s, p, "A Spymaster, with nothing left to find"); return; }
+    if (p.political!.rank >= 3 && useOnYou(s, p, "a Spymaster sells his silence", (k, x, t, w) => request(s, p, k, x, t, w))) return;
+    if (p.political!.rank >= 2) {
+      useHold(s, p.id, PLAYER, "Block, with a secret over you");
+      s.blockedSlots += 1;
+      return void event(s, p.id, `${capital(p.name)} uses what he knows about you. You lose an action this season.`, "Block, with a secret over you");
+    }
+    return following(s, p, "A Spymaster waits");
   }
   if (type === "Spymaster") {
     if (!leverageOver(s, p.id, PLAYER)) {

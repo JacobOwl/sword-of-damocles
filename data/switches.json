@@ -53,6 +53,20 @@
       "name": "Beaten armies can break",
       "summary": "Island game only. An army beaten in battle with no food left, or beaten for the second time within a year, scatters instead of falling back. Before, a beaten army always fell back to a friendly town, so Carthage almost never lost an army.",
       "research": "docs/handoff.md, \"Broke or odd in the island\""
+    },
+    {
+      "id": "council",
+      "kind": "invention",
+      "name": "Your council argues",
+      "summary": "Four men sit at your table (five on the island, with a voice of the rich houses): the kinsman, the old friend, the purse and the sword. Before each action they say what they think, from their faction, their traits and what they know, and each season they tell you what worries them. A man who plots against you, wants your place or hates you gives counsel that serves himself: he shields his fellow plotters and points you at an innocent man. Watch the man he accused to catch him out. Proud men you overrule think less of you. You can seat whom you like.",
+      "research": "docs/game-research.md, proposal 4; the war council in Diodorus 14.8.5 (docs/research/council-and-secrets.md)"
+    },
+    {
+      "id": "secrets",
+      "kind": "invention",
+      "name": "Secrets and leverage",
+      "summary": "Leverage becomes named secrets: Philistus has married Leptines' daughter without telling you, Theodorus meets the exiles' riders by night. Watching a man shows what he is doing now; paying his servants tells what he did. A small secret is used up when you use it; a deadly one is a hold that rests and can be used again, even to make a man hand you his office. You have secrets too (the night alarm at Leontini, the rumors you planted, the men you blackmailed), and your rivals dig for them: they ask a price for silence, or tell the city. A hold on each side keeps both mouths shut. On the island you can send spies to a town's first man.",
+      "research": "docs/game-research.md, proposal 6 (docs/research/council-and-secrets.md)"
     }
   ]
 }

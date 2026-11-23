@@ -3,6 +3,7 @@
 import { PLAYER, holds } from "./state.ts";
 import { NODES, battleMods, carthageArmy, city, friendly, path, reachable, yourArmy, cityWalls } from "./island.ts";
 import type { Args, GameState } from "./types.ts";
+import { townHold } from "./secrets.ts";
 
 export interface IslandChoice { a: string; args?: Args; min?: number }
 
@@ -32,6 +33,8 @@ export function islandChoices(s: GameState, style: IslandStyle = {}): IslandChoi
     if (wantWar || wantSpoils) out.push({ a: "muster", args: { second: danger || s.guard.strength < 3 ? "levy" : "guard" } });
     for (const n of NODES) {
       const c = city(s, n.id);
+      // Switch "secrets": send spies first, so the embassy can lean on its first man (the action is in the menu only with the switch).
+      if ((c.side === "tributary" || c.side === "free") && c.lean >= 0 && s.silver >= 5 && !townHold(s, n.id)) out.push({ a: "spyTown", args: { target: n.id }, min: 0.5 });
       if ((c.side === "tributary" || c.side === "free") && c.lean >= 1 && s.silver >= 4) out.push({ a: "embassyCity", args: { target: n.id }, min: 0.5 });
     }
     return out;

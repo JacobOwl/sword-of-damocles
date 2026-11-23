@@ -108,6 +108,37 @@ export interface Request {
   owed?: boolean;
   agendaStep?: boolean;
   demand?: boolean; // switch "escalation": asked once and refused, now he demands it
+  blackmail?: string; // switch "secrets": the secret he will tell if you refuse
+}
+
+// Switch "secrets": a named secret about one person (or about you), and who holds it.
+export interface Secret {
+  id: string;
+  tpl: string; // a record id in data/secrets.json
+  about: string; // a person id, "dionysius" for you, or a census id when `census` is set
+  census?: boolean;
+  weight: 1 | 2; // 1 small (used up), 2 deadly (a hold that rests after each use)
+  text: string;
+  season: number;
+  known: string[]; // who holds it
+  rest: Record<string, number>; // holder -> last season the hold rests
+  spent: string[]; // holders who used up a small secret
+  args?: Record<string, string>;
+  history?: boolean;
+  publicSince?: number; // told to the city: no one can use it again
+}
+export interface SecretsState { list: Secret[]; n: number }
+
+// Switch "council": who sits at your table, what they said, and how often they were wrong.
+export interface CouncilLine { seat: string; who: string; census?: boolean; text: string; accuse?: string; truth?: boolean; lie?: boolean }
+export interface CouncilState {
+  seats: Record<string, string | null>;
+  chosen: Record<string, string>; // seats you filled yourself
+  brief: CouncilLine[]; // this season's briefing
+  said: { season: number; by: string; about: string; truth: boolean; checked?: boolean }[];
+  doubts: Record<string, number>; // times you caught a man's counsel false
+  right: Record<string, number>; // times his warning proved true
+  overruled: Record<string, number>; // person -> last season you overruled him
 }
 
 export interface Building { what: "citadel" | "granary" | "wall"; slotsLeft: number }
@@ -225,4 +256,6 @@ export interface GameState {
   scenario?: Scenario; // missing = citadel (Phase 1)
   island?: IslandState;
   census?: import("./census.ts").Census; // the generated cast of invented people (island games only)
+  secrets?: SecretsState; // switch "secrets"
+  council?: CouncilState; // switch "council"
 }
