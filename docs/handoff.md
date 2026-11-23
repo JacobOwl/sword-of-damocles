@@ -2,6 +2,14 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Questions for Jacob, ranked (assumptions council, thread 18, 2026-11-23)
+Only these two need Jacob. Every other question below defaults to what the game does now (`docs/council/2026-11-23-assumptions-council.md`).
+1. **When will you play the first island test?** Recommended: one sitting before Wednesday morning, the "First island test" preset, judged at season 10.
+2. **Should you be able to lead the army yourself, or send a named man?** Recommended: yes, as a switch you can try, off by default.
+
+## Next for the build (from the same council)
+Build the "First island test" preset (listed first on the start screen), the season-10 verdict prompt, and a short "what to watch" note; measure map events in seasons 1 to 10 over 100 seeds. Fixes and the test pass before new features.
+
 ## Built by the court-intrigue thread (14, 2026-11-23): secrets softened, and ways to fight back
 - **Held secrets count half toward influence** (knob `influencePerSecret` 0.5 in `data/secrets.json`): two secrets over you give a rival 1 influence, not 2. Halving alone barely moved the numbers (the patron lost its old repeatable Expose), so a **political rival at rank 2 or higher now has a scheme** your watchers can see (one per game at the current setting; a new one every `schemeSeasons` seasons) ("is buying votes for his bid to take your place"), which you can expose or use. Knobs `schemeRank` and `schemeSeasons`.
 - **You see who holds your secrets.** A man joins that list when he makes a demand, tells the city, or when your watchers follow him and overhear what he knows. The character sheet and the Secrets ledger show it (they read the engine's list now, not the log).
