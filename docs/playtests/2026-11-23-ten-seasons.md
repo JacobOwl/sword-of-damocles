@@ -24,6 +24,8 @@ The iron-hand bot (tyrant) never fields an army in seasons 1 to 10, so its map s
 
 ## Twenty seeds read (careful bot, seasons 1 to 10)
 
+Note (later the same day): a dice fix (draws no longer made inside a sort, so the browser and Node replay alike) changed what each seed plays. The seed files in `docs/playtests/ten-seasons/` were regenerated; the judgments below were made on the earlier run, so the seed numbers point at the old games. The counts above barely moved (island events 2.53, towns taken 0.31, allies by embassy 0.94, strikes 0.02), and the patterns below hold in the new files.
+
 Would retell (7): seeds 2, 5, 10, 11, 12, 15, 19. Flat (13): 1, 3, 4, 6, 7, 8, 9, 13, 14, 16, 17, 18, 20.
 
 - **2, would retell:** Nicoteles turns from a champion of the citizens into a Pretender, joins a plot and slips your guards.

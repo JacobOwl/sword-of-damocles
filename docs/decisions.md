@@ -338,3 +338,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small calls, Jacob's to change):** all costs and season counts; the bots build in Diodorus' order (wall, arms, fleet) and halt a work unpaid for two seasons; switches marked `workshop: true` show only on a Workshop build.
 - **Done after the island stream merged:** the great fleet makes the interception roll need 4 instead of 5 and stops Carthage's blockade of your besieged ports.
 - **Open:** the taste questions in `docs/handoff.md`.
+
+## 2026-11-23 (determinism fix, thread 19)
+- **Fixed:** dice drawn inside a sort comparator made replays depend on the JavaScript engine, so "Copy my game" could not reproduce a browser game in Node. Draws now happen before the sort. Standard and preset digests re-pinned for this reason only. A test guards it.
+- **Changed in other threads' tests (said here because they are theirs):** `tests/dinner.test.ts` (couch test follows the current holder) and `tests/works.test.ts` (threshold 20 to 15 finished works).
+
