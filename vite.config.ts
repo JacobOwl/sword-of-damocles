@@ -5,7 +5,7 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 import { readdirSync, readFileSync } from "node:fs";
 
 // Placeholder portraits (invention, made in tools/mosaic-editor.html): ui/art/portraits/<person id>.webp,
-// inlined as data URLs into window.__PORTRAITS before the game's code runs (read by ui/portraits.ts).
+// inlined as data URLs into window.__PORTRAITS before the game's code runs (read by ui/components/portraits.ts).
 function portraits(): Plugin {
   return {
     name: "sword-portraits",

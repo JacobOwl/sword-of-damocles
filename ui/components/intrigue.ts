@@ -1,11 +1,11 @@
 // The council and the secrets on screen (rule switches "Your council argues" and "Secrets and leverage").
 // Both show nothing unless their switch is on. Real names and plain words only; the designer view also marks
 // false counsel and secrets you have not found.
-import type { Args, GameState, Secret } from "../src/core/index.ts";
-import { PLAYER, capital, counsel, seated, seatName, isFalse, councilName, secretsAbout, secretsKnownBy, secretLine, usableSecrets, SECRETS, seasonName } from "../src/core/index.ts";
-import { esc, ui, who, linkNames, pr } from "./text.ts";
+import type { Args, GameState, Secret } from "../../src/core/index.ts";
+import { PLAYER, capital, counsel, seated, seatName, isFalse, councilName, secretsAbout, secretsKnownBy, secretLine, usableSecrets, SECRETS, seasonName } from "../../src/core/index.ts";
+import { esc, ui, who, linkNames, pr } from "../lib/text.ts";
 import { portrait } from "./portraits.ts";
-import { face } from "./census.ts";
+import { face } from "../views/families.ts";
 
 const STANCE: Record<string, string> = { "2": "urges it", "1": "for it", "-1": "wary", "-2": "against it" };
 const weightWord = (x: Secret) => (x.weight === 2 ? `<span class="tag deadly">deadly</span>` : `<span class="tag">small</span>`);

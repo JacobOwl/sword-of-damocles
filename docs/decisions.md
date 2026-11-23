@@ -189,7 +189,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Sources found later can be saved in this repo**, under `sources/`, as short exact quotes with their link and licence. Why: the phoenician-punic-world repo is read-only for this game. `scripts/verify-cast-quotes.mjs` now reads a file from this repo first and from that repo otherwise, and it now also checks `data/calendar.json` (7 more quotes, all found).
 - **Saved:** Diodorus 14.19 to 14.40 (the three archon years 401 to 399 and every Sicilian line, from LacusCurtius, public domain); Cicero's Damocles story, 5.61 (short quotes from a copyrighted translation, as citations only); nine women's names from inscriptions and Livy. Cards: `docs/research/diodorus-401-399.md`, `damocles.md`, `punic-womens-names.md`.
 - **Only quotes, not whole texts.** The cloud's network is closed except GitHub, and the web reader returns short passages. Enough for the three gaps; whole chapters wait for Jacob if ever needed.
-- **Which Dionysius Damocles served stays open.** Livius.org says Dionysius II, Wikipedia says Dionysius I; Cicero's own 5.57 would settle it and is not saved.
+- **Which Dionysius Damocles served: Dionysius I**, settled the same day from Cicero's Latin (5.57: tyrant 38 years, from age 25; 5.59: wives Aristomache and Doris of Locri; 5.61: "hic quidem tyrannus"). Livius.org's "Dionysius II" is wrong for Cicero. The story has no date, so its year in the game is invention.
 - **No game data changed.** The calendar (thread 12), events (thread 06) and names (thread 13) stay with their threads.
 
 ## 2026-11-22 (Punic women's names in the generated cast, thread 13)
@@ -233,3 +233,14 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Rumors from Carthage use the generated councillors** (a judge of the Hundred, a merchant of the Elders, a dockyard speaker) as named parts, so Carthage's politics have faces. They are tagged invention: the blocs come from Aristotle, written decades later.
 - **Italy and the Sicels stay names only**, as `scope.md` says. Their events act through your towns, armies and Carthage.
 
+## 2026-11-22 (Damocles event updated, thread 07)
+- **"A sword on a horse-hair" is now settled on Dionysius I.** It quotes Cicero's Latin 5.57, 5.59 and 5.61 (saved by PR #30) and keeps Livius.org's Dionysius II reading as a disagreement. Only the timing is invention. Five more court stories from the same passage are parked in `docs/later.md`.
+
+## 2026-11-23 (five Cicero court stories as events, thread 07)
+- **Five more events from Cicero, Tusculan Disputations 5.58 to 5.63** (six records; the Pythagoreans story has a follow-up). Built at the coordinator's request under Jacob's green light for the week. Each gives what Dionysius did as one choice among three.
+- **The daughters become "the women of your house".** Dionysius' daughters could not be grown in 405 to 395, so the barber event changes who learns the trade; the change is listed on the event and the card.
+- **Standard digest re-pinned** (verified: without the six records the old digest matches).
+- **Restored work that PR #32 undid by accident.** Its squash merge came from an older base. It deleted the saved Cicero Latin (`sources/cicero/tusculan-5-57-63.latin.txt`, from PR #30) and put the Damocles event and card back to their "both readings" state (PR #31). Both are restored here from their own commits.
+
+## 2026-11-23 (a proper web app, step 3: thread 17)
+- **The UI is laid out as `ui/app/`, `ui/views/`, `ui/components/`, `ui/lib/` and `ui/styles/`**, and `ui/main.ts` only starts the app. Why: one 470-line file held every screen and every click; now a screen lives in its own file. Done in one step while no other thread had UI work open, so the moves happened once.

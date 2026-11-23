@@ -4,10 +4,10 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { DATA, runBotGame } from "../src/core/index.ts";
-import { AREA_ICON, FACTION_ICON, ICON_NAMES, OFFICE_ICON, iconBody } from "../ui/icons.ts";
-import { VIGNETTES, vignette } from "../ui/vignettes.ts";
-import { FLAVOR, knownDanger, seasonLine, swordOverhead } from "../ui/ambient.ts";
-import { ui } from "../ui/text.ts";
+import { AREA_ICON, FACTION_ICON, ICON_NAMES, OFFICE_ICON, iconBody } from "../ui/components/icons.ts";
+import { VIGNETTES, vignette } from "../ui/components/vignettes.ts";
+import { FLAVOR, knownDanger, seasonLine, swordOverhead } from "../ui/components/ambient.ts";
+import { ui } from "../ui/lib/text.ts";
 
 const events = [...JSON.parse(readFileSync("data/events.json", "utf8")).events, ...JSON.parse(readFileSync("data/island-events.json", "utf8")).events] as { id: string; art?: string }[];
 
@@ -46,7 +46,7 @@ test("season lines and the sword read the state without changing it", () => {
 });
 
 test("the island map kit draws every side, walls, forts, sieges and armies", async () => {
-  const A = await import("../ui/island-art.ts");
+  const A = await import("../ui/components/island-art.ts");
   const base = A.islandBase();
   assert.match(base, /class="coast"/);
   assert.match(base, /class="river"/);

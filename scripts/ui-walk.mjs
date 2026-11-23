@@ -11,7 +11,8 @@ const [page = "ui/dist/index.html", out = "ui-walk.json"] = process.argv.slice(2
 const browser = await chromium.launch();
 const snaps = [];
 const errors = [];
-for (const [scenario, width] of [["island", 1280], ["citadel", 1280], ["island", 390]]) {
+// The last pass turns every rule switch on, so the screens behind them are walked too.
+for (const [scenario, width, allSwitches] of [["island", 1280], ["citadel", 1280], ["island", 390], ["island", 1280, true]]) {
   const ctx = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: "reduce" });
   const p = await ctx.newPage();
   p.on("pageerror", (e) => errors.push(`${scenario} ${width}px: ${e.message}`));
@@ -26,12 +27,13 @@ for (const [scenario, width] of [["island", 1280], ["citadel", 1280], ["island",
       const d = document.querySelector("dialog[open]");
       return strip(document.getElementById("app").innerHTML) + (d ? "\n<!--dialog-->\n" + strip(d.innerHTML) : "");
     });
-    snaps.push({ scenario, width, label, html });
+    snaps.push({ scenario: allSwitches ? `${scenario} with every switch` : scenario, width, label, html });
   };
   const click = async (sel) => { const el = p.locator(`${sel} >> visible=true`).first(); if (await el.count()) { await el.click(); return true; } return false; };
   await snap("title");
   await p.evaluate(() => { document.getElementById("seed").value = "4242"; }); // the seed box is folded away
   await p.selectOption("#scenario", scenario);
+  if (allSwitches) await p.evaluate(() => document.querySelectorAll("input.switch").forEach((x) => { x.checked = true; }));
   await click("#new");
   await p.keyboard.press("Escape");
   await snap("start");
