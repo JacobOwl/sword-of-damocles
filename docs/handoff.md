@@ -56,7 +56,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **`npm run walk`** (`scripts/ui-walk.mjs`): a scripted walk through the built page (fixed seed and clicks, 1280 and 390 px, both scenarios, and a pass with every rule switch on): 110 pages, identical before and after each step.
 - **Changed:** nothing in the game. **Broke:** nothing: 85 of 85 tests, typecheck clean, 100-seed run 0 crashes, 0 broken states.
 - **Noticed, not changed:** `ui/views/families.ts` imports `src/core/census.ts` directly instead of through `src/core/index.ts`.
-- **Step 4 (PR #36): one click layer.** `ui/app/clicks.ts`: one listener for clicks and one for changes, set up once; `views/season.ts` and `views/help.ts` export their handlers; the start screen's page is `views/start.ts`. How to add clicks to a screen: `docs/architecture.md`.
+- **Step 4 (PR #38): one click layer.** `ui/app/clicks.ts`: one listener for clicks and one for changes, set up once; `views/season.ts` and `views/help.ts` export their handlers; the start screen's page is `views/start.ts`. How to add clicks to a screen: `docs/architecture.md`.
 - **Done.** New screens follow the layout in `docs/architecture.md`.
 
 ## Built by the events thread (07, 2026-11-23): five more Cicero court stories

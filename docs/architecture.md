@@ -110,7 +110,7 @@ Each step is one small pull request that keeps `npm test`, the typecheck and `np
 1. **This document, the engine boundary test and the replay export.** No game files move. (Done, PR #26.)
 2. **Vite build.** `npm run dev` for a live-reloading page; `npm run build` still writes `ui/dist/index.html` and the fragment. The walk-through gives the same pages as the old esbuild page. (Done, PR #28.)
 3. **Split `ui/main.ts` and move the UI files** into `app/`, `views/`, `components/`, `lib/` and `styles/` (steps 4 and 5 of the first plan, done together while no other thread had UI work open). Every function moved unchanged; the walk-through (110 pages, now with a pass that turns every rule switch on) is identical. (Done, PR #35.)
-4. **One click layer and the start screen as a view.** `ui/app/clicks.ts` replaces the wiring that ran after every render; `views/season.ts` and `views/help.ts` own their clicks; the start screen's page is `views/start.ts`. The walk-through is identical, and starting, resuming, a new game, the guide and sound were checked by hand in a browser. (Done, PR #36.)
+4. **One click layer and the start screen as a view.** `ui/app/clicks.ts` replaces the wiring that ran after every render; `views/season.ts` and `views/help.ts` own their clicks; the start screen's page is `views/start.ts`. The walk-through is identical, and starting, resuming, a new game, the guide and sound were checked by hand in a browser. (Done, PR #38.)
 
 The restructure is complete. What is left is ordinary upkeep: new screens follow the layout above.
 
