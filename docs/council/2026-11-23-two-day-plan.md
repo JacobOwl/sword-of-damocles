@@ -60,3 +60,65 @@ New events, more cast, art beyond fixes, secrets and council extensions, Godot, 
 
 ## For Jacob, not done here
 The Producer seat found stale branches (for example `claude/project-thread-jmqrof`) that would delete about 9,000 lines if merged by mistake. Deleting them can't be undone, so they are left alone unless Jacob says to clear them.
+
+# Part two: ambitious bets (round 4)
+
+Jacob, after the plan above: "for the usage I specifically mean stuff beyond fixes/changes at my request after playing. Be ambitious and creative." So the test build above stays as the protected core, and the rest of the budget goes to bigger bets. Seat proposals are summarised in `2026-11-23/r4-bets.md`.
+
+## Rules for every bet
+- **The test link never moves.** Bets publish to a separate **Workshop** page (a second Artifact), never to the link Jacob plays. He tries them after his sitting.
+- New rules are switches, off by default, never in the test preset. New modes are separate scenarios. The default and preset digests stay pinned.
+- A bet that needs an engine hook in a test-build stream's file (`island-actions.ts`, `chronicle.ts`, `season.ts`, `start.ts`, `carthage.ts`, `island-bot.ts`) adds it only after that stream merges, and never after the Tuesday 18:00 UTC freeze until Jacob has played.
+- Each bet owns new files; `data/switches.json` gets one appended entry per switch.
+
+## The bets, ranked
+
+**B1. The story museum** (medium to heavy; tool, no scope change; 4 of 5 seats proposed a version)
+- Bet: run 1,000 to 2,000 preset games headless, find story shapes in the log (a friend who betrays you, a warned blow survived, a general home too popular, a city that turns twice, a rival who survives you twice), score them, and bind the ten best and ten dullest as readable chronicles. Also runs a "Dionysius bot" whose priorities are what Diodorus says he did, each cited (Historian), as a report only, never a target.
+- By Wednesday: `npm run museum` (safe to rerun), a shapes file in `data/`, a Workshop gallery of 20 chronicles with seeds, a list of shapes that never appeared, and the Dionysius bot report.
+- Owns: `scripts/museum.ts`, `data/story-shapes.json`, a gallery view under `tools/`, `docs/playtests/museum/`, a separate bot in `src/core/bots.ts`.
+
+**B2. Change the past** (heavy; interface and tool, no scope change; Player, Producer, Devil)
+- Bet: every game replays exactly from its seed and choices, so from the last page you can go back to any season, make the other choice and play on, then read both chronicles side by side with the split marked. "If I'd paid the guard, Leptines lives." It turns one sitting into many stories and proves deaths weren't random. The museum's "play from here" uses the same loader.
+- By Wednesday: a core helper that loads a game at any season (a test proves a branch matches its parent up to the split), a "go back to this season" button and a side-by-side view on the Workshop page, and `npm run debrief -- <save>` that writes the hidden rolls and three counterfactual branches for a save.
+- Owns: a new `src/core/fork.ts`, a new replay view, `scripts/debrief.ts`.
+
+**B3. Grain and the sea** (heavy; switch, fits Phase 2's armies with supply; 4 of 5 seats)
+- Bet: the supply chain as play, John Company style. Grain flows from harvest to granaries to ships to armies along the sea lanes; Carthage's silver for its mercenaries has to cross the sea; convoys are objects on the map caught by the single interception roll already in scope; named contractors from the generated rich houses run them and can skim, delay or sell to Carthage. A map overlay shows every flow with its cause. Depots and wagons stay parked for Phase 3.
+- By Wednesday: switch off by default, `data/convoys.json`, research card (passages to be found and quoted), the overlay on the Workshop map, 100 seeds on and off with convoys sent, caught and armies starved by a catch.
+- Owns: new `src/core/convoys.ts`, `data/convoys.json`, an overlay component; its army hook waits for the commission stream.
+
+**B4. Great works** (heavy; switch, fits Phase 2; Historian)
+- Bet: Dionysius' power in 401-397 came from building. Timber, "half of his woodmen to Mount Aetnê… the other half… to Italy" (Diodorus 14.42.4); craftsmen bought "by high wages from Italy and Greece as well as Carthaginian territory" (14.41.3); the Epipolae wall "brought to completion in twenty days" (14.18.8). Works (the wall, the arsenal, ship-sheds, quinqueremes) are objects built over seasons that pull men off the harvest, silver out of the treasury and craftsmen from rivals, and raise Carthage's anger. Power you build, not only power you hold.
+- By Wednesday: switch off by default, `data/works.json`, research card, tests, 100 seeds with 0 crashes, default replays unchanged.
+- Owns: new `src/core/works.ts`, `data/works.json`.
+
+**B5. Dinners as the stage** (heavy; switch; Devil, from Jacob's own pitch idea)
+- Bet: you choose who is invited, where they sit and how much wine goes round; bonds form, grudges come out, secrets slip. The seating is a power object people fight over. In rules v2 and in `later.md`, barely seen so far.
+- By Wednesday: switch off by default, one dinner action with seating and wine choices, every outcome logged with its reason, 100 seeds with counts of bonds and slips, three sample dinners written up.
+- Owns: new `src/core/dinner.ts`, `data/dinners.json`, `ui/views/dinner.ts`.
+
+**B6. The other shore** (medium; fits Phase 2, the voices sample is paper only; Devil, Historian, Player)
+- Bet: the same decade told from Carthage's own log in Carthaginian terms (the council's votes, the general "king by law", 14.54.5, defeat read as the gods' anger, "against whom the gods were clearly fighting", 14.77.4), as a second chronicle tab that reads only the log. Plus, on paper only, three seeds told by a friendly Philistus and a hostile Timaeus, every sentence footnoted to its log entry, to let Jacob judge the Phase 4 idea early.
+- By Wednesday: the Carthage chronicle on the Workshop page with a test that every line traces to a log entry; the voices samples in `docs/playtests/`; a card on each historian's leanings (unverified claims marked).
+- Owns: a new view and a new `src/core/carthage-chronicle.ts` (not `chronicle.ts`), its sentences in `data/`.
+
+**B7. Fallen, not finished: exile and return** (heavy; needs Jacob's change to `scope.md`; Player, Systems, Devil)
+- Bet: when you lose Syracuse you flee to Aetna or Rhegium with a few loyal men and your feud records, and plot your way back while someone else rules. Every fall becomes the middle of a story. It is in Jacob's pitch and design.md.
+- Until Jacob answers: a design note and a prototype on a branch as a separate scenario, not merged. On his yes: merged as a scenario, off by default, on the Workshop page.
+- Owns: new `src/core/exile.ts`, a scenario data file; reuses the commission's `where` field.
+
+**B8. The Long Game on paper** (medium to heavy research; paper only, no scope change; Producer, Historian)
+- Bet: make the jump to Phase 3 quick once the gate is passed, and test whether "history as conditions" works beyond one decade. A draft rulebook (generations and heirs from the census, start dates as "seeds of a period", the mercenary market as a Republic of Rome style auction) and five start-date dossiers (480, 466, 357, 317, 289): who holds the six power objects, the factions, Carthage's posture, about 15 people each tagged history or invention, every claim quoted from the saved texts.
+- By Wednesday: `docs/phase3-draft.md` marked draft with open questions as Jacob's, five dossiers in `docs/research/`, gaps in `later.md`.
+- Owns: those docs only.
+
+## Waves
+Beside the eight test-build streams, the Producer seat puts the safe ceiling at about five bets at once.
+- **Now:** B1, B2, B4, B5, B8 (new files only, or paper).
+- **After the commission stream merges (Tuesday about 12:00 UTC):** B3.
+- **After the freeze:** B6's tab, and B7 if Jacob says yes.
+Heavy effort: B2, B3, B4, B5. Medium: B1, B6. B8's research can use a cheaper model with a strong model checking every quote.
+
+## Proposed, not chosen (parked in later.md)
+Favours as objects (Systems: every pardon, loan or marriage makes a named debt that can be called in, sold or inherited); Carthage's general under his own sword (Systems); Root-style asymmetric factions (Systems); disputed numbers as ranges spies narrow (Historian); a printable reign broadside with "mark this moment" (Player); secrets that change hands (Devil); a Godot spike (Player, Producer; the Devil calls it a trap until the route matters); a print-and-play board game (Producer; Phase 5). Traps the Devil named and the council agreed with: an LLM writing Philistus' history (invented facts in a historian's voice), playing as Carthage or all 216 years now, another hundred events, calibrating to history.
