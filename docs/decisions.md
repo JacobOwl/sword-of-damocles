@@ -352,3 +352,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** switch `convoys`, "Grain and the sea", off by default, island only: convoys a season at sea (bought grain, the fleet's grain, allies' surplus, grain to the army, Carthage's grain and mercenary pay), winter storms, the existing interception roll for catches, contractors from the census who may skim or sell, and an audit action. Workshop page `grain.html`. Card `docs/research/grain-and-sea.md` (Diodorus 14.47.7, 14.55.2-5, 14.63.4, 14.64.1, 14.96.1, 14.103.2; Polyaenus 5.2.21 and Cicero, Verres 2.3.24 as labelled later parallels).
 - **Decided (small, reversible):** with the switch on, "Buy grain abroad" sends a convoy instead of landing grain at once, and Carthage's port feeding becomes a convoy. Without the switch nothing changes (digests untouched). Not offered beside the First island test preset, so the frozen test link is unaffected.
 - **Open (Jacob's):** whether a season at sea is too slow; whether the audit should cost goodwill when it catches a cheat. Counts in `docs/playtests/2026-11-23-grain-and-sea.md`.
+
+## 2026-11-24 (Carthage's chronicle, bet B6, thread 27)
+- **Done:** switch `carthageChronicle` (Workshop only, off by default): the decade told from Carthage's side, read from the log alone, every sentence footnoted to its log line; Workshop page `shore.html`. Paper only: the voices sample (friendly Philistus, hostile Timaeus, three seeds) and a card on both historians.
+- **Decided (taste calls delegated by Jacob):** the year frame is the suffetes' dating formula (later evidence, marked as such); the chronicle never says "you"; it uses only log lines you saw, plus births, deaths and heirs in Carthage's own houses; the one sentence naming Baal Hammon and Tanit is marked invention on the card. Engine untouched: the switch only adds a view, and the log is identical on and off.
+- **Small shared change:** `ExtraView.when(g)` in `ui/app/extras.ts` (test page unaffected).
+- **Open:** the questions in `docs/handoff.md`; the English Loeb of Diodorus 14.77.1 to 14.77.3 is still not saved (the game renders the Greek itself).
+

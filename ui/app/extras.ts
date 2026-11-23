@@ -11,10 +11,12 @@ export interface ExtraView {
   render(g: GameState): string;
   handlers?: Handlers;
   onEnding?(g: GameState): string; // HTML put under the ending stele (a button into the view, say)
+  when?(g: GameState): boolean; // show the view only for some games (a rule switch, say); always when left out
 }
 export const extraViews: ExtraView[] = [];
 // One handler set the shell listens to; filled as views are added (the click layer reads it at each click).
 export const extraHandlers: Required<Handlers> = { click: {}, change: {} };
+export const extrasFor = (g: GameState) => extraViews.filter((x) => !x.when || x.when(g));
 export function addView(v: ExtraView) {
   extraViews.push(v);
   Object.assign(extraHandlers.click, v.handlers?.click ?? {});
