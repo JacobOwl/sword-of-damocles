@@ -15,7 +15,7 @@ import { FACTIONS } from "./types.ts";
 
 interface Effects {
   opinion?: number | Record<string, number>; infl?: number; faction?: number; also?: Record<string, number>; moods?: Record<string, number>;
-  flees?: boolean; named?: boolean; unseat?: boolean; targetFaction?: number; endsInformer?: boolean;
+  flees?: boolean; named?: boolean; unseat?: boolean; targetFaction?: number; endsInformer?: boolean; discredits?: boolean;
 }
 interface Tpl { id: string; kind: string; weight: number; text: string; about?: string; exposed?: Effects; body?: string; when?: string; greek?: boolean; source?: string }
 export const SECRETS = secretsJson as unknown as { knobs: Record<string, number>; start: Tpl[]; deeds: Tpl[]; yours: Tpl[]; census: Tpl[] };
@@ -60,6 +60,13 @@ export const secretName = (s: GameState, x: Secret) => (x.census ? censusPersonN
 // "Philistus has married one of Leptines' daughters" / "you staged the night alarm".
 export const secretLine = (s: GameState, x: Secret) => (x.about === PLAYER ? x.text : `${capital(secretName(s, x))} ${x.text}`);
 
+// Your secret as the man it is about tells it: "you held his secret over him", not "you held Nicoteles' secret over him".
+export function toHolder(s: GameState, x: Secret, pid: string) {
+  const nm = s.people[pid]?.name;
+  if (!nm || x.args?.target !== pid) return x.text;
+  return x.text.split(nm.endsWith("s") ? `${nm}'` : `${nm}'s`).join("his");
+}
+
 export function usable(s: GameState, holder: string, over: string, deadlyOnly = false): Secret[] {
   return about(s, over).filter((x) => x.known.includes(holder) && !x.spent.includes(holder) && (x.rest[holder] ?? -1) < s.season && (!deadlyOnly || x.weight === 2));
 }
@@ -77,6 +84,8 @@ export function derive(s: GameState, pid: string) {
     if (pl.leader === pid && !have("plotLeader", pl.id)) add(s, tplById("plotLeader")!, pid, { key: pl.id });
     else if (pl.leader !== pid && !have("plotSworn", pl.id)) add(s, tplById("plotSworn")!, pid, { key: pl.id, leader: pl.leader });
   }
+  // A political rival at rank 2 or more has a scheme your watchers can see, renewed every schemeSeasons seasons.
+  if (p.political && p.political.rank >= SECRETS.knobs.schemeRank && !have("politicalScheme", String(Math.floor(s.season / SECRETS.knobs.schemeSeasons)))) add(s, tplById("politicalScheme")!, pid, { key: String(Math.floor(s.season / SECRETS.knobs.schemeSeasons)) });
   const g = p.grudges[0];
   if (g && !have("grudgeHidden", g.reason)) add(s, tplById("grudgeHidden")!, pid, { key: g.reason, grudge: g.reason });
   if (p.agenda && !p.agenda.done && p.agenda.id !== "yourFall" && !have("agendaHidden", p.agenda.id)) {
@@ -86,10 +95,38 @@ export function derive(s: GameState, pid: string) {
 }
 
 // A deed that makes a secret about someone else (Carthaginian silver, false counsel).
-export function deedSecret(s: GameState, pid: string, tpl: string, args: Record<string, string> = {}) {
+export function deedSecret(s: GameState, pid: string, tpl: string, args: Record<string, string> = {}, known: string[] = []) {
   if (!secretsOn(s) || !s.people[pid] || pid === PLAYER) return;
-  if (s.secrets!.list.some((x) => x.about === pid && x.tpl === tpl && x.publicSince === undefined)) return;
-  add(s, tplById(tpl)!, pid, args);
+  const old = s.secrets!.list.find((x) => x.about === pid && x.tpl === tpl && x.publicSince === undefined);
+  if (old) { for (const k of known) if (!old.known.includes(k)) old.known.push(k); return; }
+  add(s, tplById(tpl)!, pid, args, known);
+}
+
+// ---------- Fighting back ----------
+
+// The men you know hold something over you. You learn it when one makes a demand or tells the city, or when your
+// watchers follow him and overhear it.
+export const seenHolders = (s: GameState) => (s.secrets?.seen ?? []).filter((id) => s.people[id] && alive(s.people[id]) && knownBy(s, id).some((x) => x.about === PLAYER));
+export function markSeen(s: GameState, pid: string) {
+  if (!s.secrets || pid === PLAYER) return;
+  s.secrets.seen = s.secrets.seen ?? [];
+  if (!s.secrets.seen.includes(pid)) s.secrets.seen.push(pid);
+}
+// Your watchers followed him: if he holds something over you, now you know.
+export function watchedHolder(s: GameState, pid: string) {
+  if (!secretsOn(s) || (s.secrets!.seen ?? []).includes(pid)) return;
+  const x = knownBy(s, pid).filter((y) => y.about === PLAYER).sort((a, b) => b.weight - a.weight)[0];
+  if (!x) return;
+  markSeen(s, pid);
+  event(s, PLAYER, `Your watchers overhear ${nameOf(s, pid)} talking: he knows that ${toHolder(s, x, pid)}.`, "Watch a person");
+}
+// What his silence costs: 1 silver, and 1 more for each secret he holds over you (2 for a deadly one).
+export const silenceCost = (s: GameState, pid: string) => 1 + knownBy(s, pid).filter((x) => x.about === PLAYER).reduce((a, x) => a + x.weight, 0);
+// He takes your silver and forgets what he knows (until he digs again). Any demand he made is withdrawn.
+export function forget(s: GameState, pid: string) {
+  for (const x of knownBy(s, pid).filter((y) => y.about === PLAYER)) x.known = x.known.filter((k) => k !== pid);
+  s.requests = s.requests.filter((r) => !(r.from === pid && r.blackmail));
+  if (s.secrets?.seen) s.secrets.seen = s.secrets.seen.filter((k) => k !== pid);
 }
 // Something you did in the dark. `known`: who saw it (the man you blackmailed knows you did).
 export function yourDeed(s: GameState, tpl: string, args: Record<string, string> = {}, known: string[] = []) {
@@ -105,7 +142,7 @@ export function yourDeed(s: GameState, tpl: string, args: Record<string, string>
 export function learn(s: GameState, holder: string, who: string, how: string, kinds: "seen" | "kept" | "all" = "all"): Secret | null {
   if (!secretsOn(s)) return null;
   derive(s, who);
-  const seen = ["plotSworn", "plotLeader", "grudgeHidden", "agendaHidden"];
+  const seen = ["plotSworn", "plotLeader", "grudgeHidden", "agendaHidden", "politicalScheme"];
   const pool = about(s, who).filter((x) => !x.known.includes(holder) && (kinds === "all" || (kinds === "seen") === seen.includes(x.tpl)))
     .sort((a, b) => b.weight - a.weight || a.season - b.season);
   const x = pool[0];
@@ -166,6 +203,12 @@ export function exposeSecret(s: GameState, x: Secret, by: string, why: string) {
   for (const [k, d] of Object.entries(e.also ?? {})) if (s.people[k] && by === PLAYER) opinion(s, k, d, `you exposed ${p.name}'s secret, and it touches him`);
   if (e.named) { const pl = plotOf(s, p.id); if (pl) pl.known = Array.from(new Set([...pl.known, p.id, pl.leader])); }
   if (e.flees && p.status === "free") setStatus(s, p.id, "outside", `his fear is known, and he flees`);
+  if (e.discredits) {
+    const held = knownBy(s, p.id).filter((y) => y.about === PLAYER);
+    if (by === PLAYER) s.counters.discredited = (s.counters.discredited ?? 0) + 1;
+    if (held.length) event(s, p.id, `No one will believe what ${p.name} says about you now. What he knows is worth nothing.`, "he was shown up as a blackmailer");
+    forget(s, p.id);
+  }
   if (e.unseat && s.council) for (const [k, v] of Object.entries(s.council.seats)) if (v === p.id) s.council.seats[k] = null;
 }
 
@@ -198,14 +241,19 @@ export function useOnYou(s: GameState, p: Person, why: string, request: (kind: "
   if (x.weight === 2 || p.political) {
     const want = (p.wants && s.offices[p.wants] === PLAYER ? p.wants : (["treasury", "mint", "fleet", "assembly"] as const).find((o) => s.offices[o] === PLAYER));
     const text = want
-      ? `${capital(p.name)} comes to you alone. He knows that ${x.text}. He asks for ${officeName(want)}, or the assembly hears of it.`
-      : `${capital(p.name)} comes to you alone. He knows that ${x.text}. He asks for silver, or the assembly hears of it.`;
+      ? `${capital(p.name)} comes to you alone. He knows that ${toHolder(s, x, p.id)}. He asks for ${officeName(want)}, or the assembly hears of it.`
+      : `${capital(p.name)} comes to you alone. He knows that ${toHolder(s, x, p.id)}. He asks for silver, or the assembly hears of it.`;
     const ok = request(want ? "office" : "silver", { ...(want ? { office: want } : {}), blackmail: x.id }, text, `${why}; he holds a secret over you`);
-    if (ok) s.counters.blackmailDemands = (s.counters.blackmailDemands ?? 0) + 1;
+    if (ok) {
+      s.counters.blackmailDemands = (s.counters.blackmailDemands ?? 0) + 1;
+      markSeen(s, p.id);
+      deedSecret(s, p.id, "triedBlackmail", {}, [PLAYER]);
+    }
     return ok;
   }
   x.spent.push(p.id);
   exposeSecret(s, x, p.id, `${why}; he spends what he knows`);
+  markSeen(s, p.id);
   return true;
 }
 

@@ -279,7 +279,7 @@
       "kind": "invention",
       "cost": "1 leverage over them",
       "roll": "auto",
-      "success": "Their secret goes public: influence -2, a grudge, and a political rival drops a rank."
+      "success": "Their secret goes public: influence -2, a grudge, and a political rival drops a rank. With secrets on, exposing a man who tried to blackmail you also makes what he knows about you worthless."
     },
     {
       "id": "envoy",
@@ -363,6 +363,7 @@
     {"id": "acceptPeace", "scenario": "island", "area": "Embassy", "name": "Accept Carthage's terms", "kind": "invention", "cost": "none", "roll": "auto", "success": "Peace: each side keeps what it holds, Carthage's army goes home, and its anger falls to 4."},
     {"id": "seatCounsel", "switch": "council", "area": "Court", "name": "Seat a counsellor", "kind": "invention", "cost": "none", "roll": "auto", "success": "He takes a seat at your council and speaks before each of your actions: his opinion of you +1, and the seat adds 1 to his influence. The man he replaces thinks 1 less of you."},
     {"id": "payServants", "switch": "secrets", "area": "Spies", "name": "Pay his servants", "kind": "invention", "cost": "1 silver", "roll": "4+, Suspicious +1, Shrewd target -1", "success": "Learn one secret from his household: what he did, not only what he is doing now. A small secret is used up when you use it; a deadly one is a hold you can use again after it rests.", "failure": "Nothing. On a natural 1 he finds out: his opinion of you falls by 1, and he knows a secret about you."},
+    {"id": "buySilence", "switch": "secrets", "area": "Spies", "name": "Buy back a secret", "kind": "invention", "cost": "1 silver, plus 1 for each small secret he holds over you and 2 for each deadly one", "roll": "3+, Greedy +2, Wealthy -1, a grudge against you -1, a Pretender -2", "success": "He forgets what he knows about you, and any demand he made is withdrawn. Only men you know hold something can be bought: those who made a demand, told the city, or were overheard by your watchers.", "failure": "He will not sell. You keep your silver, but he thinks less of you (opinion -1)."},
     {"id": "demandOffice", "switch": "secrets", "area": "Spies", "name": "Demand his office", "kind": "invention", "cost": "a deadly secret over him (it rests 2 seasons)", "roll": "auto", "success": "He hands you one of his offices rather than have the secret told. He holds a grudge, and knows you blackmailed him."},
     {"id": "spyTown", "switch": "secrets", "scenario": "island", "area": "Spies", "name": "Send spies to a town", "kind": "invention", "cost": "1 silver", "roll": "4+, Suspicious +1", "success": "Learn whether a town's first man, or an elder of Carthage, hides something. A secret over a town's first man adds 2 to your next embassy there; over an elder, 1 to your next envoy to Carthage.", "failure": "Nothing."}
   ]

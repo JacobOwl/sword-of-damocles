@@ -2,7 +2,7 @@
 // Both show nothing unless their switch is on. Real names and plain words only; the designer view also marks
 // false counsel and secrets you have not found.
 import type { Args, GameState, Secret } from "../../src/core/index.ts";
-import { PLAYER, capital, counsel, seated, seatName, isFalse, councilName, secretsAbout, secretsKnownBy, secretLine, usableSecrets, SECRETS, seasonName } from "../../src/core/index.ts";
+import { PLAYER, capital, counsel, seated, seatName, isFalse, councilName, secretsAbout, secretsKnownBy, secretLine, usableSecrets, seenHolders, silenceCost, SECRETS, seasonName } from "../../src/core/index.ts";
 import { esc, ui, who, linkNames, pr } from "../lib/text.ts";
 import { portrait } from "./portraits.ts";
 import { face } from "../views/families.ts";
@@ -59,11 +59,11 @@ export function sheetSecrets(g: GameState, id: string): string {
     return `<li>${weightWord(x)} ${linkNames(capital(secretLine(g, x)))}. <span class="muted">${esc(state)}${x.history ? ", from the sources" : ""}</span></li>`;
   };
   return `${mine.length ? `<p class="small"><b>Secrets you hold over ${P.him}:</b></p><ul class="small secrets">${mine.map((x) => line(x, PLAYER)).join("")}</ul>` : `<p class="small muted">You hold no secret over ${P.him}. Watching shows what ${P.he} does now; paying ${P.his} servants, what ${P.he} did.</p>`}
-    ${theirs.length ? `<p class="small warn"><b>${P.He} knows:</b></p><ul class="small secrets">${theirs.map((x) => line(x, id)).join("")}</ul>` : ""}
+    ${theirs.length ? `<p class="small warn"><b>${P.He} knows:</b></p><ul class="small secrets">${theirs.map((x) => line(x, id)).join("")}</ul><p class="small muted">Buy back a secret (${silenceCost(g, id)} silver) to make ${P.him} forget, or expose ${P.him} if ${P.he} tried to blackmail you.</p>` : ""}
     ${hidden.length ? `<p class="small muted"><b>Designer view, not yet found:</b> ${hidden.map((x) => esc(x.text)).join("; ")}.</p>` : ""}`;
 }
-// You know he holds a secret of yours once he has used or threatened with it.
-const usedOnYou = (g: GameState, id: string) => g.log.some((e) => e.actor === id && e.visible && /He knows that|tells the city that|uses what he knows about you/.test(e.text));
+// You know he holds a secret of yours once he has made a demand, told the city, or been overheard by your watchers.
+const usedOnYou = (g: GameState, id: string) => seenHolders(g).includes(id);
 
 // In the court view: the ledger of secrets.
 export function secretsLedger(g: GameState): string {
@@ -76,7 +76,7 @@ export function secretsLedger(g: GameState): string {
     <div class="ledger-cols">
       <div><h3>What you know</h3>${held.length ? `<ul class="small secrets">${held.map((x) => `<li>${weightWord(x)} ${linkNames(capital(secretLine(g, x)))}.${x.spent.includes(PLAYER) ? ` <span class="muted">Used up.</span>` : usableSecrets(g, PLAYER, x.about).includes(x) ? "" : ` <span class="muted">Resting.</span>`}</li>`).join("")}</ul>` : `<p class="small muted">Nothing yet. Watch a man, or pay his servants.</p>`}</div>
       <div><h3>Your own secrets</h3>${yours.length ? `<ul class="small secrets">${yours.map((x) => { const ks = known(x); return `<li>${weightWord(x)} ${linkNames(capital(x.text))}.${ks.length ? ` <span class="warn">Known to ${ks.map((k) => who(k)).join(", ")}.</span>` : ` <span class="muted">No one you know of has it.</span>`}</li>`; }).join("")}</ul>` : `<p class="small muted">None.</p>`}
-        <p class="small muted">Your rivals dig for these. While you hold a deadly secret over a man, he keeps yours to himself.</p></div>
+        <p class="small muted">Your rivals dig for these. While you hold a deadly secret over a man, he keeps yours to himself. A man you know holds one can be bought off (Buy back a secret), and a man who tried to blackmail you can be exposed, which makes what he knows worthless.</p></div>
     </div>
     ${told.length ? `<p class="small"><b>Told to the city:</b> ${told.map((x) => `${linkNames(capital(secretLine(g, x)))} (${esc(seasonName(x.publicSince!))})`).join("; ")}.</p>` : ""}
   </section>`;

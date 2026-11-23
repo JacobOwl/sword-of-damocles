@@ -16,7 +16,7 @@ import { T } from "./tuning.ts";
 import { on } from "./switches.ts";
 import { chapter, feudInherit, feudOn, feudOf, feudSurvive } from "./feud.ts";
 import { ISLAND_IMPL } from "./island-actions.ts";
-import { secretsOn, learn, useHold, usable, exposeSecret, yourDeed, blackmailRefused, blackmailGranted, holdsDeadly, censusSecret, townLeader, secretLine, SECRETS } from "./secrets.ts";
+import { secretsOn, learn, useHold, usable, exposeSecret, yourDeed, blackmailRefused, blackmailGranted, holdsDeadly, censusSecret, townLeader, secretLine, seenHolders, watchedHolder, silenceCost, forget, SECRETS } from "./secrets.ts";
 import { COUNCIL_IMPL, councilChecked, councilHeard } from "./council.ts";
 import { leaderOfCity, councilOf, censusPersonName } from "./census-game.ts";
 import { NODES } from "./island.ts";
@@ -594,6 +594,7 @@ export const IMPL: Record<string, Impl> = {
         event(s, PLAYER, `Your watchers follow ${p.name}.`, "Watch a person");
         reveal(s, p.id);
         councilChecked(s, p.id);
+        watchedHolder(s, p.id);
         if (hasSecret(s, p)) gainLeverage(s, PLAYER, p.id, "what your watchers saw");
       } else {
         event(s, PLAYER, `Your watchers learn nothing about ${p.name}.`, "Watch a person");
@@ -677,7 +678,8 @@ export const IMPL: Record<string, Impl> = {
     run: (s, a) => {
       const p = s.people[a.target!];
       if (secretsOn(s)) {
-        const x = usable(s, PLAYER, p.id).sort((a, b) => b.weight - a.weight)[0];
+        // Show up a blackmailer first: it makes what he knows about you worthless.
+        const x = usable(s, PLAYER, p.id).sort((a, b) => Number(b.tpl === "triedBlackmail") - Number(a.tpl === "triedBlackmail") || b.weight - a.weight)[0];
         if (x) exposeSecret(s, x, PLAYER, "Expose");
       } else {
         spendLeverage(s, PLAYER, p.id);
@@ -773,6 +775,30 @@ const SECRET_IMPL: Record<string, Impl> = {
       grudge(s, p.id, `you forced him out of ${officeName(o)} with what you know`);
       opinion(s, p.id, -1, "you forced him out of his office");
       actAgainst(s, p.id);
+    },
+  },
+  buySilence: {
+    target: (s) => seenHolders(s).filter((id) => s.people[id].status !== "dead").map((id) => ({ value: id, label: `${capital(s.people[id].name)} (${silenceCost(s, id)} silver)` })),
+    check: (s, a) => (a.target && s.silver < silenceCost(s, a.target) ? `needs ${silenceCost(s, a.target)} silver` : null),
+    need: SECRETS.knobs.silenceRoll ?? 3,
+    odds: (s, a) => {
+      const p = a.target ? s.people[a.target] : undefined;
+      const m: Mod[] = [];
+      if (!p) return m;
+      if (p.traits.includes("greedy")) m.push({ label: "Greedy", value: 2 });
+      if (p.traits.includes("wealthy")) m.push({ label: "Wealthy: silver means little to him", value: -1 });
+      if (p.grudges.length) m.push({ label: "he holds a grudge against you", value: -1 });
+      if (p.political && p.political.rank >= 3) m.push({ label: "a Pretender wants more than silver", value: -2 });
+      return m;
+    },
+    run: (s, a, ok) => {
+      const p = s.people[a.target!];
+      if (!ok) { event(s, PLAYER, `${capital(p.name)} will not sell what he knows. He keeps it, and keeps your offer in mind.`, "Buy back a secret failed"); opinion(s, p.id, -1, "you tried to buy his silence"); return; }
+      const cost = silenceCost(s, p.id);
+      silver(s, -cost, `the price of ${p.name}'s silence`);
+      forget(s, p.id);
+      s.counters.silenceBought = (s.counters.silenceBought ?? 0) + 1;
+      event(s, PLAYER, `${capital(p.name)} takes ${cost} silver and swears he knows nothing about you. He keeps his word, unless he goes digging again.`, "Buy back a secret");
     },
   },
   spyTown: {

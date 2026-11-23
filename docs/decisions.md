@@ -245,6 +245,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 ## 2026-11-23 (a proper web app, step 3: thread 17)
 - **The UI is laid out as `ui/app/`, `ui/views/`, `ui/components/`, `ui/lib/` and `ui/styles/`**, and `ui/main.ts` only starts the app. Why: one 470-line file held every screen and every click; now a screen lives in its own file. Done in one step while no other thread had UI work open, so the moves happened once.
 
+## 2026-11-23 (secrets softened, fight-back added, thread 14)
+- **With Secrets on, a held secret counts half toward influence, and a political rival at rank 2 or more has a scheme to find (one per game at the current setting).** Why: Jacob ("You decide", passed on by the coordinator) wanted rivals stronger but not twice as deadly, aiming at about 40% patron depositions. Result: 40% citadel, 27% island (30% and 22% without the switch). Not tuned to history; this is game feel.
+- **Fight back: Buy back a secret, and exposing a blackmailer makes his holds worthless.** You learn who holds your secrets when he demands, tells, or is overheard by your watchers. Behind the secrets switch, off by default.
+- **Handoff questions, decided for story:** keep all start secrets; seat lists stay men-only (Seat a counsellor takes anyone); the council on events stays parked in `docs/later.md`.
+
 ## 2026-11-23 (island events follow-ups: thread 16, decided by the coordinator on Jacob's "you decide")
 - **New switch "A bought retreat disgraces the general"** (`bargainDisgraces`, off by default): if you take Himilcon's bargain, he comes home in disgrace and Carthage counts the army as lost, so he may starve himself, as Diodorus says (14.76.4). Why: without it his end never fires.
 - **New switch "Rumors can lie"** (`falseRumors`, off by default): about one in three rumors from Carthage is false (`rumors.falseShare` in `data/island-events.json`). A false rumor changes nothing in Carthage. Two seasons later, word comes whether it was true. Each rumor says so when it arrives.

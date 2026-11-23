@@ -127,7 +127,7 @@ export interface Secret {
   history?: boolean;
   publicSince?: number; // told to the city: no one can use it again
 }
-export interface SecretsState { list: Secret[]; n: number }
+export interface SecretsState { list: Secret[]; n: number; seen?: string[] } // seen: men you know hold something over you
 
 // Switch "council": who sits at your table, what they said, and how often they were wrong.
 export interface CouncilLine { seat: string; who: string; census?: boolean; text: string; accuse?: string; truth?: boolean; lie?: boolean }

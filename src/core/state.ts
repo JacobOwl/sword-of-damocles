@@ -6,6 +6,8 @@ import { checkSwitches } from "./switches.ts";
 import { newIsland } from "./island.ts";
 import { newCensus } from "./census-game.ts";
 import { initSecrets } from "./secrets.ts";
+import secretsKnobs from "../../data/secrets.json" with { type: "json" };
+const SECRET_INFLUENCE = secretsKnobs.knobs.influencePerSecret ?? 1;
 import { initCouncil } from "./council.ts";
 import { FACTIONS, MOODS, OFFICES } from "./types.ts";
 
@@ -177,7 +179,8 @@ export function influence(s: GameState, pid: string): number {
   if (p.player) return playerInfluence(s);
   if (p.status === "outside" || p.status === "dead") return 0;
   // Switch "secrets": what he knows counts in place of the old tokens (at most 2). Switch "council": a seat at your table.
-  const held = s.secrets ? Math.min(2, s.secrets.list.filter((x) => x.known.includes(pid) && x.about !== pid && x.publicSince === undefined).length) : s.leverage.filter((l) => l.holder === pid).length;
+  // With "secrets", each secret he holds counts half (knob influencePerSecret), at most 1 in all: a secret is a threat, not a following.
+  const held = s.secrets ? Math.floor(Math.min(2, s.secrets.list.filter((x) => x.known.includes(pid) && x.about !== pid && x.publicSince === undefined).length) * SECRET_INFLUENCE) : s.leverage.filter((l) => l.holder === pid).length;
   const seat = s.council && Object.values(s.council.seats).includes(pid) ? 1 : 0;
   let v = 2 * officesOf(s, pid).length + (p.owedFavor ? 1 : 0) + held + seat + p.infl;
   if (p.status === "held") v -= 2;
