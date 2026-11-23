@@ -132,3 +132,23 @@ test("history moments quote the saved texts and have the research card", () => {
     for (const f of (m as any).facts) assert.ok(card.includes(f.quote.slice(0, 40)) || card.includes(f.quote.slice(-30)), `${m.id}: quote not on the card`);
   }
 });
+
+test("Philoxenus and the quarries: a frank guest is sent off, then pardoned the next season (Diodorus 15.6)", async () => {
+  const { fireNow } = await import("../src/core/events.ts");
+  for (let seed = 1; seed <= 20; seed++) {
+    const s = on(seed);
+    const a = free(s)[0];
+    assert.ok(fireNow(s, "yourVerses", { a }));
+    const m = openEvents(s).find((o) => o.def.id === "yourVerses")!;
+    assert.equal(chooseEvent(s, m.inst.uid, "quarries").ok, true);
+    assert.equal(s.people[a].status, "held");
+    endSeason(s);
+    if (s.over || s.people[a].status !== "held") continue;
+    const p = openEvents(s).find((o) => o.def.id === "quarriesPardon");
+    assert.ok(p, `seed ${seed}: the pardon comes the next season`);
+    assert.equal(chooseEvent(s, p!.inst.uid, "forgive").ok, true);
+    assert.equal(s.people[a].status, "free");
+    return;
+  }
+  assert.fail("no seed reached the pardon");
+});

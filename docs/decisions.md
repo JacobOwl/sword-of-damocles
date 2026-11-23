@@ -292,6 +292,14 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Picked in the draft, all reversible and Jacob's to change:** two speeds of play you choose, with triggers that pull you back to the court; heirs inherit a claim, a name and a ledger, never offices; you may play anyone in your circle; real people born after a start are not forced in, the census may make an invented man in the same station; the world stops at 264.
 - **Open, Jacob's:** the seven questions at the end of the draft (also in `handoff.md`).
 
+
+## 2026-11-23 (the story museum, bet B1, thread 21)
+- **Done:** `npm run museum` plays 400 island games each for the careful, patron and iron-hand bots on the First island test preset, finds story shapes in each log (`data/story-shapes.json`, 23 shapes, all invention), scores them, writes `docs/playtests/museum/report.md`, and binds the ten best and ten dullest reigns as chronicles in `dist/workshop/museum.html`, published on the Workshop page. Safe to rerun: the same seeds write the same files.
+- **Decided (thread, small and reversible):** the score is a reading aid, never a target. Each shape adds its weight at most twice a game, each person with a thread of three or more beats adds half a point (up to four), dull shapes subtract. Weights are guesses in the data file, to be changed freely.
+- **Decided:** one Workshop artifact for all eight bets (https://claude.ai/artifact/BVQogSjtUF5DRXKQ9u5VNr). Its hub (`tools/workshop/index.html`) lights each bet's entry once that bet's own page exists beside it, so no bet edits another's page.
+- **Done, report only:** the Dionysius bot (`src/core/dionysius-bot.ts`, card `docs/research/dionysius-bot.md`), whose priorities follow Diodorus 14.7 to 14.47, each quoted. It is not in `BOTS` and nothing is tuned toward it.
+- **Open, Jacob's:** see the museum questions in `handoff.md`.
+
 ## 2026-11-23 (change the past, thread 22, Workshop bet B2)
 - **Done:** `src/core/fork.ts` loads any recorded game at the start of any season, lists the choices you made in words, and rewrites one (another answer to an event, an answer to one you left open, or an action left undone). After the change it can stop (you play on), keep everything else you did (matched by meaning: the same event if it fires again, the same man's request), or keep that and let the careful bot finish. `compare` lays two histories side by side: the season they part, the first thing that went differently, endings, the city's government, whose fates differ, and your dice after the split. `npm run debrief -- <save>` writes the hidden rolls and the three changed answers that changed the most; `--sweep 100` is the branch check.
 - **Done:** a Workshop page, `ui/past.html` (built with `npm run build -- --page past`): the whole game plus a "Change the past" view, a button under the ending stele, and a box to bring in a game copied from the test page. Published as `past.html` on the shared Workshop artifact, never at the test link.
@@ -319,3 +327,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** a "This season:" line on the season and island screens; the battle forecast (both sides' modifiers and chances) before you send the army.
 - **Decided (small call):** no cuts to the season screen's words before the review; the word count is reported, not trimmed.
 
+
+## 2026-11-23 (dinners follow-up, thread 24)
+- **Decided (taste calls delegated by Jacob):** wives and sisters can be guests (the sources are silent; noted on the card). The feast stays beside the dinner. Rival hosts stay parked.
+- **Done:** fetched the Greek of Diodorus 15.6 from the Perseus Digital Library's GitHub (Oldfather's Loeb Greek, CC BY-SA 4.0) and saved it. Added Philoxenus and the quarries as the dinner moment "Your verses". It comes only in peace, as Diodorus 15.6.1 sets it, and the pardon follows a season later. The English is the game's own, marked as such.
+- **Open:** a published English translation of Diodorus 15 to check that rendering against. LacusCurtius and Perseus are blocked from the cloud.

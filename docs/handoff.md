@@ -69,6 +69,20 @@ Build the "First island test" preset (listed first on the start screen), the sea
 ## Questions from the Long Game thread (Jacob's, none urgent)
 The seven open questions at the end of `docs/phase3-draft.md`: two speeds or fixed eras; play anyone in your circle or only the heir; invented men in the station of real people born after the start; stop at 264 or run on; whether a person in a Punic city of Sicily is ever playable; which start to build after 405; auction or plain prices for hired companies.
 
+## Built by the story-museum thread (21, 2026-11-23): bet B1
+- **`npm run museum`** (`scripts/museum.ts`, finder `scripts/museum/shapes.ts`, shapes `data/story-shapes.json`): 1,200 island games on the First island test preset (400 each for the careful, patron and iron-hand bots) plus 400 for the Dionysius bot, read for 23 story shapes (a friend who turns, a warned blow survived, the enemy who came back, the city that turned twice, Syracuse besieged and holding, kin against you...) and 5 dull ones (a blow from nowhere, the same quarrel again, quiet years, the same words, over too soon). Report: `docs/playtests/museum/report.md`. Gallery: `dist/workshop/museum.html` (built from `tools/museum/gallery.html`), published as `museum.html` on the Workshop page. `--seeds`, `--bots`, `--dionysius`, `--out`, `--no-gallery`.
+- **Workshop page:** https://claude.ai/artifact/BVQogSjtUF5DRXKQ9u5VNr, hub source `tools/workshop/index.html`. Each bet adds its own file (museum.html, past.html, grain.html, works.html, dinners.html, shore.html, exile.html, long-game.html); the hub lights the entry when the file exists.
+- **Dionysius bot** (`src/core/dionysius-bot.ts`, card `docs/research/dionysius-bot.md`, quotes checked by `tests/museum.test.ts`): report only, not in `BOTS`.
+- **Tests:** `tests/museum.test.ts` (the shapes file, the finder on made-up logs, the Dionysius bot, a small museum run twice gives identical files).
+- **Changed:** nothing in the game. **Broke:** nothing.
+
+## Questions from the story-museum thread
+- **What the museum found (read it as signs, not targets):** see the report's tables. The patron's first ten seasons often hold no story shape at all, and the dullest ten reigns are all quiet survivals by the patron or careful ruler: years with no turn, and the same man becoming a political rival three times or more (the "flicker" already noted). Worth reading two of them before judging the gate.
+- **No game ended by a blow without warnings** in the four seasons before (the rule holds in 1,200 games).
+- **Never seen:** "the general home too popular" needs the army switch (thread 20); its words are guessed in the shapes file and must be matched to that switch's log line once it lands. "The city that turned twice" and "Syracuse besieged and holding" are rare (a few in a hundred).
+- **The Dionysius bot** survives the decade in about six games in ten, fortifies and disarms every time, but marries in under half (the cast offers few matches) and so rarely reaches his war on Carthage. Is that a fair reading of the rules, or should the marriage of 14.44 be an event?
+- **Weights and shapes are guesses.** Change them freely in `data/story-shapes.json`; tell the next thread which shapes you would retell.
+
 ## Built by the change-the-past thread (22, 2026-11-23): Workshop bet B2
 - **Go back to any season and take the other road.** `src/core/fork.ts` (engine, replay only, no new rules): `loadAt`, `decisions`, `rewrite`, `compare`, `hiddenRolls`. Tests in `tests/fork.test.ts` prove a branch matches its parent up to the split and replays from its own record.
 - **The Workshop page** `ui/past.html` + `ui/past-main.ts` + `ui/views/past.ts` + `ui/styles/past.css`: the full game plus a "Change the past" view (each season with its chronicle, "Go back to this season", your answers with the other choices as buttons, three ways to go on), "Two histories" side by side with the sentences one history lacks marked, a fates table and the dice after the split. Build: `npm run build -- --page past` (writes `ui/dist-past/index.html`). Published as `past.html` on the Workshop artifact (https://claude.ai/artifact/BVQogSjtUF5DRXKQ9u5VNr).
@@ -404,7 +418,5 @@ UI only: no file in `src/core/` or `data/` changed, so the rules and the 100-see
 - Small hooks in shared files: `events.ts` (the table's choices are chained events; dinner effects; `fireNow`), `ai.ts` (recruiting order and the bot's dinners), `actions.ts`, `types.ts`, `index.ts`, and `ui/views/season.ts` (4 lines: the panel and its clicks). The default and preset digests are unchanged, and the tests pass.
 - **Changed:** nothing outside the switch.
 - **Broke:** nothing found. 100 seeds in each scenario: 0 crashes, 0 broken states, with the switch on and off.
-- **Questions for Jacob:**
-  - Should wives and sisters (Aristomache, Theste) be possible guests? The game allows it. The saved texts say nothing either way, and a source check is parked.
-  - Should the plain feast stay beside the dinner, or should the dinner replace it when the switch is on?
-  - Rival hosts: should plotters and Pretenders give dinners of their own, which your watchers could report? Parked in `later.md`.
+- **Answered 2026-11-23 (taste calls delegated):** wives and sisters can be guests, and the card notes that the sources are silent. The old feast stays beside the dinner. Plotters' own dinners stay parked.
+- **Added (PR after #49):** Philoxenus and the quarries (Diodorus 15.6), as the moment "Your verses" with a pardon the next season. The Greek is saved as `sources/diodorus/book15-6.greek.txt` (Perseus, CC BY-SA 4.0). The English on the card is the game's own rendering. A published English translation of book 15 is still worth saving to check it.

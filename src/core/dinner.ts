@@ -20,6 +20,7 @@ interface Moment {
   id: string; kind: string; course: number; tone: string; weight: number; name: string;
   roles: Record<string, DinnerRole>; pairs?: { a: string; b: string; is: PairTest[] }[];
   text: string; why: string; effects?: Effect[]; ask?: string; source?: string;
+  peace?: boolean; // only while you are not at war with Carthage (Diodorus 15.6.1: the poems came in peacetime)
 }
 interface Wine { id: string; name: string; label: string; cost: number; text: string; tones: Record<string, number> }
 export const DINNERS = dinnersJson as unknown as {
@@ -264,6 +265,7 @@ export function hostDinner(s: GameState, a: Args) {
       if (m.course !== c.n) continue;
       if (m.ask && asked) continue;
       if (rec.moments.includes(m.id)) continue;
+      if (m.peace && s.island?.war) continue;
       const wt = m.weight * (w.tones[m.tone] ?? 1);
       if (wt <= 0) continue;
       const casts = castsFor(s, m, honour, table);
