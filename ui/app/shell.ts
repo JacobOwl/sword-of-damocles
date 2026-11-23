@@ -1,8 +1,8 @@
 // The app shell: the start screen, the page frame (masthead, ledger, views), the character-sheet dialog, and the clicks.
 // It only reads the simulation's state and sends it your choices; all rules live in src/core.
-import { DATA, PLAYER, act, defense, endSeason, government, menu, officesOf, playerInfluence, refuseRequest, replay, seasonName, startGame, backingFaction, chooseEvent, PACKAGES, DEFAULT_TUNING, packageName, SWITCHES, switchById } from "../../src/core/index.ts";
-import type { Args, GameState } from "../../src/core/index.ts";
-import { howToPlay, setGuideDone, tipAttr } from "../views/help.ts";
+import { DATA, PLAYER, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById } from "../../src/core/index.ts";
+import type { GameState } from "../../src/core/index.ts";
+import { howToPlay, tipAttr } from "../views/help.ts";
 import { court, sheet } from "../views/people.ts";
 import { islandView } from "../views/island.ts";
 import { familiesView, paintCensusFaces } from "../views/families.ts";
@@ -10,11 +10,13 @@ import { chronicleBook } from "../views/story.ts";
 import { esc, ui } from "../lib/text.ts";
 import { showSeasonCard, swordOverhead } from "../components/ambient.ts";
 import { icon } from "../components/icons.ts";
-import { titlePage } from "../views/title.ts";
+import { startScreen } from "../views/start.ts";
 import * as sound from "../lib/sound.ts";
 import { save, load, clearSave } from "./save.ts";
-import { grantArgs } from "../views/season.ts";
 import { play } from "../views/play.ts";
+import { listen, type Ctx, type Handlers } from "./clicks.ts";
+import { seasonHandlers } from "../views/season.ts";
+import { helpHandlers } from "../views/help.ts";
 import { ending } from "../views/ending.ts";
 
 const app = document.getElementById("app")!;
@@ -24,31 +26,7 @@ export function splash() {
   const saved = load();
   const seed = Math.floor(Math.random() * 1_000_000);
   closeSheet();
-  const intro = `<p>Autumn, 405 BC. You are Dionysius, a scribe who made himself general with supreme power. The cavalry of the rich families rode home ahead of you, sacked your house and fled to Aetna. Carthage, struck by plague, has made peace. You hold the generalship and the treasury, and you sleep in the naval dockyards. The citadel on the Island is not yet built.</p>
-    <p>Each season you take <b>three actions</b> from a fixed menu. The people and factions of Syracuse act on their own, by the same rules. Plots warn you three times before they strike. Hold the city to the summer of 395.</p>`;
-  const begin = `<div class="begin">
-      <div class="begin-options">
-        <label for="tuning" class="label">Balance</label>
-        <select id="tuning">${PACKAGES.map((p) => `<option value="${esc(p.id)}"${p.id === DEFAULT_TUNING ? " selected" : ""}>${esc(p.name)}</option>`).join("")}</select>
-        <label for="scenario" class="label">Game</label>
-        <select id="scenario"><option value="island" selected>The island: Syracuse, Sicily and Carthage (Phase 2)</option><option value="citadel">The citadel: Syracuse alone (Phase 1)</option></select>
-      </div>
-      <p class="small note" id="tuning-note">${esc(PACKAGES.find((p) => p.id === DEFAULT_TUNING)?.summary)}</p>
-      <div class="begin-options">
-        <button class="primary" id="new">Begin</button>
-        ${saved ? `<button id="resume">Resume your game (${esc(packageName(saved.tuning))} balance)</button>` : ""}
-      </div>
-      <details class="seedbox"><summary class="small muted">Choose a seed</summary>
-        <label for="seed" class="small">The same seed and the same choices always give the same history.</label>
-        <input id="seed" type="number" value="${seed}" style="width:9em">
-      </details>
-      <details class="switches"><summary class="small">Rule switches (all off by default)</summary>
-        <p class="small muted">Optional rules to try. Each works with any balance.</p>
-        ${SWITCHES.map((w) => `<p class="small"><label><input type="checkbox" class="switch" value="${esc(w.id)}"> <b>${esc(w.name)}.</b> ${esc(w.summary)}</label></p>`).join("")}
-      </details>
-      <p class="small muted note">Prototype: Phase 2, the island, built on rules v2. The people and the situation come from Diodorus, Plutarch and others; each real person's sheet quotes the passages. Everything else, including every rule, number and picture, is invention.</p>
-    </div>`;
-  app.innerHTML = titlePage(begin, intro);
+  app.innerHTML = startScreen(saved, seed);
   document.getElementById("new")!.onclick = () => {
     const v = Number((document.getElementById("seed") as HTMLInputElement).value) || seed;
     const scenario = (document.getElementById("scenario") as HTMLSelectElement).value === "citadel" ? "citadel" : "island";
@@ -85,7 +63,6 @@ export function render() {
       <span class="muted">Seed ${g.seed} · ${esc(packageName(g.tuning))} balance${g.switches?.length ? ` · ${esc(g.switches.map((x) => switchById(x)?.name ?? "").join(", "))}` : ""}</span>
       <button id="restart">New game</button>
     </div>`;
-  wire(g);
   paintCensusFaces(g); // the invented families' portraits, laid in tiles while the page is idle
   sound.update(g);
   if (g.over && !endedSound) { endedSound = true; sound.ending(g.over.reason); }
@@ -160,43 +137,23 @@ function closeSheet() { ui.sheet = null; if (dialog?.open) dialog.close(); }
 // A page-turn when the view or the season changes (CSS turns it off for reduced motion).
 function turn() { app.classList.remove("turn"); void app.offsetWidth; app.classList.add("turn"); }
 
-// ---------- Events ----------
-function wire(g: GameState) {
-  document.getElementById("sound")?.addEventListener("click", () => { sound.toggle(g); render(); });
-  for (const id of ["end", "end2"]) document.getElementById(id)?.addEventListener("click", () => { endSeason(g); ui.openAction = null; ui.args = {}; save(); render(); turn(); window.scrollTo({ top: 0 }); showSeasonCard(g); });
-  document.getElementById("restart")?.addEventListener("click", () => { clearSave(); ui.s = null; splash(); });
-  document.getElementById("again")?.addEventListener("click", () => { clearSave(); ui.s = null; splash(); });
-  document.getElementById("designer")?.addEventListener("change", (e) => { ui.designer = (e.target as HTMLInputElement).checked; save(); render(); });
-  document.getElementById("guide-done")?.addEventListener("click", () => { setGuideDone(true); render(); });
-  document.getElementById("guide-again")?.addEventListener("click", () => { setGuideDone(false); ui.view = "play"; ui.tab = "season"; render(); window.scrollTo({ top: 0 }); });
-  app.querySelectorAll<HTMLButtonElement>("[data-view]").forEach((b) => (b.onclick = () => { ui.view = b.dataset.view as typeof ui.view; render(); turn(); window.scrollTo({ top: 0 }); }));
-  app.querySelectorAll<HTMLButtonElement>("[data-tab]").forEach((b) => (b.onclick = () => { ui.tab = b.dataset.tab!; render(); }));
-  app.querySelectorAll<HTMLElement>("[data-person]").forEach((b) => (b.onclick = (e) => { e.preventDefault(); openSheet(b.dataset.person!); }));
-  app.querySelectorAll<HTMLButtonElement>("[data-act]").forEach((b) => (b.onclick = () => {
-    const id = b.dataset.act!;
-    ui.openAction = ui.openAction === id ? null : id; ui.args = {};
-    const item = menu(g).find((m) => m.id === id);
-    if (item?.targets?.length === 1) ui.args.target = item.targets[0].value;
-    render();
-    document.querySelector(`[data-act="${id}"]`)?.scrollIntoView({ block: "nearest" });
-  }));
-  app.querySelectorAll<HTMLSelectElement>("[data-arg]").forEach((sel) => (sel.onchange = () => {
-    const k = sel.dataset.arg as keyof Args;
-    ui.args = { ...ui.args, [k]: sel.value || undefined };
-    if (k === "target") ui.args.second = undefined;
-    render();
-    (document.getElementById(sel.id) as HTMLElement | null)?.focus();
-  }));
-  document.getElementById("do")?.addEventListener("click", () => {
-    if (!ui.openAction) return;
-    act(g, ui.openAction, ui.args); sound.tick(); ui.openAction = null; ui.args = {}; save(); render();
-  });
-  document.getElementById("cancel")?.addEventListener("click", () => { ui.openAction = null; ui.args = {}; render(); });
-  app.querySelectorAll<HTMLButtonElement>("[data-grant]").forEach((b) => (b.onclick = () => {
-    const r = g.requests.find((x) => x.id === b.dataset.grant);
-    const ga = r && grantArgs(g, r);
-    if (ga) { act(g, ga.a, ga.args); sound.tick(); save(); render(); }
-  }));
-  app.querySelectorAll<HTMLButtonElement>("[data-choose]").forEach((b) => (b.onclick = () => { chooseEvent(g, b.dataset.choose!, b.dataset.choice!); sound.tick(); save(); render(); }));
-  app.querySelectorAll<HTMLButtonElement>("[data-refuse]").forEach((b) => (b.onclick = () => { refuseRequest(g, b.dataset.refuse!); save(); render(); }));
-}
+// ---------- Clicks ----------
+// The frame's own clicks; each screen's are in its file (views/season.ts, views/help.ts).
+const endSeasonNow = (c: Ctx) => { endSeason(c.g); ui.openAction = null; ui.args = {}; c.save(); c.render(); c.turn(); window.scrollTo({ top: 0 }); showSeasonCard(c.g); };
+const restart = () => { clearSave(); ui.s = null; splash(); };
+const frameHandlers: Handlers = {
+  click: {
+    "#sound": (_, c) => { sound.toggle(c.g); c.render(); },
+    "#end": (_, c) => endSeasonNow(c),
+    "#end2": (_, c) => endSeasonNow(c),
+    "#restart": restart,
+    "#again": restart,
+    "[data-view]": (b, c) => { ui.view = b.dataset.view as typeof ui.view; c.render(); c.turn(); window.scrollTo({ top: 0 }); },
+    "[data-tab]": (b, c) => { ui.tab = b.dataset.tab!; c.render(); },
+    "[data-person]": (b, c, e) => { e.preventDefault(); c.openSheet(b.dataset.person!); },
+  },
+  change: {
+    "#designer": (el, c) => { ui.designer = (el as HTMLInputElement).checked; c.save(); c.render(); },
+  },
+};
+listen(app, [frameHandlers, helpHandlers, seasonHandlers], () => (ui.s ? { g: ui.s, render, save, turn, openSheet } : null));

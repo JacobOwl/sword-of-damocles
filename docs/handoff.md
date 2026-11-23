@@ -45,6 +45,8 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
   - Island, 100 seeds for each of the five players: 0 crashes, 0 broken states.
   - Island events a game: careful 10, patron 9, simple 4.5, careless 4, iron hand 3.5.
 
+- **Follow-ups (2026-11-23):** two new switches, off by default: `bargainDisgraces` and `falseRumors` (see decisions). Court events that duplicate island stories are hidden on the island. There are four more siege events (41 island events in all, 336 quotes checked). Island events a game: careful 10.3, patron 7.1, simple 2.6, careless 2.1, iron hand 1.1. With both new switches on, the careful player sees 9.9, with 0 crashes and 0 broken states.
+
 ## Questions from the island events thread
 - **Sieges are rare for the bots** (under one a game), so you will mostly meet the siege events (the mole, the towers, the gate at midnight) in your own play. Is that rare enough, or too rare?
 - **Himilcon's bargain** sends Carthage's army home without counting it as a lost army, so Himilcon's end (disgrace, starving himself) still never fires from it. Should taking the bargain disgrace him?
@@ -53,21 +55,22 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Rumors from Carthage are always true.** Should some be false (for example, unless you have sent an embassy lately)?
 - **Pre-existing, found while testing:** when Carthage storms Syracuse in the factions step, that season's court events stay open at the end of the game. It is harmless, but the court test only checks the simple bot in the citadel.
 
-## Built by the web-app thread (17, 2026-11-22/23), steps 1 to 3
+## Built by the web-app thread (17, 2026-11-22/23): the restructure, all four steps
 - **Step 1 (PR #26):** `docs/architecture.md`; `tests/core-boundary.test.ts` (the engine imports only itself and `data/`, no `Math.random`/`Date`/browser/Node globals, a JSON save plays on the same, bot games replay); `npm run replays` writes `dist/replays.json` for checking a later port.
 - **Step 2 (PR #28):** Vite. `npm run dev` serves the game with live reload; `npm run build` writes the same one-file page and `--fragment` for the Artifact. The game link was republished from it (version 12).
 - **Step 3 (PR #35): the new layout.** `ui/main.ts` is split into `ui/app/` (shell, save) and `ui/views/` (play, city, season, dangers, ending); the other UI files moved into `ui/views/`, `ui/components/`, `ui/lib/` and `ui/styles/`. The table of old and new paths is in `docs/architecture.md`. `ui/census.ts` is now `ui/views/families.ts`. Functions moved unchanged.
 - **`npm run walk`** (`scripts/ui-walk.mjs`): a scripted walk through the built page (fixed seed and clicks, 1280 and 390 px, both scenarios, and a pass with every rule switch on): 110 pages, identical before and after each step.
 - **Changed:** nothing in the game. **Broke:** nothing: 85 of 85 tests, typecheck clean, 100-seed run 0 crashes, 0 broken states.
 - **Noticed, not changed:** `ui/views/families.ts` imports `src/core/census.ts` directly instead of through `src/core/index.ts`.
-- **Next:** one click layer (each view owns its handlers), then the start screen as a view.
+- **Step 4 (PR #38): one click layer.** `ui/app/clicks.ts`: one listener for clicks and one for changes, set up once; `views/season.ts` and `views/help.ts` export their handlers; the start screen's page is `views/start.ts`. How to add clicks to a screen: `docs/architecture.md`.
+- **Done.** New screens follow the layout in `docs/architecture.md`.
 
 ## Built by the events thread (07, 2026-11-23): five more Cicero court stories
 - **Six new event records** (`data/events.json`, all history, card `docs/research/damocles.md`): No blade at your throat (barber, 5.58), A bed behind a trench (5.59), A voice from a tower (5.59), A joke at the ball game (5.60), A friend as pledge with its follow-up The hour of death (5.63). Each quotes the saved Latin.
 - In 100 careful-bot games: tower 82, barber 67, pledge 57 (return 55), trench 42 (needs the wedding), ball game 20.
 - **Broke:** nothing: 85 of 85 tests; 100 seeds in both scenarios, 0 crashes, 0 broken states; 351 quotes checked, 0 not found. Digest re-pinned for the added records only.
 - **Restored:** PR #32 merged from an older base and undid PR #30 and #31 (deleted the saved Cicero Latin, and put the Damocles event back to "both readings"). Both are restored in this PR.
-- **Question for Jacob:** the ball-game event can kill two invented courtiers over a joke, as Cicero tells. Keep it that harsh?
+- **Decided (coordinator, on Jacob's "You decide"):** the ball-game killings stay as harsh as Cicero tells, and now cost more: the family and the rich families grow afraid, and any living kin of the two dead men become Bereaved enemies. The cast is small, so kin are often missing; then only the fear applies.
 
 ## Built by the events thread (07, 2026-11-22): the Damocles banquet
 - **New event "A sword on a horse-hair"** (`data/events.json`, history): a courtier praises your fortune at a feast. You can hang a sword over his couch (what Cicero tells; he loses standing and warmth, plots are a little harder), reward the flattery, or smile it away. It fires in about 80 of 100 careful-bot games.

@@ -1,7 +1,8 @@
 // Onboarding: the first-season guide, the "How to play" page, and the tooltips (data-tip="key").
 // The words here explain rules that live in src/core and data/; if a rule changes there, change its line here.
 import { DATA } from "../../src/core/index.ts";
-import { esc } from "../lib/text.ts";
+import { esc, ui } from "../lib/text.ts";
+import type { Handlers } from "../app/clicks.ts";
 
 export const TIPS: Record<string, string> = {
   silver: "Silver, in talents. You spend it on feasts, bribes, mercenaries, envoys and building. The guard's pay comes out of it each season. Levies, striking coin and raids bring it in.",
@@ -107,3 +108,11 @@ export function howToPlay() {
     <p><button type="button" id="guide-again">Show the season guide again</button></p>
   </article>`;
 }
+
+// ---------- Clicks (registered once by the click layer, ui/app/clicks.ts) ----------
+export const helpHandlers: Handlers = {
+  click: {
+    "#guide-done": (_, c) => { setGuideDone(true); c.render(); },
+    "#guide-again": (_, c) => { setGuideDone(false); ui.view = "play"; ui.tab = "season"; c.render(); window.scrollTo({ top: 0 }); },
+  },
+};

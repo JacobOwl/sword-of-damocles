@@ -122,3 +122,21 @@ test("events fire in headless games, and both kinds appear", () => {
   assert.ok(seen.size >= 25, `only ${seen.size} different events fired in 100 games`);
   assert.ok(history > 0 && total > history);
 });
+
+test("the ball-game killings cost you: fear, and the dead men's kin become enemies", () => {
+  const s = startGame(3); s.season = 8;
+  const real = new Set(DATA.people.filter((p) => p.kind === "history").map((p) => p.id as string));
+  const free = Object.values(s.people).filter((p) => !p.player && p.status === "free");
+  const fav = free.find((p) => !real.has(p.id) && ["guard", "family", "rich"].includes(p.faction))!;
+  fav.opinion = 1;
+  const kin = free.find((p) => p.id !== fav.id && real.has(p.id) && !p.rival)!;
+  fav.kin.push(kin.id);
+  const moodBefore = s.factions.rich.mood;
+  assert.ok(forceEvent(s, "ballGameJoke", { favourite: fav.id }));
+  const open = openEvents(s).find((o) => o.def.id === "ballGameJoke")!;
+  assert.equal(open.inst.roles.favouriteKin, kin.id);
+  assert.ok(choose(s, open.inst.uid, "kill").ok);
+  assert.equal(s.people[fav.id].status, "dead");
+  assert.ok(s.people[kin.id].rival, "the dead man's kinsman becomes an enemy");
+  assert.ok(s.factions.rich.mood < moodBefore, "the court is afraid");
+});

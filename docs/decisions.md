@@ -249,3 +249,16 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **With Secrets on, a held secret counts half toward influence, and a political rival at rank 2 or more has a scheme to find (one per game at the current setting).** Why: Jacob ("You decide", passed on by the coordinator) wanted rivals stronger but not twice as deadly, aiming at about 40% patron depositions. Result: 40% citadel, 27% island (30% and 22% without the switch). Not tuned to history; this is game feel.
 - **Fight back: Buy back a secret, and exposing a blackmailer makes his holds worthless.** You learn who holds your secrets when he demands, tells, or is overheard by your watchers. Behind the secrets switch, off by default.
 - **Handoff questions, decided for story:** keep all start secrets; seat lists stay men-only (Seat a counsellor takes anyone); the council on events stays parked in `docs/later.md`.
+
+## 2026-11-23 (island events follow-ups: thread 16, decided by the coordinator on Jacob's "you decide")
+- **New switch "A bought retreat disgraces the general"** (`bargainDisgraces`, off by default): if you take Himilcon's bargain, he comes home in disgrace and Carthage counts the army as lost, so he may starve himself, as Diodorus says (14.76.4). Why: without it his end never fires.
+- **New switch "Rumors can lie"** (`falseRumors`, off by default): about one in three rumors from Carthage is false (`rumors.falseShare` in `data/island-events.json`). A false rumor changes nothing in Carthage. Two seasons later, word comes whether it was true. Each rumor says so when it arrives.
+- **Court events that repeat the island's own stories are hidden in island games:** "The mercenaries' demand" (the island has "Pay in land") and "Carthage's secret offer" (the island has "A bargain by night"). Events can now carry `"scenario": "citadel"`.
+- **Four more siege events,** mostly for the defender: a sally from the walls, talk of surrender in a besieged town, walls fallen down (Messana, 14.56.4), and Carthage's fleet in the Great Harbour (14.62.2). A careful player now meets about 1.2 siege events in a war game, up from 0.8. The simple bot meets about 0.3, because it rarely fights.
+- **Engine:** an effect can carry an `if` condition; conditions can check `switchOn` and `switchOff`.
+
+## 2026-11-23 (the ball-game killings, thread 07)
+- **Kept as harsh as Cicero tells, with a cost.** The coordinator decided on Jacob's "You decide". Killing both men lowers the mood of the family and of the rich families, makes plots harder through fear, and turns any living kin of the dead into Bereaved enemies. Tested in `tests/events.test.ts`.
+
+## 2026-11-23 (a proper web app, step 4: thread 17)
+- **Clicks go through one listener, set up once; each screen exports its handlers keyed by `data-` selectors.** Why: the old wiring re-attached every handler after every redraw from one function that knew every screen; now a screen's buttons and what they do sit in the same file. Behaviour is unchanged (walk-through identical).
