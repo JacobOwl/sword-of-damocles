@@ -1,5 +1,5 @@
 // The season column: what happened, the council, matters and petitions before you, and your actions.
-import { DATA, act, capital, chooseEvent, menu, refuseRequest, officeName, preview, secondOptions, seasonName, openEvents } from "../../src/core/index.ts";
+import { DATA, act, capital, chooseEvent, menu, refuseRequest, officeName, preview, secondOptions, thirdOptions, actionNotes, seasonName, openEvents } from "../../src/core/index.ts";
 import type { Args, GameState } from "../../src/core/index.ts";
 import { guide, guideDone } from "./help.ts";
 import { flags } from "./people.ts";
@@ -11,6 +11,7 @@ import { AREA_ICON, icon } from "../components/icons.ts";
 import { vignette } from "../components/vignettes.ts";
 import * as sound from "../lib/sound.ts";
 import type { Handlers } from "../app/clicks.ts";
+import { dinnerPanel, dinnerHandlers } from "./dinner.ts";
 
 export function seasonCol(g: GameState) {
   const season = g.over ? g.over.season : g.season;
@@ -92,8 +93,11 @@ function actions(g: GameState) {
 }
 
 function panel(g: GameState, i: ReturnType<typeof menu>[number]) {
+  if (i.id === "hostDinner") return dinnerPanel(g, i); // switch "dinners": the table has its own panel
   const args = ui.args;
   const seconds = secondOptions(g, i.id, args);
+  const thirds = thirdOptions(g, i.id, args);
+  const notes = actionNotes(g, i.id, args);
   const pv = preview(g, i.id, args);
   let odds = "";
   if (pv.ok && pv.auto) odds = `<span class="good">Certain: no roll.</span>`;
@@ -105,10 +109,12 @@ function panel(g: GameState, i: ReturnType<typeof menu>[number]) {
   return `<div class="panel">
     <div class="small"><b>Cost:</b> ${esc(i.cost)}. <b>Roll:</b> ${esc(i.roll)}.</div>
     <div class="small"><b>If it works:</b> ${esc(i.success)}${i.failure ? ` <b>If not:</b> ${esc(i.failure)}` : ""}</div>
-    ${i.targets || seconds.length ? `<div class="row">
-      ${i.targets ? `<label class="label" for="t-${i.id}">Target</label><select id="t-${i.id}" data-arg="target"><option value="">Choose…</option>${i.targets.map((o) => `<option value="${esc(o.value)}" ${args.target === o.value ? "selected" : ""}>${esc(o.label)}</option>`).join("")}</select>` : ""}
+    ${i.targets || seconds.length || thirds.length ? `<div class="row">
+      ${i.targets ? `<label class="label" for="t-${i.id}">${esc(i.targetLabel ?? "Target")}</label><select id="t-${i.id}" data-arg="target"><option value="">Choose…</option>${i.targets.map((o) => `<option value="${esc(o.value)}" ${args.target === o.value ? "selected" : ""}>${esc(o.label)}</option>`).join("")}</select>` : ""}
       ${seconds.length ? `<label class="label" for="s-${i.id}">${esc(i.secondLabel ?? "Option")}</label><select id="s-${i.id}" data-arg="second"><option value="">Choose…</option>${seconds.map((o) => `<option value="${esc(o.value)}" ${args.second === o.value ? "selected" : ""}>${esc(o.label)}</option>`).join("")}</select>` : ""}
+      ${thirds.length ? `<label class="label" for="o-${i.id}">${esc(i.thirdLabel ?? "Option")}</label><select id="o-${i.id}" data-arg="option"><option value="">Choose…</option>${thirds.map((o) => `<option value="${esc(o.value)}" ${args.option === o.value ? "selected" : ""}>${esc(o.label)}</option>`).join("")}</select>` : ""}
     </div>` : ""}
+    ${notes.length ? `<ul class="small prices">${notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
     ${target ? `<div class="small target-line">${portrait(target.id, "s")} ${who(target.id)} ${opChip(target.opinion, true)} ${flags(g, target)}</div>` : ""}
     <div class="odds">${odds}</div>
     ${pv.ok ? counselLines(g, i.id, args, pv.chance) : ""}
@@ -139,14 +145,16 @@ export const seasonHandlers: Handlers = {
     },
     "[data-choose]": (b, c) => { chooseEvent(c.g, b.dataset.choose!, b.dataset.choice!); sound.tick(); c.save(); c.render(); },
     "[data-refuse]": (b, c) => { refuseRequest(c.g, b.dataset.refuse!); c.save(); c.render(); },
+    ...dinnerHandlers.click,
   },
   change: {
     "[data-arg]": (sel, c) => {
       const k = sel.dataset.arg as keyof Args;
       ui.args = { ...ui.args, [k]: (sel as HTMLSelectElement).value || undefined };
-      if (k === "target") ui.args.second = undefined;
+      if (k === "target") { ui.args.second = undefined; ui.args.option = undefined; }
       c.render();
       (document.getElementById(sel.id) as HTMLElement | null)?.focus();
     },
+    ...dinnerHandlers.change,
   },
 };

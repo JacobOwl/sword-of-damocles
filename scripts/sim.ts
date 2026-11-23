@@ -7,7 +7,7 @@
 //                                                      each switch alone and all together, against none
 //   add --markdown to print the sweep as Markdown tables, --json for raw numbers
 // Every run looks for crashes and broken states and fails if it finds any.
-import { runBotGame, BOTS, PACKAGES, DEFAULT_TUNING, SWITCHES } from "../src/core/index.ts";
+import { runBotGame, BOTS, PACKAGES, DEFAULT_TUNING, SWITCHES, presetOpts } from "../src/core/index.ts";
 import type { GameState } from "../src/core/index.ts";
 import { brokenState } from "./sim-check.ts";
 
@@ -17,7 +17,9 @@ const str = (k: string, d: string) => { const i = argv.indexOf(k); return i > 0 
 const has = (k: string) => argv.includes(k);
 const N = num("--seeds", 100);
 const first = num("--from", 1);
-const SCENARIO = str("--scenario", "citadel") as "citadel" | "island"; // island = Phase 2
+const PRESET = has("--preset") ? presetOpts(str("--preset", "")) : null; // --preset firstIslandTest: its game, balance and switches
+const SCENARIO = (PRESET?.scenario ?? str("--scenario", "citadel")) as "citadel" | "island"; // island = Phase 2
+const UPTO = num("--upto", 0); // --upto 10: stop every game after ten seasons and count only those
 
 export interface Summary {
   bot: string; tuning: string; switches: string[]; n: number; crashes: number; broken: number;
@@ -29,7 +31,7 @@ function run(bot: string, tuning: string, quiet: boolean, switches: string[] = [
   const r: Summary = { bot, tuning, switches, n: N, crashes: 0, broken: 0, seasons: [], ends: {}, sum: {}, by: {}, neverTyrant: 0, tyrantEverySeason: 0 };
   for (let seed = first; seed < first + N; seed++) {
     let s: GameState;
-    try { s = runBotGame(seed, { bot, tuning, switches, scenario: SCENARIO }); } catch (e) { r.crashes++; console.log(`seed ${seed}: CRASH ${(e as Error).stack}`); continue; }
+    try { s = runBotGame(seed, { bot, tuning, switches, scenario: SCENARIO, ...(UPTO ? { seasons: UPTO } : {}) }); } catch (e) { r.crashes++; console.log(`seed ${seed}: CRASH ${(e as Error).stack}`); continue; }
     const b = brokenState(s);
     if (b.length) { r.broken++; if (!quiet || r.broken <= 3) console.log(`${bot}/${tuning} seed ${seed}: broken state: ${b.join("; ")}`); }
     for (const [k, v] of Object.entries(s.counters)) r.sum[k] = (r.sum[k] ?? 0) + v;
@@ -103,6 +105,7 @@ function printOne(r: Summary) {
   const ends = Object.entries(r.ends).map(([k, v]) => `${k} ${v}`).join(", ");
   const per2 = (k: string) => `${r.sum[k] ?? 0} (${per(r, k)} a game)`;
   console.log(`\n${N} seeds (${first} to ${first + N - 1}), played by the ${r.bot} bot, balance package ${r.tuning}, ${SCENARIO === "island" ? "the island scenario (Phase 2)" : "the citadel scenario (Phase 1)"}${r.switches.length ? `, switches ${r.switches.join(", ")}` : ""}.`);
+  if (UPTO) console.log(`Counting seasons 1 to ${UPTO} only: every game stops there, so "survived" means still ruling.`);
   console.log(`Crashes: ${r.crashes}. Broken states: ${r.broken}.`);
   console.log(`Average length: ${l.mean} seasons of 40 (median ${l.median}; one game in ten ends by season ${l.p10}). Still ruling after one year ${l.year1}, three years ${l.year3}, five years ${l.year5}.`);
   console.log(`How games ended: ${ends}.`);
@@ -193,7 +196,8 @@ if (has("--switch-sweep")) {
   }
   if (bad) process.exitCode = 1;
 } else {
-  const r = run(str("--bot", "simple"), str("--tuning", DEFAULT_TUNING), false, has("--switches") ? str("--switches", "").split(",").filter(Boolean) : []);
+  const extra = has("--switches") ? str("--switches", "").split(",").filter(Boolean) : [];
+  const r = run(str("--bot", "simple"), PRESET ? PRESET.tuning : str("--tuning", DEFAULT_TUNING), false, PRESET ? [...(PRESET.switches ?? []), ...extra] : extra);
   printOne(r);
   if (r.crashes || r.broken) process.exitCode = 1;
 }

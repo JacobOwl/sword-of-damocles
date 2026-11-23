@@ -2,7 +2,7 @@
 // It only reads the state; every rule is in src/core.
 import {
   CARTHAGE, ISLAND, NODES, ROUTES, armyName, blocDef, capital, carthageAgenda, cityGrain, cityMen, cityWalls, goalDef, menWords,
-  moodWord, nodeName, prefers, sideName, goOverMods,
+  moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER,
 } from "../../src/core/index.ts";
 import type { Army, GameState } from "../../src/core/index.ts";
 import { esc, linkNames } from "../lib/text.ts";
@@ -41,11 +41,21 @@ function mapSvg(g: GameState): string {
   </svg>`;
 }
 
+// Switch "commission": who leads the army in the field, and who keeps the citadel while you are away.
+function leadLine(g: GameState, a: Army) {
+  const c = g.campaign;
+  if (!c || c.army !== a.id) return "";
+  if (c.leader === PLAYER) {
+    const k = keeperValue(g, c.keeper, false);
+    return ` You lead it in person. ${esc(capital(k.label))} (your defense ${k.value > 0 ? "+" : ""}${k.value}), and every plot at home is 1 stronger while you are away.`;
+  }
+  return c.lost ? " Its leader is lost; his officers bring it on under your orders." : ` ${linkNames(esc(capital(g.people[c.leader].name)))} leads it.`;
+}
 function armyLine(g: GameState, a: Army) {
   const where = a.siege ? `besieging ${nodeName(a.siege)}` : `at ${nodeName(a.at)}`;
   const food = a.food <= 0 ? `<span class="warn">no food left</span>` : `${a.food} ${a.food === 1 ? "season" : "seasons"} of food`;
   const guard = a.side === "syracuse" && a.guard ? `; ${menWords(a.guard)} of them are your guard${a.at === "syracuse" ? "" : ", away from your door"}` : "";
-  return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, ${food}${guard}.</li>`;
+  return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, ${food}${guard}.${leadLine(g, a)}</li>`;
 }
 
 // The chance a town goes over this season, from the same roll the world step makes.

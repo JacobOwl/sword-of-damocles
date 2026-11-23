@@ -2,7 +2,8 @@
 export * from "./types.ts";
 export * from "./state.ts";
 export { DATA } from "./data.ts";
-export { menu, preview, secondOptions, vote } from "./actions.ts";
+export { menu, preview, secondOptions, thirdOptions, actionNotes, vote } from "./actions.ts";
+export { away as awayWithArmy, commissionOn, keeperValue } from "./commission.ts";
 export { startGame, act, endSeason, refuseRequest, replay, runBotGame, chooseEvent } from "./season.ts";
 export { openEvents, EVENTS, eventById } from "./events.ts";
 export type { ChoiceView, EventDef } from "./events.ts";
@@ -28,4 +29,7 @@ export type { Census, CensusPerson } from "./census.ts";
 export { counsel, seated, seatName, isFalse, councilName, COUNCIL } from "./council.ts";
 export type { Counsel } from "./council.ts";
 export { about as secretsAbout, knownBy as secretsKnownBy, secretLine, usable as usableSecrets, seenHolders, silenceCost, SECRETS } from "./secrets.ts";
+// Switch "dinners": the dinner table.
+export { DINNERS, wineById, couchHolder, friendsOf, foesOf, bonded, quarrelled, guestPool, parseGuests, suggestTable, castsFor, dinnersOn, dinnerLog } from "./dinner.ts";
+export type { DinnerState, DinnerRecord, Tie } from "./dinner.ts";
 export { logDigest } from "./digest.ts";

@@ -3,6 +3,7 @@
 // None of this runs in a citadel game, so a citadel game draws exactly the same dice as before.
 import islandJson from "../../data/island.json" with { type: "json" };
 import carthageJson from "../../data/carthage.json" with { type: "json" };
+import commissionJson from "../../data/commission.json" with { type: "json" };
 import { traitById } from "./data.ts";
 import { on } from "./switches.ts";
 import { d6 } from "./rng.ts";
@@ -201,6 +202,7 @@ export function battleMods(s: GameState, a: Army): Mod[] {
   if (a.food <= 0) m.push({ label: "hungry", value: -1 });
   if (a.side === "syracuse" && a.guard > 0 && s.factions.guard.mood === 4) m.push({ label: "the guard is Loyal", value: 1 });
   if (a.side === "syracuse" && s.guard.arrearsSeasons > 0 && a.guard > 0) m.push({ label: "the guard is unpaid", value: -1 });
+  if (a.side === "syracuse" && a.commander === PLAYER && s.campaign?.leader === PLAYER) m.push({ label: "you lead in person", value: (commissionJson as any).knobs.inPerson }); // switch "commission"
   return m;
 }
 const sum = (m: Mod[]) => m.reduce((x, y) => x + y.value, 0);
@@ -302,6 +304,7 @@ export function takeCity(s: GameState, a: Army, how: "surrendered" | "stormed" |
   if (a.side === "carthage") {
     if (id === "syracuse") {
       s.over = { reason: "fallen", text: "Syracuse falls to Carthage. You escape by sea with what you can carry.", season: s.season };
+      if (s.events) s.events.open = []; // no court matter waits on a fallen city
       event(s, "world", s.over.text, how === "starved" ? "the city starved" : "the walls were stormed");
       return;
     }

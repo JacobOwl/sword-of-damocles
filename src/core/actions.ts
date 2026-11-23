@@ -20,11 +20,16 @@ import { secretsOn, learn, useHold, usable, exposeSecret, yourDeed, blackmailRef
 import { COUNCIL_IMPL, councilChecked, councilHeard } from "./council.ts";
 import { leaderOfCity, councilOf, censusPersonName } from "./census-game.ts";
 import { NODES } from "./island.ts";
+import { DINNER_IMPL } from "./dinner.ts";
 import { bloc } from "./island.ts";
 
 export interface Option { value: string; label: string }
 interface Impl {
-  target?: (s: GameState) => Option[];
+  target?: (s: GameState) => Option[]; // may return undefined: the action takes no target in this game
+  targetLabel?: string;
+  third?: (s: GameState, a: Args) => Option[]; // a third choice (args.option), asked only when it has options
+  thirdLabel?: string;
+  notes?: (s: GameState, a: Args) => string[]; // prices in plain words, shown before you commit
   second?: (s: GameState, a: Args) => Option[];
   secondLabel?: string;
   check?: (s: GameState, a: Args) => string | null;
@@ -645,7 +650,7 @@ export const IMPL: Record<string, Impl> = {
         event(s, PLAYER, `${capital(p.name)} agrees to tell you what he hears.`, "Turn an informer");
         yourDeed(s, "informerPaid", { target: p.id });
         const pl = plotOf(s, p.id);
-        if (pl) { pl.informer = p.id; pl.known = [...pl.members]; event(s, PLAYER, `He is in a plot against you, and names everyone in it.`, "your informer"); gainLeverage(s, PLAYER, pl.leader, "your informer"); }
+        if (pl) { pl.informer = p.id; pl.known = [...pl.members]; event(s, PLAYER, `${capital(p.name)} is himself in a plot against you, and names everyone in it.`, "your informer"); gainLeverage(s, PLAYER, pl.leader, "your informer"); }
       } else {
         event(s, PLAYER, `${capital(p.name)} takes offence at your offer.`, "Turn an informer failed");
         opinion(s, p.id, -1, "you tried to buy him");
@@ -824,7 +829,7 @@ const SECRET_IMPL: Record<string, Impl> = {
   },
 };
 
-Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL);
+Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL, DINNER_IMPL);
 // An action belongs to every scenario unless it names one.
 export const inScenario = (s: GameState, a: { scenario?: string; switch?: string }) => (!a.scenario || a.scenario === (s.scenario ?? "citadel")) && (!a.switch || on(s, a.switch));
 // In the island game the Carthage clock is Carthage's anger: the same number, read by Carthage's council.
@@ -924,24 +929,31 @@ function escalate(s: GameState, r: GameState["requests"][number], p: Person) {
 
 export interface MenuItem {
   id: string; name: string; area: string; cost: string; roll: string; success: string; failure?: string; ruler?: boolean; reach?: boolean;
-  targets?: Option[]; secondLabel?: string; blocked: string | null;
+  targets?: Option[]; targetLabel?: string; secondLabel?: string; thirdLabel?: string; blocked: string | null;
 }
 export function menu(s: GameState): MenuItem[] {
   return DATA.actions.filter((a) => !a.aiOnly && inScenario(s, a)).map((a) => {
     const impl = IMPL[a.id];
-    const targets = impl.target?.(s);
+    const targets = impl.target?.(s) ?? undefined;
     let blocked: string | null = null;
     if (s.step !== "player" || s.over) blocked = "not your turn";
     else if (s.slots < 1) blocked = "no actions left this season";
     else if (targets && targets.length === 0) blocked = "no one to choose";
-    else if (!impl.target && impl.check) blocked = impl.check(s, {});
+    else if (!targets && impl.check) blocked = impl.check(s, {});
     if (!blocked && s.building && a.id !== "build" && false) blocked = null;
     return { id: a.id, name: a.name, area: a.area, cost: a.cost, roll: words(s, a.roll)!, success: words(s, a.success)!, failure: words(s, a.failure), ruler: a.ruler, reach: a.reach,
-      targets, secondLabel: impl.secondLabel, blocked };
+      targets, targetLabel: impl.targetLabel, secondLabel: impl.secondLabel, thirdLabel: impl.thirdLabel, blocked };
   });
 }
 export function secondOptions(s: GameState, action: string, args: Args): Option[] {
   return IMPL[action]?.second?.(s, args) ?? [];
+}
+export function thirdOptions(s: GameState, action: string, args: Args): Option[] {
+  return IMPL[action]?.third?.(s, args) ?? [];
+}
+// The prices of an action with these choices, in plain words (empty for most actions).
+export function actionNotes(s: GameState, action: string, args: Args): string[] {
+  return IMPL[action]?.notes?.(s, args) ?? [];
 }
 
 // What the player sees before choosing: the target number and every modifier.
@@ -965,13 +977,18 @@ export function validate(s: GameState, action: string, args: Args): string | nul
   if (s.over) return "the game is over";
   if (s.step !== "player") return "not your turn";
   if (s.slots < 1) return "no actions left this season";
-  if (impl.target) {
-    const opts = impl.target(s);
+  const targets = impl.target?.(s);
+  if (targets) {
+    const opts = targets;
     if (!args.target || !opts.some((o) => o.value === args.target)) return "choose a target";
   }
   if (impl.second) {
     const opts = impl.second(s, args);
     if (!args.second || !opts.some((o) => o.value === args.second)) return `choose ${impl.secondLabel?.toLowerCase() ?? "an option"}`;
+  }
+  if (impl.third) {
+    const opts = impl.third(s, args);
+    if (opts.length && (!args.option || !opts.some((o) => o.value === args.option))) return `choose ${impl.thirdLabel?.toLowerCase() ?? "an option"}`;
   }
   return impl.check?.(s, args) ?? null;
 }

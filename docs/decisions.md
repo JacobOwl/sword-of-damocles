@@ -282,6 +282,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small calls):** the verdict also appears if the reign ends before season 10; it can be skipped; answers are stored with the save, not in the game state, so they never change play. The preset's digest is pinned and changes only with a logged line.
 - **Fixed:** the story chronicle's logged text was always "A quiet season." (off-by-one season). Changes logged text only with that switch on; the Standard digest is unchanged.
 
+## 2026-11-23 (test build, streams 2 and 3, thread 19)
+- **Done:** ten-season counts and the story sweep; report in `docs/playtests/2026-11-23-ten-seasons.md`; three peacetime island events from Diodorus 14.14 to 14.15, as conditions, not dates.
+- **Decided (small calls):** fix the quiet early map with events, not by moving the start date or by tuning; the preset's digest re-pinned for the new events and the informer line (Standard digest unchanged).
+- **Open:** the same opening every seed and arrests that end stories (report, items 1 and 2) are Jacob's to weigh after his test.
+
 ## 2026-11-23 (Phase 3 on paper, thread 25)
 - **Done:** `docs/phase3-draft.md` (draft) and five start dossiers, `docs/research/start-480.md`, `start-466.md`, `start-357.md`, `start-317.md`, `start-289.md`. Bet B8 of the two-day plan. Paper only; no scope change, no game code.
 - **Picked in the draft, all reversible and Jacob's to change:** two speeds of play you choose, with triggers that pull you back to the court; heirs inherit a claim, a name and a ledger, never offices; you may play anyone in your circle; real people born after a start are not forced in, the census may make an invented man in the same station; the world stops at 264.
@@ -294,3 +299,22 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided:** one Workshop artifact for all eight bets (https://claude.ai/artifact/BVQogSjtUF5DRXKQ9u5VNr). Its hub (`tools/workshop/index.html`) lights each bet's entry once that bet's own page exists beside it, so no bet edits another's page.
 - **Done, report only:** the Dionysius bot (`src/core/dionysius-bot.ts`, card `docs/research/dionysius-bot.md`), whose priorities follow Diodorus 14.7 to 14.47, each quoted. It is not in `BOTS` and nothing is tuned toward it.
 - **Open, Jacob's:** see the museum questions in `handoff.md`.
+
+## 2026-11-23 (change the past, thread 22, Workshop bet B2)
+- **Done:** `src/core/fork.ts` loads any recorded game at the start of any season, lists the choices you made in words, and rewrites one (another answer to an event, an answer to one you left open, or an action left undone). After the change it can stop (you play on), keep everything else you did (matched by meaning: the same event if it fires again, the same man's request), or keep that and let the careful bot finish. `compare` lays two histories side by side: the season they part, the first thing that went differently, endings, the city's government, whose fates differ, and your dice after the split. `npm run debrief -- <save>` writes the hidden rolls and the three changed answers that changed the most; `--sweep 100` is the branch check.
+- **Done:** a Workshop page, `ui/past.html` (built with `npm run build -- --page past`): the whole game plus a "Change the past" view, a button under the ending stele, and a box to bring in a game copied from the test page. Published as `past.html` on the shared Workshop artifact, never at the test link.
+- **Decided (small, reversible):** Workshop pages add screens through `ui/app/extras.ts`, a list the shell reads. The test page registers nothing, so its 110-page walk-through is identical before and after.
+- **Found:** one changed answer changes the ending in 50 of 100 games, but the dice also reshuffle after the change. Shown, not fixed; "fixed fortune" parked in `later.md`.
+
+## 2026-11-23 (army thread 20, stream 5)
+
+- Built "Lead the army yourself" as switch `commission`, off by default, offered beside the First island test preset and not inside it. Why: Jacob chose it as a switch to try; outside the preset his first verdict stays traceable.
+- You lead by default in the choices; the general and named men are the alternatives. Why: Diodorus has Dionysius take the field in person (14.72.1, 14.95.3).
+- Absence costs: plots +1 while away, the keeper's loyalty in your defense, armed citizens +1 to plots with a citizen in them. Being there pays: +1 in battle. Why: the sourced danger at home (14.64.3-4; Polyaenus 5.2.4) and the council's verdict V2. Sizes are invention and untuned.
+- With the switch, the generalship is friction, not a gate: passing over the elected general costs 1 citizens' mood and 1 of his opinion (council V2, "unlawful, not forbidden").
+- Parked (later.md): purposes for commands, a commander turning on you, petitions while away.
+
+## 2026-11-23 (dinners as the stage, bet B5, thread 24)
+- **Done:** the switch "Dinners as the stage" (off by default; Workshop page only): the Give a dinner action, the couch of honour, 15 moments, 4 table choices, friendships and quarrels that change recruiting, a research card, 100-seed counts in both scenarios, and three sample dinners.
+- **Decided (small calls, all invention, all behind the switch):** no roll for a dinner; at most one moment for each of the three parts of the evening, and at most one choice put to you per dinner; strong wine costs 2 silver; the couch adds 1 influence; the table panel never shows hidden plots or grudges.
+- **Open, Jacob's:** women as guests; whether the dinner replaces the feast; rival hosts (in `later.md`).

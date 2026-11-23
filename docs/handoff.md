@@ -7,6 +7,13 @@ Only these two need Jacob. Every other question below defaults to what the game 
 1. **When will you play the first island test?** Recommended: one sitting before Wednesday morning, the "First island test" preset, judged at season 10.
 2. **Should you be able to lead the army yourself, or send a named man?** Recommended: yes, as a switch you can try, off by default.
 
+## Built by the test-build thread (19, 2026-11-23), streams 2 and 3: the ten-season read and early pacing
+- **Ten-season counts:** `npm run sim -- --preset firstIslandTest --bot careful --upto 10` stops every game after ten seasons. `npm run story-sweep -- --seeds 20` writes one file per seed (turning points, then the chronicle) to `docs/playtests/ten-seasons/`.
+- **Report:** `docs/playtests/2026-11-23-ten-seasons.md`. 7 of 20 seeds would be retold, 13 are flat. Ranked failures: the same opening every seed, arrests that end stories, plots that rarely reach the blow in ten seasons, a one-event-deep early map, a repetitive chronicle.
+- **Early pacing:** three sourced peacetime island events (Diodorus 14.14 to 14.15): "A general's offer", "A herald before the walls", "A man who would be tyrant". Island events in seasons 1 to 10 went from 0.44 to 2.70 a game (careful bot). Card: `docs/research/island-events.md`.
+- **Fixed:** court matters stayed open after Carthage stormed Syracuse; the informer's line now names the man.
+- **Open, for Jacob:** the same-opening and arrest findings are design questions, not bugs; nothing tuned.
+
 ## Built by the test-build thread (19, 2026-11-23), stream 1: the first island test
 - **"First island test"** (`data/presets.json`, `src/core/presets.ts`): the first choice on the start screen, selected and marked recommended, with a one-line list of the rules it turns on and a "What to watch for" fold. "Set it up yourself" keeps the old choices. Standard stays the engine default. A game remembers its preset by name only (`s.preset`), so it replays from its options; switches a later thread marks `"besidePreset": true` in `data/switches.json` appear as unticked boxes marked new beside the preset (for the army switch, stream 5).
 - **Season-10 verdict** (`ui/views/verdict.ts`): after ten seasons of a preset game (or on the last page if the reign ends sooner) the season screen becomes five questions; "Save and play on" or "Skip". Answers live in the save.
@@ -15,6 +22,25 @@ Only these two need Jacob. Every other question below defaults to what the game 
 - **Fixed:** with "Chronicle as story" on, every season's logged chronicle read "A quiet season." (the chronicle step told the season before). The chronicle view was right; the logged text, the season card's source and `fullChronicle` were not.
 - Tests: `tests/presets.test.ts` pins the preset's digest (careful bot, seeds 1 to 10). Re-pin only with a line in `docs/decisions.md`.
 - Note for Jacob: `docs/playtests/first-island-test.md`.
+
+## Built by the army thread (20, 2026-11-23), stream 5: lead the army yourself (switch, off by default)
+- **Switch `commission`, "Lead the army yourself"** (`data/commission.json`, `src/core/commission.ts`, card `docs/research/commission.md`, tests `tests/commission.test.ts`). Island games only. Offered as an unticked box marked new beside the First island test preset (via stream 1's `besidePreset`), and in the rule switches list. Not inside the preset.
+- **The muster asks who leads it:** you, the general, or a named man from the real cast. If you go, it asks for a **keeper of the citadel**. Under the choices the screen lists every price before you commit.
+- **While you are away:** every plot gains 1; your keeper adds 1 to your defense if he thinks 2 or more of you, 0 if lukewarm, -1 if sour, -2 if he is in a plot, -1 if he is gone. You fight 1 better in person. A keeper gets 1 influence while he holds the keys.
+- **The levy arms the citizens:** while the army is out, a plot with a citizen in it gains 1 (Diodorus 14.45.5, 14.64.4).
+- **You can raise and order the army without the generalship** with the switch on, but passing over the elected general is unlawful: the citizens' mood falls 1 and the general thinks 1 less of you.
+- **Homecoming is a logged step** when the army disbands or is destroyed: the tally (battles won and lost, towns taken). You: a victory raises the citizens' mood 1, a beaten return lowers it 1. A man you sent: a victory gives him influence (1 a win or town, up to 2) and his faction 1 power; a defeat costs him 1 influence. A keeper who joined a plot is seen when you come home (Polyaenus 5.2.4, Andron).
+- **Small engine additions:** actions can now have a third choice (`args.option`), a label for the target, and a list of prices (`notes`); `Person.where` ("field"); `GameState.campaign`. The muster's target list is empty without the switch, so the default game is unchanged (digests untouched).
+- **Numbers** (100 seeds each, island, First island test preset; without the switch, then with it):
+  - careful: games ended early 5 to 12 (8 of them while you were away); campaigns 1.5 a game, led in person 1.4, sent a man 0.1; unlawful commands 0.65; victors' homecomings 0.46; towns taken 1.6 to 2.5.
+  - patron: ended early 15 to 17; campaigns 1.3; unlawful 1.1.
+  - simple: ended early 92 to 95. 0 crashes, 0 broken states in every run.
+- **Checks:** 101 of 101 tests; 100-seed runs (citadel and island) 0 crashes, 0 broken states; 363 quotes checked, 0 not found.
+
+## Questions from the army thread
+- The bots almost always lead in person and rarely send a man; more of your falls now happen while you are away. Is absence too cheap, too dear, or about right? (Report only: not tuned.)
+- Unlawful commands are common for the bots, because the assembly often takes the generalship from you. Should passing over the general cost more, or less?
+- Not built, parked in `docs/later.md`: a purpose for each command (take, garrison, negotiate), a disloyal commander turning his army on you, and petitions going unanswered while you are away.
 
 ## Next for the build (from the same council)
 Build the "First island test" preset (listed first on the start screen), the season-10 verdict prompt, and a short "what to watch" note; measure map events in seasons 1 to 10 over 100 seeds. Fixes and the test pass before new features.
@@ -40,6 +66,16 @@ The seven open questions at the end of `docs/phase3-draft.md`: two speeds or fix
 - **Never seen:** "the general home too popular" needs the army switch (thread 20); its words are guessed in the shapes file and must be matched to that switch's log line once it lands. "The city that turned twice" and "Syracuse besieged and holding" are rare (a few in a hundred).
 - **The Dionysius bot** survives the decade in about six games in ten, fortifies and disarms every time, but marries in under half (the cast offers few matches) and so rarely reaches his war on Carthage. Is that a fair reading of the rules, or should the marriage of 14.44 be an event?
 - **Weights and shapes are guesses.** Change them freely in `data/story-shapes.json`; tell the next thread which shapes you would retell.
+
+## Built by the change-the-past thread (22, 2026-11-23): Workshop bet B2
+- **Go back to any season and take the other road.** `src/core/fork.ts` (engine, replay only, no new rules): `loadAt`, `decisions`, `rewrite`, `compare`, `hiddenRolls`. Tests in `tests/fork.test.ts` prove a branch matches its parent up to the split and replays from its own record.
+- **The Workshop page** `ui/past.html` + `ui/past-main.ts` + `ui/views/past.ts` + `ui/styles/past.css`: the full game plus a "Change the past" view (each season with its chronicle, "Go back to this season", your answers with the other choices as buttons, three ways to go on), "Two histories" side by side with the sentences one history lacks marked, a fates table and the dice after the split. Build: `npm run build -- --page past` (writes `ui/dist-past/index.html`). Published as `past.html` on the Workshop artifact (https://claude.ai/artifact/BVQogSjtUF5DRXKQ9u5VNr).
+- **For other Workshop pages:** `ui/app/extras.ts` lets a page's entry file add a view (`addView({ id, label, render, handlers, onEnding })`); `npm run build -- --page <name>` builds `ui/<name>.html`. The test page registers no extras and is unchanged.
+- **Debrief:** `npm run debrief -- <save.json>` or `-- --seed N [--bot careful] [--scenario island]`: hidden rolls and three other histories. Sample in `docs/playtests/debriefs/`. Check: `npm run debrief -- --sweep 100` (100 branches, 0 crashes, 0 broken; report in `docs/playtests/2026-11-23-change-the-past.md`).
+- **Reads "Copy my game"** (stream 1, PR #44): the Workshop page's "Bring in a game" box and the debrief take its text as it is (seed, tuning, scenario, switches, preset, inputs), a browser save, or `{ game: {...} }`.
+
+## Questions from the change-the-past thread
+- After a change, the dice come in a new order, so part of every difference is luck (shown on the page). Do you want "fixed fortune" dice as a switch to try later? Parked in `later.md`; the game does what it does now until you say.
 
 ## Built by the court-intrigue thread (14, 2026-11-23): secrets softened, and ways to fight back
 - **Held secrets count half toward influence** (knob `influencePerSecret` 0.5 in `data/secrets.json`): two secrets over you give a rival 1 influence, not 2. Halving alone barely moved the numbers (the patron lost its old repeatable Expose), so a **political rival at rank 2 or higher now has a scheme** your watchers can see (one per game at the current setting; a new one every `schemeSeasons` seasons) ("is buying votes for his bid to take your place"), which you can expose or use. Knobs `schemeRank` and `schemeSeasons`.
@@ -357,3 +393,16 @@ UI only: no file in `src/core/` or `data/` changed, so the rules and the 100-see
 - Is the drift toward 5 the right fix for runaway faction power, or should agenda steps stop adding power?
 - The open questions in rules v2 still stand (three actions, steady income, conquest, the absent-holder rule, rival caps, dinners).
 - **Cast questions.** Who married Dionysius' sister: Diodorus and Plutarch say Polyxenus, Polyaenus a Hermocrates (the data follows the first two and shows the disagreement). Theodorus is attested only in about 396 but is in from the start, so the rich families have a voice for liberty: keep? Damon the smith is invented to speak for the citizens after Nicoteles: rename or cut?
+
+## Built by the dinners thread (24, bet B5, 2026-11-23)
+- **Switch "Dinners as the stage"** (off by default, not in any preset). It adds a new action, **Give a dinner**: you choose the couch beside yours, 2 to 4 other guests, and the wine (well watered, mixed as usual, or strong). The dinner has its own panel inside the action list (`ui/views/dinner.ts`). The panel shows only what you already know about the table: who holds the couch and who would take losing it badly, friends and quarrels from earlier dinners, men who want the same office, and enemies the guards will want to search. A "Suggest a table" button fills it in.
+- **The couch of honour** is a power object. Its holder gets +1 influence. The man who loses it thinks less of you, and holds a grudge if he is proud, vengeful or a political rival.
+- **15 moments** in three parts of the evening, cast only from the guests. **4 of them put a choice to you** under "Matters before you": an insult, someone taking the couch, "the bravest man alive", and the search at the door. Three moments are sourced from Plutarch, *Dion* 9; the rest are invention. Friendships and quarrels last: a plotter recruits his table friends first (+1), and never a man he quarrelled with there.
+- Files: `data/dinners.json`, `src/core/dinner.ts`, `ui/views/dinner.ts`, `scripts/dinner-sweep.ts`, `tests/dinner.test.ts`, the card `docs/research/dinners.md`, and the report `docs/playtests/2026-11-23-dinners.md`.
+- Small hooks in shared files: `events.ts` (the table's choices are chained events; dinner effects; `fireNow`), `ai.ts` (recruiting order and the bot's dinners), `actions.ts`, `types.ts`, `index.ts`, and `ui/views/season.ts` (4 lines: the panel and its clicks). The default and preset digests are unchanged, and the tests pass.
+- **Changed:** nothing outside the switch.
+- **Broke:** nothing found. 100 seeds in each scenario: 0 crashes, 0 broken states, with the switch on and off.
+- **Questions for Jacob:**
+  - Should wives and sisters (Aristomache, Theste) be possible guests? The game allows it. The saved texts say nothing either way, and a source check is parked.
+  - Should the plain feast stay beside the dinner, or should the dinner replace it when the switch is on?
+  - Rival hosts: should plotters and Pretenders give dinners of their own, which your watchers could report? Parked in `later.md`.
