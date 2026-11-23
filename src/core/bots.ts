@@ -11,7 +11,7 @@ import { DATA } from "./data.ts";
 import type { Args, FactionId, GameState, OfficeId, Person } from "./types.ts";
 import { FACTIONS } from "./types.ts";
 import { islandChoices } from "./island-bot.ts";
-import { holdsDeadly } from "./secrets.ts";
+import { holdsDeadly, seenHolders, silenceCost } from "./secrets.ts";
 
 export interface Choice { a: string; args?: Args; min?: number } // min: lowest chance worth rolling for
 export interface Bot { id: string; name: string; summary: string; choices: (s: GameState, r: () => number) => Choice[] }
@@ -82,7 +82,11 @@ function income(s: GameState, out: Choice[], harsh: boolean) {
 function petitions(s: GameState, out: Choice[], generous: boolean, keepKey = true) {
   for (const r of s.requests) {
     const p = s.people[r.from];
-    // Switch "secrets": a price for silence. Pay it if it is not a key office.
+    // Switch "secrets": fight back first (show him up as a blackmailer, or buy him off), else pay the price if it is not a key office.
+    if (r.blackmail) {
+      out.push({ a: "expose", args: { target: r.from } });
+      if (spare(s, silenceCost(s, r.from))) out.push({ a: "buySilence", args: { target: r.from }, min: 0.5 });
+    }
     if (r.blackmail && r.kind === "office" && r.office && holds(s, PLAYER, r.office) && (!KEY.includes(r.office) || !keepKey)) out.push({ a: "grantOffice", args: { target: r.from, second: r.office } });
     if (r.kind === "silver") out.push({ a: "bribe", args: { target: r.from, second: "1" } });
     if (r.kind === "citizenship" && s.land > 0) out.push({ a: "grantGuard" });
@@ -119,6 +123,8 @@ function soothe(s: GameState, out: Choice[], n: number) {
 // Push back on political rivals before they reach Pretender.
 // `strip`: take back an office from a rival who holds two or more, at rank `strip` or higher (makes him an enemy instead).
 function counterPolitical(s: GameState, out: Choice[], strip = 9) {
+  // Switch "secrets": buy back what a known rival holds over you, when the silver is there.
+  for (const id of seenHolders(s)) if (s.people[id].political && spare(s, silenceCost(s, id) + 1)) out.push({ a: "buySilence", args: { target: id }, min: 0.5 });
   const pr = others(s).filter((p) => p.political && alive(p)).sort((a, b) => b.political!.rank - a.political!.rank || influence(s, b.id) - influence(s, a.id));
   for (const p of pr) {
     const os = officesOf(s, p.id);

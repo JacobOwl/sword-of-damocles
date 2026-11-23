@@ -244,3 +244,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 
 ## 2026-11-23 (a proper web app, step 3: thread 17)
 - **The UI is laid out as `ui/app/`, `ui/views/`, `ui/components/`, `ui/lib/` and `ui/styles/`**, and `ui/main.ts` only starts the app. Why: one 470-line file held every screen and every click; now a screen lives in its own file. Done in one step while no other thread had UI work open, so the moves happened once.
+
+## 2026-11-23 (secrets softened, fight-back added, thread 14)
+- **With Secrets on, a held secret counts half toward influence, and a political rival at rank 2 or more has a scheme to find (one per game at the current setting).** Why: Jacob ("You decide", passed on by the coordinator) wanted rivals stronger but not twice as deadly, aiming at about 40% patron depositions. Result: 40% citadel, 27% island (30% and 22% without the switch). Not tuned to history; this is game feel.
+- **Fight back: Buy back a secret, and exposing a blackmailer makes his holds worthless.** You learn who holds your secrets when he demands, tells, or is overheard by your watchers. Behind the secrets switch, off by default.
+- **Handoff questions, decided for story:** keep all start secrets; seat lists stay men-only (Seat a counsellor takes anyone); the council on events stays parked in `docs/later.md`.

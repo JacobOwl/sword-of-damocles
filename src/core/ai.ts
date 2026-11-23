@@ -464,7 +464,7 @@ export function updatePolitical(s: GameState) {
       }
       p.political.outSeasons = 0;
       const r = p.political.rank;
-      // With "secrets" on, only a deadly secret over you lifts him (a small one is a threat, not a power base).
+      // A hold over you (a leverage token, or with "secrets" on any usable secret) lifts him.
       const hold = leverageOver(s, p.id, PLAYER) > 0;
       if (r === 1 && (officesOf(s, p.id).length >= 2 || hold)) politicalRank(s, p.id, 1, officesOf(s, p.id).length >= 2 ? "he holds two offices" : "he holds a secret over you");
       else if (r === 2 && inf >= you && (!on(s, "coalition") || coalition(s, p))) {

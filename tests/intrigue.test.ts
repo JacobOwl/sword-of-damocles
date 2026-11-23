@@ -69,3 +69,24 @@ test("no code ids in what the player reads", () => {
     for (const x of s.secrets!.list.filter((x) => x.tpl !== "none")) assert.ok(!CODE.test(secretLine(s, x)), secretLine(s, x));
   }
 });
+
+test("fighting back: a blackmailer can be shown up, and a known holder bought off", () => {
+  for (const scenario of ["citadel", "island"] as const) {
+    const gs = many(["secrets"], scenario);
+    for (const k of ["discredited", "silenceBought"]) assert.ok(sum(gs, k) > 0, `${scenario}: ${k} happens`);
+  }
+  // By hand: a man who knows your secret, and whom you know knows it, takes silver and forgets it.
+  const s = startGame(4, undefined, { switches: ["secrets"] });
+  const x = secretsAbout(s, "dionysius")[0];
+  x.known.push("philistus");
+  s.secrets!.seen = ["philistus"];
+  for (let i = 0; i < 12 && x.known.includes("philistus") && !s.over; i++) {
+    s.silver = 10;
+    act(s, "buySilence", { target: "philistus" });
+    if (x.known.includes("philistus")) endSeason(s);
+  }
+  assert.ok(!x.known.includes("philistus"), "he forgets what he knew");
+  assert.equal(s.counters.silenceBought, 1);
+  assert.ok(s.silver < 10, "it cost silver");
+  assert.ok(!(s.secrets!.seen ?? []).includes("philistus"));
+});

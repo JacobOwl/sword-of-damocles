@@ -25,4 +25,4 @@ export { leaderOfCity, councilOf, captainOf, peopleAt, censusPersonName, censusK
 export type { Census, CensusPerson } from "./census.ts";
 export { counsel, seated, seatName, isFalse, councilName, COUNCIL } from "./council.ts";
 export type { Counsel } from "./council.ts";
-export { about as secretsAbout, knownBy as secretsKnownBy, secretLine, usable as usableSecrets, SECRETS } from "./secrets.ts";
+export { about as secretsAbout, knownBy as secretsKnownBy, secretLine, usable as usableSecrets, seenHolders, silenceCost, SECRETS } from "./secrets.ts";
