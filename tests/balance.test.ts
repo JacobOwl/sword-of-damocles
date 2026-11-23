@@ -27,7 +27,9 @@ test("the standard package plays exactly as rules v2 did before packages existed
 // With those two lines put back, "825ddae722aa16c6" still matched, so the rule switches change nothing while off.
 // Re-pinned 2026-11-22 (thread 07) for one added event, "A sword on a horse-hair" (the Damocles banquet).
 // With that event taken out of data/events.json, "91a0386516ddf2e8" still matched.
-const STANDARD_DIGEST = "5f0f33e5b9691537";
+// Re-pinned 2026-11-22 (thread 07) for five more Cicero court stories (Tusculan Disputations 5.58 to 5.63).
+// With those six records taken out of data/events.json, "5f0f33e5b9691537" still matched.
+const STANDARD_DIGEST = "b52e64b9167067fb";
 
 test("every package only names knobs that exist", () => {
   const known = Object.keys(knobsFor("standard"));

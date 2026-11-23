@@ -224,3 +224,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 
 ## 2026-11-22 (Damocles event updated, thread 07)
 - **"A sword on a horse-hair" is now settled on Dionysius I.** It quotes Cicero's Latin 5.57, 5.59 and 5.61 (saved by PR #30) and keeps Livius.org's Dionysius II reading as a disagreement. Only the timing is invention. Five more court stories from the same passage are parked in `docs/later.md`.
+
+## 2026-11-23 (five Cicero court stories as events, thread 07)
+- **Five more events from Cicero, Tusculan Disputations 5.58 to 5.63** (six records; the Pythagoreans story has a follow-up). Built at the coordinator's request under Jacob's green light for the week. Each gives what Dionysius did as one choice among three.
+- **The daughters become "the women of your house".** Dionysius' daughters could not be grown in 405 to 395, so the barber event changes who learns the trade; the change is listed on the event and the card.
+- **Standard digest re-pinned** (verified: without the six records the old digest matches).

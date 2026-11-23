@@ -31,3 +31,13 @@ All in the Latin file, for the events thread if wanted: he taught his daughters 
 ## Not reached
 
 Yonge's public-domain English (Gutenberg ebook 14988): every copy the cloud reader reached stops in Book I or II. The Latin settles the question; English for players can use the Betts quotes or a fresh plain rendering marked as such.
+
+## The five court stories as events (added 2026-11-23)
+
+Each quotes the Latin file above. Cicero gives no year for any of them, so when each happens is invention.
+
+- **No blade at your throat** (5.58): the barber, the household learning his trade, or the hot walnut shells (Cicero's choice). Cicero has his daughters shave him; they were born after the marriages of 398 and cannot be grown in this decade, so the game gives the trade to "the women of your house". That swap is invention and is listed on the event.
+- **A bed behind a trench** (5.59): after the wedding, search the wife's rooms and sleep behind the trench and drawbridge (Cicero), post guards, or trust her.
+- **A voice from a tower** (5.59): speak from the high tower (Cicero), stand on the common platform, or send a herald.
+- **A joke at the ball game** (5.60): the friend's joke about who holds the sword; have both killed (Cicero), take the sword back, or laugh. Cicero names neither man, so two invented members of the cast take the parts.
+- **A friend as pledge** and **The hour of death** (5.63): a condemned man's friend stands pledge; the condemned man comes back at the hour; ask to be "a third friend" (Cicero's line). Cicero names neither man here, and the game's two are not called Pythagoreans. That he spared them is implied by his wish, not said, and is listed as invention.

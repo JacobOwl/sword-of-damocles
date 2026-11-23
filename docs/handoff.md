@@ -21,6 +21,12 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **`tests/core-boundary.test.ts`**: the engine imports only itself and `data/`; uses no `Math.random`, `Date`, browser or Node globals; a game saved as JSON plays on exactly the same; a bot game replays in both scenarios.
 - **`npm run replays`** (`scripts/export-replays.ts`): writes `dist/replays.json` (not kept in git), 20 whole games with their inputs and the log each must produce, for checking a later port.
 
+## Built by the events thread (07, 2026-11-23): five more Cicero court stories
+- **Six new event records** (`data/events.json`, all history, card `docs/research/damocles.md`): No blade at your throat (barber, 5.58), A bed behind a trench (5.59), A voice from a tower (5.59), A joke at the ball game (5.60), A friend as pledge with its follow-up The hour of death (5.63). Each quotes the saved Latin.
+- In 100 careful-bot games: tower 82, barber 67, pledge 57 (return 55), trench 42 (needs the wedding), ball game 20.
+- **Broke:** nothing: 79 of 79 tests; 100 seeds in both scenarios, 0 crashes, 0 broken states; 317 quotes checked, 0 not found. Digest re-pinned for the added records only.
+- **Question for Jacob:** the ball-game event can kill two invented courtiers over a joke, as Cicero tells. Keep it that harsh?
+
 ## Built by the events thread (07, 2026-11-22): the Damocles banquet
 - **New event "A sword on a horse-hair"** (`data/events.json`, history): a courtier praises your fortune at a feast. You can hang a sword over his couch (what Cicero tells; he loses standing and warmth, plots are a little harder), reward the flattery, or smile it away. It fires in about 80 of 100 careful-bot games.
 - **Settled on Dionysius I** (updated after PR #30): the event quotes Cicero's Latin 5.57, 5.59 and 5.61, and keeps Livius.org's Dionysius II reading as a disagreement. Only the timing is invention. Five more court stories from the same passage are parked in `docs/later.md`.
