@@ -323,3 +323,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** the story chronicle tells repeated business once, varies repeats ("Again", then a count), names who remembers a grudge, drops bracketed numbers and family noise. Test: no sentence more than twice in ten seasons over 20 seeds.
 - **Decided (small call):** the generated families' births and heirs stay in the families view, not the story; their deaths are one line a season. Preset digest re-pinned (logged chronicle text only).
 
+## 2026-11-23 (dinners follow-up, thread 24)
+- **Decided (taste calls delegated by Jacob):** wives and sisters can be guests (the sources are silent; noted on the card). The feast stays beside the dinner. Rival hosts stay parked.
+- **Done:** fetched the Greek of Diodorus 15.6 from the Perseus Digital Library's GitHub (Oldfather's Loeb Greek, CC BY-SA 4.0) and saved it. Added Philoxenus and the quarries as the dinner moment "Your verses". It comes only in peace, as Diodorus 15.6.1 sets it, and the pardon follows a season later. The English is the game's own, marked as such.
+- **Open:** a published English translation of Diodorus 15 to check that rendering against. LacusCurtius and Perseus are blocked from the cloud.

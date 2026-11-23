@@ -141,6 +141,16 @@
       "facts": [ { "text": "Even his brother and son were stripped and searched.", "cite": "Plutarch, Dion 9", "quote": "Neither his brother nor his son could visit him in his apartment wearing any clothes they pleased, but every one had to take off his own apparel before entering and put on another, after the guards had seen him stripped", "file": "sources/plutarch/dion.perrin.txt" } ]
     },
     {
+      "id": "yourVerses", "kind": "history", "course": 3, "tone": "test", "weight": 3, "peace": true, "name": "Your verses",
+      "roles": { "a": { "notHonour": true, "trait": ["blunt", "proud", "fiery", "shrewd", "outsider"] } },
+      "text": "As the drinking goes on, your own verses are read to the table, and you ask {a} what {a} thinks of them. The answer is too frank.",
+      "why": "a tyrant who writes poems, and a guest who will not praise bad ones",
+      "ask": "yourVerses",
+      "source": "Diodorus 15.6 (Philoxenus and the quarries, Greek saved); the guest and the choices are invention",
+      "card": "docs/research/dinners.md",
+      "facts": [ { "text": "At a drinking party Philoxenus was asked his judgement of the tyrant's poems.", "cite": "Diodorus 15.6.2 (Greek)", "quote": "κατὰ τὸ συμπόσιον ἀναγνωσθέντων τῶν τοῦ τυράννου ποιημάτων", "file": "sources/diodorus/book15-6.greek.txt" } ]
+    },
+    {
       "id": "yourTongue", "kind": "invention", "course": 3, "tone": "tongue", "weight": 2, "name": "Your own tongue",
       "roles": { "x": { "absent": true, "enemy": true }, "a": { "opinion": { "max": 0 } } },
       "text": "The wine works on you too. You say what you really think of {x}, who is not at the table. {A} remembers every word.",
@@ -203,6 +213,41 @@
       "card": "docs/research/dinners.md",
       "facts": [ { "text": "Even his brother and son were stripped and searched.", "cite": "Plutarch, Dion 9", "quote": "after the guards had seen him stripped", "file": "sources/plutarch/dion.perrin.txt" } ],
       "invented": ["the guest", "the choices other than the search, and every effect"]
+    },
+    {
+      "id": "yourVerses", "kind": "history", "art": "feast", "name": "Your verses", "chained": true, "dinner": true,
+      "roles": { "a": {} },
+      "text": "{A} has called your verses poor, before the whole table. Your servants wait for a word.",
+      "why": "a frank answer at your table",
+      "choices": [
+        { "id": "quarries", "label": "Have {a} taken to the quarries", "history": true, "effects": [ { "status": "a", "to": "held", "why": "sent to the quarries for an opinion of your verses" }, { "opinion": "a", "by": -2 }, { "grudge": "a", "reason": "you sent him to the quarries for an honest opinion" }, { "then": "quarriesPardon", "after": 1 } ] },
+        { "id": "laugh", "label": "Laugh, and pour {a} another cup", "effects": [ { "opinion": "a", "by": 1 } ] },
+        { "id": "pass", "label": "Let it pass, coldly", "default": true, "effects": [ { "opinion": "a", "by": -1 } ] }
+      ],
+      "source": "Diodorus 15.6.2 (Greek saved)",
+      "card": "docs/research/dinners.md",
+      "facts": [ { "text": "The tyrant ordered Philoxenus taken to the quarries at once.", "cite": "Diodorus 15.6.2 (Greek)", "quote": "προσέταξε τοῖς ὑπηρέταις παραχρῆμα ἀπάγειν εἰς τὰς λατομίας", "file": "sources/diodorus/book15-6.greek.txt" } ],
+      "invented": ["the guest", "the choices other than the quarries, and every effect"]
+    },
+    {
+      "id": "quarriesPardon", "kind": "history", "art": "feast", "name": "A pardon from the quarries", "chained": true, "dinner": true,
+      "roles": { "a": { "status": ["held"] } },
+      "text": "Your friends ask you to forgive {a}, who has been in the quarries since your dinner.",
+      "why": "friends ask for a pardon the day after",
+      "choices": [
+        { "id": "forgive", "label": "Forgive, and bring {a} back to your table", "history": true,
+          "text": "{A} dines with you again. When you read more of your verses and ask once more what {a} thinks, {a} says nothing, calls your servants, and asks them to take {a} back to the quarries. You smile, and the laughter takes the sting out of it.",
+          "effects": [ { "status": "a", "to": "free", "why": "pardoned at your friends' request" }, { "opinion": "a", "by": 2 }, { "bondYou": "a", "why": "you laughed at his joke against you" } ] },
+        { "id": "keep", "label": "Leave {a} in the quarries", "default": true, "effects": [ { "opinion": "a", "by": -1 } ] }
+      ],
+      "source": "Diodorus 15.6.3 to 15.6.4 (Greek saved)",
+      "card": "docs/research/dinners.md",
+      "facts": [
+        { "text": "The next day, at his friends' request, he pardoned Philoxenus and brought the same men back to the drinking party.", "cite": "Diodorus 15.6.3 (Greek)", "quote": "τῇ δʼ ὑστεραίᾳ τῶν φίλων παρακαλούντων συγγνώμην δοῦναι τῷ Φιλοξένῳ", "file": "sources/diodorus/book15-6.greek.txt" },
+        { "text": "Asked again, Philoxenus said nothing and told the servants to take him back to the quarries.", "cite": "Diodorus 15.6.3 (Greek)", "quote": "ἄλλο μὲν οὐδὲν εἶπε, τοὺς δʼ ὑπηρέτας τοῦ Διονυσίου προσκαλεσάμενος ἐκέλευσεν αὑτὸν ἀπαγαγεῖν εἰς τὰς λατομίας", "file": "sources/diodorus/book15-6.greek.txt" },
+        { "text": "Dionysius smiled and bore the frankness, the laughter blunting the reproach.", "cite": "Diodorus 15.6.4 (Greek)", "quote": "μειδιάσας ὁ Διονύσιος ἤνεγκε τὴν παρρησίαν, τοῦ γέλωτος τὴν μέμψιν ἀμβλύνοντος", "file": "sources/diodorus/book15-6.greek.txt" }
+      ],
+      "invented": ["the guest", "the choice to keep him there, and every effect"]
     }
   ]
 }
