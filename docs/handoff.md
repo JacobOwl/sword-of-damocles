@@ -7,6 +7,16 @@ Only these two need Jacob. Every other question below defaults to what the game 
 1. **When will you play the first island test?** Recommended: one sitting before Wednesday morning, the "First island test" preset, judged at season 10.
 2. **Should you be able to lead the army yourself, or send a named man?** Recommended: yes, as a switch you can try, off by default.
 
+## Built by the test-build thread (19, 2026-11-23), stream 4: a chronicle worth retelling
+With "Chronicle as story" on (it is in the first island test), `storyBook` in `src/core/chronicle.ts` now:
+- tells the city's standing business once (Carthage trading, a content faction holding back), not every season;
+- drops bracketed numbers, and the generated families' births, heirs and captains (their deaths become one line, "Among the families, ... died");
+- tells a vote once ("The assembly passes a levy, over the objections of the rich families");
+- writes event answers as "A fever: you chose to leave it to the gods";
+- says "Again," the second time a deed repeats and counts it after that; "He did not forget" becomes "Hipparinus has not forgotten", once per grudge; "He wants your place" once a game; each warning line once, then "Nothing new from your informers";
+- "It began in" once per person, with names no longer lowercased.
+- Test: `tests/chronicle.test.ts` (no sentence told more than twice in ten seasons, 20 seeds). The plain chronicle (switch off) is unchanged.
+
 ## Built by the test-build thread (19, 2026-11-23), streams 2 and 3: the ten-season read and early pacing
 - **Ten-season counts:** `npm run sim -- --preset firstIslandTest --bot careful --upto 10` stops every game after ten seasons. `npm run story-sweep -- --seeds 20` writes one file per seed (turning points, then the chronicle) to `docs/playtests/ten-seasons/`.
 - **Report:** `docs/playtests/2026-11-23-ten-seasons.md`. 7 of 20 seeds would be retold, 13 are flat. Ranked failures: the same opening every seed, arrests that end stories, plots that rarely reach the blow in ten seasons, a one-event-deep early map, a repetitive chronicle.

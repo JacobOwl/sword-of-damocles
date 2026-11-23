@@ -310,3 +310,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** the switch "Dinners as the stage" (off by default; Workshop page only): the Give a dinner action, the couch of honour, 15 moments, 4 table choices, friendships and quarrels that change recruiting, a research card, 100-seed counts in both scenarios, and three sample dinners.
 - **Decided (small calls, all invention, all behind the switch):** no roll for a dinner; at most one moment for each of the three parts of the evening, and at most one choice put to you per dinner; strong wine costs 2 silver; the couch adds 1 influence; the table panel never shows hidden plots or grudges.
 - **Open, Jacob's:** women as guests; whether the dinner replaces the feast; rival hosts (in `later.md`).
+
+## 2026-11-23 (test build, stream 4, thread 19)
+- **Done:** the story chronicle tells repeated business once, varies repeats ("Again", then a count), names who remembers a grudge, drops bracketed numbers and family noise. Test: no sentence more than twice in ten seasons over 20 seeds.
+- **Decided (small call):** the generated families' births and heirs stay in the families view, not the story; their deaths are one line a season. Preset digest re-pinned (logged chronicle text only).
+
