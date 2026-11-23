@@ -359,3 +359,6 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Small shared change:** `ExtraView.when(g)` in `ui/app/extras.ts` (test page unaffected).
 - **Open:** the questions in `docs/handoff.md`; the English Loeb of Diodorus 14.77.1 to 14.77.3 is still not saved (the game renders the Greek itself).
 
+## 2026-11-24 (Carthage's chronicle follow-up, thread 27)
+- **Decided (taste calls delegated by Jacob):** the solemn plain voice stays; side by side stays a button; the voices idea, if built in Phase 4, shows two historians side by side; the suffetes frame stays, marked as later evidence. No rule changes, so no switches. Details in `docs/handoff.md`.
+
