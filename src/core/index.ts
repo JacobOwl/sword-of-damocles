@@ -13,6 +13,8 @@ export { PACKAGES, DEFAULT_TUNING, knobsFor, packageName } from "./tuning.ts";
 export { BOTS, botById } from "./bots.ts";
 export { SWITCHES, switchById, on as switchOn } from "./switches.ts";
 export type { SwitchDef } from "./switches.ts";
+export { PRESETS, presetById, presetOpts } from "./presets.ts";
+export type { PresetDef } from "./presets.ts";
 // The island scenario (Phase 2).
 export {
   NODES, ROUTES, ISLAND, CARTHAGE, nodeDef, nodeName, sideName, cityWalls, cityMen, cityGrain, yourArmy, carthageArmy, armyName,
@@ -29,3 +31,4 @@ export { about as secretsAbout, knownBy as secretsKnownBy, secretLine, usable as
 // Switch "dinners": the dinner table.
 export { DINNERS, wineById, couchHolder, friendsOf, foesOf, bonded, quarrelled, guestPool, parseGuests, suggestTable, castsFor, dinnersOn, dinnerLog } from "./dinner.ts";
 export type { DinnerState, DinnerRecord, Tie } from "./dinner.ts";
+export { logDigest } from "./digest.ts";

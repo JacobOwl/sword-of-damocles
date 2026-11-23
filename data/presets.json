@@ -1,0 +1,23 @@
+{
+  "note": "Ready-made setups for the start screen. A preset only picks a game, a balance package and rule switches that already exist; it adds no rules. Standard stays the engine default. All invention. Chosen by the assumptions council, 2026-11-23 (docs/council/2026-11-23-assumptions-council.md).",
+  "presets": [
+    {
+      "id": "firstIslandTest",
+      "kind": "invention",
+      "name": "First island test",
+      "recommended": true,
+      "scenario": "island",
+      "tuning": "reapWhatYouSow",
+      "switches": ["clues", "partialBlows", "storyChronicle", "armiesBreak"],
+      "summary": "The island game, set up for your first test: plots ripen slowly and grow from what you do, warnings are real clues, a blow can wound instead of kill, the chronicle follows people, and a beaten army can break. At the end of season 10 the game asks what you thought, then you play on.",
+      "verdictSeason": 10,
+      "watch": [
+        "Did ten seasons give you a story you would tell someone? Which moment?",
+        "When a plot came for you, could you see it coming, and from whom? Did any blow feel random?",
+        "Did the island map matter, or did you play only the court? Did a town change sides, and did you know why?",
+        "Did Carthage feel like a power with its own goals, or like a timer?",
+        "Was any screen, word or number confusing? Note where."
+      ]
+    }
+  ]
+}
