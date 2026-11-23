@@ -13,7 +13,7 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Optional] Calibrating the engine against history over 1,000 seeds, as a sanity check only.
 - [Optional] Reuse the engine for an invented world (Bo'saal).
 - [Done in Phase 2 by the island map, 2026-11-22] Simple conquest or raids on nearby cities (Leontini, Catana, Naxos, Carthage's tribute towns). In the paper test, the player reached outside the city 3 times in 10 seasons. Phase 1 has no island, so each one was resolved as a single roll.
-- [Phase 1?] Dinners as the main stage for drama: who is invited, where they sit, what the wine loosens. This is from Jacob's pitch doc (background only), and it barely came up in the paper test.
+- [Built as a switch 2026-11-23, thread 24] Dinners as the main stage for drama: who is invited, where they sit, what the wine loosens. This is from Jacob's pitch doc.
 - [Moved into scope as a scenario, Jacob 2026-11-23] Playing on as an exile who plots a return. Also from Jacob's pitch doc.
 - [Phase 1?] Let the player use the scheming actions too (start a plot against a rival, lend). Rules v2 says they are open to anyone; the prototype gives them to the computer's people only.
 - [Phase 1?] Events drawn from the cast's sourced stories, as data: Andron tempted to seize the citadel and treasury (Polyaenus 5.2.4), Theste's answer when her husband fled (Plutarch, *Dion* 21), the charge that Doris' mother drugged Aristomache (Plutarch, *Dion* 3), Theodorus' liberty speech and the Spartan veto (Diodorus 14.64 to 14.70). Parked by the cast thread, 2026-11-22.
@@ -51,3 +51,7 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Phase 2?] The council could speak on events ("Matters before you") too, each man for one choice. Parked by thread 14, 2026-11-22; on 2026-11-23 judged the better story and still parked, to build in its own small thread.
 - [Phase 2?] Secrets that pass between people: a Spymaster selling what he knows to another rival, or to Carthage. Parked by thread 14, 2026-11-22.
 - [Phase 2?, from the assumptions council round 4, 2026-11-23] Bets proposed but not chosen for the two-day plan: favours as objects (named debts called in, sold or inherited); Carthage's general under his own sword (14.76.4); Root-style asymmetric factions; disputed numbers as ranges that spies narrow (14.54.5-6); a printable reign broadside; secrets that change hands; a Godot spike; a print-and-play board game (Phase 5). Details in `docs/council/2026-11-23-two-day-plan.md`.
+- [Phase 2, dinners] Rival hosts: plotters and Pretenders give dinners of their own, where their friendships form, and your watchers report who dined with whom. (Thread 24.)
+- [Phase 2, dinners] A friend's grief: if you imprison, exile or kill a man, his friends from your table take it badly. (Thread 24.)
+- [Source request] Philoxenus sent to the quarries for criticising the tyrant's verses: Diodorus 15.6, which is not saved. LacusCurtius, book 15: https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/15A*.html (blocked from the cloud). With it saved, this could become a dinner moment. (Thread 24.)
+- [Source request] Did women recline at the tyrant's dinners? Nothing in the saved texts says either way. (Thread 24.)

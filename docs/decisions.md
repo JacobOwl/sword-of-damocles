@@ -281,3 +281,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** the "First island test" preset (listed first, recommended; island, Reap what you sow, Warnings are clues, Blows can miss, Chronicle as story, Beaten armies can break), the season-10 verdict, "Copy my game" with `npm run replay-save`, the island first-season guide, the "what to watch" note.
 - **Decided (small calls):** the verdict also appears if the reign ends before season 10; it can be skipped; answers are stored with the save, not in the game state, so they never change play. The preset's digest is pinned and changes only with a logged line.
 - **Fixed:** the story chronicle's logged text was always "A quiet season." (off-by-one season). Changes logged text only with that switch on; the Standard digest is unchanged.
+
+## 2026-11-23 (dinners as the stage, bet B5, thread 24)
+- **Done:** the switch "Dinners as the stage" (off by default; Workshop page only): the Give a dinner action, the couch of honour, 15 moments, 4 table choices, friendships and quarrels that change recruiting, a research card, 100-seed counts in both scenarios, and three sample dinners.
+- **Decided (small calls, all invention, all behind the switch):** no roll for a dinner; at most one moment for each of the three parts of the evening, and at most one choice put to you per dinner; strong wine costs 2 silver; the couch adds 1 influence; the table panel never shows hidden plots or grudges.
+- **Open, Jacob's:** women as guests; whether the dinner replaces the feast; rival hosts (in `later.md`).

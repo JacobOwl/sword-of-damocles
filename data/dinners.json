@@ -93,7 +93,7 @@
       "roles": { "a": {}, "b": {} },
       "pairs": [ { "a": "a", "b": "b", "is": ["otherFaction", "notBonded", "notQuarrelled"] } ],
       "text": "{A} mocks {b} before the whole table, and {b} answers in kind. Everyone looks at you.",
-      "why": "strong talk between men of different factions",
+      "why": "sharp words between men of different factions",
       "effects": [ { "quarrel": ["a", "b"], "why": "{a} mocked {b} at your table" } ],
       "ask": "dinnerInsult"
     },
