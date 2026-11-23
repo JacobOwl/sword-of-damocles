@@ -13,6 +13,19 @@ Only these two need Jacob. Every other question below defaults to what the game 
 - Digests re-pinned (Standard and the first island test); the rules did not change, only the order the dice fall in. Two other threads' tests leaned on particular seeds and were loosened: the dinner couch test now uses whoever holds the couch; the works test needs 15 finished works, not 20 (19 now).
 - Also: the story's repeat marker now keeps only the first sentence from the third time on, and warning lines are told once sentence by sentence.
 
+## Built by the grain-and-sea thread (26, 2026-11-23): Workshop bet B3 (switch, off by default)
+- **Switch `convoys`, "Grain and the sea"** (`data/convoys.json`, `src/core/convoys.ts`, card `docs/research/grain-and-sea.md`, tests `tests/convoys.test.ts`). Island games only. Not beside the preset and not in it: it is offered only in the rule switches list, and ticked for you on the Workshop page.
+- **Convoys are objects at sea for a season** (`s.convoys`): grain bought abroad, the fleet's winter grain (it used to land at once) and allies' surplus (ports with 7 months or more after harvest send 2) sail to Syracuse and land next season. New action **Send grain to the army by sea** (army on the coast: the ports plus Gela and Acragas). Carthage's army in a port is no longer fed by magic: its grain sails from Carthage, and each spring its mercenaries' pay crosses.
+- **The sea:** a convoy that sails in winter sinks on a 1, waits a season on a 2. At war an enemy fleet catches it on 5+ (the existing interception roll), 6+ if your friendly fleet escorts it. Your ships' catch of Carthage's grain feeds Syracuse (Diodorus 14.64.1); its pay chest fills your treasury and the mercenaries desert.
+- **Contractors:** heads of the rich houses of Syracuse from the census run your convoys. A hidden honesty roll (greedy, angry rich, got away with it before) may skim a month: the visible log says it landed short and he blames the sea; a 1 on the same die is an honest loss with the same words. At war with the rich Angry, he may sell a whole convoy to Carthage. New action **Audit the grain contracts**: a cheat repays, is fined and barred; either way the rich lose 1 mood.
+- **Workshop page** `ui/grain.html` + `ui/grain-main.ts` + `ui/views/grain.ts` + `ui/styles/grain.css`: the full game plus a "Grain and the sea" view (map of convoys at sea and of what landed or was lost, each with its cause; contractors' records; armies and the coast). Build `npm run build -- --page grain`; published as `grain.html` on the Workshop artifact.
+- **Numbers:** `docs/playtests/2026-11-23-grain-and-sea.md`. 0 crashes, 0 broken states on and off. Default digests unchanged.
+
+## Questions from the grain-and-sea thread
+- Is a season at sea for bought grain too slow? It makes the careful bot buy almost every season, and skims pile up (4.7 a game). Report only.
+- Should the audit cost the rich families' goodwill even when it catches a cheat? Now it does, both ways.
+- Parked in `later.md`: a source on Syracuse's grain trade under the tyrants (the contractors are invention); depots and wagons stay in Phase 3.
+
 ## Built by the test-build thread (19, 2026-11-23), stream 6: the island at first sight
 - **"This season:" line** (`ui/components/now.ts`) at the top of the season and island screens: the one most pressing thing (a blow that can fall, Carthage's army and its days from Syracuse, an army or the city about to go hungry a season ahead, the guard unpaid, anger near war), others after "Also".
 - **Battle forecast before you march** (`battleForecast` in `src/core/island.ts`, shown in the Send the army panel): where the march stops, the enemy army there, every modifier on both sides, and the chance to win, draw or lose. The target list says which army stands at each town.

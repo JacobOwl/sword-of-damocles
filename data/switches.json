@@ -104,6 +104,13 @@
       "name": "Great works",
       "summary": "Build power, not only hold it. Three great works can be begun: the Epipolae wall, the arms workshops and the great fleet. Each is built over seasons: you choose whose labour (peasants off the fields, hired men, craftsmen from your cities, from Italy and Greece, or lured from Carthage's lands) and who is set over it (yourself, at one action a season, a hired foreman, or a man whose people will be pleased). Every season it takes silver and food, unpaid men down tools, and the arms and the fleet anger Carthage. Done, they give walls, engines, armour, armed citizens and a fleet that brings grain. The old Build wall and the wall and workshop events give way to them.",
       "research": "docs/research/great-works.md (Diodorus 14.18, 14.41 to 14.43)"
+    },
+    {
+      "id": "convoys",
+      "kind": "invention",
+      "name": "Grain and the sea",
+      "summary": "Island game only. Grain crosses the sea as convoys you can follow on the map. Grain you buy abroad, the fleet's winter grain and your allies' surplus sail to Syracuse and land a season later; you can send grain to your army if it stands on the coast. Each convoy is run by a contractor from one of the rich houses, who may skim it (it lands short, and he blames the sea), or at war, if the rich are angry, sell it to Carthage. You can audit his books, at the price of the rich families' goodwill. Winter storms sink or delay ships. At war, an enemy fleet catches a convoy on 5 or more, harder if your warships escort it. Carthage feeds its army and pays its mercenaries by sea too: catch its grain and its army goes hungry, catch its pay and its mercenaries desert.",
+      "research": "docs/research/grain-and-sea.md (Diodorus 14.55.2 to 14.55.5, 14.63.4, 14.64.1)"
     }
   ]
 }

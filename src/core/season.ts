@@ -22,6 +22,7 @@ import { feudOn, feudSurvive } from "./feud.ts";
 import { botById, botRandom, playSeason } from "./bots.ts";
 import { councilBrief, councilSeasonEnd } from "./council.ts";
 import { campaignCheck } from "./commission.ts";
+import { convoysArrive, convoysOn, convoysSail } from "./convoys.ts";
 import { worksSeason } from "./works.ts";
 
 // ---------- World ----------
@@ -45,7 +46,7 @@ function worldStep(s: GameState) {
     const h = s.offices.fleet;
     const friendly = h && (h === PLAYER || (s.people[h].status === "free" && s.people[h].opinion >= 0));
     const damaged = s.flags.fleetDamaged !== undefined && s.season - s.flags.fleetDamaged < 3;
-    if (friendly && !damaged) grain(s, 2, `${h === PLAYER ? "your" : nameOf(s, h!) + "'s"} fleet brings grain`);
+    if (friendly && !damaged && !convoysOn(s)) grain(s, 2, `${h === PLAYER ? "your" : nameOf(s, h!) + "'s"} fleet brings grain`);
   }
   for (const id of s.laws) {
     const l = lawById(id)!;
@@ -66,7 +67,9 @@ function worldStep(s: GameState) {
     if (s.guard.arrearsSeasons === 1) mood(s, "guard", -1, "a season of arrears, and the captain says so out loud");
   }
   if (q === 3) clock(s, 1, "a year passes and Carthage rebuilds");
+  if (s.island) convoysArrive(s); // switch "convoys": what was at sea lands (or doesn't) before the armies eat
   if (s.island) islandWorld(s); // the island game: cities, armies, sieges (Carthage's own council acts later)
+  if (s.island) convoysSail(s); // switch "convoys": the fleet's grain, allies' surplus, Carthage's grain and pay sail
   if (s.campaign) campaignCheck(s); // switch "commission": an army lost or home since last season
   if (s.works) worksSeason(s); // switch "greatWorks": a season of work on each great work under way
   if (s.census) censusSeason(s); // the island game: births, deaths, marriages and heirs among the invented families
