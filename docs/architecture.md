@@ -42,7 +42,7 @@ These keep the engine portable. `tests/core-boundary.test.ts` checks the first f
 
 ## Layout
 
-Since PR #34 (steps 4 and 5) the UI is laid out like this:
+Since PR #35 (steps 4 and 5) the UI is laid out like this:
 
 ```
 src/core/            the rules engine
@@ -97,7 +97,7 @@ Each step is one small pull request that keeps `npm test`, the typecheck and `np
 
 1. **This document, the engine boundary test and the replay export.** No game files move. (Done, PR #26.)
 2. **Vite build.** `npm run dev` for a live-reloading page; `npm run build` still writes `ui/dist/index.html` and the fragment. The walk-through gives the same pages as the old esbuild page. (Done, PR #28.)
-3. **Split `ui/main.ts` and move the UI files** into `app/`, `views/`, `components/`, `lib/` and `styles/` (steps 4 and 5 of the first plan, done together while no other thread had UI work open). Every function moved unchanged; the walk-through (110 pages, now with a pass that turns every rule switch on) is identical. (Done, PR #34.)
+3. **Split `ui/main.ts` and move the UI files** into `app/`, `views/`, `components/`, `lib/` and `styles/` (steps 4 and 5 of the first plan, done together while no other thread had UI work open). Every function moved unchanged; the walk-through (110 pages, now with a pass that turns every rule switch on) is identical. (Done, PR #35.)
 4. **One click layer.** Replace the per-render wiring in `ui/app/shell.ts` with handlers registered once, matched by `data-` attributes, each view owning its own.
 5. **Start screen as a view.** Move the start screen's HTML out of the shell into `views/`, leaving the shell only frame, dialog and clicks.
 
