@@ -1,6 +1,6 @@
 // The chronicle reads the season's log and writes it up in plain words. No LLM, no invented facts:
 // every sentence comes from a logged action.
-import { seasonName } from "./state.ts";
+import { seasonName, capital } from "./state.ts";
 import { log } from "./ops.ts";
 import { on } from "./switches.ts";
 import { titledName } from "./feud.ts";
@@ -41,7 +41,7 @@ export function fullChronicle(s: GameState): { season: string; text: string }[] 
 
 const TURN = /becomes your rival|is your rival again|Nemesis|is dead|put to death|plot strikes|plot fails|Pretender|seize the Island|sword falls|takes your place|blade finds you|by force|will not ask you/;
 const NOTABLE = /petitions you|demands|refuse|holds a grudge|rival|exile|guards take|pardon|You grant|strip|starts a plot|joins .*plot|Pretender|Nemesis|is dead|put to death|marries|flees|will not ask|takes your place|by force|blade finds you|plot strikes|plot fails|enters the story|is in a plot|leaves without a word|takes over the plot/;
-const LOWER = /^(The|You|Your|Stories|A|An|Every|Money|Silver|Someone|Nothing|Men|Two)\b/;
+const LOWER = /^(Again|The|You|Your|Stories|A|An|Every|Money|Silver|Someone|Nothing|Men|Two)\b/;
 const CONNECT = ["Meanwhile, ", "In the same season, ", "Elsewhere, ", "At court, "];
 const ORD = ["", "", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"];
 
@@ -78,6 +78,25 @@ function beatsOf(xs: { season: number; text: string }[]): string[] {
   });
 }
 
+// ---------- Tidying a line for the story (switch "storyChronicle") ----------
+// The log keeps every number; the story drops the bracketed ones ("(+2 silver to Carthage's treasury.)", "(power 10)").
+const NUMBERED = /\s*\((?=[^)]*\d)[^)]*\)/g;
+// The generated families' births, heirs and captains are kept in the families view; the story names only who died.
+const FAMILY_NOISE = /took over the company of|now heads the house|rises to be |was born to /;
+const FAMILY_DEATH = /^(.+) died, aged \d+\.$/;
+export function tidyLine(t: string): string {
+  let x = t.replace(NUMBERED, "").replace(/\s+\./g, ".");
+  // "Fire in Achradina. You choose: Blame Theodorus's slaves." -> "Fire in Achradina: you chose to blame Theodorus's slaves."
+  const m = /^(.+?)\. You choose: (.+)$/.exec(x);
+  if (m) {
+    const first = m[2].split(" ")[0];
+    const lower = /^[A-Z][a-z]+$/.test(first) && !/^(Theodorus|Leptines|Philistus|Hipparinus|Nicoteles|Andron|Damon|Doricus|Heloris|Polyxenus|Thearides|Aristomache|Carthage|Syracuse)/.test(first);
+    x = lower ? `${m[1]}: you chose to ${m[2].charAt(0).toLowerCase() + m[2].slice(1)}` : `${m[1]}: you chose this: ${m[2]}`;
+  }
+  return x;
+}
+const joinNames = (xs: string[]) => (xs.length <= 1 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs.at(-1)}`);
+
 export interface StoryBook { seasons: { season: number; name: string; paragraphs: string[]; omens: string[] }[]; lives: { id: string; name: string; text: string }[]; ending?: string }
 
 // upTo: the last season to tell. By default the last finished one; the chronicle step passes the season it is writing,
@@ -87,6 +106,9 @@ export function storyBook(s: GameState, upTo?: number): StoryBook {
   const seen: Record<string, Record<string, number>> = {}; // person -> sentence -> times
   const notable: Record<string, { season: number; text: string }[]> = {};
   const seasons: StoryBook["seasons"] = [];
+  let lastCity = new Set<string>();
+  let against = "", explained = false, stale = 0;
+  const began = new Set<string>(), omenSeen = new Set<string>(), remembered = new Set<string>();
   for (let i = 0; i <= last; i++) {
     const es = s.log.filter((e) => e.season === i && e.visible);
     for (const e of es) {
@@ -94,22 +116,43 @@ export function storyBook(s: GameState, upTo?: number): StoryBook {
       const who = subjectOf(s, e);
       if (s.people[who]) (notable[who] ??= []).push({ season: i, text: e.text });
     }
-    const deeds = es.filter((e) => e.kind === "event" && !SKIP.test(e.text));
+    const deeds = es.filter((e) => e.kind === "event" && !SKIP.test(e.text) && !FAMILY_NOISE.test(e.text));
     const groups = new Map<string, string[]>();
+    const familyDead: string[] = [];
+    const cityLines = new Set<string>();
     for (const e of deeds) {
       const who = subjectOf(s, e);
       const key = s.people[who] ? who : who === "you" ? "you" : "city"; // factions and the world are the city
-      let t = e.text;
-      if (s.people[who]) {
-        const n = ((seen[who] ??= {})[t] = (seen[who][t] ?? 0) + 1);
-        if (n >= 2 && /petitions you|demands|spread among|gathers a following/.test(t)) t = t.replace(/\.$/, ` (the ${ORD[n] ?? `${n}th`} time).`);
-        if (TURN.test(e.text)) {
-          const first = (notable[who] ?? []).find((x) => x.season < i);
-          if (first && !/enters the story/.test(first.text)) t += ` It began in ${seasonName(first.season)}: ${first.text.charAt(0).toLowerCase() + first.text.slice(1)}`;
-        }
+      const fd = key === "city" ? FAMILY_DEATH.exec(e.text) : null;
+      if (fd) { familyDead.push(fd[1]); continue; }
+      let t = tidyLine(e.text);
+      // The city's standing business (Carthage trading, a content faction holding back) is told once, not every season.
+      if (key === "city") { cityLines.add(t); if (lastCity.has(t)) continue; }
+      // A grudge remembered is told once per grudge, with the man's name ("He did not forget" alone hid who).
+      const mem = / He did not forget: (.+?)\.(?=\s|$)/.exec(t);
+      if (mem) {
+        const k = `${who}|${mem[1]}`;
+        t = remembered.has(k) || !s.people[who] ? t.replace(mem[0], "") : t.replace(mem[0], ` ${capital(s.people[who].name)} has not forgotten: ${mem[1]}.`);
+        remembered.add(k);
+      }
+      // A vote is told once: the proposal's For and Against go onto the result.
+      const prop = /^You put (.+) to the assembly\. For: (.+)\. Against: (.+)\.$/.exec(t);
+      if (prop) { against = prop[3] === "no faction" ? "" : prop[3]; continue; }
+      if (/^The assembly (passes|throws out) /.test(t) && against) { t = t.replace(/\.$/, /passes/.test(t) ? `, over the objections of ${joinNames(against.split(", "))}.` : `: ${joinNames(against.split(", "))} voted it down.`); against = ""; }
+      // "He wants your place, not your life" explains a political rival the first time only.
+      if (/He wants your place, not your life\./.test(t)) { if (explained) t = t.replace(/\s*He wants your place, not your life\./, ""); explained = true; }
+      // The same deed by the same hand: the second time "again", after that counted.
+      const n = ((seen.all ??= {})[t] = (seen.all[t] ?? 0) + 1);
+      if (n === 2) t = joinWith("Again, ", t);
+      else if (n > 2) t = t.replace(/^(.*?)\.(\s|$)/, `$1 (the ${ORD[n] ?? `${n}th`} time).$2`);
+      if (s.people[who] && TURN.test(e.text) && !began.has(who)) {
+        const first = (notable[who] ?? []).find((x) => x.season < i);
+        if (first && !/enters the story/.test(first.text)) { began.add(who); t += ` It began in ${seasonName(first.season)}: ${tidyLine(LOWER.test(first.text) ? first.text.charAt(0).toLowerCase() + first.text.slice(1) : first.text).replace(/\s*He wants your place, not your life\./, "")}`; }
       }
       (groups.get(key) ?? groups.set(key, []).get(key)!).push(t);
     }
+    lastCity = cityLines;
+    if (familyDead.length) (groups.get("city") ?? groups.set("city", []).get("city")!).push(`Among the families, ${joinNames(familyDead)} died.`);
     // The city first, then each person in the order they first appear, then your own doings.
     const rank = (k: string) => (k === "city" ? 0 : k === "you" ? 2 : 1);
     const order = [...groups.keys()].sort((a, b) => rank(a) - rank(b));
@@ -118,7 +161,11 @@ export function storyBook(s: GameState, upTo?: number): StoryBook {
       const text = groups.get(k)!.join(" ");
       return j === 1 && order[0] === "city" && rank(k) === 1 ? joinWith(CONNECT[i % CONNECT.length], text) : text;
     });
-    const omens = es.filter((e) => e.kind === "warning").map((e) => e.text.replace(/^(Whispers|Rumors|Named): /, ""));
+    // Warnings: each line once in the story. A season with only old ones gets one line saying the talk goes on.
+    const heard = es.filter((e) => e.kind === "warning").map((e) => e.text.replace(/^(Whispers|Rumors|Named): /, ""));
+    const omens = heard.filter((x) => !omenSeen.has(x));
+    for (const x of heard) omenSeen.add(x);
+    if (heard.length && !omens.length) { stale += 1; omens.push(stale === 1 ? "Nothing new from your informers: the same talk goes on." : `Nothing new from your informers (the ${ORD[stale] ?? `${stale}th`} season with nothing new).`); }
     seasons.push({ season: i, name: seasonName(i), paragraphs: paragraphs.length ? paragraphs : ["A quiet season."], omens });
   }
   const lives = Object.entries(notable).map(([id, xs]) => ({ id, beats: beatsOf(xs) })).filter((x) => x.beats.length >= 3).map(({ id, beats }) => {

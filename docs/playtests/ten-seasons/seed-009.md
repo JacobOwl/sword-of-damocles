@@ -28,99 +28,98 @@ Beats: plot 1, warning 0, enemy 1, rival 4, death 7, arrest 3, map 0, carthage 2
 
 ### Autumn 405 BC
 
-A slave comes to you by night from Catana. Telesides, who leads its men, will help you to the town if the price is right: great promises, and the safety of his kin. The citizens complete a step of The people's assembly: Build a following. The guard complete a step of Citizens of Syracuse: Demand. The family hold back from Name the heir while they are Content. Carthage's ships trade along the coasts. (+2 silver to Carthage's treasury.) Carthage's yards build warships and transports. (Carthage's fleet is now 5.)
+A slave comes to you by night from Catana. Telesides, who leads its men, will help you to the town if the price is right: great promises, and the safety of his kin. The citizens complete a step of The people's assembly: Build a following. The guard complete a step of Citizens of Syracuse: Demand. The family hold back from Name the heir while they are Content. Carthage's ships trade along the coasts. Carthage's yards build warships and transports.
 Meanwhile, Damon the smith gathers a following.
 In a brawl in the agora, one of your mercenaries has killed a citizen. A crowd wants him handed over. The captain of the guard wants him protected.
 You could bury the dead of both sides with honour, and send envoys to the exiles at Aetna pledging that you bear them no enmity if they come home.
 Aristotle the Spartan demands citizenship for the guard. Aristotle the Spartan's petition goes unanswered.
 Leptines becomes a political rival (Heir). He wants your place, not your life.
-Hipparinus becomes a political rival (Climber). He wants your place, not your life.
-Blood in the agora. You choose: Hand the mercenary to the citizens' court. Terms for Aetna. You choose: Let them rot at Aetna. A general's offer. You choose: Send him silver and your promise. Telesides takes the silver. Catana now leans your way: if your army comes within reach, its gates may open. You put harbour dues on merchants to the assembly. For: the citizens, the family. Against: the rich families. The assembly throws out harbour dues on merchants. You put a levy on the rich families to the assembly. For: the citizens, the family. Against: the rich families. The assembly passes a levy on the rich families. Catana sends your envoys home with nothing.
+Hipparinus becomes a political rival (Climber).
+Blood in the agora: you chose to hand the mercenary to the citizens' court. Terms for Aetna: you chose to let them rot at Aetna. A general's offer: you chose to send him silver and your promise. Telesides takes the silver. Catana now leans your way: if your army comes within reach, its gates may open. The assembly throws out harbour dues on merchants: the rich families voted it down. The assembly passes a levy on the rich families, over the objections of the rich families. Catana sends your envoys home with nothing.
 *Someone is paying the debts of men who hate you. Someone who says you burned the gate of Achradina and shot down his men in the market-place has begun to meet men after dark.*
 
 ### Winter 405/404 BC
 
-The citizens complete a step of The people's assembly: Win a vote. The rich families complete a step of The cavalry come home: Petition. The guard complete a step of Citizens of Syracuse: Demand louder. Carthage's ships trade along the coasts. (+2 silver to Carthage's treasury.) Carthage's yards build warships and transports. (Carthage's fleet is now 6.) The guard have their wish: houses on the Island. The guard now want their pay on time. The guard become citizens of Syracuse. The common citizens become Dominant (power 8). The mercenary guard become Dominant (power 9).
+The citizens complete a step of The people's assembly: Win a vote. The rich families complete a step of The cavalry come home: Petition. The guard complete a step of Citizens of Syracuse: Demand louder. The guard have their wish: houses on the Island. The guard now want their pay on time. The guard become citizens of Syracuse. The common citizens become Dominant. The mercenary guard become Dominant.
 In the same season, stories about you spread among the citizens.
-Hipparinus lends you 2 silver. You owe him a favour. Coins from the mint are coming out light, and everyone knows whose hand is on the mint: Hipparinus's. Light coins. You choose: Fine Hipparinus the difference.
-Aristotle the Spartan demands citizenship for the guard (the second time). You grant Aristotle the Spartan's petition.
+Hipparinus lends you 2 silver. You owe him a favour. Coins from the mint are coming out light, and everyone knows whose hand is on the mint: Hipparinus's. Light coins: you chose to fine Hipparinus the difference.
+Again, Aristotle the Spartan demands citizenship for the guard. You grant Aristotle the Spartan's petition.
 Philistus speaks for you among the rich families.
-Catana sends your envoys home with nothing. You give the guard houses on the Island and the rights of citizens.
+Again, Catana sends your envoys home with nothing. You give the guard houses on the Island and the rights of citizens.
 *The same unease at dinner. No one says why. Nothing new is heard, but the talk has not stopped.*
 
 ### Spring 404 BC
 
-Carthage's ships trade along the coasts. (+2 silver to Carthage's treasury.) Carthage's yards build warships and transports. (Carthage's fleet is now 7.) The common citizens are a force again (power 7).
-Elsewhere, Hipparinus petitions you for the generalship. You send Hipparinus 3 silver. Hipparinus's petition goes unanswered. Hipparinus becomes your rival (Humiliated). It began in Autumn 405 BC: hipparinus becomes a political rival (Climber). He wants your place, not your life. Hipparinus is no longer your rival.
-Stories about you spread among the citizens (the second time).
+The common citizens are a force again.
+Elsewhere, Hipparinus petitions you for the generalship. You send Hipparinus 3 silver. Hipparinus's petition goes unanswered. Hipparinus becomes your rival (Humiliated). It began in Autumn 405 BC: Hipparinus becomes a political rival (Climber). Hipparinus is no longer your rival.
+Again, stories about you spread among the citizens.
 The captain of the guard has lost heavily at dice, and creditors are at the door. He hints that there are men in the city who would pay those debts.
 Leptines is no longer a political rival.
-The captain's dice. You choose: Pay his debts. You put harbour dues on merchants to the assembly. For: the guard, the family. Against: the citizens, the rich families. The assembly throws out harbour dues on merchants. You put a steady tax on the people to the assembly. For: the guard, the family. Against: the citizens, the rich families. The assembly passes a steady tax on the people.
-*The citizens have started paying someone's debts. The same unease at dinner. No one says why.*
+The captain's dice: you chose to pay his debts. The assembly throws out harbour dues on merchants: the citizens and the rich families voted it down. The assembly passes a steady tax on the people, over the objections of the citizens and the rich families.
+*The citizens have started paying someone's debts.*
 
 ### Summer 404 BC
 
-The tribute of 2 Sicilian towns reaches Carthage. Hicetas son of Crinippus, of Leontini died, aged 56. The daughter of Deinocrates, widow of Hicetas son of Crinippus, of Leontini now heads the house and is a grain-lord of the Leontine plain. The citizens complete a step of The people's assembly: Recall a general. Carthage's council turns to a new goal: Guard the tribute. Carthage holds what the peace gave it. Carthage sends men to hold Motya. Carthage sends men with silver to hire soldiers abroad. (about 10,000 men hired.) The common citizens become Dominant (power 8).
+The tribute of 2 Sicilian towns reaches Carthage. The citizens complete a step of The people's assembly: Recall a general. Carthage's council turns to a new goal: Guard the tribute. Carthage holds what the peace gave it. Carthage sends men to hold Motya. Carthage sends men with silver to hire soldiers abroad. Again, the common citizens become Dominant. Among the families, Hicetas son of Crinippus, of Leontini died.
 At court, stories about you spread among the citizens (the third time).
-Hipparinus petitions you for the generalship (the second time). Your guards take Hipparinus. Hipparinus becomes your rival (Humiliated). It began in Autumn 405 BC: hipparinus becomes a political rival (Climber). He wants your place, not your life. Hipparinus's petition goes unanswered. Hipparinus is no longer a political rival.
+Again, Hipparinus petitions you for the generalship. Your guards take Hipparinus. Again, Hipparinus becomes your rival (Humiliated). Again, Hipparinus's petition goes unanswered. Hipparinus is no longer a political rival.
 Describing a place to you, Leptines drew its plan on the ground with a spear he took from one of your bodyguards. No one is meant to bear arms in your presence.
 Your watchers follow the brother of Demarchus. The brother of Demarchus is in a plot against you, and leads it himself. With him: Hipparinus. You now hold a secret over the brother of Demarchus (what your watchers saw). Your guards take the brother of Demarchus.
-The borrowed spear. You choose: Put to death the guard who handed over the spear.
+The borrowed spear: you chose to put to death the guard who handed over the spear.
 *Doors that were open at night are shut now.*
 
 ### Autumn 404 BC
 
-You hold the mint and have no silver. You could strike coins of tin, and have the assembly vote that whatever a man receives counts as silver. The citizens complete a step of The people's assembly: Elect their own. The citizens complete The people's assembly. The assembly takes the generalship from you. The rich families complete a step of The cavalry come home: Fund the exiles. Carthage's council turns to a new goal: Rebuild. Carthage mends its losses and trades. Carthage's ships trade along the coasts. (+2 silver to Carthage's treasury.) Carthage's yards build warships and transports. (Carthage's fleet is now 8.)
+You hold the mint and have no silver. You could strike coins of tin, and have the assembly vote that whatever a man receives counts as silver. The citizens complete a step of The people's assembly: Elect their own. The citizens complete The people's assembly. The assembly takes the generalship from you. The rich families complete a step of The cavalry come home: Fund the exiles. Carthage's council turns to a new goal: Rebuild. Carthage mends its losses and trades. Again, Carthage's ships trade along the coasts. Again, Carthage's yards build warships and transports.
 Meanwhile, stories about you spread among the citizens (the fourth time).
 Theodorus petitions you for the generalship. Theodorus's petition goes unanswered.
-Nicoteles gathers a following. Nicoteles gives you nothing but courtesy. Nicoteles becomes a political rival (Champion). He wants your place, not your life.
-Philistus speaks for you among the rich families. Your watchers follow Philistus. Philistus is in no plot. No grudges. You now hold a secret over Philistus (what your watchers saw).
-Coins of tin. You choose: Keep the coin honest.
+Nicoteles gathers a following. Nicoteles gives you nothing but courtesy. Nicoteles becomes a political rival (Champion).
+Again, Philistus speaks for you among the rich families. Your watchers follow Philistus. Philistus is in no plot. No grudges. You now hold a secret over Philistus (what your watchers saw).
+Coins of tin: you chose to keep the coin honest.
 *Your steward has nothing new, only a feeling.*
 
 ### Winter 404/403 BC
 
-A storm drives ships onto the rocks off Plemmyrium. Carthage's ships trade along the coasts. (+2 silver to Carthage's treasury.) Carthage sends men to hold Motya. The mercenary guard are a force again (power 7).
+A storm drives ships onto the rocks off Plemmyrium. Again, Carthage sends men to hold Motya. The mercenary guard are a force again.
 In the same season, stories about you spread among the citizens (the fifth time).
-Nicoteles gathers a following (the second time). Your watchers follow Nicoteles. Nicoteles is in no plot. No grudges. You now hold a secret over Nicoteles (what your watchers saw). You make Nicoteles's secret public. Nicoteles is no longer a political rival. Nicoteles gives you nothing but courtesy. Nicoteles becomes a political rival (Champion). He wants your place, not your life.
-Doricus, whom you raised to high command, dreamed of killing you and told the dream over wine. The story is all through the barracks. The captain's dream. You choose: Laugh it off, and toast Doricus at dinner.
-A storm off Plemmyrium. You choose: The fleet will have to wait.
-*The same unease at dinner. No one says why.*
+Again, Nicoteles gathers a following. Your watchers follow Nicoteles. Nicoteles is in no plot. No grudges. You now hold a secret over Nicoteles (what your watchers saw). You make Nicoteles's secret public. Nicoteles is no longer a political rival. Again, Nicoteles gives you nothing but courtesy. Again, Nicoteles becomes a political rival (Champion).
+Doricus, whom you raised to high command, dreamed of killing you and told the dream over wine. The story is all through the barracks. The captain's dream: you chose to laugh it off, and toast Doricus at dinner.
+A storm off Plemmyrium: you chose to the fleet will have to wait.
+*Nothing new from your informers: the same talk goes on.*
 
 ### Spring 403 BC
 
-Menes son of Theodotes, of Messana died, aged 47. Megacles son of Menes, of Messana now heads the house and is a shipowner of the strait. Hicetas son of Exaenetus, of Gela died, aged 60. The daughter of Polyzelus, widow of Hicetas son of Exaenetus, of Gela now heads the house and is a priest of the old temples. At the festival a poet recites verses that mock you. The crowd laughs, then looks to see what you will do. The rich families complete a step of The cavalry come home: Win a friend at court. Carthage's ships trade along the coasts. (+2 silver to Carthage's treasury.) Carthage sends men to hold Panormus.
-Elsewhere, Nicoteles gives you nothing but courtesy. You pardon Nicoteles. Nicoteles rises to Power behind the throne.
-Philistus speaks for you among the rich families.
-Leptines becomes a political rival (Heir). He wants your place, not your life.
-A poet's verses. You choose: Pretend you did not hear.
+At the festival a poet recites verses that mock you. The crowd laughs, then looks to see what you will do. The rich families complete a step of The cavalry come home: Win a friend at court. Carthage sends men to hold Panormus. Among the families, Menes son of Theodotes, of Messana and Hicetas son of Exaenetus, of Gela died.
+Elsewhere, Nicoteles gives you nothing but courtesy (the third time). You pardon Nicoteles. Nicoteles rises to Power behind the throne.
+Philistus speaks for you among the rich families (the third time).
+Leptines becomes a political rival (Heir).
+A poet's verses: you chose to pretend you did not hear.
 *Nicoteles was approached by someone who wanted him against you. He refused, and now he is afraid.*
 
 ### Summer 403 BC
 
-The tribute of 2 Sicilian towns reaches Carthage. Heracleides son of Themistus, of Syracuse died, aged 56. Tellias son of Themistus, of Syracuse now heads the house and is a priest of Demeter's house. Antisthenes son of Execestes, of Gela died, aged 43. Adranodorus son of Execestes, of Gela now heads the house and is a landowner back from exile. Hamilcar son of Maharbal, of Carthage died, aged 58. Maharbal son of Hamilcar, of Carthage now heads the house and is an elder with ships in the western trade. The people refuse a new tax: they have paid too often already. Meanwhile the temple of Asclepius is full of offerings of silver and gold. Carthage's ships trade along the coasts. (+2 silver to Carthage's treasury.) Carthage sends men to hold Panormus.
-At court, Nicoteles gathers a following (the third time). Nicoteles refuses to give up the generalship. There is fighting in the streets. Your watchers follow Nicoteles. Nicoteles is in no plot. No grudges. You now hold a secret over Nicoteles (what your watchers saw). You make Nicoteles's secret public. Nicoteles falls to Contender. Nicoteles rises to Power behind the throne.
+Again, the tribute of 2 Sicilian towns reaches Carthage. The people refuse a new tax: they have paid too often already. Meanwhile the temple of Asclepius is full of offerings of silver and gold. Among the families, Heracleides son of Themistus, of Syracuse, Antisthenes son of Execestes, of Gela and Hamilcar son of Maharbal, of Carthage died.
+At court, Nicoteles gathers a following (the third time). Nicoteles refuses to give up the generalship. There is fighting in the streets. Again, your watchers follow Nicoteles. Again, Nicoteles is in no plot. No grudges. Again, you now hold a secret over Nicoteles (what your watchers saw). Again, you make Nicoteles's secret public. Nicoteles falls to Contender. Again, Nicoteles rises to Power behind the throne.
 Stories about you spread among the citizens (the sixth time).
-Damon the smith gathers a following (the second time).
-The offerings of Asclepius. You choose: Let the temple be.
-*The same unease at dinner. No one says why.*
+Again, Damon the smith gathers a following.
+The offerings of Asclepius: you chose to let the temple be.
+*Nothing new from your informers (the second season with nothing new).*
 
 ### Autumn 403 BC
 
-Annobal son of Gisco, of Carthage died, aged 60. Gisco son of Annobal, of Carthage now heads the house and is a speaker of the dockyards. The treasury is empty. You could tell the assembly that Demeter has appeared to you and asked for the women's ornaments to be brought to her temple, as your own household has already done. Carthage's ships trade along the coasts. (+2 silver to Carthage's treasury.) Carthage sends men with silver to hire soldiers abroad. (about 10,000 men hired.) The common citizens are a force again (power 6).
+The treasury is empty. You could tell the assembly that Demeter has appeared to you and asked for the women's ornaments to be brought to her temple, as your own household has already done. Again, Carthage sends men with silver to hire soldiers abroad. Again, the common citizens are a force again. Among the families, Annobal son of Gisco, of Carthage died.
 Meanwhile, Nicoteles gathers a following (the fourth time). You strip Nicoteles of the generalship. A story goes round that sets Nicoteles and Leptines against each other. Nicoteles's standing suffers.
 Damon the smith gathers a following (the third time). Damon the smith gives you nothing but courtesy.
-Demeter's ornaments. You choose: Leave the gods out of it.
+Demeter's ornaments: you chose to leave the gods out of it.
 *Someone new keeps the late hours of the others. He is heard to say you exposed his secret.*
 
 ### Winter 403/402 BC
 
-Carthage's ships trade along the coasts. (+2 silver to Carthage's treasury.) Carthage sends men with silver to hire soldiers abroad. (about 10,000 men hired.)
-In the same season, Nicoteles gathers a following (the fifth time). Aristus, a distinguished Spartan, has landed. In public he promises the citizens their liberty. In private he tells you Sparta wants your rule made stronger, and that Nicoteles the Corinthian, a leader of the citizens, trusts him. You learn who is in Nicoteles's plot: the leader of the exiles at Aetna, Nicoteles. Your guards take Nicoteles. A story goes round that sets Nicoteles and Leptines against each other. Nicoteles's standing suffers. Nicoteles is no longer a political rival.
+Nicoteles gathers a following (the fifth time). Aristus, a distinguished Spartan, has landed. In public he promises the citizens their liberty. In private he tells you Sparta wants your rule made stronger, and that Nicoteles the Corinthian, a leader of the citizens, trusts him. You learn who is in Nicoteles's plot: the leader of the exiles at Aetna, Nicoteles. Your guards take Nicoteles. Again, a story goes round that sets Nicoteles and Leptines against each other. Again, Nicoteles's standing suffers. Again, Nicoteles is no longer a political rival.
 Leptines petitions you for the generalship. Leptines's petition goes unanswered.
-Damon the smith speaks for you among the citizens. Damon the smith becomes a political rival (Champion). He wants your place, not your life.
-The Spartan envoy. You choose: Use him only to learn the citizens' plans.
-*Your steward has nothing new, only a feeling.*
+Damon the smith speaks for you among the citizens. Damon the smith becomes a political rival (Champion).
+The Spartan envoy: you chose to use him only to learn the citizens' plans.
+*Nothing new from your informers (the third season with nothing new).*
 
 ## Lives
 
