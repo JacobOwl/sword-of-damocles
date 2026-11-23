@@ -39,7 +39,7 @@ test("the Epipolae wall: one season of hired work raises Syracuse's walls; the o
   seasons(s, 1);
   assert.equal(workOf(s, "epipolae")!.done, s.season);
   assert.equal(s.walls, true);
-  assert.ok(s.log.some((e) => /a season's work on the epipolae wall/.test(e.why ?? "") && /Silver -5/.test(e.text)), "3 silver for the wall and 2 for hired men");
+  assert.ok(s.log.some((e) => /a season's work on the Epipolae wall/.test(e.why ?? "") && /Silver -5/.test(e.text)), "3 silver for the wall and 2 for hired men");
   assert.ok(before > s.silver - 99);
 });
 

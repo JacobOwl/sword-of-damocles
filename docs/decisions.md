@@ -281,3 +281,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** the "First island test" preset (listed first, recommended; island, Reap what you sow, Warnings are clues, Blows can miss, Chronicle as story, Beaten armies can break), the season-10 verdict, "Copy my game" with `npm run replay-save`, the island first-season guide, the "what to watch" note.
 - **Decided (small calls):** the verdict also appears if the reign ends before season 10; it can be skipped; answers are stored with the save, not in the game state, so they never change play. The preset's digest is pinned and changes only with a logged line.
 - **Fixed:** the story chronicle's logged text was always "A quiet season." (off-by-one season). Changes logged text only with that switch on; the Standard digest is unchanged.
+
+## 2026-11-23 (great works, bet B4, thread 23)
+- **Done:** switch "Great works" (off by default, Workshop page only): the Epipolae wall, the arms workshops and the great fleet as objects built over seasons, with labour, overseers, silver, food and Carthage's anger; research card `docs/research/great-works.md` with every quote opened in the saved Loeb text; 100 seeds on and off, 0 crashes.
+- **Decided (small calls, Jacob's to change):** all costs and season counts; the bots build in Diodorus' order (wall, arms, fleet) and halt a work unpaid for two seasons; switches marked `workshop: true` show only on a Workshop build.
+- **Open:** the fleet's interception bonus waits for the island stream (3) to merge; the taste questions in `docs/handoff.md`.

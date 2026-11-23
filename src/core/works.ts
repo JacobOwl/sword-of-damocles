@@ -60,6 +60,8 @@ export function seasonsNeeded(w: WorkDef, work: Pick<Work, "labour" | "overseer"
   const you = work.overseer === "you" ? WORK_KNOBS.yourselfSaves : 0;
   return Math.max(1, w.seasons - faster - you);
 }
+// A work's name inside a sentence: "the Epipolae wall", keeping the place name's capital.
+export const the = (name: string) => name.replace(/^The /, "the ");
 export const overseerName = (s: GameState, o: string) => (o === "you" ? "you" : o === "foreman" ? "a hired foreman" : capital(nameOf(s, o)));
 
 // ---------- The season's work (the world step) ----------
@@ -72,39 +74,39 @@ export function worksSeason(s: GameState) {
     const def = workById(work.id)!;
     const lab = labourById(work.labour)!;
     const ca = s.island && carthageArmy(s);
-    if (ca && ca.siege === "syracuse") { event(s, "world", `No work is done on ${def.name.toLowerCase()} this season.`, "Carthage's army is at the walls"); continue; }
+    if (ca && ca.siege === "syracuse") { event(s, "world", `No work is done on ${the(def.name)} this season.`, "Carthage's army is at the walls"); continue; }
     if (work.overseer !== "you" && work.overseer !== "foreman" && s.people[work.overseer]?.status !== "free") {
-      event(s, "world", `${capital(nameOf(s, work.overseer))} can no longer oversee ${def.name.toLowerCase()}; a hired foreman takes his place.`, "he is no longer free in the city");
+      event(s, "world", `${capital(nameOf(s, work.overseer))} can no longer oversee ${the(def.name)}; a hired foreman takes his place.`, "he is no longer free in the city");
       work.overseer = "foreman";
     }
     const cost = seasonCost(def, work.labour, work.timber);
     if (s.silver < cost) {
       work.stalled += 1;
-      event(s, "world", `The men on ${def.name.toLowerCase()} go unpaid and down their tools.`, `a season of it costs ${cost} silver and the treasury has ${s.silver}`);
+      event(s, "world", `The men on ${the(def.name)} go unpaid and down their tools.`, `a season of it costs ${cost} silver and the treasury has ${s.silver}`);
       if (work.stalled >= WORK_KNOBS.stallLimit && work.progress > 0) {
         work.progress -= 1;
-        event(s, "world", `Craftsmen drift away from ${def.name.toLowerCase()}, and a season's work is lost.`, `${work.stalled} seasons unpaid`);
+        event(s, "world", `Craftsmen drift away from ${the(def.name)}, and a season's work is lost.`, `${work.stalled} seasons unpaid`);
       }
       continue;
     }
     work.stalled = 0;
     if (work.overseer === "you") {
-      if (s.slots > 1) { s.slots -= 1; event(s, PLAYER, `You spend your days on ${def.name.toLowerCase()}, among the workmen (one action fewer this season).`, "you oversee the works yourself"); }
+      if (s.slots > 1) { s.slots -= 1; event(s, PLAYER, `You spend your days on ${the(def.name)}, among the workmen (one action fewer this season).`, "you oversee the works yourself"); }
     }
-    silver(s, -cost, `a season's work on ${def.name.toLowerCase()} (${lab.short})`);
-    if (def.grain) grain(s, -def.grain, `the workers on ${def.name.toLowerCase()} must eat`);
-    if (q === 3 && lab.harvestLoss) grain(s, -lab.harvestLoss, `the men on ${def.name.toLowerCase()} were not in the fields for the harvest`);
-    if (lab.anger) clock(s, lab.anger, `Carthage counts the craftsmen who left its lands for ${def.name.toLowerCase()}`);
+    silver(s, -cost, `a season's work on ${the(def.name)} (${lab.short})`);
+    if (def.grain) grain(s, -def.grain, `the workers on ${the(def.name)} must eat`);
+    if (q === 3 && lab.harvestLoss) grain(s, -lab.harvestLoss, `the men on ${the(def.name)} were not in the fields for the harvest`);
+    if (lab.anger) clock(s, lab.anger, `Carthage counts the craftsmen who left its lands for ${the(def.name)}`);
     // An overseer who is no friend of yours keeps some of the silver. The accounts show the loss, not the thief.
     const o = s.people[work.overseer];
     if (o && o.opinion < 0) {
-      silver(s, -WORK_KNOBS.foremanSkims, `the accounts of ${def.name.toLowerCase()} come up short`);
-      log(s, { actor: o.id, text: `${capital(o.name)} skims the silver of ${def.name.toLowerCase()}.`, why: "he is set over the works and no friend of yours", visible: false, kind: "event" });
+      silver(s, -WORK_KNOBS.foremanSkims, `the accounts of ${the(def.name)} come up short`);
+      log(s, { actor: o.id, text: `${capital(o.name)} skims the silver of ${the(def.name)}.`, why: "he is set over the works and no friend of yours", visible: false, kind: "event" });
     }
     work.progress += 1;
     const need = seasonsNeeded(def, work);
     if (work.progress >= need) finish(s, work, def);
-    else event(s, "world", `Work goes on at ${def.name.toLowerCase()}: ${work.progress} of ${need} seasons done.`, `${overseerName(s, work.overseer)} ${work.overseer === "you" ? "oversee" : "oversees"} it`);
+    else event(s, "world", `Work goes on at ${the(def.name)}: ${work.progress} of ${need} seasons done.`, `${overseerName(s, work.overseer)} ${work.overseer === "you" ? "oversee" : "oversees"} it`);
   }
 }
 
@@ -125,8 +127,8 @@ function finish(s: GameState, work: Work, def: WorkDef) {
   const o = s.people[work.overseer];
   if (o && o.status === "free") {
     o.infl += WORK_KNOBS.overseerInfluence;
-    event(s, o.id, `${capital(o.name)} gains standing: the city knows who built ${def.name.toLowerCase()}.`, "he was set over the works");
-    opinion(s, o.id, 1, `the honour of ${def.name.toLowerCase()}`);
+    event(s, o.id, `${capital(o.name)} gains standing: the city knows who built ${the(def.name)}.`, "he was set over the works");
+    opinion(s, o.id, 1, `the honour of ${the(def.name)}`);
   }
 }
 
@@ -140,7 +142,6 @@ interface Impl {
   odds?: (s: GameState, a: Args) => Mod[] | null;
   run: (s: GameState, a: Args, ok: boolean, die: number) => void;
 }
-const lower = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
 const free = (s: GameState) => others(s).filter((p) => p.status === "free");
 const factionWord = (s: GameState, f: string) => (FACTIONS.includes(f as FactionId) ? s.factions[f as FactionId].short : "your family");
 
@@ -148,7 +149,7 @@ export const WORKS_IMPL: Record<string, Impl> = {
   beginWork: {
     target: (s) => WORKS.filter((w) => !workDone(s, w.id) && !activeWorks(s).some((x) => x.id === w.id)).map((w) => {
       const half = workOf(s, w.id);
-      return { value: w.id, label: half ? `Take up ${lower(w.name)} again (${half.progress} seasons done)` : `${w.name} (${w.seasons} season${w.seasons > 1 ? "s" : ""} of work, from ${w.silver} silver a season)` };
+      return { value: w.id, label: half ? `Take up ${the(w.name)} again (${half.progress} seasons done)` : `${w.name} (${w.seasons} season${w.seasons > 1 ? "s" : ""} of work, from ${w.silver} silver a season)` };
     }),
     second: (s, a) => {
       const w = a.target && workById(a.target);
@@ -166,10 +167,10 @@ export const WORKS_IMPL: Record<string, Impl> = {
       const timber = def.timber ? timberFrom(s) : undefined;
       if (work) { work.halted = false; work.labour = lab.id; work.timber = timber; work.stalled = 0; }
       else { work = { id: def.id, labour: lab.id, timber, progress: 0, overseer: "foreman", stalled: 0, started: s.season }; st.list.push(work); }
-      event(s, PLAYER, `Work begins on ${def.name.toLowerCase()}, with ${lab.short}. It needs ${seasonsNeeded(def, work) - work.progress} more season${seasonsNeeded(def, work) - work.progress > 1 ? "s" : ""} and ${seasonCost(def, lab.id, timber)} silver each season, from next season on.`, "Begin a great work");
+      event(s, PLAYER, `Work begins on ${the(def.name)}, with ${lab.short}. It needs ${seasonsNeeded(def, work) - work.progress} more season${seasonsNeeded(def, work) - work.progress > 1 ? "s" : ""} and ${seasonCost(def, lab.id, timber)} silver each season, from next season on.`, "Begin a great work");
       if (timber) event(s, "world", `The woodmen go to ${timber === "aetna" ? "Mount Aetna" : "Italy"} for the timber.`, timber === "aetna" ? "the road to Aetna is open" : "the road to Aetna is closed to you, so the timber must come by sea");
-      if (lab.citizens) mood(s, "citizens", lab.citizens, `the peasants are taken from their fields for ${def.name.toLowerCase()}`);
-      if (lab.allies && s.island) for (const n of NODES) if (city(s, n.id).side === "ally") lean(s, n.id, lab.allies, `you commandeered its craftsmen for ${def.name.toLowerCase()}`);
+      if (lab.citizens) mood(s, "citizens", lab.citizens, `the peasants are taken from their fields for ${the(def.name)}`);
+      if (lab.allies && s.island) for (const n of NODES) if (city(s, n.id).side === "ally") lean(s, n.id, lab.allies, `you commandeered its craftsmen for ${the(def.name)}`);
     },
   },
   overseeWork: {
@@ -188,9 +189,9 @@ export const WORKS_IMPL: Record<string, Impl> = {
       const w = workOf(s, a.target!)!;
       const def = workById(w.id)!;
       w.overseer = a.second!;
-      event(s, PLAYER, `${capital(overseerName(s, w.overseer))} ${w.overseer === "you" ? "take charge of" : "is set over"} ${def.name.toLowerCase()}.`, "Set a man over the works");
+      event(s, PLAYER, `${capital(overseerName(s, w.overseer))} ${w.overseer === "you" ? "take charge of" : "is set over"} ${the(def.name)}.`, "Set a man over the works");
       const p = s.people[w.overseer];
-      if (p && FACTIONS.includes(p.faction as FactionId)) mood(s, p.faction as FactionId, 1, `${p.name}, one of their own, is set over ${def.name.toLowerCase()}`);
+      if (p && FACTIONS.includes(p.faction as FactionId)) mood(s, p.faction as FactionId, 1, `${p.name}, one of their own, is set over ${the(def.name)}`);
       if (p) opinion(s, p.id, 1, "you trusted him with the works");
     },
   },
@@ -199,7 +200,7 @@ export const WORKS_IMPL: Record<string, Impl> = {
     run: (s, a) => {
       const w = workOf(s, a.target!)!;
       w.halted = true;
-      event(s, PLAYER, `You stop the work on ${workById(w.id)!.name.toLowerCase()}. What is built stands, half-done.`, "Halt a great work");
+      event(s, PLAYER, `You stop the work on ${the(workById(w.id)!.name)}. What is built stands, half-done.`, "Halt a great work");
     },
   },
 };
