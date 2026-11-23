@@ -12,7 +12,12 @@ export const ui = {
   args: {} as Args,
   sheet: null as string | null, // person whose character sheet is open
   lastSeen: 0,
+  verdict: null as Verdict | null, // your season-10 verdict in a preset game (ui/views/verdict.ts)
+  verdictDraft: {} as Record<string, string>, // what you typed before saving it
+  copyOpen: false, // the "Copy my game" box is showing
 };
+
+export interface Verdict { season: number; retell: string; confused: string; unfair: string; level: "" | "easy" | "right" | "hard"; other: string; skipped?: boolean }
 
 export const esc = (t: unknown) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
 export const sign = (n: number) => (n > 0 ? `+${n}` : n < 0 ? `−${-n}` : "0");

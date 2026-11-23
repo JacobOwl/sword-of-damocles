@@ -1,6 +1,6 @@
 // The app shell: the start screen, the page frame (masthead, ledger, views), the character-sheet dialog, and the clicks.
 // It only reads the simulation's state and sends it your choices; all rules live in src/core.
-import { DATA, PLAYER, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, switchOn } from "../../src/core/index.ts";
+import { DATA, PLAYER, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, presetById, presetOpts, switchOn } from "../../src/core/index.ts";
 import type { GameState } from "../../src/core/index.ts";
 import { howToPlay, tipAttr } from "../views/help.ts";
 import { court, sheet } from "../views/people.ts";
@@ -13,7 +13,11 @@ import { showSeasonCard, swordOverhead } from "../components/ambient.ts";
 import { icon } from "../components/icons.ts";
 import { startScreen } from "../views/start.ts";
 import * as sound from "../lib/sound.ts";
-import { save, load, clearSave } from "./save.ts";
+import { save, load, clearSave, gameText } from "./save.ts";
+import { verdictDue, verdictView, verdictHandlers, verdictNote } from "../views/verdict.ts";
+
+declare const __BUILD__: string;
+const BUILD = typeof __BUILD__ === "string" ? __BUILD__ : "dev";
 import { play } from "../views/play.ts";
 import { listen, type Ctx, type Handlers } from "./clicks.ts";
 import { seasonHandlers } from "../views/season.ts";
@@ -30,14 +34,27 @@ export function splash() {
   app.innerHTML = startScreen(saved, seed);
   document.getElementById("new")!.onclick = () => {
     const v = Number((document.getElementById("seed") as HTMLInputElement).value) || seed;
-    const scenario = (document.getElementById("scenario") as HTMLSelectElement).value === "citadel" ? "citadel" : "island";
-    const switches = [...document.querySelectorAll<HTMLInputElement>("input.switch")].filter((x) => x.checked).map((x) => x.value);
-    endedSound = false; ui.s = startGame(v, (document.getElementById("tuning") as HTMLSelectElement).value, { scenario, switches }); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render(); showSeasonCard(ui.s);
+    const setup = document.querySelector<HTMLInputElement>('input[name="setup"]:checked')?.value ?? "custom";
+    let tuning: string, opts: Parameters<typeof startGame>[2];
+    if (presetById(setup)) {
+      const p = presetOpts(setup);
+      const extra = [...document.querySelectorAll<HTMLInputElement>("input.extra")].filter((x) => x.checked).map((x) => x.value);
+      tuning = p.tuning; opts = { scenario: p.scenario, switches: [...(p.switches ?? []), ...extra], preset: p.preset };
+    } else {
+      const scenario = (document.getElementById("scenario") as HTMLSelectElement).value === "citadel" ? "citadel" : "island";
+      const switches = [...document.querySelectorAll<HTMLInputElement>("input.switch")].filter((x) => x.checked).map((x) => x.value);
+      tuning = (document.getElementById("tuning") as HTMLSelectElement).value; opts = { scenario, switches };
+    }
+    endedSound = false; ui.verdict = null; ui.verdictDraft = {}; ui.copyOpen = false;
+    ui.s = startGame(v, tuning, opts); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render(); showSeasonCard(ui.s);
   };
   const sel = document.getElementById("tuning") as HTMLSelectElement;
   sel.onchange = () => { document.getElementById("tuning-note")!.textContent = PACKAGES.find((p) => p.id === sel.value)?.summary ?? ""; };
   const r = document.getElementById("resume");
-  if (r && saved) r.onclick = () => { ui.s = replay(saved.seed, saved.inputs, PACKAGES.some((p) => p.id === saved.tuning) ? saved.tuning : DEFAULT_TUNING, { scenario: saved.scenario === "island" ? "island" : "citadel", switches: (saved.switches ?? []).filter((x) => switchById(x)) }); ui.designer = !!saved.designer; render(); };
+  if (r && saved) r.onclick = () => {
+    ui.s = replay(saved.seed, saved.inputs, PACKAGES.some((p) => p.id === saved.tuning) ? saved.tuning : DEFAULT_TUNING, { scenario: saved.scenario === "island" ? "island" : "citadel", switches: (saved.switches ?? []).filter((x) => switchById(x)), ...(presetById(saved.preset) ? { preset: saved.preset } : {}) });
+    ui.designer = !!saved.designer; ui.verdict = saved.verdict ?? null; ui.verdictDraft = {}; ui.copyOpen = false; render();
+  };
 }
 
 // ---------- Main screen ----------
@@ -47,7 +64,9 @@ export function render() {
   if (!g) return splash();
   const views: [typeof ui.view, string][] = [["play", "The season"], ...(g.island ? [["island", "The island"] as [typeof ui.view, string]] : []), ["court", "The court"], ...(g.census ? [["families", "The families"] as [typeof ui.view, string]] : []), ...(switchOn(g, "greatWorks") ? [["works", "The works"] as [typeof ui.view, string]] : []), ["chronicle", "The chronicle"], ["help", "How to play"]];
   let body = "";
-  if (ui.view === "play") body = play(g);
+  const due = verdictDue(g);
+  if (ui.view === "play" && due) body = verdictView(g);
+  else if (ui.view === "play") body = play(g);
   else if (ui.view === "court") body = court(g);
   else if (ui.view === "island" && g.island) body = islandView(g);
   else if (ui.view === "families" && g.census) body = familiesView(g);
@@ -58,18 +77,26 @@ export function render() {
     ${masthead(g)}
     <nav class="views" aria-label="Views">${views.map(([k, l]) => `<button type="button" data-view="${k}" class="${ui.view === k ? "on" : ""}" ${ui.view === k ? 'aria-current="page"' : ""}>${l}</button>`).join("")}</nav>
     ${ledger(g)}
-    ${g.over ? ending(g) : ""}
+    ${g.over && !(due && ui.view === "play") ? ending(g) : ""}
     ${body}
     <div class="foot small">
       <label><input type="checkbox" id="designer" ${ui.designer ? "checked" : ""}> Designer view: show the moves you can't see in play</label>
-      <span class="muted">Seed ${g.seed} · ${esc(packageName(g.tuning))} balance${g.switches?.length ? ` · ${esc(g.switches.map((x) => switchById(x)?.name ?? "").join(", "))}` : ""}</span>
+      <span class="muted">Seed ${g.seed} · ${presetById(g.preset) ? `${esc(presetById(g.preset)!.name)} · ` : ""}${esc(packageName(g.tuning))} balance${g.switches?.length ? ` · ${esc(g.switches.map((x) => switchById(x)?.name ?? "").join(", "))}` : ""}${verdictNote(g) ? ` · ${esc(verdictNote(g))}` : ""}</span>
+      <button type="button" id="copy-game" aria-expanded="${ui.copyOpen}">Copy my game</button>
       <button id="restart">New game</button>
-    </div>`;
+    </div>
+    ${ui.copyOpen ? copyBox() : ""}`;
   paintCensusFaces(g); // the invented families' portraits, laid in tiles while the page is idle
   sound.update(g);
   if (g.over && !endedSound) { endedSound = true; sound.ending(g.over.reason); }
   ui.lastSeen = g.log.length;
   if (ui.sheet) openSheet(ui.sheet, false);
+}
+
+// "Copy my game": the seed, the setup, every move and your verdict, as one line of text to paste into a thread.
+function copyBox() {
+  return `<div class="copybox"><p class="small"><b>Your game, ready to paste.</b> <span id="copy-state">It is on your clipboard if your browser allowed it; if not, select the text below and copy it.</span> Paste it into the project chat and a thread can replay exactly what you saw.</p>
+    <textarea id="game-text" rows="4" readonly>${esc(gameText(BUILD))}</textarea></div>`;
 }
 
 function masthead(g: GameState) {
@@ -81,7 +108,7 @@ function masthead(g: GameState) {
     <span class="grow"></span>
     <button type="button" id="sound" class="sound-btn" aria-pressed="${sound.soundOn()}" data-tip="${sound.soundOn() ? "Sound is on: a lyre each season, the harbour, a drone while a plot has a name. Click to turn it off." : "Sound is off. Click to hear a lyre each season, the harbour, and a drone while a plot has a name."}">${icon(sound.soundOn() ? "lyre" : "mute")}<span class="sr">${sound.soundOn() ? "Sound on" : "Sound off"}</span></button>
     ${g.over ? "" : `<span class="label" ${tipAttr("actions")}>Actions</span><span class="slots" aria-label="${g.slots} actions left">${Array.from({ length: slots }, (_, i) => `<i class="slot ${i < g.slots ? "full" : ""}"></i>`).join("")}</span>
-    <button class="primary" id="end">End the season</button>`}
+    ${verdictDue(g) ? "" : `<button class="primary" id="end">End the season</button>`}`}
   </header><div class="meander mast-rule" aria-hidden="true"></div>`;
 }
 
@@ -142,13 +169,21 @@ function turn() { app.classList.remove("turn"); void app.offsetWidth; app.classL
 // ---------- Clicks ----------
 // The frame's own clicks; each screen's are in its file (views/season.ts, views/help.ts).
 const endSeasonNow = (c: Ctx) => { endSeason(c.g); ui.openAction = null; ui.args = {}; c.save(); c.render(); c.turn(); window.scrollTo({ top: 0 }); showSeasonCard(c.g); };
-const restart = () => { clearSave(); ui.s = null; splash(); };
+const restart = () => { clearSave(); ui.s = null; ui.verdict = null; ui.verdictDraft = {}; ui.copyOpen = false; splash(); };
 const frameHandlers: Handlers = {
   click: {
     "#sound": (_, c) => { sound.toggle(c.g); c.render(); },
     "#end": (_, c) => endSeasonNow(c),
     "#end2": (_, c) => endSeasonNow(c),
     "#restart": restart,
+    "#copy-game": (_, c) => {
+      ui.copyOpen = !ui.copyOpen; c.render();
+      if (!ui.copyOpen) return;
+      const box = document.getElementById("game-text") as HTMLTextAreaElement | null;
+      box?.focus(); box?.select();
+      const note = (t: string) => { const el = document.getElementById("copy-state"); if (el) el.textContent = t; };
+      try { navigator.clipboard.writeText(gameText(BUILD)).then(() => note("It is on your clipboard."), () => note("Select the text below and copy it.")); } catch { note("Select the text below and copy it."); }
+    },
     "#again": restart,
     "[data-view]": (b, c) => { ui.view = b.dataset.view as typeof ui.view; c.render(); c.turn(); window.scrollTo({ top: 0 }); },
     "[data-tab]": (b, c) => { ui.tab = b.dataset.tab!; c.render(); },
@@ -158,4 +193,4 @@ const frameHandlers: Handlers = {
     "#designer": (el, c) => { ui.designer = (el as HTMLInputElement).checked; c.save(); c.render(); },
   },
 };
-listen(app, [frameHandlers, helpHandlers, seasonHandlers], () => (ui.s ? { g: ui.s, render, save, turn, openSheet } : null));
+listen(app, [frameHandlers, helpHandlers, seasonHandlers, verdictHandlers], () => (ui.s ? { g: ui.s, render, save, turn, openSheet } : null));

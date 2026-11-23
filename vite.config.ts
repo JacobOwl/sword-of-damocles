@@ -3,6 +3,10 @@
 import { defineConfig, type Plugin } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
 import { readdirSync, readFileSync } from "node:fs";
+import { execSync } from "node:child_process";
+
+// The commit the page was built from, carried by "Copy my game" so a thread can check out the same rules.
+const BUILD = (() => { try { return execSync("git rev-parse --short HEAD", { stdio: ["ignore", "pipe", "ignore"] }).toString().trim(); } catch { return "dev"; } })();
 
 // Placeholder portraits (invention, made in tools/mosaic-editor.html): ui/art/portraits/<person id>.webp,
 // inlined as data URLs into window.__PORTRAITS before the game's code runs (read by ui/components/portraits.ts).
@@ -26,6 +30,7 @@ export default defineConfig({
   root: "ui",
   base: "./",
   publicDir: false,
+  define: { __BUILD__: JSON.stringify(BUILD) },
   plugins: [portraits(), viteSingleFile({ removeViteModuleLoader: true })],
   build: { outDir: "dist", emptyOutDir: true, reportCompressedSize: false },
   server: { fs: { allow: [".."] } }, // the game reads data/ and src/ from outside ui/
