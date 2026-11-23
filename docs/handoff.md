@@ -7,8 +7,25 @@ Only these two need Jacob. Every other question below defaults to what the game 
 1. **When will you play the first island test?** Recommended: one sitting before Wednesday morning, the "First island test" preset, judged at season 10.
 2. **Should you be able to lead the army yourself, or send a named man?** Recommended: yes, as a switch you can try, off by default.
 
+## Built by the test-build thread (19, 2026-11-23), stream 1: the first island test
+- **"First island test"** (`data/presets.json`, `src/core/presets.ts`): the first choice on the start screen, selected and marked recommended, with a one-line list of the rules it turns on and a "What to watch for" fold. "Set it up yourself" keeps the old choices. Standard stays the engine default. A game remembers its preset by name only (`s.preset`), so it replays from its options; switches a later thread marks `"besidePreset": true` in `data/switches.json` appear as unticked boxes marked new beside the preset (for the army switch, stream 5).
+- **Season-10 verdict** (`ui/views/verdict.ts`): after ten seasons of a preset game (or on the last page if the reign ends sooner) the season screen becomes five questions; "Save and play on" or "Skip". Answers live in the save.
+- **Copy my game** (foot of the page): one line of text with the seed, setup, every move, the verdict, the commit it was built from and a digest of the log. `npm run replay-save -- <file>` replays it, checks the digest, and prints the verdict and the chronicle (`--log` for every visible line, `--all` with hidden rolls).
+- **Island first-season guide** (`ui/views/help.ts`): your three actions, the sword, the map, the moods; remembered apart from the citadel guide.
+- **Fixed:** with "Chronicle as story" on, every season's logged chronicle read "A quiet season." (the chronicle step told the season before). The chronicle view was right; the logged text, the season card's source and `fullChronicle` were not.
+- Tests: `tests/presets.test.ts` pins the preset's digest (careful bot, seeds 1 to 10). Re-pin only with a line in `docs/decisions.md`.
+- Note for Jacob: `docs/playtests/first-island-test.md`.
+
 ## Next for the build (from the same council)
 Build the "First island test" preset (listed first on the start screen), the season-10 verdict prompt, and a short "what to watch" note; measure map events in seasons 1 to 10 over 100 seeds. Fixes and the test pass before new features.
+
+## Built by the Long Game thread (25, 2026-11-23): Phase 3 on paper (no game code)
+- **`docs/phase3-draft.md`**, marked draft: two speeds of play (the court season, and "the long years" a year a turn, with the world pulling you back close), heirs who inherit a claim and a ledger but not offices (a funeral step), choosing whom you play next from your circle, stations (ruler, leading man, demagogue, captain, exile, ruler of another city), a Republic of Rome style spring auction for hired companies with upkeep and wages owed at discharge, pay in land or citizenship, seizures that are catching, about 25 places that are founded and razed by rules, start dates as seeds of a period, the end at 264, the 216-year sweep, and a build order.
+- **Five start dossiers** in `docs/research/`: `start-480.md` (after Himera), `start-466.md` (the tyrants fall), `start-357.md` (Dion's return), `start-317.md` (Agathocles' coup), `start-289.md` (after Agathocles). Each has the six objects, factions, Carthage, the island, 15 to 23 people tagged history or invention, playable starts, stories, disagreements and gaps, and a "Quote check" list at the end. All 620 quotes were checked as exact text in the saved files, and every Diodorus quote against the section it cites (335 of 335). Drafted with helper agents and checked by script; read them as drafts.
+- **Not changed:** `scope.md`, game code, data. Phase 3 still waits for the gate and Jacob's go.
+
+## Questions from the Long Game thread (Jacob's, none urgent)
+The seven open questions at the end of `docs/phase3-draft.md`: two speeds or fixed eras; play anyone in your circle or only the heir; invented men in the station of real people born after the start; stop at 264 or run on; whether a person in a Punic city of Sicily is ever playable; which start to build after 405; auction or plain prices for hired companies.
 
 ## Built by the court-intrigue thread (14, 2026-11-23): secrets softened, and ways to fight back
 - **Held secrets count half toward influence** (knob `influencePerSecret` 0.5 in `data/secrets.json`): two secrets over you give a rival 1 influence, not 2. Halving alone barely moved the numbers (the patron lost its old repeatable Expose), so a **political rival at rank 2 or higher now has a scheme** your watchers can see (one per game at the current setting; a new one every `schemeSeasons` seasons) ("is buying votes for his bid to take your place"), which you can expose or use. Knobs `schemeRank` and `schemeSeasons`.

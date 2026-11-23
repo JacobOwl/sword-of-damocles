@@ -275,3 +275,15 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** the council's plan for the usage through Wednesday morning (`docs/council/2026-11-23-two-day-plan.md`): eight streams, one thread each, ranked; freeze and republish Tuesday about 18:00 UTC; the army switch has a Tuesday 12:00 UTC cut-off and goes beside the test preset as an unticked checkbox, not inside it (3-2).
 - **Open, Jacob's:** whether to delete stale branches such as `claude/project-thread-jmqrof` (merging one by mistake would delete about 9,000 lines). Left alone.
 - **Part two of the plan (Jacob: "be ambitious and creative"):** eight ambitious bets beside the test build, all published to a separate Workshop page and never to the test link: the story museum, change the past, grain and the sea, great works, dinners, the other shore, exile and return (needs Jacob's change to scope.md), the Long Game on paper. Others parked in later.md.
+- **Jacob answered (2026-11-23):** yes, build "exile and return" as a scenario. Added to `scope.md` (Phase 2, separate scenario, off by default, Workshop page only). Bet B7 of the two-day plan can merge, after the Tuesday freeze.
+
+## 2026-11-23 (test build, stream 1, thread 19)
+- **Done:** the "First island test" preset (listed first, recommended; island, Reap what you sow, Warnings are clues, Blows can miss, Chronicle as story, Beaten armies can break), the season-10 verdict, "Copy my game" with `npm run replay-save`, the island first-season guide, the "what to watch" note.
+- **Decided (small calls):** the verdict also appears if the reign ends before season 10; it can be skipped; answers are stored with the save, not in the game state, so they never change play. The preset's digest is pinned and changes only with a logged line.
+- **Fixed:** the story chronicle's logged text was always "A quiet season." (off-by-one season). Changes logged text only with that switch on; the Standard digest is unchanged.
+
+## 2026-11-23 (Phase 3 on paper, thread 25)
+- **Done:** `docs/phase3-draft.md` (draft) and five start dossiers, `docs/research/start-480.md`, `start-466.md`, `start-357.md`, `start-317.md`, `start-289.md`. Bet B8 of the two-day plan. Paper only; no scope change, no game code.
+- **Picked in the draft, all reversible and Jacob's to change:** two speeds of play you choose, with triggers that pull you back to the court; heirs inherit a claim, a name and a ledger, never offices; you may play anyone in your circle; real people born after a start are not forced in, the census may make an invented man in the same station; the world stops at 264.
+- **Open, Jacob's:** the seven questions at the end of the draft (also in `handoff.md`).
+

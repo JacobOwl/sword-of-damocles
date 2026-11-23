@@ -295,3 +295,19 @@ button.primary:active:not(:disabled) { transform: translateY(1px); box-shadow: n
   @keyframes siege { to { transform: rotate(25.7deg); } }
 }
 @media (max-width: 600px) { .mapfig { overflow-x: auto; -webkit-overflow-scrolling: touch; } .mapfig .island-map { min-width: 640px; } }
+
+/* Start screen: ready-made setups first, "set it up yourself" after. */
+.setups { border: 0; margin: 0; padding: 0; max-width: 62ch; text-align: left; display: flex; flex-direction: column; gap: 8px; }
+.setups legend { margin: 0 auto 4px; }
+.setup { display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; border-left: 3px solid transparent; cursor: pointer; }
+.setup:has(input:checked) { border-left-color: var(--accent); background: rgba(122, 84, 36, .07); }
+.setup > span { display: flex; flex-direction: column; gap: 3px; }
+.setup input[type=radio] { margin-top: 5px; }
+.setup-extra, .watch { margin: 0 0 0 34px; }
+.watch ul { margin: 4px 0; padding-left: 1.2em; }
+.custom { margin-left: 34px; opacity: .55; }
+.setups:has(input[value=custom]:checked) .custom { opacity: 1; }
+.tag.rec { color: var(--blood); }
+.tag.new { color: var(--olive); }
+.custom select { max-width: 100%; }
+.custom { min-width: 0; }

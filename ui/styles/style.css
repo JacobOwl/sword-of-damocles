@@ -378,3 +378,11 @@ table.cities thead th { font-family: var(--display); font-weight: 400; color: va
 .secrets li { margin: 2px 0; }
 .secrets-ledger .ledger-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 4px 24px; }
 .secrets-ledger h3 { font-size: 1rem; margin: 6px 0 2px; }
+
+/* The season-10 verdict and "Copy my game". */
+.verdict { max-width: 64ch; margin: 0 auto; padding: 8px 0 24px; }
+.verdict textarea, .copybox textarea { width: 100%; box-sizing: border-box; font: inherit; background: #f7efd9; border: 1px solid var(--rule); padding: 6px; }
+.verdict .level { border: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.verdict .level legend { margin-bottom: 4px; }
+.copybox { max-width: 72ch; margin: 8px auto 24px; }
+.copybox textarea { font-family: var(--mono); font-size: .75rem; }

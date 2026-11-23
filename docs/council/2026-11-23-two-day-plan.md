@@ -103,7 +103,7 @@ Jacob, after the plan above: "for the usage I specifically mean stuff beyond fix
 - By Wednesday: the Carthage chronicle on the Workshop page with a test that every line traces to a log entry; the voices samples in `docs/playtests/`; a card on each historian's leanings (unverified claims marked).
 - Owns: a new view and a new `src/core/carthage-chronicle.ts` (not `chronicle.ts`), its sentences in `data/`.
 
-**B7. Fallen, not finished: exile and return** (heavy; needs Jacob's change to `scope.md`; Player, Systems, Devil)
+**B7. Fallen, not finished: exile and return** (heavy; in scope since Jacob said yes, 2026-11-23; Player, Systems, Devil)
 - Bet: when you lose Syracuse you flee to Aetna or Rhegium with a few loyal men and your feud records, and plot your way back while someone else rules. Every fall becomes the middle of a story. It is in Jacob's pitch and design.md.
 - Until Jacob answers: a design note and a prototype on a branch as a separate scenario, not merged. On his yes: merged as a scenario, off by default, on the Workshop page.
 - Owns: new `src/core/exile.ts`, a scenario data file; reuses the commission's `where` field.

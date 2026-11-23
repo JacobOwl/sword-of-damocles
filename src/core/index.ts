@@ -13,6 +13,8 @@ export { PACKAGES, DEFAULT_TUNING, knobsFor, packageName } from "./tuning.ts";
 export { BOTS, botById } from "./bots.ts";
 export { SWITCHES, switchById, on as switchOn } from "./switches.ts";
 export type { SwitchDef } from "./switches.ts";
+export { PRESETS, presetById, presetOpts } from "./presets.ts";
+export type { PresetDef } from "./presets.ts";
 // The island scenario (Phase 2).
 export {
   NODES, ROUTES, ISLAND, CARTHAGE, nodeDef, nodeName, sideName, cityWalls, cityMen, cityGrain, yourArmy, carthageArmy, armyName,
@@ -26,3 +28,4 @@ export type { Census, CensusPerson } from "./census.ts";
 export { counsel, seated, seatName, isFalse, councilName, COUNCIL } from "./council.ts";
 export type { Counsel } from "./council.ts";
 export { about as secretsAbout, knownBy as secretsKnownBy, secretLine, usable as usableSecrets, seenHolders, silenceCost, SECRETS } from "./secrets.ts";
+export { logDigest } from "./digest.ts";
