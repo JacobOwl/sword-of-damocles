@@ -111,6 +111,14 @@
       "name": "Grain and the sea",
       "summary": "Island game only. Grain crosses the sea as convoys you can follow on the map. Grain you buy abroad, the fleet's winter grain and your allies' surplus sail to Syracuse and land a season later; you can send grain to your army if it stands on the coast. Each convoy is run by a contractor from one of the rich houses, who may skim it (it lands short, and he blames the sea), or at war, if the rich are angry, sell it to Carthage. You can audit his books, at the price of the rich families' goodwill. Winter storms sink or delay ships. At war, an enemy fleet catches a convoy on 5 or more, harder if your warships escort it. Carthage feeds its army and pays its mercenaries by sea too: catch its grain and its army goes hungry, catch its pay and its mercenaries desert.",
       "research": "docs/research/grain-and-sea.md (Diodorus 14.55.2 to 14.55.5, 14.63.4, 14.64.1)"
+    },
+    {
+      "id": "carthageChronicle",
+      "kind": "invention",
+      "workshop": true,
+      "name": "Carthage's chronicle",
+      "summary": "Island game only. A second chronicle tells the same decade from Carthage's side, in Carthage's own terms: each year named for its two suffetes, the council's votes and who carried them, the general made king by law, the tribute, the levies in Libya, plague and defeat read as the anger of the gods. Every sentence comes from a line in the game's log and shows which one. No rules change.",
+      "research": "docs/research/carthage-chronicle.md (Diodorus 13.114, 14.47, 14.54.5, 14.76 to 14.77; Aristotle, Politics 1273a; the Marseille Tariff)"
     }
   ]
 }

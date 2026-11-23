@@ -105,7 +105,7 @@ The key is a CSS selector, usually a `data-` attribute on the button. A handler 
 
 ## Workshop pages
 
-Bets from the two-day plan ship as separate pages on the Workshop artifact, never at the test link. A Workshop page is a second page shell, `ui/<name>.html`, whose entry file adds its screens with `addView` from `ui/app/extras.ts` and then starts the game as usual. Build it with `npm run build -- --page <name>` (to `ui/dist-<name>/index.html`). The test page, `ui/index.html`, adds nothing, so it is unchanged. First one: `ui/past.html`, "Change the past" (engine half in `src/core/fork.ts`).
+Bets from the two-day plan ship as separate pages on the Workshop artifact, never at the test link. A Workshop page is a second page shell, `ui/<name>.html`, whose entry file adds its screens with `addView` from `ui/app/extras.ts` and then starts the game as usual. Build it with `npm run build -- --page <name>` (to `ui/dist-<name>/index.html`). The test page, `ui/index.html`, adds nothing, so it is unchanged. First one: `ui/past.html`, "Change the past" (engine half in `src/core/fork.ts`). A view can pass `when(g)` to show only for some games (for example only when its rule switch is on, as `ui/shore.html` does).
 
 ## Migration steps
 
