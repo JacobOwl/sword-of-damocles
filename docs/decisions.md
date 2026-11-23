@@ -297,3 +297,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** a Workshop page, `ui/past.html` (built with `npm run build -- --page past`): the whole game plus a "Change the past" view, a button under the ending stele, and a box to bring in a game copied from the test page. Published as `past.html` on the shared Workshop artifact, never at the test link.
 - **Decided (small, reversible):** Workshop pages add screens through `ui/app/extras.ts`, a list the shell reads. The test page registers nothing, so its 110-page walk-through is identical before and after.
 - **Found:** one changed answer changes the ending in 50 of 100 games, but the dice also reshuffle after the change. Shown, not fixed; "fixed fortune" parked in `later.md`.
+
+## 2026-11-23 (army thread 20, stream 5)
+
+- Built "Lead the army yourself" as switch `commission`, off by default, offered beside the First island test preset and not inside it. Why: Jacob chose it as a switch to try; outside the preset his first verdict stays traceable.
+- You lead by default in the choices; the general and named men are the alternatives. Why: Diodorus has Dionysius take the field in person (14.72.1, 14.95.3).
+- Absence costs: plots +1 while away, the keeper's loyalty in your defense, armed citizens +1 to plots with a citizen in them. Being there pays: +1 in battle. Why: the sourced danger at home (14.64.3-4; Polyaenus 5.2.4) and the council's verdict V2. Sizes are invention and untuned.
+- With the switch, the generalship is friction, not a gate: passing over the elected general costs 1 citizens' mood and 1 of his opinion (council V2, "unlawful, not forbidden").
+- Parked (later.md): purposes for commands, a commander turning on you, petitions while away.

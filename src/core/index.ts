@@ -2,7 +2,8 @@
 export * from "./types.ts";
 export * from "./state.ts";
 export { DATA } from "./data.ts";
-export { menu, preview, secondOptions, vote } from "./actions.ts";
+export { menu, preview, secondOptions, thirdOptions, actionNotes, vote } from "./actions.ts";
+export { away as awayWithArmy, commissionOn, keeperValue } from "./commission.ts";
 export { startGame, act, endSeason, refuseRequest, replay, runBotGame, chooseEvent } from "./season.ts";
 export { openEvents, EVENTS, eventById } from "./events.ts";
 export type { ChoiceView, EventDef } from "./events.ts";
