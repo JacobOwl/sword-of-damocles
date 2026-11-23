@@ -263,3 +263,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 ## 2026-11-23 (a proper web app, step 4: thread 17)
 - **Clicks go through one listener, set up once; each screen exports its handlers keyed by `data-` selectors.** Why: the old wiring re-attached every handler after every redraw from one function that knew every screen; now a screen's buttons and what they do sit in the same file. Behaviour is unchanged (walk-through identical).
 - **Exposing a blackmailer has a cost** (later the same day; the coordinator decided on Jacob's "You decide"): he tells the city his worst secret about you as a parting shot, at about half the harm, and his kin and faction turn colder. Why: so buying silence stays a real choice. Behind the secrets switch.
+
+## 2026-11-23 (assumptions council, thread 18)
+- **Done:** a five-seat council judged the project's working assumptions (`docs/council/2026-11-23-assumptions-council.md`). Advice and defaults only; nothing in the game changed.
+- **Decided by the council (taste and scheduling, reversible):** a "First island test" preset, listed first but not the engine default (Reap what you sow, Warnings are clues, Blows can miss, Chronicle as story, Beaten armies can break); a verdict prompt at season 10, then play on if you like; keep 405 to 395; no difficulty tuning before Jacob plays; fixes and the test pass before any new feature this week; every PR rebases on main before merging. The open thread questions in `handoff.md` default to what the game does now.
+- **Open, Jacob's:** when he will play the first island test; whether he can lead the army himself (or send a named man) as a switch.
