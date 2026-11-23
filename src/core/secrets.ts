@@ -77,6 +77,8 @@ export function derive(s: GameState, pid: string) {
     if (pl.leader === pid && !have("plotLeader", pl.id)) add(s, tplById("plotLeader")!, pid, { key: pl.id });
     else if (pl.leader !== pid && !have("plotSworn", pl.id)) add(s, tplById("plotSworn")!, pid, { key: pl.id, leader: pl.leader });
   }
+  // A political rival schemes anew each year, so there is always something fresh for your watchers to see.
+  if (p.political && p.political.rank >= SECRETS.knobs.schemeRank && !have("politicalScheme", String(Math.floor(s.season / SECRETS.knobs.schemeSeasons)))) add(s, tplById("politicalScheme")!, pid, { key: String(Math.floor(s.season / SECRETS.knobs.schemeSeasons)) });
   const g = p.grudges[0];
   if (g && !have("grudgeHidden", g.reason)) add(s, tplById("grudgeHidden")!, pid, { key: g.reason, grudge: g.reason });
   if (p.agenda && !p.agenda.done && p.agenda.id !== "yourFall" && !have("agendaHidden", p.agenda.id)) {
@@ -105,7 +107,7 @@ export function yourDeed(s: GameState, tpl: string, args: Record<string, string>
 export function learn(s: GameState, holder: string, who: string, how: string, kinds: "seen" | "kept" | "all" = "all"): Secret | null {
   if (!secretsOn(s)) return null;
   derive(s, who);
-  const seen = ["plotSworn", "plotLeader", "grudgeHidden", "agendaHidden"];
+  const seen = ["plotSworn", "plotLeader", "grudgeHidden", "agendaHidden", "politicalScheme"];
   const pool = about(s, who).filter((x) => !x.known.includes(holder) && (kinds === "all" || (kinds === "seen") === seen.includes(x.tpl)))
     .sort((a, b) => b.weight - a.weight || a.season - b.season);
   const x = pool[0];

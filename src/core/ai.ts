@@ -17,7 +17,7 @@ import { T } from "./tuning.ts";
 import { on } from "./switches.ts";
 import { deed } from "./clues.ts";
 import { feudOn } from "./feud.ts";
-import { secretsOn, digForYou, useOnYou, useHold } from "./secrets.ts";
+import { secretsOn, digForYou, useOnYou, useHold, usable } from "./secrets.ts";
 
 const hidden = false;
 const rankOf = (p: Person) => p.rival?.rank ?? 0;
@@ -464,7 +464,9 @@ export function updatePolitical(s: GameState) {
       }
       p.political.outSeasons = 0;
       const r = p.political.rank;
-      if (r === 1 && (officesOf(s, p.id).length >= 2 || leverageOver(s, p.id, PLAYER) > 0)) politicalRank(s, p.id, 1, officesOf(s, p.id).length >= 2 ? "he holds two offices" : "he holds a secret over you");
+      // With "secrets" on, only a deadly secret over you lifts him (a small one is a threat, not a power base).
+      const hold = leverageOver(s, p.id, PLAYER) > 0;
+      if (r === 1 && (officesOf(s, p.id).length >= 2 || hold)) politicalRank(s, p.id, 1, officesOf(s, p.id).length >= 2 ? "he holds two offices" : "he holds a secret over you");
       else if (r === 2 && inf >= you && (!on(s, "coalition") || coalition(s, p))) {
         const f = on(s, "coalition") ? coalition(s, p) : undefined;
         politicalRank(s, p.id, 1, `his influence (${inf}) has reached yours (${you})${f ? `, and ${s.factions[f].short} stand with him` : ""}`);
