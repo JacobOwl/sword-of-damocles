@@ -1,0 +1,122 @@
+{
+  "about": "Story shapes for the museum (npm run museum). Each shape is a pattern in a game's log that a person would retell, or a sign of a dull or unfair game. All of it is invention: a designer's reading aid, never a target the simulation is tuned toward. A shape's `find` is read by scripts/museum/shapes.ts. Step patterns are regular expressions over the log's plain words; a step may be an object with `re` and `kind` (event, change, warning, chronicle).",
+  "kind": "invention",
+  "turns": "plot strikes|plot fails|blade finds you|becomes your rival|is your rival again|Nemesis|Pretender|is dead|put to death|into exile|flees the city|starts a plot|joins .*plot|is in a plot against you|declares war|lands at|lays siege|wins the battle|storms the walls|goes over to|becomes your ally|comes over to you|Your army takes|sacks|lifts the siege|sails home|Plague breaks out|takes your place|takes the generalship from you|guard sells|Your guards take|the sword falls",
+  "shapes": [
+    {
+      "id": "friendTurned", "name": "The friend who turned", "weight": 3, "kind": "invention",
+      "line": "Someone who once stood by you later plots against you or turns rival.",
+      "find": { "type": "person", "steps": ["speaks for you|You grant .*petition|opinion of you rises to \\+3|is bound to you", "joins .*plot|starts a plot against you|is in a plot against you|becomes your rival|led them|takes your place"], "gap": 2, "within": 12 }
+    },
+    {
+      "id": "warnedSurvived", "name": "A warned blow, survived", "weight": 3, "kind": "invention",
+      "line": "The warnings came, the blow fell, and you lived through it.",
+      "find": { "type": "log", "steps": [{ "re": ".", "kind": "warning" }, "The plot fails|blade finds you, but not deep enough|You escape to the dockyards with your life"], "within": 8 }
+    },
+    {
+      "id": "nemesis", "name": "A nemesis", "weight": 2, "kind": "invention",
+      "line": "One man makes your fall his life's work.",
+      "find": { "type": "person", "steps": ["is now your Nemesis"] }
+    },
+    {
+      "id": "cameBack", "name": "The enemy who came back", "weight": 2, "kind": "invention",
+      "line": "An enemy you dealt with returns to trouble you again.",
+      "find": { "type": "person", "steps": ["becomes your rival|starts a plot against you", "is no longer your rival|You pardon|into exile|flees the city|is outside the walls|Your guards take", "is your rival again|becomes your rival|starts a plot against you|old feud with you comes due"], "gap": 3 }
+    },
+    {
+      "id": "cityTwice", "name": "The city that turned twice", "weight": 3, "kind": "invention",
+      "line": "A town changes sides, and later changes back.",
+      "find": { "type": "city", "steps": ["goes over to Carthage|sacks|storms the walls", "becomes your ally|comes over to you|Your army takes|storms the walls|gives in"], "either": true }
+    },
+    {
+      "id": "carthageCame", "name": "Carthage comes", "weight": 1, "kind": "invention",
+      "line": "Carthage declares war and lands an army on the island.",
+      "find": { "type": "log", "steps": ["declares war", "lands at"] }
+    },
+    {
+      "id": "fieldWon", "name": "A battle won in the field", "weight": 2, "kind": "invention",
+      "line": "Your army beats a Carthaginian army in open battle.",
+      "find": { "type": "log", "steps": ["Your army wins the battle"] }
+    },
+    {
+      "id": "fieldLost", "name": "A battle lost", "weight": 1, "kind": "invention",
+      "line": "Your army is beaten in the field.",
+      "find": { "type": "log", "steps": ["'s army wins the battle"] }
+    },
+    {
+      "id": "siegeHeld", "name": "The city besieged, and holding", "weight": 3, "kind": "invention",
+      "line": "Carthage lays siege to Syracuse itself, and the siege ends without the city falling.",
+      "find": { "type": "log", "steps": ["lays siege to Syracuse", "lifts the siege of Syracuse|sails home|Plague breaks out in the camp before Syracuse|lifts its siege"] }
+    },
+    {
+      "id": "campPlague", "name": "Plague in the enemy's camp", "weight": 2, "kind": "invention",
+      "line": "Sickness does what spears could not.",
+      "find": { "type": "log", "steps": ["Plague breaks out in the camp before"] }
+    },
+    {
+      "id": "kinAgainst", "name": "Kin against you", "weight": 2, "kind": "invention",
+      "line": "A man of your own family plots against you or wants your place.",
+      "find": { "type": "person", "faction": "family", "steps": ["joins .*plot|starts a plot against you|is in a plot against you|is now a Pretender|takes your place"] }
+    },
+    {
+      "id": "pretender", "name": "The man who would rule", "weight": 2, "kind": "invention",
+      "line": "A rival works in the open to take your place.",
+      "find": { "type": "person", "steps": ["is now a Pretender|takes your place"] }
+    },
+    {
+      "id": "bloodFeud", "name": "Blood for blood", "weight": 2, "kind": "invention",
+      "line": "You put a man to death, and his kin take up the quarrel.",
+      "find": { "type": "log", "steps": ["^You have .* put to death", "becomes your rival \\(Bereaved\\)"] }
+    },
+    {
+      "id": "informer", "name": "The man who told you", "weight": 2, "kind": "invention",
+      "line": "A man inside the plot tells you its names, and you act on it.",
+      "find": { "type": "log", "steps": ["names everyone in it|You learn who plots against you", "Your guards take|The plot fails"], "within": 4 }
+    },
+    {
+      "id": "guardSold", "name": "The guard for sale", "weight": 1, "kind": "invention",
+      "line": "Your unpaid mercenaries sell their loyalty to a plot.",
+      "find": { "type": "log", "steps": ["guard sells (itself|its loyalty) to a plot"] }
+    },
+    {
+      "id": "warnedFall", "name": "The sword falls, foreseen", "weight": 2, "kind": "invention",
+      "line": "Your rule ends by a plot you were warned of, and you knew who led it.",
+      "find": { "type": "ending", "reason": ["killed", "exiled"], "warned": 4, "named": true }
+    },
+    {
+      "id": "decadeHeld", "name": "The decade held", "weight": 1, "kind": "invention",
+      "line": "You still rule Syracuse when the decade ends.",
+      "find": { "type": "ending", "reason": ["survived"] }
+    },
+    {
+      "id": "generalHome", "name": "The general home too popular", "weight": 3, "kind": "invention",
+      "line": "A man you sent with the army comes home with the army's love. Needs the switch that lets you send a named man with the army, not yet built.",
+      "find": { "type": "log", "steps": ["comes home to cheers|home in triumph"] }
+    },
+    {
+      "id": "blowFromNowhere", "name": "A blow from nowhere", "weight": -3, "kind": "invention", "dull": true,
+      "line": "Your rule ends by a plot with no warning in the four seasons before. The rules promise this never happens.",
+      "find": { "type": "ending", "reason": ["killed", "exiled"], "warned": 4, "unwarned": true }
+    },
+    {
+      "id": "sameQuarrel", "name": "The same quarrel again", "weight": -1, "kind": "invention", "dull": true,
+      "line": "One man becomes your rival, or your political rival, three times or more. The story repeats instead of moving.",
+      "find": { "type": "repeat", "match": "becomes your rival|becomes a political rival", "min": 3 }
+    },
+    {
+      "id": "quietYears", "name": "Quiet years", "weight": -2, "kind": "invention", "dull": true,
+      "line": "Eight seasons in a row pass with no turn in the story.",
+      "find": { "type": "quiet", "seasons": 8 }
+    },
+    {
+      "id": "sameWords", "name": "The same words", "weight": -1, "kind": "invention", "dull": true,
+      "line": "The chronicle repeats one sentence five times or more.",
+      "find": { "type": "sentence", "min": 5 }
+    },
+    {
+      "id": "overTooSoon", "name": "Over too soon", "weight": -1, "kind": "invention", "dull": true,
+      "line": "The reign ends within its first two years, before a story can form.",
+      "find": { "type": "short", "before": 8 }
+    }
+  ]
+}

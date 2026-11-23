@@ -292,6 +292,14 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Picked in the draft, all reversible and Jacob's to change:** two speeds of play you choose, with triggers that pull you back to the court; heirs inherit a claim, a name and a ledger, never offices; you may play anyone in your circle; real people born after a start are not forced in, the census may make an invented man in the same station; the world stops at 264.
 - **Open, Jacob's:** the seven questions at the end of the draft (also in `handoff.md`).
 
+
+## 2026-11-23 (the story museum, bet B1, thread 21)
+- **Done:** `npm run museum` plays 400 island games each for the careful, patron and iron-hand bots on the First island test preset, finds story shapes in each log (`data/story-shapes.json`, 23 shapes, all invention), scores them, writes `docs/playtests/museum/report.md`, and binds the ten best and ten dullest reigns as chronicles in `dist/workshop/museum.html`, published on the Workshop page. Safe to rerun: the same seeds write the same files.
+- **Decided (thread, small and reversible):** the score is a reading aid, never a target. Each shape adds its weight at most twice a game, each person with a thread of three or more beats adds half a point (up to four), dull shapes subtract. Weights are guesses in the data file, to be changed freely.
+- **Decided:** one Workshop artifact for all eight bets (https://claude.ai/artifact/BVQogSjtUF5DRXKQ9u5VNr). Its hub (`tools/workshop/index.html`) lights each bet's entry once that bet's own page exists beside it, so no bet edits another's page.
+- **Done, report only:** the Dionysius bot (`src/core/dionysius-bot.ts`, card `docs/research/dionysius-bot.md`), whose priorities follow Diodorus 14.7 to 14.47, each quoted. It is not in `BOTS` and nothing is tuned toward it.
+- **Open, Jacob's:** see the museum questions in `handoff.md`.
+
 ## 2026-11-23 (change the past, thread 22, Workshop bet B2)
 - **Done:** `src/core/fork.ts` loads any recorded game at the start of any season, lists the choices you made in words, and rewrites one (another answer to an event, an answer to one you left open, or an action left undone). After the change it can stop (you play on), keep everything else you did (matched by meaning: the same event if it fires again, the same man's request), or keep that and let the careful bot finish. `compare` lays two histories side by side: the season they part, the first thing that went differently, endings, the city's government, whose fates differ, and your dice after the split. `npm run debrief -- <save>` writes the hidden rolls and the three changed answers that changed the most; `--sweep 100` is the branch check.
 - **Done:** a Workshop page, `ui/past.html` (built with `npm run build -- --page past`): the whole game plus a "Change the past" view, a button under the ending stele, and a box to bring in a game copied from the test page. Published as `past.html` on the shared Workshop artifact, never at the test link.
@@ -310,6 +318,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** the switch "Dinners as the stage" (off by default; Workshop page only): the Give a dinner action, the couch of honour, 15 moments, 4 table choices, friendships and quarrels that change recruiting, a research card, 100-seed counts in both scenarios, and three sample dinners.
 - **Decided (small calls, all invention, all behind the switch):** no roll for a dinner; at most one moment for each of the three parts of the evening, and at most one choice put to you per dinner; strong wine costs 2 silver; the couch adds 1 influence; the table panel never shows hidden plots or grudges.
 - **Open, Jacob's:** women as guests; whether the dinner replaces the feast; rival hosts (in `later.md`).
+
+## 2026-11-23 (test build, stream 4, thread 19)
+- **Done:** the story chronicle tells repeated business once, varies repeats ("Again", then a count), names who remembers a grudge, drops bracketed numbers and family noise. Test: no sentence more than twice in ten seasons over 20 seeds.
+- **Decided (small call):** the generated families' births and heirs stay in the families view, not the story; their deaths are one line a season. Preset digest re-pinned (logged chronicle text only).
 
 ## 2026-11-23 (great works, bet B4, thread 23)
 - **Done:** switch "Great works" (off by default, Workshop page only): the Epipolae wall, the arms workshops and the great fleet as objects built over seasons, with labour, overseers, silver, food and Carthage's anger; research card `docs/research/great-works.md` with every quote opened in the saved Loeb text; 100 seeds on and off, 0 crashes.
