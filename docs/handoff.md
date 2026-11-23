@@ -27,6 +27,20 @@ Build the "First island test" preset (listed first on the start screen), the sea
 ## Questions from the Long Game thread (Jacob's, none urgent)
 The seven open questions at the end of `docs/phase3-draft.md`: two speeds or fixed eras; play anyone in your circle or only the heir; invented men in the station of real people born after the start; stop at 264 or run on; whether a person in a Punic city of Sicily is ever playable; which start to build after 405; auction or plain prices for hired companies.
 
+## Built by the story-museum thread (21, 2026-11-23): bet B1
+- **`npm run museum`** (`scripts/museum.ts`, finder `scripts/museum/shapes.ts`, shapes `data/story-shapes.json`): 1,200 island games on the First island test preset (400 each for the careful, patron and iron-hand bots) plus 400 for the Dionysius bot, read for 23 story shapes (a friend who turns, a warned blow survived, the enemy who came back, the city that turned twice, Syracuse besieged and holding, kin against you...) and 5 dull ones (a blow from nowhere, the same quarrel again, quiet years, the same words, over too soon). Report: `docs/playtests/museum/report.md`. Gallery: `dist/workshop/museum.html` (built from `tools/museum/gallery.html`), published as `museum.html` on the Workshop page. `--seeds`, `--bots`, `--dionysius`, `--out`, `--no-gallery`.
+- **Workshop page:** https://claude.ai/artifact/BVQogSjtUF5DRXKQ9u5VNr, hub source `tools/workshop/index.html`. Each bet adds its own file (museum.html, past.html, grain.html, works.html, dinners.html, shore.html, exile.html, long-game.html); the hub lights the entry when the file exists.
+- **Dionysius bot** (`src/core/dionysius-bot.ts`, card `docs/research/dionysius-bot.md`, quotes checked by `tests/museum.test.ts`): report only, not in `BOTS`.
+- **Tests:** `tests/museum.test.ts` (the shapes file, the finder on made-up logs, the Dionysius bot, a small museum run twice gives identical files).
+- **Changed:** nothing in the game. **Broke:** nothing.
+
+## Questions from the story-museum thread
+- **What the museum found (read it as signs, not targets):** see the report's tables. The patron's first ten seasons often hold no story shape at all, and the dullest ten reigns are all quiet survivals by the patron or careful ruler: years with no turn, and the same man becoming a political rival three times or more (the "flicker" already noted). Worth reading two of them before judging the gate.
+- **No game ended by a blow without warnings** in the four seasons before (the rule holds in 1,200 games).
+- **Never seen:** "the general home too popular" needs the army switch (thread 20); its words are guessed in the shapes file and must be matched to that switch's log line once it lands. "The city that turned twice" and "Syracuse besieged and holding" are rare (a few in a hundred).
+- **The Dionysius bot** survives the decade in about six games in ten, fortifies and disarms every time, but marries in under half (the cast offers few matches) and so rarely reaches his war on Carthage. Is that a fair reading of the rules, or should the marriage of 14.44 be an event?
+- **Weights and shapes are guesses.** Change them freely in `data/story-shapes.json`; tell the next thread which shapes you would retell.
+
 ## Built by the court-intrigue thread (14, 2026-11-23): secrets softened, and ways to fight back
 - **Held secrets count half toward influence** (knob `influencePerSecret` 0.5 in `data/secrets.json`): two secrets over you give a rival 1 influence, not 2. Halving alone barely moved the numbers (the patron lost its old repeatable Expose), so a **political rival at rank 2 or higher now has a scheme** your watchers can see (one per game at the current setting; a new one every `schemeSeasons` seasons) ("is buying votes for his bid to take your place"), which you can expose or use. Knobs `schemeRank` and `schemeSeasons`.
 - **You see who holds your secrets.** A man joins that list when he makes a demand, tells the city, or when your watchers follow him and overhear what he knows. The character sheet and the Secrets ledger show it (they read the engine's list now, not the log).

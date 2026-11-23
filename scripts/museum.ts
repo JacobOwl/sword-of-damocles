@@ -24,10 +24,10 @@ const N = num("--seeds", 400);
 const FIRST = num("--from", 1);
 const BOTS = str("--bots", "careful,patron,tyrant").split(",");
 const DION = num("--dionysius", N);
-// The "First island test" rules (two-day plan, stream 1): Reap what you sow, with Warnings are clues,
-// Blows can miss, Chronicle as story and Beaten armies can break. Override with --tuning and --switches.
-const TUNING = str("--tuning", "reapWhatYouSow");
-const SWITCHES = str("--switches", "clues,partialBlows,storyChronicle,armiesBreak").split(",").filter(Boolean);
+// The "First island test" preset (data/presets.json), the rules Jacob plays. Override with --tuning and --switches.
+const PRESET = (JSON.parse(readFileSync(new URL("../data/presets.json", import.meta.url), "utf8")).presets as { id: string; tuning: string; switches: string[] }[]).find((p) => p.id === "firstIslandTest")!;
+const TUNING = str("--tuning", PRESET.tuning);
+const SWITCHES = str("--switches", PRESET.switches.join(",")).split(",").filter(Boolean);
 const ROOT = new URL("../", import.meta.url);
 const OUT = new URL(str("--out", "docs/playtests/museum/").replace(/\/?$/, "/"), ROOT); // where the report goes
 

@@ -287,3 +287,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Picked in the draft, all reversible and Jacob's to change:** two speeds of play you choose, with triggers that pull you back to the court; heirs inherit a claim, a name and a ledger, never offices; you may play anyone in your circle; real people born after a start are not forced in, the census may make an invented man in the same station; the world stops at 264.
 - **Open, Jacob's:** the seven questions at the end of the draft (also in `handoff.md`).
 
+
+## 2026-11-23 (the story museum, bet B1, thread 21)
+- **Done:** `npm run museum` plays 400 island games each for the careful, patron and iron-hand bots on the First island test preset, finds story shapes in each log (`data/story-shapes.json`, 23 shapes, all invention), scores them, writes `docs/playtests/museum/report.md`, and binds the ten best and ten dullest reigns as chronicles in `dist/workshop/museum.html`, published on the Workshop page. Safe to rerun: the same seeds write the same files.
+- **Decided (thread, small and reversible):** the score is a reading aid, never a target. Each shape adds its weight at most twice a game, each person with a thread of three or more beats adds half a point (up to four), dull shapes subtract. Weights are guesses in the data file, to be changed freely.
+- **Decided:** one Workshop artifact for all eight bets (https://claude.ai/artifact/BVQogSjtUF5DRXKQ9u5VNr). Its hub (`tools/workshop/index.html`) lights each bet's entry once that bet's own page exists beside it, so no bet edits another's page.
+- **Done, report only:** the Dionysius bot (`src/core/dionysius-bot.ts`, card `docs/research/dionysius-bot.md`), whose priorities follow Diodorus 14.7 to 14.47, each quoted. It is not in `BOTS` and nothing is tuned toward it.
+- **Open, Jacob's:** see the museum questions in `handoff.md`.
