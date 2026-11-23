@@ -423,7 +423,5 @@ UI only: no file in `src/core/` or `data/` changed, so the rules and the 100-see
 - Small hooks in shared files: `events.ts` (the table's choices are chained events; dinner effects; `fireNow`), `ai.ts` (recruiting order and the bot's dinners), `actions.ts`, `types.ts`, `index.ts`, and `ui/views/season.ts` (4 lines: the panel and its clicks). The default and preset digests are unchanged, and the tests pass.
 - **Changed:** nothing outside the switch.
 - **Broke:** nothing found. 100 seeds in each scenario: 0 crashes, 0 broken states, with the switch on and off.
-- **Questions for Jacob:**
-  - Should wives and sisters (Aristomache, Theste) be possible guests? The game allows it. The saved texts say nothing either way, and a source check is parked.
-  - Should the plain feast stay beside the dinner, or should the dinner replace it when the switch is on?
-  - Rival hosts: should plotters and Pretenders give dinners of their own, which your watchers could report? Parked in `later.md`.
+- **Answered 2026-11-23 (taste calls delegated):** wives and sisters can be guests, and the card notes that the sources are silent. The old feast stays beside the dinner. Plotters' own dinners stay parked.
+- **Added (PR after #49):** Philoxenus and the quarries (Diodorus 15.6), as the moment "Your verses" with a pardon the next season. The Greek is saved as `sources/diodorus/book15-6.greek.txt` (Perseus, CC BY-SA 4.0). The English on the card is the game's own rendering. A published English translation of book 15 is still worth saving to check it.
