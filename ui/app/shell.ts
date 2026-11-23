@@ -18,6 +18,7 @@ import { listen, type Ctx, type Handlers } from "./clicks.ts";
 import { seasonHandlers } from "../views/season.ts";
 import { helpHandlers } from "../views/help.ts";
 import { ending } from "../views/ending.ts";
+import { extraViews, extraHandlers } from "./extras.ts";
 
 const app = document.getElementById("app")!;
 
@@ -44,19 +45,21 @@ let endedSound = false;
 export function render() {
   const g = ui.s;
   if (!g) return splash();
-  const views: [typeof ui.view, string][] = [["play", "The season"], ...(g.island ? [["island", "The island"] as [typeof ui.view, string]] : []), ["court", "The court"], ...(g.census ? [["families", "The families"] as [typeof ui.view, string]] : []), ["chronicle", "The chronicle"], ["help", "How to play"]];
+  const views: [typeof ui.view, string][] = [["play", "The season"], ...(g.island ? [["island", "The island"] as [typeof ui.view, string]] : []), ["court", "The court"], ...(g.census ? [["families", "The families"] as [typeof ui.view, string]] : []), ["chronicle", "The chronicle"], ...extraViews.map((x) => [x.id, x.label] as [typeof ui.view, string]), ["help", "How to play"]];
+  const extra = extraViews.find((x) => x.id === ui.view);
   let body = "";
   if (ui.view === "play") body = play(g);
   else if (ui.view === "court") body = court(g);
   else if (ui.view === "island" && g.island) body = islandView(g);
   else if (ui.view === "families" && g.census) body = familiesView(g);
   else if (ui.view === "chronicle") body = chronicleBook(g);
+  else if (extra) body = extra.render(g);
   else body = howToPlay();
   app.innerHTML = `
     ${masthead(g)}
     <nav class="views" aria-label="Views">${views.map(([k, l]) => `<button type="button" data-view="${k}" class="${ui.view === k ? "on" : ""}" ${ui.view === k ? 'aria-current="page"' : ""}>${l}</button>`).join("")}</nav>
     ${ledger(g)}
-    ${g.over ? ending(g) : ""}
+    ${g.over ? ending(g) + extraViews.map((x) => x.onEnding?.(g) ?? "").join("") : ""}
     ${body}
     <div class="foot small">
       <label><input type="checkbox" id="designer" ${ui.designer ? "checked" : ""}> Designer view: show the moves you can't see in play</label>
@@ -156,4 +159,4 @@ const frameHandlers: Handlers = {
     "#designer": (el, c) => { ui.designer = (el as HTMLInputElement).checked; c.save(); c.render(); },
   },
 };
-listen(app, [frameHandlers, helpHandlers, seasonHandlers], () => (ui.s ? { g: ui.s, render, save, turn, openSheet } : null));
+listen(app, [frameHandlers, helpHandlers, seasonHandlers, extraHandlers], () => (ui.s ? { g: ui.s, render, save, turn, openSheet } : null));

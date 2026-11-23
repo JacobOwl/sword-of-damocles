@@ -10,6 +10,16 @@ Only these two need Jacob. Every other question below defaults to what the game 
 ## Next for the build (from the same council)
 Build the "First island test" preset (listed first on the start screen), the season-10 verdict prompt, and a short "what to watch" note; measure map events in seasons 1 to 10 over 100 seeds. Fixes and the test pass before new features.
 
+## Built by the change-the-past thread (22, 2026-11-23): Workshop bet B2
+- **Go back to any season and take the other road.** `src/core/fork.ts` (engine, replay only, no new rules): `loadAt`, `decisions`, `rewrite`, `compare`, `hiddenRolls`. Tests in `tests/fork.test.ts` prove a branch matches its parent up to the split and replays from its own record.
+- **The Workshop page** `ui/past.html` + `ui/past-main.ts` + `ui/views/past.ts` + `ui/styles/past.css`: the full game plus a "Change the past" view (each season with its chronicle, "Go back to this season", your answers with the other choices as buttons, three ways to go on), "Two histories" side by side with the sentences one history lacks marked, a fates table and the dice after the split. Build: `npm run build -- --page past` (writes `ui/dist-past/index.html`). Published as `past.html` on the Workshop artifact (https://claude.ai/artifact/BVQogSjtUF5DRXKQ9u5VNr).
+- **For other Workshop pages:** `ui/app/extras.ts` lets a page's entry file add a view (`addView({ id, label, render, handlers, onEnding })`); `npm run build -- --page <name>` builds `ui/<name>.html`. The test page registers no extras and is unchanged.
+- **Debrief:** `npm run debrief -- <save.json>` or `-- --seed N [--bot careful] [--scenario island]`: hidden rolls and three other histories. Sample in `docs/playtests/debriefs/`. Check: `npm run debrief -- --sweep 100` (100 branches, 0 crashes, 0 broken; report in `docs/playtests/2026-11-23-change-the-past.md`).
+- **Waiting on:** the test build's "copy my game" button (stream 1). The Workshop page's "Bring in a game" box and the debrief read `{ seed, tuning, scenario, switches, inputs }` (also wrapped as `{ game: ... }`); if stream 1 picks another shape, adjust both readers.
+
+## Questions from the change-the-past thread
+- After a change, the dice come in a new order, so part of every difference is luck (shown on the page). Do you want "fixed fortune" dice as a switch to try later? Parked in `later.md`; the game does what it does now until you say.
+
 ## Built by the court-intrigue thread (14, 2026-11-23): secrets softened, and ways to fight back
 - **Held secrets count half toward influence** (knob `influencePerSecret` 0.5 in `data/secrets.json`): two secrets over you give a rival 1 influence, not 2. Halving alone barely moved the numbers (the patron lost its old repeatable Expose), so a **political rival at rank 2 or higher now has a scheme** your watchers can see (one per game at the current setting; a new one every `schemeSeasons` seasons) ("is buying votes for his bid to take your place"), which you can expose or use. Knobs `schemeRank` and `schemeSeasons`.
 - **You see who holds your secrets.** A man joins that list when he makes a demand, tells the city, or when your watchers follow him and overhear what he knows. The character sheet and the Secrets ledger show it (they read the engine's list now, not the log).

@@ -13,7 +13,8 @@
     "census": "node scripts/census.ts",
     "replays": "node scripts/export-replays.ts",
     "dev": "vite",
-    "walk": "node scripts/ui-walk.mjs"
+    "walk": "node scripts/ui-walk.mjs",
+    "debrief": "node scripts/debrief.ts"
   },
   "engines": {
     "node": ">=22.18"
