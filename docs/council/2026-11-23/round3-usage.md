@@ -1,0 +1,5 @@
+# Round 3: how to use the next two days
+
+Jacob asked: "Have the council decide on ways to utilize usage over the next 2 days." About 90% of a weekly allowance is left to use by Wednesday morning, 2026-11-25 (it is now Monday 2026-11-23, about 05:00 UTC). He has said to be ambitious. The council's own finding stands: he has not played the island, and the test build comes first. Fixes and the test pass before new features; new rules only as switches that are off.
+
+Propose a ranked plan of 4 to 8 workstreams that can run as parallel threads, one topic each, without stepping on each other's files. For each: a name, the goal in one line, what "done" means (checkable), roughly how heavy it is (light, medium, heavy), which files it owns, and whether it must wait for another stream. Favour work that moves the island test toward a story Jacob would retell. Say which streams are worth heavy usage and which aren't. Note any that depend on Jacob's two open answers (when he plays; leading the army himself) and what they do if he hasn't answered. Under 700 words. Read the repo as needed (read only).
