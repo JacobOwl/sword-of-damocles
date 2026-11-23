@@ -73,7 +73,7 @@ test("no code ids in what the player reads", () => {
 test("fighting back: a blackmailer can be shown up, and a known holder bought off", () => {
   for (const scenario of ["citadel", "island"] as const) {
     const gs = many(["secrets"], scenario);
-    for (const k of ["discredited", "silenceBought"]) assert.ok(sum(gs, k) > 0, `${scenario}: ${k} happens`);
+    for (const k of ["discredited", "silenceBought", "partingShots"]) assert.ok(sum(gs, k) > 0, `${scenario}: ${k} happens`);
   }
   // By hand: a man who knows your secret, and whom you know knows it, takes silver and forgets it.
   const s = startGame(4, undefined, { switches: ["secrets"] });

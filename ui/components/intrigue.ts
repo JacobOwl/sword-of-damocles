@@ -76,7 +76,7 @@ export function secretsLedger(g: GameState): string {
     <div class="ledger-cols">
       <div><h3>What you know</h3>${held.length ? `<ul class="small secrets">${held.map((x) => `<li>${weightWord(x)} ${linkNames(capital(secretLine(g, x)))}.${x.spent.includes(PLAYER) ? ` <span class="muted">Used up.</span>` : usableSecrets(g, PLAYER, x.about).includes(x) ? "" : ` <span class="muted">Resting.</span>`}</li>`).join("")}</ul>` : `<p class="small muted">Nothing yet. Watch a man, or pay his servants.</p>`}</div>
       <div><h3>Your own secrets</h3>${yours.length ? `<ul class="small secrets">${yours.map((x) => { const ks = known(x); return `<li>${weightWord(x)} ${linkNames(capital(x.text))}.${ks.length ? ` <span class="warn">Known to ${ks.map((k) => who(k)).join(", ")}.</span>` : ` <span class="muted">No one you know of has it.</span>`}</li>`; }).join("")}</ul>` : `<p class="small muted">None.</p>`}
-        <p class="small muted">Your rivals dig for these. While you hold a deadly secret over a man, he keeps yours to himself. A man you know holds one can be bought off (Buy back a secret), and a man who tried to blackmail you can be exposed, which makes what he knows worthless.</p></div>
+        <p class="small muted">Your rivals dig for these. While you hold a deadly secret over a man, he keeps yours to himself. A man you know holds one can be bought off (Buy back a secret), and a man who tried to blackmail you can be exposed: that ends his hold, but he tells one secret as a parting shot, and his kin and faction take it ill.</p></div>
     </div>
     ${told.length ? `<p class="small"><b>Told to the city:</b> ${told.map((x) => `${linkNames(capital(secretLine(g, x)))} (${esc(seasonName(x.publicSince!))})`).join("; ")}.</p>` : ""}
   </section>`;

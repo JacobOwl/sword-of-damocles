@@ -82,10 +82,11 @@ function income(s: GameState, out: Choice[], harsh: boolean) {
 function petitions(s: GameState, out: Choice[], generous: boolean, keepKey = true) {
   for (const r of s.requests) {
     const p = s.people[r.from];
-    // Switch "secrets": fight back first (show him up as a blackmailer, or buy him off), else pay the price if it is not a key office.
+    // Switch "secrets": fight back first (buy him off if the silver is there, else show him up as a blackmailer,
+    // which costs a parting shot), else pay the price if it is not a key office.
     if (r.blackmail) {
-      out.push({ a: "expose", args: { target: r.from } });
       if (spare(s, silenceCost(s, r.from))) out.push({ a: "buySilence", args: { target: r.from }, min: 0.5 });
+      out.push({ a: "expose", args: { target: r.from } });
     }
     if (r.blackmail && r.kind === "office" && r.office && holds(s, PLAYER, r.office) && (!KEY.includes(r.office) || !keepKey)) out.push({ a: "grantOffice", args: { target: r.from, second: r.office } });
     if (r.kind === "silver") out.push({ a: "bribe", args: { target: r.from, second: "1" } });

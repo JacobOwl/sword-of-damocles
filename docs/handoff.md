@@ -6,9 +6,9 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Held secrets count half toward influence** (knob `influencePerSecret` 0.5 in `data/secrets.json`): two secrets over you give a rival 1 influence, not 2. Halving alone barely moved the numbers (the patron lost its old repeatable Expose), so a **political rival at rank 2 or higher now has a scheme** your watchers can see (one per game at the current setting; a new one every `schemeSeasons` seasons) ("is buying votes for his bid to take your place"), which you can expose or use. Knobs `schemeRank` and `schemeSeasons`.
 - **You see who holds your secrets.** A man joins that list when he makes a demand, tells the city, or when your watchers follow him and overhear what he knows. The character sheet and the Secrets ledger show it (they read the engine's list now, not the log).
 - **New action "Buy back a secret"** (Spies, secrets switch): 1 silver plus 1 for each small secret and 2 for each deadly one he holds over you, roll 3+ (Greedy +2, Wealthy -1, a grudge -1, a Pretender -2). He forgets, and any demand he made is withdrawn. On a failure you keep your silver and he thinks 1 less of you.
-- **A blackmail demand is itself a secret you hold** ("tried to blackmail you"). Expose picks it first; once exposed, no one believes what he says about you, his holds are worthless and his demand is withdrawn.
-- **Bots** expose a blackmailer first, buy back from a known political rival when they have spare silver, and pay a demand only when neither works.
-- **Numbers** (300 seeds, patron deposed; without the switch, then with): citadel 30% to 40%, island 22% to 27%. Before this change it was 52% and 41%. Careful player with secrets: 7% citadel, 5% island. Blackmailers shown up about 1 a game; silence bought rarely (0.02 to 0.05 a game), because exposing is free once he has demanded.
+- **A blackmail demand is itself a secret you hold** ("tried to blackmail you"). Expose picks it first; once exposed, his hold over you ends and his demand is withdrawn, **but it costs you** (decided 2026-11-23): he tells the city his worst secret about you as a parting shot, with about half the usual harm ("Some believe him"), and his kin (opinion -1) and his faction (mood -1) take it ill.
+- **Bots** buy silence from a blackmailer when they have spare silver, else expose him, and pay a demand only when neither works. They also buy back from a known political rival when silver is spare.
+- **Numbers** (300 seeds, patron deposed; without the switch, then with): citadel 30% to 39%, island 22% to 29% (after the parting shot; 40% and 27% before it). Before this change it was 52% and 41%. Careful player with secrets: 7% citadel, 5% island. Blackmailers shown up about 1 a game; silence bought rarely (0.02 to 0.05 a game), because exposing is free once he has demanded.
 - **Decided for story (the coordinator passed on "You decide"):** keep all 14 start secrets; keep the council's seat lists to men, since the lines say "he", and anyone can still be seated with Seat a counsellor; the council speaking on events is a good idea, kept in `docs/later.md` and not built, to keep this slice small.
 
 ## Built by the court-intrigue thread (14, 2026-11-22): two rule switches, off by default
@@ -17,7 +17,6 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Screens** (`ui/components/intrigue.ts`), **card** `docs/research/council-and-secrets.md`, **report** `docs/playtests/2026-11-22-intrigue.md`, **tests** `tests/intrigue.test.ts`. The default game is unchanged.
 
 ## Questions from the court-intrigue thread
-- Exposing a blackmailer costs nothing once he has made a demand, so bots almost never buy silence. Should exposing him cost something (he tells the city anyway, believed by some)?
 - Women at the council with their own lines, if you want them later.
 
 ## Built by the island events thread (16, 2026-11-22), slices 1 and 2
