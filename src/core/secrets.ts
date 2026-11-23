@@ -174,18 +174,27 @@ export function useHold(s: GameState, holder: string, over: string, why: string,
 }
 
 // A secret goes public. Its effects come from data/secrets.json.
-export function exposeSecret(s: GameState, x: Secret, by: string, why: string) {
+// About half: -2 becomes -1, and the one biggest -1 stays -1 so a parting shot is never free.
+const halve = (m: Record<string, number>) => {
+  const out: Record<string, number> = {};
+  for (const [k, d] of Object.entries(m)) out[k] = Math.trunc(d / 2);
+  const top = Object.entries(m).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))[0];
+  if (top && out[top[0]] === 0) out[top[0]] = Math.sign(top[1]);
+  return out;
+};
+// `half`: told by a man already shown up as a blackmailer, so only some believe it.
+export function exposeSecret(s: GameState, x: Secret, by: string, why: string, half = false) {
   x.publicSince = s.season;
   const t = tplById(x.tpl);
   const e: Effects = t?.exposed ?? {};
   const byName = capital(nameOf(s, by));
   if (x.about === PLAYER) {
     s.counters.yourSecretsExposed = (s.counters.yourSecretsExposed ?? 0) + 1;
-    event(s, by, `${byName} tells the city that ${x.text}.`, why);
-    for (const [f, d] of Object.entries(e.moods ?? {})) mood(s, f as FactionId, d, `they heard that ${x.text}`);
-    if (typeof e.opinion === "object") for (const [k, d] of Object.entries(e.opinion)) if (x.args?.[k]) opinion(s, x.args[k], d, `he heard that ${x.text}`);
+    event(s, by, `${byName} tells the city that ${x.text}.${half ? " Some believe him." : ""}`, why);
+    for (const [f, d] of Object.entries(half ? halve(e.moods ?? {}) : e.moods ?? {})) mood(s, f as FactionId, d, `they heard that ${x.text}`);
+    if (typeof e.opinion === "object") for (const [k, d] of Object.entries(half ? halve(e.opinion) : e.opinion)) if (x.args?.[k]) opinion(s, x.args[k], d, `he heard that ${x.text}`);
     const tf = x.args?.target ? factionOf(s, x.args.target) : undefined;
-    if (e.targetFaction && tf) mood(s, tf, e.targetFaction, `they heard that ${x.text}`);
+    if (e.targetFaction && tf && !half) mood(s, tf, e.targetFaction, `they heard that ${x.text}`);
     if (e.endsInformer && x.args?.target && s.people[x.args.target]) {
       s.people[x.args.target].informer = false;
       for (const pl of s.plots) if (pl.informer === x.args.target) pl.informer = undefined;
@@ -206,8 +215,18 @@ export function exposeSecret(s: GameState, x: Secret, by: string, why: string) {
   if (e.discredits) {
     const held = knownBy(s, p.id).filter((y) => y.about === PLAYER);
     if (by === PLAYER) s.counters.discredited = (s.counters.discredited ?? 0) + 1;
-    if (held.length) event(s, p.id, `No one will believe what ${p.name} says about you now. What he knows is worth nothing.`, "he was shown up as a blackmailer");
+    // His parting shot: he tells the city his worst secret about you anyway, and some believe him.
+    // His kin and his faction take it ill that you shamed him.
+    const shot = held.slice().sort((a, b) => b.weight - a.weight)[0];
     forget(s, p.id);
+    if (shot) {
+      s.counters.partingShots = (s.counters.partingShots ?? 0) + 1;
+      exposeSecret(s, shot, p.id, "his parting shot, once you showed him up as a blackmailer", true);
+    }
+    if (by === PLAYER) {
+      for (const k of p.kin) if (s.people[k] && k !== PLAYER && alive(s.people[k])) opinion(s, k, -1, `you shamed his kinsman ${p.name} before the city`);
+      if (f) mood(s, f, -1, `you shamed ${p.name} before the city`);
+    }
   }
   if (e.unseat && s.council) for (const [k, v] of Object.entries(s.council.seats)) if (v === p.id) s.council.seats[k] = null;
 }

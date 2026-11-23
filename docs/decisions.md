@@ -262,3 +262,4 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 
 ## 2026-11-23 (a proper web app, step 4: thread 17)
 - **Clicks go through one listener, set up once; each screen exports its handlers keyed by `data-` selectors.** Why: the old wiring re-attached every handler after every redraw from one function that knew every screen; now a screen's buttons and what they do sit in the same file. Behaviour is unchanged (walk-through identical).
+- **Exposing a blackmailer has a cost** (later the same day; the coordinator decided on Jacob's "You decide"): he tells the city his worst secret about you as a parting shot, at about half the harm, and his kin and faction turn colder. Why: so buying silence stays a real choice. Behind the secrets switch.

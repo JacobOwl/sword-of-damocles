@@ -279,7 +279,7 @@
       "kind": "invention",
       "cost": "1 leverage over them",
       "roll": "auto",
-      "success": "Their secret goes public: influence -2, a grudge, and a political rival drops a rank. With secrets on, exposing a man who tried to blackmail you also makes what he knows about you worthless."
+      "success": "Their secret goes public: influence -2, a grudge, and a political rival drops a rank. With secrets on, exposing a man who tried to blackmail you ends his hold over you, but he tells the city his worst secret about you as a parting shot (about half the harm), and his kin and faction take it ill."
     },
     {
       "id": "envoy",
