@@ -25,7 +25,7 @@ export function startScreen(saved: { tuning?: string } | null, seed: number) {
       </details>
       <details class="switches"><summary class="small">Rule switches (all off by default)</summary>
         <p class="small muted">Optional rules to try. Each works with any balance.</p>
-        ${SWITCHES.map((w) => `<p class="small"><label><input type="checkbox" class="switch" value="${esc(w.id)}"> <b>${esc(w.name)}.</b> ${esc(w.summary)}</label></p>`).join("")}
+        ${SWITCHES.map((w) => `<p class="small"><label><input type="checkbox" class="switch" value="${esc(w.id)}"> ${(w as any).new ? `<span class="tag">new</span> ` : ""}<b>${esc(w.name)}.</b> ${esc(w.summary)}</label></p>`).join("")}
       </details>
       <p class="small muted note">Prototype: Phase 2, the island, built on rules v2. The people and the situation come from Diodorus, Plutarch and others; each real person's sheet quotes the passages. Everything else, including every rule, number and picture, is invention.</p>
     </div>`;

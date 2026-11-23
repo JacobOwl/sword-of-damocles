@@ -9,11 +9,16 @@ import {
 import { endWar, startWar } from "./carthage.ts";
 import type { Args, GameState, Mod } from "./types.ts";
 import { townHold, useHold, townLeader, SECRETS } from "./secrets.ts";
+import { campaignCheck, commanderOptions, commissionOn, keeperOptions, musterNotes, startCampaign } from "./commission.ts";
 
 const R = ISLAND.rules;
 interface Option { value: string; label: string }
 interface Impl {
   target?: (s: GameState) => Option[];
+  targetLabel?: string;
+  third?: (s: GameState, a: Args) => Option[];
+  thirdLabel?: string;
+  notes?: (s: GameState, a: Args) => string[];
   second?: (s: GameState, a: Args) => Option[];
   secondLabel?: string;
   check?: (s: GameState, a: Args) => string | null;
@@ -21,10 +26,16 @@ interface Impl {
   need?: number;
   run: (s: GameState, a: Args, ok: boolean, die: number) => void;
 }
-const general = (s: GameState) => (holds(s, PLAYER, "generalship") ? null : "you don't hold the generalship");
+// Switch "commission": you may raise and order the army without the generalship (at a price shown on the muster).
+const general = (s: GameState) => (holds(s, PLAYER, "generalship") || commissionOn(s) ? null : "you don't hold the generalship");
 
 export const ISLAND_IMPL: Record<string, Impl> = {
   muster: {
+    target: (s) => (commissionOn(s) ? commanderOptions(s) : undefined) as Option[],
+    third: (s, a) => (commissionOn(s) ? keeperOptions(s, a) : []),
+    targetLabel: "Who leads it",
+  thirdLabel: "Keeper of the citadel",
+    notes: musterNotes,
     second: (s) => !s.island ? [] : [
       { value: "levy", label: `The levies only (${menWords(musterSize(s, false).total)}; the guard stays at your door)` },
       { value: "guard", label: `The levies and the guard (${menWords(musterSize(s, true).total)}; your defense loses the guard)` },
@@ -35,6 +46,7 @@ export const ISLAND_IMPL: Record<string, Impl> = {
       silver(s, -2, "mustering the army");
       grain(s, -R.grainOnMuster, "food for the army's baggage");
       muster(s, a.second === "guard");
+      if (commissionOn(s)) startCampaign(s, a.target!, a.option);
     },
   },
   sendArmy: {
@@ -95,7 +107,7 @@ export const ISLAND_IMPL: Record<string, Impl> = {
       if (!a) return "you have no army in the field";
       return friendly("syracuse", city(s, a.at).side) ? null : "the army must be in a city of yours to disband";
     },
-    run: (s) => disband(s, yourArmy(s)!),
+    run: (s) => { disband(s, yourArmy(s)!); campaignCheck(s); },
   },
   embassyCity: {
     target: (s) => !s.island ? [] : NODES.filter((n) => ["free", "tributary"].includes(city(s, n.id).side) && !s.island!.armies.some((a) => a.siege === n.id))
