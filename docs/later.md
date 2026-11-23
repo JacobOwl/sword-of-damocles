@@ -60,3 +60,4 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Phase 2, dinners] A friend's grief: if you imprison, exile or kill a man, his friends from your table take it badly. (Thread 24.)
 - [Source request] An English translation of Diodorus 15.6 (Oldfather, Loeb), to check the game's own rendering of the Greek now saved in `sources/diodorus/book15-6.greek.txt`. LacusCurtius, book 15: https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/15A*.html (blocked from the cloud). (Thread 24; the Philoxenus moment is built.)
 - [Source request] Did women recline at the tyrant's dinners? Nothing in the saved texts says either way. (Thread 24.)
+- [Phase 2?, grain-and-sea thread 26, 2026-11-23] A source on who ran Syracuse's grain trade under the tyrants (merchants, shipowners, contracts). The saved texts don't say; the contractors in switch `convoys` are invention. Jacob may know or save a modern study.

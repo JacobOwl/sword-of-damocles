@@ -227,6 +227,27 @@ export interface Campaign {
   won0: number; lost0: number; taken0: number; // counters at the muster
   lost?: boolean; // the named leader died or fled while away
 }
+// Switch "convoys": a cargo of grain or silver at sea for one season, run by a contractor (a census id) if it is yours.
+export interface Convoy {
+  id: string;
+  side: "syracuse" | "carthage";
+  cargo: "grain" | "silver";
+  amount: number;
+  from: string; // a node id, "overseas" (the grain ports of Italy) or "carthage"
+  to: string; // a node id
+  army?: string; // the army it feeds or pays, if any
+  purpose: "bought" | "fleet" | "surplus" | "army" | "pay";
+  contractor?: string; // census id of the head of a rich house (your convoys only)
+  sailed: number;
+  due: number;
+  status: "atSea" | "arrived" | "caught" | "wrecked" | "sold";
+  delivered?: number;
+  skimmed?: number; // the truth, hidden until an audit
+  why: string; // why it sailed, in plain words
+  fate?: string; // what became of it, in plain words
+}
+export interface Contractor { id: string; runs: number; skimmed: number; short: number; sold: number; barred: boolean; audited: number }
+export interface ConvoyState { fleet: Convoy[]; done: Convoy[]; contractors: Record<string, Contractor>; caught: Record<string, number> } // caught: the season an army's convoy was last caught, by army id
 export interface IslandState { cities: Record<string, CityState>; armies: Army[]; war: boolean; warSince: number; carthage: CarthageState; sacks?: string[] } // sacks: the cities you sacked, in order
 
 export interface GameState {
@@ -273,6 +294,7 @@ export interface GameState {
   secrets?: SecretsState; // switch "secrets"
   council?: CouncilState; // switch "council"
   campaign?: Campaign; // switch "commission": the army in the field and who leads it
+  convoys?: ConvoyState; // switch "convoys": grain and silver at sea, and the contractors who run your convoys
   dinners?: import("./dinner.ts").DinnerState; // switch "dinners"
   works?: import("./works.ts").WorksState; // switch "greatWorks"
 }

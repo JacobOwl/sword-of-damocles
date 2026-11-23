@@ -343,3 +343,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Fixed:** dice drawn inside a sort comparator made replays depend on the JavaScript engine, so "Copy my game" could not reproduce a browser game in Node. Draws now happen before the sort. Standard and preset digests re-pinned for this reason only. A test guards it.
 - **Changed in other threads' tests (said here because they are theirs):** `tests/dinner.test.ts` (couch test follows the current holder) and `tests/works.test.ts` (threshold 20 to 15 finished works).
 
+
+## 2026-11-23 (grain and the sea, thread 26, Workshop bet B3)
+- **Done:** switch `convoys`, "Grain and the sea", off by default, island only: convoys a season at sea (bought grain, the fleet's grain, allies' surplus, grain to the army, Carthage's grain and mercenary pay), winter storms, the existing interception roll for catches, contractors from the census who may skim or sell, and an audit action. Workshop page `grain.html`. Card `docs/research/grain-and-sea.md` (Diodorus 14.47.7, 14.55.2-5, 14.63.4, 14.64.1, 14.96.1, 14.103.2; Polyaenus 5.2.21 and Cicero, Verres 2.3.24 as labelled later parallels).
+- **Decided (small, reversible):** with the switch on, "Buy grain abroad" sends a convoy instead of landing grain at once, and Carthage's port feeding becomes a convoy. Without the switch nothing changes (digests untouched). Not offered beside the First island test preset, so the frozen test link is unaffected.
+- **Open (Jacob's):** whether a season at sea is too slow; whether the audit should cost goodwill when it catches a cheat. Counts in `docs/playtests/2026-11-23-grain-and-sea.md`.

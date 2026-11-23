@@ -5,6 +5,7 @@ import { NODES, battleMods, carthageArmy, city, friendly, path, reachable, yourA
 import type { Args, GameState } from "./types.ts";
 import { townHold } from "./secrets.ts";
 import { commanderOptions, commissionOn, keeperOptions } from "./commission.ts";
+import { LANDINGS, autoContractor, contractors, convoysOn } from "./convoys.ts";
 
 export interface IslandChoice { a: string; args?: Args; min?: number }
 
@@ -22,6 +23,7 @@ function edge(s: GameState, ya: NonNullable<ReturnType<typeof yourArmy>>, ca: No
 
 export function islandChoices(s: GameState, style: IslandStyle = {}): IslandChoice[] {
   const out: IslandChoice[] = [];
+  if (s.island && convoysOn(s)) out.push(...convoyChoices(s));
   if (!s.island || (!holds(s, PLAYER, "generalship") && !commissionOn(s))) return out;
   const isl = s.island;
   const ya = yourArmy(s);
@@ -70,4 +72,15 @@ function leaderArgs(s: GameState, danger: boolean): Args {
   const keepers = keeperOptions(s, { target: PLAYER }).map((o) => s.people[o.value])
     .filter((p) => !s.plots.some((pl) => pl.known.includes(p.id))).sort((a, b) => b.opinion - a.opinion);
   return { target: PLAYER, option: keepers[0]?.id ?? keeperOptions(s, { target: PLAYER })[0]?.value };
+}
+
+// Switch "convoys": feed an army on the coast that is low on food; audit a contractor whose convoys keep coming short.
+function convoyChoices(s: GameState): IslandChoice[] {
+  const out: IslandChoice[] = [];
+  const ya = yourArmy(s);
+  if (ya && LANDINGS.includes(ya.at) && ya.food <= 1 && s.grain >= 4 && s.silver >= 1 && autoContractor(s)) out.push({ a: "sendGrain", args: { target: autoContractor(s) } });
+  const st = s.convoys?.contractors ?? {};
+  const sus = contractors(s).find((id) => (st[id]?.short ?? 0) + (st[id]?.sold ?? 0) * 2 >= 2 && s.season - (st[id]?.audited ?? -99) >= 4 && s.factions.rich.mood >= 2);
+  if (sus) out.push({ a: "auditContracts", args: { target: sus } });
+  return out;
 }

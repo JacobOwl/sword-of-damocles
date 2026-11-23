@@ -16,6 +16,7 @@ import { T } from "./tuning.ts";
 import { on } from "./switches.ts";
 import { chapter, feudInherit, feudOn, feudOf, feudSurvive } from "./feud.ts";
 import { ISLAND_IMPL } from "./island-actions.ts";
+import { CONVOY_IMPL, buyGrainConvoy, convoysOn } from "./convoys.ts";
 import { secretsOn, learn, useHold, usable, exposeSecret, yourDeed, blackmailRefused, blackmailGranted, holdsDeadly, censusSecret, townLeader, secretLine, seenHolders, watchedHolder, silenceCost, forget, SECRETS } from "./secrets.ts";
 import { COUNCIL_IMPL, councilChecked, councilHeard } from "./council.ts";
 import { leaderOfCity, councilOf, censusPersonName } from "./census-game.ts";
@@ -720,7 +721,11 @@ export const IMPL: Record<string, Impl> = {
   },
   buyGrain: {
     check: (s) => (s.silver < 1 ? "needs 1 silver" : null),
-    run: (s) => { silver(s, -1, "grain bought abroad"); event(s, PLAYER, "Grain ships come in from abroad.", "Buy grain abroad"); grain(s, 2, "bought abroad"); },
+    run: (s) => {
+      silver(s, -1, "grain bought abroad");
+      if (convoysOn(s)) return buyGrainConvoy(s); // switch "convoys": it sails now and lands next season
+      event(s, PLAYER, "Grain ships come in from abroad.", "Buy grain abroad"); grain(s, 2, "bought abroad");
+    },
   },
   offerTerms: {
     target: (s) => people(s, (p) => p.status === "outside"),
@@ -830,7 +835,7 @@ const SECRET_IMPL: Record<string, Impl> = {
   },
 };
 
-Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL, DINNER_IMPL, WORKS_IMPL);
+Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL, DINNER_IMPL, WORKS_IMPL, CONVOY_IMPL);
 // An action belongs to every scenario unless it names one.
 export const inScenario = (s: GameState, a: { scenario?: string; switch?: string }) => (!a.scenario || a.scenario === (s.scenario ?? "citadel")) && (!a.switch || on(s, a.switch));
 // In the island game the Carthage clock is Carthage's anger: the same number, read by Carthage's council.
