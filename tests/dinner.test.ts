@@ -39,12 +39,15 @@ test("the couch of honour: its holder gains standing, the man you take it from t
   assert.equal(couchHolder(s), h);
   assert.equal(s.people[h].infl, infl0 + DINNERS.knobs.couchInfluence);
   endSeason(s);
-  if (s.over || s.people[c].status !== "free" || s.people[h].status !== "free") return;
-  const before = s.people[h].opinion, inflH = s.people[h].infl;
-  act(s, "hostDinner", table(s, c, [a, b]));
-  assert.equal(couchHolder(s), c);
-  assert.equal(s.people[h].infl, inflH - DINNERS.knobs.couchInfluence);
-  assert.ok(s.people[h].opinion <= before, "the old holder thinks less of you (or no better)");
+  // The couch may have changed hands during the season (people host and seat each other too): test with whoever holds it now.
+  const holder = couchHolder(s)!;
+  const next = [c, a, b].find((x) => x !== holder && s.people[x].status === "free");
+  if (s.over || !next || s.people[holder].status !== "free") return;
+  const before = s.people[holder].opinion, inflH = s.people[holder].infl;
+  act(s, "hostDinner", table(s, next, [a, b, c].filter((x) => x !== next).slice(0, 2)));
+  assert.equal(couchHolder(s), next);
+  assert.equal(s.people[holder].infl, inflH - DINNERS.knobs.couchInfluence);
+  assert.ok(s.people[holder].opinion <= before, "the old holder thinks less of you (or no better)");
   assert.ok(s.log.some((e) => /gave the couch beside yours/.test(e.why ?? "")));
 });
 

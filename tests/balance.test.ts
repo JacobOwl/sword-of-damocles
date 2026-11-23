@@ -29,7 +29,10 @@ test("the standard package plays exactly as rules v2 did before packages existed
 // With that event taken out of data/events.json, "91a0386516ddf2e8" still matched.
 // Re-pinned 2026-11-22 (thread 07) for five more Cicero court stories (Tusculan Disputations 5.58 to 5.63).
 // With those six records taken out of data/events.json, "5f0f33e5b9691537" still matched.
-const STANDARD_DIGEST = "b52e64b9167067fb";
+// Re-pinned 2026-11-23 (thread 19): the people step drew dice inside a sort comparator, so the number of draws
+// depended on the JavaScript engine (a game copied from the browser replayed differently in Node). Scores are now
+// drawn once per person before sorting. Rules unchanged; the dice fall in a different order.
+const STANDARD_DIGEST = "6a94feb028c4b8b0";
 
 test("every package only names knobs that exist", () => {
   const known = Object.keys(knobsFor("standard"));

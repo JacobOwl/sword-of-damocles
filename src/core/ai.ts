@@ -130,7 +130,10 @@ function score(s: GameState, p: Person): number {
 
 export function peopleStep(s: GameState) {
   const cands = others(s).filter((p) => alive(p) && p.status !== "held" && (p.status === "free" || p.rival));
-  cands.sort((a, b) => score(s, b) - score(s, a));
+  // One draw per person, in a fixed order, then sort. A draw inside the sort's comparator made the number of draws
+  // depend on the JavaScript engine's sort, so a game replayed differently in the browser and in Node.
+  const sc = new Map(cands.map((p) => [p.id, score(s, p)]));
+  cands.sort((a, b) => sc.get(b.id)! - sc.get(a.id)!);
   const actors = cands.slice(0, 3);
   for (const p of actors) {
     if (!canAct(s, p)) continue;
