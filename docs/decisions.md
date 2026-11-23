@@ -282,6 +282,17 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small calls):** the verdict also appears if the reign ends before season 10; it can be skipped; answers are stored with the save, not in the game state, so they never change play. The preset's digest is pinned and changes only with a logged line.
 - **Fixed:** the story chronicle's logged text was always "A quiet season." (off-by-one season). Changes logged text only with that switch on; the Standard digest is unchanged.
 
+## 2026-11-23 (Phase 3 on paper, thread 25)
+- **Done:** `docs/phase3-draft.md` (draft) and five start dossiers, `docs/research/start-480.md`, `start-466.md`, `start-357.md`, `start-317.md`, `start-289.md`. Bet B8 of the two-day plan. Paper only; no scope change, no game code.
+- **Picked in the draft, all reversible and Jacob's to change:** two speeds of play you choose, with triggers that pull you back to the court; heirs inherit a claim, a name and a ledger, never offices; you may play anyone in your circle; real people born after a start are not forced in, the census may make an invented man in the same station; the world stops at 264.
+- **Open, Jacob's:** the seven questions at the end of the draft (also in `handoff.md`).
+
+## 2026-11-23 (change the past, thread 22, Workshop bet B2)
+- **Done:** `src/core/fork.ts` loads any recorded game at the start of any season, lists the choices you made in words, and rewrites one (another answer to an event, an answer to one you left open, or an action left undone). After the change it can stop (you play on), keep everything else you did (matched by meaning: the same event if it fires again, the same man's request), or keep that and let the careful bot finish. `compare` lays two histories side by side: the season they part, the first thing that went differently, endings, the city's government, whose fates differ, and your dice after the split. `npm run debrief -- <save>` writes the hidden rolls and the three changed answers that changed the most; `--sweep 100` is the branch check.
+- **Done:** a Workshop page, `ui/past.html` (built with `npm run build -- --page past`): the whole game plus a "Change the past" view, a button under the ending stele, and a box to bring in a game copied from the test page. Published as `past.html` on the shared Workshop artifact, never at the test link.
+- **Decided (small, reversible):** Workshop pages add screens through `ui/app/extras.ts`, a list the shell reads. The test page registers nothing, so its 110-page walk-through is identical before and after.
+- **Found:** one changed answer changes the ending in 50 of 100 games, but the dice also reshuffle after the change. Shown, not fixed; "fixed fortune" parked in `later.md`.
+
 ## 2026-11-23 (army thread 20, stream 5)
 
 - Built "Lead the army yourself" as switch `commission`, off by default, offered beside the First island test preset and not inside it. Why: Jacob chose it as a switch to try; outside the preset his first verdict stays traceable.
