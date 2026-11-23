@@ -1,0 +1,56 @@
+{
+  "kind": "invention",
+  "note": "Switch \"greatWorks\" (bet B4 of docs/council/2026-11-23-two-day-plan.md). Great works are objects built over seasons: each season of work takes silver, food and men, and some anger Carthage. The works and what they did are history (docs/research/great-works.md); every number, cost and rule here is invention. The rules are in src/core/works.ts.",
+  "knobs": {
+    "kind": "invention",
+    "atOnce": 2,
+    "stallLimit": 2,
+    "foremanSkims": 1,
+    "overseerInfluence": 1,
+    "yourselfSaves": 1
+  },
+  "labour": [
+    { "id": "peasants", "kind": "invention", "name": "The peasants of the countryside", "short": "the peasants", "for": ["peasants"], "summary": "Free, but the men on the works are not in the fields: in summer the harvest comes in short.", "silver": 0, "harvestLoss": 3, "citizens": -1 },
+    { "id": "hired", "kind": "invention", "name": "Hired labourers", "short": "hired labourers", "for": ["peasants"], "summary": "Paid by the day: the harvest is untouched.", "silver": 2, "harvestLoss": 0, "citizens": 0 },
+    { "id": "subjects", "kind": "invention", "name": "Craftsmen of your own cities", "short": "craftsmen of your own cities", "for": ["craftsmen"], "summary": "Commandeered from the cities under you: cheap, but your allies resent it.", "silver": 0, "allies": -1 },
+    { "id": "abroad", "kind": "invention", "name": "Craftsmen from Italy and Greece, at high wages", "short": "craftsmen from Italy and Greece", "for": ["craftsmen"], "summary": "Dear, and no one at home is hurt by it.", "silver": 1 },
+    { "id": "punic", "kind": "invention", "name": "Craftsmen from Carthage's own lands as well", "short": "craftsmen lured from Carthage's lands", "for": ["craftsmen"], "summary": "Dear, but the best: the work goes a season faster, and Carthage notices every man who leaves.", "silver": 1, "faster": 1, "anger": 1 }
+  ],
+  "works": [
+    {
+      "id": "epipolae", "kind": "history", "name": "The Epipolae wall",
+      "source": "Diodorus 14.18.2 to 14.18.8", "card": "docs/research/great-works.md",
+      "summary": "A wall along the heights of Epipolae, so the city can never again be cut off from the countryside. Syracuse's walls rise by one.",
+      "labour": "peasants", "seasons": 1, "silver": 3, "grain": 1,
+      "done": [ { "walls": true } ],
+      "yourself": { "faction": "citizens", "by": 1, "why": "you hauled stone beside them" },
+      "doneText": "The wall along Epipolae stands, towers at every turn. The city can no longer be cut off from the land.",
+      "replacesEvent": "epipolaeWall"
+    },
+    {
+      "id": "arsenal", "kind": "history", "name": "The arms workshops",
+      "source": "Diodorus 14.41.3 to 14.43.3", "card": "docs/research/great-works.md",
+      "summary": "Forges in the porticoes, the temples and the gymnasia: shields, helmets, armour for the guard and new engines of war. When done, your army storms walls with engines and catapults, the guard grows stronger and the city's levies are armed.",
+      "labour": "craftsmen", "seasons": 3, "silver": 2, "grain": 0,
+      "done": [ { "flag": "armed" }, { "guard": 1 }, { "levy": 1 }, { "anger": 1, "why": "Carthage hears of the forges of Syracuse" } ],
+      "yourself": { "faction": "citizens", "by": 1, "why": "you walked among the workmen every day and dined with the best" },
+      "doneText": "The workshops fall quiet: the arms are made, and your engineers have built a new engine, the catapult.",
+      "replacesEvent": "armsWorkshops"
+    },
+    {
+      "id": "fleet", "kind": "history", "name": "The great fleet",
+      "source": "Diodorus 14.41.3, 14.42.2 to 14.42.5, 14.43.4", "card": "docs/research/great-works.md",
+      "summary": "Timber from Mount Aetna and Italy, ship-sheds round the Great Harbour, and ships of five banks of oars, the first ever built. When done, the fleet brings grain each autumn and holds the sea against Carthage.",
+      "labour": "craftsmen", "seasons": 3, "silver": 3, "grain": 0,
+      "timber": true,
+      "done": [ { "fleet": true }, { "anger": 2, "why": "ships of five banks ride in the Great Harbour of Syracuse" } ],
+      "yourself": { "faction": "citizens", "by": 1, "why": "half the new ships are crewed by citizens" },
+      "doneText": "The new ships slide down from the ship-sheds of the Great Harbour, the quinqueremes among them."
+    }
+  ],
+  "timber": [
+    { "id": "aetna", "kind": "invention", "name": "From Mount Aetna", "summary": "Fir and pine from the mountain, if the road there is yours: the fort at Aetna and Catana must not be hostile.", "silver": 0 },
+    { "id": "italy", "kind": "invention", "name": "From Italy", "summary": "Leave to cut timber in Italy, with teams, boats and crews to bring it: 1 silver more each season.", "silver": 1 }
+  ],
+  "fleet": { "kind": "invention", "grain": 2 }
+}

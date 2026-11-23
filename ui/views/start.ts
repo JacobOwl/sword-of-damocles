@@ -1,8 +1,10 @@
 // The start screen: the title page, the story so far, and the choices before a game (balance, game, seed, rule switches).
 // Its buttons are wired by the shell (ui/app/shell.ts), which starts or resumes the game.
+// Workshop switches (bets from docs/council/2026-11-23-two-day-plan.md) show only on a Workshop build, ticked: SWORD_WORKSHOP=<ids> npm run build.
 import { DEFAULT_TUNING, PACKAGES, SWITCHES, packageName } from "../../src/core/index.ts";
 import { esc } from "../lib/text.ts";
 import { titlePage } from "./title.ts";
+const workshopIds = (): string[] => (globalThis as any).__WORKSHOP ?? [];
 
 export function startScreen(saved: { tuning?: string } | null, seed: number) {
   const intro = `<p>Autumn, 405 BC. You are Dionysius, a scribe who made himself general with supreme power. The cavalry of the rich families rode home ahead of you, sacked your house and fled to Aetna. Carthage, struck by plague, has made peace. You hold the generalship and the treasury, and you sleep in the naval dockyards. The citadel on the Island is not yet built.</p>
@@ -25,7 +27,7 @@ export function startScreen(saved: { tuning?: string } | null, seed: number) {
       </details>
       <details class="switches"><summary class="small">Rule switches (all off by default)</summary>
         <p class="small muted">Optional rules to try. Each works with any balance.</p>
-        ${SWITCHES.map((w) => `<p class="small"><label><input type="checkbox" class="switch" value="${esc(w.id)}"> <b>${esc(w.name)}.</b> ${esc(w.summary)}</label></p>`).join("")}
+        ${((WORKSHOP) => SWITCHES.filter((w) => !w.workshop || WORKSHOP.includes(w.id)).map((w) => `<p class="small"><label><input type="checkbox" class="switch" value="${esc(w.id)}"${WORKSHOP.includes(w.id) ? " checked" : ""}> <b>${esc(w.name)}.</b>${WORKSHOP.includes(w.id) ? " <i>New, from the Workshop.</i>" : ""} ${esc(w.summary)}</label></p>`).join(""))(workshopIds())}
       </details>
       <p class="small muted note">Prototype: Phase 2, the island, built on rules v2. The people and the situation come from Diodorus, Plutarch and others; each real person's sheet quotes the passages. Everything else, including every rule, number and picture, is invention.</p>
     </div>`;

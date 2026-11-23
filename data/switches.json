@@ -81,6 +81,14 @@
       "name": "Rumors can lie",
       "summary": "News from Carthage's council and from Libya is sometimes false: about one story in three. A false story changes nothing in Carthage, whatever you paid to act on it. Two seasons later, word comes whether it was true. Each rumor says so when it arrives.",
       "research": "docs/research/island-events.md (rumors from Carthage)"
+    },
+    {
+      "id": "greatWorks",
+      "kind": "invention",
+      "workshop": true,
+      "name": "Great works",
+      "summary": "Build power, not only hold it. Three great works can be begun: the Epipolae wall, the arms workshops and the great fleet. Each is built over seasons: you choose whose labour (peasants off the fields, hired men, craftsmen from your cities, from Italy and Greece, or lured from Carthage's lands) and who is set over it (yourself, at one action a season, a hired foreman, or a man whose people will be pleased). Every season it takes silver and food, unpaid men down tools, and the arms and the fleet anger Carthage. Done, they give walls, engines, armour, armed citizens and a fleet that brings grain. The old Build wall and the wall and workshop events give way to them.",
+      "research": "docs/research/great-works.md (Diodorus 14.18, 14.41 to 14.43)"
     }
   ]
 }

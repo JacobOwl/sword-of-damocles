@@ -2,6 +2,7 @@
 // Every event, its trigger, its people and its choices live in data/events.json. This file only reads them:
 // it checks the conditions, casts the people, shows the odds, and applies the effects through ops.ts,
 // so every change is logged with its reason like any other move.
+import { REPLACED_EVENTS } from "./works.ts";
 import { DATA } from "./data.ts";
 import { nextRandom, pick } from "./rng.ts";
 import {
@@ -334,6 +335,7 @@ export function describe(s: GameState, inst: EventInstance, effects: Effect[]): 
 function eligible(s: GameState, def: EventDef): boolean {
   const ev = eventsState(s);
   if (def.chained) return false; // only fires when another event queues it
+  if (REPLACED_EVENTS.has(def.id) && on(s, "greatWorks")) return false; // the works take its place
   if (def.scenario === "island" && !s.island) return false;
   if (def.scenario === "citadel" && s.island) return false;
   const last = ev.fired[def.id];

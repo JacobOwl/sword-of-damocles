@@ -259,4 +259,5 @@ export interface GameState {
   census?: import("./census.ts").Census; // the generated cast of invented people (island games only)
   secrets?: SecretsState; // switch "secrets"
   council?: CouncilState; // switch "council"
+  works?: import("./works.ts").WorksState; // switch "greatWorks"
 }

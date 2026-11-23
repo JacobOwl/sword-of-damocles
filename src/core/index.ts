@@ -26,3 +26,6 @@ export type { Census, CensusPerson } from "./census.ts";
 export { counsel, seated, seatName, isFalse, councilName, COUNCIL } from "./council.ts";
 export type { Counsel } from "./council.ts";
 export { about as secretsAbout, knownBy as secretsKnownBy, secretLine, usable as usableSecrets, seenHolders, silenceCost, SECRETS } from "./secrets.ts";
+// Switch "greatWorks" (bet B4).
+export { WORKS, workById, labourById, workOf, activeWorks, workDone, seasonCost, seasonsNeeded, overseerName, timberFrom, timberById, worksOn } from "./works.ts";
+export type { Work, WorkDef, WorksState } from "./works.ts";

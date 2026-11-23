@@ -1,11 +1,12 @@
 // The app shell: the start screen, the page frame (masthead, ledger, views), the character-sheet dialog, and the clicks.
 // It only reads the simulation's state and sends it your choices; all rules live in src/core.
-import { DATA, PLAYER, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById } from "../../src/core/index.ts";
+import { DATA, PLAYER, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, switchOn } from "../../src/core/index.ts";
 import type { GameState } from "../../src/core/index.ts";
 import { howToPlay, tipAttr } from "../views/help.ts";
 import { court, sheet } from "../views/people.ts";
 import { islandView } from "../views/island.ts";
 import { familiesView, paintCensusFaces } from "../views/families.ts";
+import { worksView } from "../views/works.ts";
 import { chronicleBook } from "../views/story.ts";
 import { esc, ui } from "../lib/text.ts";
 import { showSeasonCard, swordOverhead } from "../components/ambient.ts";
@@ -44,12 +45,13 @@ let endedSound = false;
 export function render() {
   const g = ui.s;
   if (!g) return splash();
-  const views: [typeof ui.view, string][] = [["play", "The season"], ...(g.island ? [["island", "The island"] as [typeof ui.view, string]] : []), ["court", "The court"], ...(g.census ? [["families", "The families"] as [typeof ui.view, string]] : []), ["chronicle", "The chronicle"], ["help", "How to play"]];
+  const views: [typeof ui.view, string][] = [["play", "The season"], ...(g.island ? [["island", "The island"] as [typeof ui.view, string]] : []), ["court", "The court"], ...(g.census ? [["families", "The families"] as [typeof ui.view, string]] : []), ...(switchOn(g, "greatWorks") ? [["works", "The works"] as [typeof ui.view, string]] : []), ["chronicle", "The chronicle"], ["help", "How to play"]];
   let body = "";
   if (ui.view === "play") body = play(g);
   else if (ui.view === "court") body = court(g);
   else if (ui.view === "island" && g.island) body = islandView(g);
   else if (ui.view === "families" && g.census) body = familiesView(g);
+  else if (ui.view === "works" && switchOn(g, "greatWorks")) body = worksView(g);
   else if (ui.view === "chronicle") body = chronicleBook(g);
   else body = howToPlay();
   app.innerHTML = `

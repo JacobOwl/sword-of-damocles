@@ -21,6 +21,7 @@ import { COUNCIL_IMPL, councilChecked, councilHeard } from "./council.ts";
 import { leaderOfCity, councilOf, censusPersonName } from "./census-game.ts";
 import { NODES } from "./island.ts";
 import { bloc } from "./island.ts";
+import { WORKS_IMPL } from "./works.ts";
 
 export interface Option { value: string; label: string }
 interface Impl {
@@ -432,7 +433,7 @@ export const IMPL: Record<string, Impl> = {
       const o: Option[] = [];
       if (!s.citadelBuilt) o.push({ value: "citadel", label: "Citadel on the Island (4 silver)" });
       if (!s.granary) o.push({ value: "granary", label: "Granary (3 silver)" });
-      if (!s.walls) o.push({ value: "wall", label: "Wall (3 silver)" });
+      if (!s.walls && !on(s, "greatWorks")) o.push({ value: "wall", label: "Wall (3 silver)" }); // switch "greatWorks": the Epipolae wall is a great work instead
       return o;
     },
     check: (s, a) => {
@@ -824,7 +825,7 @@ const SECRET_IMPL: Record<string, Impl> = {
   },
 };
 
-Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL);
+Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL, WORKS_IMPL);
 // An action belongs to every scenario unless it names one.
 export const inScenario = (s: GameState, a: { scenario?: string; switch?: string }) => (!a.scenario || a.scenario === (s.scenario ?? "citadel")) && (!a.switch || on(s, a.switch));
 // In the island game the Carthage clock is Carthage's anger: the same number, read by Carthage's council.
