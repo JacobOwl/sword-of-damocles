@@ -310,3 +310,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** the switch "Dinners as the stage" (off by default; Workshop page only): the Give a dinner action, the couch of honour, 15 moments, 4 table choices, friendships and quarrels that change recruiting, a research card, 100-seed counts in both scenarios, and three sample dinners.
 - **Decided (small calls, all invention, all behind the switch):** no roll for a dinner; at most one moment for each of the three parts of the evening, and at most one choice put to you per dinner; strong wine costs 2 silver; the couch adds 1 influence; the table panel never shows hidden plots or grudges.
 - **Open, Jacob's:** women as guests; whether the dinner replaces the feast; rival hosts (in `later.md`).
+
+## 2026-11-23 (dinners follow-up, thread 24)
+- **Decided (taste calls delegated by Jacob):** wives and sisters can be guests (the sources are silent; noted on the card). The feast stays beside the dinner. Rival hosts stay parked.
+- **Done:** fetched the Greek of Diodorus 15.6 from the Perseus Digital Library's GitHub (Oldfather's Loeb Greek, CC BY-SA 4.0) and saved it. Added Philoxenus and the quarries as the dinner moment "Your verses". It comes only in peace, as Diodorus 15.6.1 sets it, and the pardon follows a season later. The English is the game's own, marked as such.
+- **Open:** a published English translation of Diodorus 15 to check that rendering against. LacusCurtius and Perseus are blocked from the cloud.
