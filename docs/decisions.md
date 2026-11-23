@@ -282,6 +282,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small calls):** the verdict also appears if the reign ends before season 10; it can be skipped; answers are stored with the save, not in the game state, so they never change play. The preset's digest is pinned and changes only with a logged line.
 - **Fixed:** the story chronicle's logged text was always "A quiet season." (off-by-one season). Changes logged text only with that switch on; the Standard digest is unchanged.
 
+## 2026-11-23 (test build, streams 2 and 3, thread 19)
+- **Done:** ten-season counts and the story sweep; report in `docs/playtests/2026-11-23-ten-seasons.md`; three peacetime island events from Diodorus 14.14 to 14.15, as conditions, not dates.
+- **Decided (small calls):** fix the quiet early map with events, not by moving the start date or by tuning; the preset's digest re-pinned for the new events and the informer line (Standard digest unchanged).
+- **Open:** the same opening every seed and arrests that end stories (report, items 1 and 2) are Jacob's to weigh after his test.
+
 ## 2026-11-23 (Phase 3 on paper, thread 25)
 - **Done:** `docs/phase3-draft.md` (draft) and five start dossiers, `docs/research/start-480.md`, `start-466.md`, `start-357.md`, `start-317.md`, `start-289.md`. Bet B8 of the two-day plan. Paper only; no scope change, no game code.
 - **Picked in the draft, all reversible and Jacob's to change:** two speeds of play you choose, with triggers that pull you back to the court; heirs inherit a claim, a name and a ledger, never offices; you may play anyone in your circle; real people born after a start are not forced in, the census may make an invented man in the same station; the world stops at 264.

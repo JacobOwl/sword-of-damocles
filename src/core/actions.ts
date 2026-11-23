@@ -650,7 +650,7 @@ export const IMPL: Record<string, Impl> = {
         event(s, PLAYER, `${capital(p.name)} agrees to tell you what he hears.`, "Turn an informer");
         yourDeed(s, "informerPaid", { target: p.id });
         const pl = plotOf(s, p.id);
-        if (pl) { pl.informer = p.id; pl.known = [...pl.members]; event(s, PLAYER, `He is in a plot against you, and names everyone in it.`, "your informer"); gainLeverage(s, PLAYER, pl.leader, "your informer"); }
+        if (pl) { pl.informer = p.id; pl.known = [...pl.members]; event(s, PLAYER, `${capital(p.name)} is himself in a plot against you, and names everyone in it.`, "your informer"); gainLeverage(s, PLAYER, pl.leader, "your informer"); }
       } else {
         event(s, PLAYER, `${capital(p.name)} takes offence at your offer.`, "Turn an informer failed");
         opinion(s, p.id, -1, "you tried to buy him");
