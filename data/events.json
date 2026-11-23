@@ -330,7 +330,7 @@
       "invented": ["timing", "all numbers"]
     },
     {
-      "id": "mercenaryDemand", "kind": "history", "art": "arms", "name": "The mercenaries want their pay", "weight": 5, "once": false, "cooldown": 8,
+      "id": "mercenaryDemand", "scenario": "citadel", "kind": "history", "art": "arms", "name": "The mercenaries want their pay", "weight": 5, "once": false, "cooldown": 8,
       "when": { "arrears": { "min": 1 }, "guardMood": { "max": 2 } },
       "roles": { "commander": { "id": "aristotle", "optional": true } },
       "text": "The mercenaries are hostile, and you fear they may depose you. They gather under arms and demand their pay, with some sharpness.",
@@ -352,7 +352,7 @@
       "invented": ["trigger", "the roll", "all numbers"]
     },
     {
-      "id": "himilconOffer", "kind": "history", "art": "letter", "name": "Carthage's secret offer", "weight": 8,
+      "id": "himilconOffer", "scenario": "citadel", "kind": "history", "art": "letter", "name": "Carthage's secret offer", "weight": 8,
       "when": { "flag": { "invaded": { "within": 1 } }, "clock": { "max": 6 } },
       "text": "Beaten back, the Carthaginian general sends to you in secret, behind the citizens' backs: let his own Carthaginians sail home by night, and three hundred talents are yours.",
       "why": "Carthage's army was thrown back from the walls",
