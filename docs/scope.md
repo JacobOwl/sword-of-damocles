@@ -24,6 +24,7 @@ New in Phase 2:
 - **A simulated Carthage** in place of the clock: a council of blocs with power and moods (the Elders, the Hundred, the people, the Libyan subjects), its own named people (Himilcon, Magon and invented elders), its own stores, and its own fixed action menu worked through a priority list, with a visible goal and a reason for every act. The council votes on war and peace.
 - **Armies with supply** as objects on the map: men, months of food, a commander. They march along routes, eat as they go, forage in enemy land, besiege cities (walls, hunger, plague) and fight battles with every modifier shown first.
 - **Cities that change sides** by embassy, fear, siege or revolt.
+- **Exile and return** (added by Jacob, 2026-11-23): a separate scenario, off by default, on the Workshop page. When you lose Syracuse you flee to Aetna or Rhegium with a few loyal men and your feud records, and plot your way back while someone else rules. The default game and the test preset still end at a fall.
 - Defined actions only, CK3-style. No freeform orders and no improvised results, for you or for Carthage.
 
 ## Out (cut for now)
