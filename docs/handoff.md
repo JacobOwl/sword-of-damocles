@@ -48,6 +48,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Italy and the Sicels** stay as names (scope): their events move your towns, armies and Carthage, never an Italian or Sicel map piece. Heloris' two events need him in exile first, so they are rare.
 - **Rumors from Carthage are always true.** Should some be false (for example, unless you have sent an embassy lately)?
 - **Pre-existing, found while testing:** when Carthage storms Syracuse in the factions step, that season's court events stay open at the end of the game. It is harmless, but the court test only checks the simple bot in the citadel.
+
 ## Built by the web-app thread (17, 2026-11-22/23), steps 1 to 3
 - **Step 1 (PR #26):** `docs/architecture.md`; `tests/core-boundary.test.ts` (the engine imports only itself and `data/`, no `Math.random`/`Date`/browser/Node globals, a JSON save plays on the same, bot games replay); `npm run replays` writes `dist/replays.json` for checking a later port.
 - **Step 2 (PR #28):** Vite. `npm run dev` serves the game with live reload; `npm run build` writes the same one-file page and `--fragment` for the Artifact. The game link was republished from it (version 12).
@@ -57,17 +58,31 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Noticed, not changed:** `ui/views/families.ts` imports `src/core/census.ts` directly instead of through `src/core/index.ts`.
 - **Next:** one click layer (each view owns its handlers), then the start screen as a view.
 
+## Built by the events thread (07, 2026-11-23): five more Cicero court stories
+- **Six new event records** (`data/events.json`, all history, card `docs/research/damocles.md`): No blade at your throat (barber, 5.58), A bed behind a trench (5.59), A voice from a tower (5.59), A joke at the ball game (5.60), A friend as pledge with its follow-up The hour of death (5.63). Each quotes the saved Latin.
+- In 100 careful-bot games: tower 82, barber 67, pledge 57 (return 55), trench 42 (needs the wedding), ball game 20.
+- **Broke:** nothing: 85 of 85 tests; 100 seeds in both scenarios, 0 crashes, 0 broken states; 351 quotes checked, 0 not found. Digest re-pinned for the added records only.
+- **Restored:** PR #32 merged from an older base and undid PR #30 and #31 (deleted the saved Cicero Latin, and put the Damocles event back to "both readings"). Both are restored in this PR.
+- **Question for Jacob:** the ball-game event can kill two invented courtiers over a joke, as Cicero tells. Keep it that harsh?
+
+## Built by the events thread (07, 2026-11-22): the Damocles banquet
+- **New event "A sword on a horse-hair"** (`data/events.json`, history): a courtier praises your fortune at a feast. You can hang a sword over his couch (what Cicero tells; he loses standing and warmth, plots are a little harder), reward the flattery, or smile it away. It fires in about 80 of 100 careful-bot games.
+- **Settled on Dionysius I** (PR #31, after PR #30 saved Cicero's Latin): the event quotes 5.57, 5.59 and 5.61 and keeps Livius.org's Dionysius II reading as a disagreement. Only the timing is invention.
+- **Changed:** two switch tests (another thread's) now test the rule, not luck: "clues" allows a man who said no to join later if a later join is recorded (it happens when a new wrong changes his mind), and "partial blows" checks the seize branch directly, since bot games reach it only about 3 times in 300. `partialBlow` in `src/core/season.ts` is exported for that test. Standard digest re-pinned for the one added event (verified: without it, the old digest matches).
+- **Broke:** nothing: 72 of 72 tests; 100 seeds, 0 crashes, 0 broken states; 271 quotes checked, 0 not found.
+
+
 ## Questions from the web-app thread
 - **Which Godot route?** Translating the engine to GDScript or C#, or running the TypeScript engine inside Godot. Not needed now; the architecture doc lists both, unverified.
 
 ## Built by the source-search thread (15, 2026-11-22): the missing source texts
-- **Saved in this repo** (`sources/`, short exact quotes with link and licence): Diodorus 14.19 to 14.41.1 (archons for 401, 400 and 399, and every Sicilian line: Messenian mercenaries, Adranum, Rhegium's failed war in 14.40); Cicero's Damocles story (5.61); the Sibbolet gravestone (KAI 92). Cards: `docs/research/diodorus-401-399.md`, `damocles.md`, `punic-womens-names.md` (nine women's names, eight from Cooke 1903 and Livy, already saved in the phoenician-punic-world repo).
+- **Saved in this repo** (`sources/`, short exact quotes with link and licence): Diodorus 14.19 to 14.41.1 (archons for 401, 400 and 399, and every Sicilian line: Messenian mercenaries, Adranum, Rhegium's failed war in 14.40); Cicero's Damocles story (5.61 in English quotes; 5.57 to 5.63 in Latin); the Sibbolet gravestone (KAI 92). Cards: `docs/research/diodorus-401-399.md`, `damocles.md`, `punic-womens-names.md` (nine women's names, eight from Cooke 1903 and Livy, already saved in the phoenician-punic-world repo).
 - **Changed:** `scripts/verify-cast-quotes.mjs` reads a file from this repo first, then the other repo, and now checks `data/calendar.json` too (254 of 254 found).
 - **Broke:** nothing. 68 of 68 tests pass; the 100-seed run is unchanged (tyrannies 13, plots 432, deaths in events 23).
 - **Not saved:** whole chapters (the cloud reader gives short quotes only), Yonge's or the Latin Cicero 5.57 to 5.63, Benz's name list. In `docs/later.md`.
 
 ## Questions from the source-search thread
-- **Which Dionysius had Damocles at court?** Livius.org says Dionysius II, Wikipedia says Dionysius I. Cicero 5.57 would settle it; could you save Book 5, sections 57 to 63, from Gutenberg?
+- **Damocles is settled: Dionysius I** (Cicero's Latin, 5.57 to 5.63, now saved). Cicero gives no year, so when it happens in a game is a design choice. The same passage has five more court stories (the daughters as barbers, the trench round the bed, the ball-game killing, the tower, the two Pythagoreans); use any as events?
 - **Rhegium's war of 399 (Diodorus 14.40)** fell apart because Messana's generals marched without a vote. Worth an event for the island?
 
 ## Built by the cast-generator thread (13, 2026-11-22), slice 1: the generated cast
