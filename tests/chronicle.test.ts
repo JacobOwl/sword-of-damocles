@@ -24,3 +24,18 @@ test("a line is tidied for the story without losing its meaning", () => {
   assert.equal(tidyLine("A fever. You choose: Leave it to the gods."), "A fever: you chose to leave it to the gods.");
   assert.equal(tidyLine("Light coins. You choose: Theodorus pays the difference."), "Light coins: you chose this: Theodorus pays the difference.");
 });
+
+test("a remembered grudge names the man in the season's news, and never begins with a capital You", async () => {
+  const { runBotGame, presetOpts } = await import("../src/core/index.ts");
+  const o = presetOpts("firstIslandTest");
+  let seen = 0;
+  for (let seed = 1; seed <= 20; seed++) {
+    const s = runBotGame(seed, { bot: "careful", ...o });
+    for (const e of s.log) {
+      assert.ok(!/did not forget/.test(e.text), e.text);
+      const m = / has not forgotten: (.)/.exec(e.text);
+      if (m) { seen++; assert.notEqual(m[1], "Y", e.text); }
+    }
+  }
+  assert.ok(seen > 0, "some grudge is remembered in twenty games");
+});

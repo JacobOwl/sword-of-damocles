@@ -344,6 +344,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Changed in other threads' tests (said here because they are theirs):** `tests/dinner.test.ts` (couch test follows the current holder) and `tests/works.test.ts` (threshold 20 to 15 finished works).
 
 
+## 2026-11-23 (three-lens review of the test build, stream 7, thread 19)
+- **Done:** report-only review at 1280 and 390 (`docs/playtests/2026-11-23-review.md`), every item marked cheap or costly, top five starred. The five starred items were cheap breakages and are fixed: the grudge line names the man ("<name> has not forgotten: you…"), Carthage's council reason groups blocs that agree, Send the army preselects "spare it", the "This season" line says where your own army is, and a second unknown plot is titled "A second plot".
+- **Re-pinned:** Standard digest 2a992b0770170009, preset digest fda5fb102c1a022a. Only log wording changed; the 100-seed summaries (Standard and preset) are identical before and after.
+- **Open:** every unstarred item in the review waits for Jacob's pick after he plays.
 ## 2026-11-23 (grain and the sea, thread 26, Workshop bet B3)
 - **Done:** switch `convoys`, "Grain and the sea", off by default, island only: convoys a season at sea (bought grain, the fleet's grain, allies' surplus, grain to the army, Carthage's grain and mercenary pay), winter storms, the existing interception roll for catches, contractors from the census who may skim or sell, and an audit action. Workshop page `grain.html`. Card `docs/research/grain-and-sea.md` (Diodorus 14.47.7, 14.55.2-5, 14.63.4, 14.64.1, 14.96.1, 14.103.2; Polyaenus 5.2.21 and Cicero, Verres 2.3.24 as labelled later parallels).
 - **Decided (small, reversible):** with the switch on, "Buy grain abroad" sends a convoy instead of landing grain at once, and Carthage's port feeding becomes a convoy. Without the switch nothing changes (digests untouched). Not offered beside the First island test preset, so the frozen test link is unaffected.

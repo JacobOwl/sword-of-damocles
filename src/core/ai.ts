@@ -23,7 +23,9 @@ import { dinnersOn, recruitMods, recruitOrder, suggestTable } from "./dinner.ts"
 const hidden = false;
 const rankOf = (p: Person) => p.rival?.rank ?? 0;
 const hasGrudge = (p: Person) => p.grudges.length > 0;
-const memoryLine = (p: Person) => (p.rival?.memory.length ? ` He did not forget: ${p.rival.memory[p.rival.memory.length - 1].text}.` : "");
+// The grudge he carries, told with his name ("He did not forget: You…" hid who, and broke the sentence).
+const memoryLine = (p: Person) => (p.rival?.memory.length
+  ? ` ${capital(p.name)} has not forgotten: ${p.rival.memory[p.rival.memory.length - 1].text.replace(/^(You|He|His) /, (m) => m.toLowerCase())}.` : "");
 
 function againstYou(s: GameState, p: Person): Mod[] {
   const m: Mod[] = [];

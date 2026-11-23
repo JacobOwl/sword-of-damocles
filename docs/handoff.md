@@ -450,3 +450,9 @@ UI only: no file in `src/core/` or `data/` changed, so the rules and the 100-see
 - **Broke:** nothing found. 100 seeds in each scenario: 0 crashes, 0 broken states, with the switch on and off.
 - **Answered 2026-11-23 (taste calls delegated):** wives and sisters can be guests, and the card notes that the sources are silent. The old feast stays beside the dinner. Plotters' own dinners stay parked.
 - **Added (PR after #49):** Philoxenus and the quarries (Diodorus 15.6), as the moment "Your verses" with a pardon the next season. The Greek is saved as `sources/diodorus/book15-6.greek.txt` (Perseus, CC BY-SA 4.0). The English on the card is the game's own rendering. A published English translation of book 15 is still worth saving to check it.
+
+## Built by the test-build thread, stream 7 (review, 2026-11-23)
+- **Built:** `docs/playtests/2026-11-23-review.md` (three lenses, both widths). Five cheap starred fixes: grudge line with the man's name (`src/core/ai.ts` memoryLine; the story chronicle reads both old and new forms), grouped Carthage council reasons (`src/core/carthage.ts` groupWhy), "spare it" preselected in Send the army (`ui/views/season.ts`), own army's distance in the "This season" line (`ui/components/now.ts`), numbered unknown plots (`ui/views/dangers.ts`). Tests added in `tests/chronicle.test.ts` and `tests/first-sight.test.ts`.
+- **Changed:** both pinned digests (log wording only).
+- **Broke:** nothing found. 140 tests pass; 100 seeds, 0 crashes, 0 broken.
+- **Questions for the next design session:** which unstarred review items to do (Jacob picks after playing).

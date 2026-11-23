@@ -16,7 +16,9 @@ export function whatMatters(g: GameState): { text: string; level: "danger" | "wa
   if (ca?.siege === "syracuse") out.push({ text: `${capital(armyName(g, ca))} is besieging Syracuse.`, level: "danger" });
   else if (ca && g.island) {
     const days = daysTo(ca.at, "syracuse");
-    out.push({ text: `${capital(armyName(g, ca))}, ${menWords(ca.men)}, is at ${nodeName(ca.at)}, ${days} days' march from Syracuse.`, level: days <= 6 ? "danger" : "warn" });
+    // Where your own army stands from theirs, so the player can judge a march without opening the map.
+    const yours = !ya ? "" : ya.at === ca.at ? " Your army stands at the same place." : ` Your army is at ${nodeName(ya.at)}, ${daysTo(ya.at, ca.at)} days from it.`;
+    out.push({ text: `${capital(armyName(g, ca))}, ${menWords(ca.men)}, is at ${nodeName(ca.at)}, ${days} days' march from Syracuse.${yours}`, level: days <= 6 ? "danger" : "warn" });
   }
   if (ya && ya.food <= 1) out.push({ text: `Your army at ${nodeName(ya.at)} has food for ${ya.food <= 0 ? "no more seasons: it must forage or come home" : "one more season"}.`, level: ya.food <= 0 ? "danger" : "warn" });
   // Next season's rations, less the harvest if it is summer next.

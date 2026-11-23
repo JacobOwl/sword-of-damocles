@@ -13,16 +13,21 @@ export function dangersCol(g: GameState) {
 
 const partialKnobs = () => (switchById("partialBlows") as any).knobs as { wound: number; seize: number };
 
-function plotTitle(g: GameState, pl: Plot) {
+// Two plots must not share a title: unknown ones are counted ("A second plot, source unknown").
+const ORD = ["", "second", "third", "fourth", "fifth", "sixth"];
+function plotTitle(g: GameState, pl: Plot, nth = 0) {
   const lf = g.people[pl.leader].faction;
   const fname = lf === "ruler" ? "your own household" : g.factions[lf as FactionId].short;
-  return pl.stage >= 2 || ui.designer ? `A plot among ${fname}` : "A plot, source unknown";
+  if (pl.stage >= 2 || ui.designer) return `A plot among ${fname}`;
+  return nth ? `A ${ORD[nth] ?? "further"} plot, source unknown` : "A plot, source unknown";
 }
 
 function plots(g: GameState) {
   const ps = g.plots.filter((p) => ui.designer || p.stage >= 1);
   const def = defense(g).total;
+  let unknown = 0;
   const body = ps.length ? ps.map((pl) => {
+    const nth = pl.stage >= 2 || ui.designer ? 0 : unknown++;
     const st = plotStrength(g, pl);
     const known = ui.designer ? pl.members : pl.known;
     const showStr = !!pl.informer || ui.designer;
@@ -36,7 +41,7 @@ function plots(g: GameState) {
       <div class="small muted">${esc(st.parts.map((p) => `${p.label} ${sign(p.value)}`).join(", "))}</div>` : `<div class="small muted">Its strength is unknown. Turn an informer inside it to learn it.</div>`;
     const knownBtns = known.length ? `<div class="small">Names you have: ${known.map((k) => who(k)).join(", ")}.</div>` : "";
     return `<div class="plot plot-s${pl.stage}">
-      <div class="fhead"><b>${esc(plotTitle(g, pl))}</b><span class="stage stage-${pl.stage} tipped" ${tipAttr("stage")}>${stageName(pl.stage)}</span></div>
+      <div class="fhead"><b>${esc(plotTitle(g, pl, nth))}</b><span class="stage stage-${pl.stage} tipped" ${tipAttr("stage")}>${stageName(pl.stage)}</span></div>
       <div class="plottrack" aria-label="Warnings passed: ${pl.stage} of 3">${track}</div>
       <div class="small">${what} First warned ${esc(seasonName(pl.started))}.</div>
       ${knownBtns}${pl.heard?.length ? `<div class="small"><span class="label">What you have heard</span><ul class="heard">${pl.heard.map((h) => `<li>${linkNames(h)}</li>`).join("")}</ul></div>` : ""}${meter}

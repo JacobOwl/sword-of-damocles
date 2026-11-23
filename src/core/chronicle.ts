@@ -129,7 +129,7 @@ export function storyBook(s: GameState, upTo?: number): StoryBook {
       // The city's standing business (Carthage trading, a content faction holding back) is told once, not every season.
       if (key === "city") { cityLines.add(t); if (lastCity.has(t)) continue; }
       // A grudge remembered is told once per grudge, with the man's name ("He did not forget" alone hid who).
-      const mem = / He did not forget: (.+?)\.(?=\s|$)/.exec(t);
+      const mem = / (?:He did not forget|[A-Z][^.:]*? has not forgotten): (.+?)\.(?=\s|$)/.exec(t);
       if (mem) {
         const k = `${who}|${mem[1]}`;
         t = remembered.has(k) || !s.people[who] ? t.replace(mem[0], "") : t.replace(mem[0], ` ${capital(s.people[who].name)} has not forgotten: ${mem[1]}.`);
