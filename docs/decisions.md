@@ -233,6 +233,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Rumors from Carthage use the generated councillors** (a judge of the Hundred, a merchant of the Elders, a dockyard speaker) as named parts, so Carthage's politics have faces. They are tagged invention: the blocs come from Aristotle, written decades later.
 - **Italy and the Sicels stay names only**, as `scope.md` says. Their events act through your towns, armies and Carthage.
 
+
+## 2026-11-23 (a proper web app, step 3: thread 17)
+- **The UI is laid out as `ui/app/`, `ui/views/`, `ui/components/`, `ui/lib/` and `ui/styles/`**, and `ui/main.ts` only starts the app. Why: one 470-line file held every screen and every click; now a screen lives in its own file. Done in one step while no other thread had UI work open, so the moves happened once.
+
 ## 2026-11-23 (island events follow-ups: thread 16, decided by the coordinator on Jacob's "you decide")
 - **New switch "A bought retreat disgraces the general"** (`bargainDisgraces`, off by default): if you take Himilcon's bargain, he comes home in disgrace and Carthage counts the army as lost, so he may starve himself, as Diodorus says (14.76.4). Why: without it his end never fires.
 - **New switch "Rumors can lie"** (`falseRumors`, off by default): about one in three rumors from Carthage is false (`rumors.falseShare` in `data/island-events.json`). A false rumor changes nothing in Carthage. Two seasons later, word comes whether it was true. Each rumor says so when it arrives.

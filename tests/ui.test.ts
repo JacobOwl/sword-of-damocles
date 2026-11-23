@@ -3,9 +3,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { DATA, runBotGame } from "../src/core/index.ts";
-import { ui, linkNames, pr } from "../ui/text.ts";
-import { sheet, court } from "../ui/people.ts";
-import { chronicleBook, seasonFeed } from "../ui/story.ts";
+import { ui, linkNames, pr } from "../ui/lib/text.ts";
+import { sheet, court } from "../ui/views/people.ts";
+import { chronicleBook, seasonFeed } from "../ui/views/story.ts";
 
 const ids = DATA.people.map((p) => p.id as string).filter((id) => /[A-Z]/.test(id));
 const visibleText = (html: string) => html.replace(/<[^>]*>/g, " ");

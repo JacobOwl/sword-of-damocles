@@ -6,7 +6,7 @@ import { ISLAND_EFFECT_KEYS } from "../src/core/island-events.ts";
 import { startGame, endSeason, replay, runBotGame, DATA } from "../src/core/index.ts";
 import { NODES, carthageArmy, city, muster, yourArmy } from "../src/core/island.ts";
 import { brokenState } from "../scripts/sim-check.ts";
-import { VIGNETTES } from "../ui/vignettes.ts";
+import { VIGNETTES } from "../ui/components/vignettes.ts";
 import type { GameState } from "../src/core/types.ts";
 
 const COURT_KEYS = new Set(["silver", "grain", "land", "clock", "mood", "power", "opinion", "grudge", "clearGrudge", "rival", "rank", "status", "guard",

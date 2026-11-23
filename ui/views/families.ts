@@ -2,13 +2,13 @@
 // The people are invention, generated from data/census.json; the names are attested (data/names.json).
 // Portraits are laid in tiles in the browser by the mosaic editor's own code (ui/mosaic-runtime.ts), one at a time
 // while the page is idle, and kept for the rest of the visit. Headless tests see only the initial-in-a-circle fallback.
-import type { GameState } from "../src/core/index.ts";
-import { DATA, censusKin, censusPersonName, censusLook } from "../src/core/index.ts";
-import { CENSUS_DATA, ageOf, placeName } from "../src/core/census.ts";
-import { esc } from "./text.ts";
-import { initial } from "./portraits.ts";
-import looks from "./art/portrait-looks.json" with { type: "json" };
-import { makeMosaic } from "./mosaic-runtime.ts";
+import type { GameState } from "../../src/core/index.ts";
+import { DATA, censusKin, censusPersonName, censusLook } from "../../src/core/index.ts";
+import { CENSUS_DATA, ageOf, placeName } from "../../src/core/census.ts";
+import { esc } from "../lib/text.ts";
+import { initial } from "../components/portraits.ts";
+import looks from "../art/portrait-looks.json" with { type: "json" };
+import { makeMosaic } from "../lib/mosaic-runtime.ts";
 
 const traitWord = (t: string) => DATA.traits.find((x) => x.id === t)?.name ?? t;
 const AMBITION: Record<string, string> = { Wealth: "wants wealth", Office: "wants an office", Safety: "wants to be safe", Power: "wants power", Revenge: "wants revenge" };

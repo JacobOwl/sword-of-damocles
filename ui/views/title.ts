@@ -1,10 +1,10 @@
 // The title page: a red-figure panel of an empty banquet couch under a sword on a hair, the title cut like an
 // inscription, Heloris' saying from Diodorus, and the cast laid out as a tray of coins. The scene is invention
 // (see docs/art-direction.md); the saying and the coin legend are sourced in data/flavor.json.
-import { DATA } from "../src/core/index.ts";
-import { FLAVOR } from "./ambient.ts";
-import { PORTRAITS } from "./portraits.ts";
-import { esc } from "./text.ts";
+import { DATA } from "../../src/core/index.ts";
+import { FLAVOR } from "../components/ambient.ts";
+import { PORTRAITS } from "../components/portraits.ts";
+import { esc } from "../lib/text.ts";
 
 function meanderBand(x0: number, x1: number, y: number) {
   let d = "";

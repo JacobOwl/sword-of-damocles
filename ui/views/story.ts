@@ -1,8 +1,8 @@
 // The season's events and the chronicle, written for reading. Both come straight from the one action log.
-import { PLAYER, seasonName, storyBook, switchOn } from "../src/core/index.ts";
-import type { GameState, LogEntry } from "../src/core/index.ts";
-import { esc, linkNames, rollLine, ui } from "./text.ts";
-import { chronicleLine, colophon, diodorusYear } from "./ambient.ts";
+import { PLAYER, seasonName, storyBook, switchOn } from "../../src/core/index.ts";
+import type { GameState, LogEntry } from "../../src/core/index.ts";
+import { esc, linkNames, rollLine, ui } from "../lib/text.ts";
+import { chronicleLine, colophon, diodorusYear } from "../components/ambient.ts";
 
 // Reasons that only repeat the action's own name add nothing ("Host a feast" after "You host a feast").
 const ECHO = /^(Host|Grant|Revoke|Arrange|Petition|Bribe|Pardon|Imprison|Execute|Exile|Hand|Give|Propose|Seize|Strike|Build|Pay|Hire|Disarm|Raid|March|Watch|Plant|Turn|Force|Block|Expose|Envoy|Buy|Offer|Refuse)/;

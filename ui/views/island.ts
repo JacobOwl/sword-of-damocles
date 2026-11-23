@@ -3,10 +3,10 @@
 import {
   CARTHAGE, ISLAND, NODES, ROUTES, armyName, blocDef, capital, carthageAgenda, cityGrain, cityMen, cityWalls, goalDef, menWords,
   moodWord, nodeName, prefers, sideName, goOverMods,
-} from "../src/core/index.ts";
-import type { Army, GameState } from "../src/core/index.ts";
-import { esc, linkNames } from "./text.ts";
-import * as A from "./island-art.ts";
+} from "../../src/core/index.ts";
+import type { Army, GameState } from "../../src/core/index.ts";
+import { esc, linkNames } from "../lib/text.ts";
+import * as A from "../components/island-art.ts";
 
 
 const SIDE_COLOR: Record<string, string> = {
