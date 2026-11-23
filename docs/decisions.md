@@ -287,3 +287,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small calls):** fix the quiet early map with events, not by moving the start date or by tuning; the preset's digest re-pinned for the new events and the informer line (Standard digest unchanged).
 - **Open:** the same opening every seed and arrests that end stories (report, items 1 and 2) are Jacob's to weigh after his test.
 
+## 2026-11-23 (Phase 3 on paper, thread 25)
+- **Done:** `docs/phase3-draft.md` (draft) and five start dossiers, `docs/research/start-480.md`, `start-466.md`, `start-357.md`, `start-317.md`, `start-289.md`. Bet B8 of the two-day plan. Paper only; no scope change, no game code.
+- **Picked in the draft, all reversible and Jacob's to change:** two speeds of play you choose, with triggers that pull you back to the court; heirs inherit a claim, a name and a ledger, never offices; you may play anyone in your circle; real people born after a start are not forced in, the census may make an invented man in the same station; the world stops at 264.
+- **Open, Jacob's:** the seven questions at the end of the draft (also in `handoff.md`).
+
