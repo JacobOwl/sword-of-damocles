@@ -3,3 +3,4 @@ dist/
 private/
 *.log
 .DS_Store
+ui/dist-*/
