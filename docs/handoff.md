@@ -66,7 +66,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - In 100 careful-bot games: tower 82, barber 67, pledge 57 (return 55), trench 42 (needs the wedding), ball game 20.
 - **Broke:** nothing: 85 of 85 tests; 100 seeds in both scenarios, 0 crashes, 0 broken states; 351 quotes checked, 0 not found. Digest re-pinned for the added records only.
 - **Restored:** PR #32 merged from an older base and undid PR #30 and #31 (deleted the saved Cicero Latin, and put the Damocles event back to "both readings"). Both are restored in this PR.
-- **Question for Jacob:** the ball-game event can kill two invented courtiers over a joke, as Cicero tells. Keep it that harsh?
+- **Decided (coordinator, on Jacob's "You decide"):** the ball-game killings stay as harsh as Cicero tells, and now cost more: the family and the rich families grow afraid, and any living kin of the two dead men become Bereaved enemies. The cast is small, so kin are often missing; then only the fear applies.
 
 ## Built by the events thread (07, 2026-11-22): the Damocles banquet
 - **New event "A sword on a horse-hair"** (`data/events.json`, history): a courtier praises your fortune at a feast. You can hang a sword over his couch (what Cicero tells; he loses standing and warmth, plots are a little harder), reward the flattery, or smile it away. It fires in about 80 of 100 careful-bot games.
