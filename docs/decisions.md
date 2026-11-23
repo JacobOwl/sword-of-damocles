@@ -244,3 +244,6 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 
 ## 2026-11-23 (a proper web app, step 3: thread 17)
 - **The UI is laid out as `ui/app/`, `ui/views/`, `ui/components/`, `ui/lib/` and `ui/styles/`**, and `ui/main.ts` only starts the app. Why: one 470-line file held every screen and every click; now a screen lives in its own file. Done in one step while no other thread had UI work open, so the moves happened once.
+
+## 2026-11-23 (a proper web app, step 4: thread 17)
+- **Clicks go through one listener, set up once; each screen exports its handlers keyed by `data-` selectors.** Why: the old wiring re-attached every handler after every redraw from one function that knew every screen; now a screen's buttons and what they do sit in the same file. Behaviour is unchanged (walk-through identical).
