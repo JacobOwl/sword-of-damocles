@@ -122,8 +122,8 @@ test("in a game: island games have the census, citadel games do not, and island 
 });
 
 test("the families view renders for island games with no code ids or broken values", async () => {
-  const { familiesView } = await import("../ui/census.ts");
-  const { ui } = await import("../ui/text.ts");
+  const { familiesView } = await import("../ui/views/families.ts");
+  const { ui } = await import("../ui/lib/text.ts");
   for (const seed of [1, 2, 3, 4, 5]) {
     const s = runBotGame(seed, { scenario: "island", bot: "careful" });
     ui.s = s;

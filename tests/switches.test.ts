@@ -8,8 +8,8 @@ import type { GameState } from "../src/core/index.ts";
 import { brokenState } from "../scripts/sim-check.ts";
 import { startPlot } from "../src/core/ai.ts";
 import { partialBlow } from "../src/core/season.ts";
-import { ui } from "../ui/text.ts";
-import { chronicleBook } from "../ui/story.ts";
+import { ui } from "../ui/lib/text.ts";
+import { chronicleBook } from "../ui/views/story.ts";
 
 const ALL = SWITCHES.map((w) => w.id);
 const ids = DATA.people.map((p) => p.id as string).filter((id) => /[A-Z]/.test(id));

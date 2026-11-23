@@ -2,8 +2,8 @@
 // Phoenician-Punic World's map palette. No game logic: ui/island.ts decides what to draw, this decides how.
 // Coast and rivers: Natural Earth, public domain (ui/art/map-art.json, made by scripts/make-map-art.mjs).
 // The hills, Etna, the compass and the cartouche are drawing aids, placed by eye; nothing cites them.
-import art from "./art/map-art.json" with { type: "json" };
-import sicily from "./art/sicily.json" with { type: "json" };
+import art from "../art/map-art.json" with { type: "json" };
+import sicily from "../art/sicily.json" with { type: "json" };
 import { iconBody } from "./icons.ts";
 
 // ---------- The frame: the same projection the island view has always used ----------

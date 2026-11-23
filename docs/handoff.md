@@ -48,23 +48,14 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Italy and the Sicels** stay as names (scope): their events move your towns, armies and Carthage, never an Italian or Sicel map piece. Heloris' two events need him in exile first, so they are rare.
 - **Rumors from Carthage are always true.** Should some be false (for example, unless you have sent an embassy lately)?
 - **Pre-existing, found while testing:** when Carthage storms Syracuse in the factions step, that season's court events stay open at the end of the game. It is harmless, but the court test only checks the simple bot in the citadel.
-## Built by the web-app thread (17, 2026-11-22), step 1 of 5: the plan and the engine boundary
-- **`docs/architecture.md`**: the two halves (rules engine in `src/core/`, browser UI in `ui/`), the rules each follows, the stack (TypeScript, no UI framework, Vite next), the target folder layout, the five migration steps, and the road to Godot.
-- **`tests/core-boundary.test.ts`**: the engine imports only itself and `data/`; uses no `Math.random`, `Date`, browser or Node globals; a game saved as JSON plays on exactly the same; a bot game replays in both scenarios.
-- **`npm run replays`** (`scripts/export-replays.ts`): writes `dist/replays.json` (not kept in git), 20 whole games with their inputs and the log each must produce, for checking a later port.
-
-## Built by the events thread (07, 2026-11-22): the Damocles banquet
-- **New event "A sword on a horse-hair"** (`data/events.json`, history): a courtier praises your fortune at a feast. You can hang a sword over his couch (what Cicero tells; he loses standing and warmth, plots are a little harder), reward the flattery, or smile it away. It fires in about 80 of 100 careful-bot games.
-- **Both readings of which Dionysius are shown.** The event's facts quote Livius.org (Dionysius II) and Wikipedia (Dionysius I) from the saved excerpts; the doubt is listed as uncertain. Review steps are on the card (`docs/research/damocles.md`, last section) for when Cicero 5.57 is saved.
-- **Changed:** two switch tests (another thread's) now test the rule, not luck: "clues" allows a man who said no to join later if a later join is recorded (it happens when a new wrong changes his mind), and "partial blows" checks the seize branch directly, since bot games reach it only about 3 times in 300. `partialBlow` in `src/core/season.ts` is exported for that test. Standard digest re-pinned for the one added event (verified: without it, the old digest matches).
-- **Broke:** nothing: 72 of 72 tests; 100 seeds, 0 crashes, 0 broken states; 271 quotes checked, 0 not found.
-
-## Built by the web-app thread (17, 2026-11-22), steps 1 and 2 of 5
-- **Step 1 (PR #26):** `docs/architecture.md` (the two halves, rules for each, stack, target layout, migration steps, road to Godot); `tests/core-boundary.test.ts` (the engine imports only itself and `data/`, no `Math.random`/`Date`/browser/Node globals, JSON save plays on the same, bot games replay); `npm run replays` writes `dist/replays.json` for checking a later port.
-- **Step 2: Vite.** `npm run dev` serves the game with live reload; `npm run build` builds with Vite (`vite.config.ts`, page shell `ui/index.html`) into the same one-file page and the same `--fragment` for the Artifact. esbuild is no longer a direct dependency. Stylesheets are `<link>`s in `ui/index.html`.
-- **`npm run walk`** (`scripts/ui-walk.mjs`): plays the built page with a fixed seed and clicks at 1280 and 390 px, both scenarios, and records 83 pages. The Vite page and the old esbuild page record identically.
-- **Changed:** nothing in the game. **Broke:** nothing: 72 of 72 tests, typecheck clean, 100-seed run unchanged (tyrannies 13, plots 432, deaths in events 23).
-- **Next:** one click layer, then splitting `ui/main.ts` (after thread 14 merges its UI hooks), then moving UI files.
+## Built by the web-app thread (17, 2026-11-22/23), steps 1 to 3
+- **Step 1 (PR #26):** `docs/architecture.md`; `tests/core-boundary.test.ts` (the engine imports only itself and `data/`, no `Math.random`/`Date`/browser/Node globals, a JSON save plays on the same, bot games replay); `npm run replays` writes `dist/replays.json` for checking a later port.
+- **Step 2 (PR #28):** Vite. `npm run dev` serves the game with live reload; `npm run build` writes the same one-file page and `--fragment` for the Artifact. The game link was republished from it (version 12).
+- **Step 3 (PR #35): the new layout.** `ui/main.ts` is split into `ui/app/` (shell, save) and `ui/views/` (play, city, season, dangers, ending); the other UI files moved into `ui/views/`, `ui/components/`, `ui/lib/` and `ui/styles/`. The table of old and new paths is in `docs/architecture.md`. `ui/census.ts` is now `ui/views/families.ts`. Functions moved unchanged.
+- **`npm run walk`** (`scripts/ui-walk.mjs`): a scripted walk through the built page (fixed seed and clicks, 1280 and 390 px, both scenarios, and a pass with every rule switch on): 110 pages, identical before and after each step.
+- **Changed:** nothing in the game. **Broke:** nothing: 85 of 85 tests, typecheck clean, 100-seed run 0 crashes, 0 broken states.
+- **Noticed, not changed:** `ui/views/families.ts` imports `src/core/census.ts` directly instead of through `src/core/index.ts`.
+- **Next:** one click layer (each view owns its handlers), then the start screen as a view.
 
 ## Questions from the web-app thread
 - **Which Godot route?** Translating the engine to GDScript or C#, or running the TypeScript engine inside Godot. Not needed now; the architecture doc lists both, unverified.

@@ -3,8 +3,8 @@
 // The pictures are ui/art/portraits/<person id>.webp, placeholder mosaics made in tools/mosaic-editor.html (their looks are
 // invention). scripts/build-ui.ts inlines them into the page as window.__PORTRAITS. A person with no picture (and every
 // person in the headless tests) gets the fallback: a tessera pattern in their faction's colour with their initial.
-import { PLAYER } from "../src/core/index.ts";
-import { esc, ui } from "./text.ts";
+import { PLAYER } from "../../src/core/index.ts";
+import { esc, ui } from "../lib/text.ts";
 
 export const PORTRAITS: Record<string, string> = (globalThis as { __PORTRAITS?: Record<string, string> }).__PORTRAITS ?? {};
 

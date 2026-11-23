@@ -1,14 +1,14 @@
 // People: the character sheet (one person, opened from any name) and the court (everyone, by faction).
-import { sheetSecrets, secretsLedger } from "./intrigue.ts";
+import { sheetSecrets, secretsLedger } from "../components/intrigue.ts";
 import {
   DATA, PLAYER, agendaById, band, capital, influence, leaderOf, menu, moodName, officeName, officesOf, originById,
   playerInfluence, power, rankTitle, seasonName, traitName,
-} from "../src/core/index.ts";
-import type { FactionId, GameState, Person } from "../src/core/index.ts";
+} from "../../src/core/index.ts";
+import type { FactionId, GameState, Person } from "../../src/core/index.ts";
 import { tipAttr } from "./help.ts";
-import { portrait } from "./portraits.ts";
-import { FACTION_ICON, icon } from "./icons.ts";
-import { esc, fieldWords, isReal, linkNames, opChip, opinionHistory, opinionWord, pr, record, sign, ui, who } from "./text.ts";
+import { portrait } from "../components/portraits.ts";
+import { FACTION_ICON, icon } from "../components/icons.ts";
+import { esc, fieldWords, isReal, linkNames, opChip, opinionHistory, opinionWord, pr, record, sign, ui, who } from "../lib/text.ts";
 
 const STATUS: Record<string, string> = { free: "In the city", held: "In your prison", outside: "Outside the walls", dead: "Dead", absent: "Not yet in the story" };
 export const statusWord = (p: Person) => STATUS[p.status];
