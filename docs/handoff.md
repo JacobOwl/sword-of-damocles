@@ -16,6 +16,25 @@ Only these two need Jacob. Every other question below defaults to what the game 
 - Tests: `tests/presets.test.ts` pins the preset's digest (careful bot, seeds 1 to 10). Re-pin only with a line in `docs/decisions.md`.
 - Note for Jacob: `docs/playtests/first-island-test.md`.
 
+## Built by the army thread (20, 2026-11-23), stream 5: lead the army yourself (switch, off by default)
+- **Switch `commission`, "Lead the army yourself"** (`data/commission.json`, `src/core/commission.ts`, card `docs/research/commission.md`, tests `tests/commission.test.ts`). Island games only. Offered as an unticked box marked new beside the First island test preset (via stream 1's `besidePreset`), and in the rule switches list. Not inside the preset.
+- **The muster asks who leads it:** you, the general, or a named man from the real cast. If you go, it asks for a **keeper of the citadel**. Under the choices the screen lists every price before you commit.
+- **While you are away:** every plot gains 1; your keeper adds 1 to your defense if he thinks 2 or more of you, 0 if lukewarm, -1 if sour, -2 if he is in a plot, -1 if he is gone. You fight 1 better in person. A keeper gets 1 influence while he holds the keys.
+- **The levy arms the citizens:** while the army is out, a plot with a citizen in it gains 1 (Diodorus 14.45.5, 14.64.4).
+- **You can raise and order the army without the generalship** with the switch on, but passing over the elected general is unlawful: the citizens' mood falls 1 and the general thinks 1 less of you.
+- **Homecoming is a logged step** when the army disbands or is destroyed: the tally (battles won and lost, towns taken). You: a victory raises the citizens' mood 1, a beaten return lowers it 1. A man you sent: a victory gives him influence (1 a win or town, up to 2) and his faction 1 power; a defeat costs him 1 influence. A keeper who joined a plot is seen when you come home (Polyaenus 5.2.4, Andron).
+- **Small engine additions:** actions can now have a third choice (`args.option`), a label for the target, and a list of prices (`notes`); `Person.where` ("field"); `GameState.campaign`. The muster's target list is empty without the switch, so the default game is unchanged (digests untouched).
+- **Numbers** (100 seeds each, island, First island test preset; without the switch, then with it):
+  - careful: games ended early 5 to 12 (8 of them while you were away); campaigns 1.5 a game, led in person 1.4, sent a man 0.1; unlawful commands 0.65; victors' homecomings 0.46; towns taken 1.6 to 2.5.
+  - patron: ended early 15 to 17; campaigns 1.3; unlawful 1.1.
+  - simple: ended early 92 to 95. 0 crashes, 0 broken states in every run.
+- **Checks:** 101 of 101 tests; 100-seed runs (citadel and island) 0 crashes, 0 broken states; 363 quotes checked, 0 not found.
+
+## Questions from the army thread
+- The bots almost always lead in person and rarely send a man; more of your falls now happen while you are away. Is absence too cheap, too dear, or about right? (Report only: not tuned.)
+- Unlawful commands are common for the bots, because the assembly often takes the generalship from you. Should passing over the general cost more, or less?
+- Not built, parked in `docs/later.md`: a purpose for each command (take, garrison, negotiate), a disloyal commander turning his army on you, and petitions going unanswered while you are away.
+
 ## Next for the build (from the same council)
 Build the "First island test" preset (listed first on the start screen), the season-10 verdict prompt, and a short "what to watch" note; measure map events in seasons 1 to 10 over 100 seeds. Fixes and the test pass before new features.
 

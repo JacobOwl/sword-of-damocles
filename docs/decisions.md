@@ -281,3 +281,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** the "First island test" preset (listed first, recommended; island, Reap what you sow, Warnings are clues, Blows can miss, Chronicle as story, Beaten armies can break), the season-10 verdict, "Copy my game" with `npm run replay-save`, the island first-season guide, the "what to watch" note.
 - **Decided (small calls):** the verdict also appears if the reign ends before season 10; it can be skipped; answers are stored with the save, not in the game state, so they never change play. The preset's digest is pinned and changes only with a logged line.
 - **Fixed:** the story chronicle's logged text was always "A quiet season." (off-by-one season). Changes logged text only with that switch on; the Standard digest is unchanged.
+
+## 2026-11-23 (army thread 20, stream 5)
+
+- Built "Lead the army yourself" as switch `commission`, off by default, offered beside the First island test preset and not inside it. Why: Jacob chose it as a switch to try; outside the preset his first verdict stays traceable.
+- You lead by default in the choices; the general and named men are the alternatives. Why: Diodorus has Dionysius take the field in person (14.72.1, 14.95.3).
+- Absence costs: plots +1 while away, the keeper's loyalty in your defense, armed citizens +1 to plots with a citizen in them. Being there pays: +1 in battle. Why: the sourced danger at home (14.64.3-4; Polyaenus 5.2.4) and the council's verdict V2. Sizes are invention and untuned.
+- With the switch, the generalship is friction, not a gate: passing over the elected general costs 1 citizens' mood and 1 of his opinion (council V2, "unlawful, not forbidden").
+- Parked (later.md): purposes for commands, a commander turning on you, petitions while away.
