@@ -1,5 +1,5 @@
 // Copies the portrait drawing and the tile-laying code out of the mosaic editor (tools/mosaic-editor.html) into
-// ui/mosaic-runtime.ts, so the game can lay generated portraits in tiles in the browser, exactly as the editor does.
+// ui/lib/mosaic-runtime.ts, so the game can lay generated portraits in tiles in the browser, exactly as the editor does.
 // The editor stays the one source of the art; rerun this after changing it. Safe to rerun: same input, same output.
 import { readFileSync, writeFileSync } from "node:fs";
 
@@ -31,5 +31,5 @@ ${body}
 return { renderLook, newLook, portraitDims };
 }
 `;
-writeFileSync("ui/mosaic-runtime.ts", out);
-console.log(`Wrote ui/mosaic-runtime.ts (${Math.round(out.length / 1024)} KB).`);
+writeFileSync("ui/lib/mosaic-runtime.ts", out);
+console.log(`Wrote ui/lib/mosaic-runtime.ts (${Math.round(out.length / 1024)} KB).`);
