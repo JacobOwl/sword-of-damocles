@@ -1,5 +1,5 @@
 // The season column: what happened, the council, matters and petitions before you, and your actions.
-import { DATA, capital, menu, officeName, preview, secondOptions, seasonName, openEvents } from "../../src/core/index.ts";
+import { DATA, act, capital, chooseEvent, menu, refuseRequest, officeName, preview, secondOptions, seasonName, openEvents } from "../../src/core/index.ts";
 import type { Args, GameState } from "../../src/core/index.ts";
 import { guide, guideDone } from "./help.ts";
 import { flags } from "./people.ts";
@@ -9,6 +9,8 @@ import { lastSeasonSummary, seasonFeed } from "./story.ts";
 import { esc, linkNames, opChip, pr, sign, ui, who } from "../lib/text.ts";
 import { AREA_ICON, icon } from "../components/icons.ts";
 import { vignette } from "../components/vignettes.ts";
+import * as sound from "../lib/sound.ts";
+import type { Handlers } from "../app/clicks.ts";
 
 export function seasonCol(g: GameState) {
   const season = g.over ? g.over.season : g.season;
@@ -113,3 +115,38 @@ function panel(g: GameState, i: ReturnType<typeof menu>[number]) {
     <div class="row"><button class="primary" id="do" ${pv.ok ? "" : "disabled"}>${esc(i.name)}</button><button id="cancel">Cancel</button></div>
   </div>`;
 }
+
+// ---------- Clicks on this column (registered once by the click layer, ui/app/clicks.ts) ----------
+export const seasonHandlers: Handlers = {
+  click: {
+    "[data-act]": (b, c) => {
+      const id = b.dataset.act!;
+      ui.openAction = ui.openAction === id ? null : id; ui.args = {};
+      const item = menu(c.g).find((m) => m.id === id);
+      if (item?.targets?.length === 1) ui.args.target = item.targets[0].value;
+      c.render();
+      document.querySelector(`[data-act="${id}"]`)?.scrollIntoView({ block: "nearest" });
+    },
+    "#do": (_, c) => {
+      if (!ui.openAction) return;
+      act(c.g, ui.openAction, ui.args); sound.tick(); ui.openAction = null; ui.args = {}; c.save(); c.render();
+    },
+    "#cancel": (_, c) => { ui.openAction = null; ui.args = {}; c.render(); },
+    "[data-grant]": (b, c) => {
+      const r = c.g.requests.find((x) => x.id === b.dataset.grant);
+      const ga = r && grantArgs(c.g, r);
+      if (ga) { act(c.g, ga.a, ga.args); sound.tick(); c.save(); c.render(); }
+    },
+    "[data-choose]": (b, c) => { chooseEvent(c.g, b.dataset.choose!, b.dataset.choice!); sound.tick(); c.save(); c.render(); },
+    "[data-refuse]": (b, c) => { refuseRequest(c.g, b.dataset.refuse!); c.save(); c.render(); },
+  },
+  change: {
+    "[data-arg]": (sel, c) => {
+      const k = sel.dataset.arg as keyof Args;
+      ui.args = { ...ui.args, [k]: (sel as HTMLSelectElement).value || undefined };
+      if (k === "target") ui.args.second = undefined;
+      c.render();
+      (document.getElementById(sel.id) as HTMLElement | null)?.focus();
+    },
+  },
+};

@@ -254,3 +254,6 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 
 ## 2026-11-23 (the ball-game killings, thread 07)
 - **Kept as harsh as Cicero tells, with a cost.** The coordinator decided on Jacob's "You decide". Killing both men lowers the mood of the family and of the rich families, makes plots harder through fear, and turns any living kin of the dead into Bereaved enemies. Tested in `tests/events.test.ts`.
+
+## 2026-11-23 (a proper web app, step 4: thread 17)
+- **Clicks go through one listener, set up once; each screen exports its handlers keyed by `data-` selectors.** Why: the old wiring re-attached every handler after every redraw from one function that knew every screen; now a screen's buttons and what they do sit in the same file. Behaviour is unchanged (walk-through identical).

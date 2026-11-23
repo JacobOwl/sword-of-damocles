@@ -42,7 +42,7 @@ These keep the engine portable. `tests/core-boundary.test.ts` checks the first f
 
 ## Layout
 
-Since PR #35 (steps 4 and 5) the UI is laid out like this:
+Since PR #35 the UI is laid out like this:
 
 ```
 src/core/            the rules engine
@@ -51,7 +51,8 @@ ui/
   index.html         the page shell (links the stylesheets, loads main.ts)
   main.ts            starts the app, nothing else
   app/
-    shell.ts         start screen, page frame (masthead, ledger, view buttons, foot), character-sheet dialog, clicks
+    shell.ts         starting and resuming a game, the page frame (masthead, ledger, view buttons, foot), the character-sheet dialog, the frame's clicks
+    clicks.ts        the click layer: one listener, each screen's handlers registered once
     save.ts          saving and loading (seed and inputs in the browser's storage)
   views/             screens and the big parts of screens
     play.ts          the play view: three columns, or three tabs on a phone
@@ -64,6 +65,7 @@ ui/
     island.ts        the island view
     families.ts      the families view (was ui/census.ts)
     help.ts          how to play, the first-game guide, tooltips
+    start.ts         the start screen (balance, game, seed, rule switches)
     title.ts         the title page
   components/        pieces drawn on several screens
     portraits.ts, icons.ts, figures.ts, vignettes.ts, island-art.ts (the map kit),
@@ -89,7 +91,17 @@ Where a file went (for threads with older branches; git follows the renames when
 
 A new screen goes in `views/`, a piece used on several screens in `components/`. A new stylesheet is a `<link>` in `ui/index.html`.
 
-A **view or component** is a file that exports functions `(g: GameState, ...) => string`. If it needs clicks, it also exports its handlers, for example `{ click: { "[data-grant]": (el, g) => ... } }`, which the click layer registers once. If it needs to touch the page after drawing (the census portraits are painted after render), it exports an `afterRender(g)`.
+A **view or component** is a file that exports functions `(g: GameState, ...) => string`. If it needs clicks, it also exports its handlers and the shell adds them to the `listen(...)` line at the end of `ui/app/shell.ts`:
+
+```ts
+import type { Handlers } from "../app/clicks.ts";
+export const seasonHandlers: Handlers = {
+  click: { "[data-grant]": (el, c) => { /* c.g is the game; call the engine, then */ c.save(); c.render(); } },
+  change: { "[data-arg]": (el, c) => { ... } },
+};
+```
+
+The key is a CSS selector, usually a `data-` attribute on the button. A handler gets the element and a context (`c.g`, `c.render()`, `c.save()`, `c.turn()`, `c.openSheet(id)`), so screens never import the shell. Handlers are set up once, not after every render. Today `views/season.ts` and `views/help.ts` have their own; the frame's (view buttons, tabs, names, end of season, sound, designer view, new game) are in the shell. The start screen's buttons and the character-sheet dialog still wire themselves, since they live outside the game page. If something must touch the page after drawing (the families' portraits are painted while idle), the shell calls it from `render()`.
 
 ## Migration steps
 
@@ -98,8 +110,9 @@ Each step is one small pull request that keeps `npm test`, the typecheck and `np
 1. **This document, the engine boundary test and the replay export.** No game files move. (Done, PR #26.)
 2. **Vite build.** `npm run dev` for a live-reloading page; `npm run build` still writes `ui/dist/index.html` and the fragment. The walk-through gives the same pages as the old esbuild page. (Done, PR #28.)
 3. **Split `ui/main.ts` and move the UI files** into `app/`, `views/`, `components/`, `lib/` and `styles/` (steps 4 and 5 of the first plan, done together while no other thread had UI work open). Every function moved unchanged; the walk-through (110 pages, now with a pass that turns every rule switch on) is identical. (Done, PR #35.)
-4. **One click layer.** Replace the per-render wiring in `ui/app/shell.ts` with handlers registered once, matched by `data-` attributes, each view owning its own.
-5. **Start screen as a view.** Move the start screen's HTML out of the shell into `views/`, leaving the shell only frame, dialog and clicks.
+4. **One click layer and the start screen as a view.** `ui/app/clicks.ts` replaces the wiring that ran after every render; `views/season.ts` and `views/help.ts` own their clicks; the start screen's page is `views/start.ts`. The walk-through is identical, and starting, resuming, a new game, the guide and sound were checked by hand in a browser. (Done, PR #38.)
+
+The restructure is complete. What is left is ordinary upkeep: new screens follow the layout above.
 
 ## The road to Godot
 

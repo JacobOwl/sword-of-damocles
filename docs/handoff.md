@@ -51,14 +51,15 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Rumors from Carthage are always true.** Should some be false (for example, unless you have sent an embassy lately)?
 - **Pre-existing, found while testing:** when Carthage storms Syracuse in the factions step, that season's court events stay open at the end of the game. It is harmless, but the court test only checks the simple bot in the citadel.
 
-## Built by the web-app thread (17, 2026-11-22/23), steps 1 to 3
+## Built by the web-app thread (17, 2026-11-22/23): the restructure, all four steps
 - **Step 1 (PR #26):** `docs/architecture.md`; `tests/core-boundary.test.ts` (the engine imports only itself and `data/`, no `Math.random`/`Date`/browser/Node globals, a JSON save plays on the same, bot games replay); `npm run replays` writes `dist/replays.json` for checking a later port.
 - **Step 2 (PR #28):** Vite. `npm run dev` serves the game with live reload; `npm run build` writes the same one-file page and `--fragment` for the Artifact. The game link was republished from it (version 12).
 - **Step 3 (PR #35): the new layout.** `ui/main.ts` is split into `ui/app/` (shell, save) and `ui/views/` (play, city, season, dangers, ending); the other UI files moved into `ui/views/`, `ui/components/`, `ui/lib/` and `ui/styles/`. The table of old and new paths is in `docs/architecture.md`. `ui/census.ts` is now `ui/views/families.ts`. Functions moved unchanged.
 - **`npm run walk`** (`scripts/ui-walk.mjs`): a scripted walk through the built page (fixed seed and clicks, 1280 and 390 px, both scenarios, and a pass with every rule switch on): 110 pages, identical before and after each step.
 - **Changed:** nothing in the game. **Broke:** nothing: 85 of 85 tests, typecheck clean, 100-seed run 0 crashes, 0 broken states.
 - **Noticed, not changed:** `ui/views/families.ts` imports `src/core/census.ts` directly instead of through `src/core/index.ts`.
-- **Next:** one click layer (each view owns its handlers), then the start screen as a view.
+- **Step 4 (PR #38): one click layer.** `ui/app/clicks.ts`: one listener for clicks and one for changes, set up once; `views/season.ts` and `views/help.ts` export their handlers; the start screen's page is `views/start.ts`. How to add clicks to a screen: `docs/architecture.md`.
+- **Done.** New screens follow the layout in `docs/architecture.md`.
 
 ## Built by the events thread (07, 2026-11-23): five more Cicero court stories
 - **Six new event records** (`data/events.json`, all history, card `docs/research/damocles.md`): No blade at your throat (barber, 5.58), A bed behind a trench (5.59), A voice from a tower (5.59), A joke at the ball game (5.60), A friend as pledge with its follow-up The hour of death (5.63). Each quotes the saved Latin.
