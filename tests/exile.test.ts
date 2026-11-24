@@ -3,9 +3,12 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { startGame, endSeason, act, replay, runBotGame, menu, actionNotes, SWITCHES, logDigest, PLAYER } from "../src/core/index.ts";
-import { maybeExile, returnOdds, huntForecast, exileView } from "../src/core/exile.ts";
+import { maybeExile, returnOdds, huntForecast, exileView, words } from "../src/core/exile.ts";
+import { pronoun, sexOf } from "../src/core/pronouns.ts";
+import { fill } from "../src/core/events.ts";
 import { brokenState } from "../scripts/sim-check.ts";
 import { startScreen } from "../ui/views/start.ts";
+const exileDangersHtml = async (s: any) => (await import("../ui/views/exile.ts")).exileDangers(s);
 
 const SW = ["exile", "clues", "partialBlows", "armiesBreak"];
 const fallen = (seed = 4) => startGame(seed, "reapWhatYouSow", { scenario: "island", switches: [...SW, "exileStart"] });
@@ -112,12 +115,13 @@ test("a plot's blow becomes an exile when the switch is on", () => {
 
 test("100 bot games with the switch: no crash, no broken state, replays exactly, and exiles end in more than one way", () => {
   const ends = new Set<string>();
-  let exiles = 0;
+  let exiles = 0, struck = 0;
   for (let seed = 1; seed <= 100; seed++) {
     const opts = { scenario: "island" as const, switches: [...SW, ...(seed % 3 === 0 ? ["exileStart"] : [])] };
     const s = runBotGame(seed, { tuning: "reapWhatYouSow", ...opts });
     assert.deepEqual(brokenState(s), [], `seed ${seed}`);
     for (const h of s.exile?.history ?? []) { exiles++; ends.add(h.end ?? "open"); }
+    struck += s.counters.exileHunts ?? 0;
     if (seed % 10 === 0) { // the simple bot draws from the game's own dice, so replay a careful bot's game instead
       const c = runBotGame(seed, { bot: "careful", tuning: "reapWhatYouSow", ...opts });
       assert.equal(logDigest(replay(seed, c.inputs, "reapWhatYouSow", opts)), logDigest(c), `seed ${seed} replays`);
@@ -126,6 +130,7 @@ test("100 bot games with the switch: no crash, no broken state, replays exactly,
   }
   assert.ok(exiles > 30, `${exiles} exiles`);
   assert.ok(ends.has("returned") && ends.size >= 2, [...ends].join(", "));
+  assert.ok(struck > 0, "the hunt strikes in some games");
 });
 
 test("the exile screens read without code ids", async () => {
@@ -137,4 +142,28 @@ test("the exile screens read without code ids", async () => {
   assert.ok(!ids.test(html.replace(/<[^>]+>/g, " ")), "no ids");
   assert.ok(!/undefined|NaN/.test(html));
   assert.ok(exileView(s).agenda.length >= 5);
+});
+
+test("lying low sets a hunt back three times at most; after that only moving, guards or a safer refuge help", async () => {
+  const s = fallen(9);
+  const x = s.exile!;
+  x.hunt = { stage: 3, since: s.season, named: s.season - 1 };
+  for (let i = 0; i < 3; i++) { x.hunt!.stage = 3; s.slots = 3; act(s, "exLieLow", {}); assert.equal(x.hunt?.stage, 2, `hide ${i + 1}`); }
+  x.hunt!.stage = 3; s.slots = 3; act(s, "exLieLow", {});
+  assert.equal(x.hunt?.stage, 3, "the fourth hide does nothing");
+  assert.ok(s.log.some((e) => /learned your habits/.test(e.text)));
+  assert.match(await exileDangersHtml(s), /Lying low no longer throws them off/);
+});
+
+test("he or she: the cast's women and the census families read right; men are unchanged", () => {
+  const s = startGame(3, undefined, { scenario: "island" });
+  assert.equal(sexOf(s, "aristomache"), "f");
+  assert.equal(sexOf(s, "leptines"), "m");
+  assert.equal(pronoun(s, "aristomache", "His"), "Her");
+  assert.equal(fill(s, "you blamed {his:rich} house", { rich: "aristomache" }), "you blamed her house");
+  assert.equal(fill(s, "you blamed {his:rich} house", { rich: "hipparinus" }), "you blamed his house");
+  const woman = Object.values(s.census!.people).find((p) => p.sex === "f")!;
+  assert.equal(pronoun(s, `census:${woman.id}`, "him"), "her");
+  const f = fallen();
+  assert.equal(words(f, "{he:ruler} rules"), "he rules");
 });

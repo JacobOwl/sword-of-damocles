@@ -339,6 +339,7 @@
   },
   {
    "id": "theste",
+   "sex": "f",
    "kind": "history",
    "name": "Theste",
    "faction": "family",
@@ -518,6 +519,7 @@
   },
   {
    "id": "doris",
+   "sex": "f",
    "kind": "history",
    "name": "Doris",
    "faction": "family",
@@ -712,6 +714,7 @@
   },
   {
    "id": "aristomache",
+   "sex": "f",
    "kind": "history",
    "name": "Aristomache",
    "faction": "rich",
@@ -1169,6 +1172,7 @@
   },
   {
    "id": "hermocratesDaughter",
+   "sex": "f",
    "kind": "history",
    "name": "the daughter of Hermocrates",
    "faction": "family",

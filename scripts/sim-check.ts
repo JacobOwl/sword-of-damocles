@@ -27,7 +27,7 @@ export function brokenState(s: GameState): string[] {
     num(c.silver, 0, 999, "Carthage silver"); num(c.mercs, 0, 99, "Carthage mercs"); num(c.levy, 0, 99, "Carthage levy");
     for (const b of Object.values(c.blocs)) { num(b.power, 0, 10, `${b.id} power`); num(b.mood, 0, 4, `${b.id} mood`); }
     if (s.census) bad.push(...censusProblems(s.census, s.over?.season ?? s.season).map((x) => `census: ${x}`));
-    if (s.island.cities.syracuse.side !== "syracuse" && s.over?.reason !== "fallen" && !s.exile?.active) bad.push("Syracuse changed hands but the game went on");
+    if (s.island.cities.syracuse.side !== "syracuse" && s.over?.reason !== "fallen" && !s.exile?.active && !(s.over && s.exile?.end && s.exile.end !== "returned")) bad.push // a game that ended in exile ends with the city in other hands("Syracuse changed hands but the game went on");
   }
   // Switch "council": each seat holds one living man, no man holds two seats.
   if (s.council) {

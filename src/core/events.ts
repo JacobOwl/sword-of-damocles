@@ -2,6 +2,7 @@
 // Every event, its trigger, its people and its choices live in data/events.json. This file only reads them:
 // it checks the conditions, casts the people, shows the odds, and applies the effects through ops.ts,
 // so every change is logged with its reason like any other move.
+import { isPronoun, pronoun } from "./pronouns.ts";
 import { REPLACED_EVENTS } from "./works.ts";
 import { DATA } from "./data.ts";
 import { nextRandom, pick } from "./rng.ts";
@@ -230,7 +231,8 @@ function castRoles(s: GameState, def: EventDef, given: Record<string, string> = 
 
 // {role} is the person's name; {Role} the same, capitalised for the start of a sentence.
 export function fill(s: GameState, text: string, cast: Record<string, string>): string {
-  return text.replace(/\{([A-Za-z]+)\}/g, (m, key: string) => {
+  return text.replace(/\{([A-Za-z]+)(?::([A-Za-z]+))?\}/g, (m, key: string, of?: string) => {
+    if (of && isPronoun(key)) { const who = cast[of] ?? (of === "ruler" && s.exile?.active ? s.exile.ruler.id : undefined); return pronoun(s, who, key); } // {his:rich}: his or her
     const k = key.charAt(0).toLowerCase() + key.slice(1);
     const id = cast[k];
     if (!id && s.exile?.active && (k === "ruler" || k === "refuge")) { const v = k === "ruler" ? rulerName(s) : refugeName(s); return key[0] === key[0].toUpperCase() ? capital(v) : v; } // switch "exile"

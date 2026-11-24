@@ -65,5 +65,5 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Phase 3?, thread 27] Carthage's chronicle could name the suffetes from the real lists if any survive for the 4th century BC. Not checked; probably none do.
 - [Phase 3, exile] Rival exiles: other banished men at the same refuge who want the city for themselves, and the ruler's own exiles once you come home (thread 28).
 - [Phase 3, exile] Your feud records follow you into exile and back: enemies who betrayed you to the ruler, and the ruler as a nemesis after you return (thread 28).
-- [Phase 2, exile] A `gender` field on people, so texts can say he or she; the exile texts avoid pronouns for now (thread 28).
+- [Built as `sex` in the data plus `{his:role}` in texts, thread 28] A `gender` field on people, so texts can say he or she. Still to do: audit the event texts that say "his" for a role a woman could fill (thread 28).
 - [Phase 3, exile] Exile as a starting character (the "rich exile" above) on the long map, with the fall's history carried in (thread 28).

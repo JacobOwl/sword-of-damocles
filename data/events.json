@@ -667,7 +667,7 @@
       "effects": [ { "grain": -1, "why": "the fire burned the granaries" } ],
       "choices": [
         { "id": "rebuild", "label": "Pay to rebuild", "cost": { "silver": 2 }, "effects": [ { "mood": "citizens", "by": 1 } ] },
-        { "id": "blame", "label": "Blame {rich}'s slaves, and fine the house", "needs": ["rich"], "effects": [ { "silver": 1 }, { "opinion": "rich", "by": -2 }, { "grudge": "rich", "reason": "you blamed his house for the fire" }, { "mood": "citizens", "by": 1 } ] },
+        { "id": "blame", "label": "Blame {rich}'s slaves, and fine the house", "needs": ["rich"], "effects": [ { "silver": 1 }, { "opinion": "rich", "by": -2 }, { "grudge": "rich", "reason": "you blamed {his:rich} house for the fire" }, { "mood": "citizens", "by": 1 } ] },
         { "id": "nothing", "label": "Let them rebuild themselves", "default": true, "effects": [ { "mood": "citizens", "by": -1 } ] }
       ]
     },

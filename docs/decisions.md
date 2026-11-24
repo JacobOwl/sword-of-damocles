@@ -367,3 +367,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (taste calls delegated by Jacob, all numbers in `data/exile.json`):** the strike bands, the refuges and their prices, the ruler's order of acts, the hunt's pace, Entella as the Campanians' town, and Carthage's council as an invented patron. Switches may now name the switches they `require`. The Workshop can offer a switch without ticking it (`__WORKSHOP_OFFER`).
 - **Small shared changes:** actions can be marked `exile` (shown only while you are in exile, and the usual actions hidden then). Event roles can ask for `where`, `kinInCity`, `usurper` and `sworn`. The sim prints an exile line when the switch is on. With the switch off the digests are unchanged.
 - **Open:** a gender field for people, and whether the hunt should be harsher (both in `docs/handoff.md`).
+
+## 2026-11-24 (exile follow-up: pronouns and the hunt, thread 28)
+- **Decided (taste calls delegated by Jacob):** people get a sex in the data (`"sex": "f"` on the cast's four women; census people already had one). Texts can use `{his:role}`, `{he:role}`, `{him:role}` and `{himself:role}`. No state change and no rule change. The fire grudge now says "her house" for Aristomache.
+- **Changed (exile switch only):** lying low sets a hunt back three times at most, and moving after you are Named drops the hunt a step instead of ending it. The exile bot reacts only when a strike could kill. 100 games: 45 hunts struck, killing 15 times.
+- **Re-pinned:** Standard digest 47fe46af89063851 and preset digest a13b4b4e66093c27, for the "her house" wording only (checked by a log diff of 30 games). The frozen test link was not rebuilt.

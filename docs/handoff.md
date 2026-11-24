@@ -23,7 +23,8 @@ Only these two need Jacob. Every other question below defaults to what the game 
 - Tests: `tests/exile.test.ts` (10).
 
 ## Broke or odd, found by the exile thread
-- **The hunt never strikes with the bots** (248 hunts begun in 100 games, 0 strikes): the bot always moves refuge or lies low once the hunt is Named. A test drives one to Named, so the rule works, but a player will meet a strike only if they ignore three warnings. Reported as a count, not tuned.
+- **Fixed (follow-up, same day): the hunt never struck.** Lying low knocked Named back to Rumors, and the next season it climbed back to Named with a fresh season's grace, so one action a season kept you safe forever (and the bot lay low whenever it had nothing better to do). Now, with the exile switch only: lying low sets one hunt back **three times at most** (then "they have learned your habits"), and once you are Named, seeking another refuge drops them a step instead of losing them. The dangers column counts the hides you have left. The bot now reacts only when a strike could kill, and stops lying low out of habit. 100 games: 118 hunts begun, 45 struck, 18 wounded you, 15 killed you, and in the rest your guard held. With two hides it was 27 deaths, and with four it was 9. Three is the call.
+- **Fixed (follow-up): the broken-state check** flagged a game that ended in exile while Carthage held Syracuse. It now allows a game that ended in exile.
 - **The city's own revolt against the ruler** fires almost never (0 in 100 games).
 - **The default "simple" bot can't replay from its inputs** because it draws from the game's own dice. This is old and known (see `tests/commission.test.ts`). The exile test replays careful-bot games instead, and 30 of 30 replay exactly.
 
@@ -34,8 +35,7 @@ Only these two need Jacob. Every other question below defaults to what the game 
 - Begin fallen: the revolt of 404 succeeds, and the cavalry leader from Aetna rules. In the sources it failed.
 
 ## Questions from the exile thread
-- People have no pronoun field, so the exile texts avoid he and him for the ruler and followers (Aristomache or Theste can be either). Should people get a `gender` field? It would also fix the "his house" grudge line above.
-- Should the ruler hunt harder, so a careless player meets a strike? The rule exists; the bots never let it fall.
+- **Done (follow-up, Jacob delegated it): he or she.** `data/people.json` now marks the cast's four women with `"sex": "f"` (Theste, Doris, Aristomache, the daughter of Hermocrates). A missing field means a man, and census people already had a sex. `src/core/pronouns.ts` reads these; game saves are unchanged. Event texts can now write `{his:rich}`, `{he:ruler}` and so on, and get "her" or "she" when the person is a woman. The fire grudge now says "her house" for Aristomache, which fixes the line above. Standard and preset digests were re-pinned for that wording only (a log diff of 30 games shows no other change). Other texts that say "his" for a role a woman could fill have not been audited yet. The exile texts still avoid pronouns, which reads fine.
 
 ## Fixed by the test-build thread (19, 2026-11-23): games replayed differently in the browser and in Node
 - Found in the review walk-through: a game copied from the browser and replayed with `npm run replay-save` went its own way from about season 7. Cause: the people step drew a die inside a sort comparator (`src/core/ai.ts`), and Chromium's sort makes a different number of comparisons than Node's. Scores are now drawn once per person, then sorted.
@@ -53,7 +53,7 @@ Only these two need Jacob. Every other question below defaults to what the game 
 - **Counts** (200 island games, simple and careful bots): about 10 lines and 150 words a year; a quarter of years hold only routine lines (trade, ships, tribute); 9% of years know fewer than two suffetes' names, and say so. 12 of the 94 rules never fired with these two bots (they need other bots or switches: the herald, Himilcon's death after a lost army, your sack of a Punic town, abdication).
 
 ## Broke or odd, found by the Carthage's-chronicle thread
-- `Aristomache holds a grudge: you blamed his house for the fire.` Aristomache is a woman (Dionysius' wife); the fire event's grudge line says "his". Seed 7, careful bot, island. Not fixed here (it is the test build's wording).
+- Fixed by thread 28: `Aristomache holds a grudge: you blamed his house for the fire.` now says "her house" (pronoun field; the frozen test link keeps the old wording).
 - In seed 26 (careful, island) the Achradina temple event fires in Autumn 397, a season after Magon's army lifted the siege (its army was still at Syracuse). Probably fine; noted in case it reads oddly in play.
 
 ## Taste calls settled by the Carthage's-chronicle thread (Jacob delegated them, 2026-11-24)
