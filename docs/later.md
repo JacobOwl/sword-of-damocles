@@ -61,3 +61,6 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Source request] An English translation of Diodorus 15.6 (Oldfather, Loeb), to check the game's own rendering of the Greek now saved in `sources/diodorus/book15-6.greek.txt`. LacusCurtius, book 15: https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Diodorus_Siculus/15A*.html (blocked from the cloud). (Thread 24; the Philoxenus moment is built.)
 - [Source request] Did women recline at the tyrant's dinners? Nothing in the saved texts says either way. (Thread 24.)
 - [Phase 2?, grain-and-sea thread 26, 2026-11-23] A source on who ran Syracuse's grain trade under the tyrants (merchants, shipowners, contracts). The saved texts don't say; the contractors in switch `convoys` are invention. Jacob may know or save a modern study.
+- [Phase 4, Carthage's-chronicle thread 27, 2026-11-24] Biased historians as rule sets, built the way Carthage's chronicle is (each kind of log line kept, dropped or coloured per voice, footnotes kept). Paper sample in `docs/playtests/2026-11-23-voices.md`. Recommended form (thread 27's taste call): two historians side by side at the end of a game.
+- [Phase 3?, thread 27] Carthage's chronicle could name the suffetes from the real lists if any survive for the 4th century BC. Not checked; probably none do.
+

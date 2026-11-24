@@ -23,7 +23,7 @@ import { listen, type Ctx, type Handlers } from "./clicks.ts";
 import { seasonHandlers } from "../views/season.ts";
 import { helpHandlers } from "../views/help.ts";
 import { ending } from "../views/ending.ts";
-import { extraViews, extraHandlers } from "./extras.ts";
+import { extrasFor, extraHandlers } from "./extras.ts";
 import { exileLedger, inExile } from "../views/exile.ts";
 
 const app = document.getElementById("app")!;
@@ -64,8 +64,8 @@ let endedSound = false;
 export function render() {
   const g = ui.s;
   if (!g) return splash();
-  const views: [typeof ui.view, string][] = [["play", "The season"], ...(g.island ? [["island", "The island"] as [typeof ui.view, string]] : []), ["court", "The court"], ...(g.census ? [["families", "The families"] as [typeof ui.view, string]] : []), ...(switchOn(g, "greatWorks") ? [["works", "The works"] as [typeof ui.view, string]] : []), ["chronicle", "The chronicle"], ...extraViews.map((x) => [x.id, x.label] as [typeof ui.view, string]), ["help", "How to play"]];
-  const extra = extraViews.find((x) => x.id === ui.view);
+  const views: [typeof ui.view, string][] = [["play", "The season"], ...(g.island ? [["island", "The island"] as [typeof ui.view, string]] : []), ["court", "The court"], ...(g.census ? [["families", "The families"] as [typeof ui.view, string]] : []), ...(switchOn(g, "greatWorks") ? [["works", "The works"] as [typeof ui.view, string]] : []), ["chronicle", "The chronicle"], ...extrasFor(g).map((x) => [x.id, x.label] as [typeof ui.view, string]), ["help", "How to play"]];
+  const extra = extrasFor(g).find((x) => x.id === ui.view);
   let body = "";
   const due = verdictDue(g);
   if (ui.view === "play" && due) body = verdictView(g);
@@ -81,7 +81,7 @@ export function render() {
     ${masthead(g)}
     <nav class="views" aria-label="Views">${views.map(([k, l]) => `<button type="button" data-view="${k}" class="${ui.view === k ? "on" : ""}" ${ui.view === k ? 'aria-current="page"' : ""}>${l}</button>`).join("")}</nav>
     ${inExile(g) ? exileLedger(g) : ledger(g)}
-    ${g.over && !(due && ui.view === "play") ? ending(g) + extraViews.map((x) => x.onEnding?.(g) ?? "").join("") : ""}
+    ${g.over && !(due && ui.view === "play") ? ending(g) + extrasFor(g).map((x) => x.onEnding?.(g) ?? "").join("") : ""}
     ${body}
     <div class="foot small">
       <label><input type="checkbox" id="designer" ${ui.designer ? "checked" : ""}> Designer view: show the moves you can't see in play</label>
