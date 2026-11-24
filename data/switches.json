@@ -92,6 +92,7 @@
     },
     {
       "id": "dinners",
+      "workshop": true,
       "kind": "invention",
       "name": "Dinners as the stage",
       "summary": "A new action, Give a dinner. You choose who reclines on the couch beside yours, two to four other guests, and how strong the wine is mixed. The couch of honour adds to its holder's standing, and the man who held it before may take it badly. Each part of the evening can bring a moment from the guests themselves: two men become friends, two fall out, a plotter lets slip a name, a story about someone else comes out, or you say too much about a man who is not there. Some moments put a choice to you. Friends from your table plot together more easily; men who quarrelled there never do.",
@@ -107,6 +108,7 @@
     },
     {
       "id": "convoys",
+      "workshop": true,
       "kind": "invention",
       "name": "Grain and the sea",
       "summary": "Island game only. Grain crosses the sea as convoys you can follow on the map. Grain you buy abroad, the fleet's winter grain and your allies' surplus sail to Syracuse and land a season later; you can send grain to your army if it stands on the coast. Each convoy is run by a contractor from one of the rich houses, who may skim it (it lands short, and he blames the sea), or at war, if the rich are angry, sell it to Carthage. You can audit his books, at the price of the rich families' goodwill. Winter storms sink or delay ships. At war, an enemy fleet catches a convoy on 5 or more, harder if your warships escort it. Carthage feeds its army and pays its mercenaries by sea too: catch its grain and its army goes hungry, catch its pay and its mercenaries desert.",
