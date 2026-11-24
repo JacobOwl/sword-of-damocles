@@ -10,6 +10,8 @@ import { switchById } from "../src/core/index.ts";
 
 addView({ id: "grain", label: "Grain and the sea", render: grainView });
 installTips();
+// "convoys" is a Workshop switch (hidden at the test link); this page offers it, and tick() below checks it.
+(globalThis as { __WORKSHOP_OFFER?: string[] }).__WORKSHOP_OFFER = ["convoys"];
 
 // Tick the switch on the start screen whenever it is drawn: beside the recommended setup, and in the custom list.
 function tick() {
@@ -17,6 +19,8 @@ function tick() {
   if (!app) return;
   const custom = app.querySelector<HTMLInputElement>('input.switch[value="convoys"]');
   if (custom && !custom.dataset.grain) { custom.checked = true; custom.dataset.grain = "1"; }
+  const extra = app.querySelector<HTMLInputElement>('input.extra[value="convoys"]');
+  if (extra && !extra.dataset.grain) { extra.checked = true; extra.dataset.grain = "1"; }
   const card = app.querySelector<HTMLElement>(".setups label.setup");
   if (card && !app.querySelector('input.extra[value="convoys"]')) {
     const w = switchById("convoys")!;

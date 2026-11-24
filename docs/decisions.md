@@ -372,3 +372,9 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (taste calls delegated by Jacob):** people get a sex in the data (`"sex": "f"` on the cast's four women; census people already had one). Texts can use `{his:role}`, `{he:role}`, `{him:role}` and `{himself:role}`. No state change and no rule change. The fire grudge now says "her house" for Aristomache.
 - **Changed (exile switch only):** lying low sets a hunt back three times at most, and moving after you are Named drops the hunt a step instead of ending it. The exile bot reacts only when a strike could kill. 100 games: 45 hunts struck, killing 15 times.
 - **Re-pinned:** Standard digest 47fe46af89063851 and preset digest a13b4b4e66093c27, for the "her house" wording only (checked by a log diff of 30 games). The frozen test link was not rebuilt.
+
+## 2026-11-24 (test-build freeze, stream 8, thread 19)
+- **Done:** the first island test build is republished at the test link (artifact 8KqQzj6x3QrXRjQKzVZNK4, version 19), built from main after PR #61. Checks on that main: 167 tests pass; 100 seeds Standard and 100 on the preset, 0 crashes, 0 broken. The preset's 100-seed summary is the same as at the review (no bet leaked into it).
+- **Decided (small call):** "Dinners as the stage" and "Grain and the sea" are now marked Workshop switches, so the test link shows only the test's rules, as the two-day plan says. Their Workshop pages offer them ticked as before (checked in Chromium).
+- **Changed:** `docs/handoff.md` now keeps only what is open; what each thread built moved word for word to `docs/handoff-archive.md` (checked line by line: nothing lost). Three open questions that sat inside built notes are listed together.
+- **Open:** publish nothing to the test link until Jacob reports on his game.
