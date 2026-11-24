@@ -1,0 +1,196 @@
+{
+  "note": "Scenario switch \"exile\" (Fallen, not finished; off by default; island games only; on the Workshop page, never the test link). When you lose Syracuse (deposed, driven out by a plot, or the city taken by Carthage) the game does not end: you flee to a refuge with a few loyal men, and plot your way back while someone else rules. The patterns come from Diodorus (Hermocrates' failed return, 13.63 and 13.75; the exiles at Aetna, 14.7 to 14.9; Dion's return, 16.6 to 16.10), quoted in docs/research/exile.md. Every rule and number here is invention.",
+  "kind": "invention",
+  "knobs": {
+    "maxFollowers": 4,
+    "startMen": 1,
+    "carryShare": 3,
+    "maxMen": 6,
+    "freeMen": 2,
+    "upkeepPer": 2,
+    "maxNotice": 6,
+    "noticeFade": 1,
+    "huntNotice": 3,
+    "huntMen": 4,
+    "huntPace": 2,
+    "huntBase": 2,
+    "huntLoud": 5,
+    "woundMargin": 2,
+    "startHold": 2,
+    "maxHold": 3,
+    "returnNeed": 4,
+    "repulsedFrom": 2,
+    "captureMargin": 2,
+    "maxMenOnReturn": 3,
+    "maxSworn": 3,
+        "armsBonus": 2,
+    "awayBonus": 2,
+    "invitedBonus": 3,
+    "crossing": -1,
+    "expected": 4,
+    "termsAfter": 2,
+    "fieldEvery": 4,
+    "purgeNeed": 5,
+    "honourEvery": 8
+  },
+  "falls": ["deposed", "exiled", "fallen", "fled"],
+  "fallTo": {
+    "fallen": ["rhegium", "messana", "leontini", "catana", "campanians"],
+    "default": ["aetna", "leontini", "messana", "catana", "campanians", "rhegium"]
+  },
+  "refuges": [
+    { "id": "aetna", "kind": "invention", "node": "aetna", "name": "Aetna", "short": "Aetna", "safety": 3, "recruits": 1, "hirePrice": 1, "crossing": 0, "moveCost": 0, "fade": 1,
+      "summary": "A mountain fort two days from Syracuse, hard to reach and hard to take. Diodorus calls it \"an exceptionally strong fortress\" (14.58.2). Open to you only while it is free.", "needs": ["free"] },
+    { "id": "leontini", "kind": "invention", "node": "leontini", "name": "Leontini", "short": "Leontini", "safety": 1, "recruits": 1, "hirePrice": 1, "crossing": 0, "moveCost": 0, "fade": 1,
+      "summary": "A free town a short march from Syracuse: close enough to strike from, close enough to be found.", "needs": ["free"] },
+    { "id": "catana", "kind": "invention", "node": "catana", "name": "Catana", "short": "Catana", "safety": 1, "recruits": 1, "hirePrice": 1, "crossing": 0, "moveCost": 0, "fade": 1,
+      "summary": "A free town on the coast below Aetna.", "needs": ["free"] },
+    { "id": "messana", "kind": "invention", "node": "messana", "name": "Messana", "short": "Messana", "safety": 2, "recruits": 1, "hirePrice": 1, "crossing": 0, "moveCost": 0, "fade": 1,
+      "summary": "The town on the straits, where Hermocrates built ships and hired men for his return (Diodorus 13.63.2).", "needs": ["free"] },
+    { "id": "rhegium", "kind": "invention", "name": "Rhegium, across the strait", "short": "Rhegium", "safety": 2, "recruits": 1, "hirePrice": 1, "crossing": -1, "moveCost": 1, "fade": 2,
+      "summary": "A Greek city in Italy, off the map. Safe from the ruler's men and quick to forget you, but a strike from there means a crossing that warns the city.", "needs": [] },
+    { "id": "campanians", "kind": "invention", "name": "Entella, among the Campanians", "short": "Entella", "safety": 2, "recruits": 2, "hirePrice": 1, "crossing": 0, "moveCost": 0, "fade": 1,
+      "summary": "Off the map, in Carthage's country. Polyxenus' advice in 404 was to ride \"into the domain of the Carthaginians to the Campanians\" (Diodorus 14.8.5), and Campanians dwelt at Entella (14.61.5). Horsemen for hire, cheaply, but the citizens think less of a man who runs to Carthage's hirelings. Only while Syracuse is at peace with Carthage.", "needs": ["peace"], "onArrive": { "citizens": -1 } }
+  ],
+  "patrons": [
+    { "id": "sparta", "kind": "invention", "name": "Sparta", "silver": 2, "men": 1, "longing": {}, "promise": "Sparta will want ships and men from Syracuse when you rule again.",
+      "text": "Sparta sends silver and a captain with a company. It wants a friendly tyrant in Syracuse, as when it sent Aristus \"with intent to increase the power of the tyranny\" (Diodorus 14.10.2).", "needs": [] },
+    { "id": "persia", "kind": "invention", "name": "a Persian satrap", "silver": 3, "men": 0, "longing": {}, "promise": "",
+      "text": "A Persian satrap's agent pays you a great sum, as Pharnabazus paid Hermocrates in his exile (Diodorus 13.63.2). He asks nothing yet.", "needs": [] },
+    { "id": "carthage", "kind": "invention", "name": "Carthage's council", "silver": 2, "men": 2, "longing": { "citizens": -1, "rich": -1 }, "promise": "You promised Carthage peace. When you rule again its anger falls, and the city remembers whose silver brought you home.",
+      "text": "Carthage's council pays you silver and lends you hired men, for a promise of peace. Word of it reaches Syracuse.", "needs": ["notCarthage"] }
+  ],
+  "rulerActs": [
+    { "id": "hunt", "kind": "invention", "name": "Hunt the exile", "text": "{Ruler} offers a reward for your head, as the rebels did against you in 404 (Diodorus 14.8.3), and sends men to find you.", "why": "the ruler hears too much of you: your letters, your hired men, your friends" },
+    { "id": "purge", "kind": "invention", "name": "Purge the exile's friends", "text": "{Ruler} has {friend} seized. Your letters were found.", "why": "{ruler} searched the houses of men who still speak well of you" },
+    { "id": "court", "kind": "invention", "name": "Court an angry faction", "text": "{Ruler} courts {faction} with gifts from the treasury.", "why": "they are {mood} with the ruler, who needs them" },
+    { "id": "field", "kind": "invention", "name": "Take the field", "text": "{Ruler} marches out against Carthage's army and leaves the Island to the captains.", "why": "Syracuse is at war, and a ruler who will not fight loses the army" },
+    { "id": "terms", "kind": "invention", "name": "Offer the exile terms", "text": "{Ruler} sends envoys to you at {refuge} with terms.", "why": "better to have you home and harmless than abroad and plotting, as Dionysius offered the exiles at Aetna (Diodorus 14.9.6)" },
+    { "id": "tighten", "kind": "invention", "name": "Tighten the grip on the city", "text": "{Ruler} puts trusted men in the Island and the dockyards.", "why": "a new ruler secures the strong places first" },
+    { "id": "games", "kind": "invention", "name": "Feed the people", "text": "{Ruler} gives the people grain and games.", "why": "nothing more pressing, and the citizens' goodwill is cheap at the price" }
+  ],
+  "hunt": [
+    "Whispers: a stranger at {refuge} asks which house the Syracusan lodges in.",
+    "Rumors: men from Syracuse drink in the taverns of {refuge}, and pay too well for news of you.",
+    "Named: your hosts at {refuge} name {ruler}'s men, and say they mean to strike soon."
+  ],
+  "texts": {
+    "fall": "You are not finished. You flee to {refuge} with {followers}. You carry {silver} of silver, and {men} follow you. {Ruler} holds Syracuse now.",
+    "fallAlone": "You are not finished. You flee to {refuge} alone, with {silver} of silver and {men}. {Ruler} holds Syracuse now.",
+    "move": "You leave {from} for {refuge}.",
+    "returned": "You come home. {how} Syracuse is yours again.",
+    "rulerTaken": "{Ruler} is taken alive in the citadel.",
+    "rulerFled": "{Ruler} escapes over the walls.",
+    "carthageOut": "The Carthaginian garrison is driven out of the Island.",
+    "thrownBack": "You are thrown back from the walls. Your hired men scatter, and the city has seen you fail.",
+    "killed": "You fall in the market place, as Hermocrates did when he tried to come home in 408 (Diodorus 13.75.8). {Ruler} rules Syracuse.",
+    "huntKilled": "Assassins sent by {ruler} find you at {refuge}. The exile ends, and so do you.",
+    "huntWounded": "Assassins sent by {ruler} find you at {refuge}. You live, wounded{shield}.",
+    "huntFailed": "Assassins sent by {ruler} come for you at {refuge}, and your men take them. {Ruler}'s name is on their lips.",
+    "decade": "The decade ends with you still in exile at {refuge}. {Ruler} holds Syracuse.",
+    "settled": "You go home to Syracuse as a private man, on {ruler}'s word. You live, and someone else rules.",
+    "toCarthage": "Carthage takes Syracuse from {ruler}. A Carthaginian garrison holds the Island now.",
+    "revolt": "Syracuse rises against {old}. {Ruler} rules the city now.",
+    "wavering": "{Name} grows quiet in exile, and asks what terms the city gives to men who come home.",
+    "deserts": "{Name} slips away from {refuge} to make peace with {ruler}, and tells what is known of you.",
+    "upkeepShort": "Your hired men go unpaid, and a company drifts away.",
+    "startFallen": "The revolt of 404 comes early, and succeeds. The army that rose at Herbessus and the cavalry from Aetna take the Island, and the leader of the exiles rules Syracuse. You take Polyxenus' advice and ride for the Campanians at Entella on your swiftest horse."
+  },
+  "startFallen": { "kind": "invention", "ruler": "cavalryLeader", "refuge": "campanians", "reason": "deposed",
+    "note": "Switch \"Begin fallen\": the game opens in exile. In the sources the revolt of 404 failed: the Campanians came, and Dionysius held the Island (Diodorus 14.8 to 14.9). Here it succeeds. Invention." },
+  "pacing": { "kind": "invention", "draws": 1, "secondChance": 0.25, "maxOpen": 2 },
+  "events": [
+    {
+      "id": "exileTerms", "kind": "history", "art": "letter", "name": "Terms from the city", "chained": true,
+      "source": "Diodorus 14.9.6 to 14.9.8", "card": "docs/research/exile.md",
+      "roles": { "ruler": { "usurper": true } },
+      "text": "{Ruler}'s envoys come to {refuge}. Come home as a private man, they say, with a pledged word that you will be borne no enmity. Some of those with you have wives and children in the city.",
+      "why": "Dionysius made the same offer to the exiles at Aetna in 404; those who had wives and children in the city took it, and the rest stayed \"watching for an opportunity against him\" (Diodorus 14.9.6 to 14.9.8)",
+      "choices": [
+        { "id": "accept", "label": "Accept, and go home a private man", "effects": [ { "xEnd": "settled" } ] },
+        { "id": "refuse", "label": "Refuse, and pray the gods grant him the same favour", "default": true, "history": true,
+          "text": "You send the envoys home with a curse. Those of your people with families in the city take the offer without you.",
+          "effects": [ { "xFollowersHome": "kin" }, { "xLonging": "family", "by": 1, "why": "you would not crawl home" } ] }
+      ]
+    },
+    {
+      "id": "exileSendFor", "kind": "history", "art": "letter", "name": "Your friends send for you", "chained": true,
+      "source": "Diodorus 13.75.6 to 13.75.7", "card": "docs/research/exile.md",
+      "text": "A rider comes to {refuge}: the city is up against {ruler}, and your friends inside will hold a gate for you if you come now.",
+      "why": "Hermocrates' friends sent for him, and he came by night \"to the place agreed upon\" (Diodorus 13.75.6)",
+      "choices": [
+        { "id": "come", "label": "Promise to come this season", "effects": [ { "xFlag": "invited" } ] },
+        { "id": "wait", "label": "Wait for a surer moment", "default": true, "effects": [ { "say": "The rider goes back with no promise." } ] }
+      ]
+    },
+    {
+      "id": "exileReportedDead", "kind": "history", "art": "hearth", "name": "Reported dead", "chained": true,
+      "source": "Diodorus 13.75.9", "card": "docs/research/exile.md",
+      "roles": { "kin": { "status": "outside", "where": "exile", "faction": "family" } },
+      "text": "After the failed attack, {kin} would give out that you died of your wounds. Hermocrates' men did the same for the wounded Dionysius in 408, \"in order that they might not be given over to the wrath of the multitude.\"",
+      "why": "a wounded exile is safer dead in the city's eyes",
+      "choices": [
+        { "id": "dead", "label": "Let them say you are dead", "effects": [ { "xNotice": -6 }, { "xHuntEnd": true }, { "xLonging": "citizens", "by": -1, "why": "they mourn you, and forget you" }, { "xBlock": 1 } ] },
+        { "id": "alive", "label": "Show yourself alive", "default": true, "effects": [ { "xLonging": "family", "by": 1, "why": "you came through it" } ] }
+      ]
+    },
+    {
+      "id": "exileHomesick", "kind": "invention", "art": "hearth", "name": "A follower asks leave to go home",
+      "weight": 2, "cooldown": 6,
+      "when": { "exile": { "since": { "min": 2 } } },
+      "roles": { "man": { "status": "outside", "where": "exile", "kinInCity": true } },
+      "text": "{Man} has kin in Syracuse, and asks leave to go home to them under the city's amnesty.",
+      "why": "exile is long, and family waits in the city",
+      "choices": [
+        { "id": "bless", "label": "Let {man} go, and ask for word from inside", "effects": [ { "xFollowerHome": "man", "sworn": true } ] },
+        { "id": "keep", "label": "Ask {man} to stay", "default": true, "effects": [ { "opinion": "man", "by": -1, "why": "you kept a follower from family" } ] }
+      ]
+    },
+    {
+      "id": "exilePay", "kind": "invention", "art": "arms", "name": "The hired men want pay",
+      "weight": 3, "cooldown": 4,
+      "when": { "exile": { "men": { "min": 3 }, "silver": { "max": 0 } } },
+      "text": "The captains of your hired companies come to you together. They were promised pay, and there is none.",
+      "why": "hired men follow silver",
+      "choices": [
+        { "id": "plunder", "label": "Promise them the plunder of the tyrant's house", "effects": [ { "xNotice": 1, "why": "the promise is shouted in every tavern" } ] },
+        { "id": "release", "label": "Let a company go", "default": true, "effects": [ { "xMen": -1 } ] }
+      ]
+    },
+    {
+      "id": "exileCaptain", "kind": "invention", "art": "arms", "name": "A captain offers his company",
+      "weight": 2, "cooldown": 6,
+      "when": { "exile": { "silver": { "min": 2 }, "men": { "max": 4 } } },
+      "text": "A captain of hired men, out of work since the peace, offers his company to you at {refuge} for two talents.",
+      "why": "word has spread that you are hiring",
+      "choices": [
+        { "id": "hire", "label": "Hire the company", "effects": [ { "xPurse": -2 }, { "xMen": 2 }, { "xNotice": 1 } ] },
+        { "id": "decline", "label": "Send him away", "default": true, "effects": [ { "say": "The captain takes his men elsewhere." } ] }
+      ]
+    },
+    {
+      "id": "exileEnvoy", "kind": "invention", "art": "letter", "name": "A Carthaginian at the door",
+      "weight": 1, "cooldown": 8,
+      "when": { "exile": { "rulerKind": ["person", "assembly"] } },
+      "text": "A Carthaginian merchant calls at your lodging in {refuge}. His masters, he says, would rather see you in Syracuse than {ruler}. He has silver with him.",
+      "why": "Carthage plays one Greek against another",
+      "choices": [
+        { "id": "take", "label": "Take the silver", "effects": [ { "xPurse": 2 }, { "xLonging": "citizens", "by": -1, "why": "word gets out that you took Carthage's silver" }, { "xNotice": 1 } ] },
+        { "id": "refuse", "label": "Show him the door", "default": true, "effects": [ { "say": "The merchant bows and leaves." } ] }
+      ]
+    },
+    {
+      "id": "exileBones", "kind": "history", "art": "hearth", "name": "The unburied dead",
+      "source": "Diodorus 13.75.2 to 13.75.5", "card": "docs/research/exile.md",
+      "weight": 2, "once": true,
+      "when": { "exile": { "since": { "min": 1 }, "silver": { "min": 1 } }, "island": { "war": true } },
+      "text": "Syracusans who fell fighting Carthage lie unburied on the field, and {ruler} has done nothing for them. You could have their bones gathered and carried to the city with honour.",
+      "why": "Hermocrates in exile sent the bones of the dead of Himera to Syracuse, so that his enemy \"should fall out with the masses\" (Diodorus 13.75.4)",
+      "choices": [
+        { "id": "honour", "label": "Gather the bones and send them home", "history": true,
+          "effects": [ { "xPurse": -1 }, { "xLonging": "citizens", "by": 1, "why": "you honoured the city's dead" }, { "xRulerMood": "citizens", "by": -1, "why": "the city quarrels over the burial" }, { "xNotice": 2 } ] },
+        { "id": "leave", "label": "Leave the dead to the city", "default": true, "effects": [ { "say": "The bones lie where they fell." } ] }
+      ]
+    }
+  ]
+}

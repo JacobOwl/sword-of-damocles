@@ -38,6 +38,9 @@ export { CONVOYS, LANDINGS, convoysOn, atSea, pastConvoys, contractors, contract
 // Switch "greatWorks" (bet B4).
 export { WORKS, workById, labourById, workOf, activeWorks, workDone, seasonCost, seasonsNeeded, overseerName, timberFrom, timberById, worksOn } from "./works.ts";
 export type { Work, WorkDef, WorksState } from "./works.ts";
+// Switch "exile" (Fallen, not finished; bet B7).
+export { exileView, inExile, exileOn, companies, talents, refugeDef, rulerName, returnOdds, huntForecast, EXILE } from "./exile.ts";
+export type { ExileState } from "./exile.ts";
 // Switch "carthageChronicle" (bet B6): the decade told from Carthage's side, read from the log.
 export { carthageBook, logLine, numberWords } from "./carthage-chronicle.ts";
 export type { PunicBook, PunicYear, PunicSeason, PunicLine } from "./carthage-chronicle.ts";

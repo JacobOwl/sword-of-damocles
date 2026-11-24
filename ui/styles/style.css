@@ -392,3 +392,8 @@ table.cities thead th { font-family: var(--display); font-weight: 400; color: va
 .now-danger { border-left-color: var(--blood); }
 .now-warn { border-left-color: var(--gold); }
 .now-calm { border-left-color: var(--olive); }
+
+/* Switch "exile" (Fallen, not finished): the city's factions toward you and toward the ruler. */
+.exile-moods { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: .92em; }
+.exile-moods th, .exile-moods td { text-align: left; padding: 3px 6px 3px 0; border-bottom: 1px solid var(--rule, rgba(60, 40, 20, .18)); vertical-align: top; }
+.exile-moods thead th { font-weight: normal; font-size: .85em; opacity: .75; }

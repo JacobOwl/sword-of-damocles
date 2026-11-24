@@ -27,7 +27,7 @@ export function brokenState(s: GameState): string[] {
     num(c.silver, 0, 999, "Carthage silver"); num(c.mercs, 0, 99, "Carthage mercs"); num(c.levy, 0, 99, "Carthage levy");
     for (const b of Object.values(c.blocs)) { num(b.power, 0, 10, `${b.id} power`); num(b.mood, 0, 4, `${b.id} mood`); }
     if (s.census) bad.push(...censusProblems(s.census, s.over?.season ?? s.season).map((x) => `census: ${x}`));
-    if (s.island.cities.syracuse.side !== "syracuse" && s.over?.reason !== "fallen") bad.push("Syracuse changed hands but the game went on");
+    if (s.island.cities.syracuse.side !== "syracuse" && s.over?.reason !== "fallen" && !s.exile?.active) bad.push("Syracuse changed hands but the game went on");
   }
   // Switch "council": each seat holds one living man, no man holds two seats.
   if (s.council) {
@@ -42,6 +42,19 @@ export function brokenState(s: GameState): string[] {
     if (x.tpl !== "none" && !x.text) bad.push(`secret ${x.id} has no words`);
   }
   if (s.requests.some((r) => r.blackmail && !s.secrets?.list.some((x) => x.id === r.blackmail))) bad.push("blackmail with no secret");
+  // Switch "exile": your purse and men in range, followers outside with you, a ruler in the city, no office of yours.
+  const x = s.exile;
+  if (x) {
+    num(x.silver, 0, 999, "exile purse"); num(x.men, 0, 6, "exile men"); num(x.notice, 0, 6, "exile notice");
+    for (const id of Object.keys(x.moods)) num((x.moods as any)[id], 0, 4, `${id} mood toward the ruler`);
+    if (x.active) {
+      if (s.over) bad.push(`the game ended (${s.over.reason}) with the exile still open`);
+      for (const id of x.followers) if (s.people[id]?.status !== "outside" || s.people[id].where !== "exile") bad.push(`follower ${id} is not with you`);
+      if (Object.values(s.offices).includes("dionysius")) bad.push("you hold an office in exile");
+      if (x.ruler.kind === "person" && s.people[x.ruler.id!]?.status !== "free" && x.ruler.since === s.season) bad.push("the new ruler is not in the city");
+      if (x.hunt) num(x.hunt.stage, 1, 3, "hunt stage");
+    }
+  }
   return bad;
 }
 

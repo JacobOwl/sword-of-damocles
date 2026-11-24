@@ -14,7 +14,7 @@ import rivalsJson from "../../data/rivals.json" with { type: "json" };
 export interface TraitDef { id: string; name: string; actor?: Record<string, number>; target?: Record<string, number>; note?: string }
 export interface ActionDef {
   id: string; area: string; name: string; cost: string; roll: string; success: string; failure?: string;
-  ruler?: boolean; reach?: boolean; slots?: number; aiOnly?: boolean; scenario?: "citadel" | "island"; switch?: string;
+  ruler?: boolean; reach?: boolean; slots?: number; aiOnly?: boolean; scenario?: "citadel" | "island"; switch?: string; exile?: boolean; // exile: offered only while you are in exile (switch "exile"), and then only these
 }
 export interface AgendaDef { id: string; name: string; owner: string; steps: string[]; completes: string; grantedBy?: string; wants?: string; againstRuler?: boolean }
 export interface LawDef {

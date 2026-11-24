@@ -289,6 +289,7 @@ const careless: Bot = {
 };
 
 import { IMPL } from "./actions.ts";
+import { exileChoices, inExile } from "./exile.ts";
 const menuTargets = (s: GameState, a: string) => IMPL[a]?.target?.(s)?.map((o) => o.value);
 const secondTargets = (s: GameState, a: string, args: Args) => IMPL[a]?.second?.(s, args).map((o) => o.value) ?? [];
 
@@ -301,7 +302,7 @@ export function playSeason(s: GameState, bot: Bot, r: () => number) {
   const tried = new Set<string>();
   while (s.slots > 0 && !s.over && guard++ < 12) {
     let done = false;
-    for (const c of bot.choices(s, r)) {
+    for (const c of (inExile(s) ? exileChoices(s) : bot.choices(s, r)) as ReturnType<Bot["choices"]>) { // switch "exile": every bot plays the same exile list
       const key = `${c.a}:${c.args?.target ?? ""}:${c.args?.second ?? ""}:${c.args?.option ?? ""}`;
       if (tried.has(key) && !["buyGrain", "build"].includes(c.a)) continue;
       const pv = preview(s, c.a, c.args ?? {});

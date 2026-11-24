@@ -19,6 +19,8 @@ import {
 } from "./island-events.ts";
 import type { CensusRole, IslandCond, PlaceCond, PunicRole } from "./island-events.ts";
 import { applyDinnerEffect, describeDinnerEffect } from "./dinner.ts";
+import { applyExileEffect, checkExileCond, describeExileEffect, fitsExileRole, inExile, maybeExile, rulerName, refugeName, scoreExileEffect } from "./exile.ts";
+import type { ExileCond } from "./exile.ts";
 import type { EventInstance, EventsState, FactionId, GameState, Mod, OfficeId, Person } from "./types.ts";
 import { OFFICES } from "./types.ts";
 
@@ -40,6 +42,7 @@ export interface Cond {
   any?: Cond[];
   island?: IslandCond; // cities, armies and Carthage (island games only; see island-events.ts)
   switchOn?: string; switchOff?: string; // an optional rule switch (data/switches.json) is on, or off
+  exile?: ExileCond; // switch "exile": you are in exile, and how it stands (see exile.ts)
 }
 export interface RoleCond {
   id?: string | string[];
@@ -65,6 +68,8 @@ export interface RoleCond {
   // A part played by one of the generated cast or one of Carthage's named men (island games only).
   census?: CensusRole["census"]; of?: string; n?: number;
   punic?: PunicRole["punic"]; punicStatus?: string[];
+  // Switch "exile": with you in exile, has kin in the city, rules Syracuse now, sworn to you inside.
+  where?: string; kinInCity?: boolean; usurper?: boolean; sworn?: boolean;
 }
 export interface Effect { [k: string]: any }
 export interface RollDef {
@@ -93,11 +98,15 @@ export interface EventDef {
 import eventsJson from "../../data/events.json" with { type: "json" };
 import islandEventsJson from "../../data/island-events.json" with { type: "json" };
 import dinnersJson from "../../data/dinners.json" with { type: "json" };
+import exileJson from "../../data/exile.json" with { type: "json" };
 export const COURT_EVENTS = (eventsJson as any).events as EventDef[];
 export const ISLAND_EVENTS = ((islandEventsJson as any).events as EventDef[]).map((e) => ({ ...e, scenario: "island" as const }));
 // Switch "dinners": the matters a dinner can put before you. All chained, so they never come by chance.
 export const DINNER_EVENTS = (dinnersJson as any).asks as EventDef[];
-export const EVENTS = [...COURT_EVENTS, ...ISLAND_EVENTS, ...DINNER_EVENTS];
+// Switch "exile": the matters of an exile, drawn only while you are in exile (all island games).
+export const EXILE_EVENTS = ((exileJson as any).events as EventDef[]).map((e) => ({ ...e, scenario: "island" as const }));
+export const EXILE_PACING = (exileJson as any).pacing as { draws: number; secondChance: number; maxOpen: number };
+export const EVENTS = [...COURT_EVENTS, ...ISLAND_EVENTS, ...DINNER_EVENTS, ...EXILE_EVENTS];
 export const PACING = (eventsJson as any).pacing as { draws: number; secondChance: number; maxOpen: number; cooldown: number };
 export const ISLAND_PACING = (islandEventsJson as any).pacing as { draws: number; secondChance: number; maxOpen: number };
 export const RUMORS = (islandEventsJson as any).rumors as { falseShare: number; clueAfter: number };
@@ -145,6 +154,7 @@ export function checkCond(s: GameState, c: Cond | undefined): boolean {
   if (c.island && !checkIslandCond(s, c.island)) return false;
   if (c.switchOn && !on(s, c.switchOn)) return false;
   if (c.switchOff && on(s, c.switchOff)) return false;
+  if (c.exile && !checkExileCond(s, c.exile)) return false;
   return true;
 }
 
@@ -172,6 +182,7 @@ export function fitsRole(s: GameState, p: Person, r: RoleCond, cast: Record<stri
   if (r.married !== undefined && p.married !== r.married) return false;
   if (r.bound !== undefined && p.bound !== r.bound) return false;
   if (r.owedFavor !== undefined && p.owedFavor !== r.owedFavor) return false;
+  if ((r.where !== undefined || r.kinInCity !== undefined || r.usurper !== undefined || r.sworn !== undefined) && !fitsExileRole(s, p, r)) return false;
   if (r.leader !== undefined) {
     const f = factionOf(s, p.id);
     if ((!!f && leaderOf(s, f)?.id === p.id) !== r.leader) return false;
@@ -222,6 +233,7 @@ export function fill(s: GameState, text: string, cast: Record<string, string>): 
   return text.replace(/\{([A-Za-z]+)\}/g, (m, key: string) => {
     const k = key.charAt(0).toLowerCase() + key.slice(1);
     const id = cast[k];
+    if (!id && s.exile?.active && (k === "ruler" || k === "refuge")) { const v = k === "ruler" ? rulerName(s) : refugeName(s); return key[0] === key[0].toUpperCase() ? capital(v) : v; } // switch "exile"
     if (!id) return m;
     const n = partName(s, id);
     return key[0] === key[0].toUpperCase() ? capital(n) : n;
@@ -301,6 +313,8 @@ export function describe(s: GameState, inst: EventInstance, effects: Effect[]): 
     if (isl !== null) { out.push(isl); continue; }
     const din = describeDinnerEffect(s, inst.roles, e);
     if (din !== null) { out.push(din); continue; }
+    const exi = describeExileEffect(s, inst.roles, e);
+    if (exi !== null) { if (exi) out.push(exi); continue; }
     if (e.silver) out.push(`Silver ${sgn(e.silver)}`);
     else if (e.grain) out.push(`Grain ${sgn(e.grain)} months`);
     else if (e.land) out.push(`Land ${sgn(e.land)}`);
@@ -382,6 +396,19 @@ export function fireNow(s: GameState, id: string, roles: Record<string, string>)
   if (!cast) return false;
   fire(s, def, cast, def.why);
   return true;
+}
+
+// Switch "exile": in exile, only the follow-ups and the exile's own matters come before you.
+export function drawExileEvents(s: GameState) {
+  const ev = eventsState(s);
+  for (const q of ev.queue.filter((x) => x.season <= s.season)) {
+    ev.queue.splice(ev.queue.indexOf(q), 1);
+    const def = eventById(q.id);
+    if (!def || !EXILE_EVENTS.includes(def as any) || !checkCond(s, def.when)) continue;
+    const cast = castRoles(s, def, q.roles);
+    if (cast) fire(s, def, cast, def.why);
+  }
+  if (inExile(s)) drawFrom(s, EXILE_EVENTS, EXILE_PACING.draws, EXILE_PACING.secondChance, EXILE_PACING.maxOpen);
 }
 
 // Called once a season, at the end of the people step.
@@ -491,6 +518,7 @@ export function apply(s: GameState, inst: EventInstance, effects: Effect[], why:
     const reason = e.why ? fill(s, e.why, inst.roles) : why;
     if (applyIslandEffect(s, inst.roles, e, reason)) continue;
     if (applyDinnerEffect(s, inst.roles, e, reason)) continue;
+    if (applyExileEffect(s, inst.roles, e, reason)) continue;
     if (e.silver) silver(s, e.silver, reason);
     else if (e.grain) grain(s, e.grain, reason);
     else if (e.land) land(s, e.land, reason);
@@ -569,6 +597,7 @@ export function apply(s: GameState, inst: EventInstance, effects: Effect[], why:
     else if (e.end) {
       s.over = { reason: e.end, text: fill(s, e.text ?? "Your rule ends.", inst.roles), season: s.season };
       event(s, PLAYER, s.over.text, reason);
+      if (maybeExile(s)) return; // switch "exile": you fled, and the game goes on in exile
     }
     else if (e.say) event(s, "world", fill(s, e.say, inst.roles), reason);
   }
@@ -582,6 +611,7 @@ function scoreEffects(s: GameState, inst: EventInstance, es: Effect[]): number {
   let v = 0;
   for (const e of es) {
     v += scoreIslandEffect(s, inst.roles, e);
+    v += scoreExileEffect(s, e);
     for (const k of Object.keys(VAL)) if (typeof e[k] === "number") v += VAL[k] * e[k];
     if (e.mood) v += e.by * (s.factions[e.mood as FactionId].mood <= 1 ? 2 : 1.2);
     if (e.power) v += e.power === "family" ? e.by * 0.5 : -e.by * 0.3;

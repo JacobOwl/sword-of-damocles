@@ -7,6 +7,36 @@ Only these two need Jacob. Every other question below defaults to what the game 
 1. **When will you play the first island test?** Recommended: one sitting before Wednesday morning, the "First island test" preset, judged at season 10.
 2. **Should you be able to lead the army yourself, or send a named man?** Recommended: yes, as a switch you can try, off by default.
 
+## Built by the exile thread (28, 2026-11-24): Workshop bet B7, "Fallen, not finished" (switch, off by default)
+- **Switch `exile`, "Fallen, not finished"** (`workshop: true`, island only), and **`exileStart`, "Begin fallen"** (needs `exile`; switches can now name `requires`). A fall (deposed, exiled by a plot, or the city lost) becomes an exile instead of the end. A kill still ends the game, and so does a decade spent in exile. With the switch off nothing changes: the default and preset digests are untouched, and the test link never shows it.
+- **Engine:** `src/core/exile.ts`, with content in `data/exile.json`. In exile the game state is the city under its new ruler. Your purse, men, followers, sworn friends and each faction's mood toward the ruler live in `s.exile`. The usual faction mood now means how much a faction longs for you.
+  - **Refuges:** Aetna; Leontini, Catana and Messana, if they are free; Rhegium across the strait; Entella among the Campanians. Each has a safety rating, men for hire and a price.
+  - **Patrons:** Sparta, a Persian satrap and Carthage's council.
+  - **Ten exile actions:** write to a faction, spread word against the ruler, hire men, buy arms for the citizens, raid Carthage's lands, win a friend inside, lie low, seek a patron, move refuge, and strike for Syracuse.
+  - **The ruler's own list, one act a season, shown in order:** hunt you, purge your friends, court a faction, take the field, offer terms, tighten the grip, feed the people.
+  - **The hunt:** it warns three times (Whispers, Rumors, Named) before it can strike, and its kill and wound odds are on screen.
+  - **Strike for Syracuse:** one die plus modifiers. On 4+ you take the city back with your offices and followers. On 2 or 3 you are thrown back and lose half your men. On 1 or less you are killed in the streets. All three chances show before you commit.
+  - **Eight events:** four from the sources (terms from the city, your friends send for you, reported dead, the unburied dead) and four invented.
+- **Screens:** `ui/views/exile.ts`. The ledger shows your purse, men, notice, the ruler's grip and your odds. The city column shows your followers, your friends inside, a table of each faction's mood toward you and toward the ruler, and the ruler's next acts and past acts. The dangers column shows the hunt and the strike odds, and the "In exile:" line names what presses. Workshop page `ui/exile.html` + `ui/exile-main.ts` (`npm run build -- --page exile`), published as `exile.html`. It ticks the exile switch and offers Begin fallen.
+- **Card:** `docs/research/exile.md`. It covers Hermocrates at the Achradina gate (Diodorus 13.63, 13.75), the Aetna exiles and the revolt of 404 (14.7 to 14.10), and Dion's return (16.6 to 16.10). Every quote was checked against the saved Loeb files.
+- **Counts** (100 seeds, simple bot, island, exile on): 0 crashes, 0 broken states, 108 falls became exiles, 150 strikes (82 came home, 54 thrown back, 14 killed), and 12 decades ended in exile. The bots ran: 400 games, 0 crashes. Exiles last from 1 to 12+ seasons. `npm run sim` prints an exile line when the switch is on.
+- Tests: `tests/exile.test.ts` (10).
+
+## Broke or odd, found by the exile thread
+- **The hunt never strikes with the bots** (248 hunts begun in 100 games, 0 strikes): the bot always moves refuge or lies low once the hunt is Named. A test drives one to Named, so the rule works, but a player will meet a strike only if they ignore three warnings. Reported as a count, not tuned.
+- **The city's own revolt against the ruler** fires almost never (0 in 100 games).
+- **The default "simple" bot can't replay from its inputs** because it draws from the game's own dice. This is old and known (see `tests/commission.test.ts`). The exile test replays careful-bot games instead, and 30 of 30 replay exactly.
+
+## Taste calls settled by the exile thread (Jacob delegated them; each is a number in `data/exile.json`)
+- The strike's three bands (4+, 2 to 3, 1 or less). Hired men count half, at most +3. A faction rises for you only if it longs for you (Content or better) and is Angry or worse with the ruler (Dion, 16.9.3).
+- The Campanians are named "Entella, among the Campanians" (14.61.5). Polyxenus pointed Dionysius to the Campanians in 404 (14.8.5); the town is a guess from a later passage, and the card says so.
+- Carthage's council as a patron is invention built on Polyxenus' advice. Its price is Carthage's goodwill toward the city once you rule.
+- Begin fallen: the revolt of 404 succeeds, and the cavalry leader from Aetna rules. In the sources it failed.
+
+## Questions from the exile thread
+- People have no pronoun field, so the exile texts avoid he and him for the ruler and followers (Aristomache or Theste can be either). Should people get a `gender` field? It would also fix the "his house" grudge line above.
+- Should the ruler hunt harder, so a careless player meets a strike? The rule exists; the bots never let it fall.
+
 ## Fixed by the test-build thread (19, 2026-11-23): games replayed differently in the browser and in Node
 - Found in the review walk-through: a game copied from the browser and replayed with `npm run replay-save` went its own way from about season 7. Cause: the people step drew a die inside a sort comparator (`src/core/ai.ts`), and Chromium's sort makes a different number of comparisons than Node's. Scores are now drawn once per person, then sorted.
 - `tests/determinism.test.ts` swaps every sort for a different one and checks that games play the same; it fails on the old code. Checked by hand too: three full preset games give the same log, step by step, in Chromium and in Node.

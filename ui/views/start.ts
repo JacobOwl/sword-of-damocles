@@ -8,7 +8,8 @@ import { titlePage } from "./title.ts";
 // Workshop switches (the bets of docs/council/2026-11-23-two-day-plan.md) show only on a Workshop build, ticked
 // beside each preset: a Workshop page's entry file sets them (ui/works-main.ts). The test link never shows them.
 const workshopIds = (): string[] => (globalThis as any).__WORKSHOP ?? [];
-const shown = (w: { id: string; workshop?: boolean }) => !w.workshop || workshopIds().includes(w.id);
+const offered = (): string[] => (globalThis as any).__WORKSHOP_OFFER ?? []; // shown on a Workshop page, but left unticked
+const shown = (w: { id: string; workshop?: boolean }) => !w.workshop || workshopIds().includes(w.id) || offered().includes(w.id);
 
 // One plain line naming what a preset turns on.
 export function presetRules(p: PresetDef) {
@@ -17,7 +18,7 @@ export function presetRules(p: PresetDef) {
 }
 
 // Switches a thread marks "besidePreset" are offered as unticked boxes beside a preset, not inside it.
-const extras = () => SWITCHES.filter((w) => ((w as { besidePreset?: boolean }).besidePreset && shown(w)) || workshopIds().includes(w.id));
+const extras = () => SWITCHES.filter((w) => ((w as { besidePreset?: boolean }).besidePreset && shown(w)) || workshopIds().includes(w.id) || offered().includes(w.id));
 
 function presetCard(p: PresetDef, checked: boolean) {
   const ex = extras().filter((w) => !p.switches.includes(w.id));
