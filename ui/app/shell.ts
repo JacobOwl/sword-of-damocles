@@ -24,6 +24,7 @@ import { seasonHandlers } from "../views/season.ts";
 import { helpHandlers } from "../views/help.ts";
 import { ending } from "../views/ending.ts";
 import { extraViews, extraHandlers } from "./extras.ts";
+import { exileLedger, inExile } from "../views/exile.ts";
 
 const app = document.getElementById("app")!;
 
@@ -79,7 +80,7 @@ export function render() {
   app.innerHTML = `
     ${masthead(g)}
     <nav class="views" aria-label="Views">${views.map(([k, l]) => `<button type="button" data-view="${k}" class="${ui.view === k ? "on" : ""}" ${ui.view === k ? 'aria-current="page"' : ""}>${l}</button>`).join("")}</nav>
-    ${ledger(g)}
+    ${inExile(g) ? exileLedger(g) : ledger(g)}
     ${g.over && !(due && ui.view === "play") ? ending(g) + extraViews.map((x) => x.onEnding?.(g) ?? "").join("") : ""}
     ${body}
     <div class="foot small">

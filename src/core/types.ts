@@ -52,7 +52,7 @@ export interface Person {
   asks?: Record<string, { stage: number; last: number }>; // switch "escalation": how far each petition has gone
   pastRivalries?: number; // switch "escalation": times he was your rival before
   feud?: Feud; // switch "feud": his one record with you, never deleted
-  where?: "field"; // switch "commission": away with the army (missing = in the city, or wherever his status says)
+  where?: "field" | "exile"; // switch "commission": away with the army; switch "exile": with you in exile (missing = in the city, or wherever his status says)
 }
 
 // Switch "feud" (design council V6): one dated record per person with you.
@@ -297,4 +297,5 @@ export interface GameState {
   convoys?: ConvoyState; // switch "convoys": grain and silver at sea, and the contractors who run your convoys
   dinners?: import("./dinner.ts").DinnerState; // switch "dinners"
   works?: import("./works.ts").WorksState; // switch "greatWorks"
+  exile?: import("./exile.ts").ExileState; // switch "exile": your exile, while it lasts, and the record of it after
 }

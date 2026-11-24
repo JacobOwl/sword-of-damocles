@@ -24,6 +24,7 @@ import { councilBrief, councilSeasonEnd } from "./council.ts";
 import { campaignCheck } from "./commission.ts";
 import { convoysArrive, convoysOn, convoysSail } from "./convoys.ts";
 import { worksSeason } from "./works.ts";
+import { beginFallen, exileBeginSeason, exileDecadeEnd, exileEndSeason, exileOn, inExile, maybeExile } from "./exile.ts";
 
 // ---------- World ----------
 function worldStep(s: GameState) {
@@ -297,6 +298,7 @@ export function partialBlow(s: GameState, pl: Plot, margin: number): boolean {
 
 // ---------- The public API ----------
 export function beginSeason(s: GameState) {
+  if (inExile(s)) { exileBeginSeason(s); if (s.over) finish(s); return; } // switch "exile": a season in exile
   worldStep(s);
   if (s.over) return finish(s);
   s.step = "people";
@@ -319,6 +321,7 @@ export function beginSeason(s: GameState) {
 export function endSeason(s: GameState) {
   if (s.step !== "player" || s.over) return;
   s.inputs.push({ t: "end" });
+  if (inExile(s)) { settleEvents(s); if (!s.over) exileEndSeason(s); finish(s); return; } // switch "exile"
   settleEvents(s); // events you left unanswered take their default choice
   for (const r of s.requests.slice()) refuse(s, r.id, true);
   if (s.campaign) campaignCheck(s); // switch "commission": the homecoming, before the plots are weighed
@@ -330,11 +333,12 @@ export function endSeason(s: GameState) {
 
 function finish(s: GameState) {
   s.step = "chronicle";
+  if (s.over) maybeExile(s); // switch "exile": a fall becomes an exile, and the game goes on
   writeChronicle(s);
   if (s.over) return;
   s.season += 1;
   if (s.season >= DATA.start.seasons) {
-    s.over = { reason: "survived", text: "The decade ends, and you still hold Syracuse.", season: s.season - 1 };
+    s.over = inExile(s) ? exileDecadeEnd(s) : { reason: "survived", text: "The decade ends, and you still hold Syracuse.", season: s.season - 1 };
     return;
   }
   beginSeason(s);
@@ -342,6 +346,7 @@ function finish(s: GameState) {
 
 export function startGame(seed: number, tuning?: string, opts: GameOpts = {}): GameState {
   const s = newGame(seed, tuning, opts);
+  if (exileOn(s) && on(s, "exileStart")) beginFallen(s); // switch "exileStart": the game opens in exile
   beginSeason(s);
   return s;
 }

@@ -491,6 +491,7 @@ export function updatePolitical(s: GameState) {
 
 import { menu, perform, preview, refuse as refuseRequest } from "./actions.ts";
 import type { Args } from "./types.ts";
+import { exileChoices, inExile } from "./exile.ts";
 
 export function botTurn(s: GameState) {
   let guard = 0;
@@ -505,6 +506,7 @@ export function botTurn(s: GameState) {
 }
 
 function botChoices(s: GameState): { a: string; args: Args }[] {
+  if (inExile(s)) return exileChoices(s); // switch "exile": the exile's own priority list
   const out: { a: string; args: Args }[] = [];
   const push = (a: string, args: Args = {}) => out.push({ a, args });
   const free = others(s).filter((p) => p.status === "free");
