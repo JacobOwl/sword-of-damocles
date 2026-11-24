@@ -93,7 +93,7 @@ export function showSeasonCard(g: GameState) {
   el.innerHTML = `<div class="sc-inner">
     <div class="tesserae" aria-hidden="true"></div>
     ${icon("sword", "sc-sword")}
-    <p class="sc-kicker">Year ${year} of your rule · season ${g.season + 1} of ${DATA.start.seasons}</p>
+    <p class="sc-kicker">Year ${year} of ${g.exile?.active ? "the decade, in exile" : "your rule"} · season ${g.season + 1} of ${DATA.start.seasons}</p>
     <h2 class="sc-season">${esc(kind)}</h2>
     <p class="sc-year">${esc(rest.join(" "))}</p>
     ${g.season % 4 === 0 && dy ? `<p class="sc-diod">${esc(dy.text)} <span class="cite">(${esc(dy.cite)})</span></p>` : ""}
