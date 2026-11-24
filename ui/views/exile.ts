@@ -84,7 +84,7 @@ export function exileDangers(g: GameState) {
       <div class="plottrack" aria-label="Warnings passed: ${h.stage} of 3">${track}</div>
       <div class="small">${f.ready ? `<b class="warn">They can strike at the end of this season.</b>` : h.stage < 3 ? `They grow closer each season while the ruler hears 2 or more of you.` : "They can strike from next season."}</div>
       <div class="small">If they strike, they roll one die with ${mods(f.theirs)}, and must beat your guard of ${f.guard} (${mods(f.yours)}). You die: ${pct(f.kill)}. You are wounded: ${pct(f.wound)}${f.shield ? `, and ${esc(f.shield)} dies shielding you` : ""}.</div>
-      <div class="small muted">What you can do: <b>Seek another refuge</b> and they lose your trail. <b>Lie low</b> and they lose a step. Hire men to guard you.</div>
+      <div class="small muted">What you can do: ${v.hunt && h.stage >= 3 ? `<b>Seek another refuge</b> and they lose a step (they know your face now)` : `<b>Seek another refuge</b> and they lose your trail`}. ${v.hides ? `<b>Lie low</b> and they lose a step (${v.hides === 1 ? "once more" : v.hides === 2 ? "twice more" : `${v.hides} more times`} for this hunt)` : `Lying low no longer throws them off`}. Hire men to guard you.</div>
     </div>` : `<p class="small muted">No one is hunting you. While ${esc(v.ruler)} hears less than ${v.huntAt} of you, and you have fewer than four companies, no one is likely to be sent.</p>`;
   const o = v.odds;
   return `<div><h2>The hunt</h2>${hunt}</div>

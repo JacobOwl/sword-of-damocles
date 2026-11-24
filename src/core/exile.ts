@@ -7,6 +7,7 @@
 // reason; his men can hunt you, with warnings before they strike. You strike for the city when the odds are good
 // enough, and every modifier is shown first. Numbers and texts are in data/exile.json; the sourced pattern
 // (Hermocrates, the exiles at Aetna, Dion) is in docs/research/exile.md. Every rule here is invention.
+import { isPronoun, pronoun } from "./pronouns.ts";
 import exileJson from "../../data/exile.json" with { type: "json" };
 import { DATA } from "./data.ts";
 import { d6 } from "./rng.ts";
@@ -40,7 +41,7 @@ export interface ExileState {
   followers: string[]; // people who came with you (status "outside", where "exile")
   sworn: string[]; // men inside the city sworn to you
   notice: number; // how much the ruler hears of you, 0 to 6
-  hunt: { stage: number; since: number; named: number } | null; // men sent to find you; named: the season it reached Named
+  hunt: { stage: number; since: number; named: number; dodged?: number } | null; // men sent to find you; named: the season it reached Named; dodged: times lying low set it back
   arms: boolean; // arms bought for the citizens
   patrons: string[];
   promises: string[];
@@ -74,7 +75,8 @@ export function rulerName(s: GameState): string {
 // {ruler} and {Ruler}, {refuge} and {Refuge}, and any extra words, filled into a text from the data.
 export function words(s: GameState, text: string, extra: Record<string, string> = {}): string {
   const vars: Record<string, string> = { ruler: s.exile ? rulerName(s) : "", refuge: s.exile ? refugeName(s) : "", ...extra };
-  return text.replace(/\{([A-Za-z]+)\}/g, (m, key: string) => {
+  return text.replace(/\{([A-Za-z]+)(?::ruler)?\}/g, (m, key: string) => {
+    if (m.endsWith(":ruler}") && isPronoun(key)) return pronoun(s, s.exile?.ruler.id, key); // {his:ruler}: his or her
     const k = key.charAt(0).toLowerCase() + key.slice(1);
     const v = vars[k];
     if (v === undefined) return m;
@@ -484,6 +486,7 @@ function huntStrike(s: GameState) {
     if (sh) { x.followers = x.followers.filter((f) => f !== sh); setStatus(s, sh, "dead", "killed shielding you from the hunters"); }
     return;
   }
+  s.counters.exileHuntKills = (s.counters.exileHuntKills ?? 0) + 1;
   s.over = { reason: "killed", text: words(s, T().huntKilled), season: s.season, by: x.ruler.id };
   endRecord(s, "killed");
   event(s, x.ruler.id ?? "world", s.over.text, `the strike beat your guard by ${margin}`);
@@ -762,7 +765,8 @@ export const EXILE_IMPL: Record<string, Impl> = {
     run: (s) => {
       notice(s, -2, "you lie low");
       const h = ix(s).hunt;
-      if (h) { h.stage -= 1; if (h.stage <= 0) ix(s).hunt = null; else if (h.stage < 3) h.named = -1; }
+      if (h && (h.dodged ?? 0) >= K().lieLowSteps) say(s, PLAYER, words(s, T().huntKnowsHabits), `lying low has set this hunt back ${K().lieLowSteps} times already`);
+      else if (h) { h.dodged = (h.dodged ?? 0) + 1; h.stage -= 1; if (h.stage <= 0) ix(s).hunt = null; else if (h.stage < 3) h.named = -1; }
       say(s, PLAYER, `You keep to your lodging at ${refugeDef(ix(s).at).short} and see no one.`, "Lie low");
     },
   },
@@ -778,7 +782,9 @@ export const EXILE_IMPL: Record<string, Impl> = {
       if (r.moveCost) purse(s, -r.moveCost, "the crossing");
       say(s, PLAYER, `You leave ${from.name} for ${r.name}.`, "Seek another refuge");
       arrive(s, r, "Seek another refuge");
-      if (ix(s).hunt) { ix(s).hunt = null; say(s, PLAYER, "The men hunting you lose your trail.", "you moved"); }
+      const h = ix(s).hunt;
+      if (h && h.stage >= 3) { h.stage = 2; h.named = -1; say(s, PLAYER, words(s, T().huntFollows), "they had named you before you moved"); }
+      else if (h) { ix(s).hunt = null; say(s, PLAYER, "The men hunting you lose your trail.", "you moved"); }
       notice(s, -1, "you moved");
     },
   },
@@ -898,10 +904,13 @@ export function exileChoices(s: GameState): { a: string; args: Args }[] {
   const o = returnOdds(s);
   const long = s.season - x.since;
   if ((o.win >= 0.5 && o.die <= 1 / 6) || (o.win >= 0.34 && o.die === 0) || (long >= 16 && o.win >= 0.34 && o.die <= 1 / 6) || (x.flags.invited === s.season && o.win >= 0.34)) out.push({ a: "exStrike", args: {} });
-  if (x.hunt && x.hunt.stage >= 2) {
-    const r = openRefuges(s).filter((d) => d.id !== x.at && x.silver >= (d.moveCost ?? 0)).sort((a, b) => b.safety - a.safety)[0];
+  // The hunt: the bot reacts only when the killers can strike this season and could kill; a wound it risks.
+  const hf = huntForecast(s);
+  if (hf.ready && hf.kill > 0) {
+    const r = openRefuges(s).filter((d) => d.id !== x.at && x.silver >= (d.moveCost ?? 0) && d.safety > refugeDef(x.at).safety).sort((a, b) => b.safety - a.safety)[0];
     if (r) out.push({ a: "exMove", args: { target: r.id } });
-    out.push({ a: "exLieLow", args: {} });
+    if ((x.hunt!.dodged ?? 0) < K().lieLowSteps) out.push({ a: "exLieLow", args: {} });
+    else if (x.silver >= refugeDef(x.at).hirePrice && x.men < 2) out.push({ a: "exHire", args: {} });
   }
   if (x.men >= 3 && x.silver <= 1) out.push({ a: "exRaid", args: {} });
   const d = refugeDef(x.at);
@@ -918,7 +927,7 @@ export function exileChoices(s: GameState): { a: string; args: Args }[] {
     if (f) out.push({ a: "exWrite", args: { target: f } });
   }
   if (x.men >= 2) out.push({ a: "exRaid", args: {} });
-  out.push({ a: "exLieLow", args: {} });
+  if (!x.hunt) out.push({ a: "exLieLow", args: {} }); // with nothing better to do; a hunt it judged it can survive, it lets come
   return out;
 }
 
@@ -930,7 +939,7 @@ export function exileView(s: GameState) {
     refuge: def, ruler: rulerName(s), rulerKind: x.ruler.kind, rulerId: x.ruler.id, hold: x.ruler.hold, maxHold: K().maxHold,
     moods: FACTIONS.map((f) => ({ f, name: s.factions[f].name, short: s.factions[f].short, toYou: s.factions[f].mood, toRuler: x.moods[f] })),
     silver: x.silver, men: x.men, followers: x.followers, sworn: x.sworn.filter((id) => s.people[id]?.status === "free"), lost: x.sworn.filter((id) => s.people[id]?.status !== "free"),
-    notice: x.notice, maxNotice: K().maxNotice, huntAt: K().huntNotice, hunt: x.hunt, huntForecast: huntForecast(s), odds: returnOdds(s),
+    notice: x.notice, maxNotice: K().maxNotice, huntAt: K().huntNotice, hunt: x.hunt, hides: Math.max(0, K().lieLowSteps - (x.hunt?.dodged ?? 0)), huntForecast: huntForecast(s), odds: returnOdds(s),
     agenda: rulerAgenda(s), acts: x.acts.slice(-4).reverse(), since: x.since, arms: x.arms, patrons: x.patrons, promises: x.promises, tries: x.tries, wavering: x.wavering,
     upkeep: Math.ceil(Math.max(0, x.men - K().freeMen) / K().upkeepPer), away: x.away === s.season, invited: x.flags.invited === s.season,
   };
