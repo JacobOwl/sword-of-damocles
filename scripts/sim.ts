@@ -24,7 +24,7 @@ const UPTO = num("--upto", 0); // --upto 10: stop every game after ten seasons a
 export interface Summary {
   bot: string; tuning: string; switches: string[]; n: number; crashes: number; broken: number;
   seasons: number[]; ends: Record<string, number>; sum: Record<string, number>; by: Record<string, number>;
-  neverTyrant: number; tyrantEverySeason: number;
+  neverTyrant: number; tyrantEverySeason: number; worstLine?: [string, number, number];
 }
 
 function run(bot: string, tuning: string, quiet: boolean, switches: string[] = []): Summary {
@@ -58,6 +58,12 @@ function run(bot: string, tuning: string, quiet: boolean, switches: string[] = [
     const said: Record<string, number> = {};
     for (const e of s.log.filter((e) => e.kind === "chronicle")) for (const x of e.text.slice(e.text.indexOf(". ") + 2).split(/(?<=\.)\s+/)) if (x.length > 25) said[x] = (said[x] ?? 0) + 1;
     r.sum.maxSameSentence = (r.sum.maxSameSentence ?? 0) + Math.max(0, ...Object.values(said));
+    // Warn-only checks (council 2026-11-25): the visible line said most often in one game, and costs that changed nothing.
+    const seen: Record<string, number> = {};
+    for (const e of s.log) if (e.visible && (e.kind === "event" || e.kind === "warning")) seen[e.text] = (seen[e.text] ?? 0) + 1;
+    const top = Object.entries(seen).sort((a, b) => b[1] - a[1])[0];
+    r.sum.maxSameLine = (r.sum.maxSameLine ?? 0) + (top?.[1] ?? 0);
+    if (top && top[1] > (r.worstLine?.[1] ?? 0)) r.worstLine = [top[0], top[1], seed];
     const end = s.over?.reason ?? "unfinished";
     r.ends[end] = (r.ends[end] ?? 0) + 1;
     if (s.over?.by) { const nm = s.people[s.over.by]?.name ?? s.over.by; r.by[nm] = (r.by[nm] ?? 0) + 1; }
@@ -130,6 +136,10 @@ function printOne(r: Summary) {
   if (r.switches.includes("council")) console.log(`Council: accusations ${per2("councilAccusations")}, of them false ${per2("councilLies")}; false ones caught by a watch ${per2("liesCaught")}; actions taken against a falsely accused man ${per2("actedOnLies")}; counsellors overruled and offended ${per2("overruled")}; plotters put out of their seats ${per2("unseated")}.`);
   if (r.switches.includes("secrets")) console.log(`Secrets: you learned ${per2("secretsLearned")}, used holds ${per2("holdsUsed")}, exposed ${per2("secretsExposed")}, took offices with a hold ${per2("officesDemanded")}, learned of townsmen ${per2("townSecrets")}. Your own deeds made secrets ${per2("yourSecrets")}; rivals found yours ${per2("yourSecretsFound")}; blackmail demands ${per2("blackmailDemands")} (paid ${per2("blackmailPaid")}, refused ${per2("blackmailRefused")}); yours told to the city ${per2("yourSecretsExposed")}; held their tongue because you held a hold on them ${per2("deterred")}; silence bought back ${per2("silenceBought")}; blackmailers shown up ${per2("discredited")} (parting shots ${per2("partingShots")}).`);
   if (r.switches.includes("convoys")) console.log(`Grain and the sea: your convoys sent ${per2("convoysSent")}, caught by Carthage ${per2("convoysCaught")}, wrecked ${per2("convoysWrecked")}, held by storms ${per2("convoysLate")}, skimmed ${per2("convoysSkimmed")}, spoiled by the sea ${per2("convoysSpoiled")}, sold to Carthage ${per2("convoysSold")}; your army fed by sea ${per2("armiesFedBySea")}; audits ${per2("audits")} (cheats caught ${per2("auditsCaught")}). Carthage's convoys ${per2("carthageConvoys")}, caught by you ${per2("carthageConvoysCaught")}; its army fed by sea ${per2("carthageFedBySea")}; its mercenaries unpaid ${per2("carthageUnpaid")}. Armies hungry after a catch ${per2("starvedByCatch")}.`);
+  // Warnings only: these never fail the run and nothing is tuned to them.
+  const rep = r.n ? r.sum.maxSameLine / r.n : 0;
+  console.log(`Repetition (warn only): the line said most often averages ${rep.toFixed(1)} times a game${r.worstLine ? `; worst, ${r.worstLine[1]} times in seed ${r.worstLine[2]}: "${r.worstLine[0].slice(0, 90)}"` : ""}.${rep > 15 ? " WARNING: more than 15." : ""}`);
+  console.log(`Costs that changed nothing (warn only): a faction already Rebellious asked to sour further ${per2("floorHits")}.${(r.sum.floorHits ?? 0) / Math.max(1, r.n) > 10 ? " WARNING: more than 10 a game; look for an action whose cost no longer bites." : ""}`);
   console.log(`Who ended your rule: ${Object.entries(r.by).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${v}`).join(", ") || "no one"}.`);
 }
 

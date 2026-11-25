@@ -57,6 +57,8 @@ export function mood(s: GameState, f: FactionId, d: number, why: string, visible
   const fa = s.factions[f];
   const before = fa.mood;
   fa.mood = Math.max(0, Math.min(4, fa.mood + d));
+  // Counted for the headless runs: a cost that changed nothing (council 2026-11-25). Changes no rule.
+  if (d < 0 && before === 0) s.counters.floorHits = (s.counters.floorHits ?? 0) + 1;
   if (fa.mood !== before) change(s, f, `${capital(fa.short)} ${fa.mood > before ? "warm" : "sour"} to ${moodName(fa.mood)}.`, why, visible);
   // At the bottom a faction can sour no further. Say what that costs instead, once a year (council 2026-11-25).
   else if (d < 0 && before === 0 && visible && (s.flags[`floor_${f}`] === undefined || s.season - s.flags[`floor_${f}`] >= 4)) {

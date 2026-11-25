@@ -12,6 +12,13 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 Record: `docs/council/2026-11-25-solium-infernum.md`. Advice only; nothing built. All of it waits for Jacob's game and the switch sort.
 - **Questions for Jacob:** quarrels with terms (public demand or slight, then a quarrel with an aim and a deadline)? force against a citizen costs more without a charge? factions quarrel with each other, each with a named chief enemy? Each recommended as a switch, off by default.
 
+## Built after the council (thread 31, 2026-11-25, Jacob: "Do all the changes")
+- PRs #67 (bug fixes), #69 (quieter exile warnings, varied wording through `src/core/vary.ts` and `data/wordings.json`, no dice) and #70 (switches `purseDry` and `variedOpening`, Workshop, off by default, plus a line when a Rebellious faction can sour no further). Digests re-pinned for wording or that line only, each time checked by a 60-game log diff.
+- **Your save from tomorrow replays on commit 26744da** (same code as the frozen build), not on main. See `docs/playtests/first-island-test-debrief-plan.md`.
+- `npm run sim` now prints two warn-only lines: the most repeated line, and "costs that changed nothing" (a Rebellious faction asked to sour further). On the default run the second already warns (11 a game). That's the loophole family the council named, and it's reported, not tuned. `npm run verify-quotes` checks every data file's quotes against the saved texts (415, 0 missing).
+- Old branches: `docs/branch-list.md`. All 32 are merged work, and none would delete anything. Nothing was deleted.
+- Not done: the leading sentences of varied lines are still in code; the Workshop artifact was not republished with the two new switches.
+
 ## Council after the 1,000 games (thread 31, 2026-11-25)
 Record: `docs/council/2026-11-25-after-the-thousand.md`. Advice only; nothing built. Jacob plays the frozen test link on Thu 2026-11-26.
 - **Before he plays:** change nothing on the test link; tell him the two wording bugs he may meet (the wound reason line at a margin of 3-4, "Meanwhile, After"); don't show him the preset's danger numbers until his debrief.
