@@ -420,3 +420,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 ## 2026-11-25 (council fixes, part 4: checks, debrief plan, branches, thread 31)
 - **Done:** `npm run sim` prints two warn-only lines (never failing, nothing tuned to them): the visible line said most often in a game, and "costs that changed nothing" (counter `floorHits`: a faction already Rebellious asked to sour further). `scripts/verify-cast-quotes.mjs` now walks every data file (it had missed `data/census.json`) and runs as `npm run verify-quotes`: 415 quotes, 0 missing.
 - **Done:** `docs/playtests/first-island-test-debrief-plan.md` (what a thread does with Jacob's save) and `docs/branch-list.md` (all 32 old branches checked on a full clone; every tip is a merged PR's head; the "deletes 9k lines" worry came from a shallow clone and is wrong). Nothing deleted.
+
+## 2026-11-25 (customs from the sources, thread 33)
+- **Done:** `docs/research/customs.md`, 25 attested customs, institutions and anecdotes (Syracuse, Sicily, Carthage, about 480 to 264 BC), ranked by fit, each cited, graded for how well attested, and given a game hook. Checked against `data/`, `design.md`, `full-game.md` and the switches; what the game already has is listed and skipped.
+- **Decided:** nothing for the game. Research only, for Jacob to pick. The Ear of Dionysius is marked later legend.
+- **Open:** Plutarch's *Timoleon* and Justin 19-21 were read online, not saved (`docs/later.md`).
