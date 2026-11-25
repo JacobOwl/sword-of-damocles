@@ -74,7 +74,7 @@ The council becomes a farce. You seat the leader of the exiles at Aetna, a pardo
 ### 6. "The Historian": Philistus turns
 *full-careless-20: the careless ruler, Standard balance. Killed in Spring 398 by Philistus.*
 
-Philistus is the most loyal man in the history books, so this one stings. Twice you have your men "empty the strongrooms of Philistus". You make him lead the army although he is not the general, and then try to arrest him in the field: "Philistus slips through your guards and flees the city. The army in the field has lost its leader." He throws your terms back twice and becomes your Nemesis.
+Philistus is Dionysius' friend and, later, his historian, so this one stings. Twice you have your men "empty the strongrooms of Philistus". You make him lead the army although he is not the general, and then try to arrest him in the field: "Philistus slips through your guards and flees the city. The army in the field has lost its leader." He throws your terms back twice and becomes your Nemesis.
 
 Across the strait, Rhegium takes in your exiles, and Croton chooses Heloris as its general "because his hatred of you can be trusted". You win at Acragas and lose it the next season. Under torture, the musicians name Philistus among the plotters. The blow rolled 15 against 4.
 
@@ -96,14 +96,14 @@ The leader of the exiles at Aetna "comes to you alone. He knows that you staged 
 
 You hold a deadly secret on Nicoteles and use it four times: "You let Nicoteles know what you know." It doesn't save you. In Winter 398/397, "Nicoteles takes your place: the guard switches its backing to him." From Rhegium you gather the bones of the unburied dead, take Carthage's silver and Sparta's company, and hide armour for the citizens. The strike comes to 1: "You fall in the market place, as Hermocrates did when he tried to come home in 408."
 
-**Why it's interesting.** Secrets cut both ways, with real consequences. It's the only top game where politics alone, with no knife, ends a reign, and the death in the market place echoes the sources. **The question it raises:** a hold used four times did nothing to stop the man it was held over (see Findings).
+**Why it's interesting.** Secrets cut both ways, with real consequences. It's a rare game where politics alone, with no knife, takes the city from you, and the death in the market place echoes the sources. **The question it raises:** a hold used four times did nothing to stop the man it was held over (see Findings).
 
 ### 9. "The Careful Man Who Took Motya"
 *full-careful-09: the careful ruler, Standard balance. Survived the decade.*
 
 The careful ruler is supposed to be safe, but he lasts barely a year. His mercenaries are paid with "new silver, and it isn't yours", and the plot rolls 10 against 5. "You escape with your life and go into exile." He flees to Messana with Philistus, Heloris, Doricus and the captain of the guard, takes the Persian money, and is home within two years, with the usurper "taken alive in the citadel".
 
-Then the careful ruler goes to war. He takes Acragas, besieges Panormus, and beats Himilcon at Motya while his army is hungry (9 against 8). He holds through a drawn second battle, sends heralds to the temples, and in Summer 399 hears: "Motya is yours. The soldiers say that Magius was the first man to climb its wall." That's two years after the real siege of 397, by a player who never set out to imitate Dionysius. The army is eventually lost ("1 battle won, 3 towns taken"), but the city holds.
+Then the careful ruler goes to war. He takes Acragas, besieges Panormus, and beats Himilcon at Motya while his army is hungry (9 against 8). He holds through a drawn second battle, sends heralds to the temples, and in Summer 399 hears: "Motya is yours. The soldiers say that Magius was the first man to climb its wall." That's two years earlier than the real siege of 397, by a player who never set out to imitate Dionysius. The army is eventually lost ("1 battle won, 3 towns taken"), but the city holds.
 
 **Why it's interesting.** The map story the island test was built for: supply by sea, sieges, a first man over the wall. And it came from the cautious player. Battles of this kind are rare (a battle won in the field happens in 19% of games).
 
