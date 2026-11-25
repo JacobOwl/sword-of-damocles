@@ -394,3 +394,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** a five-seat council on the AAR batch, the whole game and what Jacob hasn't asked for: `docs/council/2026-11-25-after-the-thousand.md`, statements and votes in `docs/council/2026-11-25/`. A recount script, `scripts/purge-recut.ts` (no rule changes; deterministic).
 - **Decided (advice, small calls):** no change to the frozen test link before Jacob plays; plain bug fixes may merge to main once the frozen commit is tagged; text variety next; counts before any change to Carthage, exile returns or purges. The "purges pay" figure is mostly reign length (alive at season 20: 25% to 45% across execution bands, small samples).
 - **Open (Jacob's):** the recommended switches ("The purse runs dry", a varied opening, "Carthage answers what you do"); sorting the switches and the eight bets after his game; deleting stale branches.
+
+## 2026-11-25 (council on Solium Infernum, thread 32)
+- **Done:** a council on what to take from Solium Infernum (2009 and the 2024 remake), researched from the 2009 manual, reviews and guides: `docs/council/2026-11-25-solium-infernum.md`. Run in one session arguing the five seats, not five separate sessions (said in the doc).
+- **Decided (advice only):** nothing built, nothing into scope, nothing on the test link. Top three, each a switch off by default for after Jacob's game: "Quarrels with terms", "A charge first", "Each faction names its enemy". No change for orders per season (already three). Against copying simultaneous hidden orders (fights warnings before the blow) and champion duels (not Greek).
+- **Open (Jacob's):** the three questions at the end of the council doc. Parked ideas in `docs/later.md`.
