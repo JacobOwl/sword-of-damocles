@@ -389,3 +389,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** `npm run aar-runs` (`scripts/aar-runs.ts`), a harness only: 1,008 island games (720 with all 17 switches on across the five scripted players, 144 beginning in exile, 144 on the First island test preset), a dossier for each game and numbers across all of them. 0 crashes, 0 broken states. Report with ten after action reports and findings: `docs/playtests/2026-11-25-aar/report.md`.
 - **Decided:** no rule changes. The bugs found (a feud you inherit against yourself when you execute your own kin, a wound's wrong reason line, a duplicated plot member, a capital in mid-sentence, "him" for women) are reported, not fixed.
 - **Open (Jacob's):** the five questions at the end of the report, also listed in `docs/handoff.md`.
+
+## 2026-11-25 (council after the 1,000 games, thread 31)
+- **Done:** a five-seat council on the AAR batch, the whole game and what Jacob hasn't asked for: `docs/council/2026-11-25-after-the-thousand.md`, statements and votes in `docs/council/2026-11-25/`. A recount script, `scripts/purge-recut.ts` (no rule changes; deterministic).
+- **Decided (advice, small calls):** no change to the frozen test link before Jacob plays; plain bug fixes may merge to main once the frozen commit is tagged; text variety next; counts before any change to Carthage, exile returns or purges. The "purges pay" figure is mostly reign length (alive at season 20: 25% to 45% across execution bands, small samples).
+- **Open (Jacob's):** the recommended switches ("The purse runs dry", a varied opening, "Carthage answers what you do"); sorting the switches and the eight bets after his game; deleting stale branches.
