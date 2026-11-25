@@ -4,6 +4,7 @@
 // Secrets come from the start (data/secrets.json, some from the sources), from what people do (joining a plot, taking
 // Carthaginian silver, a hidden grudge or agenda, false counsel) and from what you do in the dark (a rumor, an informer,
 // blackmail). Your rivals dig for yours. Every change is logged with its reason; secrets you don't know stay hidden.
+import { pronoun } from "./pronouns.ts";
 import secretsJson from "../../data/secrets.json" with { type: "json" };
 import agendasJson from "../../data/agendas.json" with { type: "json" };
 import { PLAYER, alive, capital, nameOf, officeName, plotOf } from "./state.ts";
@@ -253,7 +254,7 @@ export function useOnYou(s: GameState, p: Person, why: string, request: (kind: "
   const x = xs[0];
   if (!x) return false;
   if (holdsDeadly(s, PLAYER, p.id)) {
-    event(s, p.id, `${capital(p.name)} keeps what he knows about you to himself: you know too much about him.`, "a hold on each side", false);
+    event(s, p.id, `${capital(p.name)} keeps what ${pronoun(s, p.id, "he")} knows about you to ${pronoun(s, p.id, "himself")}: you know too much about ${pronoun(s, p.id, "him")}.`, "a hold on each side", false);
     s.counters.deterred = (s.counters.deterred ?? 0) + 1;
     return false;
   }

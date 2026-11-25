@@ -90,8 +90,8 @@
     },
     {
       "id": "generalHome", "name": "The general home too popular", "weight": 3, "kind": "invention",
-      "line": "A man you sent with the army comes home with the army's love. Needs the switch that lets you send a named man with the army, not yet built.",
-      "find": { "type": "log", "steps": ["comes home to cheers|home in triumph"] }
+      "line": "A man you sent with the army comes home with the army's love. Needs the switch that lets you send a named man with the army (the commission).",
+      "find": { "type": "log", "steps": ["^Syracuse cheers .+ home\\. (His|Her) influence rises"] }
     },
     {
       "id": "blowFromNowhere", "name": "A blow from nowhere", "weight": -3, "kind": "invention", "dull": true,

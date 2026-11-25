@@ -4,6 +4,7 @@
 // the citizens. When the army comes home (disbanded or destroyed) the homecoming is a logged step: you, or the man
 // you sent, come home cheered or shamed. Numbers are in data/commission.json; the sourced pattern is in
 // docs/research/commission.md. Every rule here is invention.
+import { pronoun } from "./pronouns.ts";
 import commissionJson from "../../data/commission.json" with { type: "json" };
 import { on } from "./switches.ts";
 import { PLAYER, alive, capital, nameOf, plotOf } from "./state.ts";
@@ -151,12 +152,12 @@ function homecoming(s: GameState) {
       s.counters.heroHomecomings = (s.counters.heroHomecomings ?? 0) + 1;
       const gain = Math.min(k.heroInfluenceMax, won + taken);
       p.infl += gain;
-      event(s, c.leader, `Syracuse cheers ${p.name} home. His influence rises by ${gain}.`, "he won in the field, and the men he led talk of him");
+      event(s, c.leader, `Syracuse cheers ${p.name} home. ${capital(pronoun(s, p.id, "his"))} influence rises by ${gain}.`, "he won in the field, and the men he led talk of him");
       const f = factionOf(s, c.leader);
       if (f) powerChange(s, f, k.heroPower, `${p.name} came home a victor`);
     } else if (destroyed || lost > won) {
       p.infl -= 1;
-      event(s, c.leader, `Men blame ${p.name} for the defeat. His influence falls by 1.`, "he lost in the field");
+      event(s, c.leader, `Men blame ${p.name} for the defeat. ${capital(pronoun(s, p.id, "his"))} influence falls by 1.`, "he lost in the field");
     }
   }
   for (const id of [c.leader, c.keeper]) if (id && s.people[id]) s.people[id].where = undefined;

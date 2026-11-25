@@ -14,6 +14,7 @@ import type { Args, FactionId, GameState, Mod, OfficeId, Person } from "./types.
 import { FACTIONS, OFFICES } from "./types.ts";
 import { T } from "./tuning.ts";
 import { on } from "./switches.ts";
+import { pronoun } from "./pronouns.ts";
 import { chapter, feudInherit, feudOn, feudOf, feudSurvive } from "./feud.ts";
 import { ISLAND_IMPL } from "./island-actions.ts";
 import { CONVOY_IMPL, buyGrainConvoy, convoysOn } from "./convoys.ts";
@@ -124,8 +125,10 @@ function reveal(s: GameState, pid: string) {
   const pl = plotOf(s, pid);
   if (pl) {
     for (const m of T(s).watchRevealsPlot ? pl.members : [pid, pl.leader]) if (!pl.known.includes(m)) pl.known.push(m);
-    const all = T(s).watchRevealsPlot && pl.members.length > 1 ? ` With him: ${pl.members.filter((m) => m !== pid).map((m) => nameOf(s, m)).join(", ")}.` : "";
-    const led = pl.leader === pid ? "and leads it himself" : `led by ${nameOf(s, pl.leader)}`;
+    // The others in it, leaving out the man watched and the leader already named (council 2026-11-25).
+    const others = pl.members.filter((m) => m !== pid && m !== pl.leader);
+    const all = T(s).watchRevealsPlot && others.length ? ` With ${pronoun(s, pid, "him")}: ${others.map((m) => nameOf(s, m)).join(", ")}.` : "";
+    const led = pl.leader === pid ? `and leads it ${pronoun(s, pid, "himself")}` : `led by ${nameOf(s, pl.leader)}`;
     event(s, PLAYER, `${capital(p.name)} is in a plot against you, ${led}.${all}`, "your spies found it");
   } else {
     event(s, PLAYER, `${capital(p.name)} is in no plot. ${p.grudges.length ? `Grudges: ${p.grudges.map((g) => g.reason).join("; ")}.` : "No grudges."}`, "your spies found it");
@@ -333,16 +336,17 @@ export const IMPL: Record<string, Impl> = {
       setStatus(s, p.id, "dead", "executed");
       s.counters.executions = (s.counters.executions ?? 0) + 1;
       if (f) powerChange(s, f, -1, `you executed ${p.name}`);
-      const kin = p.kin.map((k) => s.people[k]).filter((k) => k && alive(k));
-      for (const k of kin) { grudge(s, k.id, `you executed his kin ${p.name}`); opinion(s, k.id, -2, `you executed ${p.name}`); }
+      // You are never your own avenger: the player is left out of the dead man's kin (council 2026-11-25).
+      const kin = p.kin.map((k) => s.people[k]).filter((k) => k && alive(k) && !k.player);
+      for (const k of kin) { grudge(s, k.id, `you executed ${pronoun(s, k.id, "his")} kin ${p.name}`); opinion(s, k.id, -2, `you executed ${p.name}`); }
       const nearest = kin[0];
       if (feudOn(s)) {
         // Switch "feud": the record closes and passes to the nearest kin, always, and the game says so.
         feudInherit(s, p, nearest);
-        if (nearest) makeRival(s, nearest.id, "Bereaved", `you executed ${p.name}, and the feud passes to him`);
+        if (nearest) makeRival(s, nearest.id, "Bereaved", `you executed ${p.name}, and the feud passes to ${pronoun(s, nearest.id, "him")}`);
       } else if (nearest) {
         if (wasRival) {
-          makeRival(s, nearest.id, "Bereaved", `you executed ${p.name}, and the feud passes to him`);
+          makeRival(s, nearest.id, "Bereaved", `you executed ${p.name}, and the feud passes to ${pronoun(s, nearest.id, "him")}`);
           if (nearest.rival) nearest.rival.rank = Math.max(1, wasRival.rank - 1);
         } else if (d6(s) >= 4) makeRival(s, nearest.id, "Bereaved", `you executed ${p.name}`);
       }
@@ -900,14 +904,14 @@ export function refuse(s: GameState, id: string, quiet = false) {
   event(s, p.id, quiet ? `${capital(p.name)}'s petition goes unanswered.` : `You refuse ${p.name}'s petition.`, "Refuse");
   if (r.kind === "citizenship") { s.flags.guardRefused = (s.flags.guardRefused ?? 0) + 1; return; }
   p.infl -= 1;
-  opinion(s, p.id, -1, r.demand ? "you refused his demand" : "you refused his petition");
+  opinion(s, p.id, -1, r.demand ? `you refused ${pronoun(s, p.id, "his")} demand` : `you refused ${pronoun(s, p.id, "his")} petition`);
   if (r.blackmail) blackmailRefused(s, p.id, r.blackmail);
   if (on(s, "escalation") && (r.kind === "office" || r.kind === "silver") && !r.agendaStep) return escalate(s, r, p);
   p.refusals += 1;
   if (p.refusals >= 2 || r.owed || r.agendaStep) {
     p.refusals = 0;
-    grudge(s, p.id, r.office ? `you refused him ${officeName(r.office)}` : "you refused his petitions");
-    makeRival(s, p.id, "Humiliated", r.office ? `you refused him ${officeName(r.office)}` : "you refused him");
+    grudge(s, p.id, r.office ? `you refused ${pronoun(s, p.id, "him")} ${officeName(r.office)}` : `you refused ${pronoun(s, p.id, "his")} petitions`);
+    makeRival(s, p.id, "Humiliated", r.office ? `you refused ${pronoun(s, p.id, "him")} ${officeName(r.office)}` : `you refused ${pronoun(s, p.id, "him")}`);
     if (r.agendaStep && p.agenda) { p.agenda.done = true; p.agenda.result = "refused"; }
     // With escalation on, an agenda's petition counts as his first ask: next time he demands.
     if (r.agendaStep && r.office && on(s, "escalation")) (p.asks ??= {})[r.office] = { stage: 1, last: s.season };
@@ -923,13 +927,13 @@ function escalate(s: GameState, r: GameState["requests"][number], p: Person) {
   if (!r.demand && !r.owed) { // a man you owe a favour takes the first refusal as the last, as before
     p.asks[key] = { stage: 1, last: s.season };
     p.refusals = 1;
-    event(s, p.id, `${capital(p.name)} leaves without a word. He will be back for ${what}.`, "refused once; next time he will demand it");
+    event(s, p.id, `${capital(p.name)} leaves without a word. ${capital(pronoun(s, p.id, "he"))} will be back for ${what}.`, "refused once; next time he will demand it");
     return;
   }
   p.asks[key] = { stage: 2, last: s.season };
   p.refusals = 0;
-  grudge(s, p.id, r.office ? `you refused him ${what} twice, the second time in public` : "you refused his demand in public");
-  makeRival(s, p.id, "Humiliated", r.office ? `you refused his demand for ${what}` : "you refused his demand");
+  grudge(s, p.id, r.office ? `you refused ${pronoun(s, p.id, "him")} ${what} twice, the second time in public` : `you refused ${pronoun(s, p.id, "his")} demand in public`);
+  makeRival(s, p.id, "Humiliated", r.office ? `you refused ${pronoun(s, p.id, "his")} demand for ${what}` : `you refused ${pronoun(s, p.id, "his")} demand`);
   const f = factionOf(s, p.id);
   if (f && leaderOf(s, f)?.id === p.id) mood(s, f, -1, `you shamed ${p.name}, their leader, in public`);
   event(s, p.id, `${capital(p.name)} will not ask you for ${what} again.`, "a refused demand: he turns from asking to acting");
