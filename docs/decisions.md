@@ -378,3 +378,9 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small call):** "Dinners as the stage" and "Grain and the sea" are now marked Workshop switches, so the test link shows only the test's rules, as the two-day plan says. Their Workshop pages offer them ticked as before (checked in Chromium).
 - **Changed:** `docs/handoff.md` now keeps only what is open; what each thread built moved word for word to `docs/handoff-archive.md` (checked line by line: nothing lost). Three open questions that sat inside built notes are listed together.
 - **Open:** publish nothing to the test link until Jacob reports on his game.
+
+## 2026-11-25 (thread 30: the whole game, your own history, the tyrant campaigns)
+
+- **Done:** `docs/full-game.md`, at Jacob's request ("I want the full, all the mechanics, all the vision"): every system of the whole game with where it stands (playable, switch, drafted, new, later), "Your own Syracuse" (the open playthrough), and six tyrant campaigns (Gelon, Hieron I, Dionysius I, Dionysius II, Agathocles, Hieron II), each with a start, map, cast, challenge, signature rule, three marks and an epilogue. New facts carded in `docs/research/tyrant-campaigns.md` (quotes checked word for word against the saved texts).
+- **Proposed design rule (Jacob's to accept):** a campaign is a start, a charge, a signature rule and an epilogue, all data; no campaign has rules of its own. Every signature rule is a general rule behind a switch, off by default. Why: each campaign then builds the open game, and nothing is scripted.
+- **Not decided:** nothing moves into scope. Campaigns and the open game are Phase 3 work after the Phase 2 gate. The eight questions at the end of `docs/full-game.md` are Jacob's.
