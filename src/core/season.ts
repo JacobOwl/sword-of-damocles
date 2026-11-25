@@ -24,6 +24,7 @@ import { councilBrief, councilSeasonEnd } from "./council.ts";
 import { campaignCheck } from "./commission.ts";
 import { convoysArrive, convoysOn, convoysSail } from "./convoys.ts";
 import { worksSeason } from "./works.ts";
+import { quarrelsSeasonEnd } from "./quarrels.ts";
 import { beginFallen, exileBeginSeason, exileDecadeEnd, exileEndSeason, exileOn, inExile, maybeExile } from "./exile.ts";
 
 // ---------- World ----------
@@ -109,6 +110,7 @@ function invasion(s: GameState) {
 // ---------- Power ----------
 function powerStep(s: GameState) {
   s.step = "power";
+  quarrelsSeasonEnd(s); // switch "quarrels": oaths whose day has passed
   // An unpaid guard sells itself to the highest bidder. You can outbid by paying their arrears before this step.
   if (s.guard.forSale && s.guard.arrearsSeasons >= 2) {
     const best = s.plots.slice().sort((a, b) => plotStrength(s, b).total - plotStrength(s, a).total)[0];

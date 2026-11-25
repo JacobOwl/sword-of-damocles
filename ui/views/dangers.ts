@@ -1,5 +1,5 @@
 // The dangers column: plots against you, rivals, and who is who.
-import { DATA, agendaById, capital, defense, influence, officeName, officesOf, others, playerInfluence, plotStrength, rankTitle, seasonName, stageName, knobsFor, switchById, switchOn } from "../../src/core/index.ts";
+import { DATA, openQuarrels, quarrelLine, agendaById, capital, defense, influence, officeName, officesOf, others, playerInfluence, plotStrength, rankTitle, seasonName, stageName, knobsFor, switchById, switchOn } from "../../src/core/index.ts";
 import type { FactionId, GameState, Plot } from "../../src/core/index.ts";
 import { tipAttr } from "./help.ts";
 import { flags } from "./people.ts";
@@ -8,7 +8,7 @@ import { esc, linkNames, opChip, pr, sign, ui, who } from "../lib/text.ts";
 import { FACTION_ICON, icon } from "../components/icons.ts";
 
 export function dangersCol(g: GameState) {
-  return `${plots(g)}${rivals(g)}${whoIsWho(g)}`;
+  return `${plots(g)}${quarrels(g)}${rivals(g)}${whoIsWho(g)}`;
 }
 
 const partialKnobs = () => (switchById("partialBlows") as any).knobs as { wound: number; seize: number };
@@ -50,6 +50,17 @@ function plots(g: GameState) {
   }).join("") : `<p class="small muted">No warnings. That you know of.</p>`;
   const advice = ps.length ? `<p class="small muted">What you can do: <b>Watch</b> a suspect to see whether he is in it. <b>Turn an informer</b> to learn its size. <b>Imprison</b> a named plotter to take him out. Keep the guard paid: it is most of your defense.${switchOn(g, "partialBlows") ? ` A blow that beats your defense by ${partialKnobs().wound} or less only wounds you; by ${partialKnobs().seize} or less it costs you an office; it must beat it by ${partialKnobs().seize + 1} or more to kill you.` : ""}</p>` : "";
   return `<div><h2>Plots against you</h2>${body}${advice}</div>`;
+}
+
+// Switch "quarrels": every oath sworn before the assembly, yours and theirs, with its day.
+function quarrels(g: GameState) {
+  if (!switchOn(g, "quarrels")) return "";
+  const qs = openQuarrels(g);
+  const body = qs.length
+    ? qs.map((q) => `<div class="small${q.due <= g.season ? " warn" : ""}">${linkNames(quarrelLine(g, q))}</div>`).join("")
+    : `<p class="small muted">No quarrel is sworn before the assembly.</p>`;
+  return `<div><h2>Quarrels sworn</h2>${body}
+    <p class="small muted">A quarrel is fought by accusation in the assembly. The accused man's faction and any faction Angry with you stand with him; any faction Content or better stands with you. Give a man what he swore to take, or a gift of 3 silver if he swore to shame you, and his quarrel ends.</p></div>`;
 }
 
 function rivals(g: GameState) {

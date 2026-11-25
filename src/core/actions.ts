@@ -27,6 +27,7 @@ import { DINNER_IMPL } from "./dinner.ts";
 import { bloc } from "./island.ts";
 import { WORKS_IMPL } from "./works.ts";
 import { EXILE_IMPL, inExile } from "./exile.ts";
+import { accuse, accuseMods, aimOptions, canSwear, quarrelBetween, quarrelConceded, quarrelSilenced, swear, termOptions, yourQuarrels, type AimId } from "./quarrels.ts";
 
 export interface Option { value: string; label: string }
 interface Impl {
@@ -184,6 +185,7 @@ export const IMPL: Record<string, Impl> = {
       const p = s.people[a.target!];
       setOffice(s, o, p.id, "you granted it");
       event(s, PLAYER, `You grant ${officeName(o)} to ${p.name}.`, "Grant an office");
+      quarrelConceded(s, p.id, "office", o);
       if (feudOf(p)) chapter(s, p, "settlement", `you gave him ${officeName(o)}`);
       opinion(s, p.id, 2, `you gave him ${officeName(o)}`);
       for (const r of s.requests.filter((r) => r.kind === "office" && r.office === o && r.from !== p.id)) refuse(s, r.id, true);
@@ -291,6 +293,7 @@ export const IMPL: Record<string, Impl> = {
       opinion(s, p.id, n, "your gift");
       if (n >= 3 && !scarHook(s, p.id, "noBribeClear")) clearGrudge(s, p.id, "your gift");
       resolveRequests(s, (r) => r.from === p.id && r.kind === "silver");
+      if (n >= 3) quarrelConceded(s, p.id, "gift");
     },
   },
   pardon: {
@@ -327,6 +330,7 @@ export const IMPL: Record<string, Impl> = {
         const wasLeader = f && leaderOf(s, f)?.id === p.id;
         event(s, PLAYER, `Your guards take ${p.name}.`, "Imprison");
         setStatus(s, p.id, "held", "you imprisoned him");
+        quarrelSilenced(s, p.id, "threw {name} in chains");
         if (f) mood(s, f, -1, `you imprisoned ${p.name}`);
         if (f && wasLeader) powerChange(s, f, -1, "its leader was imprisoned");
         if (p.rival) memory(s, p.id, "You threw him in chains");
@@ -348,6 +352,7 @@ export const IMPL: Record<string, Impl> = {
       const f = factionOf(s, p.id);
       const wasRival = p.rival;
       event(s, PLAYER, `You have ${p.name} put to death.`, "Execute");
+      quarrelSilenced(s, p.id, "put {name} to death");
       setStatus(s, p.id, "dead", "executed");
       s.counters.executions = (s.counters.executions ?? 0) + 1;
       if (f) powerChange(s, f, -1, `you executed ${p.name}`);
@@ -374,6 +379,7 @@ export const IMPL: Record<string, Impl> = {
       const p = s.people[a.target!];
       actAgainst(s, p.id);
       event(s, PLAYER, `You send ${p.name} into exile.`, "Exile");
+      quarrelSilenced(s, p.id, "drove {name} out of the city");
       for (const o of officesOf(s, p.id)) setOffice(s, o, PLAYER, `${p.name} was exiled`);
       setStatus(s, p.id, "outside", "exiled");
       makeRival(s, p.id, "Exiled", "you drove him from the city");
@@ -775,6 +781,28 @@ export const IMPL: Record<string, Impl> = {
   },
 };
 
+// Switch "quarrels" (Quarrels with terms): swear before the assembly what you will do to a man and by when,
+// then accuse him there. The rules are in quarrels.ts.
+const QUARREL_IMPL: Record<string, Impl> = {
+  swearQuarrel: {
+    target: (s) => people(s, (p) => p.status === "free" && !quarrelBetween(s, PLAYER, p.id)),
+    second: (s, a) => aimOptions(s, a.target),
+    secondLabel: "What you swear",
+    third: () => termOptions(),
+    thirdLabel: "By when",
+    check: (s, a) => (a.target ? canSwear(s, a.target) : yourQuarrels(s).length >= 2 ? "you already have 2 quarrels sworn" : null),
+    run: (s, a) => swear(s, a.target!, a.second as AimId, Number(a.option)),
+  },
+  accuseAssembly: {
+    target: (s) => yourQuarrels(s).filter((q) => s.people[q.against].status === "free").map((q) => ({ value: q.against, label: capital(s.people[q.against].name) })),
+    third: (s) => (s.silver >= 2 ? [{ value: "none", label: "Speak for yourself" }, { value: "fine", label: "A rich friend pays the fines (2 silver, +1)" }] : []),
+    thirdLabel: "The fines for the uproar",
+    odds: (s, a) => accuseMods(s, a.target!, a.option === "fine"),
+    need: 4,
+    run: (s, a, ok) => accuse(s, a.target!, a.option === "fine", ok),
+  },
+};
+
 // The island actions (Phase 2) live in island-actions.ts.
 // Switch "secrets": the household's secrets, holds that take offices, and spies in the island's towns.
 const SECRET_IMPL: Record<string, Impl> = {
@@ -857,7 +885,7 @@ const SECRET_IMPL: Record<string, Impl> = {
   },
 };
 
-Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL, DINNER_IMPL, WORKS_IMPL, CONVOY_IMPL, EXILE_IMPL);
+Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL, DINNER_IMPL, WORKS_IMPL, CONVOY_IMPL, EXILE_IMPL, QUARREL_IMPL);
 // An action belongs to every scenario unless it names one.
 // Switch "exile": in exile only the exile actions are offered, and they are offered nowhere else.
 export const inScenario = (s: GameState, a: { scenario?: string; switch?: string; exile?: boolean }) => (!a.scenario || a.scenario === (s.scenario ?? "citadel")) && (!a.switch || on(s, a.switch)) && !!a.exile === inExile(s);

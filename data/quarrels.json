@@ -1,0 +1,41 @@
+{
+  "note": "Switch \"quarrels\" (Quarrels with terms): a man swears before the assembly what he will do to another and by when, and the quarrel is fought by accusation in the assembly. The custom of public accusation is history (docs/research/quarrels.md); the oath with a deadline, every number and every line here are invention.",
+  "kind": "invention",
+  "knobs": {
+    "maxOpenByYou": 2,
+    "maxOpenAgainstYou": 1,
+    "coolSeasons": 4,
+    "shortSeasons": 2,
+    "longSeasons": 4,
+    "theirSeasons": 3,
+    "fineSilver": 2,
+    "concedeLimit": 3
+  },
+  "aims": [
+    { "id": "office", "kind": "invention", "name": "Strip him of his offices", "need": 5, "oath": "strip {name} of {his} offices", "theirOath": "have the assembly take {office} from you" },
+    { "id": "exile", "kind": "invention", "name": "Drive him from the city", "need": 6, "oath": "drive {name} from Syracuse" },
+    { "id": "shame", "kind": "invention", "name": "Shame him before the assembly", "need": 4, "oath": "shame {name} before the assembly", "theirOath": "shame you before the assembly" }
+  ],
+  "history": [
+    {
+      "kind": "history", "cite": "Diodorus 13.91.3", "file": "sources/diodorus/english/book13.loeb.txt",
+      "quote": "Dionysius, the son of Hermocrates, taking the floor, accused the generals of betraying their cause to the Carthaginians",
+      "use": "A quarrel is fought by public accusation in the assembly."
+    },
+    {
+      "kind": "history", "cite": "Diodorus 13.91.4", "file": "sources/diodorus/english/book13.loeb.txt",
+      "quote": "Philistus, who later composed his History, a man of great wealth, paid the fine and urged Dionysius to speak out whatever he had had in his mind to say",
+      "use": "A friend who pays the fines: the option to spend silver on an accusation."
+    },
+    {
+      "kind": "history", "cite": "Diodorus 13.92.1", "file": "sources/diodorus/english/book13.loeb.txt",
+      "quote": "immediately dismissed some of them from office and chose other generals",
+      "use": "An accusation that carries strips a man of his offices."
+    },
+    {
+      "kind": "history", "cite": "Diodorus 14.70.2", "file": "sources/diodorus/english/book14.loeb.txt",
+      "quote": "the mercenaries flocked about Dionysius, and the Syracusans in dismay made no move",
+      "use": "Under a tyranny the assembly is cowed: accusations against the tyrant are harder, his own easier."
+    }
+  ]
+}

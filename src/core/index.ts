@@ -38,6 +38,9 @@ export { CONVOYS, LANDINGS, convoysOn, atSea, pastConvoys, contractors, contract
 // Switch "greatWorks" (bet B4).
 export { WORKS, workById, labourById, workOf, activeWorks, workDone, seasonCost, seasonsNeeded, overseerName, timberFrom, timberById, worksOn } from "./works.ts";
 export type { Work, WorkDef, WorksState } from "./works.ts";
+// Switch "quarrels" (Quarrels with terms).
+export { openQuarrels, yourQuarrels, quarrelsAgainstYou, quarrelLine, quarrelsOn, AIMS as QUARREL_AIMS } from "./quarrels.ts";
+export type { Quarrel, QuarrelState } from "./quarrels.ts";
 // Switch "exile" (Fallen, not finished; bet B7).
 export { exileView, inExile, exileOn, companies, talents, refugeDef, rulerName, returnOdds, huntForecast, EXILE } from "./exile.ts";
 export type { ExileState } from "./exile.ts";
