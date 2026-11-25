@@ -1,7 +1,7 @@
 // "What matters this season": one plain line at the top of the season and island screens, naming the most
 // pressing thing in order: a blow that can fall, Carthage at your walls, an army or a city about to go hungry,
 // the guard unpaid, a war, Carthage's anger near war. It reads the state and changes nothing.
-import { armyName, capital, carthageArmy, nodeName, path, yourArmy, menWords } from "../../src/core/index.ts";
+import { quarrelsAgainstYou, yourQuarrels, armyName, capital, carthageArmy, nodeName, path, yourArmy, menWords } from "../../src/core/index.ts";
 import type { GameState } from "../../src/core/index.ts";
 import { esc } from "../lib/text.ts";
 import { knownDanger } from "./ambient.ts";
@@ -29,6 +29,9 @@ export function whatMatters(g: GameState): { text: string; level: "danger" | "wa
   if (g.guard.arrearsSeasons) out.push({ text: "The guard is unpaid and will not defend you.", level: "danger" });
   if (g.island?.war && !ca) out.push({ text: "You are at war with Carthage, though its army is not on the island.", level: "warn" });
   if (g.island && !g.island.war && g.clock >= 8) out.push({ text: `Carthage's anger is ${g.clock} of 10: its council is close to war.`, level: "warn" });
+  // Switch "quarrels": an oath whose day is this season.
+  for (const q of quarrelsAgainstYou(g).filter((q) => q.due <= g.season)) out.push({ text: `${capital(g.people[q.by].name)}'s quarrel with you comes to its day this season. See Dangers.`, level: "warn" });
+  for (const q of yourQuarrels(g).filter((q) => q.due <= g.season)) out.push({ text: `Your oath against ${g.people[q.against].name} must be made good this season, or the city will remember it. See Dangers.`, level: "warn" });
   if (!out.length && d.stage >= 1) out.push({ text: `A plot is forming (${["", "Whispers", "Rumors", "Named"][d.stage]}). See Dangers.`, level: "warn" });
   return out;
 }

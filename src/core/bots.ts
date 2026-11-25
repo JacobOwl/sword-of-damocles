@@ -14,6 +14,7 @@ import { islandChoices } from "./island-bot.ts";
 import { atSea, convoysOn } from "./convoys.ts";
 import { worksChoices } from "./works.ts";
 import { holdsDeadly, seenHolders, silenceCost } from "./secrets.ts";
+import { canSwear, quarrelsAgainstYou, quarrelsOn, yourQuarrels } from "./quarrels.ts";
 
 export interface Choice { a: string; args?: Args; min?: number } // min: lowest chance worth rolling for
 export interface Bot { id: string; name: string; summary: string; choices: (s: GameState, r: () => number) => Choice[] }
@@ -131,6 +132,7 @@ function soothe(s: GameState, out: Choice[], n: number) {
 function counterPolitical(s: GameState, out: Choice[], strip = 9) {
   // Switch "secrets": buy back what a known rival holds over you, when the silver is there.
   for (const id of seenHolders(s)) if (s.people[id].political && spare(s, silenceCost(s, id) + 1)) out.push({ a: "buySilence", args: { target: id }, min: 0.5 });
+  quarrels(s, out);
   const pr = others(s).filter((p) => p.political && alive(p)).sort((a, b) => b.political!.rank - a.political!.rank || influence(s, b.id) - influence(s, a.id));
   for (const p of pr) {
     const os = officesOf(s, p.id);
@@ -149,6 +151,20 @@ function counterPolitical(s: GameState, out: Choice[], strip = 9) {
     }
   }
 }
+// Switch "quarrels": answer a quarrel sworn against you (give way if it costs little), press your own, and
+// swear one against a rising rival who holds offices, when the assembly would stand with you.
+function quarrels(s: GameState, out: Choice[], keepKey = true) {
+  if (!quarrelsOn(s)) return;
+  for (const q of quarrelsAgainstYou(s)) {
+    if (q.aim === "office" && q.office && holds(s, PLAYER, q.office) && (!KEY.includes(q.office) || !keepKey)) out.push({ a: "grantOffice", args: { target: q.by, second: q.office } });
+    if (q.aim === "shame" && spare(s, 3)) out.push({ a: "bribe", args: { target: q.by, second: "3" } });
+  }
+  for (const q of yourQuarrels(s)) if (s.people[q.against].status === "free") out.push({ a: "accuseAssembly", args: { target: q.against, option: spare(s, 2) ? "fine" : "none" }, min: 0.34 });
+  const pr = others(s).filter((p) => p.political && p.political.rank >= 2 && p.status === "free" && officesOf(s, p.id).length && !canSwear(s, p.id))
+    .sort((a, b) => b.political!.rank - a.political!.rank);
+  for (const p of pr.slice(0, 1)) out.push({ a: "swearQuarrel", args: { target: p.id, second: "office", option: "4" } });
+}
+
 // Leaders of factions whose agendas would hurt you: block them with what you know.
 function blockAgendas(s: GameState, out: Choice[]) {
   for (const f of FACTIONS) {

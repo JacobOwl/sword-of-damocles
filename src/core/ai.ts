@@ -21,6 +21,7 @@ import { deed } from "./clues.ts";
 import { feudOn } from "./feud.ts";
 import { secretsOn, digForYou, useOnYou, useHold, usable } from "./secrets.ts";
 import { dinnersOn, recruitMods, recruitOrder, suggestTable } from "./dinner.ts";
+import { quarrelTurn } from "./quarrels.ts";
 
 const hidden = false;
 const rankOf = (p: Person) => p.rival?.rank ?? 0;
@@ -152,6 +153,8 @@ export function peopleStep(s: GameState) {
 }
 
 function personTurn(s: GameState, p: Person) {
+  // Switch "quarrels": a man with a quarrel sworn presses it; an angry rival may swear one, in the open.
+  if (quarrelTurn(s, p)) return;
   // Personal agendas first (Philistus, a Nemesis, a Pretender).
   if (p.agenda && !p.agenda.done) return agendaTurn(s, p);
   if (p.rival) return revengeTurn(s, p);
