@@ -1,5 +1,6 @@
 // The people and factions the game controls. They use the same menu as you, through short priority lists,
 // and every move records its reason so you can read why it happened.
+import { pronoun } from "./pronouns.ts";
 import { DATA, agendaById } from "./data.ts";
 import { islandChoices } from "./island-bot.ts";
 import { d6, nextRandom, pick } from "./rng.ts";
@@ -118,10 +119,13 @@ function askOffice(s: GameState, p: Person, why: string): boolean {
   if (!want || s.offices[want] !== PLAYER) return false;
   return request(s, p, "office", { office: want }, `${capital(p.name)} petitions you for ${officeName(want)}.`, why);
 }
-function lend(s: GameState, p: Person, why: string) {
+// A man who has fled, is held or is in exile has no way to send you silver (council 2026-11-25: a hunted Philistus lent).
+function lend(s: GameState, p: Person, why: string): boolean {
+  if (p.status !== "free") return false;
   p.owedFavor = true;
   event(s, p.id, `${capital(p.name)} lends you 2 silver. You owe him a favour.`, why);
   silver(s, 2, `a loan from ${p.name}`);
+  return true;
 }
 
 // ---------- The people step ----------
@@ -151,7 +155,7 @@ function personTurn(s: GameState, p: Person) {
   switch (p.ambition) {
     case "Revenge": return revengeTurn(s, p);
     case "Wealth":
-      if (s.silver <= 3 && !p.owedFavor && (p.faction === "rich" || p.traits.includes("wealthy"))) return lend(s, p, "Ambition: Wealth. He lends at a price.");
+      if (s.silver <= 3 && !p.owedFavor && (p.faction === "rich" || p.traits.includes("wealthy"))) { lend(s, p, "Ambition: Wealth. He lends at a price."); return; }
       if (askOffice(s, p, "Ambition: Wealth. He wants an office that pays.")) return;
       return void request(s, p, "silver", {}, `${capital(p.name)} asks you for a gift of silver.`, "Ambition: Wealth");
     case "Office":
@@ -219,7 +223,7 @@ function politicalTurn(s: GameState, p: Person) {
   // Switch "secrets": a political rival with a hold over you asks a price for his silence.
   if (secretsOn(s) && type !== "Spymaster" && p.political!.rank >= 2 && useOnYou(s, p, `a ${type} uses what he knows`, (k, x, t, w) => request(s, p, k, x, t, w))) return;
   if (type === "Climber") {
-    if (s.silver <= 3 && !p.owedFavor) return lend(s, p, "A Climber: he lends, and you owe him");
+    if (s.silver <= 3 && !p.owedFavor) { lend(s, p, "A Climber: he lends, and you owe him"); return; }
     if (askOffice(s, p, "A Climber bids for office")) return;
     return following(s, p, "A Climber");
   }
@@ -261,7 +265,7 @@ function agendaTurn(s: GameState, p: Person) {
   const def = agendaById(ag.id);
   const step = def.steps[ag.step];
   if (ag.id === "philistusTreasury") {
-    if (step === "Lend to you") { lend(s, p, `Agenda: ${def.name}, step 1`); return stepDone(s, p); }
+    if (step === "Lend to you") { if (lend(s, p, `Agenda: ${def.name}, step 1`)) return stepDone(s, p); return; }
     if (step === "Petition") {
       if (s.offices.treasury !== PLAYER) return following(s, p, "the treasury is not yours to give");
       if (request(s, p, "office", { office: "treasury", agendaStep: true }, `${capital(p.name)} petitions you for the treasury.`, `Agenda: ${def.name}, last step`)) return;
@@ -308,10 +312,13 @@ function stepDone(s: GameState, p: Person) {
 function politicalVictory(s: GameState, p: Person) {
   let how = "a vote of the assembly sends you into exile";
   if (s.offices.assembly === p.id) how = "the assembly recalls you";
-  else if (s.factions.guard.mood <= 2) how = "the guard switches its backing to him";
-  else if (officesOf(s, p.id).length >= 3) how = "he holds so many offices that no one can remove him";
+  else if (s.factions.guard.mood <= 2) how = `the guard switches its backing to ${pronoun(s, p.id, "him")}`;
+  else if (officesOf(s, p.id).length >= 3) how = `${pronoun(s, p.id, "he")} holds so many offices that no one can remove ${pronoun(s, p.id, "him")}`;
   s.counters.politicalFalls = (s.counters.politicalFalls ?? 0) + 1;
-  s.over = { reason: "deposed", text: `${capital(p.name)} takes your place: ${how}. You live, but you no longer rule Syracuse.`, season: s.season, by: p.id };
+  // A deadly secret binds a man's tongue, not the city: say so when you held one and he rose anyway (council 2026-11-25).
+  const knew = secretsOn(s) && (s.secrets?.list ?? []).some((x) => x.about === p.id && x.weight === 2 && x.known.includes(PLAYER) && x.publicSince === undefined);
+  const bound = knew ? ` What you knew about ${pronoun(s, p.id, "him")} kept ${pronoun(s, p.id, "him")} quiet, but it was ${how.startsWith("the guard") ? "the guard" : how.includes("assembly") ? "the assembly" : "the city"} that chose.` : "";
+  s.over = { reason: "deposed", text: `${capital(p.name)} takes your place: ${how}.${bound} You live, but you no longer rule Syracuse.`, season: s.season, by: p.id };
   event(s, p.id, s.over.text, "Take his place");
 }
 
@@ -439,8 +446,10 @@ export function advanceAgenda(s: GameState, f: FactionId, why: string) {
       const brothers = membersOf(s, "family").filter((p) => ["leptines", "thearides"].includes(p.id) && alive(p)).sort((a, b) => a.opinion - b.opinion);
       const b = brothers[0];
       if (b) {
-        b.political = { type: "Heir", rank: 2, since: s.season, outSeasons: 0 };
-        event(s, b.id, `The family names ${b.name} your heir. He becomes a political rival: Power behind the throne.`, "Agenda: Name the heir");
+        // Already a political rival: he rises, and the line says so instead of making him one again (council 2026-11-25).
+        const was = b.political;
+        b.political = { type: "Heir", rank: Math.max(2, was?.rank ?? 0), since: was?.since ?? s.season, outSeasons: 0 };
+        event(s, b.id, was ? `The family names ${b.name} your heir. ${capital(pronoun(s, b.id, "he"))} rises to Power behind the throne.` : `The family names ${b.name} your heir. ${capital(pronoun(s, b.id, "he"))} becomes a political rival: Power behind the throne.`, "Agenda: Name the heir");
       }
       break;
     }

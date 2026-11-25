@@ -258,6 +258,16 @@ function strike(s: GameState, pl: Plot) {
   s.flags.plotBroken = s.season;
 }
 
+// Why a blow only wounded you, in words that are true for this blow (council 2026-11-25: a margin above the wound
+// band only wounds when you hold no office to take, or the leader struck from outside the walls).
+function woundWhy(margin: number, k: { wound: number; seize: number }, takeable: boolean, inside: boolean): string {
+  const by = `the blow beat your defense by ${margin}`;
+  if (margin <= k.wound) return `${by}; it takes ${k.wound + 1} or more to do worse than wound you`;
+  if (!inside) return `${by}, enough to take an office, but its leader struck from outside the walls and could only wound you`;
+  if (!takeable) return `${by}, enough to take an office, but you held none for him to take`;
+  return `${by}; it takes ${k.seize + 1} or more to kill or exile you`;
+}
+
 // Switch "partialBlows": a blow that only just beats your defense wounds you or costs you an office.
 // Returns false when the margin is wide enough to kill or exile you as before.
 export function partialBlow(s: GameState, pl: Plot, margin: number): boolean {
@@ -270,7 +280,7 @@ export function partialBlow(s: GameState, pl: Plot, margin: number): boolean {
   // Seizing an office needs the leader inside the walls; a blow led from outside can only wound.
   if (margin <= k.wound || !takeable.length || leader.status !== "free") {
     s.counters.blowsWounded = (s.counters.blowsWounded ?? 0) + 1;
-    event(s, pl.leader, `The blade finds you, but not deep enough. You live, wounded. ${lead} flees the city, and every plotter is named: ${pl.members.map((m) => s.people[m].name).join(", ")}.`, `the blow beat your defense by ${margin}; it takes ${k.wound + 1} or more to do worse than wound you`);
+    event(s, pl.leader, `The blade finds you, but not deep enough. You live, wounded. ${lead} flees the city, and every plotter is named: ${pl.members.map((m) => s.people[m].name).join(", ")}.`, woundWhy(margin, k, takeable.length > 0, leader.status === "free"));
     s.blockedSlots += 1;
     event(s, PLAYER, "Your wound keeps you to your bed. You lose an action next season.", "wounded in the strike");
     for (const m of pl.members) s.people[m].exposed = true;

@@ -41,9 +41,11 @@ export function fullChronicle(s: GameState): { season: string; text: string }[] 
 
 const TURN = /becomes your rival|is your rival again|Nemesis|is dead|put to death|plot strikes|plot fails|Pretender|seize the Island|sword falls|takes your place|blade finds you|by force|will not ask you/;
 const NOTABLE = /petitions you|demands|refuse|holds a grudge|rival|exile|guards take|pardon|You grant|strip|starts a plot|joins .*plot|Pretender|Nemesis|is dead|put to death|marries|flees|will not ask|takes your place|by force|blade finds you|plot strikes|plot fails|enters the story|is in a plot|leaves without a word|takes over the plot/;
-const LOWER = /^(Again|The|You|Your|Stories|A|An|Every|Money|Silver|Someone|Nothing|Men|Two)\b/;
+const LOWER = /^(Again|The|You|Your|Stories|A|An|Every|Money|Silver|Someone|Nothing|Men|Two|After|Before|When|While|In|At|On|With|For|From|By|As|Once|Since|This|That|These|Those|His|Her|Their|There|Now|Then|Word|News|Talk)\b/;
 const CONNECT = ["Meanwhile, ", "In the same season, ", "Elsewhere, ", "At court, "];
 const ORD = ["", "", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"];
+// 11th, 12th, 13th, but 21st, 22nd, 23rd (the chronicle once printed "22th").
+const nth = (n: number) => ORD[n] ?? `${n}${n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] ?? "th"}`;
 
 function subjectOf(s: GameState, e: LogEntry): string {
   if (e.actor !== "dionysius" && s.people[e.actor]) return e.actor;
@@ -91,7 +93,8 @@ export function tidyLine(t: string): string {
   if (m) {
     const first = m[2].split(" ")[0];
     const lower = /^[A-Z][a-z]+$/.test(first) && !/^(Theodorus|Leptines|Philistus|Hipparinus|Nicoteles|Andron|Damon|Doricus|Heloris|Polyxenus|Thearides|Aristomache|Carthage|Syracuse)/.test(first);
-    x = lower ? `${m[1]}: you chose to ${m[2].charAt(0).toLowerCase() + m[2].slice(1)}` : `${m[1]}: you chose this: ${m[2]}`;
+    x = /^Do not /.test(m[2]) ? `${m[1]}: you chose not to ${m[2].slice(7)}` // not "you chose to do not tempt the gods"
+      : lower ? `${m[1]}: you chose to ${m[2].charAt(0).toLowerCase() + m[2].slice(1)}` : `${m[1]}: you chose this: ${m[2]}`;
   }
   return x;
 }
@@ -144,7 +147,7 @@ export function storyBook(s: GameState, upTo?: number): StoryBook {
       // The same deed by the same hand: the second time "again", after that counted.
       const n = ((seen.all ??= {})[t] = (seen.all[t] ?? 0) + 1);
       if (n === 2) t = joinWith("Again, ", t);
-      else if (n > 2) t = t.replace(/^(.*?)\.(\s.*)?$/, `$1 (the ${ORD[n] ?? `${n}th`} time).`); // the third time on, its first sentence and a count
+      else if (n > 2) t = t.replace(/^(.*?)\.(\s.*)?$/, `$1 (the ${nth(n)} time).`); // the third time on, its first sentence and a count
       if (s.people[who] && TURN.test(e.text) && !began.has(who)) {
         const first = (notable[who] ?? []).find((x) => x.season < i);
         if (first && !/enters the story/.test(first.text)) { began.add(who); t += ` It began in ${seasonName(first.season)}: ${tidyLine(LOWER.test(first.text) ? first.text.charAt(0).toLowerCase() + first.text.slice(1) : first.text).replace(/\s*He wants your place, not your life\./, "")}`; }
@@ -165,7 +168,7 @@ export function storyBook(s: GameState, upTo?: number): StoryBook {
     const heard = es.filter((e) => e.kind === "warning").map((e) => e.text.replace(/^(Whispers|Rumors|Named): /, ""));
     // Sentence by sentence: a clue already told is not told again, even inside a new warning.
     const omens = heard.map((x) => x.split(/(?<=\.)\s+/).filter((t) => { const fresh = !omenSeen.has(t); omenSeen.add(t); return fresh; }).join(" ")).filter(Boolean);
-    if (heard.length && !omens.length) { stale += 1; omens.push(stale === 1 ? "Nothing new from your informers: the same talk goes on." : `Nothing new from your informers (the ${ORD[stale] ?? `${stale}th`} season with nothing new).`); }
+    if (heard.length && !omens.length) { stale += 1; omens.push(stale === 1 ? "Nothing new from your informers: the same talk goes on." : `Nothing new from your informers (the ${nth(stale)} season with nothing new).`); }
     seasons.push({ season: i, name: seasonName(i), paragraphs: paragraphs.length ? paragraphs : ["A quiet season."], omens });
   }
   const lives = Object.entries(notable).map(([id, xs]) => ({ id, beats: beatsOf(xs) })).filter((x) => x.beats.length >= 3).map(({ id, beats }) => {
