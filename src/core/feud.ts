@@ -8,6 +8,7 @@ import { capital, seasonName } from "./state.ts";
 import { event, rankChange } from "./ops.ts";
 import type { Chapter, Feud, GameState, Person } from "./types.ts";
 import { on } from "./switches.ts";
+import { pronoun } from "./pronouns.ts";
 
 
 // Titles from the decisive chapter (invention): "Hipparinus the Returned".
@@ -73,7 +74,7 @@ export function feudInherit(s: GameState, dead: Person, kin: Person | undefined)
   const k = rec(kin);
   k.title = "the Bereaved";
   k.pausedRank = Math.max(k.pausedRank ?? 1, dead.rival?.rank ?? 1);
-  event(s, kin.id, `${capital(kin.name)} swears that ${dead.name}'s death will not be forgotten. The feud passes to him.`, "you executed his kin");
+  event(s, kin.id, `${capital(kin.name)} swears that ${dead.name}'s death will not be forgotten. The feud passes to ${pronoun(s, kin.id, "him")}.`, `you executed ${pronoun(s, kin.id, "his")} kin`);
 }
 
 export const titledName = (p: Person) => (feudOf(p)?.title ? `${p.name} ${feudOf(p)!.title}` : p.name);
