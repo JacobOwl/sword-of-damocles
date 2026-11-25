@@ -49,6 +49,9 @@ Only these two need Jacob. Every other question below defaults to what the game 
 ## Next for the build (from the same council)
 Build the "First island test" preset (listed first on the start screen), the season-10 verdict prompt, and a short "what to watch" note; measure map events in seasons 1 to 10 over 100 seeds. Fixes and the test pass before new features.
 
+## Questions from the whole-game thread (30, 2026-11-25; none urgent)
+The eight questions at the end of `docs/full-game.md`: whole reigns or one decade per campaign; three marks or held-or-fell; are these the right six tyrants; Gelon from 491 or 485; Rome playable at the end or only a name; a Libyan map for Agathocles; which world settings for the open game; what the campaigns are for (teaching the systems, or stories for later). Nothing was built and scope is unchanged.
+
 ## Questions from the Long Game thread (Jacob's, none urgent)
 The seven open questions at the end of `docs/phase3-draft.md`: two speeds or fixed eras; play anyone in your circle or only the heir; invented men in the station of real people born after the start; stop at 264 or run on; whether a person in a Punic city of Sicily is ever playable; which start to build after 405; auction or plain prices for hired companies.
 
