@@ -8,6 +8,10 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - At the freeze, "Dinners as the stage" and "Grain and the sea" became Workshop switches like the other bets, so the test link's own setup list shows only the test's rules. Their Workshop pages still offer them ticked.
 - What each thread built is in `docs/handoff-archive.md` (moved, word for word). This file keeps only what is open.
 
+## Council on Solium Infernum (thread 32, 2026-11-25)
+Record: `docs/council/2026-11-25-solium-infernum.md`. Advice only; nothing built. All of it waits for Jacob's game and the switch sort.
+- **Questions for Jacob:** quarrels with terms (public demand or slight, then a quarrel with an aim and a deadline)? force against a citizen costs more without a charge? factions quarrel with each other, each with a named chief enemy? Each recommended as a switch, off by default.
+
 ## Council after the 1,000 games (thread 31, 2026-11-25)
 Record: `docs/council/2026-11-25-after-the-thousand.md`. Advice only; nothing built. Jacob plays the frozen test link on Thu 2026-11-26.
 - **Before he plays:** change nothing on the test link; tell him the two wording bugs he may meet (the wound reason line at a margin of 3-4, "Meanwhile, After"); don't show him the preset's danger numbers until his debrief.
