@@ -14,7 +14,7 @@ import {
   rankChange, roll, setOffice, setStatus, silver,
 } from "./ops.ts";
 import { startPlot } from "./ai.ts";
-import { on } from "./switches.ts";
+import { on, switchById } from "./switches.ts";
 import {
   applyIslandEffect, castPart, castPlaces, checkIslandCond, describeIslandEffect, isPart, partName, scoreIslandEffect,
 } from "./island-events.ts";
@@ -449,9 +449,16 @@ function drawFrom(s: GameState, defs: EventDef[], baseDraws: number, second: num
       if (cast) pool.push({ def, cast });
     }
     if (!pool.length) return;
-    const total = pool.reduce((a, x) => a + (x.def.weight ?? 1), 0);
+    // Switch "variedOpening": in the first seasons every eligible event weighs the same, so the year opens differently.
+    const flat = on(s, "variedOpening") && s.season < ((switchById("variedOpening") as any).knobs.seasons as number);
+    const w = (d: EventDef) => (flat ? 1 : d.weight ?? 1);
+    // With it, a draw whose pool holds a single event (the island's first season offers only "A general's offer")
+    // also has an even chance of bringing nothing, so that one event does not open every game.
+    const quiet = flat && pool.length === 1 ? 1 : 0;
+    const total = pool.reduce((a, x) => a + w(x.def), 0) + quiet;
     let r = nextRandom(s) * total;
-    const chosen = pool.find((x) => (r -= x.def.weight ?? 1) < 0) ?? pool[pool.length - 1];
+    if (r >= total - quiet) continue;
+    const chosen = pool.find((x) => (r -= w(x.def)) < 0) ?? pool[pool.length - 1];
     fire(s, chosen.def, chosen.cast, chosen.def.why);
     if (s.over) return;
   }
