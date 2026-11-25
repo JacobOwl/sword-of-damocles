@@ -36,3 +36,17 @@ test("varied wording uses no dice: a replay is exact, and the story chronicle re
   assert.ok(varied.length > 0, "some lines carry a varied sentence");
   for (const e of varied) assert.ok(e.text.startsWith(e.stock!.replace(/ \(\+\d+ silver to Carthage's treasury\.\)$/, "")), e.text);
 });
+
+test("the purse runs dry: at Rebellious each squeeze yields less, and only with the switch", async () => {
+  const { startGame, act } = await import("../src/core/index.ts");
+  for (const sw of [[], ["purseDry"]]) {
+    const s = startGame(4, "standard", { switches: sw });
+    s.factions.rich.mood = 0;
+    s.offices.mint = "dionysius";
+    const got: number[] = [];
+    for (let i = 0; i < 3; i++) { const before = s.silver; s.flags.coin = -1; act(s, "strikeCoin"); s.slots = 3; got.push(s.silver - before); }
+    if (sw.length) assert.deepEqual(got, [2, 1, 0]);
+    else assert.deepEqual(got, [2, 2, 2]);
+    assert.ok(s.log.some((e) => /can think no worse of you/.test(e.text)), "the floor says what it costs");
+  }
+});

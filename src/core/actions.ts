@@ -14,7 +14,7 @@ import {
 import type { Args, FactionId, GameState, Mod, OfficeId, Person } from "./types.ts";
 import { FACTIONS, OFFICES } from "./types.ts";
 import { T } from "./tuning.ts";
-import { on } from "./switches.ts";
+import { on, switchById } from "./switches.ts";
 import { pronoun } from "./pronouns.ts";
 import { chapter, feudInherit, feudOn, feudOf, feudSurvive } from "./feud.ts";
 import { ISLAND_IMPL } from "./island-actions.ts";
@@ -113,6 +113,20 @@ function gainLeverage(s: GameState, holder: string, over: string, how: string) {
   event(s, holder, holder === PLAYER ? `You now hold a secret over ${nameOf(s, over)} (${how}).` : `${capital(nameOf(s, holder))} now holds a secret over ${nameOf(s, over)}.`,
     how, holder === PLAYER);
 }
+// Switch "purseDry": once the rich families are Rebellious, each squeeze (coin, the levy) yields 1 less than the
+// last, and their purses refill by 1 every few seasons. Without the switch the full sum, as before.
+function squeezeRich(s: GameState, base: number, what: string): number {
+  if (!on(s, "purseDry") || s.factions.rich.mood > 0) return base;
+  const k = (switchById("purseDry") as any).knobs as { drop: number; refillSeasons: number };
+  const since = s.flags.richSqueezedAt === undefined ? 0 : Math.floor((s.season - s.flags.richSqueezedAt) / k.refillSeasons);
+  const dry = Math.max(0, (s.flags.richSqueeze ?? 0) - since);
+  const got = Math.max(0, base - dry * k.drop);
+  s.flags.richSqueeze = dry + 1;
+  s.flags.richSqueezedAt = s.season;
+  if (got < base) event(s, "rich", got ? `The rich families' purses are thinner: ${what} brings in ${got} silver, not ${base}.` : `The rich families have nothing left to give: ${what} brings in nothing.`, `the rich are Rebellious and squeezed ${dry} time${dry === 1 ? "" : "s"} lately; their purses refill by 1 every ${k.refillSeasons} seasons`);
+  return got;
+}
+
 function spendLeverage(s: GameState, holder: string, over: string, why = "you used what you know") {
   if (secretsOn(s)) { useHold(s, holder, over, why); return; }
   const i = s.leverage.findIndex((l) => l.holder === holder && l.over === over);
@@ -398,7 +412,7 @@ export const IMPL: Record<string, Impl> = {
       if (ok) {
         const fl = flavored(s, `law_${law.id}`, `The assembly passes ${law.name.toLowerCase()}.`);
         withStock(event(s, PLAYER, fl.text, "the vote"), fl.stock);
-        if (law.once) silver(s, law.once.silver, law.name);
+        if (law.once) silver(s, law.against?.includes("rich") ? squeezeRich(s, law.once.silver, law.name.toLowerCase()) : law.once.silver, law.name);
         else s.laws.push(law.id);
         for (const [f, d] of Object.entries(law.moods ?? {})) mood(s, f as FactionId, d, law.name.toLowerCase());
         for (const f of v.forF) powerChange(s, f, 1, "it won an assembly vote");
@@ -437,7 +451,7 @@ export const IMPL: Record<string, Impl> = {
       s.flags.coin = s.season;
       const fc = flavored(s, "strikeCoin", "You strike coin at the mint.");
       withStock(event(s, PLAYER, fc.text, "Strike coin"), fc.stock);
-      silver(s, 2, "new coin");
+      silver(s, squeezeRich(s, 2, "new coin"), "new coin");
       mood(s, "rich", -1, "debased coin eats their wealth");
     },
   },
