@@ -378,3 +378,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small call):** "Dinners as the stage" and "Grain and the sea" are now marked Workshop switches, so the test link shows only the test's rules, as the two-day plan says. Their Workshop pages offer them ticked as before (checked in Chromium).
 - **Changed:** `docs/handoff.md` now keeps only what is open; what each thread built moved word for word to `docs/handoff-archive.md` (checked line by line: nothing lost). Three open questions that sat inside built notes are listed together.
 - **Open:** publish nothing to the test link until Jacob reports on his game.
+
+## 2026-11-25 (a thousand reigns: AAR batch, thread 29)
+- **Done:** `npm run aar-runs` (`scripts/aar-runs.ts`), a harness only: 1,008 island games (720 with all 17 switches on across the five scripted players, 144 beginning in exile, 144 on the First island test preset), a dossier for each game and numbers across all of them. 0 crashes, 0 broken states. Report with ten after action reports and findings: `docs/playtests/2026-11-25-aar/report.md`.
+- **Decided:** no rule changes. The bugs found (a feud you inherit against yourself when you execute your own kin, a wound's wrong reason line, a duplicated plot member, a capital in mid-sentence, "him" for women) are reported, not fixed.
+- **Open (Jacob's):** the five questions at the end of the report, also listed in `docs/handoff.md`.

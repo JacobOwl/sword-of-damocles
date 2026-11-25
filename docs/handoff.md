@@ -8,6 +8,12 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - At the freeze, "Dinners as the stage" and "Grain and the sea" became Workshop switches like the other bets, so the test link's own setup list shows only the test's rules. Their Workshop pages still offer them ticked.
 - What each thread built is in `docs/handoff-archive.md` (moved, word for word). This file keeps only what is open.
 
+## From the AAR batch (thread 29, 2026-11-25)
+1,008 headless games with every switch on, ten written up as after action reports: `docs/playtests/2026-11-25-aar/report.md`. No rules changed.
+- **Bugs found, not fixed:** executing your own kin with the feud switch makes *you* the heir to the feud ("Dionysius swears that Leptines's death will not be forgotten"; the kin list in `src/core/actions.ts` execute includes the player); "The feud passes to him" for women; a wound's reason line says "it takes 3 or more" when a 3 or 4 only wounded because you held no office or the leader struck from outside; "led by X. With him: X"; "Meanwhile, After…" in the story chronicle; "the general home too popular" shape still never matches.
+- **Questions for Jacob:** fix the self-feud bug? Should striking coin and the levy still cost something once the rich families are Rebellious (now free silver)? Purges pay for the iron hand (8+ executions: 43% survive; under 4: 2%). Is that wanted? Vary the first season (the same three openers in 81 to 94% of games)? Should exile lines speak only when the hunt changes, not every season?
+- **Read before trusting all-switch tyranny counts:** with every switch on, the careful ruler and the patron almost never become tyrant (4 of 288 games, against 52 of 144 on the preset). No single switch causes it; it looks like the bots' priority lists being crowded.
+
 ## Questions for Jacob, ranked (assumptions council, thread 18, 2026-11-23)
 Only these two need Jacob. Every other question below defaults to what the game does now (`docs/council/2026-11-23-assumptions-council.md`).
 1. **When will you play the first island test?** Recommended: one sitting before Wednesday morning, the "First island test" preset, judged at season 10.
