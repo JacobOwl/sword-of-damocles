@@ -8,6 +8,11 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - At the freeze, "Dinners as the stage" and "Grain and the sea" became Workshop switches like the other bets, so the test link's own setup list shows only the test's rules. Their Workshop pages still offer them ticked.
 - What each thread built is in `docs/handoff-archive.md` (moved, word for word). This file keeps only what is open.
 
+## Customs from the sources (thread 33, 2026-11-25)
+Record: `docs/research/customs.md`. Research only; nothing built. Petalism is left to thread 32.
+- **Questions for Jacob:** which of the 25 to build, if any? Top five: the tyrant's purse tricks (one-off money schemes the city remembers), the listeners ("Sharp-ears": hear plots sooner, hear fewer complaints), the great oath (make a suspect swear by the goddess), laying down the sword (Gelon unarmed before the assembly), and the oracle of "his betters". Each would be a switch, off by default.
+- The Ear of Dionysius is a name from 1608 (Caravaggio), not ancient; the card says so.
+
 ## Council on Solium Infernum (thread 32, 2026-11-25)
 Record: `docs/council/2026-11-25-solium-infernum.md`. Advice only; nothing built. All of it waits for Jacob's game and the switch sort.
 - **Questions for Jacob:** quarrels with terms (public demand or slight, then a quarrel with an aim and a deadline)? force against a citizen costs more without a charge? factions quarrel with each other, each with a named chief enemy? Each recommended as a switch, off by default.
