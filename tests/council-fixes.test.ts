@@ -26,3 +26,13 @@ test("without the feud switch, a dead man's grudge still goes to his kin, not to
   assert.ok(s.people.theste.grudges.some((g) => g.reason === "you executed her kin Leptines"), "she, not he");
   assert.ok(!s.people.dionysius.grudges?.some((g) => /Leptines/.test(g.reason)));
 });
+
+test("varied wording uses no dice: a replay is exact, and the story chronicle reads the plain line", async () => {
+  const { runBotGame, replay } = await import("../src/core/index.ts");
+  const a = runBotGame(7, { bot: "tyrant", scenario: "island" });
+  const b = replay(7, a.inputs, a.tuning, { scenario: "island" });
+  assert.deepEqual(b.log.map((e) => e.text), a.log.map((e) => e.text));
+  const varied = a.log.filter((e) => e.stock && e.stock !== e.text);
+  assert.ok(varied.length > 0, "some lines carry a varied sentence");
+  for (const e of varied) assert.ok(e.text.startsWith(e.stock!.replace(/ \(\+\d+ silver to Carthage's treasury\.\)$/, "")), e.text);
+});

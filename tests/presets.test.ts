@@ -51,7 +51,7 @@ test("a preset game is the same game as its options, and replays exactly", () =>
 
 // Pinned so nothing changes the test build under Jacob without a logged decision (freeze: 2026-11-24).
 // Re-pin only with a line in docs/decisions.md saying what changed.
-const PRESET_DIGEST = "489e7bfc4ee22b8a"; // 2026-11-25, thread 31: only wording (council bug fixes, same 60-game log diff); the frozen test link (code of main 26744da) keeps "a13b4b4e66093c27". Before that thread 28: "her house"; thread 19: dice no longer drawn inside a sort
+const PRESET_DIGEST = "8d9ccb179fc0ce4a"; // 2026-11-25, thread 31 (part 2): only wording, varied sentences after repeated lines. Part 1 "489e7bfc4ee22b8a": only wording (council bug fixes, same 60-game log diff); the frozen test link (code of main 26744da) keeps "a13b4b4e66093c27". Before that thread 28: "her house"; thread 19: dice no longer drawn inside a sort
 test("the first island test plays exactly as pinned (careful bot, seeds 1 to 10)", () => {
   const h = createHash("sha256");
   for (let seed = 1; seed <= 10; seed++) h.update(logDigest(runBotGame(seed, { bot: "careful", ...presetOpts("firstIslandTest") })));

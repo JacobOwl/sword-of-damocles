@@ -7,6 +7,7 @@
 // reason; his men can hunt you, with warnings before they strike. You strike for the city when the odds are good
 // enough, and every modifier is shown first. Numbers and texts are in data/exile.json; the sourced pattern
 // (Hermocrates, the exiles at Aetna, Dion) is in docs/research/exile.md. Every rule here is invention.
+import { vary } from "./vary.ts";
 import { isPronoun, pronoun } from "./pronouns.ts";
 import exileJson from "../../data/exile.json" with { type: "json" };
 import { DATA } from "./data.ts";
@@ -41,7 +42,7 @@ export interface ExileState {
   followers: string[]; // people who came with you (status "outside", where "exile")
   sworn: string[]; // men inside the city sworn to you
   notice: number; // how much the ruler hears of you, 0 to 6
-  hunt: { stage: number; since: number; named: number; dodged?: number } | null; // men sent to find you; named: the season it reached Named; dodged: times lying low set it back
+  hunt: { stage: number; since: number; named: number; dodged?: number; said?: number; saidAt?: string } | null; // men sent to find you; named: the season it reached Named; dodged: times lying low set it back
   arms: boolean; // arms bought for the citizens
   patrons: string[];
   promises: string[];
@@ -74,7 +75,7 @@ export function rulerName(s: GameState): string {
 }
 // {ruler} and {Ruler}, {refuge} and {Refuge}, and any extra words, filled into a text from the data.
 export function words(s: GameState, text: string, extra: Record<string, string> = {}): string {
-  const vars: Record<string, string> = { ruler: s.exile ? rulerName(s) : "", refuge: s.exile ? refugeName(s) : "", ...extra };
+  const vars: Record<string, string> = { ruler: s.exile ? rulerName(s) : "", refuge: s.exile ? refugeName(s) : "", town: s.exile ? refugeDef(s.exile.at)?.short ?? refugeName(s) : "", ...extra };
   return text.replace(/\{([A-Za-z]+)(?::ruler)?\}/g, (m, key: string) => {
     if (m.endsWith(":ruler}") && isPronoun(key)) return pronoun(s, s.exile?.ruler.id, key); // {his:ruler}: his or her
     const k = key.charAt(0).toLowerCase() + key.slice(1);
@@ -353,7 +354,10 @@ const ACTS: Record<string, ActCheck> = {
       log(s, { actor: x.ruler.id ?? "world", text: `${capital(rulerName(s))} searches for your friends: rolled ${die} + ${Math.floor(x.notice / 2)} for what is heard of you = ${total}, needs ${K().purgeNeed}.`, visible: false, kind: "roll", roll: { die, mods: [{ label: "what is heard of you", value: Math.floor(x.notice / 2) }], total, need: K().purgeNeed, ok: total >= K().purgeNeed } });
       if (total < K().purgeNeed) { x.acts.push({ season: s.season, id: def.id, text: `${capital(rulerName(s))} searched for your friends and found no one.`, why: def.why }); return; }
       x.sworn = x.sworn.filter((m) => m !== id);
-      rulerLog(s, def, words(s, def.text, { friend: s.people[id].name }), words(s, def.why));
+      // The first seizure says "Your letters were found."; later ones vary the second sentence (data/exile.json purgeAgain).
+      const n = (s.counters.exileFriendsSeized = (s.counters.exileFriendsSeized ?? 0) + 1);
+      const text = n === 1 ? def.text : def.text.replace("Your letters were found.", vary(s, "purge", EXILE.purgeAgain as string[]));
+      rulerLog(s, def, words(s, text, { friend: s.people[id].name }), words(s, def.why));
       setStatus(s, id, x.ruler.kind === "carthage" ? "dead" : "held", "seized for your letters");
     },
   },
@@ -437,7 +441,12 @@ function huntAdvance(s: GameState) {
   if (!h) return;
   if (h.since < s.season && h.stage < 3 && x.notice >= K().huntPace) h.stage += 1;
   if (h.stage === 3 && h.named < 0) h.named = s.season;
-  log(s, { actor: "world", text: words(s, (EXILE.hunt as string[])[h.stage - 1]), why: "the ruler's men hunt you", visible: true, kind: "warning" });
+  // Said in full when the hunt reaches a new stage or finds you at a new refuge; in the seasons between, a shorter
+  // line from data/exile.json keeps the warning in view without repeating it word for word (council 2026-11-25).
+  const fresh = h.said !== h.stage || h.saidAt !== x.at;
+  const line = fresh ? (EXILE.hunt as string[])[h.stage - 1] : vary(s, "hunt", (EXILE.huntQuiet as string[][])[h.stage - 1]);
+  h.said = h.stage; h.saidAt = x.at;
+  log(s, { actor: "world", text: words(s, line), why: fresh ? "the ruler's men hunt you" : "the ruler's men hunt you, as before", visible: true, kind: "warning" });
 }
 export function huntMods(s: GameState): { theirs: Mod[]; yours: Mod[] } {
   const x = s.exile!;
@@ -752,7 +761,11 @@ export const EXILE_IMPL: Record<string, Impl> = {
     run: (s, a) => {
       const p = patronDef(a.target!);
       ix(s).patrons.push(p.id);
-      say(s, PLAYER, p.text, `Seek a patron abroad: ${p.name}`);
+      // A patron who paid you in an earlier exile is told in a shorter line, and its source is cited once a game.
+      const key = `exilePatron_${p.id}`;
+      const again = (s.counters[key] ?? 0) > 0 && p.again;
+      s.counters[key] = (s.counters[key] ?? 0) + 1;
+      say(s, PLAYER, again ? p.again : p.text, `Seek a patron abroad: ${p.name}`);
       purse(s, p.silver, p.name);
       band(s, p.men, p.name);
       for (const [f, d] of Object.entries(p.longing)) mood(s, f as FactionId, d as number, `you took the silver of ${p.name}`);

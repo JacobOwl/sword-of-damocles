@@ -55,11 +55,14 @@
   ],
   "patrons": [
     { "id": "sparta", "kind": "invention", "name": "Sparta", "silver": 2, "men": 1, "longing": {}, "promise": "Sparta will want ships and men from Syracuse when you rule again.",
-      "text": "Sparta sends silver and a captain with a company. It wants a friendly tyrant in Syracuse, as when it sent Aristus \"with intent to increase the power of the tyranny\" (Diodorus 14.10.2).", "needs": [] },
+      "text": "Sparta sends silver and a captain with a company. It wants a friendly tyrant in Syracuse, as when it sent Aristus \"with intent to increase the power of the tyranny\" (Diodorus 14.10.2).",
+      "again": "Sparta sends silver and a company once more. Its ephors want their friend back in Syracuse.", "needs": [] },
     { "id": "persia", "kind": "invention", "name": "a Persian satrap", "silver": 3, "men": 0, "longing": {}, "promise": "",
-      "text": "A Persian satrap's agent pays you a great sum, as Pharnabazus paid Hermocrates in his exile (Diodorus 13.63.2). He asks nothing yet.", "needs": [] },
+      "text": "A Persian satrap's agent pays you a great sum, as Pharnabazus paid Hermocrates in his exile (Diodorus 13.63.2). He asks nothing yet.",
+      "again": "The satrap's agent finds you again. Persia still pays, though less gladly, and still asks nothing yet.", "needs": [] },
     { "id": "carthage", "kind": "invention", "name": "Carthage's council", "silver": 2, "men": 2, "longing": { "citizens": -1, "rich": -1 }, "promise": "You promised Carthage peace. When you rule again its anger falls, and the city remembers whose silver brought you home.",
-      "text": "Carthage's council pays you silver and lends you hired men, for a promise of peace. Word of it reaches Syracuse.", "needs": ["notCarthage"] }
+      "text": "Carthage's council pays you silver and lends you hired men, for a promise of peace. Word of it reaches Syracuse.",
+      "again": "Carthage's council pays you again, for the same promise of peace. Syracuse hears of it again.", "needs": ["notCarthage"] }
   ],
   "rulerActs": [
     { "id": "hunt", "kind": "invention", "name": "Hunt the exile", "text": "{Ruler} offers a reward for your head, as the rebels did against you in 404 (Diodorus 14.8.3), and sends men to find you.", "why": "the ruler hears too much of you: your letters, your hired men, your friends" },
@@ -71,9 +74,34 @@
     { "id": "games", "kind": "invention", "name": "Feed the people", "text": "{Ruler} gives the people grain and games.", "why": "nothing more pressing, and the citizens' goodwill is cheap at the price" }
   ],
   "hunt": [
-    "Whispers: a stranger at {refuge} asks which house the Syracusan lodges in.",
-    "Rumors: men from Syracuse drink in the taverns of {refuge}, and pay too well for news of you.",
-    "Named: your hosts at {refuge} name {ruler}'s men, and say they mean to strike soon."
+    "Whispers: a stranger at {town} asks which house the Syracusan lodges in.",
+    "Rumors: men from Syracuse drink in the taverns of {town}, and pay too well for news of you.",
+    "Named: your hosts at {town} name {ruler}'s men, and say they mean to strike soon."
+  ],
+  "huntQuietNote": "Council 2026-11-25: the hunt line above is said in full when the hunt reaches a new stage (or after a move). In the seasons between, one of these shorter lines keeps the warning in view instead of repeating it word for word. Each list belongs to the stage of the same number. All invention.",
+  "huntQuiet": [
+    [
+      "Whispers: the stranger is still in {town}.",
+      "Whispers: someone at {town} keeps asking about the Syracusan.",
+      "Whispers: a face you saw last season is in the market at {town} again."
+    ],
+    [
+      "Rumors: the men from Syracuse are still drinking in {town}.",
+      "Rumors: {ruler}'s men have not left {town}. They have stopped asking and started watching.",
+      "Rumors: a boatman says the men from Syracuse paid for another season's lodging."
+    ],
+    [
+      "Named: {ruler}'s men are still in {town}. Your hosts bar the doors at night.",
+      "Named: your hosts say the killers are waiting for a night when your guard is thin.",
+      "Named: the same men are seen outside your lodging at {town}. They are in no hurry.",
+      "Named: your hosts at {town} warn you again. The strike can come any night."
+    ]
+  ],
+  "purgeAgain": [
+    "Your letters were found.",
+    "Another of your letters was found in his house.",
+    "He had kept your letters, and they were found.",
+    "Someone sold the ruler the names in your letters."
   ],
   "texts": {
     "fall": "You are not finished. You flee to {refuge} with {followers}. You carry {silver} of silver, and {men} follow you. {Ruler} holds Syracuse now.",
