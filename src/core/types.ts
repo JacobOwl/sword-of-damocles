@@ -150,6 +150,7 @@ export interface LogEntry {
   step: Step;
   actor: string; // person id, faction id, or "world"
   text: string; // plain words, for the chronicle
+  stock?: string; // the plain line without its varied sentence (src/core/vary.ts), read by the story chronicle
   why?: string; // the reason, shown to the player
   visible: boolean; // false for secrets you haven't uncovered
   kind: "event" | "change" | "roll" | "warning" | "chronicle";

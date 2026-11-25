@@ -4,6 +4,7 @@
 // A grievance already in the record can't start a new rivalry. Rank comes from surviving you:
 // escaping your guards, living through a failed blow, coming home from exile. Twice makes a Nemesis.
 // Executing a man closes his record and opens one with his nearest kin, said plainly.
+import { flavored, withStock } from "./vary.ts";
 import { capital, seasonName } from "./state.ts";
 import { event, rankChange } from "./ops.ts";
 import type { Chapter, Feud, GameState, Person } from "./types.ts";
@@ -74,7 +75,8 @@ export function feudInherit(s: GameState, dead: Person, kin: Person | undefined)
   const k = rec(kin);
   k.title = "the Bereaved";
   k.pausedRank = Math.max(k.pausedRank ?? 1, dead.rival?.rank ?? 1);
-  event(s, kin.id, `${capital(kin.name)} swears that ${dead.name}'s death will not be forgotten. The feud passes to ${pronoun(s, kin.id, "him")}.`, `you executed ${pronoun(s, kin.id, "his")} kin`);
+  const fo = flavored(s, "feudOath", `${capital(kin.name)} swears that ${dead.name}'s death will not be forgotten. The feud passes to ${pronoun(s, kin.id, "him")}.`);
+  withStock(event(s, kin.id, fo.text, `you executed ${pronoun(s, kin.id, "his")} kin`), fo.stock);
 }
 
 export const titledName = (p: Person) => (feudOf(p)?.title ? `${p.name} ${feudOf(p)!.title}` : p.name);

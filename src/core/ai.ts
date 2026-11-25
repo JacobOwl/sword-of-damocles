@@ -1,5 +1,6 @@
 // The people and factions the game controls. They use the same menu as you, through short priority lists,
 // and every move records its reason so you can read why it happened.
+import { flavored, withStock } from "./vary.ts";
 import { pronoun } from "./pronouns.ts";
 import { DATA, agendaById } from "./data.ts";
 import { islandChoices } from "./island-bot.ts";
@@ -110,7 +111,10 @@ function request(s: GameState, p: Person, kind: GameState["requests"][number]["k
     }
   }
   s.requests.push({ id: nextId(s, "req"), from: p.id, kind, season: s.season, owed: p.owedFavor, ...(demand ? { demand: true } : {}), ...extra });
-  event(s, p.id, text, why);
+  // From the third time a man asks for the same thing, one varied sentence says so (data/wordings.json petitionAgain).
+  const asked = (s.counters[`asked_${p.id}_${extra.office ?? kind}`] = (s.counters[`asked_${p.id}_${extra.office ?? kind}`] ?? 0) + 1);
+  const fp = asked >= 3 ? flavored(s, "petitionAgain", text, {}, asked) : { text, stock: text };
+  withStock(event(s, p.id, fp.text, why), fp.stock);
   return true;
 }
 function askOffice(s: GameState, p: Person, why: string): boolean {
@@ -166,7 +170,7 @@ function personTurn(s: GameState, p: Person) {
       if (pl && plotStrength(s, pl).total + 3 < defense(s).total) { leaveAllPlots(s, p.id, "Ambition: Safety. The plot looks too weak."); return; }
       if (isPlayerTyranny(s) && p.opinion >= 0 && !p.bound && p.faction !== "family" && [p, ...p.kin.map((k) => s.people[k])].some((x) => x?.marriageable && !x.married))
         return void request(s, p, "marriage", {}, `${capital(p.name)} offers a marriage between your houses.`, "Ambition: Safety. Ally with whoever is strongest.");
-      return void event(s, p.id, `${capital(p.name)} keeps his head down.`, "Ambition: Safety", hidden);
+      return void event(s, p.id, `${capital(p.name)} keeps ${pronoun(s, p.id, "his")} head down.`, "Ambition: Safety", hidden);
     }
     case "Power": {
       const f = factionOf(s, p.id);
@@ -182,7 +186,10 @@ function following(s: GameState, p: Person, why: string) {
   const r = roll(s, p.id, `${capital(p.name)} builds a following`, traitMods(s, p.id, undefined, "buildFollowing"), 4, false);
   if (!r.ok) return;
   p.infl += 1;
-  event(s, p.id, `${capital(p.name)} gathers a following.`, why);
+  const ng = (s.counters[`following_${p.id}`] = (s.counters[`following_${p.id}`] ?? 0) + 1);
+  const lead = `${capital(p.name)} gathers a following.`;
+  const fg = ng >= 3 ? flavored(s, "followingAgain", lead, {}, ng) : { text: lead, stock: lead };
+  withStock(event(s, p.id, fg.text, why), fg.stock);
   const f = factionOf(s, p.id);
   if (f && leaderOf(s, f)?.id === p.id) {
     const ag = s.factions[f].agenda;
@@ -213,7 +220,11 @@ function rumorAgainstYou(s: GameState, p: Person) {
   if (p.rival?.scars.includes("Humiliated")) mods.push({ label: "Humiliated", value: 1 });
   const r = roll(s, p.id, `${capital(p.name)} spreads stories about you`, mods, 4, false);
   if (r.ok) {
-    event(s, p.id, `Stories about you spread among ${s.factions[target].short}.${memoryLine(p)}`, `${p.name} planted a rumor`, true);
+    // From the third rumor on, the line says who keeps telling it (data/wordings.json rumorAgain), not the same words again.
+    const told = (s.counters[`rumors_${p.id}`] = (s.counters[`rumors_${p.id}`] ?? 0) + 1);
+    const lead = `Stories about you spread among ${s.factions[target].short}.`;
+    const fr = told >= 3 ? flavored(s, "rumorAgain", lead, { name: p.name }, told) : { text: lead, stock: lead };
+    withStock(event(s, p.id, `${fr.text}${memoryLine(p)}`, `${p.name} planted a rumor`, true), `${lead}${memoryLine(p)}`);
     mood(s, target, -1, `${p.name}'s rumors`);
   }
 }
@@ -345,7 +356,7 @@ function factionTurn(s: GameState, f: FactionId, canAgenda: boolean) {
     return;
   }
   if (f === "guard" && s.guard.arrearsSeasons >= 2) {
-    if (!s.guard.forSale) event(s, f, "The guard has gone two seasons unpaid. Their loyalty is for sale.", "two seasons of arrears");
+    if (!s.guard.forSale) { const fg = flavored(s, "guardForSale", "The guard has gone two seasons unpaid. Their loyalty is for sale."); withStock(event(s, f, fg.text, "two seasons of arrears"), fg.stock); }
     s.guard.forSale = true;
     return;
   }

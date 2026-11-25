@@ -32,7 +32,7 @@ test("the standard package plays exactly as rules v2 did before packages existed
 // Re-pinned 2026-11-23 (thread 19): the people step drew dice inside a sort comparator, so the number of draws
 // depended on the JavaScript engine (a game copied from the browser replayed differently in Node). Scores are now
 // drawn once per person before sorting. Rules unchanged; the dice fall in a different order.
-const STANDARD_DIGEST = "153e5331210365ac"; // 2026-11-25, thread 31: only wording (council bug fixes: he/she, "22nd", no leader named twice, "you chose not to", lower case after "Again,"); a log diff of 60 games shows the same lines in the same order. Before that "47fe46af89063851" (thread 28, "her house").
+const STANDARD_DIGEST = "8a235434c7a7309b"; // 2026-11-25, thread 31 (part 2): only wording (varied sentences after repeated lines, chosen by hash, no dice; 60-game log diff: same lines in the same order). Part 1, "153e5331210365ac": only wording (council bug fixes: he/she, "22nd", no leader named twice, "you chose not to", lower case after "Again,"); a log diff of 60 games shows the same lines in the same order. Before that "47fe46af89063851" (thread 28, "her house").
 
 test("every package only names knobs that exist", () => {
   const known = Object.keys(knobsFor("standard"));

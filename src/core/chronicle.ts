@@ -6,7 +6,7 @@ import { on } from "./switches.ts";
 import { titledName } from "./feud.ts";
 import type { GameState, LogEntry } from "./types.ts";
 
-const SKIP = /^(Your watchers learn nothing|.* keeps his head down|.* does nothing this season)/;
+const SKIP = /^(Your watchers learn nothing|.* keeps (his|her) head down|.* does nothing this season)/;
 
 export function seasonEntries(s: GameState, season: number, all = false): LogEntry[] {
   return s.log.filter((e) => e.season === season && (all || e.visible));
@@ -14,7 +14,7 @@ export function seasonEntries(s: GameState, season: number, all = false): LogEnt
 
 export function chronicleText(s: GameState, season: number): string {
   const es = seasonEntries(s, season).filter((e) => (e.kind === "event" || e.kind === "warning") && !SKIP.test(e.text));
-  const deeds = es.filter((e) => e.kind === "event").map((e) => e.text);
+  const deeds = es.filter((e) => e.kind === "event").map((e) => e.stock ?? e.text);
   const warnings = es.filter((e) => e.kind === "warning").map((e) => e.text.replace(/^(Whispers|Rumors|Named): /, ""));
   const keep = deeds.length > 12 ? [...deeds.slice(0, 6), ...deeds.slice(-6)] : deeds;
   let text = keep.join(" ");
@@ -128,7 +128,7 @@ export function storyBook(s: GameState, upTo?: number): StoryBook {
       const key = s.people[who] ? who : who === "you" ? "you" : "city"; // factions and the world are the city
       const fd = key === "city" ? FAMILY_DEATH.exec(e.text) : null;
       if (fd) { familyDead.push(fd[1]); continue; }
-      let t = tidyLine(e.text);
+      let t = tidyLine(e.stock ?? e.text); // the plain line: the story does its own "again" and counting
       // The city's standing business (Carthage trading, a content faction holding back) is told once, not every season.
       if (key === "city") { cityLines.add(t); if (lastCity.has(t)) continue; }
       // A grudge remembered is told once per grudge, with the man's name ("He did not forget" alone hid who).

@@ -1,5 +1,6 @@
 // The action menu (rules v2). Each action says who it can target, what the odds are (shown before rolling),
 // and what happens. Names, costs and texts live in data/actions.json; the rules live here.
+import { flavored, withStock } from "./vary.ts";
 import { DATA, actionById, lawById, placeById, traitById, originById } from "./data.ts";
 import { d6 } from "./rng.ts";
 import {
@@ -395,7 +396,8 @@ export const IMPL: Record<string, Impl> = {
       for (const f of FACTIONS) if (s.flags[`vote_${f}`]) delete s.flags[`vote_${f}`];
       event(s, PLAYER, `You put ${law.name.toLowerCase()} to the assembly. For: ${v.forF.map((f) => s.factions[f].short).join(", ") || "no faction"}. Against: ${v.againstF.map((f) => s.factions[f].short).join(", ") || "no faction"}.`, "Propose a law or levy");
       if (ok) {
-        event(s, PLAYER, `The assembly passes ${law.name.toLowerCase()}.`, "the vote");
+        const fl = flavored(s, `law_${law.id}`, `The assembly passes ${law.name.toLowerCase()}.`);
+        withStock(event(s, PLAYER, fl.text, "the vote"), fl.stock);
         if (law.once) silver(s, law.once.silver, law.name);
         else s.laws.push(law.id);
         for (const [f, d] of Object.entries(law.moods ?? {})) mood(s, f as FactionId, d, law.name.toLowerCase());
@@ -433,7 +435,8 @@ export const IMPL: Record<string, Impl> = {
     check: (s) => (!holds(s, PLAYER, "mint") ? "you don't hold the mint" : s.flags.coin === s.season ? "already struck this season" : null),
     run: (s) => {
       s.flags.coin = s.season;
-      event(s, PLAYER, "You strike coin at the mint.", "Strike coin");
+      const fc = flavored(s, "strikeCoin", "You strike coin at the mint.");
+      withStock(event(s, PLAYER, fc.text, "Strike coin"), fc.stock);
       silver(s, 2, "new coin");
       mood(s, "rich", -1, "debased coin eats their wealth");
     },
@@ -901,7 +904,10 @@ export function refuse(s: GameState, id: string, quiet = false) {
   if (!r) return;
   s.requests = s.requests.filter((x) => x.id !== id);
   const p = s.people[r.from];
-  event(s, p.id, quiet ? `${capital(p.name)}'s petition goes unanswered.` : `You refuse ${p.name}'s petition.`, "Refuse");
+  const lead = quiet ? `${capital(p.name)}'s petition goes unanswered.` : `You refuse ${p.name}'s petition.`;
+  const nr = (s.counters[`refused_${p.id}`] = (s.counters[`refused_${p.id}`] ?? 0) + 1);
+  const fr = nr >= 3 ? flavored(s, quiet ? "unanswered" : "refused", lead, {}, nr) : { text: lead, stock: lead };
+  withStock(event(s, p.id, fr.text, "Refuse"), fr.stock);
   if (r.kind === "citizenship") { s.flags.guardRefused = (s.flags.guardRefused ?? 0) + 1; return; }
   p.infl -= 1;
   opinion(s, p.id, -1, r.demand ? `you refused ${pronoun(s, p.id, "his")} demand` : `you refused ${pronoun(s, p.id, "his")} petition`);

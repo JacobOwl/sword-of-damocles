@@ -4,6 +4,7 @@
 // your place or hates you gives counsel that serves himself: he shields his fellow plotters and points you at someone
 // else. Nothing here rolls a die. Each season's briefing is logged when it accuses someone, and a false accusation you
 // check is logged too, so the player can learn whom to trust.
+import { flavored, withStock } from "./vary.ts";
 import councilJson from "../../data/council.json" with { type: "json" };
 import { PLAYER, alive, capital, nameOf, moodName, officeName, plotOf } from "./state.ts";
 import { event, opinion } from "./ops.ts";
@@ -196,7 +197,8 @@ export function councilBrief(s: GameState) {
         c.said.push({ season: s.season, by: who, about: line.accuse, truth: !!line.truth });
         s.counters.councilAccusations = (s.counters.councilAccusations ?? 0) + 1;
         if (!line.truth) s.counters.councilLies = (s.counters.councilLies ?? 0) + 1;
-        event(s, who, `At your council, ${a!.name} says ${s.people[line.accuse].name} is plotting against you.`, `${a!.name}, ${d.name}`);
+        const fa = flavored(s, "councilAccuse", `At your council, ${a!.name} says ${s.people[line.accuse].name} is plotting against you.`);
+        withStock(event(s, who, fa.text, `${a!.name}, ${d.name}`), fa.stock);
         if (!line.truth) deedSecret(s, who, "falseCounsel");
       }
     }

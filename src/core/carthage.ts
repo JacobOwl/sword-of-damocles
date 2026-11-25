@@ -1,6 +1,7 @@
 // Carthage as a simulated city (Phase 2). Each season its council picks a goal by the weight of its blocs,
 // then takes two acts from a fixed menu (data/carthage.json), in the goal's priority order. Its general moves
 // its army by a priority list of his own. Every act is logged with the reason, as the factions' are.
+import { flavored, withStock } from "./vary.ts";
 import { nextRandom } from "./rng.ts";
 import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf, others, plotStrength } from "./state.ts";
@@ -146,7 +147,8 @@ function doAct(s: GameState, id: string, goalName: string) {
     case "trade": {
       const v = s.island!.war ? N.tradeAtWar : d.silver;
       c.silver += v;
-      say(s, `${d.text} (+${v} silver to Carthage's treasury.)`, why);
+      const ft = flavored(s, "carthageTrade", d.text);
+      withStock(say(s, `${ft.text} (+${v} silver to Carthage's treasury.)`, why), `${d.text} (+${v} silver to Carthage's treasury.)`);
       bloc(s, "elders", d.mood.elders, "trade pays");
       break;
     }

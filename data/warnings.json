@@ -81,12 +81,18 @@
         "Nothing new is heard, but the talk has not stopped.",
         "The same unease at dinner. No one says why.",
         "Your steward has nothing new, only a feeling.",
-        "Doors that were open at night are shut now."
+        "Doors that were open at night are shut now.",
+        "A servant you trust asks for a day's leave, and will not say why.",
+        "Your cook says the market has gone quiet when your name comes up.",
+        "Someone has been reading the letters on your desk, or you think so."
       ],
       "near": [
         "Nothing new this season. The same men still meet.",
         "The talk goes quiet when your people come near. They are waiting for something.",
-        "No new names, but no one has left them either."
+        "No new names, but no one has left them either.",
+        "The same houses keep their lamps lit late.",
+        "Your watchers see the same faces at the same doors.",
+        "Nothing you can prove, and nothing that has stopped."
       ]
     }
   }

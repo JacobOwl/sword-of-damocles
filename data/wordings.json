@@ -1,0 +1,81 @@
+{
+  "kind": "invention",
+  "note": "Council 2026-11-25: extra sentences that vary lines a game repeats season after season. The first sentence of each line never changes (so the chronicle, the story shapes and the tests still find it); one of these is added after it, chosen by a hash of the seed, the season and the line, never with the game's dice, so replays stay exact. An empty string means the plain line. The story chronicle reads the plain line and does its own counting ('again', 'the third time'). All invention. {Name} and {name} are the person the line is about.",
+  "strikeCoin": [
+    "",
+    "The new staters ring thin on the moneychangers' tables.",
+    "Your die-cutters work through the night.",
+    "The rich families' stewards count the new coin with sour faces.",
+    "In the market, men bite the new coins before they take them.",
+    ""
+  ],
+  "law_levyRich": [
+    "",
+    "The rich pay, and remember who made them.",
+    "The collectors go from door to door in Achradina.",
+    "Some houses hide their silver before the collectors come.",
+    "The rich families say nothing in the assembly. They say it at dinner instead.",
+    ""
+  ],
+  "rumorAgain": [
+    "{Name} is at it again.",
+    "The same stories, and the same teller.",
+    "{Name} keeps talking, and some still listen.",
+    "By now everyone knows where these stories start.",
+    "No one is surprised to hear it came from {name}."
+  ],
+  "guardForSale": [
+    "",
+    "Men from other houses have been seen buying wine for the guard.",
+    "The captains have stopped looking you in the eye.",
+    "A soldier asks your steward, loudly, when the pay is coming."
+  ],
+  "councilAccuse": [
+    "",
+    "The room goes quiet.",
+    "No one else at the table speaks.",
+    "It is said quietly, as if it costs something to say.",
+    "",
+    "The others watch you, not the man named."
+  ],
+  "feudOath": [
+    "",
+    "The family closes its doors to your messengers.",
+    "It is said at the grave, in front of witnesses.",
+    "The house puts on mourning, and keeps it on."
+  ],
+  "carthageTrade": [
+    "",
+    "Its merchants are seen in every harbour of the west.",
+    "Grain, oil and silver move under Carthage's eye.",
+    "",
+    "Your harbour masters count the Punic hulls that pass."
+  ],
+  "petitionAgain": [
+    "",
+    "It is not the first time.",
+    "The court has heard this request before.",
+    "Your secretaries no longer write the request down in full.",
+    ""
+  ],
+  "unanswered": [
+    "",
+    "The petitioner waits in the anteroom until dark.",
+    "",
+    "No one tells the petitioner anything.",
+    "The request lies on your table with the others."
+  ],
+  "refused": [
+    "",
+    "The petitioner leaves without a word.",
+    "",
+    "There are witnesses."
+  ],
+  "followingAgain": [
+    "",
+    "More men come to the house each month.",
+    "",
+    "The same faces are seen at the door, and new ones with them.",
+    "Clients wait in the street to be seen."
+  ]
+}
