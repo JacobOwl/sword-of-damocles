@@ -8,6 +8,14 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - At the freeze, "Dinners as the stage" and "Grain and the sea" became Workshop switches like the other bets, so the test link's own setup list shows only the test's rules. Their Workshop pages still offer them ticked.
 - What each thread built is in `docs/handoff-archive.md` (moved, word for word). This file keeps only what is open.
 
+## Council after the 1,000 games (thread 31, 2026-11-25)
+Record: `docs/council/2026-11-25-after-the-thousand.md`. Advice only; nothing built. Jacob plays the frozen test link on Thu 2026-11-26.
+- **Before he plays:** change nothing on the test link; tell him the two wording bugs he may meet (the wound reason line at a margin of 3-4, "Meanwhile, After"); don't show him the preset's danger numbers until his debrief.
+- **Next builds, in order:** tag the frozen commit, then the bug bundle (self-feud, "him" for women, wound reason, leader named twice, stray capital, repeating rival line, fugitive lending, the general-home pattern); then exile lines only on a change; then the text-variety pass. Anything his game raises comes before the text pass.
+- **Counts before rules:** why Carthage goes to war (the yearly tick), why its armies end, what held at each return from exile. Purges were recounted (`scripts/purge-recut.ts`): mostly an artefact of reign length, so no switch for now.
+- **Switches recommended, off by default, Jacob's call:** "The purse runs dry" (coin and levy at Rebellious), a varied opening by seed (after his first game), and "Carthage answers what you do" (if the count says the tick drives most wars). "Favours wear thin" is ready if his play shows petition spam.
+- **After his game:** sort every switch and the eight bets once (part of the game, Workshop or later); list the stale branches for him to delete or keep; mark the blocked threads as waiting on his game.
+
 ## From the AAR batch (thread 29, 2026-11-25)
 1,008 headless games with every switch on, ten written up as after action reports: `docs/playtests/2026-11-25-aar/report.md`. No rules changed.
 - **Bugs found, not fixed:** executing your own kin with the feud switch makes *you* the heir to the feud ("Dionysius swears that Leptines's death will not be forgotten"; the kin list in `src/core/actions.ts` execute includes the player); "The feud passes to him" for women; a wound's reason line says "it takes 3 or more" when a 3 or 4 only wounded because you held no office or the leader struck from outside; "led by X. With him: X"; "Meanwhile, After…" in the story chronicle; "the general home too popular" shape still never matches.
