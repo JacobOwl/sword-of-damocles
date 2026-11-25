@@ -3,7 +3,7 @@
 //   node scripts/verify-cast-quotes.mjs ../phoenician-punic-world
 // Each fact names its file; a quote with "..." is checked piece by piece. Exits 1 on any miss.
 // A file saved in this repo's own sources/ folder (excerpts found later) is read from here first.
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.argv[2];
@@ -25,7 +25,8 @@ const walk = (o, where) => {
     for (const [k, v] of Object.entries(o)) walk(v, o.id ?? where);
   }
 };
-for (const f of ["data/people.json", "data/factions.json", "data/outside.json", "data/events.json", "data/island.json", "data/carthage.json", "data/names.json", "data/island-events.json", "data/calendar.json", "data/secrets.json", "data/commission.json", "data/dinners.json", "data/convoys.json", "data/carthage-chronicle.json"]) walk(JSON.parse(readFileSync(f, "utf8")), f);
+// Every data file, so a new file with quotes is checked without being added here (council 2026-11-25).
+for (const f of readdirSync("data").filter((x) => x.endsWith(".json")).sort().map((x) => `data/${x}`)) walk(JSON.parse(readFileSync(f, "utf8")), f);
 let bad = 0;
 for (const f of facts) {
   const hay = text(f.file);

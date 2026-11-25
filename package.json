@@ -18,7 +18,8 @@
     "replay-save": "node scripts/replay-save.ts",
     "story-sweep": "node scripts/story-sweep.ts",
     "debrief": "node scripts/debrief.ts",
-    "aar-runs": "node scripts/aar-runs.ts"
+    "aar-runs": "node scripts/aar-runs.ts",
+    "verify-quotes": "node scripts/verify-cast-quotes.mjs ../phoenician-punic-world"
   },
   "engines": {
     "node": ">=22.18"
