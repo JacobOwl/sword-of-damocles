@@ -100,6 +100,8 @@ import eventsJson from "../../data/events.json" with { type: "json" };
 import islandEventsJson from "../../data/island-events.json" with { type: "json" };
 import dinnersJson from "../../data/dinners.json" with { type: "json" };
 import exileJson from "../../data/exile.json" with { type: "json" };
+import boardJson from "../../data/board.json" with { type: "json" };
+import { applyBoardEffect, describeBoardEffect, scoreBoardEffect, seatName } from "./board.ts";
 export const COURT_EVENTS = (eventsJson as any).events as EventDef[];
 export const ISLAND_EVENTS = ((islandEventsJson as any).events as EventDef[]).map((e) => ({ ...e, scenario: "island" as const }));
 // Switch "dinners": the matters a dinner can put before you. All chained, so they never come by chance.
@@ -107,7 +109,9 @@ export const DINNER_EVENTS = (dinnersJson as any).asks as EventDef[];
 // Switch "exile": the matters of an exile, drawn only while you are in exile (all island games).
 export const EXILE_EVENTS = ((exileJson as any).events as EventDef[]).map((e) => ({ ...e, scenario: "island" as const }));
 export const EXILE_PACING = (exileJson as any).pacing as { draws: number; secondChance: number; maxOpen: number };
-export const EVENTS = [...COURT_EVENTS, ...ISLAND_EVENTS, ...DINNER_EVENTS, ...EXILE_EVENTS];
+// Switch "contestedBoard": the matters of the board, all chained, fired by board.ts.
+export const BOARD_EVENTS = (boardJson as any).events as EventDef[];
+export const EVENTS = [...COURT_EVENTS, ...ISLAND_EVENTS, ...DINNER_EVENTS, ...EXILE_EVENTS, ...BOARD_EVENTS];
 export const PACING = (eventsJson as any).pacing as { draws: number; secondChance: number; maxOpen: number; cooldown: number };
 export const ISLAND_PACING = (islandEventsJson as any).pacing as { draws: number; secondChance: number; maxOpen: number };
 export const RUMORS = (islandEventsJson as any).rumors as { falseShare: number; clueAfter: number };
@@ -235,6 +239,7 @@ export function fill(s: GameState, text: string, cast: Record<string, string>): 
     if (of && isPronoun(key)) { const who = cast[of] ?? (of === "ruler" && s.exile?.active ? s.exile.ruler.id : undefined); return pronoun(s, who, key); } // {his:rich}: his or her
     const k = key.charAt(0).toLowerCase() + key.slice(1);
     const id = cast[k];
+    if (id && (k === "seat" || k === "faction") && !of) { const v = k === "seat" ? seatName(id) : s.factions[id as FactionId]?.short ?? id; return key[0] === key[0].toUpperCase() ? capital(v) : v; } // switch "contestedBoard"
     if (!id && s.exile?.active && (k === "ruler" || k === "refuge")) { const v = k === "ruler" ? rulerName(s) : refugeName(s); return key[0] === key[0].toUpperCase() ? capital(v) : v; } // switch "exile"
     if (!id) return m;
     const n = partName(s, id);
@@ -317,6 +322,8 @@ export function describe(s: GameState, inst: EventInstance, effects: Effect[]): 
     if (din !== null) { out.push(din); continue; }
     const exi = describeExileEffect(s, inst.roles, e);
     if (exi !== null) { if (exi) out.push(exi); continue; }
+    const brd = describeBoardEffect(s, inst.roles, e);
+    if (brd !== null) { if (brd) out.push(brd); continue; }
     if (e.silver) out.push(`Silver ${sgn(e.silver)}`);
     else if (e.grain) out.push(`Grain ${sgn(e.grain)} months`);
     else if (e.land) out.push(`Land ${sgn(e.land)}`);
@@ -400,6 +407,17 @@ export function fireNow(s: GameState, id: string, roles: Record<string, string>)
   return true;
 }
 
+// Switch "contestedBoard": a matter of the board, its people given, with the seat or faction it is about.
+export function fireBoard(s: GameState, id: string, roles: Record<string, string>, extra: Record<string, string>): boolean {
+  const def = eventById(id);
+  if (!def) return false;
+  const cast = castRoles(s, def, roles);
+  if (!cast) return false;
+  Object.assign(cast, extra);
+  fire(s, def, cast, def.why);
+  return true;
+}
+
 // Switch "exile": in exile, only the follow-ups and the exile's own matters come before you.
 export function drawExileEvents(s: GameState) {
   const ev = eventsState(s);
@@ -429,7 +447,8 @@ export function drawEvents(s: GameState) {
     const cast = castRoles(s, def, q.roles);
     if (cast) fire(s, def, cast, def.why);
   }
-  drawFrom(s, COURT_EVENTS, PACING.draws, PACING.secondChance, PACING.maxOpen);
+  // Switch "contestedBoard": the board makes its own matters, so the old deck comes rarer (no second draw).
+  drawFrom(s, COURT_EVENTS, PACING.draws, s.board ? 0 : PACING.secondChance, PACING.maxOpen);
   // The island game draws again from the island's own events, so the court's intrigue is not crowded out.
   if (s.island && !s.over) {
     const islandOpen = () => ev.open.filter((o) => eventById(o.id)?.scenario === "island").length;
@@ -528,6 +547,7 @@ export function apply(s: GameState, inst: EventInstance, effects: Effect[], why:
     if (applyIslandEffect(s, inst.roles, e, reason)) continue;
     if (applyDinnerEffect(s, inst.roles, e, reason)) continue;
     if (applyExileEffect(s, inst.roles, e, reason)) continue;
+    if (applyBoardEffect(s, inst.roles, e, reason)) continue;
     if (e.silver) silver(s, e.silver, reason);
     else if (e.grain) grain(s, e.grain, reason);
     else if (e.land) land(s, e.land, reason);
@@ -621,6 +641,7 @@ function scoreEffects(s: GameState, inst: EventInstance, es: Effect[]): number {
   for (const e of es) {
     v += scoreIslandEffect(s, inst.roles, e);
     v += scoreExileEffect(s, e);
+    v += scoreBoardEffect(s, inst.roles, e);
     for (const k of Object.keys(VAL)) if (typeof e[k] === "number") v += VAL[k] * e[k];
     if (e.mood) v += e.by * (s.factions[e.mood as FactionId].mood <= 1 ? 2 : 1.2);
     if (e.power) v += e.power === "family" ? e.by * 0.5 : -e.by * 0.3;

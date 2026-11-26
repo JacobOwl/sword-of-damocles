@@ -65,6 +65,8 @@ select, input { font-family: var(--body); font-size: 1rem; color: var(--ink); ba
 .offices { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; }
 .offices dt { font-family: var(--display); }
 .offices dd { margin: 0; }
+.ladder { list-style: none; padding: 0; margin: 0; }
+.ladder li { margin: 0 0 6px; line-height: 1.3; }
 .faction { padding: 6px 0 10px; border-bottom: 1px dotted var(--rule); }
 .faction:last-child { border-bottom: 0; }
 .fhead { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; flex-wrap: wrap; }

@@ -2,7 +2,7 @@
 import { sheetSecrets, secretsLedger } from "../components/intrigue.ts";
 import {
   DATA, PLAYER, agendaById, band, capital, influence, leaderOf, menu, moodName, officeName, officesOf, originById,
-  playerInfluence, power, rankTitle, seasonName, traitName,
+  playerInfluence, power, rankTitle, seasonName, traitName, standingOf, standingName, nextStep,
 } from "../../src/core/index.ts";
 import type { FactionId, GameState, Person } from "../../src/core/index.ts";
 import { tipAttr } from "./help.ts";
@@ -65,6 +65,7 @@ export function sheet(s: GameState, id: string) {
       <div class="small"><i>${esc(p.role)}</i></div>
       <div class="small">${marker(id)} · <span class="fmark f-${esc(p.faction)}">${icon(FACTION_ICON[p.faction] ?? "")}${esc(factionName(s, p.faction))}</span> · ${esc(statusWord(p))}${offs.length ? ` · holds <b>${esc(offs.map(officeShort).join(", "))}</b>` : ""}</div>
       <div class="small flags">${flags(s, p)}</div>
+      ${s.board && !me ? `<div class="small">Standing: <b>${esc(standingName(standingOf(s, id)))}</b>${s.board.captain === id ? " · captain of the guard" : ""}. <span class="muted">${esc(nextStep(s, id))}</span></div>` : ""}
     </div>
     <button type="button" class="close" id="sheet-close" aria-label="Close">×</button>
   </header>`;
@@ -195,7 +196,7 @@ function card(s: GameState, p: Person, leads: boolean) {
     <span class="card-text">
       <span class="card-name">${esc(me ? "Dionysius (you)" : capital(p.name))}</span>
       <span class="small muted card-role">${esc(p.role)}</span>
-      <span class="small">${[marker(p.id, false), leads ? "<b>leads</b>" : "", offs.length ? esc(offs.map(officeShort).join(", ")) : "", p.status !== "free" ? `<span class="warn">${esc(statusWord(p).toLowerCase())}</span>` : ""].filter(Boolean).join(" · ")}</span>
+      <span class="small">${[marker(p.id, false), leads ? "<b>leads</b>" : "", s.board && !me && standingOf(s, p.id) >= 2 ? `<b>${esc(standingName(standingOf(s, p.id)).toLowerCase())}</b>` : "", offs.length || s.board?.captain === p.id ? esc([...offs.map(officeShort), ...(s.board?.captain === p.id ? ["captain of the guard"] : [])].join(", ")) : "", p.status !== "free" ? `<span class="warn">${esc(statusWord(p).toLowerCase())}</span>` : ""].filter(Boolean).join(" · ")}</span>
       <span class="small">${flags(s, p)}</span>
     </span>
     ${me ? "" : `<span class="card-op">${opChip(p.opinion)}<span class="opw small">${opinionWord(p.opinion)}</span></span>`}

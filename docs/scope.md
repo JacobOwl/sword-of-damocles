@@ -11,7 +11,7 @@ The milestones for Phase 2 are in `docs/phase2-plan.md`.
 Everything from Phase 1:
 - Syracuse, 405 to 395 BC, in seasons. The same decade, because it holds the great war with Carthage of 397 to 396.
 - Four factions: common citizens, rich families, the mercenary guard, the ruler's family.
-- The six power objects: citadel, treasury, mint, fleet, generalship, assembly. Government form comes out of who holds them.
+- The six power objects: citadel, treasury, mint, fleet, generalship, assembly. Government form comes out of who holds them. With the contested board (Jacob's pick, 2026-11-26, logged in `docs/decisions.md`): a seventh seat, the captain of the guard, and the command of each city you hold as small seats.
 - About 25 people with traits, ambitions, money, relationships and grudges (each grudge has a reason). Real people first, invented people where the sources run out, every person tagged `history` or `invention`.
 - Plots and the sword check, with warnings before the blow.
 - Events as data (`data/events.json`), with defined choices and set effects.

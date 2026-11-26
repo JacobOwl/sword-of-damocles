@@ -300,4 +300,5 @@ export interface GameState {
   works?: import("./works.ts").WorksState; // switch "greatWorks"
   exile?: import("./exile.ts").ExileState; // switch "exile": your exile, while it lasts, and the record of it after
   quarrels?: import("./quarrels.ts").QuarrelState; // switch "quarrels": oaths sworn before the assembly
+  board?: import("./board.ts").BoardState; // switch "contestedBoard": seats, how dug in, standing, matters
 }

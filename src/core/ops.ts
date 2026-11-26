@@ -107,10 +107,13 @@ export function clearGrudge(s: GameState, pid: string, why: string): boolean {
   return true;
 }
 
+// Switch "contestedBoard" listens here (board.ts sets it), so every change of hands is seen without a cycle of imports.
+export const boardHooks: { onSeat?: (s: GameState, seat: string, before: string | null, after: string | null) => void } = {};
 export function setOffice(s: GameState, o: OfficeId, holder: string | null, why: string) {
   const before = s.offices[o];
   if (before === holder) return;
   s.offices[o] = holder;
+  if (s.board) boardHooks.onSeat?.(s, o, before, holder);
   change(s, holder ?? "world", holder ? `${capital(nameOf(s, holder))} ${holder === PLAYER ? "hold" : "holds"} ${officeName(o)}.` : `${capital(officeName(o))} stands empty.`, why);
 }
 
