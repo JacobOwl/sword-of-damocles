@@ -68,6 +68,21 @@ Seize property: the result is shown, but far from where you acted, so it reads a
 
 Idea from his question (for the debrief, not built): use an office you don't hold through its holder, by favour, bribe or alliance ("have the mint holder strike for me"). Parked here, and in `docs/later.md` if he wants it.
 
+## His answers to the season-10 and council questions (1:13 PM, word for word)
+
+Asked in the thread because the save carried none. Questions: 1 what would you retell; 2 what confused you; 3 what felt unfair; 4 too easy, about right, too hard; 5 anything else; 6 the ten seasons in three sentences; 7 which lines did you skip; 8 who did you hate, and why.
+
+> 1. tbh not much. No one or nothing stood out. Citadel got built right away. I put taxes in with no downside. The army part was kinda fun. I think the leader of the common people was starting to match me in inlfence (not sure what that means) but looked like a threat that was cooking up. Otherwise everything seemed pretty straight forward
+> 2. na
+> 3. Not much
+> 4. Maybe too easy but also we only did 10 turns so the plots didn't have time to do much and no war
+> 5. I'm thinking we need to refocus UI and gameplay to highlight notable factions/people. Game should prob focus on increasingly important people more so as they get more important. For exmaple the leader of the common people should prob get events challenging me in court and assembly. Kinda push me to care about a smaller pool of people over time. We will need to talk about this more
+> 6. I got my 3 core pillars right away really easy and then no other power changed hands. Taxed a nemsis on repeat over and over. Sent a army out.
+> 7. there was just so much texts that a lot of it I glazed over. Liked the events. Liked the map and geopolitics/war even if it is very very simple.
+> 8. The one rich guy I kept taxing ig
+
+**The gate (Phase 2: do ten seasons give a story you would retell?):** in his words, "tbh not much. No one or nothing stood out." Not passed.
+
 ## The replay (thread 19, 2026-11-26)
 
 `save.json` is his "Copy my game" line. `npm run replay-save` on the build he played (commit 9bc0671, kept on branch `claude/project-thread-3gs241`) matches its digest 165de64d723db09c: exactly his game. Seed 664527, 59 moves, ten seasons, Autumn 405 to Spring 402 BC. The save carries no season-10 answers: he reached the verdict and stopped there, so the questions were asked in the thread. `debrief.md` has the hidden rolls and three other histories.
