@@ -4,6 +4,7 @@ import { flavored, withStock } from "./vary.ts";
 import { pronoun } from "./pronouns.ts";
 import { DATA, agendaById } from "./data.ts";
 import { islandChoices } from "./island-bot.ts";
+import { setSide } from "./island.ts";
 import { d6, nextRandom, pick } from "./rng.ts";
 import {
   PLAYER, alive, band, capital, defense, influence, isPlayerTyranny, leaderOf, membersOf, nameOf, officeName, officesOf,
@@ -464,6 +465,8 @@ export function advanceAgenda(s: GameState, f: FactionId, why: string) {
     case "cavalryHome":
       for (const p of membersOf(s, "rich").filter((p) => p.status === "outside")) setStatus(s, p.id, "free", "the exiles came home");
       powerChange(s, "rich", 3, "the exiles returned");
+      // The fort they held is empty now (second test, 2026-11-26: Aetna stayed the exiles' on the map).
+      if (s.island?.cities.aetna?.side === "exiles") setSide(s, "aetna", "free", "the exiles left Aetna and came home");
       break;
     case "guardCitizens":
       fa.agenda = { id: "kingmakers", step: 0, done: false };

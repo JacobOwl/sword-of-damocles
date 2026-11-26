@@ -119,7 +119,7 @@ export function cityMark(x: number, y: number, o: CityOpts) {
     glyph = `<g transform="translate(${f(x - 10 * s)} ${f(y - 12 * s)}) scale(${(20 * s / 24).toFixed(3)})" style="color:${c}" class="town">${iconBody("citadel")}</g>`;
   } else {
     const r = (dx: number, dy: number) => `<path d="M${f(x + dx - 4.6)},${f(y + dy)} L${f(x + dx)},${f(y + dy - 4.6)} L${f(x + dx + 4.6)},${f(y + dy)} V${f(y + dy + 5)} H${f(x + dx - 4.6)} Z"/><rect x="${f(x + dx - 1)}" y="${f(y + dy + 1.8)}" width="2" height="3.2" class="door"/>`;
-    glyph = `<g fill="${c}" class="town open">${r(-5.6, 0)}${r(5.6, 0)}${r(0, -7)}</g>`;
+    glyph = `<g fill="${c}" style="color:${c}" class="town open">${r(-5.6, 0)}${r(5.6, 0)}${r(0, -7)}</g>`;
   }
   const ring = o.capital ? `<circle cx="${f(x)}" cy="${f(y - 2)}" r="${f(17)}" class="cap-ring" style="stroke:${c}"/>` : "";
   let siege = "";
