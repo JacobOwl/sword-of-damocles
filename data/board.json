@@ -147,7 +147,7 @@
   {
    "id": "player",
    "kind": "invention",
-   "name": "A player",
+   "name": "A power",
    "can": "Stands for seats, bargains, makes allies."
   },
   {
@@ -679,7 +679,7 @@
      ]
     }
    },
-   "text": "{Riser} is carried from the assembly on the shoulders of the crowd. {He:riser} is a player in the city now: {he:riser} will stand for seats, and make friends.",
+   "text": "{Riser} is carried from the assembly on the shoulders of the crowd. {He:riser} is a power in the city now: {he:riser} will stand for seats, and make friends.",
    "why": "{riser} rose in standing",
    "choices": [
     {
@@ -728,7 +728,7 @@
      ]
     }
    },
-   "text": "The great houses send their sons to {riser}'s door each morning. {He:riser} is a player in the city now: {he:riser} will stand for seats, and make friends.",
+   "text": "The great houses send their sons to {riser}'s door each morning. {He:riser} is a power in the city now: {he:riser} will stand for seats, and make friends.",
    "why": "{riser} rose in standing",
    "choices": [
     {

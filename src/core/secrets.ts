@@ -65,7 +65,7 @@ export const secretLine = (s: GameState, x: Secret) => (x.about === PLAYER ? x.t
 export function toHolder(s: GameState, x: Secret, pid: string) {
   const nm = s.people[pid]?.name;
   if (!nm || x.args?.target !== pid) return x.text;
-  return x.text.split(nm.endsWith("s") ? `${nm}'` : `${nm}'s`).join("his");
+  return x.text.split(nm.endsWith("s") ? `${nm}'` : `${nm}'s`).join(pronoun(s, pid, "his")).split(nm).join(pronoun(s, pid, "him"));
 }
 
 export function usable(s: GameState, holder: string, over: string, deadlyOnly = false): Secret[] {
@@ -191,7 +191,7 @@ export function exposeSecret(s: GameState, x: Secret, by: string, why: string, h
   const byName = capital(nameOf(s, by));
   if (x.about === PLAYER) {
     s.counters.yourSecretsExposed = (s.counters.yourSecretsExposed ?? 0) + 1;
-    event(s, by, `${byName} tells the city that ${x.text}.${half ? " Some believe him." : ""}`, why);
+    event(s, by, `${byName} tells the city that ${toHolder(s, x, by)}.${half ? ` Some believe ${pronoun(s, by, "him")}.` : ""}`, why);
     for (const [f, d] of Object.entries(half ? halve(e.moods ?? {}) : e.moods ?? {})) mood(s, f as FactionId, d, `they heard that ${x.text}`);
     if (typeof e.opinion === "object") for (const [k, d] of Object.entries(half ? halve(e.opinion) : e.opinion)) if (x.args?.[k]) opinion(s, x.args[k], d, `he heard that ${x.text}`);
     const tf = x.args?.target ? factionOf(s, x.args.target) : undefined;

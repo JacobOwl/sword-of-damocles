@@ -1583,7 +1583,6 @@
         "town": {
           "id": "leontini",
           "side": [
-            "free",
             "ally",
             "syracuse"
           ]

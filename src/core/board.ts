@@ -199,12 +199,13 @@ function rawLevel(s: GameState, p: Person): number {
 export function nextStep(s: GameState, pid: string): string {
   const lv = standingOf(s, pid);
   const p = s.people[pid];
-  if (lv >= 4) return "He can take your place.";
-  if (lv === 3) return "A second faction angry with you would make him a pretender.";
-  if (lv === 2) return "One faction behind him and a wish for your place would make him your rival.";
+  const He = pronoun(s, pid, "He"), him = pronoun(s, pid, "him");
+  if (lv >= 4) return `${He} can take your place.`;
+  if (lv === 3) return `Next: a second faction angry with you makes ${him} a pretender.`;
+  if (lv === 2) return `Next: a faction behind ${him} and a wish for your place make ${him} your rival.`;
   if (lv === 1) {
-    const has = [seatsOf(s, pid).length > 0 ? "a seat" : "", leaderOf(s, factionOf(s, pid) as FactionId)?.id === pid ? "a faction to lead" : "", p.infl >= 2 ? "a following" : ""].filter(Boolean);
-    return `He has ${has.length ? has.join(" and ") : "a name"}; two of a seat, a faction to lead and a following make him a player.`;
+    const has = [seatsOf(s, pid).length > 0 ? "an office" : "", leaderOf(s, factionOf(s, pid) as FactionId)?.id === pid ? "leads a faction" : "", p.infl >= 2 ? "a following" : ""].filter(Boolean);
+    return `Next: a power, with two of an office, leading a faction, a following. Has: ${has.length ? has.join(", ") : "none"}.`;
   }
   return "";
 }
@@ -224,8 +225,8 @@ function ladder(s: GameState) {
       s.counters.boardRises = (s.counters.boardRises ?? 0) + 1;
       const ev = RISE_EVENT[st.level]?.(p);
       if (ev && p.status === "free" && room(s) && fireBoard(s, ev, { riser: p.id }, {})) used(s);
-      else if (st.level === 1) event(s, p.id, BOARD.standing[1].rise!.replace("{Riser}", capital(p.name)), "he has a name in the city now");
-      else event(s, p.id, `${capital(p.name)} is ${standingName(st.level).toLowerCase()} in the city now.`, "his standing rose");
+      else if (st.level === 1) event(s, p.id, BOARD.standing[1].rise!.replace("{Riser}", capital(p.name)), `${pronoun(s, p.id, "he")} has a name in the city now`);
+      else event(s, p.id, `${capital(p.name)} is ${standingName(st.level).toLowerCase()} in the city now.`, `${pronoun(s, p.id, "his")} standing rose`);
     } else if (raw < st.level) {
       if (++st.low >= 2 || !alive(p)) {
         const was = standingName(st.level).toLowerCase();
