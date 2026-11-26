@@ -443,3 +443,9 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Found:** two small display bugs still open on main besides the cavalry agenda ("See Dangers" names a column called "Plots against you"; Gela's going-over roll needs 7 on one die). The levy loophole fix already exists as the switch "The purse runs dry", off.
 - **Decided:** nothing. Report only. The thread 19 card on how to start the redesign stands; this doc does not repeat it.
 - **Added the same day:** Jacob's note on events and petitions (more petitions; mostly driven by what is happening, some by people's own initiative; not CK3's meaningless repeats) is section D of the lessons doc, as a direction for the redesign. Nothing built.
+
+## 2026-11-26 (redesign proposal: offices, rivals, events, thread 36)
+- **Done:** `docs/council/2026-11-26-offices-rivals-events.md`, a proposal for Jacob's direction after his test: offices as a contested board, a small rising cast on one ladder of standing, and events and petitions made from the game's state and people's own moves. Three options for each, a recommendation (B, B, B), a build order and risks.
+- **Found:** an office held by someone else mostly only greys out one of the player's actions; no holder uses an office on his own, and people petition only for offices the player holds.
+- **Decided:** nothing. Rules and direction are Jacob's call. The storyteller idea (3C) is parked in `docs/later.md`.
+- **Decided (Jacob):** building the citadel is the natural opening goal of the 405 game, and every scenario should have one. Start years picked CK3 style are his wish, but out of Phase 2 by `docs/scope.md`: parked in `docs/later.md` until he changes scope.
