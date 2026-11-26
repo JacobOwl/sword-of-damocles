@@ -67,3 +67,19 @@ The first four are wording and display gaps, not bugs, except government, where 
 Seize property: the result is shown, but far from where you acted, so it reads as nothing happening. That is display, and it is true of every action. Whether actions should be limited when repeated is a rules question for Jacob.
 
 Idea from his question (for the debrief, not built): use an office you don't hold through its holder, by favour, bribe or alliance ("have the mint holder strike for me"). Parked here, and in `docs/later.md` if he wants it.
+
+## The replay (thread 19, 2026-11-26)
+
+`save.json` is his "Copy my game" line. `npm run replay-save` on the build he played (commit 9bc0671, kept on branch `claude/project-thread-3gs241`) matches its digest 165de64d723db09c: exactly his game. Seed 664527, 59 moves, ten seasons, Autumn 405 to Spring 402 BC. The save carries no season-10 answers: he reached the verdict and stopped there, so the questions were asked in the thread. `debrief.md` has the hidden rolls and three other histories.
+
+**What happened, from the log (no reading yet):**
+- Season 1: paid Micythus (Messana leans his way), gave the guard citizenship (guard Loyal and Dominant; citizens Angry), levied the rich (rich Rebellious), began the citadel.
+- Season 2: citadel finished; a tax on the people (citizens Rebellious); now "Tyranny (yours)".
+- Seasons 3 to 10: seized Theodorus's property seven times (three worked); refused him the generalship and he became a rival. Married Thearides to Aristomache (Hipparinus +3). Mustered the army with the guard, besieged Aetna, starved it out and sacked it, captured the exiles' leader. Messana became an ally by embassy. Athenagoras, backed at Gela, shut his gates on him.
+- Meanwhile the citizens' agenda ran its four steps and the assembly gave the generalship to Nicoteles (Summer 403); government "Unsettled". Nicoteles became a Pretender in Winter 403/402.
+- Plots: two from season 1 (the exiles' leader, the brother of Demarchus; Theodorus joined the second). One sat at Rumors from Winter 405/404 to the end and was never named; no blow fell.
+
+**Odd results to check with him (found, not fixed):**
+- The rich families' agenda "The cavalry come home" completed in Spring 402 ("The exiles return", rich +5 power to Dominant) one season after he had taken Aetna and was holding the exiles' leader in prison. The agenda does not notice that its cause is gone. Looks like a bug.
+- Seize property on the same man seven times, as he asked about.
+- Gela "weighs going over to you" twice needing 7 on one die plus small modifiers: very unlikely, and shown to him as a roll.
