@@ -2,6 +2,10 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Lessons from the first tests (thread 35, 2026-11-26)
+- One overview of everything learned from his game and the AI testers: `docs/playtests/2026-11-26-lessons.md`. Read it before starting the redesign or the display fixes.
+- **Questions for Jacob:** how to start the redesign (the thread 19 card); which display fixes; turn on "The purse runs dry" and a once-a-season repeat limit; make losing an office a crisis scene; keep the 405 start or start nearer 398.
+
 ## Jacob's first island test: the debrief (thread 19, 2026-11-26)
 - The gate is **not passed** ("tbh not much. No one or nothing stood out."). Full report: `docs/playtests/2026-11-26-jacob/debrief-report.md`; his words: `notes.md` there.
 - **Questions for Jacob (the decisions sitting):** (1) his direction: a smaller cast that grows in importance and gets its own events (Nicoteles challenging him in court and assembly), and the offices as a contested board (bribe or ally holders, downsides when rivals hold one, NPCs seeking offices and asking favours of yours), which he wants to talk through; (2) the cheap display batch from his eleven questions (action results in place, tooltips, hover breakdowns, map key, city sheet, influence explained, less text): go or not; (3) rules as switches: the levy loophole, repeat limits per person, contesting the citadel, a later start nearer the war; (4) the cavalry-agenda bug; (5) which "other things" he never opened besides the Families tab.

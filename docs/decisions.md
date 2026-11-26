@@ -437,3 +437,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **The gate:** not passed, in his words ("tbh not much. No one or nothing stood out.").
 - **Found, not fixed:** "The cavalry come home" completes after Aetna has fallen and the exiles' leader is held; levies on a Rebellious faction are free (known loophole, confirmed in play).
 - **Open:** everything in the report's "For the decisions sitting", above all his direction of a smaller, rising cast with their own events. Nothing gets built until he picks.
+
+## 2026-11-26 (lessons from the first tests, thread 35)
+- **Done:** one overview of Jacob's game, the AI testers' first impressions, the 1,008-game batch and the council after it: `docs/playtests/2026-11-26-lessons.md`. What worked, what failed, open bugs, suggestions sorted into display fixes, rule changes and direction, top five starred, and five questions.
+- **Found:** two small display bugs still open on main besides the cavalry agenda ("See Dangers" names a column called "Plots against you"; Gela's going-over roll needs 7 on one die). The levy loophole fix already exists as the switch "The purse runs dry", off.
+- **Decided:** nothing. Report only. The thread 19 card on how to start the redesign stands; this doc does not repeat it.
