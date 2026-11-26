@@ -1,7 +1,7 @@
 // "What matters this season": one plain line at the top of the season and island screens, naming the most
 // pressing thing in order: a blow that can fall, Carthage at your walls, an army or a city about to go hungry,
 // the guard unpaid, a war, Carthage's anger near war. It reads the state and changes nothing.
-import { presetById, quarrelsAgainstYou, yourQuarrels, armyName, capital, carthageArmy, nodeName, path, yourArmy, menWords } from "../../src/core/index.ts";
+import { PLAYER, presetById, quarrelsAgainstYou, yourQuarrels, armyName, capital, carthageArmy, nodeName, path, yourArmy, menWords } from "../../src/core/index.ts";
 import type { GameState } from "../../src/core/index.ts";
 import { esc } from "../lib/text.ts";
 import { knownDanger } from "./ambient.ts";
@@ -30,6 +30,7 @@ export function whatMatters(g: GameState): { text: string; level: "danger" | "wa
   if (g.grain < 3) out.push({ text: `Syracuse has ${g.grain} months of grain. The hungry may riot.`, level: "danger" });
   else if (after < 3) out.push({ text: `Grain runs low next season (${Math.max(0, after)} months after rations${next === 3 ? " and the harvest" : ""}).`, level: "warn" });
   if (g.guard.arrearsSeasons) out.push({ text: "The guard is unpaid and will not defend you.", level: "danger" });
+  else if (g.offices.treasury === PLAYER && g.silver < g.guard.upkeep) out.push({ text: `The guard's pay (${g.guard.upkeep} silver) is due at the end of this season and you have ${g.silver}. Raise silver (a levy, striking coin) or the guard goes unpaid.`, level: "danger" });
   if (g.island?.war && !ca) out.push({ text: "You are at war with Carthage, though its army is not on the island.", level: "warn" });
   if (g.island && !g.island.war && g.clock >= 8) out.push({ text: `Carthage's anger is ${g.clock} of 10: its council is close to war.`, level: "warn" });
   // Switch "quarrels": an oath whose day is this season.

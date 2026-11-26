@@ -82,7 +82,8 @@ function requests(g: GameState) {
 }
 
 function targetName(g: GameState, name: string, args: Args) {
-  const t = args.target && g.people[args.target] ? ` (${capital(g.people[args.target].name)})` : "";
+  const label = menu(g).find((m) => m.name === name)?.targets?.find((o) => o.value === args.target)?.label;
+  const t = args.target && g.people[args.target] ? ` (${capital(g.people[args.target].name)})` : label ? ` (${label})` : "";
   return `${name}${t}`;
 }
 
@@ -191,7 +192,8 @@ export const seasonHandlers: Handlers = {
     "#do": (_, c) => {
       if (!ui.openAction) return;
       const from = c.g.log.length, name = menu(c.g).find((m) => m.id === ui.openAction)?.name ?? "your action";
-      act(c.g, ui.openAction, ui.args); sound.tick(); record(c.g, "actions", targetName(c.g, name, ui.args), from); ui.openAction = null; ui.args = {}; c.save(); c.render();
+      const title = targetName(c.g, name, ui.args);
+      act(c.g, ui.openAction, ui.args); sound.tick(); record(c.g, "actions", title, from); ui.openAction = null; ui.args = {}; c.save(); c.render();
       document.querySelector(".result")?.scrollIntoView({ block: "nearest" });
     },
     "#cancel": (_, c) => { ui.openAction = null; ui.args = {}; c.render(); },

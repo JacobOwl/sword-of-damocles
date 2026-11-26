@@ -49,7 +49,7 @@ function plots(g: GameState) {
     </div>`;
   }).join("") : `<p class="small muted">No warnings. That you know of.</p>`;
   const advice = ps.length ? `<p class="small muted">What you can do: <b>Watch</b> a suspect to see whether he is in it. <b>Turn an informer</b> to learn its size. <b>Imprison</b> a named plotter to take him out. Keep the guard paid: it is most of your defense.${switchOn(g, "partialBlows") ? ` A blow that beats your defense by ${partialKnobs().wound} or less only wounds you; by ${partialKnobs().seize} or less it costs you an office; it must beat it by ${partialKnobs().seize + 1} or more to kill you.` : ""}</p>` : "";
-  return `<div><h2>Plots against you</h2>${body}${advice}</div>`;
+  return `<div><h2>Dangers: plots against you</h2>${body}${advice}</div>`;
 }
 
 // Switch "quarrels": every oath sworn before the assembly, yours and theirs, with its day.

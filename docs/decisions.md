@@ -443,3 +443,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Found:** two small display bugs still open on main besides the cavalry agenda ("See Dangers" names a column called "Plots against you"; Gela's going-over roll needs 7 on one die). The levy loophole fix already exists as the switch "The purse runs dry", off.
 - **Decided:** nothing. Report only. The thread 19 card on how to start the redesign stands; this doc does not repeat it.
 - **Added the same day:** Jacob's note on events and petitions (more petitions; mostly driven by what is happening, some by people's own initiative; not CK3's meaningless repeats) is section D of the lessons doc, as a direction for the redesign. Nothing built.
+
+## 2026-11-26 (second island test build, thread 35)
+- **Decided by Jacob:** make core, for the next test, every rule recommended in the recap except "A different first year": People escalate, One feud record, A Pretender needs a coalition, Quarrels with terms, Secrets and leverage, The purse runs dry, Lead the army yourself, Fallen not finished, A bought retreat disgraces the general (with the four from the first test). Next test is 30 seasons with check-ins. Building the citadel is the scenario's first aim; every scenario should have one (passed to thread 36 with start years chosen CK3-style).
+- **Done:** preset `secondIslandTest`; the display fixes from the lessons doc (section A); two bug fixes (the cavalry agenda after Aetna; an office passing to you in exile).
+- **Not done here:** the redesign (offices as the board, the rising cast, events from game state) is thread 36. Dinners, great works and grain convoys stay optional.

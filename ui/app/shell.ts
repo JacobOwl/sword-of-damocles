@@ -9,7 +9,7 @@ import { familiesView, paintCensusFaces } from "../views/families.ts";
 import { worksView } from "../views/works.ts";
 import { chronicleBook } from "../views/story.ts";
 import { esc, ui } from "../lib/text.ts";
-import { showSeasonCard, swordOverhead } from "../components/ambient.ts";
+import { seasonCount, showSeasonCard, swordOverhead } from "../components/ambient.ts";
 import { icon } from "../components/icons.ts";
 import { startScreen } from "../views/start.ts";
 import * as sound from "../lib/sound.ts";
@@ -108,7 +108,7 @@ function masthead(g: GameState) {
   return `<header class="mast">
     <h1>${swordOverhead(g)}<span>The Sword <span class="of">of</span> Damocles</span></h1>
     <span class="when">${esc(seasonName(g.over ? g.over.season : g.season))}</span>
-    <span class="muted small">Season ${Math.min(g.season + 1, DATA.start.seasons)} of ${DATA.start.seasons}</span>
+    <span class="muted small">${seasonCount(g)}</span>
     <span class="grow"></span>
     <button type="button" id="sound" class="sound-btn" aria-pressed="${sound.soundOn()}" data-tip="${sound.soundOn() ? "Sound is on: a lyre each season, the harbour, a drone while a plot has a name. Click to turn it off." : "Sound is off. Click to hear a lyre each season, the harbour, and a drone while a plot has a name."}">${icon(sound.soundOn() ? "lyre" : "mute")}<span class="sr">${sound.soundOn() ? "Sound on" : "Sound off"}</span></button>
     ${g.over ? "" : `<span class="label" ${tipAttr("actions")}>Actions</span><span class="slots" aria-label="${g.slots} actions left">${Array.from({ length: slots }, (_, i) => `<i class="slot ${i < g.slots ? "full" : ""}"></i>`).join("")}</span>
