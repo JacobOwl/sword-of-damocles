@@ -398,3 +398,19 @@ table.cities thead th { font-family: var(--display); font-weight: 400; color: va
 .exile-moods { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: .92em; }
 .exile-moods th, .exile-moods td { text-align: left; padding: 3px 6px 3px 0; border-bottom: 1px solid var(--rule, rgba(60, 40, 20, .18)); vertical-align: top; }
 .exile-moods thead th { font-weight: normal; font-size: .85em; opacity: .75; }
+
+/* What your last choice did, shown where you made it (thread 35). */
+.result { margin: 6px 0 12px; padding: 8px 12px; border: 1px solid var(--rule); border-left: 3px solid var(--gold); background: rgba(255, 250, 238, .7); }
+.result ul { margin: 4px 0 0; padding-left: 18px; }
+.result li { font-size: .92em; }
+.result li.change { color: var(--muted); }
+
+/* What changed last season: the few lines that matter (thread 35). */
+.changed { margin: 0 0 14px; padding: 8px 12px; border: 1px solid var(--rule); background: rgba(255, 250, 238, .6); }
+.changed ul { margin: 4px 0 0; padding-left: 0; list-style: none; }
+.changed li { padding: 2px 0 2px 14px; position: relative; }
+.changed li::before { content: "•"; position: absolute; left: 0; color: var(--muted); }
+.changed li.ch-danger { font-weight: 600; color: var(--blood); }
+.changed li.ch-danger::before { content: "▼"; color: var(--blood); font-size: .8em; top: 4px; }
+.changed li.ch-good::before { content: "▲"; color: var(--olive); font-size: .8em; top: 4px; }
+.changed li.ch-warn::before { color: var(--gold); }

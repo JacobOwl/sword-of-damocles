@@ -5,12 +5,15 @@ import { presetById, quarrelsAgainstYou, yourQuarrels, armyName, capital, cartha
 import type { GameState } from "../../src/core/index.ts";
 import { esc } from "../lib/text.ts";
 import { knownDanger } from "./ambient.ts";
+import { officeLost } from "./changed.ts";
 
 const daysTo = (a: string, b: string) => (a === b ? 0 : path(a, b)?.days.at(-1) ?? 99);
 
 export function whatMatters(g: GameState): { text: string; level: "danger" | "warn" | "calm" }[] {
   const out: { text: string; level: "danger" | "warn" | "calm" }[] = [];
   const d = knownDanger(g);
+  const lost = officeLost(g);
+  if (lost) out.push({ text: lost, level: "danger" });
   if (d.ready) out.push({ text: "A plot you know of can strike at the end of this season. See Dangers.", level: "danger" });
   const ca = carthageArmy(g), ya = yourArmy(g);
   if (ca?.siege === "syracuse") out.push({ text: `${capital(armyName(g, ca))} is besieging Syracuse.`, level: "danger" });

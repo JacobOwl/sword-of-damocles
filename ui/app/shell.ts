@@ -172,7 +172,7 @@ function turn() { app.classList.remove("turn"); void app.offsetWidth; app.classL
 
 // ---------- Clicks ----------
 // The frame's own clicks; each screen's are in its file (views/season.ts, views/help.ts).
-const endSeasonNow = (c: Ctx) => { endSeason(c.g); ui.openAction = null; ui.args = {}; c.save(); c.render(); c.turn(); window.scrollTo({ top: 0 }); showSeasonCard(c.g); };
+const endSeasonNow = (c: Ctx) => { endSeason(c.g); ui.openAction = null; ui.args = {}; ui.lastResult = null; c.save(); c.render(); c.turn(); window.scrollTo({ top: 0 }); showSeasonCard(c.g); };
 const restart = () => { clearSave(); ui.s = null; ui.verdict = null; ui.checkIns = []; ui.verdictDraft = {}; ui.copyOpen = false; splash(); };
 const frameHandlers: Handlers = {
   click: {
