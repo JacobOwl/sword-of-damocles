@@ -15,7 +15,7 @@ import type { Args, FactionId, GameState, Mod, OfficeId, Person } from "./types.
 import { FACTIONS, OFFICES } from "./types.ts";
 import { T } from "./tuning.ts";
 import { on, switchById } from "./switches.ts";
-import { pronoun } from "./pronouns.ts";
+import { pronoun, sexOf } from "./pronouns.ts";
 import { chapter, feudInherit, feudOn, feudOf, feudSurvive } from "./feud.ts";
 import { ISLAND_IMPL } from "./island-actions.ts";
 import { CONVOY_IMPL, buyGrainConvoy, convoysOn } from "./convoys.ts";
@@ -155,6 +155,9 @@ function reveal(s: GameState, pid: string) {
 const officeHolders = (s: GameState) => people(s, (p) => officesOf(s, p.id).length > 0);
 const marriageHouse = (s: GameState, p: Person) =>
   [p, ...p.kin.map((k) => s.people[k])].filter((x) => x && alive(x) && x.marriageable && !x.married && x.faction !== "family" && !x.player);
+// The spouse: the first free person of that house of the other sex from your relative (second test, 2026-11-26: two men could be matched).
+const spouseFor = (s: GameState, p: Person, kinId: string | undefined) =>
+  kinId ? marriageHouse(s, p).find((x) => sexOf(s, x.id) !== sexOf(s, kinId)) : undefined;
 const freeKin = (s: GameState) =>
   [s.people[PLAYER], ...Object.values(s.people).filter((p) => p.faction === "family")].filter((p) => p.marriageable && !p.married && alive(p));
 
@@ -243,12 +246,20 @@ export const IMPL: Record<string, Impl> = {
     check: (s, a) => {
       if (!a.second) return "choose a free relative";
       const p = s.people[a.target!];
+      if (!spouseFor(s, p, a.second)) return `no one in ${p.name}'s house can marry ${a.second === PLAYER ? "you" : s.people[a.second].name}`;
       const asked = s.requests.some((r) => r.from === p.id && r.kind === "marriage");
       return p.opinion < 0 && !asked ? `${p.name}'s house will not agree (opinion below 0)` : null;
     },
+    notes: (s, a) => {
+      const p = a.target ? s.people[a.target] : undefined;
+      const sp = p && spouseFor(s, p, a.second);
+      if (!p || !a.second) return ["The dowry (1 or 2 silver) comes to you."];
+      const kin = s.people[a.second];
+      return [sp ? `${kin.player ? "You" : capital(kin.name)} would marry ${sp.name}${sp.id === p.id ? "" : `, of ${p.name}'s house`}.` : `No one in ${p.name}'s house can marry ${kin.player ? "you" : kin.name}.`, "The dowry (1 or 2 silver) comes to you. The whole house warms to you and is bound to yours."];
+    },
     run: (s, a) => {
       const p = s.people[a.target!];
-      const bride = marriageHouse(s, p)[0];
+      const bride = spouseFor(s, p, a.second)!;
       const kin = s.people[a.second!];
       bride.married = true; kin.married = true;
       event(s, PLAYER, `${kin.player ? "You marry" : `${capital(kin.name)} marries`} ${bride.name}. ${capital(p.name)}'s house is bound to yours.`, "Arrange a marriage");
@@ -258,7 +269,7 @@ export const IMPL: Record<string, Impl> = {
         opinion(s, h.id, 2, "a marriage between your houses");
         if (h.rival) rankChange(s, h.id, -1, "bound to you by marriage");
       }
-      if (!kin.player) opinion(s, kin.id, 2, "a good marriage");
+      if (!kin.player) opinion(s, kin.id, 2, `married into ${p.name}'s house`);
       silver(s, d6(s) <= 3 ? 1 : 2, "the dowry");
       resolveRequests(s, (r) => r.kind === "marriage" && house.some((h) => h.id === r.from));
       const f = factionOf(s, p.id);

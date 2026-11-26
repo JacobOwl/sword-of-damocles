@@ -316,6 +316,9 @@ export function describe(s: GameState, inst: EventInstance, effects: Effect[]): 
   for (const e of effects) {
     if (e.hidden) continue;
     if (e.if && !checkCond(s, e.if)) continue;
+    // An optional role nobody filled: the effect falls on no one, so say nothing (second test: "FavouriteKin becomes your enemy").
+    const target = e.opinion ?? e.grudge ?? e.clearGrudge ?? e.rival ?? e.rank ?? e.status ?? e.influence ?? e.favor ?? e.clearFavor ?? e.bound ?? e.informer ?? e.reveal;
+    if (typeof target === "string" && target !== "you" && !inst.roles[target] && !s.people[target]) continue;
     const isl = describeIslandEffect(s, inst.roles, e);
     if (isl !== null) { out.push(isl); continue; }
     const din = describeDinnerEffect(s, inst.roles, e);
