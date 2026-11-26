@@ -6,6 +6,8 @@ import type { GameOpts, Scenario } from "./types.ts";
 export interface PresetDef {
   id: string; name: string; summary: string; recommended?: boolean; scenario: Scenario; tuning: string; switches: string[];
   verdictSeason: number; watch: string[];
+  checkIns?: number[]; // shorter questions asked on the way to the verdict (seasons)
+  aim?: { id: string; text: string; done: string }; // the natural first goal shown until it is met (ui/components/now.ts)
 }
 export const PRESETS = presetsJson.presets as PresetDef[];
 export const presetById = (id: string | undefined) => PRESETS.find((p) => p.id === id);

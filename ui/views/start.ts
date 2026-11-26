@@ -31,7 +31,7 @@ function presetCard(p: PresetDef, checked: boolean) {
     ${ex.length ? `<div class="setup-extra">${ex.map((w) => `<p class="small"><label><input type="checkbox" class="extra" value="${esc(w.id)}"${workshopIds().includes(w.id) ? " checked" : ""}> <span class="tag new">new</span> <b>${esc(w.name)}.</b> ${esc(w.summary)}</label></p>`).join("")}</div>` : ""}
     <details class="watch"><summary class="small">What to watch for</summary>
       <ul class="small">${p.watch.map((w) => `<li>${esc(w)}</li>`).join("")}</ul>
-      <p class="small muted">At the end of season ${p.verdictSeason} the game asks for your verdict. Your answers stay in the game, and "Copy my game" at the foot of the page copies them with your moves.</p>
+      <p class="small muted">${p.checkIns?.length ? `At seasons ${p.checkIns.join(" and ")} the game checks in with two short questions. ` : ""}At the end of season ${p.verdictSeason} the game asks for your verdict. Your answers stay in the game, and "Copy my game" at the foot of the page copies them with your moves.</p>
     </details>`;
 }
 

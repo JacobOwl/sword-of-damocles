@@ -47,7 +47,7 @@ export function splash() {
       const switches = [...document.querySelectorAll<HTMLInputElement>("input.switch")].filter((x) => x.checked).map((x) => x.value);
       tuning = (document.getElementById("tuning") as HTMLSelectElement).value; opts = { scenario, switches };
     }
-    endedSound = false; ui.verdict = null; ui.verdictDraft = {}; ui.copyOpen = false;
+    endedSound = false; ui.verdict = null; ui.checkIns = []; ui.verdictDraft = {}; ui.copyOpen = false;
     ui.s = startGame(v, tuning, opts); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render(); showSeasonCard(ui.s);
   };
   const sel = document.getElementById("tuning") as HTMLSelectElement;
@@ -55,7 +55,7 @@ export function splash() {
   const r = document.getElementById("resume");
   if (r && saved) r.onclick = () => {
     ui.s = replay(saved.seed, saved.inputs, PACKAGES.some((p) => p.id === saved.tuning) ? saved.tuning : DEFAULT_TUNING, { scenario: saved.scenario === "island" ? "island" : "citadel", switches: (saved.switches ?? []).filter((x) => switchById(x)), ...(presetById(saved.preset) ? { preset: saved.preset } : {}) });
-    ui.designer = !!saved.designer; ui.verdict = saved.verdict ?? null; ui.verdictDraft = {}; ui.copyOpen = false; render();
+    ui.designer = !!saved.designer; ui.verdict = saved.verdict ?? null; ui.checkIns = saved.checkIns ?? []; ui.verdictDraft = {}; ui.copyOpen = false; render();
   };
 }
 
@@ -173,7 +173,7 @@ function turn() { app.classList.remove("turn"); void app.offsetWidth; app.classL
 // ---------- Clicks ----------
 // The frame's own clicks; each screen's are in its file (views/season.ts, views/help.ts).
 const endSeasonNow = (c: Ctx) => { endSeason(c.g); ui.openAction = null; ui.args = {}; c.save(); c.render(); c.turn(); window.scrollTo({ top: 0 }); showSeasonCard(c.g); };
-const restart = () => { clearSave(); ui.s = null; ui.verdict = null; ui.verdictDraft = {}; ui.copyOpen = false; splash(); };
+const restart = () => { clearSave(); ui.s = null; ui.verdict = null; ui.checkIns = []; ui.verdictDraft = {}; ui.copyOpen = false; splash(); };
 const frameHandlers: Handlers = {
   click: {
     "#sound": (_, c) => { sound.toggle(c.g); c.render(); },

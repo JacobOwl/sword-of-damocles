@@ -6,12 +6,12 @@ import { ui } from "../lib/text.ts";
 import type { Verdict } from "../lib/text.ts";
 
 const SAVE_KEY = "sword-of-damocles-save-v1";
-export interface Saved { seed: number; tuning?: string; scenario?: "citadel" | "island"; switches?: string[]; preset?: string; inputs: Input[]; designer?: boolean; verdict?: Verdict }
+export interface Saved { seed: number; tuning?: string; scenario?: "citadel" | "island"; switches?: string[]; preset?: string; inputs: Input[]; designer?: boolean; verdict?: Verdict; checkIns?: Verdict[] }
 
 function current(): Saved | null {
   const s = ui.s;
   if (!s) return null;
-  return { seed: s.seed, tuning: s.tuning, scenario: s.scenario ?? "citadel", switches: s.switches ?? [], ...(s.preset ? { preset: s.preset } : {}), inputs: s.inputs, designer: ui.designer, ...(ui.verdict ? { verdict: ui.verdict } : {}) };
+  return { seed: s.seed, tuning: s.tuning, scenario: s.scenario ?? "citadel", switches: s.switches ?? [], ...(s.preset ? { preset: s.preset } : {}), inputs: s.inputs, designer: ui.designer, ...(ui.verdict ? { verdict: ui.verdict } : {}), ...(ui.checkIns.length ? { checkIns: ui.checkIns } : {}) };
 }
 export function save() {
   const v = current();
