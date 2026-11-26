@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>lyre (game icon)</title>
+<desc>Exported from ui/components/icons.ts.</desc>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M8.6 15.6 C5.6 11.8 5.4 6.6 7 2.6 M15.4 15.6 C18.4 11.8 18.6 6.6 17 2.6" class="line" style="stroke-width:1.6"/>
+    <path d="M6.4 5 H17.6" class="line" style="stroke-width:1.2"/><ellipse cx="12" cy="18" rx="6.2" ry="4.4"/>
+    <path d="M10 5.4 V16 M12 5.4 V16 M14 5.4 V16" class="line" style="stroke-width:.55"/>
+</svg>

@@ -2,6 +2,15 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## The art library (thread art-library, 2026-11-26)
+**Built, not wired in.** Jacob asked for "a big collection of art that claude code can look at and use later". It is `assets/library/`; start at its README.
+- **What's there:** 399 items. 108 icons (the game's 29 plus 79 new), 68 event tondos (29 plus 39 new scenes), 34 coins, tokens and seals, 21 cast medallions, 10 maps (Sicily, Syracuse, the Mediterranean and blanks), 31 frames and dividers, 45 pattern tiles, 8 textures, and 73 pieces of real art (41 copied, 32 listed to download).
+- **How to find things:** `catalog.json` (jq examples in the README), `INDEX.md`, `index.html` (a gallery with a search box that opens from disk) and `preview/*.png` contact sheets.
+- **Licences:** real art only public domain, CC0 or CC BY. CC BY items carry their credit line. 74 files were left out, listed in `real/sources.json` with the reason. The maps carry their Pleiades and OpenStreetMap credit lines.
+- **To do on Jacob's PC:** `node assets/library/tools/fetch-real.mjs`, then `node assets/library/tools/build-catalog.mjs`. It downloads the 32 checked Commons files (the dekadrachms of Kimon and Euainetos, the Met's Sword of Damocles drawing, Westall's Damocles and more), rechecking each licence first.
+- **Tests:** `tests/library.test.ts` checks that every catalog file exists, that real art carries only the allowed licences, that CC BY items have credit lines, and that drawn SVGs stand alone.
+- **Questions for Jacob:** which pieces to bring into the game first. For example, the new event scenes for events that share a picture today, or the cast medallions once PR 86 settles the cast.
+
 ## Jacob's second island test (thread 38, 2026-11-26)
 **Played.** Jacob played the Second island test and was killed in Autumn 399 BC, season 24 of 30, by the exiles' leader's plot. His words: `docs/playtests/2026-11-26-jacob-test2/notes.md`; replay and findings: `debrief.md` there; save `save.json` replays exactly on main (6bd1ae0).
 - **Built:** nothing. Report only.

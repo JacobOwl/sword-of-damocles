@@ -1,0 +1,2866 @@
+{
+ "note": "Real ancient art and old prints under open licences. 'copied' items have a file here; 'link-only' items are listed with their checked licence and are fetched by tools/fetch-real.mjs. Credit every CC BY item as its 'attribution' says. 'skipped' lists files left out and why. Built by tools/import-real.py; do not edit by hand.",
+ "licences_taken": [
+  "Public domain",
+  "CC0",
+  "CC BY (any version)"
+ ],
+ "count": {
+  "copied": 41,
+  "fetched": 0,
+  "link_only": 32,
+  "skipped": 74
+ },
+ "gaps": "No allowed-licence image was found for Euryalus, the Arethusa spring, the Temple of Apollo, a trireme, Damon and Pythias, Timoleon or the Motya Charioteer (the photos seen were share-alike). No coin of Akragas, Gela, Selinus, Himera, Segesta, Leontini, Naxos, Messana, Kamarina, Motya or Panormus was found with an allowed licence. Leads not yet checked: Cleveland Museum of Art coin files (often CC0), Gallica coin files (public domain) of Syracuse and Carthage, more Sailko 2014-2015 uploads (CC BY 3.0).",
+ "items": [
+  {
+   "id": "real-carthage-punic-ports",
+   "title": "The Punic ports of Carthage today",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Punic_Ports_(Ports_Puniques)_of_Carthage,_Tunisia_January_2024_-_1.jpg",
+   "credit_as_recorded": "Sharon Hahn Darlington, CC BY 2.0",
+   "status": "copied",
+   "file": "real/images/carthage-punic-ports.jpg",
+   "thumb": "real/thumbs/carthage-punic-ports.jpg",
+   "size": [
+    1280,
+    960
+   ],
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "author": "Sharon Hahn Darlington",
+   "attribution": "The Punic ports of Carthage today. Sharon Hahn Darlington, CC BY 2.0, via Wikimedia Commons",
+   "attribution_required": true,
+   "copied_from": "phoenician-punic-world/images/evidence/carthage-punic-ports.jpg",
+   "tags": [
+    "carthage",
+    "places",
+    "punic",
+    "ports"
+   ],
+   "doubts": [],
+   "list": "images/evidence/"
+  },
+  {
+   "id": "real-balawat-tyre-sidon-ships",
+   "title": "Ships of Tyre and Sidon bringing tribute, Balawat gates (Shalmaneser III); old drawing from Pinches",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:TributeOfShipsOfTyreAndSidonToShalmaneserII_GatesOfBalawat.nypl.digitalcollections.jpg",
+   "credit_as_recorded": "Theophilus G. Pinches (NYPL digital collections), public domain",
+   "status": "copied",
+   "file": "real/images/balawat-tyre-sidon-ships.jpg",
+   "thumb": "real/thumbs/balawat-tyre-sidon-ships.jpg",
+   "size": [
+    1280,
+    893
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Theophilus G. Pinches (NYPL digital collections)",
+   "attribution": "Ships of Tyre and Sidon bringing tribute, Balawat gates (Shalmaneser III); old drawing from Pinches. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/balawat-tyre-sidon-ships.jpg",
+   "tags": [
+    "balawat",
+    "sidon",
+    "ships"
+   ],
+   "doubts": [],
+   "list": "images/evidence/"
+  },
+  {
+   "id": "real-pyrgi-tablets",
+   "title": "Gold tablets from Pyrgi, Etruscan and Phoenician",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Pyrgi_tablets.jpg",
+   "credit_as_recorded": "Unknown author, public domain (per Commons)",
+   "status": "copied",
+   "file": "real/images/pyrgi-tablets.jpg",
+   "thumb": "real/thumbs/pyrgi-tablets.jpg",
+   "size": [
+    1280,
+    835
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Unknown author",
+   "attribution": "Gold tablets from Pyrgi, Etruscan and Phoenician. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/pyrgi-tablets.jpg",
+   "tags": [
+    "pyrgi",
+    "tablets"
+   ],
+   "doubts": [
+    "Author or licence taken from the Commons page as recorded, without more checking."
+   ],
+   "list": "images/evidence/"
+  },
+  {
+   "id": "real-hannibal-capua-bust",
+   "title": "Capua bust long said to show Hannibal (identity doubtful)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Hannibal_Barca_bust_from_Capua_photo.jpg",
+   "credit_as_recorded": "Fratelli Alinari, public domain",
+   "status": "copied",
+   "file": "real/images/hannibal-capua-bust.jpg",
+   "thumb": "real/thumbs/hannibal-capua-bust.jpg",
+   "size": [
+    1157,
+    1400
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Fratelli Alinari",
+   "attribution": "Capua bust long said to show Hannibal (identity doubtful). Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/hannibal-capua-bust.jpg",
+   "tags": [
+    "hannibal",
+    "barcids",
+    "second punic war",
+    "capua",
+    "bust"
+   ],
+   "doubts": [
+    "The bust's identification as Hannibal is doubtful."
+   ],
+   "list": "images/evidence/"
+  },
+  {
+   "id": "real-barcid-quarter-shekel",
+   "title": "Carthaginian quarter shekel, 237-209 BC (SNG BM Spain 102)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Carthage,_quarter_shekel,_237-209_BC,_SNG_BM_Spain_102.jpg",
+   "credit_as_recorded": "CNG, public domain (per Commons)",
+   "status": "copied",
+   "file": "real/images/barcid-quarter-shekel.jpg",
+   "thumb": "real/thumbs/barcid-quarter-shekel.jpg",
+   "size": [
+    800,
+    380
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "CNG",
+   "attribution": "Carthaginian quarter shekel, 237-209 BC (SNG BM Spain 102). Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/barcid-quarter-shekel.jpg",
+   "tags": [
+    "barcid",
+    "quarter",
+    "shekel"
+   ],
+   "doubts": [
+    "Author or licence taken from the Commons page as recorded, without more checking."
+   ],
+   "list": "images/evidence/"
+  },
+  {
+   "id": "real-marseille-tariff",
+   "title": "Marseille tariff, Punic inscription (CIS I 165)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Corpus_Inscriptionum_Semiticarum_CIS_I_165_(Marseille_Tariff)_(cropped).jpg",
+   "credit_as_recorded": "Corpus Inscriptionum Semiticarum, public domain",
+   "status": "copied",
+   "file": "real/images/marseille-tariff.jpg",
+   "thumb": "real/thumbs/marseille-tariff.jpg",
+   "size": [
+    1280,
+    975
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Corpus Inscriptionum Semiticarum",
+   "attribution": "Marseille tariff, Punic inscription (CIS I 165). Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/marseille-tariff.jpg",
+   "tags": [
+    "marseille",
+    "tariff"
+   ],
+   "doubts": [],
+   "list": "images/evidence/"
+  },
+  {
+   "id": "real-tanit-symbol",
+   "title": "Sign of Tanit, line drawing (PNG from SVG)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Tanit-Symbol.svg",
+   "credit_as_recorded": "Erin Silversmith, public domain",
+   "status": "copied",
+   "file": "real/images/tanit-symbol.png",
+   "thumb": "real/thumbs/tanit-symbol.jpg",
+   "size": [
+    1280,
+    1423
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Erin Silversmith",
+   "attribution": "Sign of Tanit, line drawing (PNG from SVG). Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/art-library/tanit-symbol.png",
+   "tags": [
+    "tanit",
+    "symbol"
+   ],
+   "doubts": [],
+   "list": "images/art-library/ (decorative; do not use on pages yet)"
+  },
+  {
+   "id": "real-gods-tanit-stele-louvre",
+   "title": "Punic stele with a sign of Tanit, Louvre AO 23068",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:St�le_d�cor�e_d'un_signe_de_Tanit_-_Mus�e_du_Louvre_Antiquit�s_orientales_AO_23068.jpg",
+   "credit_as_recorded": "Shonagon, CC0",
+   "status": "copied",
+   "file": "real/images/gods-tanit-stele-louvre.jpg",
+   "thumb": "real/thumbs/gods-tanit-stele-louvre.jpg",
+   "size": [
+    819,
+    1600
+   ],
+   "licence": "CC0",
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "author": "Shonagon",
+   "attribution": "Punic stele with a sign of Tanit, Louvre AO 23068. CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/gods-tanit-stele-louvre.jpg",
+   "tags": [
+    "gods",
+    "religion",
+    "punic",
+    "tanit",
+    "stele",
+    "louvre"
+   ],
+   "doubts": [
+    "Some accented letters in the recorded title or author were lost (shown as ?); check the Commons page.",
+    "The Commons address in the source list has broken accented letters; search Commons for the title to reach the page."
+   ],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-gods-tanit-baal-hammon-stele",
+   "title": "Punic stele dedicated to Tanit and Baal Hammon, with a flower and a caduceus, Louvre AO 23120",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:St�le_avec_inscription_d�dicataire_�_Tanit_et_Ba?al_?ammon_et_d�cor�e_d'une_fleur_et_d'un_caduc�e_-_Mus�e_du_Louvre_Antiquit�s_orientales_AO_23120.jpg",
+   "credit_as_recorded": "Shonagon, CC0",
+   "status": "copied",
+   "file": "real/images/gods-tanit-baal-hammon-stele.jpg",
+   "thumb": "real/thumbs/gods-tanit-baal-hammon-stele.jpg",
+   "size": [
+    772,
+    1600
+   ],
+   "licence": "CC0",
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "author": "Shonagon",
+   "attribution": "Punic stele dedicated to Tanit and Baal Hammon, with a flower and a caduceus, Louvre AO 23120. CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/gods-tanit-baal-hammon-stele.jpg",
+   "tags": [
+    "gods",
+    "religion",
+    "punic",
+    "tanit",
+    "baal",
+    "hammon",
+    "stele"
+   ],
+   "doubts": [
+    "Some accented letters in the recorded title or author were lost (shown as ?); check the Commons page.",
+    "The Commons address in the source list has broken accented letters; search Commons for the title to reach the page."
+   ],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-gods-baal-thinissut-bardo",
+   "title": "Baal from Thinissut, Bardo Museum",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Bardo_Baal_Thinissut.jpg",
+   "credit_as_recorded": "Rais67, Public domain",
+   "status": "copied",
+   "file": "real/images/gods-baal-thinissut-bardo.jpg",
+   "thumb": "real/thumbs/gods-baal-thinissut-bardo.jpg",
+   "size": [
+    1280,
+    1428
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Rais67",
+   "attribution": "Baal from Thinissut, Bardo Museum. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/gods-baal-thinissut-bardo.jpg",
+   "tags": [
+    "gods",
+    "religion",
+    "punic",
+    "baal",
+    "thinissut",
+    "bardo"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-gods-melqart-tyre-coin",
+   "title": "Silver coin of Tyre, Melqart and dolphin, 347-346 BC, BnF",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:PhoenicianSilverCoinTyre_MelqartDolphin_347-346_BNF-Gallica.jpg",
+   "credit_as_recorded": "Unknown authorUnknown author, CC0",
+   "status": "copied",
+   "file": "real/images/gods-melqart-tyre-coin.jpg",
+   "thumb": "real/thumbs/gods-melqart-tyre-coin.jpg",
+   "size": [
+    835,
+    417
+   ],
+   "licence": "CC0",
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "author": "Unknown author",
+   "attribution": "Silver coin of Tyre, Melqart and dolphin, 347-346 BC, BnF. CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/gods-melqart-tyre-coin.jpg",
+   "tags": [
+    "gods",
+    "religion",
+    "punic",
+    "melqart"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-gods-ashtart-throne",
+   "title": "Throne of Ashtart",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Throne_of_Ashtart.jpg",
+   "credit_as_recorded": "Eli+, Public domain",
+   "status": "copied",
+   "file": "real/images/gods-ashtart-throne.jpg",
+   "thumb": "real/thumbs/gods-ashtart-throne.jpg",
+   "size": [
+    1197,
+    1600
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Eli+",
+   "attribution": "Throne of Ashtart. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/gods-ashtart-throne.jpg",
+   "tags": [
+    "gods",
+    "religion",
+    "punic",
+    "ashtart",
+    "throne"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-gods-stele-ship-rudder",
+   "title": "Punic stele carved with a ship's rudder, Louvre AO 23043",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:St�le_d�cor�e_d'un_gouvernail_de_bateau_-_Mus�e_du_Louvre_Antiquit�s_orientales_AO_23043.jpg",
+   "credit_as_recorded": "Shonagon, CC0",
+   "status": "copied",
+   "file": "real/images/gods-stele-ship-rudder.jpg",
+   "thumb": "real/thumbs/gods-stele-ship-rudder.jpg",
+   "size": [
+    1212,
+    1600
+   ],
+   "licence": "CC0",
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "author": "Shonagon",
+   "attribution": "Punic stele carved with a ship's rudder, Louvre AO 23043. CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/gods-stele-ship-rudder.jpg",
+   "tags": [
+    "gods",
+    "religion",
+    "punic",
+    "stele",
+    "ship",
+    "rudder"
+   ],
+   "doubts": [
+    "Some accented letters in the recorded title or author were lost (shown as ?); check the Commons page.",
+    "The Commons address in the source list has broken accented letters; search Commons for the title to reach the page."
+   ],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-war-cothon-carthage-print",
+   "title": "The cothon of Carthage seen from the old citadel of Byrsa, print",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Vue_du_Port_Cothon_Prise_de_l'ancienne_Citadelle_de_Byrsa_(Carthage)_-_estampe_-_btv1b53012459t.jpg",
+   "credit_as_recorded": "Mayer, A. (17..-1... ; dessinateur). Lithographe De Sinety. Dessinateu, Public domain",
+   "status": "copied",
+   "file": "real/images/war-cothon-carthage-print.jpg",
+   "thumb": "real/thumbs/war-cothon-carthage-print.jpg",
+   "size": [
+    1280,
+    956
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Mayer, A. (17..-1... ; dessinateur). Lithographe De Sinety. Dessinateu",
+   "attribution": "The cothon of Carthage seen from the old citadel of Byrsa, print. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/war-cothon-carthage-print.jpg",
+   "tags": [
+    "war",
+    "army",
+    "weapons",
+    "cothon",
+    "print"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-war-tanit-horse-tetradrachm",
+   "title": "Carthage tetradrachm, Tanit and horse, serrated edge, about 200 BC",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Carthage_Tetradrachm_Tanit_&_Horse,_with_a_Serrated_Edge._About_200_BC.jpg",
+   "credit_as_recorded": "Berlin-George, Public domain",
+   "status": "copied",
+   "file": "real/images/war-tanit-horse-tetradrachm.jpg",
+   "thumb": "real/thumbs/war-tanit-horse-tetradrachm.jpg",
+   "size": [
+    1280,
+    636
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Berlin-George",
+   "attribution": "Carthage tetradrachm, Tanit and horse, serrated edge, about 200 BC. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/war-tanit-horse-tetradrachm.jpg",
+   "tags": [
+    "war",
+    "army",
+    "weapons",
+    "tanit",
+    "horse",
+    "tetradrachm"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-war-dekadrachm-tanit",
+   "title": "Dekadrachm of Carthage, goddess Tanit, about 260 BC, National Museum of American History",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Dekadrachm,_Carthage,_Goddess_Tanit,_c._260_BC_-_National_Museum_of_American_History_-_DSC00261.jpg",
+   "credit_as_recorded": "Daderot, CC0",
+   "status": "copied",
+   "file": "real/images/war-dekadrachm-tanit.jpg",
+   "thumb": "real/thumbs/war-dekadrachm-tanit.jpg",
+   "size": [
+    1280,
+    1585
+   ],
+   "licence": "CC0",
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "author": "Daderot",
+   "attribution": "Dekadrachm of Carthage, goddess Tanit, about 260 BC, National Museum of American History. CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/war-dekadrachm-tanit.jpg",
+   "tags": [
+    "war",
+    "army",
+    "weapons",
+    "dekadrachm",
+    "tanit"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-tyre-al-mina-site",
+   "title": "Al Mina site, Tyre, Lebanon",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Al_Mina_site,_Tyre,_Lebanon.jpg",
+   "credit_as_recorded": "Vyacheslav Argenberg, CC BY 4.0",
+   "status": "copied",
+   "file": "real/images/tyre-al-mina-site.jpg",
+   "thumb": "real/thumbs/tyre-al-mina-site.jpg",
+   "size": [
+    1280,
+    960
+   ],
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "author": "Vyacheslav Argenberg",
+   "attribution": "Al Mina site, Tyre, Lebanon. Vyacheslav Argenberg, CC BY 4.0, via Wikimedia Commons",
+   "attribution_required": true,
+   "copied_from": "phoenician-punic-world/images/evidence/tyre-al-mina-site.jpg",
+   "tags": [
+    "tyre",
+    "phoenicia",
+    "homeland",
+    "mina",
+    "site"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-sicily-selinunte-temple-c-air",
+   "title": "Selinunte, Temple C from the air",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Selinunte_Temple_C_aerial_view.jpg",
+   "credit_as_recorded": "Jorre (Jochen Reinhard), CC BY 3.0",
+   "status": "copied",
+   "file": "real/images/sicily-selinunte-temple-c-air.jpg",
+   "thumb": "real/thumbs/sicily-selinunte-temple-c-air.jpg",
+   "size": [
+    1280,
+    917
+   ],
+   "licence": "CC BY 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by/3.0/",
+   "author": "Jorre (Jochen Reinhard)",
+   "attribution": "Selinunte, Temple C from the air. Jorre (Jochen Reinhard), CC BY 3.0, via Wikimedia Commons",
+   "attribution_required": true,
+   "copied_from": "phoenician-punic-world/images/evidence/sicily-selinunte-temple-c-air.jpg",
+   "tags": [
+    "sicily",
+    "places",
+    "selinunte",
+    "temple"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-sicily-motya-walls",
+   "title": "Walls of Motya (Mozia)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Murs_Mozia.jpg",
+   "credit_as_recorded": "b.roveran, CC BY 2.0",
+   "status": "copied",
+   "file": "real/images/sicily-motya-walls.jpg",
+   "thumb": "real/thumbs/sicily-motya-walls.jpg",
+   "size": [
+    1280,
+    853
+   ],
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+   "author": "b.roveran",
+   "attribution": "Walls of Motya (Mozia). b.roveran, CC BY 2.0, via Wikimedia Commons",
+   "attribution_required": true,
+   "copied_from": "phoenician-punic-world/images/evidence/sicily-motya-walls.jpg",
+   "tags": [
+    "sicily",
+    "places",
+    "motya",
+    "walls"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-siege-byrsa-excavations-beule",
+   "title": "Byrsa, Beule's excavations (19th-century plate), Carthage",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Byrsa_Fouilles_Beul�.jpg",
+   "credit_as_recorded": "E Beul� [scan Pradigue 2009], Public domain",
+   "status": "copied",
+   "file": "real/images/siege-byrsa-excavations-beule.jpg",
+   "thumb": "real/thumbs/siege-byrsa-excavations-beule.jpg",
+   "size": [
+    1267,
+    1600
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "E Beul? [scan Pradigue 2009]",
+   "attribution": "Byrsa, Beule's excavations (19th-century plate), Carthage. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/siege-byrsa-excavations-beule.jpg",
+   "tags": [
+    "carthage",
+    "siege",
+    "146 bc",
+    "byrsa",
+    "excavations",
+    "beule"
+   ],
+   "doubts": [
+    "Some accented letters in the recorded title or author were lost (shown as ?); check the Commons page.",
+    "The Commons address in the source list has broken accented letters; search Commons for the title to reach the page."
+   ],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-war-montefortino-helmet-met",
+   "title": "Helmet of the Montefortino type, Metropolitan Museum",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Helmet_of_the_Montefortino_Type_MET_DP701213.jpg",
+   "credit_as_recorded": ", CC0",
+   "status": "copied",
+   "file": "real/images/war-montefortino-helmet-met.jpg",
+   "thumb": "real/thumbs/war-montefortino-helmet-met.jpg",
+   "size": [
+    1280,
+    1025
+   ],
+   "licence": "CC0",
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "author": "not recorded",
+   "attribution": "Helmet of the Montefortino type, Metropolitan Museum. CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/war-montefortino-helmet-met.jpg",
+   "tags": [
+    "war",
+    "army",
+    "weapons",
+    "montefortino",
+    "helmet"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-war-montefortino-helmet-2",
+   "title": "Helmet of the Montefortino type",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Helmet_typ_Montefortino_01.jpg",
+   "credit_as_recorded": "User:MatthiasKabel, Public domain",
+   "status": "copied",
+   "file": "real/images/war-montefortino-helmet-2.jpg",
+   "thumb": "real/thumbs/war-montefortino-helmet-2.jpg",
+   "size": [
+    1280,
+    1279
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "User:MatthiasKabel",
+   "attribution": "Helmet of the Montefortino type. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/war-montefortino-helmet-2.jpg",
+   "tags": [
+    "war",
+    "army",
+    "weapons",
+    "montefortino",
+    "helmet"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-war-falcata-met",
+   "title": "Knife (falcata), Metropolitan Museum 32.75.260",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Knife_(Falcata)_MET_32.75.260_001june2014.jpg",
+   "credit_as_recorded": ", CC0",
+   "status": "copied",
+   "file": "real/images/war-falcata-met.jpg",
+   "thumb": "real/thumbs/war-falcata-met.jpg",
+   "size": [
+    900,
+    1600
+   ],
+   "licence": "CC0",
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "author": "not recorded",
+   "attribution": "Knife (falcata), Metropolitan Museum 32.75.260. CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/war-falcata-met.jpg",
+   "tags": [
+    "war",
+    "army",
+    "weapons",
+    "falcata"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (second pull, chapter evidence images; fetched at about 1200 px wide, none wired into pages)"
+  },
+  {
+   "id": "real-homeland-ahiram-sarcophagus",
+   "title": "Sarcophagus of Ahiram from Byblos, photo published 1936",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Ahiram_sarcophag_from_Biblos_XIII-XBC.jpg",
+   "credit_as_recorded": "Matson Photo Service, photographer, published in 1936, Public domain",
+   "status": "copied",
+   "file": "real/images/homeland-ahiram-sarcophagus.jpg",
+   "thumb": "real/thumbs/homeland-ahiram-sarcophagus.jpg",
+   "size": [
+    1280,
+    883
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Matson Photo Service, photographer, published in 1936",
+   "attribution": "Sarcophagus of Ahiram from Byblos, photo published 1936. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/homeland-ahiram-sarcophagus.jpg",
+   "tags": [
+    "phoenicia",
+    "homeland",
+    "lebanon",
+    "ahiram",
+    "sarcophagus"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (third pull: homeland, trade, Africa, Hannibal)"
+  },
+  {
+   "id": "real-homeland-byblos-ruins",
+   "title": "Ancient ruins of Byblos, Lebanon",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Byblos_ancient_ruins,_Phoenician_city_of_Byblos,_Lebanon.jpg",
+   "credit_as_recorded": "Vyacheslav Argenberg, CC BY 4.0",
+   "status": "copied",
+   "file": "real/images/homeland-byblos-ruins.jpg",
+   "thumb": "real/thumbs/homeland-byblos-ruins.jpg",
+   "size": [
+    1280,
+    960
+   ],
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "author": "Vyacheslav Argenberg",
+   "attribution": "Ancient ruins of Byblos, Lebanon. Vyacheslav Argenberg, CC BY 4.0, via Wikimedia Commons",
+   "attribution_required": true,
+   "copied_from": "phoenician-punic-world/images/evidence/homeland-byblos-ruins.jpg",
+   "tags": [
+    "phoenicia",
+    "homeland",
+    "lebanon",
+    "byblos",
+    "ruins"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (third pull: homeland, trade, Africa, Hannibal)"
+  },
+  {
+   "id": "real-homeland-arwad-fortress",
+   "title": "Courtyard of the fortress of Arwad",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Cours_de_la_forteresse_d'Arouad.jpg",
+   "credit_as_recorded": "Michel Benoist, CC BY 2.5",
+   "status": "copied",
+   "file": "real/images/homeland-arwad-fortress.jpg",
+   "thumb": "real/thumbs/homeland-arwad-fortress.jpg",
+   "size": [
+    1280,
+    868
+   ],
+   "licence": "CC BY 2.5",
+   "licence_url": "https://creativecommons.org/licenses/by/2.5/",
+   "author": "Michel Benoist",
+   "attribution": "Courtyard of the fortress of Arwad. Michel Benoist, CC BY 2.5, via Wikimedia Commons",
+   "attribution_required": true,
+   "copied_from": "phoenician-punic-world/images/evidence/homeland-arwad-fortress.jpg",
+   "tags": [
+    "phoenicia",
+    "homeland",
+    "lebanon",
+    "arwad",
+    "fortress"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (third pull: homeland, trade, Africa, Hannibal)"
+  },
+  {
+   "id": "real-trade-nimrud-ivory-sphinx",
+   "title": "Phoenician-style Nimrud ivory of two sphinxes flanking a cartouche",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Phoenician-style_Nimrud_ivory_of_two_sphinxes_flanking_a_cartouche.jpg",
+   "credit_as_recorded": "Levi Clancy, CC0",
+   "status": "copied",
+   "file": "real/images/trade-nimrud-ivory-sphinx.jpg",
+   "thumb": "real/thumbs/trade-nimrud-ivory-sphinx.jpg",
+   "size": [
+    1280,
+    702
+   ],
+   "licence": "CC0",
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "author": "Levi Clancy",
+   "attribution": "Phoenician-style Nimrud ivory of two sphinxes flanking a cartouche. CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/trade-nimrud-ivory-sphinx.jpg",
+   "tags": [
+    "trade",
+    "crafts",
+    "nimrud",
+    "ivory",
+    "sphinx"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (third pull: homeland, trade, Africa, Hannibal)"
+  },
+  {
+   "id": "real-africa-massinissa-coin",
+   "title": "Coin of Massinissa (CNG)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:MASSINISSA_-_MAA_23_-_87000716.jpg",
+   "credit_as_recorded": "CNG Licensing Coin Public domainPublic domainfalsefalse This work is i, Public domain",
+   "status": "copied",
+   "file": "real/images/africa-massinissa-coin.jpg",
+   "thumb": "real/thumbs/africa-massinissa-coin.jpg",
+   "size": [
+    800,
+    378
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "CNG Licensing Coin",
+   "attribution": "Coin of Massinissa (CNG). Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/africa-massinissa-coin.jpg",
+   "tags": [
+    "punic west",
+    "massinissa"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (third pull: homeland, trade, Africa, Hannibal)"
+  },
+  {
+   "id": "real-africa-ibiza-tanit-terracotta",
+   "title": "Terracotta from Puig des Molins, Ibiza",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Terracota_Puig_des_Molins1.jpg",
+   "credit_as_recorded": "Nanosanchez, Public domain",
+   "status": "copied",
+   "file": "real/images/africa-ibiza-tanit-terracotta.jpg",
+   "thumb": "real/thumbs/africa-ibiza-tanit-terracotta.jpg",
+   "size": [
+    800,
+    1422
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Nanosanchez",
+   "attribution": "Terracotta from Puig des Molins, Ibiza. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/africa-ibiza-tanit-terracotta.jpg",
+   "tags": [
+    "punic west",
+    "ibiza",
+    "tanit",
+    "terracotta"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (third pull: homeland, trade, Africa, Hannibal)"
+  },
+  {
+   "id": "real-hannibal-zama-battleplan",
+   "title": "Battle of Zama, battle plan (modern drawing)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Battle_of_Zama-battleplan.png",
+   "credit_as_recorded": "Author not recorded, Public domain",
+   "status": "copied",
+   "file": "real/images/hannibal-zama-battleplan.png",
+   "thumb": "real/thumbs/hannibal-zama-battleplan.jpg",
+   "size": [
+    744,
+    526
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Author not recorded",
+   "attribution": "Battle of Zama, battle plan (modern drawing). Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/hannibal-zama-battleplan.png",
+   "tags": [
+    "hannibal",
+    "barcids",
+    "second punic war",
+    "zama",
+    "battleplan"
+   ],
+   "doubts": [
+    "A modern reconstruction drawing, not ancient evidence.",
+    "Author or licence taken from the Commons page as recorded, without more checking."
+   ],
+   "list": "Added 2026-10-31 (third pull: homeland, trade, Africa, Hannibal)"
+  },
+  {
+   "id": "real-hannibal-hasdrubal-coin",
+   "title": "Hasdrubal coin",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Hasdrubal_coin.jpg",
+   "credit_as_recorded": "The Ogre at en.wikipedia, Public domain",
+   "status": "copied",
+   "file": "real/images/hannibal-hasdrubal-coin.jpg",
+   "thumb": "real/thumbs/hannibal-hasdrubal-coin.jpg",
+   "size": [
+    351,
+    357
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "The Ogre at en.wikipedia",
+   "attribution": "Hasdrubal coin. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/hannibal-hasdrubal-coin.jpg",
+   "tags": [
+    "hannibal",
+    "barcids",
+    "second punic war",
+    "hasdrubal"
+   ],
+   "doubts": [],
+   "list": "Added 2026-10-31 (third pull: homeland, trade, Africa, Hannibal)"
+  },
+  {
+   "id": "real-herodotus",
+   "title": "Marble bust of Herodotus, Metropolitan Museum (Roman copy)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Marble_bust_of_Herodotos_MET_DT11742_(cropped).jpg",
+   "credit_as_recorded": "CC0",
+   "status": "copied",
+   "file": "real/images/herodotus.jpg",
+   "thumb": "real/thumbs/herodotus.jpg",
+   "size": [
+    500,
+    667
+   ],
+   "licence": "CC0",
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "author": "not recorded",
+   "attribution": "Marble bust of Herodotus, Metropolitan Museum (Roman copy). CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/site/assets/portraits/herodotus.jpg",
+   "tags": [
+    "herodotus"
+   ],
+   "doubts": [],
+   "list": "site/assets/portraits/ (who's who of sources page; cropped to the face, resized to 300 px)"
+  },
+  {
+   "id": "real-aristotle",
+   "title": "Aristotle, Palazzo Altemps (Roman copy after Lysippos)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg",
+   "credit_as_recorded": "Public domain",
+   "status": "copied",
+   "file": "real/images/aristotle.jpg",
+   "thumb": "real/thumbs/aristotle.jpg",
+   "size": [
+    500,
+    669
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "not recorded",
+   "attribution": "Aristotle, Palazzo Altemps (Roman copy after Lysippos). Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/site/assets/portraits/aristotle.jpg",
+   "tags": [
+    "aristotle"
+   ],
+   "doubts": [],
+   "list": "site/assets/portraits/ (who's who of sources page; cropped to the face, resized to 300 px)"
+  },
+  {
+   "id": "real-gods-eshmun-votive-head",
+   "title": "Votive statue, Eshmun",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Votive_statue_Eshmun.jpg",
+   "credit_as_recorded": "Eli+, public domain",
+   "status": "copied",
+   "file": "real/images/gods-eshmun-votive-head.jpg",
+   "thumb": "real/thumbs/gods-eshmun-votive-head.jpg",
+   "size": [
+    826,
+    1102
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Eli+",
+   "attribution": "Votive statue, Eshmun. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/gods-eshmun-votive-head.jpg",
+   "tags": [
+    "gods",
+    "religion",
+    "punic",
+    "eshmun",
+    "votive",
+    "head"
+   ],
+   "doubts": [],
+   "list": "site/assets/portraits/ (who's who of sources page; cropped to the face, resized to 300 px)"
+  },
+  {
+   "id": "real-gods-melqart-huelva",
+   "title": "Male god, Reshef-Melqart, Museo de Huelva",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Divinidad_masculina,_Reshef-Melqart_(Museo_de_Huelva).jpg",
+   "credit_as_recorded": "José Luis Filpo Cabana, CC BY 4.0",
+   "status": "copied",
+   "file": "real/images/gods-melqart-huelva.jpg",
+   "thumb": "real/thumbs/gods-melqart-huelva.jpg",
+   "size": [
+    1200,
+    1600
+   ],
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "author": "José Luis Filpo Cabana",
+   "attribution": "Male god, Reshef-Melqart, Museo de Huelva. José Luis Filpo Cabana, CC BY 4.0, via Wikimedia Commons",
+   "attribution_required": true,
+   "copied_from": "phoenician-punic-world/images/evidence/gods-melqart-huelva.jpg",
+   "tags": [
+    "gods",
+    "religion",
+    "punic",
+    "melqart",
+    "huelva"
+   ],
+   "doubts": [],
+   "list": "site/assets/portraits/ (who's who of sources page; cropped to the face, resized to 300 px)"
+  },
+  {
+   "id": "real-gods-astarte-cyprus-throne",
+   "title": "Phoenician goddess (Astarte) on a throne, Kunsthistorisches Museum, Vienna",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:PhoenicianGoddess(Astarte_)onThrone_ViennaKunsthistorischesMuseum_cropped_FaustynaE.jpg",
+   "credit_as_recorded": "Faustyna E., CC0",
+   "status": "copied",
+   "file": "real/images/gods-astarte-cyprus-throne.jpg",
+   "thumb": "real/thumbs/gods-astarte-cyprus-throne.jpg",
+   "size": [
+    1156,
+    1600
+   ],
+   "licence": "CC0",
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "author": "Faustyna E.",
+   "attribution": "Phoenician goddess (Astarte) on a throne, Kunsthistorisches Museum, Vienna. CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/gods-astarte-cyprus-throne.jpg",
+   "tags": [
+    "gods",
+    "religion",
+    "punic",
+    "astarte",
+    "cyprus",
+    "throne"
+   ],
+   "doubts": [],
+   "list": "site/assets/portraits/ (who's who of sources page; cropped to the face, resized to 300 px)"
+  },
+  {
+   "id": "real-gods-baal-shamem-palmyra",
+   "title": "Statue of Baalshamin",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Statue_of_Baalshamin.jpg",
+   "credit_as_recorded": "Katolophyromai, CC0",
+   "status": "copied",
+   "file": "real/images/gods-baal-shamem-palmyra.jpg",
+   "thumb": "real/thumbs/gods-baal-shamem-palmyra.jpg",
+   "size": [
+    421,
+    907
+   ],
+   "licence": "CC0",
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "author": "Katolophyromai",
+   "attribution": "Statue of Baalshamin. CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/gods-baal-shamem-palmyra.jpg",
+   "tags": [
+    "gods",
+    "religion",
+    "punic",
+    "baal",
+    "shamem",
+    "palmyra"
+   ],
+   "doubts": [],
+   "list": "site/assets/portraits/ (who's who of sources page; cropped to the face, resized to 300 px)"
+  },
+  {
+   "id": "real-coin-ebusus-drachm",
+   "title": "Ebusus silver drachm, Bibliothèque nationale de France",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Monnaie_-_Drachme%2C_argent%2C_Ebusus%2C_Ib%C3%A9rie%2C_Bal%C3%A9ares_-_btv1b8482372d_(1_of_2).jpg",
+   "credit_as_recorded": "Bibliothèque nationale de France (Gallica), Public domain (read off its Commons page, 13 Nov 2026)",
+   "status": "copied",
+   "file": "real/images/coin-ebusus-drachm.jpg",
+   "thumb": "real/thumbs/coin-ebusus-drachm.jpg",
+   "size": [
+    1531,
+    1600
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Bibliothèque nationale de France (Gallica)",
+   "attribution": "Ebusus silver drachm, Bibliothèque nationale de France. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/coin-ebusus-drachm.jpg",
+   "tags": [
+    "coin",
+    "money",
+    "punic",
+    "ebusus",
+    "drachm"
+   ],
+   "doubts": [],
+   "list": "site/assets/portraits/ (who's who of sources page; cropped to the face, resized to 300 px)"
+  },
+  {
+   "id": "real-coin-camp-tetradrachm",
+   "title": "Sicilo-Punic tetradrachm, horse head, Museo archeologico nazionale, Florence",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Collezione_di_william_currie_04_zecca_siculo_punica%2C_tetradracma_con_testa_equina%2C_320-310_ac_ca..JPG",
+   "credit_as_recorded": "Sailko, CC BY 3.0 (read off its Commons page, 13 Nov 2026)",
+   "status": "copied",
+   "file": "real/images/coin-camp-tetradrachm.jpg",
+   "thumb": "real/thumbs/coin-camp-tetradrachm.jpg",
+   "size": [
+    1104,
+    1044
+   ],
+   "licence": "CC BY 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by/3.0/",
+   "author": "Sailko",
+   "attribution": "Sicilo-Punic tetradrachm, horse head, Museo archeologico nazionale, Florence. Sailko, CC BY 3.0, via Wikimedia Commons",
+   "attribution_required": true,
+   "copied_from": "phoenician-punic-world/images/evidence/coin-camp-tetradrachm.jpg",
+   "tags": [
+    "coin",
+    "money",
+    "punic",
+    "camp",
+    "tetradrachm"
+   ],
+   "doubts": [],
+   "list": "site/assets/portraits/ (who's who of sources page; cropped to the face, resized to 300 px)"
+  },
+  {
+   "id": "real-coin-bronze-unit",
+   "title": "Carthage bronze unit, Bibliothèque nationale de France (Luynes)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Monnaie_-_Unit%C3%A9%2C_bronze%2C_Carthage%2C_Zeugitane_-_btv1b11318913z_(1_of_2).jpg",
+   "credit_as_recorded": "Bibliothèque nationale de France (Gallica), Public domain (read off its Commons page, 13 Nov 2026)",
+   "status": "copied",
+   "file": "real/images/coin-bronze-unit.jpg",
+   "thumb": "real/thumbs/coin-bronze-unit.jpg",
+   "size": [
+    1600,
+    1600
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Bibliothèque nationale de France (Gallica)",
+   "attribution": "Carthage bronze unit, Bibliothèque nationale de France (Luynes). Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/coin-bronze-unit.jpg",
+   "tags": [
+    "coin",
+    "money",
+    "punic",
+    "bronze",
+    "unit"
+   ],
+   "doubts": [],
+   "list": "site/assets/portraits/ (who's who of sources page; cropped to the face, resized to 300 px)"
+  },
+  {
+   "id": "real-coin-carthage-dishekel",
+   "title": "Carthage silver dishekel, Bibliothèque nationale de France",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Monnaie_-_Dishekel%2C_argent%2C_Carthage%2C_Zeugitane_-_btv1b8481053q_(1_of_2).jpg",
+   "credit_as_recorded": "Bibliothèque nationale de France (Gallica), Public domain (read off its Commons page, 13 Nov 2026)",
+   "status": "copied",
+   "file": "real/images/coin-carthage-dishekel.jpg",
+   "thumb": "real/thumbs/coin-carthage-dishekel.jpg",
+   "size": [
+    1600,
+    1600
+   ],
+   "licence": "Public domain",
+   "licence_url": null,
+   "author": "Bibliothèque nationale de France (Gallica)",
+   "attribution": "Carthage silver dishekel, Bibliothèque nationale de France. Public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "copied_from": "phoenician-punic-world/images/evidence/coin-carthage-dishekel.jpg",
+   "tags": [
+    "coin",
+    "money",
+    "punic",
+    "dishekel"
+   ],
+   "doubts": [],
+   "list": "site/assets/portraits/ (who's who of sources page; cropped to the face, resized to 300 px)"
+  },
+  {
+   "id": "real-dekadrachm-of-syracuse-signed-kimon-obverse-galloping-quadriga-with-ni",
+   "title": "Syracuse silver decadrachm signed by Kimon: galloping quadriga with Nike above (armour/trophy in exergue) / head of Arethusa with four dolphins; museum exhibit photo",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Dekadrachm_of_Syracuse,_signed_Kimon,_obverse_galloping_quadriga_with_Nike,_reverse_head_of_Arethousa,_Syracuse,_405-400_BC,_silver_-_Arthur_M._Sackler_Museum,_Harvard_University_-_DSC01515.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Dekadrachm_of_Syracuse%2C_signed_Kimon%2C_obverse_galloping_quadriga_with_Nike%2C_reverse_head_of_Arethousa%2C_Syracuse%2C_405-400_BC%2C_silver_-_Arthur_M._Sackler_Museum%2C_Harvard_University_-_DSC01515.jpg",
+   "size": [
+    2949,
+    2067
+   ],
+   "licence": "CC0 1.0 (photo) + Public domain (PD-old-70) for the artwork",
+   "author": "Daderot",
+   "institution": "Arthur M. Sackler Museum, Harvard University",
+   "accession": "",
+   "attribution": "Photo: Daderot, CC0 1.0, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "405-400 BC",
+   "place": "Syracuse",
+   "people": [
+    "Dionysius I (period)"
+   ],
+   "kind": null,
+   "tags": [
+    "coin",
+    "syracuse",
+    "decadrachm",
+    "kimon",
+    "arethusa",
+    "dolphins",
+    "quadriga",
+    "nike",
+    "silver",
+    "display case photo"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (coins)"
+  },
+  {
+   "id": "real-dekadrachm-of-syracuse-signed-euainetos-obverse-galloping-quadriga-wit",
+   "title": "Syracuse silver decadrachm signed by Euainetos: galloping quadriga with Nike above, armour/trophy in exergue / head of Arethusa with dolphins; museum exhibit photo",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Dekadrachm_of_Syracuse,_signed_Euainetos,_obverse_galloping_quadriga_with_Nike,_reverse_head_of_Arethousa,_Syracuse,_405-400_BC,_silver.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Dekadrachm_of_Syracuse%2C_signed_Euainetos%2C_obverse_galloping_quadriga_with_Nike%2C_reverse_head_of_Arethousa%2C_Syracuse%2C_405-400_BC%2C_silver.jpg",
+   "size": [
+    2985,
+    2084
+   ],
+   "licence": "CC0 1.0 (photo) + Public domain (PD-old-70) for the artwork",
+   "author": "Daderot",
+   "institution": "Arthur M. Sackler Museum, Harvard University",
+   "accession": "",
+   "attribution": "Photo: Daderot, CC0 1.0, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "405-400 BC",
+   "place": "Syracuse",
+   "people": [
+    "Dionysius I (period)"
+   ],
+   "kind": null,
+   "tags": [
+    "coin",
+    "syracuse",
+    "decadrachm",
+    "euainetos",
+    "arethusa",
+    "dolphins",
+    "quadriga",
+    "nike",
+    "silver",
+    "display case photo"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (coins)"
+  },
+  {
+   "id": "real-decadrachm-arethusa-cdm-paris-fg1365",
+   "title": "Syracuse silver decadrachm by Euainetos, one side only: head of Arethusa left with earring and necklace, four dolphins around, shell behind head, legend SYRAKOSION",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Decadrachm_Arethusa_CdM_Paris_FG1365.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Decadrachm_Arethusa_CdM_Paris_FG1365.jpg",
+   "size": [
+    1600,
+    1600
+   ],
+   "licence": "CC BY 2.5 (Creative Commons Attribution 2.5 Generic)",
+   "author": "Marie-Lan Nguyen (User:Jastrow)",
+   "institution": "Musée de la BnF (Cabinet des médailles), deposited to the Louvre",
+   "accession": "FG 1365",
+   "attribution": "Photo: Marie-Lan Nguyen, CC BY 2.5, via Wikimedia Commons",
+   "attribution_required": true,
+   "date": "405-400 BC",
+   "place": "Syracuse",
+   "people": [
+    "Dionysius I (period)"
+   ],
+   "kind": null,
+   "tags": [
+    "coin",
+    "syracuse",
+    "decadrachm",
+    "euainetos",
+    "arethusa",
+    "dolphins",
+    "silver",
+    "single side"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (coins)"
+  },
+  {
+   "id": "real-syracuse-deca-gallica-collection-smith-lesouef-88-avers",
+   "title": "Syracuse silver decadrachm (43.25 g), one side: head of Arethusa surrounded by dolphins; reverse (quadriga) is a separate file 'Syracuse Deca Gallica collection Smith-Lesouef 88 revers.jpg'",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Syracuse_Deca_Gallica_collection_Smith-Lesouef_88_avers.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Syracuse_Deca_Gallica_collection_Smith-Lesouef_88_avers.jpg",
+   "size": [
+    3744,
+    3744
+   ],
+   "licence": "Public domain (PD-old-100) + Public Domain Mark 1.0",
+   "author": "Euainetos (die engraver, as the page states); image from Gallica (Bibliothèque nationale de France)",
+   "institution": "Bibliothèque nationale de France, Smith-Lesouëf bequest (via Gallica)",
+   "accession": "Y 28912,8 (Smith-Lesouëf 88)",
+   "attribution": "Bibliothèque nationale de France (Gallica), public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "c. 400 BC",
+   "place": "Syracuse",
+   "people": [
+    "Dionysius I (period)"
+   ],
+   "kind": null,
+   "tags": [
+    "coin",
+    "syracuse",
+    "decadrachm",
+    "euainetos",
+    "arethusa",
+    "dolphins",
+    "silver",
+    "single side",
+    "high resolution"
+   ],
+   "doubts": [
+    "One side only; the other side is a separate file on Commons. The page gives no date for the coin."
+   ],
+   "list": "checked 2026-11-26 (coins)"
+  },
+  {
+   "id": "real-silver-tetradrachm-of-syracuse-sicily-signed-by-eukleidas",
+   "title": "Silver tetradrachm signed by Eukleidas, AR 16.99 g. Obverse: fast quadriga driven left by female charioteer with flaming torch, Nike flying above to crown her, barley ear in exergue. Reverse: facing three-quarter head of Athena in triple-crested Attic helmet, signature EYKLEIDA on helmet, four dolphins around. Both sides shown side by side.",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Silver_Tetradrachm_of_Syracuse_(Sicily),_Signed_by_Eukleidas.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Silver_Tetradrachm_of_Syracuse_%28Sicily%29%2C_Signed_by_Eukleidas.jpg",
+   "size": [
+    907,
+    462
+   ],
+   "licence": "CC BY 2.0 (Creative Commons Attribution 2.0 Generic), via Flickr, confirmed by Flickr upload bot 26 March 2011",
+   "author": "Exekias (Flickr user 48531100@N04)",
+   "institution": "Private collection / auction (page cites NAC 59, lot 532); not a museum",
+   "accession": "",
+   "attribution": "Photo: Exekias (Flickr), CC BY 2.0, via Wikimedia Commons",
+   "attribution_required": true,
+   "date": "c. 405-400 BC",
+   "place": "Syracuse, Sicily",
+   "people": [
+    "Eukleidas (die engraver)"
+   ],
+   "kind": null,
+   "tags": [
+    "syracuse",
+    "tetradrachm",
+    "silver",
+    "athena-facing",
+    "quadriga",
+    "nike",
+    "dolphins",
+    "signed-die",
+    "both-sides",
+    "late-5th-century-bc",
+    "dionysius-i-era"
+   ],
+   "doubts": [
+    "An auction-house photo (NAC 59 lot 532) put on Flickr under CC BY 2.0 by a third party; the uploader may not be the photographer. Small (907 x 462)."
+   ],
+   "list": "checked 2026-11-26 (coins)"
+  },
+  {
+   "id": "real-monnaie-t-tradrachme-argent-lilybaion-rash-melqart-sicile-btv1b8589277",
+   "title": "Siculo-Punic silver tetradrachm of Lilybaion with Punic legend RSh MLQRT (Rash Melqart), side 1 of 2; other side is the '(2 of 2)' file",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Monnaie_-_T%C3%A9tradrachme,_argent,_Lilybaion_(Rash_Melqart),_Sicile_-_btv1b8589277j_(1_of_2).jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Monnaie_-_T%C3%A9tradrachme%2C_argent%2C_Lilybaion_%28Rash_Melqart%29%2C_Sicile_-_btv1b8589277j_%281_of_2%29.jpg",
+   "size": [
+    3023,
+    3015
+   ],
+   "licence": "Public domain (PD-France / PD-old; anonymous ancient work)",
+   "author": "Lilybée (Sicile ; atelier monétaire) - mint as stated; photo Bibliothèque nationale de France",
+   "institution": "Bibliothèque nationale de France, département Monnaies, médailles et antiques (via Gallica)",
+   "accession": "Fonds général 375",
+   "attribution": "Bibliothèque nationale de France (Gallica), public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "not stated on the page (type usually dated 4th century BC)",
+   "place": "Lilybaion (Rash Melqart), western Sicily",
+   "people": [],
+   "kind": null,
+   "tags": [
+    "coin",
+    "siculo-punic",
+    "carthage",
+    "lilybaion",
+    "rash melqart",
+    "tetradrachm",
+    "silver",
+    "single side",
+    "high resolution",
+    "punic legend"
+   ],
+   "doubts": [
+    "One side only; the other side is a separate file on Commons. The page gives no date for the coin."
+   ],
+   "list": "checked 2026-11-26 (coins)"
+  },
+  {
+   "id": "real-siracusa-decadracma-di-demareteion-465-ac-ca",
+   "title": "Syracuse silver decadrachm of the Demareteion type (Demareteion master): Arethusa head with dolphins / quadriga with Nike; museum display photo",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Siracusa,_decadracma_di_demareteion,_465_ac_ca.JPG",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Siracusa%2C_decadracma_di_demareteion%2C_465_ac_ca.JPG",
+   "size": [
+    1200,
+    1152
+   ],
+   "licence": "CC BY 3.0 (Creative Commons Attribution 3.0 Unported)",
+   "author": "Sailko",
+   "institution": "Altes Museum, Berlin (Münzkabinett display)",
+   "accession": "",
+   "attribution": "Photo: Sailko, CC BY 3.0, via Wikimedia Commons",
+   "attribution_required": true,
+   "date": "c. 465 BC (as the title gives it)",
+   "place": "Syracuse",
+   "people": [
+    "Gelon I (category)"
+   ],
+   "kind": null,
+   "tags": [
+    "coin",
+    "syracuse",
+    "decadrachm",
+    "demareteion",
+    "arethusa",
+    "dolphins",
+    "quadriga",
+    "silver",
+    "display case photo"
+   ],
+   "doubts": [
+    "A museum display-case photo, not a studio shot."
+   ],
+   "list": "checked 2026-11-26 (coins)"
+  },
+  {
+   "id": "real-dinastie-della-grecia-occidentale-hieron-ii-32-litri-di-siracusa-274-2",
+   "title": "Silver 32-litrai piece of Hieron II of Syracuse, photographed in a museum display case (page description: 'Ancient Greek coins in the Altes Museum Berlin'); which side(s) are shown is not stated on the page",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Dinastie_della_grecia_occidentale,_hieron_II,_32_litri_di_siracusa,_274-216_ac_ca.JPG",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Dinastie_della_grecia_occidentale%2C_hieron_II%2C_32_litri_di_siracusa%2C_274-216_ac_ca.JPG",
+   "size": [
+    1316,
+    1216
+   ],
+   "licence": "CC BY 3.0 (Creative Commons Attribution 3.0 Unported)",
+   "author": "Sailko",
+   "institution": "Altes Museum, Berlin (Antikensammlung / Münzkabinett display)",
+   "accession": "",
+   "attribution": "Photo: Sailko, CC BY 3.0, via Wikimedia Commons (Altes Museum, Berlin)",
+   "attribution_required": true,
+   "date": "c. 274-216 BC (as given in file title)",
+   "place": "Syracuse, Sicily",
+   "people": [
+    "Hieron II of Syracuse"
+   ],
+   "kind": null,
+   "tags": [
+    "syracuse",
+    "hieron-ii",
+    "silver",
+    "32-litrai",
+    "hellenistic",
+    "display-case-photo",
+    "3rd-century-bc"
+   ],
+   "doubts": [
+    "A museum display-case photo; the page doesn't say which side is shown. Later than the game's years."
+   ],
+   "list": "checked 2026-11-26 (coins)"
+  },
+  {
+   "id": "real-monnaie-trishekel-bronze-carthage-zeugitane-btv1b103345194-2-of-2",
+   "title": "Carthaginian bronze trishekel (Punic coinage of Zeugitana), side 2 of 2; other side is the '(1 of 2)' file",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Monnaie_-_Trishekel,_bronze,_Carthage,_Zeugitane_-_btv1b103345194_(2_of_2).jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Monnaie_-_Trishekel%2C_bronze%2C_Carthage%2C_Zeugitane_-_btv1b103345194_%282_of_2%29.jpg",
+   "size": [
+    3276,
+    3276
+   ],
+   "licence": "Public domain (PD-France / PD-old; anonymous ancient work)",
+   "author": "Carthage (Zeugitane ; atelier monétaire) - mint as stated; photo Bibliothèque nationale de France",
+   "institution": "Bibliothèque nationale de France, département Monnaies, médailles et antiques (via Gallica)",
+   "accession": "AA.GR.26994",
+   "attribution": "Bibliothèque nationale de France (Gallica), public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "not stated on the page (trishekels are usually dated to the Second Punic War, after the game period)",
+   "place": "Carthage",
+   "people": [],
+   "kind": null,
+   "tags": [
+    "coin",
+    "carthage",
+    "punic",
+    "bronze",
+    "trishekel",
+    "single side",
+    "high resolution",
+    "later than game period"
+   ],
+   "doubts": [
+    "One side only; the other side is a separate file. The coin is usually dated to the Second Punic War, later than the game's years."
+   ],
+   "list": "checked 2026-11-26 (coins)"
+  },
+  {
+   "id": "real-the-sword-of-damocles-met-dp820566",
+   "title": "Pen, brown ink and wash drawing of the Damocles banquet scene: Damocles at the tyrant's table under the hanging sword",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:The_Sword_of_Damocles_MET_DP820566.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/9/91/The_Sword_of_Damocles_MET_DP820566.jpg",
+   "size": [
+    3780,
+    2687
+   ],
+   "licence": "CC0 1.0",
+   "author": "Giuseppe Piattoli (1748-1834)",
+   "institution": "Metropolitan Museum of Art, New York (Drawings and Prints)",
+   "accession": "80.3.373",
+   "attribution": "Giuseppe Piattoli, The Sword of Damocles (drawing, 1785-1807), Metropolitan Museum of Art, Gift of Cornelius Vanderbilt, 1880; CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "between 1785 and 1807",
+   "place": "Syracuse (scene)",
+   "people": [
+    "Damocles"
+   ],
+   "kind": "drawing",
+   "tags": [
+    "damocles",
+    "sword of damocles",
+    "banquet",
+    "tyrant",
+    "syracuse",
+    "drawing",
+    "met"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-westalldamocles",
+   "title": "Oil painting: Damocles on the tyrant's couch at a banquet, looking up in terror at the sword hanging by a single hair; attendants around him",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:WestallDamocles.JPG",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/WestallDamocles.JPG",
+   "size": [
+    872,
+    1096
+   ],
+   "licence": "Public domain (PD-Art|PD-old-100-expired; published before 1931)",
+   "author": "Richard Westall (1765-1836)",
+   "institution": "Ackland Art Museum, Chapel Hill, North Carolina",
+   "accession": "79.10.1",
+   "attribution": "Richard Westall, The Sword of Damocles (1812), Ackland Art Museum; public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "1812",
+   "place": "Syracuse (scene)",
+   "people": [
+    "Damocles"
+   ],
+   "kind": "painting",
+   "tags": [
+    "damocles",
+    "sword of damocles",
+    "dionysius",
+    "banquet",
+    "tyrant",
+    "syracuse",
+    "neoclassical"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-jakob-philipp-hackert-grotte-oreille-de-denys",
+   "title": "Pen, black ink, sepia wash and pencil, 44.4 x 33.8 cm: interior of the Ear of Dionysius quarry cave",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Jakob_Philipp_Hackert_-_Grotte_Oreille_de_Denys.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Jakob_Philipp_Hackert_-_Grotte_Oreille_de_Denys.jpg",
+   "size": [
+    1968,
+    2603
+   ],
+   "licence": "Public domain (PD-Art | PD-old-100; Public Domain Mark 1.0)",
+   "author": "Jacob Philipp Hackert (1737-1807)",
+   "institution": "British Museum, London (reproduced from the 2001 exhibition catalogue 'Paysages d'Italie: les peintres du plein air 1780-1830')",
+   "accession": "",
+   "attribution": "Jacob Philipp Hackert, Interior of the grotto called the Ear of Dionysius at Syracuse (1777), British Museum. Public domain, via Wikimedia Commons.",
+   "attribution_required": false,
+   "date": "1777",
+   "place": "Ear of Dionysius, Latomia del Paradiso, Syracuse",
+   "people": [],
+   "kind": "drawing",
+   "tags": [
+    "Ear of Dionysius",
+    "latomie",
+    "quarry",
+    "cave",
+    "Syracuse",
+    "Grand Tour",
+    "Hackert",
+    "prison quarries"
+   ],
+   "doubts": [
+    "Photographed from a 2001 exhibition catalogue."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-ear-of-dionysius",
+   "title": "Photograph of the interior of the Ear of Dionysius, an artificial limestone cave in the Latomia del Paradiso",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Ear_of_Dionysius.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Ear_of_Dionysius.jpg",
+   "size": [
+    2109,
+    3158
+   ],
+   "licence": "CC BY 2.0",
+   "author": "Michael Wilson from York, United Kingdom (Flickr user Xerones)",
+   "institution": "",
+   "accession": "",
+   "attribution": "Ear of Dionysius, Syracuse, photo by Michael Wilson (Flickr), CC BY 2.0, via Wikimedia Commons.",
+   "attribution_required": true,
+   "date": "2007-04-11 (photo)",
+   "place": "Ear of Dionysius, Temenites hill, Neapolis, Syracuse",
+   "people": [],
+   "kind": "photo-site",
+   "tags": [
+    "Ear of Dionysius",
+    "Orecchio di Dionisio",
+    "latomie",
+    "quarry",
+    "cave",
+    "Syracuse",
+    "Dionysius I",
+    "prison quarries"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-plan-of-ancient-syracuse-hughes-thomas-smart-1820",
+   "title": "Engraved plan of ancient Syracuse from an 1820 travel book",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Plan_of_Ancient_Syracuse_-_Hughes_Thomas_Smart_-_1820.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Plan_of_Ancient_Syracuse_-_Hughes_Thomas_Smart_-_1820.jpg",
+   "size": [
+    1500,
+    1132
+   ],
+   "licence": "Public domain (PD-Art | PD-old-70; PD-1996; Public Domain Mark 1.0)",
+   "author": "Thomas Smart Hughes (1786-1847)",
+   "institution": "travelogues.gr digital collection (scan source)",
+   "accession": "Hughes, Travels in Sicily, Greece and Albania, vol. I (London: J. Mawman, 1820)",
+   "attribution": "Plan of Ancient Syracuse, from Thomas Smart Hughes, Travels in Sicily, Greece and Albania, vol. I (1820). Public domain, via Wikimedia Commons.",
+   "attribution_required": false,
+   "date": "1820",
+   "place": "Syracuse",
+   "people": [],
+   "kind": "map",
+   "tags": [
+    "Syracuse",
+    "city plan",
+    "engraved map",
+    "Grand Tour",
+    "Epipolae",
+    "Ortygia",
+    "harbours"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-syracusae-shepherd-c-030-031",
+   "title": "Map: inset plan of ancient Syracuse (Ortygia, Achradina, Tyche, Neapolis, Epipolae, Euryalus), cropped from the atlas page",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Syracusae_-_Shepherd-c-030-031.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Syracusae_-_Shepherd-c-030-031.jpg",
+   "size": [
+    848,
+    756
+   ],
+   "licence": "Public domain (PD-Art | PD-old-70; Public Domain Mark 1.0; 'public domain due to its age')",
+   "author": "William R. Shepherd, Historical Atlas (1911 edition)",
+   "institution": "University of Texas Libraries (Perry-Castañeda map collection scan)",
+   "accession": "Shepherd 1911, pp. 30-31 (inset)",
+   "attribution": "Syracusae, inset plan from William R. Shepherd, Historical Atlas (1911), pp. 30-31, via University of Texas Libraries. Public domain, via Wikimedia Commons.",
+   "attribution_required": false,
+   "date": "1911",
+   "place": "Syracuse",
+   "people": [],
+   "kind": "map",
+   "tags": [
+    "Syracuse",
+    "city plan",
+    "Ortygia",
+    "Epipolae",
+    "Euryalus",
+    "walls of Dionysius",
+    "historical atlas"
+   ],
+   "doubts": [
+    "The cropped Syracusae inset; the full page is a separate file."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-dion-presents-plato-to-dionysius",
+   "title": "Wood engraving: Dion introduces Plato at the court of the tyrant Dionysius in Syracuse (c. 390 BC)",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Dion_presents_Plato_to_Dionysius.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Dion_presents_Plato_to_Dionysius.jpg",
+   "size": [
+    832,
+    728
+   ],
+   "licence": "Public domain (PD-Art | PD-old-100; Public Domain Mark 1.0)",
+   "author": "Anonymous (wood engraving, later colouring), from Hermann Göll, Die Weisen und Gelehrten des Alterthums, Leipzig: Otto Spamer, 1876, p. 89",
+   "institution": "Berlin, Sammlung Archiv für Kunst und Geschichte (akg-images)",
+   "accession": "akg-images 00192086 (per file metadata)",
+   "attribution": "Dion presents Plato to Dionysius, anonymous wood engraving from H. Göll, Die Weisen und Gelehrten des Alterthums (1876). Public domain, via Wikimedia Commons.",
+   "attribution_required": false,
+   "date": "1876",
+   "place": "Syracuse (court of Dionysius)",
+   "people": [
+    "Dion",
+    "Plato",
+    "Dionysius I"
+   ],
+   "kind": "print",
+   "tags": [
+    "Dionysius I",
+    "Plato",
+    "Dion",
+    "court scene",
+    "tyrant",
+    "19th-century engraving",
+    "Syracuse"
+   ],
+   "doubts": [
+    "A low-resolution 1876 wood engraving; the page has no US public-domain tag."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-helmet-of-the-corinthian-type-and-pair-of-greaves-met-dp-13164-001",
+   "title": "Bronze Corinthian-type hoplite helmet with a matching pair of bronze greaves (shin guards), photographed together",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Helmet_of_the_Corinthian_Type_and_Pair_of_Greaves_MET_DP-13164-001.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Helmet_of_the_Corinthian_Type_and_Pair_of_Greaves_MET_DP-13164-001.jpg",
+   "size": [
+    3288,
+    4000
+   ],
+   "licence": "CC0 1.0",
+   "author": "Metropolitan Museum of Art (photo; EXIF author Bruce Schwarz)",
+   "institution": "Metropolitan Museum of Art, New York (Arms and Armor)",
+   "accession": "2016.235a-c",
+   "attribution": "Helmet of the Corinthian Type and Pair of Greaves, Greek, early 5th century B.C., Metropolitan Museum of Art 2016.235a-c; CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "early 5th century B.C.",
+   "place": "Greek (findspot not stated)",
+   "people": [],
+   "kind": "photo-object",
+   "tags": [
+    "helmet",
+    "corinthian helmet",
+    "greaves",
+    "hoplite",
+    "armour",
+    "bronze",
+    "met"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-bronze-helmet-of-chalcidian-type-met-dp105636",
+   "title": "Bronze helmet of Chalcidian type, H. 24.1 cm",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Bronze_helmet_of_Chalcidian_type_MET_DP105636.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Bronze_helmet_of_Chalcidian_type_MET_DP105636.jpg",
+   "size": [
+    4000,
+    4000
+   ],
+   "licence": "CC0 1.0",
+   "author": "Metropolitan Museum of Art (photo); Greek maker unknown",
+   "institution": "Metropolitan Museum of Art, New York",
+   "accession": "2003.407.2",
+   "attribution": "Bronze helmet of Chalcidian type, Greek, 5th-4th century BC, Metropolitan Museum of Art 2003.407.2 (Bequest of Bill Blass, 2002). CC0, via Wikimedia Commons.",
+   "attribution_required": false,
+   "date": "5th-4th century BC",
+   "place": "Greek (findspot not given)",
+   "people": [],
+   "kind": "photo-object",
+   "tags": [
+    "helmet",
+    "Chalcidian helmet",
+    "hoplite",
+    "bronze",
+    "armour",
+    "Greek arms",
+    "Met",
+    "CC0"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-bronze-pilos-helmet-of-conical-shape-met-dp147256",
+   "title": "Bronze pilos (conical helmet), H. 20.5 cm",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Bronze_pilos_(helmet_of_conical_shape)_MET_DP147256.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Bronze_pilos_%28helmet_of_conical_shape%29_MET_DP147256.jpg",
+   "size": [
+    4000,
+    4000
+   ],
+   "licence": "CC0 1.0",
+   "author": "Metropolitan Museum of Art (photo); Greek maker unknown",
+   "institution": "Metropolitan Museum of Art, New York",
+   "accession": "08.2.4",
+   "attribution": "Bronze pilos (helmet of conical shape), Greek, 5th century BC or later, Metropolitan Museum of Art 08.2.4 (Rogers Fund, 1908). CC0, via Wikimedia Commons.",
+   "attribution_required": false,
+   "date": "5th century BC or later",
+   "place": "Greek (findspot not given)",
+   "people": [],
+   "kind": "photo-object",
+   "tags": [
+    "helmet",
+    "pilos",
+    "conical helmet",
+    "hoplite",
+    "bronze",
+    "armour",
+    "Greek arms",
+    "late 5th century",
+    "Met",
+    "CC0"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-friedrich-nehrlich-ruins-of-the-temple-of-hera-at-selinunte-y1978-38-p",
+   "title": "Oil on canvas, 52 x 84.5 cm: landscape with the fallen columns of the Temple of Hera (Temple E) at Selinunte",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Friedrich_Nehrlich_-_Ruins_of_the_Temple_of_Hera_at_Selinunte_-_y1978-38_-_Princeton_University_Art_Museum.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Friedrich_Nehrlich_-_Ruins_of_the_Temple_of_Hera_at_Selinunte_-_y1978-38_-_Princeton_University_Art_Museum.jpg",
+   "size": [
+    4535,
+    3036
+   ],
+   "licence": "Public domain (PD-Art | PD-old-100, PD-US-expired)",
+   "author": "Friedrich Nerly (1807-1878)",
+   "institution": "Princeton University Art Museum",
+   "accession": "y1978-38",
+   "attribution": "Friedrich Nerly, Ruins of the Temple of Hera at Selinunte (1877), Princeton University Art Museum. Public domain, via Wikimedia Commons.",
+   "attribution_required": false,
+   "date": "1877",
+   "place": "Selinus/Selinunte, Temple E (Hera)",
+   "people": [],
+   "kind": "painting",
+   "tags": [
+    "Selinus",
+    "Selinunte",
+    "Temple of Hera",
+    "Temple E",
+    "Doric temple",
+    "ruins",
+    "409 BC sack",
+    "Carthage",
+    "19th-century painting"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-cole-thomas-the-temple-of-segesta-with-the-artist-sketching-1843",
+   "title": "Landscape oil painting of the unfinished Doric temple of Segesta on its hill, with the artist sketching in the foreground",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Cole_Thomas_The_Temple_of_Segesta_with_the_Artist_Sketching_1843.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Cole_Thomas_The_Temple_of_Segesta_with_the_Artist_Sketching_1843.jpg",
+   "size": [
+    1600,
+    1052
+   ],
+   "licence": "Public domain (PD-Art|PD-old-auto-expired; author died 1848; published before 1931)",
+   "author": "Thomas Cole (1801-1848)",
+   "institution": "Museum of Fine Arts, Boston",
+   "accession": "47.1198",
+   "attribution": "Thomas Cole, The Temple of Segesta with the Artist Sketching (c. 1842), Museum of Fine Arts, Boston; public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "circa 1842 (file name says 1843)",
+   "place": "Segesta, western Sicily",
+   "people": [
+    "Thomas Cole (as the sketching artist)"
+   ],
+   "kind": "painting",
+   "tags": [
+    "segesta",
+    "elymian",
+    "temple",
+    "doric",
+    "landscape",
+    "sicily",
+    "hudson river school"
+   ],
+   "doubts": [
+    "Dated about 1842 on the page, 1843 in the file name."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-pierre-henri-de-valenciennes-the-ancient-city-of-agrigento-wga24226",
+   "title": "Oil on canvas, 110 x 164 cm: imagined reconstruction of the ancient Greek city of Akragas (Agrigento), shown at the Salon of 1787",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Pierre-Henri_de_Valenciennes_-_The_Ancient_City_of_Agrigento_-_WGA24226.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Pierre-Henri_de_Valenciennes_-_The_Ancient_City_of_Agrigento_-_WGA24226.jpg",
+   "size": [
+    1020,
+    675
+   ],
+   "licence": "Public domain (PD-Art | PD-old-100, author died 1819; PD-US published before 1931; Public Domain Mark 1.0)",
+   "author": "Pierre-Henri de Valenciennes (1750-1819)",
+   "institution": "Musée du Louvre, Department of Paintings (image via Web Gallery of Art)",
+   "accession": "MNR 48",
+   "attribution": "Pierre-Henri de Valenciennes, The Ancient City of Agrigento (1787), Musée du Louvre MNR 48. Public domain, via Wikimedia Commons.",
+   "attribution_required": false,
+   "date": "1787",
+   "place": "Akragas / Agrigento, Sicily",
+   "people": [],
+   "kind": "painting",
+   "tags": [
+    "Akragas",
+    "Agrigento",
+    "Greek city",
+    "neoclassical landscape",
+    "reconstruction",
+    "temples",
+    "Sicily"
+   ],
+   "doubts": [
+    "Wartime-recovery (MNR) provenance at the Louvre."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-theatre-at-syracuse-sicily",
+   "title": "Photograph of the cavea of the ancient Greek theatre, Neapolis, Syracuse",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Theatre_at_Syracuse,_Sicily.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Theatre_at_Syracuse%2C_Sicily.jpg",
+   "size": [
+    1024,
+    768
+   ],
+   "licence": "CC BY 2.0",
+   "author": "Victoria from London, UK (Flickr user vic15)",
+   "institution": "",
+   "accession": "",
+   "attribution": "Greek Theatre at Syracuse, Sicily, photo by Victoria from London, UK (Flickr), CC BY 2.0, via Wikimedia Commons.",
+   "attribution_required": true,
+   "date": "2005-02-04 (photo)",
+   "place": "Greek theatre, Neapolis, Syracuse",
+   "people": [],
+   "kind": "photo-site",
+   "tags": [
+    "Greek theatre",
+    "Syracuse",
+    "Neapolis",
+    "cavea",
+    "theatre",
+    "Aeschylus",
+    "site photo"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-motya-8",
+   "title": "Photograph of excavated stone walls and ruins on the island of Motya beside the water (page description says only 'Motya'; the view looks like the Kothon area)",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Motya_(8).jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Motya_%288%29.jpg",
+   "size": [
+    2288,
+    1712
+   ],
+   "licence": "CC BY 2.0",
+   "author": "Verity Cridland (Flickr)",
+   "institution": "",
+   "accession": "",
+   "attribution": "Motya, photo by Verity Cridland (Flickr), CC BY 2.0, via Wikimedia Commons.",
+   "attribution_required": true,
+   "date": "2012-06-19 (photo)",
+   "place": "Motya (Mozia), Stagnone lagoon, western Sicily",
+   "people": [],
+   "kind": "photo-site",
+   "tags": [
+    "Motya",
+    "Mozia",
+    "Phoenician",
+    "Carthaginian",
+    "Punic",
+    "ruins",
+    "lagoon",
+    "397 BC siege",
+    "Dionysius I"
+   ],
+   "doubts": [
+    "The page says only 'Motya'; that it shows the kothon is my reading of the picture."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-phlyax-scene-louvre-ca7249",
+   "title": "Side A of a Sicilian red-figure calyx-krater: comic (phlyax) theatre scene of a masked master and his slave on stage",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Phlyax_scene_Louvre_CA7249.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Phlyax_scene_Louvre_CA7249.jpg",
+   "size": [
+    2300,
+    2420
+   ],
+   "licence": "CC BY 3.0",
+   "author": "Photo: Marie-Lan Nguyen (User:Jastrow), 2008; vase by the Lentini-Manfria Group",
+   "institution": "Musee du Louvre, Department of Greek, Etruscan and Roman Antiquities",
+   "accession": "CA 7249",
+   "attribution": "Phlyax scene, Sicilian red-figure calyx-krater, Lentini-Manfria Group, c. 350-340 BC, Louvre CA 7249; photo Marie-Lan Nguyen / Wikimedia Commons, CC BY 3.0",
+   "attribution_required": true,
+   "date": "ca. 350-340 BC",
+   "place": "Sicily (Sicilian red-figure)",
+   "people": [],
+   "kind": "photo-object",
+   "tags": [
+    "phlyax",
+    "theatre",
+    "comedy",
+    "masks",
+    "slave",
+    "red-figure",
+    "sicilian vase",
+    "krater"
+   ],
+   "doubts": [
+    "Credit as Marie-Lan Nguyen / Wikimedia Commons."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-banqueters-met-1979-11-8",
+   "title": "Tondo of an Attic red-figure kylix: a man and a hetaira reclining on a couch at a symposium, with kalos inscription (categorised under kottabos)",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Banqueters_Met_1979.11.8.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Banqueters_Met_1979.11.8.jpg",
+   "size": [
+    2312,
+    2316
+   ],
+   "licence": "CC BY 2.5",
+   "author": "Photo: Marie-Lan Nguyen (2011); vase signed by Hieron as potter, attributed to Makron as painter",
+   "institution": "Metropolitan Museum of Art, New York (Department of Greek and Roman Art)",
+   "accession": "1979.11.8 (20.246)",
+   "attribution": "Kylix tondo with banqueters, Hieron (potter) and Makron (painter), c. 490 BC, Metropolitan Museum of Art 1979.11.8; photo Marie-Lan Nguyen, CC BY 2.5, via Wikimedia Commons",
+   "attribution_required": true,
+   "date": "circa 490 BC",
+   "place": "Athens (Attic ware)",
+   "people": [],
+   "kind": "photo-object",
+   "tags": [
+    "symposium",
+    "banquet",
+    "red-figure",
+    "kylix",
+    "vase",
+    "hetaira",
+    "kottabos",
+    "nudity"
+   ],
+   "doubts": [
+    "Shows nudity; its page cites a 2023 article questioning the cup's reconstruction."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-iron-machaira-sword-met-lc-2001-543",
+   "title": "Iron single-edged curved sword of machaira/kopis type, 54.6 cm long",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Iron_machaira_(sword)_MET_LC-2001_543.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/7/75/Iron_machaira_%28sword%29_MET_LC-2001_543.jpg",
+   "size": [
+    2600,
+    872
+   ],
+   "licence": "CC0 1.0",
+   "author": "Metropolitan Museum of Art (photo; EXIF author kdaniels)",
+   "institution": "Metropolitan Museum of Art, New York (Greek and Roman Art)",
+   "accession": "2001.543",
+   "attribution": "Iron machaira (sword), Greek, 5th-4th century B.C., Metropolitan Museum of Art 2001.543, Gift of Andres A. Mata, in honor of Carlos A. Picon, 2001; CC0, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "5th-4th century B.C.",
+   "place": "Greek (findspot not stated)",
+   "people": [],
+   "kind": "photo-object",
+   "tags": [
+    "kopis",
+    "machaira",
+    "sword",
+    "weapon",
+    "iron",
+    "hoplite",
+    "met"
+   ],
+   "doubts": [],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-domenico-fetti-archimedes-1620",
+   "title": "Oil painting of a bearded scholar at a desk with books, compasses and a celestial globe, traditionally called 'Archimedes Thoughtful'",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Domenico-Fetti_Archimedes_1620.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Domenico-Fetti_Archimedes_1620.jpg",
+   "size": [
+    1364,
+    1818
+   ],
+   "licence": "Public domain (PD-Art|PD-old-100)",
+   "author": "Domenico Fetti (1589-1623/24)",
+   "institution": "Gemaldegalerie Alte Meister, Staatliche Kunstsammlungen Dresden",
+   "accession": "Gal.-Nr. 692",
+   "attribution": "Domenico Fetti, Portrait of a Scholar (Archimedes?), c. 1620, Gemaldegalerie Alte Meister, Dresden; public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "circa 1620",
+   "place": "painted in Mantua; subject linked to Syracuse",
+   "people": [
+    "Archimedes (identification uncertain)"
+   ],
+   "kind": "painting",
+   "tags": [
+    "archimedes",
+    "scholar",
+    "syracuse",
+    "baroque",
+    "portrait"
+   ],
+   "doubts": [
+    "The identification as Archimedes is traditional and uncertain."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-corinthian-helmet-louvre-br4491",
+   "title": "Bronze Corinthian helmet (gift of Charles de Gaulle, 1963)",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Corinthian_helmet_Louvre_Br4491.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Corinthian_helmet_Louvre_Br4491.jpg",
+   "size": [
+    1644,
+    2050
+   ],
+   "licence": "Public domain (PD-self, released by the photographer Jastrow)",
+   "author": "Photo: Jastrow (2006); object: unknown Greek bronzesmith",
+   "institution": "Musée du Louvre, Department of Greek, Etruscan and Roman Antiquities",
+   "accession": "Br 4491",
+   "attribution": "Corinthian helmet, bronze, first quarter of the 6th century BC, Louvre Br 4491. Photo by Jastrow, public domain, via Wikimedia Commons.",
+   "attribution_required": false,
+   "date": "first quarter of the 6th century BC",
+   "place": "Greece (findspot not stated)",
+   "people": [],
+   "kind": "photo-object",
+   "tags": [
+    "Corinthian helmet",
+    "hoplite",
+    "bronze",
+    "armour",
+    "Greek",
+    "museum object"
+   ],
+   "doubts": [
+    "6th century BC, earlier than the game's years. Credit as Marie-Lan Nguyen / Wikimedia Commons."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-sommer-giorgio-1834-1891-agrigento-tempio-della-concordia",
+   "title": "Historical black-and-white photograph of the Doric Temple of Concordia",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Sommer,_Giorgio_(1834-1891)_-_Agrigento,_Tempio_della_Concordia.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Sommer%2C_Giorgio_%281834-1891%29_-_Agrigento%2C_Tempio_della_Concordia.jpg",
+   "size": [
+    800,
+    600
+   ],
+   "licence": "Public domain (PD-old-100; Public Domain Mark 1.0)",
+   "author": "Giorgio Sommer (1834-1914)",
+   "institution": "",
+   "accession": "Sommer catalogue no. 8601",
+   "attribution": "Giorgio Sommer, Agrigento, Temple of Concordia (19th-century photograph, cat. 8601). Public domain, via Wikimedia Commons.",
+   "attribution_required": false,
+   "date": "19th century (Sommer catalogue no. 8601)",
+   "place": "Temple of Concordia, Akragas/Agrigento",
+   "people": [],
+   "kind": "photo-site",
+   "tags": [
+    "Akragas",
+    "Agrigento",
+    "Temple of Concordia",
+    "Doric temple",
+    "Valley of the Temples",
+    "historical photograph",
+    "Sommer"
+   ],
+   "doubts": [
+    "The file name gives the photographer's dates as 1834-1891, the page as 1834-1914."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-damocl-s-dubost-1804",
+   "title": "Large neoclassical oil painting (228 x 258 cm) of the Damocles banquet: Damocles feasting beneath the sword hung by a hair",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Damocl%C3%A8s_(Dubost,_1804).jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Damocl%C3%A8s_%28Dubost%2C_1804%29.jpg",
+   "size": [
+    645,
+    576
+   ],
+   "licence": "Public domain (PD-old-100)",
+   "author": "Antoine Dubost (1769-1825)",
+   "institution": "Chhatrapati Shivaji Maharaj Vastu Sangrahalaya, Mumbai (formerly Prince of Wales Museum)",
+   "accession": "",
+   "attribution": "Antoine Dubost, The Sword of Damocles (L'epee de Damocles), Salon of 1804, Chhatrapati Shivaji Maharaj Vastu Sangrahalaya, Mumbai; public domain, via Wikimedia Commons",
+   "attribution_required": false,
+   "date": "1804",
+   "place": "Syracuse (scene)",
+   "people": [
+    "Damocles"
+   ],
+   "kind": "painting",
+   "tags": [
+    "damocles",
+    "sword of damocles",
+    "banquet",
+    "tyrant",
+    "syracuse",
+    "neoclassical",
+    "low-res"
+   ],
+   "doubts": [
+    "Low resolution (645 x 576); the page has no US public-domain tag."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  },
+  {
+   "id": "real-concordia-tempel",
+   "title": "Oil on canvas, 89 x 131 cm: the Temple of Concordia at Agrigento",
+   "status": "link-only",
+   "file": null,
+   "thumb": null,
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Concordia_Tempel.jpg",
+   "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Concordia_Tempel.jpg",
+   "size": [
+    500,
+    337
+   ],
+   "licence": "Public domain (PD-Art | PD-old-100, PD-US-expired; Public Domain Mark 1.0)",
+   "author": "Leo von Klenze (1784-1864)",
+   "institution": "Sammlung Prof. Dr. Rainer Lepsius, Weinheim an der Bergstrasse (as given on the page)",
+   "accession": "",
+   "attribution": "Leo von Klenze, Temple of Concord in Agrigento (1857), oil on canvas. Public domain, via Wikimedia Commons.",
+   "attribution_required": false,
+   "date": "1857",
+   "place": "Temple of Concordia, Akragas/Agrigento",
+   "people": [],
+   "kind": "painting",
+   "tags": [
+    "Akragas",
+    "Agrigento",
+    "Temple of Concordia",
+    "Doric temple",
+    "Valley of the Temples",
+    "Klenze",
+    "19th-century painting"
+   ],
+   "doubts": [
+    "Only 500 x 337; the page names a private collection while the file is also listed under the Alte Nationalgalerie."
+   ],
+   "list": "checked 2026-11-26 (places and art)"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "real-tophet-carthage-stelae",
+   "title": "Stelae in the Tophet of Salammbo, Carthage",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Tunisise_Carthage_Tophet_Salambo_02.JPG",
+   "credit_as_recorded": "Patrick Giraud, CC BY-SA 2.5",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-kerkouane-tanit-mosaic",
+   "title": "Tanit sign in a floor, Kerkouane",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Mosaik_der_Tanit_in_Kerkouane,_Tunesien_Januar_2015.JPG",
+   "credit_as_recorded": "Kritzolina, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-kerkouane-bath",
+   "title": "Punic house bath, Kerkouane",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Ancient_Bath.JPG",
+   "credit_as_recorded": "Aneta Ribarska, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-tabnit-sarcophagus",
+   "title": "Sarcophagus of Tabnit, king of Sidon (Phoenician inscription), Istanbul",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Tabnit_sarcophagus.jpg",
+   "credit_as_recorded": "oncenawhile, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-marsala-ship-prow",
+   "title": "Prow of the Punic ship, Marsala",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Punic.prow.JPG",
+   "credit_as_recorded": "Ekem, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-kition-tariff",
+   "title": "Kition tariff, Phoenician inscription",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Kition_Tariff_2,_CIS_I_87.jpg",
+   "credit_as_recorded": "Onceinawhile, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-utica-floor",
+   "title": "Ancient floor, Utica",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Floor_in_ancient_Utica_05.jpg",
+   "credit_as_recorded": "Kritzolina, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-kerkouane-04",
+   "title": "Kerkouane site view",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Kerkouane,_Tunesien_Januar_2015_04.JPG",
+   "credit_as_recorded": "Kritzolina, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-baal-hammon-throne-statue",
+   "title": "Terracotta statue of Baal-Hammon on a throne AvL",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Terracotta_statue_of_Baal-Hammon_on_a_throne_AvL.JPG",
+   "credit_as_recorded": ", CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-tanit-silver-drachma",
+   "title": "Carthago - 241-146 BC - silver drachma - head of Tanit - M�nchen SMS",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Carthago_-_241-146_BC_-_silver_drachma_-_head_of_Tanit_-_M�nchen_SMS.jpg",
+   "credit_as_recorded": "ArchaiOptix, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-tanit-gold-stater",
+   "title": "Carthago - 350-270 BC - gold stater - head of Tanit - horse - Berlin MK BM 18200188",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Carthago_-_350-270_BC_-_gold_stater_-_head_of_Tanit_-_horse_-_Berlin_MK_BM_18200188.jpg",
+   "credit_as_recorded": "ArchaiOptix, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-melqart-tyre-hippocamp-coin",
+   "title": "Monete fenicie, tyros, azemilkos in argento, con dio melqart sull'ippocampo in mare e delfino, 350-310 ac ca",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Monete_fenicie,_tyros,_azemilkos_in_argento,_con_dio_melqart_sull'ippocampo_in_mare_e_delfino,_350-310_ac_ca.jpg",
+   "credit_as_recorded": "Francesco Bini, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-eshmun-temple",
+   "title": "Eshmun Temple",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Eshmun_Temple.jpg",
+   "credit_as_recorded": "BlingBling10 at en.wikipedia, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-eshmun-bull-capital",
+   "title": "Bull protome capital from the Temple of Eshmun",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Bull_protome_capital_from_the_Temple_of_Eshmun.jpg",
+   "credit_as_recorded": "DAVID HOLT from London, England, CC BY-SA 2.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-eshmun-plan",
+   "title": "Plan of the Temple of Eshmun.svg",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Plan_of_the_Temple_of_Eshmun.svg",
+   "credit_as_recorded": "Ma�l Medina via user Wilimut, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-stele-elephant",
+   "title": "Carthago exhibition - Stele Depicting an Elephant (49340683656)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Carthago_exhibition_-_Stele_Depicting_an_Elephant_(49340683656).jpg",
+   "credit_as_recorded": "Jamie Heath, CC BY-SA 2.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-war-cothon-carthage-edge",
+   "title": "Les bords du cothon - A65268S",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Les_bords_du_cothon_-_A65268S.jpg",
+   "credit_as_recorded": "Gadmer Fr�d�ric, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-war-cothon-motya-air",
+   "title": "Mozia-kothon-von-norden-hdr",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Mozia-kothon-von-norden-hdr.jpg",
+   "credit_as_recorded": "Mboesch, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-war-barcid-elephant-shekel",
+   "title": "Carthago - 213-210 BC - silver shekel - head of Melqart - elefant - London BM TC-p74-42-Pan",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Carthago_-_213-210_BC_-_silver_shekel_-_head_of_Melqart_-_elefant_-_London_BM_TC-p74-42-Pan.jpg",
+   "credit_as_recorded": "ArchaiOptix, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-tyre-phoenician-shrine",
+   "title": "PhoenicianShrine AlMinaCitySite TyreLebanon RomanDeckert23082019",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:PhoenicianShrine_AlMinaCitySite_TyreLebanon_RomanDeckert23082019.jpg",
+   "credit_as_recorded": "RomanDeckert, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-tyre-al-mina-city-excavation",
+   "title": "TyreAlMinaCitySite MauriceChehabExcavationsRemnants-RailLore RomanDeckert23082019",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:TyreAlMinaCitySite_MauriceChehabExcavationsRemnants-RailLore_RomanDeckert23082019.jpg",
+   "credit_as_recorded": "RomanDeckert, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-tyre-hippodrome",
+   "title": "Tyre hippodrome 01",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Tyre_hippodrome_01.jpg",
+   "credit_as_recorded": "Carole Raddato, CC BY-SA 2.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-sicily-selinunte-temples",
+   "title": "Temples A, B, and C at Selinunte sel26",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Temples_A,_B,_and_C_at_Selinunte_sel26.jpg",
+   "credit_as_recorded": "Michael Gunther, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-sicily-motya-north-gate",
+   "title": "Mozia-nordwesttor-heiligtum-b",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Mozia-nordwesttor-heiligtum-b.JPG",
+   "credit_as_recorded": "Mboesch, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-spain-cartagena-punic-wall",
+   "title": "Muralla P�nica de Cartagena",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Muralla_P�nica_de_Cartagena.jpg",
+   "credit_as_recorded": "Mar�a Rodriguez, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-spain-cartagena-wall-2",
+   "title": "Carthaginian wall of Cartagena",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Carthaginian_wall_of_Cartagena.jpg",
+   "credit_as_recorded": "VIATOR IMPERI, CC BY-SA 2.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-spain-hispano-carthaginian-coins",
+   "title": "Monedas hispano-cartaginesas. Museo de Prehistoria de Valencia",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Monedas_hispano-cartaginesas._Museo_de_Prehistoria_de_Valencia.jpg",
+   "credit_as_recorded": "Dorieo, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-spain-sagunto-castle",
+   "title": "Castillo de Sagunto, Valencia, Espa�a, 2015-01-03, DD 09-11 HDR",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Castillo_de_Sagunto,_Valencia,_Espa�a,_2015-01-03,_DD_09-11_HDR.JPG",
+   "credit_as_recorded": "Diego Delso, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-siege-byrsa-panorama",
+   "title": "Byrsa panorama",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Byrsa_panorama.jpg",
+   "credit_as_recorded": "Asma BEN GHARBI, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-siege-byrsa-roman-foundations",
+   "title": "Byrsa roman foundations",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Byrsa_roman_foundations.jpg",
+   "credit_as_recorded": "damian entwistle, CC BY-SA 2.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-war-falcata-valencia",
+   "title": "Falcata, espada y cer�micas ib�ricas. Museo de Prehistoria de Valencia",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Falcata,_espada_y_cer�micas_ib�ricas._Museo_de_Prehistoria_de_Valencia.jpg",
+   "credit_as_recorded": "Dorieo, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-spain-iberian-warrior-alcudia",
+   "title": "Guerrero ibero de La Alcudia (M.A.N. Inv.38441) 01",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Guerrero_ibero_de_La_Alcudia_(M.A.N._Inv.38441)_01.jpg",
+   "credit_as_recorded": ", CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-tyre-phoenician-ship-relief",
+   "title": "AssyrianWarship",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:AssyrianWarship.jpg",
+   "credit_as_recorded": "No machine-readable author provided. World Imaging assumed (based on c, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-homeland-ahiram-detail",
+   "title": "Sarcophagus of Ahiram detail",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Sarcophagus_of_Ahiram_detail.jpg",
+   "credit_as_recorded": "Emna Mizouni, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-homeland-arwad-island-air",
+   "title": "Ifpo 23354 Syrie, gouvernorat de Tartous, District de Tartous, �le de Raouad, vue a�rienne oblique",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Ifpo_23354_Syrie,_gouvernorat_de_Tartous,_District_de_Tartous,_�le_de_Raouad,_vue_a�rienne_oblique.jpg",
+   "credit_as_recorded": "Army of the Levant, Licence Ouverte",
+   "why": "French Licence Ouverte: open, but not one of the licences this library takes (PD, CC0, CC BY)"
+  },
+  {
+   "id": "real-homeland-amrit-temple",
+   "title": "The Temple of Amrit",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:The_Temple_of_Amrit.jpg",
+   "credit_as_recorded": "Iyas Hossein, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-homeland-ugarit-ruins",
+   "title": "Ugarit 02",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Ugarit_02.jpg",
+   "credit_as_recorded": "Loris RomitoThe original uploader was LorisRomito at Italian Wikipedia, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-homeland-ugarit-baal-stele",
+   "title": "Stele Baal Saphon AO13176",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Stele_Baal_Saphon_AO13176.jpg",
+   "credit_as_recorded": "Zunkir, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-trade-murex-shells-tyre",
+   "title": "MurexShells-MurexHotel-TyreSour RomanDeckert082019",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:MurexShells-MurexHotel-TyreSour_RomanDeckert082019.jpg",
+   "credit_as_recorded": "RomanDeckert, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-trade-nimrud-ivory-bedhead",
+   "title": "Nimrud ivory bedhead BM",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Nimrud_ivory_bedhead_BM.jpg",
+   "credit_as_recorded": "Zunkir, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-trade-kition-ruins",
+   "title": "ANCIENT KITION, LARNACA, CYPRUS",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:ANCIENT_KITION,_LARNACA,_CYPRUS.jpg",
+   "credit_as_recorded": "JERRYE AND ROY KLOTZ MD, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-trade-tharros-gold-bracelet",
+   "title": "Bracciale oro di Tharros, et� fenicio punica",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Bracciale_oro_di_Tharros,_et�_fenicio_punica.jpg",
+   "credit_as_recorded": "Orsolina Valeri, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-trade-tharros-pilgrim-flask",
+   "title": "Pilgrim flask Tharros WA 133064",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Pilgrim_flask_Tharros_WA_133064.jpg",
+   "credit_as_recorded": "Zunkir, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-africa-dougga-libyco-punic-mausoleum",
+   "title": "Mausol�e libyco-punique de Dougga 123",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Mausol�e_libyco-punique_de_Dougga_123.jpg",
+   "credit_as_recorded": "IssamBarhoumi, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-africa-sabratha-punic-mausoleum",
+   "title": "?????? ???????? ??????? THE PUNIC MAUSOLEUM 01",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:??????_????????_???????_THE_PUNIC_MAUSOLEUM_01.jpg",
+   "credit_as_recorded": "???? ????11, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-hannibal-alps-route-map",
+   "title": "Hannibal's ways thru south Alps",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Hannibal's_ways_thru_south_Alps.jpg",
+   "credit_as_recorded": "Ursus, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-hannibal-scipio-cartagena-bust",
+   "title": "Scipio bust Cartagena",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Scipio_bust_Cartagena.jpg",
+   "credit_as_recorded": "P4K1T0, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-siege-antonine-baths-carthage",
+   "title": "01996 Ruins of Antonine Baths at Carthage",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:01996_Ruins_of_Antonine_Baths_at_Carthage.jpg",
+   "credit_as_recorded": "Silar, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-thucydides",
+   "title": "Plaster cast of the Holkham Hall bust, Pushkin Museum",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Thucydides_pushkin01.jpg",
+   "credit_as_recorded": "user shakko, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-walbank",
+   "title": "Frank William Walbank",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Frank_Walbank.jpg",
+   "credit_as_recorded": "KNAW, CC BY 3.0",
+   "why": "photo of a modern historian, not art; a living or recent person's likeness"
+  },
+  {
+   "id": "real-lancel",
+   "title": "Serge Lancel",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Serge_Lancel,_Académicien.jpg",
+   "credit_as_recorded": "Académie française official photographer, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-goldsworthy",
+   "title": "Adrian Goldsworthy",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Adrian_Goldsworthy-2.jpg",
+   "credit_as_recorded": "Vera de Kok, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-miles",
+   "title": "Richard Miles (historian)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Richard_Miles_2012_in_Trier_01.jpg",
+   "credit_as_recorded": "Gabriel VanHelsing, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-quinn",
+   "title": "Josephine Quinn, video still",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Josephine_Crawley_Quinn_(born_1973)_in_the_video_'Josephine_Quinn_–_Et_le_monde_créa_l'Occident_–_une_nouvelle_histoire_des_mondes_anciens'.png",
+   "credit_as_recorded": "librairie Mollat, CC BY 4.0",
+   "why": "video still of a living historian, not art; a living person's likeness"
+  },
+  {
+   "id": "real-gods-reshef-palermo",
+   "title": "Phoenician statuette probably depicting Reshef (cropped)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Phoenician_statuette_probably_depicting_Reshef_(cropped).JPG",
+   "credit_as_recorded": "NearEMPTiness, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-melqart-sciacca",
+   "title": "Melqart di Sciacca",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Melqart_di_Sciacca.png",
+   "credit_as_recorded": "Corriere di Sciacca, CC BY-SA 4.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-baal-hammon-incense-burner",
+   "title": "Incense burner depicting Baal-Hammon AvL",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Incense_burner_depicting_Baal-Hammon_AvL.JPG",
+   "credit_as_recorded": "CC BY-SA 4.0 (author not recorded)",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-tanit-bardo-lion",
+   "title": "Bardo National Museum tanit",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Bardo_National_Museum_tanit.jpg",
+   "credit_as_recorded": "Sarah Murray, CC BY-SA 2.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-sid-antas-temple",
+   "title": "Temple of Antas ... (15915551073)",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Temple_of_Antas,_a_Punic-Roman_temple,_first_built_around_500_BC,_and_restored_around_300_BC,_the_Roman_temple_was_built_under_Augustus_and_restored_under_Caracalla,_Sardinia_(15915551073).jpg",
+   "credit_as_recorded": "Carole Raddato, CC BY-SA 2.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-gods-sid-sardus-pater-coin",
+   "title": "SardusPaterBabai",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:SardusPaterBabai.jpg",
+   "credit_as_recorded": "Shardan, CC BY-SA 3.0",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-coin-libyan-revolt-shekel",
+   "title": "Libyan Revolt, shekel, 241-238 BC",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Libyan_Revolt,_shekel,_241-238_BC.jpg",
+   "credit_as_recorded": "CNG, CC BY-SA 2.5 (read off its Commons page, 13 Nov 2026)",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-coin-sidon-galley",
+   "title": "Sidon silver double shekel, galley, Berlin Münzkabinett",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Sidon_-_342-341_BC_-_silver_double_shekel_-_galley_-_Persian_king_in_quadriga_-_Berlin_MK_AM_18216657.jpg",
+   "credit_as_recorded": "ArchaiOptix, CC BY-SA 4.0 (read off its Commons page, 13 Nov 2026)",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-coin-sicily-410-tetradrachm",
+   "title": "Silver tetradrachm, about 410 BC, British Museum 1946,0101.1609",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Carthago_-_410_BC_-_silver_tetradrachm_-_horse_protome_and_Nike_-_date_palm_-_London_BM_1946-0101-1609.jpg",
+   "credit_as_recorded": "ArchaiOptix, CC BY-SA 4.0 (read off its Commons page, 13 Nov 2026)",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-coin-pegasus-dekadrachm",
+   "title": "Carthage silver dekadrachm, Pegasus, Staatliche Münzsammlung München",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Carthago_-_270-260_BC_-_silver_dekadrachm_-_head_of_Tanit_-_Pegasos_-_M%C3%BCnchen_SMS_01.jpg",
+   "credit_as_recorded": "ArchaiOptix, CC BY-SA 4.0 (read off its Commons page, 13 Nov 2026)",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-coin-lion-tetradrachm",
+   "title": "Carthage silver tetradrachm, lion and date palm, Berlin Münzkabinett",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Carthago_-_350-250_BC_-_silver_tetradrachm_-_head_of_Libya_-_lion_and_date_palm_-_Berlin_MK_AM.jpg",
+   "credit_as_recorded": "ArchaiOptix, CC BY-SA 4.0 (read off its Commons page, 13 Nov 2026)",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": "real-coin-quadrigatus",
+   "title": "Rome silver quadrigatus, Classical Numismatic Group",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:AR_Quadrigatus_86000566.jpg",
+   "credit_as_recorded": "CNG, CC BY-SA 2.5 (read off its Commons page, 13 Nov 2026)",
+   "why": "share-alike (CC BY-SA): its terms would bind the game, so left out"
+  },
+  {
+   "id": null,
+   "title": "Carthago - 425-406 BC - silver tetradrachm - forepart of horse and Nike - palm tree - Berlin MK AM 18206034.jpg",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Carthago_-_425-406_BC_-_silver_tetradrachm_-_forepart_of_horse_and_Nike_-_palm_tree_-_Berlin_MK_AM_18206034.jpg",
+   "credit_as_recorded": "CC BY-SA 4.0",
+   "why": "Share-alike licence (ArchaiOptix photo in Berlin Altes Museum); page also notes museum permits photography only for non-commercial purposes"
+  },
+  {
+   "id": null,
+   "title": "Greek and Roman Provinical, Coin of Zeugitana, Carthage (FindID 621125).jpg",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Greek_and_Roman_Provinical,_Coin_of_Zeugitana,_Carthage_(FindID_621125).jpg",
+   "credit_as_recorded": "CC BY-SA 2.0",
+   "why": "Share-alike licence (Portable Antiquities Scheme / British Museum). Carthage billon 2 shekels, Tanit / horse, 264-241 BC"
+  },
+  {
+   "id": null,
+   "title": "Moneta d'argento di siracusa, 415-400 ac. circa, testa di aretusa.JPG",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Moneta_d'argento_di_siracusa,_415-400_ac._circa,_testa_di_aretusa.JPG",
+   "credit_as_recorded": "GFDL 1.2+ / CC BY-SA 3.0 (dual)",
+   "why": "Share-alike / GFDL only (Sailko 2011 photo of Kimon decadrachm, British Museum Room 68)"
+  },
+  {
+   "id": null,
+   "title": "Map of ancient Sicily and inset map of the territories of Syracuse by Abraham Ortelius.jpeg",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Map_of_ancient_Sicily_and_inset_map_of_the_territories_of_Syracuse_by_Abraham_Ortelius.jpeg",
+   "credit_as_recorded": "PD-Art (PD-old-auto-expired) for the map itself, but the Folger Shakespeare Library also releases this digital reproduction under CC BY-SA 4.0",
+   "why": "Page carries CC BY-SA 4.0 for the scan (binding outside PD-Art jurisdictions); excluded under the no-SA rule. Ortelius 'Siciliae Veterus Typus' c.1608, 1537x1181, with Syracuse inset; usable in the US per Wikimedia's PD-Art position if you accept that"
+  },
+  {
+   "id": null,
+   "title": "Phlyax scene on a calyx krater by Asteas Antikensammlung Berlin F3044 2.jpg",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Phlyax_scene_on_a_calyx_krater_by_Asteas_Antikensammlung_Berlin_F3044_2.jpg",
+   "credit_as_recorded": "CC BY-SA 3.0 (photo by Marcus Cyron)",
+   "why": "Share-alike licence. Excellent phlyax comedy scene (Asteas, Paestum, 350-340 BC, Berlin F 3044) but not allowed"
+  },
+  {
+   "id": null,
+   "title": "Marble relief with an Athenian trimere (late 5th century BC).jpg",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Marble_relief_with_an_Athenian_trimere_(late_5th_century_BC).jpg",
+   "credit_as_recorded": "CC BY-SA 2.0",
+   "why": "Share-alike licence (photo by Tilemahos Efthimiadis via Flickr). Lenormant trireme relief, Acropolis Museum 1339, 3505x1617; otherwise a strong candidate."
+  },
+  {
+   "id": null,
+   "title": "Il giovane di Mozia.jpg",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Il_giovane_di_Mozia.jpg",
+   "credit_as_recorded": "CC BY-SA 4.0",
+   "why": "Motya Charioteer (detail), Wiki Loves Monuments 2015 photo by Silviettar86; share-alike licence is not on the allowed list."
+  },
+  {
+   "id": null,
+   "title": "Flying-Angel Painter ARV 280 8 hoplite with helmet greaves shield and spear (08).jpg",
+   "commons_page": "https://commons.wikimedia.org/wiki/File:Flying-Angel_Painter_ARV_280_8_hoplite_with_helmet_greaves_shield_and_spear_(08).jpg",
+   "credit_as_recorded": "CC BY-SA 4.0",
+   "why": "Attic red-figure amphora with hoplites, c. 480 BC (Munich 8726), photo by ArchaiOptix; share-alike licence, and the description adds a museum note that commercial use needs the museum's permission."
+  }
+ ]
+}

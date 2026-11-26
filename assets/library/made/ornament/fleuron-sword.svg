@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 64" width="48" height="64">
+<title>Fleuron: sword on a hair</title>
+<desc>The game's emblem as a small mark: a sword hanging by a hair (Cicero, Tusculan Disputations 5.61-62).</desc>
+<path d="M24 2V18" stroke="#2b1d12" stroke-width=".6"/><g transform="translate(24 18) scale(1.4)" fill="#2b1d12"><circle cx="0" cy="1.6" r="1.6"/><rect x="-.9" y="3" width="1.8" height="6"/><path d="M-5 9H5L4.2 10.6H-4.2Z"/><path d="M-1.8 10.6C-2.6 16 -2.4 22 0 30C2.4 22 2.6 16 1.8 10.6Z"/></g>
+</svg>
