@@ -2,6 +2,9 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## AI testers' first impressions (thread 34, 2026-11-26)
+- Jacob's first reaction to the test: overwhelming. Findings and 17 ranked layout suggestions (no rule changes): `docs/playtests/2026-11-26-ai-first-impressions/findings.md`. **Question for Jacob:** which of the starred five to build, on main after his test, never on the test link.
+
 ## The test link is frozen (thread 19, 2026-11-24)
 - The first island test build is live at the test link (https://claude.ai/artifact/8KqQzj6x3QrXRjQKzVZNK4, version 19, built from main after PR #61). **Publish nothing to that link until Jacob reports on his game.** Bets go to the Workshop page.
 - What to watch for while he plays, and how to read his "Copy my game" text: `docs/playtests/first-island-test.md` and `npm run replay-save -- <file>`.
