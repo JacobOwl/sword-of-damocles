@@ -8,7 +8,7 @@ Thread 36. **Design only: nothing here is built, and nothing changes the rules u
 2. **The board:** each office gets a power its holder uses every season, for himself or his friends, so a rival holding one hurts you and everyone wants one. People campaign for them; you bribe, ally, accuse or fight.
 3. **The rising few:** one ladder of standing (nobody, notable, player, rival, pretender). Only people high on it are shown up front, and each step up arrives as a scene, not a log line.
 4. **Events come from moves:** a big change (an office lost, a rival risen, a war, a man you keep robbing) opens a matter starring the people involved. Petitions become asks to use your powers, and the answer is remembered.
-5. **Three questions, three options each.** We recommend the middle option every time (B, B, B), built in the order at the end, behind one switch until you say it is core.
+5. **Three questions, three options each.** Question 1 is now settled as B (see "Settled: how each seat changes hands"). We recommend the middle option for the other two, built in the order at the end, behind one switch until you say it is core.
 
 His words this answers: "put more empahsis on the core pillars of goverment. Kinda board game it up with people fighting over them and them giving powers. Being able to bribe or ally people who control other offices. Having downsides for rivals owning it. Having NPCs seek it out. Having NPCs ask me for favors of my powers", "push me to care about a smaller pool of people over time", and "I would prefer my events and petitions to, generally, be based on whats actually happening in the game".
 
@@ -116,6 +116,52 @@ The old deck stays, rarer, for colour and history.
 ### 3C. A storyteller (costly)
 3B, plus a **pacing director**, like RimWorld's storytellers: it watches how much is happening and chooses what to raise. Quiet for two seasons: a rival takes his move early. Three crises at once: the next matter waits. It is the most DM-like, but it can feel steered, and it adds a hidden hand to a game whose rule is that every act has a visible reason. We suggest parking it in `docs/later.md` until 3B has been played.
 
+## Settled: how each seat changes hands (council, 2026-11-26)
+
+Jacob: "some seats should change easier but others should be much harder. maybe a entrechment mechanic as well. some should change via vote and others by others ways. what does history tell us. I will let you and AI designer council pick though". And: "are there any other office spots we should add or is what we got good". **This settles Question 1 as 1B, contested seats.** History is in the card `docs/research/offices-history.md`. One session wrote all four seats of the council; their verdicts are advice turned into a pick because he delegated it.
+
+### What history says, in one table
+
+| Seat | How it changed hands at Syracuse | Source |
+|---|---|---|
+| Generalship | The assembly dismissed generals after a lost war and elected new ones in the same meeting; in a crisis it gave one man "supreme power". After that, only force could remove him: the armed assembly of 396 tried and failed. | Diodorus 13.92.1, 13.94.5, 14.64.4 to 14.70.2 |
+| Fleet | Voted by a free assembly (Heracleides), given and taken back at will by a tyrant (Leptines, then Thearides). An admiral away at sea lost it to his enemies at home (Hermocrates). | Plutarch *Dion* 33; Diodorus 14.102.3, 13.63.1 |
+| Leader of the assembly | Not an office: the leading voice of the people (Diocles). Rose and fell in single quarrels; Diocles was exiled over the burial of the dead. | 13.19.4, 13.34.6, 13.75.5 |
+| Citadel and treasury | Built as a refuge; changed hands only by force, by its keeper's betrayal (Andron, tempted), or by surrender when food ran out (355). | 14.7.3; Polyaenus 5.2.4; *Dion* 50 |
+| Captain of the mercenaries | Dismissed (Dexippus) or arrested (Aristotle), and the men then demanded their pay "with some sharpness". | 13.96.1, 14.78.1 to 14.78.2 |
+| Mint | No source names an office. Coin was the ruler's own scheme. | Invention |
+
+### The four seats
+
+- **Historian.** The sources give a clear ladder: votes move the leader of the people easily and the generals fairly easily; the fleet follows whoever appoints; the fortress, its treasure and the guard change only by force or betrayal. The way a seat changes depends on the government: the same fleet is voted in a free city and handed out under a tyrant. Entrenchment is attested: placing "his most faithful followers" in the posts (13.96.1) and the Island's houses given to friends and mercenaries (14.7.5). Only two cautions: no source gives a term of office, so a yearly vote is invention; and the mint has no office behind it.
+- **Board-game designer** (Republic of Rome, Root). Three tiers make a board worth reading: cheap seats that swing every year, middle seats you can lose if you neglect them, and hard seats you must plan a campaign to take. Entrenchment is the right brake, but it must not snowball for you either: digging in should cost upkeep, and a dug-in tyrant should make the other factions band together (the coalition switch already does this). Add the captain of the guard: the guard is already a faction, and the hard seats need a key, so the citadel is held by whoever the guard obeys.
+- **Story designer** (CK3, Dwarf Fortress). The best story moments here are reversals: Hermocrates losing the fleet while away, the armed assembly almost deposing Dionysius, Diocles exiled over the bones of the dead. So entrenchment should fall from specific things the player can see coming: leaving the city, losing a battle, an accusation that sticks. Each fall is a matter, starring the holder.
+- **New player.** Each seat card needs three plain lines: who holds it, how it changes and when ("by vote, next in spring"), and how dug in he is, as a word. No numbers. Do not add more than one new seat now: he already found the board busy.
+
+### The pick
+
+**Three tiers, set by the government of the day:**
+
+| Seat | Tier | Changes by | Dug in, at most |
+|---|---|---|---|
+| Leader of the assembly (today's "assembly") | Easy | Any season the assembly meets: the side with more backing wins it | Settled |
+| Generalship | Middle | The assembly dismisses and elects: after a lost battle, or at the yearly vote in a free city. Given "supreme power" in a crisis (a lost battle, Carthage landing), it moves only by force or a plot | Dug in, or Unshakeable with supreme power |
+| Fleet | Middle | Voted in a free city; granted and revoked by whoever holds supreme power under a tyranny. Lost more easily while its holder is away | Dug in |
+| Treasury, mint | Middle | Granted by whoever rules (you, the magistrates of a free city, or the rich families' council in an oligarchy). Taking one back costs you the holder's grudge, and his faction's mood if he was dug in | Dug in |
+| Captain of the guard (new) | Hard | Appointed by whoever pays the guard; removed only by arrest, and the guard may mutiny for its pay | Unshakeable |
+| Citadel | Hard | Only by force, by its keeper's betrayal while you are away, or by surrender when its food runs out. Building it stays the 405 opening goal | Unshakeable |
+
+This also gives the governments real effects, one of his test complaints: Democracy, Oligarchy and Tyranny each change who appoints and what is voted.
+
+**Dug in, in four words:** New, Settled, Dug in, Unshakeable. Each step makes the seat harder to take by its own way of changing hands.
+- **Rises:** one step a year held without a loss, or by placing your men (land, houses, posts given to the holder's friends).
+- **Falls:** the holder leaves the city, loses a battle while holding it, or is accused and the charge sticks; or his faction turns on him. Each fall is a matter, starring him.
+- **Costs:** a seat dug in past Settled needs upkeep (a favour or silver a year) or it slips a step. You dig in too, by the same rules, so a player holding everything dug in is what makes the other factions band together.
+
+**Other seats (his question):** add one, the **captain of the guard**, as above. Also, as small seats shown only on a city's sheet, the **command of each city you hold** (Leontini, Aetna, Catana and the rest): a post to hand out as a reward, whose holder can betray the city, as Arcesilaus betrayed Catana (14.15.1). Keep the mint, marked invention. Nothing else: seven seats is a board he can read.
+
+**Parked:** petalism (exile by olive leaf for the man who rises too far, 11.87.1) as a rule the assembly can pass. It is fifty years earlier and was "soon repealed" (11.87.3), so it goes in `docs/later.md`.
+
 ## What a 20-season game might look like (1B, 2B, 3B)
 
 Invented, to show the shape, not a script:
@@ -148,20 +194,19 @@ His words: "start years should be done ck3 style where you pick a different year
 
 - **Opening goal, now:** the 405 game opens with one stated goal, "Build the citadel", shown as the first thing on the board, with what it gives you and who would rather you didn't. It fits this design: the citadel is the first seat you win, and the board fight begins once you hold it. The next tests stay on 405.
 - **Each scenario has its own opening goal:** a start in exile would open with "Win back a foothold"; a start nearer the war with "Hold the generalship when Carthage lands". Written as data in each start, like the start positions.
-- **Picking a start year, CK3 style:** `docs/scope.md` lists "choosing the start date" as out of Phase 2, so this is parked in `docs/later.md` (the start cards in `docs/research/start-*.md` are the groundwork). If he wants it in Phase 2, that is a logged change to `scope.md`, his call.
+- **Picking a start year, CK3 style:** parked in `docs/later.md`. Jacob: "idc about other start dates rn".
 
 ## Risks
 
 - **More text.** Every new power and matter adds lines. Each must replace something, not add to it: the office card's one line replaces the log lines it covers.
 - **Samey matters.** Templates repeat as fast as events do. Each needs several wordings (the varied wording system already exists) and a cause that differs.
 - **Too strong a hand.** If holders' powers bite hard, the game may tip from too easy to hopeless. Count with the bots first, without tuning to history.
-- **History.** The offices and their powers are invention, except the assembly electing the general, which is sourced. Elections every year is invention; the sources do not give a term.
+- **History.** How seats change hands follows the sources (card `docs/research/offices-history.md`); the holders' powers, the yearly vote, the mint as a seat and the word ladder for digging in are invention.
 
 ## Questions for Jacob
 
-1. **Offices:** 1A seats with powers, 1B contested seats (recommended), or 1C the favour economy?
-2. **Cast:** 2A the circle, 2B one ladder of standing (recommended), or 2C rivals with arcs?
-3. **Events:** 3A triggers on the old deck, 3B matters from moves (recommended), or 3C a storyteller?
-4. **Order:** start with step 1 (office powers and the crisis scene), or another?
-5. **Start years:** keep picking a start year parked for Phase 3, or change `scope.md` to bring it into Phase 2?
-6. **Elections:** generalship and assembly elected each year, or only when the assembly is called?
+Question 1 is settled above (1B, with the tiers and digging in). Still open:
+
+1. **Cast:** 2A the circle, 2B one ladder of standing (recommended), or 2C rivals with arcs?
+2. **Events:** 3A triggers on the old deck, 3B matters from moves (recommended), or 3C a storyteller?
+3. **Order:** start with step 1 (office powers and the crisis scene), or another?
