@@ -454,3 +454,6 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (council, Jacob delegated the pick):** Question 1 of the redesign is 1B, contested seats. Three tiers: the leader of the assembly changes easily by vote; the generalship, fleet, treasury and mint sit in the middle, voted or granted depending on the government; the captain of the guard (a new seat) and the citadel change only by force, betrayal or surrender. A "dug in" track (New, Settled, Dug in, Unshakeable) rises with time and placed men, falls with absence, defeat or a charge that sticks, and costs upkeep past Settled. City commands become small seats. Nothing built.
 - **Done:** research card `docs/research/offices-history.md` (Diodorus 11, 13, 14; Plutarch *Dion*; Polyaenus via the cast card). Quotes checked against the saved texts.
 - **Open:** cast (2A/2B/2C) and events (3A/3B/3C), Jacob's pick. Petalism parked.
+
+## 2026-11-26 (redesign picked, thread 36)
+- **Decided (Jacob):** "lets do capitan of the guard and have city leaders sure. 2b and 3b for now". The redesign is 1B, 2B, 3B, with the captain of the guard and city leaders as seats, built in the proposal's order behind the switch "The contested board". Nothing built yet.

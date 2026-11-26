@@ -203,10 +203,8 @@ His words: "start years should be done ck3 style where you pick a different year
 - **Too strong a hand.** If holders' powers bite hard, the game may tip from too easy to hopeless. Count with the bots first, without tuning to history.
 - **History.** How seats change hands follows the sources (card `docs/research/offices-history.md`); the holders' powers, the yearly vote, the mint as a seat and the word ladder for digging in are invention.
 
-## Questions for Jacob
+## Jacob's picks (2026-11-26)
 
-Question 1 is settled above (1B, with the tiers and digging in). Still open:
+"lets do capitan of the guard and have city leaders sure. 2b and 3b for now". So the redesign is **1B** (contested seats, with the tiers and digging in above, the captain of the guard and city leaders as seats), **2B** (one ladder of standing) and **3B** (matters from moves, petitions to use your powers, one move a year by each rival). Build in the order above, behind one switch, "The contested board", until he says it is core.
 
-1. **Cast:** 2A the circle, 2B one ladder of standing (recommended), or 2C rivals with arcs?
-2. **Events:** 3A triggers on the old deck, 3B matters from moves (recommended), or 3C a storyteller?
-3. **Order:** start with step 1 (office powers and the crisis scene), or another?
+Still open: nothing for the design. When to start building is his "go".
