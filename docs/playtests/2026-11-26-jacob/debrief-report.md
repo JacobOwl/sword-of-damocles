@@ -24,7 +24,7 @@ Phase 2's test: do ten seasons give a story you would retell? His answer: "tbh n
 
 ## What he asked about, and what he never opened
 
-He asked us to note this (1:14 PM). In 17 minutes of play he asked twelve questions, every one "what does this do" or "how do I":
+He asked us to note this (1:14 PM). In 17 minutes of play he asked eleven questions, every one "what does this do" or "how do I", and made two design requests (hover breakdowns, city sheets):
 
 | Asked about | Kind |
 |---|---|
@@ -77,7 +77,7 @@ Desktop is how he played; phone checked from the same screens. Each item cheap o
 
 1. **The gate:** not passed, in his words. Fix the gate before adding features (CLAUDE.md).
 2. **His direction (item 5 of his answers):** a smaller, rising cast with their own events. Needs a design talk. This is the biggest decision.
-3. **Explain where the player looks** (his twelve questions). **The cheap display fixes**, all from his notes: action results in place, tooltips, hover breakdowns, map key, city sheet, influence explained, less text. One small thread can do these once he says go.
+3. **Explain where the player looks** (his eleven questions). **The cheap display fixes**, all from his notes: action results in place, tooltips, hover breakdowns, map key, city sheet, influence explained, less text. One small thread can do these once he says go.
 4. **Rules for him to choose** (each as a switch, off by default): the levy loophole, repeat limits, contesting the citadel, a later start to reach the war.
 5. **The bug:** the cavalry agenda after Aetna falls. Small; fix with the display batch if he agrees.
 6. **Sorting the switches and the eight bets:** he touched none of them in this game, so there is nothing from play to sort them by yet.
