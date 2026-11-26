@@ -469,3 +469,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** seats with powers, votes, digging in, the crisis on a loss, the captain, the ladder of standing, matters from moves, six of the twenty draft petitions, four actions, seat cards and the ladder on screen. 800 batch games, no crashes or broken states. Not tuned.
 - **Open:** fourteen draft petitions and parts of the design (supreme power, the keeper's betrayal, placing men, election day on screen): `docs/later.md`.
 
+
+## 2026-11-26 (second island test played, thread 38)
+- **Done:** Jacob played the Second island test (killed season 24 of 30). Notes word for word, his save and a debrief in `docs/playtests/2026-11-26-jacob-test2/`. Nothing built during or after the test.
+- **Parked (Jacob's idea):** drag an army on the map with its reach and travel times shown, area foraging, war ruining crops: `docs/later.md`.
+- **Open:** eight bugs and the starred fixes in `debrief.md`; six design questions in `notes.md` for Jacob.
