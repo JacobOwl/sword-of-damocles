@@ -431,3 +431,9 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Found:** the first season screen shows about 1,680 words, 88 buttons, 37 actions (11 greyed) and a bit over four screen heights; events are printed twice; "See Dangers" points to a column named "Plots against you" on desktop.
 - **Decided:** nothing. Report only; the game and the test link are unchanged. Seventeen suggestions ranked, top five starred, for Jacob to pick.
 - **Added the same day:** Jacob's own notes (mood levels, agendas, who is important, government types), each checked against the build. Found: in this build Democracy and Oligarchy are labels with no effect of their own; only Tyranny changes play. Whether to give them effects is Jacob's rules call.
+
+## 2026-11-26 (debrief of Jacob's first island test, thread 19)
+- **Done:** his game replayed exactly on the build he played (digest matches); his in-play notes and answers quoted word for word; debrief report with his moments lined up against the log, the bot numbers, a three-lens review and the decisions to make (`docs/playtests/2026-11-26-jacob/`).
+- **The gate:** not passed, in his words ("tbh not much. No one or nothing stood out.").
+- **Found, not fixed:** "The cavalry come home" completes after Aetna has fallen and the exiles' leader is held; levies on a Rebellious faction are free (known loophole, confirmed in play).
+- **Open:** everything in the report's "For the decisions sitting", above all his direction of a smaller, rising cast with their own events. Nothing gets built until he picks.
