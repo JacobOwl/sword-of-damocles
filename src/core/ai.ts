@@ -391,6 +391,12 @@ function agendaStep(s: GameState, f: FactionId) {
   const def = agendaById(ag.id);
   const step = def.steps[ag.step];
   const name = capital(fa.short);
+  // The cavalry can't come home once their cause is gone: the exiles' leader taken or dead and, on the island,
+  // their fortress at Aetna fallen. Before this the agenda completed regardless (Jacob's first test, Spring 402).
+  if (ag.id === "cavalryHome" && exilesBroken(s)) {
+    ag.done = true; ag.result = "given up: the exiles' cause is broken";
+    return void event(s, f, `${name} give up ${def.name}: their leader is in your hands${s.island ? " and Aetna has fallen" : ""}.`, "the exiles' cause is gone");
+  }
   if ((s.flags[`blockAgenda_${f}`] ?? -1) >= s.season) {
     delete s.flags[`blockAgenda_${f}`];
     return void event(s, f, `${name} make no progress on ${def.name}.`, "you blocked their leader");
@@ -429,6 +435,13 @@ function agendaStep(s: GameState, f: FactionId) {
     if (best) { best.guardBacking = true; deed(s, best, { kind: "guard" }); event(s, f, "The guard sells its loyalty to a plot against you.", "the guard are kingmakers", !!best.informer); }
   }
   advanceAgenda(s, f, step);
+}
+
+function exilesBroken(s: GameState) {
+  const lead = s.people.cavalryLeader;
+  const leaderGone = !lead || lead.status === "held" || lead.status === "dead";
+  const fortGone = !s.island || s.island.cities.aetna?.side !== "exiles";
+  return leaderGone && fortGone;
 }
 
 export function advanceAgenda(s: GameState, f: FactionId, why: string) {
