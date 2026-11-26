@@ -34,6 +34,10 @@ Quoted word for word, before any summary (debrief plan, step 2).
 
 > what are the different city icons. Gela  Catana Atena
 
+(12:56 PM)
+
+> cities are afraid of me what can I do with that? Hard to tell how it's useful or deteremined
+
 He attached four screenshots with the first message: the mood tooltip (`mood-tip.png`), the agenda tooltip (`agenda-tip.png`), the "Who is who" list (`who-is-who.png`) and the Government label "Tyranny (yours)" (`government.png`).
 
 ## What the build he played actually does (checked in the code, thread 19)
@@ -53,6 +57,8 @@ He attached four screenshots with the first message: the mood tooltip (`mood-tip
 - **City info.** Clicking a city on the map does nothing. A table under the map lists each city's walls, grain, men, how it feels about you, and notes (besieged, sacked, afraid). Cities have no wealth number; allies pay a fixed silver in summer. His design: click a city for a sheet, like the character sheets.
 
 - **Map icons.** Shape is walls (tower: walled city; roofs: open town, as Gela and Acragas start after the 405 treaty; hill: the fortress at Aetna). Colour is the side: deep red yours, lighter red your ally, dark brown free, light purple pays tribute to Carthage, deep purple Carthaginian, slate blue the exiles. The key is one line of small text under the map and gives no colours, so he had to ask.
+
+- **Fear.** Each sack adds 1 fear (max 3) and -1 lean to every town not yours or Carthage's; fear fades 1 each summer. Fear adds to Embassy to a city, to a town going over to your nearby army, and to a roll to surrender when your army reaches it (needs 6: die + fear, +1 if twice its men, minus walls, -2 if Carthage's army is near; never Carthage's towns or the exiles). None of this is shown; the map table says only "afraid of you".
 
 ## Our reading
 
