@@ -18,6 +18,10 @@ Quoted word for word, before any summary (debrief plan, step 2).
 
 > I can't see upkeep of silver and grain easily if at all
 
+(12:45 PM)
+
+> I should be able to mouse over it and have income expenses listed
+
 He attached four screenshots with the first message: the mood tooltip (`mood-tip.png`), the agenda tooltip (`agenda-tip.png`), the "Who is who" list (`who-is-who.png`) and the Government label "Tyranny (yours)" (`government.png`).
 
 ## What the build he played actually does (checked in the code, thread 19)
@@ -30,7 +34,7 @@ He attached four screenshots with the first message: the mood tooltip (`mood-tip
 
 - **Strike coin without the mint.** Not possible: only the mint's holder may strike, and no favour, bribe or alliance lends it. The one way is Revoke an office (automatic for the mint, which is not an armed office); the holder takes -3 opinion, a grudge and is Humiliated.
 
-- **Upkeep.** The ledger shows only totals. Each season's end takes the guard's pay (its upkeep, in silver, if the treasury holder pays) and 2 months of grain (1 with a granary); summer adds 6 grain, a friendly fleet 2 in winter, allies and laws add silver. The guard's pay amount is not shown anywhere; the grain rule is only in the Grain tooltip. Grain below 3 next season gets a warning on the "This season" line; silver gets none.
+- **Upkeep.** The ledger shows only totals. Each season's end takes the guard's pay (its upkeep, in silver, if the treasury holder pays) and 2 months of grain (1 with a granary); summer adds 6 grain, a friendly fleet 2 in winter, allies and laws add silver. The guard's pay amount is not shown anywhere; the grain rule is only in the Grain tooltip. His design for it: hovering silver or grain lists income and expenses (CK3-style breakdown). Grain below 3 next season gets a warning on the "This season" line; silver gets none.
 
 ## Our reading
 
