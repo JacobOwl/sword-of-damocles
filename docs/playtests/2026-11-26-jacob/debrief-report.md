@@ -76,7 +76,7 @@ Desktop is how he played; phone checked from the same screens. Each item cheap o
 ## For the decisions sitting (step 6)
 
 1. **The gate:** not passed, in his words. Fix the gate before adding features (CLAUDE.md).
-2. **His direction (item 5 of his answers):** a smaller, rising cast with their own events. Needs a design talk. This is the biggest decision.
+2. **His direction:** (a) a smaller, rising cast with their own events (answer 5); (b) the offices as the board: people fight over the pillars, each gives powers, you can bribe or ally their holders, rivals holding one costs you, NPCs seek them and ask you for favours of yours (1:15 PM). The two fit together: the offices are what the rising few fight over. Needs a design talk. This is the biggest decision.
 3. **Explain where the player looks** (his eleven questions). **The cheap display fixes**, all from his notes: action results in place, tooltips, hover breakdowns, map key, city sheet, influence explained, less text. One small thread can do these once he says go.
 4. **Rules for him to choose** (each as a switch, off by default): the levy loophole, repeat limits, contesting the citadel, a later start to reach the war.
 5. **The bug:** the cavalry agenda after Aetna falls. Small; fix with the display batch if he agrees.

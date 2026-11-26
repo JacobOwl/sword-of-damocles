@@ -85,6 +85,10 @@ Asked in the thread because the save carried none. Questions: 1 what would you r
 
 > also its worth noting what I asked questions on. Also I never opened the family tab and some other things
 
+(1:15 PM)
+
+> maybe we need to change UI and gameplay to put more empahsis on the core pillars of goverment. Kinda board game it up with people fighting over them and them giving powers. Being able to bribe or ally people who control other offices. Having downsides for rivals owning it. Having NPCs seek it out. Having NPCs ask me for favors of my powers etc etc
+
 **The gate (Phase 2: do ten seasons give a story you would retell?):** in his words, "tbh not much. No one or nothing stood out." Not passed.
 
 ## The replay (thread 19, 2026-11-26)
