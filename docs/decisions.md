@@ -449,3 +449,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Found:** an office held by someone else mostly only greys out one of the player's actions; no holder uses an office on his own, and people petition only for offices the player holds.
 - **Decided:** nothing. Rules and direction are Jacob's call. The storyteller idea (3C) is parked in `docs/later.md`.
 - **Decided (Jacob):** building the citadel is the natural opening goal of the 405 game, and every scenario should have one. Start years picked CK3 style are his wish, but out of Phase 2 by `docs/scope.md`: parked in `docs/later.md` until he changes scope.
+
+## 2026-11-26 (how each seat changes hands, thread 36)
+- **Decided (council, Jacob delegated the pick):** Question 1 of the redesign is 1B, contested seats. Three tiers: the leader of the assembly changes easily by vote; the generalship, fleet, treasury and mint sit in the middle, voted or granted depending on the government; the captain of the guard (a new seat) and the citadel change only by force, betrayal or surrender. A "dug in" track (New, Settled, Dug in, Unshakeable) rises with time and placed men, falls with absence, defeat or a charge that sticks, and costs upkeep past Settled. City commands become small seats. Nothing built.
+- **Done:** research card `docs/research/offices-history.md` (Diodorus 11, 13, 14; Plutarch *Dion*; Polyaenus via the cast card). Quotes checked against the saved texts.
+- **Open:** cast (2A/2B/2C) and events (3A/3B/3C), Jacob's pick. Petalism parked.
