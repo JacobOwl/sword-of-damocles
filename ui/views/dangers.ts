@@ -1,10 +1,10 @@
 // The dangers column: plots against you, rivals, and who is who.
-import { DATA, openQuarrels, quarrelLine, agendaById, capital, defense, influence, officeName, officesOf, others, playerInfluence, plotStrength, rankTitle, seasonName, stageName, knobsFor, switchById, switchOn } from "../../src/core/index.ts";
+import { DATA, leaderOf, openQuarrels, quarrelLine, agendaById, capital, defense, influence, officeName, officesOf, others, playerInfluence, plotStrength, rankTitle, seasonName, stageName, knobsFor, switchById, switchOn } from "../../src/core/index.ts";
 import type { FactionId, GameState, Plot } from "../../src/core/index.ts";
 import { tipAttr } from "./help.ts";
 import { flags } from "./people.ts";
 import { portrait } from "../components/portraits.ts";
-import { esc, linkNames, opChip, pr, sign, ui, who } from "../lib/text.ts";
+import { esc, linkNames, opChip, opinionWord, pr, sign, ui, who } from "../lib/text.ts";
 import { FACTION_ICON, icon } from "../components/icons.ts";
 
 export function dangersCol(g: GameState) {
@@ -88,16 +88,33 @@ function rivals(g: GameState) {
     <p class="small muted"><span class="tipped" ${tipAttr("enemy")}>Enemies</span> are made by wounds and want you dead (at most ${DATA.maxEnemies}). <span class="tipped" ${tipAttr("political")}>Political rivals</span> are made by ambition and want your place (at most ${DATA.maxPolitical}).</p></div>`;
 }
 
+// Who is who: the people who matter this season first, marked with why (Jacob's first test: "Too many people all
+// being shown with equal importance"). The rest fold under "Everyone else".
+function whyMatters(g: GameState, p: ReturnType<typeof others>[number]): { why: string; weight: number } | null {
+  const offs = officesOf(g, p.id);
+  const lead = (["family", "rich", "citizens", "guard"] as FactionId[]).find((f) => leaderOf(g, f)?.id === p.id);
+  const plotter = g.plots.some((pl) => pl.known.includes(p.id));
+  const asks = g.requests.some((r) => r.from === p.id);
+  const bits: string[] = [];
+  let w = 0;
+  if (p.rival) { bits.push("your enemy"); w += 5 + p.rival.rank; }
+  if (p.political) { bits.push("wants your place"); w += 5 + p.political.rank; }
+  if (plotter) { bits.push("in a plot you know of"); w += 6; }
+  if (offs.length) { bits.push(`holds ${offs.map((o) => officeName(o)).join(" and ")}`); w += 3 + offs.length; }
+  if (lead) { bits.push(`leads ${g.factions[lead].short}`); w += 3; }
+  if (asks) { bits.push("petitions you"); w += 2; }
+  if (!w && Math.abs(p.opinion) >= 3) { bits.push(p.opinion > 0 ? "devoted to you" : "hates you"); w += 1; }
+  return w ? { why: bits.join(", "), weight: w } : null;
+}
+
 function whoIsWho(g: GameState) {
-  const order: FactionId[] = ["family", "rich", "citizens", "guard"];
-  return `<div><h2>Who is who</h2>
-    ${order.map((f) => {
-      const ps = others(g).filter((p) => p.faction === f && p.status !== "absent" && p.status !== "dead");
-      if (!ps.length) return "";
-      return `<div class="area"><span class="label">${icon(FACTION_ICON[f], `f-${f}`)}${esc(g.factions[f].name)}</span>${ps.map((p) => {
-        const offs = officesOf(g, p.id);
-        return `<button type="button" class="row-person" data-person="${esc(p.id)}">${portrait(p.id, "s")}<span class="nm">${esc(capital(p.name))}${offs.length ? ` <span class="tag">${esc(offs.map((o) => capital(officeName(o).replace(/^the /, ""))).join(", "))}</span>` : ""}${p.status !== "free" ? ` <span class="tag">${p.status === "held" ? "in prison" : "outside"}</span>` : ""} ${flags(g, p)}</span>${opChip(p.opinion)}</button>`;
-      }).join("")}</div>`;
-    }).join("")}
+  const live = others(g).filter((p) => p.status !== "absent" && p.status !== "dead");
+  const rows = live.map((p) => ({ p, m: whyMatters(g, p) }));
+  const key = rows.filter((r) => r.m).sort((a, b) => b.m!.weight - a.m!.weight);
+  const rest = rows.filter((r) => !r.m);
+  const row = (p: (typeof live)[number], why?: string) => `<button type="button" class="row-person" data-person="${esc(p.id)}">${portrait(p.id, "s")}<span class="nm">${esc(capital(p.name))}${p.status !== "free" ? ` <span class="tag">${p.status === "held" ? "in prison" : "outside"}</span>` : ""}${why ? `<span class="small muted whyline">${esc(why)}</span>` : ""}</span><span class="opw small">${esc(opinionWord(p.opinion))}</span></button>`;
+  return `<div><h2>Who matters</h2>
+    ${key.length ? key.map((r) => row(r.p, r.m!.why)).join("") : `<p class="small muted">No one stands out yet.</p>`}
+    ${rest.length ? `<details class="everyone"><summary class="small">Everyone else (${rest.length})</summary>${rest.map((r) => row(r.p, `${capital(g.factions[r.p.faction as FactionId]?.short ?? "")}`)).join("")}</details>` : ""}
     <p class="small"><button type="button" data-view="court">Open the court</button></p></div>`;
 }

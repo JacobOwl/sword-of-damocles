@@ -1,5 +1,5 @@
 // The season column: what happened, the council, matters and petitions before you, and your actions.
-import { DATA, PLAYER, act, capital, battleForecast, yourArmy, armyName, nodeName, menWords, chooseEvent, menu, refuseRequest, officeName, preview, secondOptions, thirdOptions, actionNotes, seasonName, openEvents } from "../../src/core/index.ts";
+import { DATA, PLAYER, act, capital, switchOn, battleForecast, yourArmy, armyName, nodeName, menWords, chooseEvent, menu, refuseRequest, officeName, preview, secondOptions, thirdOptions, actionNotes, seasonName, openEvents } from "../../src/core/index.ts";
 import type { Args, GameState } from "../../src/core/index.ts";
 import { guide, guideDone } from "./help.ts";
 import { flags } from "./people.ts";
@@ -103,14 +103,33 @@ function actions(g: GameState) {
   const areas = DATA.areas.filter((a) => items.some((i) => i.area === a));
   return `<div id="actions"><h2>Your actions</h2>${resultBox(g, "actions")}
     <p class="small muted">Open an action to see its target, cost and odds before you commit. A roll is one die plus modifiers; 4 or more succeeds.</p>
-    ${areas.map((area) => `<div class="area"><span class="label">${icon(AREA_ICON[area] ?? "")}${esc(area)}</span>
-      ${items.filter((i) => i.area === area).map((i) => `
+    ${areas.filter((area) => items.some((i) => i.area === area && !i.blocked)).map((area) => `<div class="area"><span class="label">${icon(AREA_ICON[area] ?? "")}${esc(area)}</span>
+      ${items.filter((i) => i.area === area && !i.blocked).map((i) => `
         <button class="act ${ui.openAction === i.id ? "open" : ""} ${i.blocked ? "off" : ""}" data-act="${i.id}" aria-expanded="${ui.openAction === i.id}">
           <span>${esc(i.name)}${i.reach ? ` <span class="tag" data-tip="reach">reach</span>` : ""}</span><span class="c">${esc(i.blocked ?? i.cost)}</span>
         </button>
         ${ui.openAction === i.id ? panel(g, i) : ""}`).join("")}
     </div>`).join("")}
+    ${blockedFold(g, items)}
     <p style="margin-top:14px"><button class="primary" id="end2">End the season</button> <span class="small muted">${g.slots} action${g.slots === 1 ? "" : "s"} left.</span></p></div>`;
+}
+
+// Actions you can't take now, folded, each with what it needs (Jacob: "so I don't own the mint is there any way I can
+// strike coin?"). Open one to see its full rules.
+function blockedFold(g: GameState, items: ReturnType<typeof menu>) {
+  const off = items.filter((i) => i.blocked);
+  if (!off.length) return "";
+  const open = off.some((i) => i.id === ui.openAction);
+  return `<details class="blocked-acts"${open ? " open" : ""}><summary class="small">Not available now (${off.length})</summary>
+    ${off.map((i) => `<button class="act off ${ui.openAction === i.id ? "open" : ""}" data-act="${i.id}" aria-expanded="${ui.openAction === i.id}"><span>${esc(i.name)}</span><span class="c">${esc(needs(g, i.blocked!))}</span></button>${ui.openAction === i.id ? panel(g, i) : ""}`).join("")}
+  </details>`;
+}
+// "needs the mint" reads as what to get: "You need the mint (win it from its holder, or revoke it)".
+function needs(g: GameState, why: string) {
+  const office = /^you don't hold (the (?:mint|treasury|generalship|fleet|citadel|assembly))$/i.exec(why);
+  const ways = ["Revoke an office", ...(switchOn(g, "quarrels") ? ["a quarrel in the assembly"] : []), ...(switchOn(g, "secrets") ? ["a secret over its holder"] : [])];
+  if (office) return `Needs ${office[1]}. Take it with ${ways.length > 1 ? `${ways.slice(0, -1).join(", ")} or ${ways.at(-1)}` : ways[0]}`;
+  return capital(why);
 }
 
 // Sending the army into an enemy army: the battle it would fight, every modifier on both sides, before you commit.

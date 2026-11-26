@@ -414,3 +414,6 @@ table.cities thead th { font-family: var(--display); font-weight: 400; color: va
 .changed li.ch-danger::before { content: "▼"; color: var(--blood); font-size: .8em; top: 4px; }
 .changed li.ch-good::before { content: "▲"; color: var(--olive); font-size: .8em; top: 4px; }
 .changed li.ch-warn::before { color: var(--gold); }
+.row-person .whyline { display: block; }
+.row-person .opw { margin-left: auto; color: var(--muted); white-space: nowrap; }
+details.everyone summary { margin: 6px 0; cursor: pointer; }

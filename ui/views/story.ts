@@ -1,5 +1,5 @@
 // The season's events and the chronicle, written for reading. Both come straight from the one action log.
-import { PLAYER, seasonName, storyBook, switchOn } from "../../src/core/index.ts";
+import { PLAYER, openEvents, seasonName, storyBook, switchOn } from "../../src/core/index.ts";
 import type { GameState, LogEntry } from "../../src/core/index.ts";
 import { esc, linkNames, rollLine, ui } from "../lib/text.ts";
 import { chronicleLine, colophon, diodorusYear } from "../components/ambient.ts";
@@ -49,14 +49,38 @@ function shifts(es: LogEntry[]): { people: Shift[]; stores: Shift[] } {
   }
   return { people, stores };
 }
+// Eight near-identical harvest lines ("Messana's grain +4 months (now 10).") read as one.
+function collapse(list: Shift[]): Shift[] {
+  const town = /^(.+?)'s grain ([+-]\d+) months? \(now \d+\)\.$/;
+  const groups = new Map<string, Shift[]>();
+  for (const x of list) { const m = town.exec(x.text); if (m && !x.hidden) { const k = `${m[2]}|${x.why}`; groups.set(k, [...(groups.get(k) ?? []), x]); } }
+  const out: Shift[] = [];
+  const done = new Set<string>();
+  for (const x of list) {
+    const m = town.exec(x.text);
+    const k = m && !x.hidden ? `${m[2]}|${x.why}` : "";
+    if (!k || (groups.get(k)?.length ?? 0) < 3) { out.push(x); continue; }
+    if (done.has(k)) continue;
+    done.add(k);
+    const g = groups.get(k)!;
+    const names = g.map((y) => town.exec(y.text)![1]);
+    out.push({ up: x.up, text: `Grain ${m![2]} months in ${names.length} towns (${names.join(", ")}).`, why: x.why, hidden: false });
+  }
+  return out;
+}
 function shiftList(list: Shift[]) {
+  list = collapse(list);
   return list.map((x) => `<li class="${x.hidden ? "hidden" : ""}"><span class="arrow ${x.up === true ? "good" : x.up === false ? "warn" : "muted"}">${x.up === true ? "▲" : x.up === false ? "▼" : "•"}</span> ${linkNames(x.text)}${x.why ? ` <span class="why">${esc(x.why)}</span>` : ""}</li>`).join("");
 }
 
 export function seasonFeed(s: GameState, season: number, steps = STEPS.map((x) => x[0])) {
   const es = s.log.filter((e) => e.season === season && e.kind !== "chronicle" && (ui.designer || e.visible) && steps.includes(e.step));
+  // Say each thing once: a matter still waiting for your answer is shown under "Matters before you", not here too;
+  // dice lines go to Designer view (the sentence beside them already says what happened).
+  const open = s.over ? [] : openEvents(s).map((ev) => ev.text.slice(0, 60));
+  const shown = (e: LogEntry) => (ui.designer || e.kind !== "roll") && !(e.kind === "event" && open.some((t) => e.text.startsWith(t)));
   const groups = STEPS.filter(([k]) => steps.includes(k)).map(([k, t]) => {
-    const evs = es.filter((e) => e.step === k && e.kind !== "change");
+    const evs = es.filter((e) => e.step === k && e.kind !== "change" && shown(e));
     if (!evs.length) return "";
     return `<div class="feedgroup"><span class="label">${t}</span><div class="feed">${evs.map(line).join("")}</div></div>`;
   }).join("");
