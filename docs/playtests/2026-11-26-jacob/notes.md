@@ -81,6 +81,10 @@ Asked in the thread because the save carried none. Questions: 1 what would you r
 > 7. there was just so much texts that a lot of it I glazed over. Liked the events. Liked the map and geopolitics/war even if it is very very simple.
 > 8. The one rich guy I kept taxing ig
 
+(1:14 PM)
+
+> also its worth noting what I asked questions on. Also I never opened the family tab and some other things
+
 **The gate (Phase 2: do ten seasons give a story you would retell?):** in his words, "tbh not much. No one or nothing stood out." Not passed.
 
 ## The replay (thread 19, 2026-11-26)
