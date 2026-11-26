@@ -48,4 +48,7 @@ export type { ExileState } from "./exile.ts";
 export { carthageBook, logLine, numberWords } from "./carthage-chronicle.ts";
 export type { PunicBook, PunicYear, PunicSeason, PunicLine } from "./carthage-chronicle.ts";
 export { storesForecast } from "./forecast.ts";
+// Switch "contestedBoard": the seats, the ladder of standing.
+export { SEATS, BOARD, seatDef, seatName as boardSeatName, seatHolder, seatsOf, dugWord, standingName, standingOf, nextStep, race, votedNow, attitude, boardOn } from "./board.ts";
+export type { BoardState, SeatId } from "./board.ts";
 export type { Flow } from "./forecast.ts";

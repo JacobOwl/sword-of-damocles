@@ -461,3 +461,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 
 ## 2026-11-26 (redesign picked, thread 36)
 - **Decided (Jacob):** "lets do capitan of the guard and have city leaders sure. 2b and 3b for now". The redesign is 1B, 2B, 3B, with the captain of the guard and city leaders as seats, built in the proposal's order behind the switch "The contested board". Nothing built yet.
+
+## 2026-11-26 (the contested board built, thread 37)
+- **Decided (Jacob):** "Go" on the redesign, then "Why wouldn't that be in 2nd test" and "Current playthrough is done idc about breaking it": the contested board is on in the Second island test preset, not held behind a switch that is off. It stays a switch (`contestedBoard`) so older games replay.
+- **Decided (here, an engine call Jacob's draft left open):** petitions are event-style data in `data/board.json`, cast by `src/core/board.ts`, like the dinner asks; the old yes/no petition stays as it is.
+- **Decided (scope, from Jacob's pick in thread 36):** a seventh seat, the captain of the guard, and city commands as small seats. Logged in `docs/scope.md`.
+- **Done:** seats with powers, votes, digging in, the crisis on a loss, the captain, the ladder of standing, matters from moves, six of the twenty draft petitions, four actions, seat cards and the ladder on screen. 800 batch games, no crashes or broken states. Not tuned.
+- **Open:** fourteen draft petitions and parts of the design (supreme power, the keeper's betrayal, placing men, election day on screen): `docs/later.md`.
+

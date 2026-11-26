@@ -32,11 +32,11 @@ test("the first island test keeps the council's setup, so its saves replay", () 
   assert.match(startScreen(null, 7), /value="firstIslandTest"/, "still offered");
 });
 
-test("the second island test is listed first and recommended, with the rules Jacob made core (2026-11-26)", () => {
+test("the second island test is listed first and recommended, with the rules Jacob made core (2026-11-26) and the contested board", () => {
   const p = presetById("secondIslandTest")!;
   assert.equal(p.scenario, "island");
   assert.equal(p.tuning, "reapWhatYouSow");
-  assert.deepEqual([...p.switches].sort(), ["armiesBreak", "bargainDisgraces", "clues", "coalition", "commission", "escalation", "exile", "feud", "partialBlows", "purseDry", "quarrels", "secrets", "storyChronicle"]);
+  assert.deepEqual([...p.switches].sort(), ["armiesBreak", "bargainDisgraces", "clues", "coalition", "commission", "contestedBoard", "escalation", "exile", "feud", "partialBlows", "purseDry", "quarrels", "secrets", "storyChronicle"]);
   assert.ok(!p.switches.includes("variedOpening"), "Jacob kept the first year as it is");
   assert.equal(p.verdictSeason, 30);
   assert.deepEqual(p.checkIns, [10, 20]);

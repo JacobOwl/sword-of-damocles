@@ -25,6 +25,7 @@ import { campaignCheck } from "./commission.ts";
 import { convoysArrive, convoysOn, convoysSail } from "./convoys.ts";
 import { worksSeason } from "./works.ts";
 import { quarrelsSeasonEnd } from "./quarrels.ts";
+import { boardSeason, initBoard } from "./board.ts";
 import { beginFallen, exileBeginSeason, exileDecadeEnd, exileEndSeason, exileOn, inExile, maybeExile } from "./exile.ts";
 
 // ---------- World ----------
@@ -322,6 +323,8 @@ export function beginSeason(s: GameState) {
   factionStep(s);
   if (s.island) carthageStep(s); // Carthage's council and general, after the Syracusan factions
   if (s.over) return finish(s);
+  if (s.board) boardSeason(s); // switch "contestedBoard": seats change hands, holders use them, the ladder, matters
+  if (s.over) return finish(s);
   s.step = "player";
   if (s.council) councilBrief(s); // switch "council": who sits at your table, and what each of them says this season
   if (s.blockedSlots) {
@@ -358,6 +361,7 @@ function finish(s: GameState) {
 
 export function startGame(seed: number, tuning?: string, opts: GameOpts = {}): GameState {
   const s = newGame(seed, tuning, opts);
+  if (on(s, "contestedBoard")) initBoard(s); // no dice: the same seed plays the same until the board acts
   if (exileOn(s) && on(s, "exileStart")) beginFallen(s); // switch "exileStart": the game opens in exile
   beginSeason(s);
   return s;

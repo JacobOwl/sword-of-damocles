@@ -5,7 +5,7 @@ import {
   moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER,
 } from "../../src/core/index.ts";
 import type { Army, GameState } from "../../src/core/index.ts";
-import { esc, linkNames, ui } from "../lib/text.ts";
+import { esc, linkNames, ui, who } from "../lib/text.ts";
 import * as A from "../components/island-art.ts";
 import { nowLine } from "../components/now.ts";
 
@@ -108,6 +108,7 @@ function citySheet(g: GameState, id: string) {
   if (c.side === "ally" || c.side === "syracuse") rows.push(["Pays you", `${R.allySilver} silver each summer while it has grain, and sends men when you muster`]);
   if (c.side === "tributary") rows.push(["Pays Carthage", "tribute each summer, under the peace of 405"]);
   if (c.sacked) rows.push(["Ruins", "sacked, and still rebuilding"]);
+  if (g.board && id !== "syracuse" && (c.side === "ally" || c.side === "syracuse")) rows.push(["Command", g.board.commands[id] ? `${who(g.board.commands[id])} holds it for you. A man who is no friend of yours may open its gates when Carthage's army comes.` : "no one: give it to a man with Give a city's command"]);
   const notes = overNotes(g, id);
   const how = id === "syracuse" ? "" : c.side === "syracuse" ? "It is yours." : c.side === "carthage" || c.side === "exiles" ? "To take it: Muster, then Send the army to besiege it; Storm the walls or starve it out. It will not go over or surrender from fear." : "To win it: Embassy to a city (lean and fear help), or march your army near it and it may go over; or besiege and take it.";
   return `<div class="citysheet"><div class="fhead"><h3>${esc(n.name)}</h3><button type="button" class="small" data-city="">Close</button></div>

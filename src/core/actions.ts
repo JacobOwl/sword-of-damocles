@@ -24,6 +24,7 @@ import { COUNCIL_IMPL, councilChecked, councilHeard } from "./council.ts";
 import { leaderOfCity, councilOf, censusPersonName } from "./census-game.ts";
 import { NODES } from "./island.ts";
 import { DINNER_IMPL } from "./dinner.ts";
+import { BOARD_IMPL } from "./board.ts";
 import { bloc } from "./island.ts";
 import { WORKS_IMPL } from "./works.ts";
 import { EXILE_IMPL, inExile } from "./exile.ts";
@@ -885,7 +886,7 @@ const SECRET_IMPL: Record<string, Impl> = {
   },
 };
 
-Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL, DINNER_IMPL, WORKS_IMPL, CONVOY_IMPL, EXILE_IMPL, QUARREL_IMPL);
+Object.assign(IMPL, ISLAND_IMPL, COUNCIL_IMPL, SECRET_IMPL, DINNER_IMPL, WORKS_IMPL, CONVOY_IMPL, EXILE_IMPL, QUARREL_IMPL, BOARD_IMPL as any);
 // An action belongs to every scenario unless it names one.
 // Switch "exile": in exile only the exile actions are offered, and they are offered nowhere else.
 export const inScenario = (s: GameState, a: { scenario?: string; switch?: string; exile?: boolean }) => (!a.scenario || a.scenario === (s.scenario ?? "citadel")) && (!a.switch || on(s, a.switch)) && !!a.exile === inExile(s);

@@ -96,7 +96,7 @@ export function officesOf(s: GameState, pid: string): OfficeId[] {
 export const holds = (s: GameState, pid: string, o: OfficeId) => s.offices[o] === pid;
 
 export function power(s: GameState, f: FactionId): number {
-  const held = OFFICES.filter((o) => s.offices[o] && s.people[s.offices[o]!]?.faction === f).length;
+  const held = OFFICES.filter((o) => s.offices[o] && s.people[s.offices[o]!]?.faction === f).length + (s.board?.captain && s.people[s.board.captain]?.faction === f ? 1 : 0);
   return Math.max(0, Math.min(10, s.factions[f].base + held));
 }
 export function band(pow: number): "Marginal" | "Active" | "Dominant" {
@@ -127,7 +127,15 @@ export const isPlayerTyranny = (s: GameState) => government(s) === "Tyranny (you
 export function guardDefends(s: GameState): boolean {
   const g = s.guard;
   const away = s.island?.armies.some((a) => a.side === "syracuse" && a.guard > 0 && a.at !== "syracuse") ?? false; // the guard is in the field
-  return g.arrearsSeasons === 0 && s.factions.guard.mood > 1 && !g.refusing && !s.plots.some((p) => p.guardBacking) && !away;
+  return g.arrearsSeasons === 0 && s.factions.guard.mood > 1 && !g.refusing && !s.plots.some((p) => p.guardBacking) && !away && !captainTurned(s);
+}
+// Switch "contestedBoard": a captain of the guard who has turned against you, or plots, takes the guard with him.
+export function captainTurned(s: GameState): boolean {
+  const c = s.board?.captain;
+  if (!c || c === PLAYER) return false;
+  const p = s.people[c];
+  if (!p || p.status !== "free" || (s.board!.friends[c] ?? -1) >= s.season) return false;
+  return p.opinion <= -1 || !!p.rival || s.plots.some((pl) => pl.members.includes(c));
 }
 
 export function defense(s: GameState): { total: number; parts: { label: string; value: number }[] } {
@@ -165,6 +173,8 @@ export function plotStrength(s: GameState, plot: Plot): { total: number; parts: 
     if (v) parts.push({ label: `${s.factions[f].name} backing`, value: v });
   }
   if (plot.guardBacking) parts.push({ label: "the guard's swords", value: s.guard.strength });
+  else if (s.board?.captain && plot.members.includes(s.board.captain)) parts.push({ label: "the captain brings the guard", value: s.guard.strength });
+  if (s.board && s.citadelBuilt && s.offices.citadel && s.offices.citadel !== PLAYER && plot.members.includes(s.offices.citadel)) parts.push({ label: "the keeper opens the gates", value: 2 });
   if (plot.bonus) parts.push({ label: plot.bonus > 0 ? "preparations" : "disarmed citizens", value: plot.bonus });
   parts.push(...campaignPlotParts(s, plot)); // switch "commission": you are away, the citizens are armed
   return { total: Math.max(0, parts.reduce((a, b) => a + b.value, 0)), parts };
@@ -186,7 +196,8 @@ export function influence(s: GameState, pid: string): number {
   // With "secrets", each secret he holds counts half (knob influencePerSecret), at most 1 in all: a secret is a threat, not a following.
   const held = s.secrets ? Math.floor(Math.min(2, s.secrets.list.filter((x) => x.known.includes(pid) && x.about !== pid && x.publicSince === undefined).length) * SECRET_INFLUENCE) : s.leverage.filter((l) => l.holder === pid).length;
   const seat = s.council && Object.values(s.council.seats).includes(pid) ? 1 : 0;
-  let v = 2 * officesOf(s, pid).length + (p.owedFavor ? 1 : 0) + held + seat + keeperInfluence(s, pid) + p.infl;
+  const board = s.board ? (s.board.captain === pid ? 2 : 0) + Object.values(s.board.commands).filter((x) => x === pid).length : 0; // switch "contestedBoard"
+  let v = 2 * officesOf(s, pid).length + board + (p.owedFavor ? 1 : 0) + held + seat + keeperInfluence(s, pid) + p.infl;
   if (p.status === "held") v -= 2;
   return Math.max(0, Math.min(10, v));
 }
@@ -197,7 +208,7 @@ export function backingFaction(s: GameState): FactionId | undefined {
 }
 export function playerInfluence(s: GameState): number {
   const f = backingFaction(s);
-  return Math.max(0, Math.min(10, officesOf(s, PLAYER).length + (f ? Math.floor(power(s, f) / 2) : 0)));
+  return Math.max(0, Math.min(10, officesOf(s, PLAYER).length + (s.board?.captain === PLAYER ? 1 : 0) + (f ? Math.floor(power(s, f) / 2) : 0)));
 }
 export const politicalRivals = (s: GameState) => others(s).filter((p) => p.political && alive(p));
 export const enemies = activeRivals;
