@@ -26,6 +26,10 @@ Quoted word for word, before any summary (debrief plan, step 2).
 
 > how do I conquer vassalize other cities
 
+(12:49 PM, with a screenshot of the map, `map.png`)
+
+> I should be able to click on the city and get info about it. Wealth opinion etc
+
 He attached four screenshots with the first message: the mood tooltip (`mood-tip.png`), the agenda tooltip (`agenda-tip.png`), the "Who is who" list (`who-is-who.png`) and the Government label "Tyranny (yours)" (`government.png`).
 
 ## What the build he played actually does (checked in the code, thread 19)
@@ -41,6 +45,8 @@ He attached four screenshots with the first message: the mood tooltip (`mood-tip
 - **Upkeep.** The ledger shows only totals. Each season's end takes the guard's pay (its upkeep, in silver, if the treasury holder pays) and 2 months of grain (1 with a granary); summer adds 6 grain, a friendly fleet 2 in winter, allies and laws add silver. The guard's pay amount is not shown anywhere; the grain rule is only in the Grain tooltip. His design for it: hovering silver or grain lists income and expenses (CK3-style breakdown). Grain below 3 next season gets a warning on the "This season" line; silver gets none.
 
 - **Conquering and allying cities.** Embassy to a city (ally: silver each summer, men at muster) or Muster, Send the army, siege, Storm the walls. Our reading: he could not find how; the island actions sit in the long action list, not on the map. Answered in the thread.
+
+- **City info.** Clicking a city on the map does nothing. A table under the map lists each city's walls, grain, men, how it feels about you, and notes (besieged, sacked, afraid). Cities have no wealth number; allies pay a fixed silver in summer. His design: click a city for a sheet, like the character sheets.
 
 ## Our reading
 
