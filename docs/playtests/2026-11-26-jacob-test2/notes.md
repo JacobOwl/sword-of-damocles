@@ -108,6 +108,16 @@ Answer given: the war came from Carthage's anger reaching 7 of 10 this spring (t
 
 > I find that I kept doing the same actions over and over too
 
+(5:16 PM, after the debrief)
+
+> My guard should probably come home right?
+
+(5:50 PM)
+
+> Why only 5 fixes what about all. List them
+
+Answer given: the guard already comes home on disband; it is lost only when men die in the field (losses fall on guard and levy in proportion, `loseMen` in src/core/island.ts). His 3 guard units died of hunger in the siege of Leontini (the army fell from 30,000 to 10,000 in Spring to Winter 402). His rule, recorded below: the guard is lost only in battle. The full numbered list of 30 was posted in the thread.
+
 The notes from 3:20 to 4:14 PM were answered together after the replay (my session restarted and missed them for about an hour); see `debrief.md`.
 
 ## In the game's check-ins (from the save)
@@ -144,6 +154,7 @@ Display (cheap unless marked):
 - Chronicle about 7,100 words over 25 seasons, with 70 "(the Nth time)" repeats. Cut it to the arcs (Jacob: "shorten that down to the important stuff and good story arcs"). Costly.
 
 Design questions (Jacob's calls):
+- Jacob's rule (5:16 PM): the guard returns to the citadel when an army is disbanded and is lost only in battle, not to hunger or desertion.
 - Should love slow a rival's climb?
 - Retaking a town Carthage just took costs one embassy (1 silver): Carthage never leaves a garrison.
 - Carthage's war went quiet for years after its army went home to Libya while he held most of the island.
