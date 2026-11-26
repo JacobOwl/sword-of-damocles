@@ -63,6 +63,15 @@ function quarrels(g: GameState) {
     <p class="small muted">A quarrel is fought by accusation in the assembly. The accused man's faction and any faction Angry with you stand with him; any faction Content or better stands with you. Give a man what he swore to take, or a gift of 3 silver if he swore to shame you, and his quarrel ends.</p></div>`;
 }
 
+// What a rival's influence means for you, in words (Jacob: "starting to match me in inlfence (not sure what that means)").
+function influenceSays(g: GameState, id: string, rank: number) {
+  const his = influence(g, id), yours = playerInfluence(g);
+  const fix = "Bring it down by taking his offices or weakening the faction behind him; raise yours with offices and a faction's backing.";
+  if (rank >= 3) return `<span class="warn">As a Pretender he works to take your place: the assembly, the guard or the strongest faction can switch to him${switchOn(g, "coalition") ? ", if a second faction is Angry with you" : ""}.</span> ${fix}`;
+  if (his >= yours) return `<span class="warn">His influence has reached yours: next he can rise to Pretender and try to take your place.</span> ${fix}`;
+  return `<span class="muted">Influence is one per office held plus half the power of the faction behind him. At ${yours} he rises to Pretender.</span>`;
+}
+
 function rivals(g: GameState) {
   const rs = others(g).filter((p) => (p.rival || p.political) && p.status !== "dead")
     .sort((a, b) => (b.rival?.rank ?? 0) * 2 + (b.political?.rank ?? 0) * 2 - ((a.rival?.rank ?? 0) * 2 + (a.political?.rank ?? 0) * 2));
@@ -78,7 +87,7 @@ function rivals(g: GameState) {
       ${portrait(p.id, "m")}
       <div class="rival-text">
         <div class="fhead"><span>${who(p.id)} <span class="small">${opChip(p.opinion, true)}</span></span><span class="rank-col">${kind}</span></div>
-        <div class="small">${r ? `Scars: ${esc(r.scars.join(", "))}. ` : ""}${pol ? `${esc(pol.type)}, influence ${influence(g, p.id)} against your ${playerInfluence(g)}. ` : ""}<span class="muted">${p.status === "free" ? "In the city." : p.status === "held" ? "In your prison." : "Outside the walls."}</span></div>
+        <div class="small">${r ? `Scars: ${esc(r.scars.join(", "))}. ` : ""}${pol ? `${esc(pol.type)}, influence ${influence(g, p.id)} against your ${playerInfluence(g)}. ${influenceSays(g, p.id, pol.rank)} ` : ""}<span class="muted">${p.status === "free" ? "In the city." : p.status === "held" ? "In your prison." : "Outside the walls."}</span></div>
         ${mem ? `<div class="memory">${P.He} remembers: ${esc(mem.text)}.</div>` : ""}
         ${ag ? `<div class="small warn">${P.His} agenda, <i>${esc(ag.name)}</i>: step ${p.agenda!.step} of ${ag.steps.length}${p.agenda!.step < ag.steps.length ? `, next: ${esc(ag.steps[p.agenda!.step].toLowerCase())}` : ""}.</div>` : ""}
       </div></div>`;

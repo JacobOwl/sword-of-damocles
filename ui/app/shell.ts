@@ -131,8 +131,20 @@ function ledger(g: GameState) {
     <div>${L("guard", "The guard")}<span class="v">${g.guard.strength} <small>strong, ${guardPay}</small></span></div>
     <div>${L("defense", "Your defense")}<span class="v">${d.total}</span><span class="small muted">${esc(d.parts.map((p) => `${p.value} ${p.label}`).join(" + "))}</span></div>
     <div>${L("influence", "Your influence")}<span class="v">${playerInfluence(g)}</span><span class="small muted">${officesOf(g, PLAYER).length} offices${bf ? `, backed by ${esc(g.factions[bf].short)}` : ", no faction backs you"}</span></div>
-    <div>${L("government", "Government")}<span class="v gov">${esc(government(g))}</span></div>
+    <div>${L("government", "Government", governmentTip(g))}<span class="v gov">${esc(government(g))}</span></div>
   </div><div class="meander ledger-rule" aria-hidden="true"></div>`;
+}
+
+// The four governments, what each needs and what each changes (Jacob: "can't tell what the different governments
+// types are or what they do"). Honest about the two that change nothing yet.
+function governmentTip(g: GameState) {
+  const pillars = (["citadel", "generalship", "treasury"] as const).filter((o) => g.offices[o] !== PLAYER);
+  return [
+    `Tyranny: one man holds the citadel, the generalship and the treasury. Yours changes some events and who offers you marriage.${pillars.length ? ` You still need: ${pillars.map((o) => (o === "citadel" && !g.citadelBuilt ? "the citadel (build it first)" : `the ${o}`)).join(", ")}.` : " You hold all three."}`,
+    "Democracy: the common citizens hold three or more offices. No effect of its own yet.",
+    "Oligarchy: the rich families hold three or more offices. No effect of its own yet.",
+    "Unsettled: anything else.",
+  ].join("\n");
 }
 
 // The ledger's hover breakdown: what the end of this season takes and adds, then what last season did.

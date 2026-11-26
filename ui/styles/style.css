@@ -430,3 +430,13 @@ details.everyone summary { margin: 6px 0; cursor: pointer; }
 .sheetdl dd { margin: 0; }
 button.linkish { background: none; border: 0; padding: 0; font: inherit; font-weight: 600; color: inherit; cursor: pointer; text-decoration: underline dotted; }
 table.cities tr.on { background: rgba(176, 140, 60, .12); }
+
+/* Mood as a five-step track; agenda "you are here" (thread 35). */
+.moodtrack { display: inline-flex; align-items: center; gap: 2px; }
+.moodtrack i { display: inline-block; width: 9px; height: 9px; border: 1px solid var(--rule); background: transparent; }
+.moodtrack i.m0.on, .moodtrack i.m1.on { background: var(--blood); border-color: var(--blood); }
+.moodtrack i.m2.on { background: var(--gold); border-color: var(--gold); }
+.moodtrack i.m3.on, .moodtrack i.m4.on { background: var(--olive); border-color: var(--olive); }
+.moodtrack i.line { box-shadow: 2px 0 0 var(--blood); }
+.moodtrack .mood { margin-left: 5px; }
+.steps span.next { outline: 1px solid var(--gold); }
