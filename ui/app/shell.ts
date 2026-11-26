@@ -1,7 +1,7 @@
 // The app shell: the start screen, the page frame (masthead, ledger, views), the character-sheet dialog, and the clicks.
 // It only reads the simulation's state and sends it your choices; all rules live in src/core.
-import { DATA, PLAYER, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, presetById, presetOpts, switchOn } from "../../src/core/index.ts";
-import type { GameState } from "../../src/core/index.ts";
+import { DATA, PLAYER, storesForecast, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, presetById, presetOpts, switchOn } from "../../src/core/index.ts";
+import type { Flow, GameState } from "../../src/core/index.ts";
 import { howToPlay, tipAttr } from "../views/help.ts";
 import { court, sheet } from "../views/people.ts";
 import { islandView } from "../views/island.ts";
@@ -9,7 +9,7 @@ import { familiesView, paintCensusFaces } from "../views/families.ts";
 import { worksView } from "../views/works.ts";
 import { chronicleBook } from "../views/story.ts";
 import { esc, ui } from "../lib/text.ts";
-import { showSeasonCard, swordOverhead } from "../components/ambient.ts";
+import { seasonCount, showSeasonCard, swordOverhead } from "../components/ambient.ts";
 import { icon } from "../components/icons.ts";
 import { startScreen } from "../views/start.ts";
 import * as sound from "../lib/sound.ts";
@@ -47,7 +47,7 @@ export function splash() {
       const switches = [...document.querySelectorAll<HTMLInputElement>("input.switch")].filter((x) => x.checked).map((x) => x.value);
       tuning = (document.getElementById("tuning") as HTMLSelectElement).value; opts = { scenario, switches };
     }
-    endedSound = false; ui.verdict = null; ui.verdictDraft = {}; ui.copyOpen = false;
+    endedSound = false; ui.verdict = null; ui.checkIns = []; ui.verdictDraft = {}; ui.copyOpen = false;
     ui.s = startGame(v, tuning, opts); ui.lastSeen = 0; ui.view = "play"; ui.tab = "season"; save(); render(); showSeasonCard(ui.s);
   };
   const sel = document.getElementById("tuning") as HTMLSelectElement;
@@ -55,7 +55,7 @@ export function splash() {
   const r = document.getElementById("resume");
   if (r && saved) r.onclick = () => {
     ui.s = replay(saved.seed, saved.inputs, PACKAGES.some((p) => p.id === saved.tuning) ? saved.tuning : DEFAULT_TUNING, { scenario: saved.scenario === "island" ? "island" : "citadel", switches: (saved.switches ?? []).filter((x) => switchById(x)), ...(presetById(saved.preset) ? { preset: saved.preset } : {}) });
-    ui.designer = !!saved.designer; ui.verdict = saved.verdict ?? null; ui.verdictDraft = {}; ui.copyOpen = false; render();
+    ui.designer = !!saved.designer; ui.verdict = saved.verdict ?? null; ui.checkIns = saved.checkIns ?? []; ui.verdictDraft = {}; ui.copyOpen = false; render();
   };
 }
 
@@ -108,7 +108,7 @@ function masthead(g: GameState) {
   return `<header class="mast">
     <h1>${swordOverhead(g)}<span>The Sword <span class="of">of</span> Damocles</span></h1>
     <span class="when">${esc(seasonName(g.over ? g.over.season : g.season))}</span>
-    <span class="muted small">Season ${Math.min(g.season + 1, DATA.start.seasons)} of ${DATA.start.seasons}</span>
+    <span class="muted small">${seasonCount(g)}</span>
     <span class="grow"></span>
     <button type="button" id="sound" class="sound-btn" aria-pressed="${sound.soundOn()}" data-tip="${sound.soundOn() ? "Sound is on: a lyre each season, the harbour, a drone while a plot has a name. Click to turn it off." : "Sound is off. Click to hear a lyre each season, the harbour, and a drone while a plot has a name."}">${icon(sound.soundOn() ? "lyre" : "mute")}<span class="sr">${sound.soundOn() ? "Sound on" : "Sound off"}</span></button>
     ${g.over ? "" : `<span class="label" ${tipAttr("actions")}>Actions</span><span class="slots" aria-label="${g.slots} actions left">${Array.from({ length: slots }, (_, i) => `<i class="slot ${i < g.slots ? "full" : ""}"></i>`).join("")}</span>
@@ -121,17 +121,46 @@ function ledger(g: GameState) {
   const guardPay = g.guard.arrearsSeasons ? `<span class="warn">owed ${g.guard.owed}, won't defend you</span>` : g.factions.guard.mood <= 1 ? `<span class="warn">paid, but too angry to defend you</span>` : g.guard.refusing ? `<span class="warn">refusing duty</span>` : g.plots.some((p) => p.guardBacking) ? `<span class="warn">sold to a plot</span>` : `<span class="good">paid, at your door</span>`;
   const bf = backingFaction(g);
   const MARK: Record<string, string> = { silver: "silver", grain: "grain", carthage: "palm", land: "land", guard: "helmet", defense: "defense", influence: "influence", government: "city" };
-  const L = (k: string, t: string) => `<span class="label tipped" ${tipAttr(k)}>${icon(MARK[k], k === "carthage" ? "f-carthage" : "")}${t}</span>`;
+  const L = (k: string, t: string, extra = "") => `<span class="label tipped" ${tipAttr(k)}${extra ? ` data-tip-text="${esc(extra)}"` : ""}>${icon(MARK[k], k === "carthage" ? "f-carthage" : "")}${t}</span>`;
+  const fc = storesForecast(g);
   return `<div class="ledger">
-    <div>${L("silver", "Silver")}<span class="v">${g.silver} <small>talents</small></span></div>
-    <div>${L("grain", "Grain")}<span class="v ${g.grain < 3 ? "warn" : ""}">${g.grain} <small>months</small></span></div>
+    <div>${L("silver", "Silver", breakdown(g, "Silver", fc.silver))}<span class="v">${g.silver} <small>talents</small></span>${net(fc.silver)}</div>
+    <div>${L("grain", "Grain", breakdown(g, "Grain", fc.grain))}<span class="v ${g.grain < 3 ? "warn" : ""}">${g.grain} <small>months</small></span>${net(fc.grain)}</div>
     <div>${g.island ? L("anger", "Carthage's anger") : L("carthage", "Carthage")}<span class="clock">${Array.from({ length: 10 }, (_, i) => `<i class="${i < g.clock ? "on" : ""}"></i>`).join("")}</span><span class="small muted">${g.clock} of 10</span></div>
     <div>${L("land", "Land to give")}<span class="v">${g.land}</span></div>
     <div>${L("guard", "The guard")}<span class="v">${g.guard.strength} <small>strong, ${guardPay}</small></span></div>
     <div>${L("defense", "Your defense")}<span class="v">${d.total}</span><span class="small muted">${esc(d.parts.map((p) => `${p.value} ${p.label}`).join(" + "))}</span></div>
     <div>${L("influence", "Your influence")}<span class="v">${playerInfluence(g)}</span><span class="small muted">${officesOf(g, PLAYER).length} offices${bf ? `, backed by ${esc(g.factions[bf].short)}` : ", no faction backs you"}</span></div>
-    <div>${L("government", "Government")}<span class="v gov">${esc(government(g))}</span></div>
+    <div>${L("government", "Government", governmentTip(g))}<span class="v gov">${esc(government(g))}</span></div>
   </div><div class="meander ledger-rule" aria-hidden="true"></div>`;
+}
+
+// The four governments, what each needs and what each changes (Jacob: "can't tell what the different governments
+// types are or what they do"). Honest about the two that change nothing yet.
+function governmentTip(g: GameState) {
+  const pillars = (["citadel", "generalship", "treasury"] as const).filter((o) => g.offices[o] !== PLAYER);
+  return [
+    `Tyranny: one man holds the citadel, the generalship and the treasury. Yours changes some events and who offers you marriage.${pillars.length ? ` You still need: ${pillars.map((o) => (o === "citadel" && !g.citadelBuilt ? "the citadel (build it first)" : `the ${o}`)).join(", ")}.` : " You hold all three."}`,
+    "Democracy: the common citizens hold three or more offices. No effect of its own yet.",
+    "Oligarchy: the rich families hold three or more offices. No effect of its own yet.",
+    "Unsettled: anything else.",
+  ].join("\n");
+}
+
+// The ledger's hover breakdown: what the end of this season takes and adds, then what last season did.
+const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
+function breakdown(g: GameState, what: "Silver" | "Grain", fc: Flow[]) {
+  const next = fc.length ? fc.map((f) => `${signed(f.value)} ${f.label}${f.maybe ? " (maybe)" : ""}`).join("\n") : "nothing";
+  const total = fc.filter((f) => !f.maybe).reduce((a, f) => a + f.value, 0);
+  const prev = g.season - 1;
+  const re = new RegExp(`^${what} ([+-]\\d+)`);
+  const last = prev < 0 ? [] : g.log.filter((e) => e.season === prev && e.visible && e.kind === "change" && re.test(e.text)).map((e) => `${re.exec(e.text)![1]} ${e.why ?? ""}`.trim());
+  const now = g.log.filter((e) => e.season === g.season && e.visible && e.kind === "change" && re.test(e.text)).map((e) => `${re.exec(e.text)![1]} ${e.why ?? ""}`.trim());
+  return `At the end of this season:\n${next}\nNet ${signed(total)}.${now.length ? `\n\nSo far this season:\n${now.join("\n")}` : ""}${last.length ? `\n\nLast season:\n${last.join("\n")}` : ""}`;
+}
+function net(fc: Flow[]) {
+  const total = fc.filter((f) => !f.maybe).reduce((a, f) => a + f.value, 0);
+  return total ? `<span class="small ${total < 0 ? "warn" : "good"}" title="at the end of this season">${signed(total)} a season</span>` : "";
 }
 
 // ---------- Character sheet dialog ----------
@@ -172,8 +201,8 @@ function turn() { app.classList.remove("turn"); void app.offsetWidth; app.classL
 
 // ---------- Clicks ----------
 // The frame's own clicks; each screen's are in its file (views/season.ts, views/help.ts).
-const endSeasonNow = (c: Ctx) => { endSeason(c.g); ui.openAction = null; ui.args = {}; c.save(); c.render(); c.turn(); window.scrollTo({ top: 0 }); showSeasonCard(c.g); };
-const restart = () => { clearSave(); ui.s = null; ui.verdict = null; ui.verdictDraft = {}; ui.copyOpen = false; splash(); };
+const endSeasonNow = (c: Ctx) => { endSeason(c.g); ui.openAction = null; ui.args = {}; ui.lastResult = null; c.save(); c.render(); c.turn(); window.scrollTo({ top: 0 }); showSeasonCard(c.g); };
+const restart = () => { clearSave(); ui.s = null; ui.verdict = null; ui.checkIns = []; ui.verdictDraft = {}; ui.copyOpen = false; splash(); };
 const frameHandlers: Handlers = {
   click: {
     "#sound": (_, c) => { sound.toggle(c.g); c.render(); },
@@ -191,6 +220,7 @@ const frameHandlers: Handlers = {
     "#again": restart,
     "[data-view]": (b, c) => { ui.view = b.dataset.view as typeof ui.view; c.render(); c.turn(); window.scrollTo({ top: 0 }); },
     "[data-tab]": (b, c) => { ui.tab = b.dataset.tab!; c.render(); },
+    "[data-city]": (b, c) => { const id = (b as HTMLElement).dataset.city || null; ui.city = ui.city === id ? null : id; c.render(); if (ui.city) document.querySelector(".citysheet")?.scrollIntoView({ block: "nearest" }); },
     "[data-person]": (b, c, e) => { e.preventDefault(); c.openSheet(b.dataset.person!); },
   },
   change: {

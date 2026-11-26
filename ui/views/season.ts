@@ -1,11 +1,12 @@
 // The season column: what happened, the council, matters and petitions before you, and your actions.
-import { DATA, act, capital, battleForecast, yourArmy, armyName, nodeName, menWords, chooseEvent, menu, refuseRequest, officeName, preview, secondOptions, thirdOptions, actionNotes, seasonName, openEvents } from "../../src/core/index.ts";
+import { DATA, PLAYER, act, capital, switchOn, battleForecast, yourArmy, armyName, nodeName, menWords, chooseEvent, menu, refuseRequest, officeName, preview, secondOptions, thirdOptions, actionNotes, seasonName, openEvents } from "../../src/core/index.ts";
 import type { Args, GameState } from "../../src/core/index.ts";
 import { guide, guideDone } from "./help.ts";
 import { flags } from "./people.ts";
 import { portrait } from "../components/portraits.ts";
 import { councilBlock, counselLines, blackmailNote } from "../components/intrigue.ts";
 import { lastSeasonSummary, seasonFeed } from "./story.ts";
+import { changedBlock } from "../components/changed.ts";
 import { esc, linkNames, opChip, pr, sign, ui, who } from "../lib/text.ts";
 import { AREA_ICON, icon } from "../components/icons.ts";
 import { vignette } from "../components/vignettes.ts";
@@ -17,6 +18,7 @@ export function seasonCol(g: GameState) {
   const season = g.over ? g.over.season : g.season;
   const f = seasonFeed(g, season);
   return `${!guideDone() && !g.over ? guide() : ""}
+    ${changedBlock(g)}
     ${lastSeasonSummary(g)}
     <div><h2>${esc(seasonName(season))}</h2>${f.empty ? `<p class="muted">Nothing has happened yet.</p>` : f.groups + f.shifts}</div>
     ${councilBlock(g)}
@@ -25,11 +27,24 @@ export function seasonCol(g: GameState) {
     ${g.over ? "" : actions(g)}`;
 }
 
+// What your last action, answer or grant did, shown where you made it (Jacob, first test: "hard to tell if a
+// 'sieze propety works'"). The same log lines as the season's news, read from the one action log.
+function resultBox(g: GameState, where: "actions" | "matters" | "requests") {
+  const r = ui.lastResult;
+  if (!r || r.where !== where) return "";
+  const es = g.log.slice(r.from, r.to).filter((e) => (e.visible || ui.designer) && e.kind !== "chronicle" && e.kind !== "warning");
+  const roll = es.find((e) => e.kind === "roll" && e.actor === PLAYER) ?? es.find((e) => e.kind === "roll");
+  const verdict = roll?.roll ? (roll.roll.ok ? `<b class="good">It worked.</b>` : `<b class="warn">It failed.</b>`) : "";
+  const lines = es.filter((e) => e.kind === "event" || e.kind === "change").map((e) => `<li class="${e.kind}">${linkNames(e.text)}${e.why && e.kind === "change" ? ` <span class="why">${esc(e.why)}</span>` : ""}</li>`).join("");
+  return `<div class="result" role="status"><span class="label">What happened: ${esc(r.title)}</span> ${verdict}${lines ? `<ul>${lines}</ul>` : `<p class="small muted">Nothing you can see changed.</p>`}</div>`;
+}
+const record = (g: GameState, where: "actions" | "matters" | "requests", title: string, from: number) => { ui.lastResult = { where, title, from, to: g.log.length }; };
+
 // Events waiting for your answer (data/events.json). Answering costs no action unless the choice says so.
 function matters(g: GameState) {
   const evs = g.over ? [] : openEvents(g);
-  if (!evs.length) return "";
-  return `<div><h2>Matters before you</h2>
+  if (!evs.length) return resultBox(g, "matters") ? `<div><h2>Matters before you</h2>${resultBox(g, "matters")}</div>` : "";
+  return `<div><h2>Matters before you</h2>${resultBox(g, "matters")}
     <p class="small muted">Answering costs no action unless it says so. If you end the season without answering, the choice marked “if you give no answer” is taken.</p>
     ${evs.map((ev) => `<div class="matter ${(ev.def as { art?: string }).art ? "" : "no-art"}">
       ${vignette((ev.def as { art?: string }).art, `Picture for ${ev.title}`)}
@@ -48,8 +63,9 @@ function matters(g: GameState) {
 }
 
 function requests(g: GameState) {
-  if (!g.requests.length || g.over) return "";
-  return `<div><h2>Petitions to you</h2>
+  if (g.over) return "";
+  if (!g.requests.length) return resultBox(g, "requests") ? `<div><h2>Petitions to you</h2>${resultBox(g, "requests")}</div>` : "";
+  return `<div><h2>Petitions to you</h2>${resultBox(g, "requests")}
     <p class="small muted">Granting uses an action. Refusing in public costs a petitioner influence and opinion; a second refusal makes an enemy. Petitions left unanswered are refused when the season ends.</p>
     ${g.requests.map((r) => {
       const p = g.people[r.from];
@@ -63,6 +79,12 @@ function requests(g: GameState) {
         <button data-refuse="${r.id}">Refuse</button></span>
         ${pv && !pv.ok ? `<span class="small muted">Can't grant: ${esc(pv.why)}</span>` : ""}</div>`;
     }).join("")}</div>`;
+}
+
+function targetName(g: GameState, name: string, args: Args) {
+  const label = menu(g).find((m) => m.name === name)?.targets?.find((o) => o.value === args.target)?.label;
+  const t = args.target && g.people[args.target] ? ` (${capital(g.people[args.target].name)})` : label ? ` (${label})` : "";
+  return `${name}${t}`;
 }
 
 export function grantArgs(g: GameState, r: GameState["requests"][number]): { a: string; args: Args } | null {
@@ -80,16 +102,35 @@ export function grantArgs(g: GameState, r: GameState["requests"][number]): { a: 
 function actions(g: GameState) {
   const items = menu(g);
   const areas = DATA.areas.filter((a) => items.some((i) => i.area === a));
-  return `<div id="actions"><h2>Your actions</h2>
+  return `<div id="actions"><h2>Your actions</h2>${resultBox(g, "actions")}
     <p class="small muted">Open an action to see its target, cost and odds before you commit. A roll is one die plus modifiers; 4 or more succeeds.</p>
-    ${areas.map((area) => `<div class="area"><span class="label">${icon(AREA_ICON[area] ?? "")}${esc(area)}</span>
-      ${items.filter((i) => i.area === area).map((i) => `
+    ${areas.filter((area) => items.some((i) => i.area === area && !i.blocked)).map((area) => `<div class="area"><span class="label">${icon(AREA_ICON[area] ?? "")}${esc(area)}</span>
+      ${items.filter((i) => i.area === area && !i.blocked).map((i) => `
         <button class="act ${ui.openAction === i.id ? "open" : ""} ${i.blocked ? "off" : ""}" data-act="${i.id}" aria-expanded="${ui.openAction === i.id}">
           <span>${esc(i.name)}${i.reach ? ` <span class="tag" data-tip="reach">reach</span>` : ""}</span><span class="c">${esc(i.blocked ?? i.cost)}</span>
         </button>
         ${ui.openAction === i.id ? panel(g, i) : ""}`).join("")}
     </div>`).join("")}
+    ${blockedFold(g, items)}
     <p style="margin-top:14px"><button class="primary" id="end2">End the season</button> <span class="small muted">${g.slots} action${g.slots === 1 ? "" : "s"} left.</span></p></div>`;
+}
+
+// Actions you can't take now, folded, each with what it needs (Jacob: "so I don't own the mint is there any way I can
+// strike coin?"). Open one to see its full rules.
+function blockedFold(g: GameState, items: ReturnType<typeof menu>) {
+  const off = items.filter((i) => i.blocked);
+  if (!off.length) return "";
+  const open = off.some((i) => i.id === ui.openAction);
+  return `<details class="blocked-acts"${open ? " open" : ""}><summary class="small">Not available now (${off.length})</summary>
+    ${off.map((i) => `<button class="act off ${ui.openAction === i.id ? "open" : ""}" data-act="${i.id}" aria-expanded="${ui.openAction === i.id}"><span>${esc(i.name)}</span><span class="c">${esc(needs(g, i.blocked!))}</span></button>${ui.openAction === i.id ? panel(g, i) : ""}`).join("")}
+  </details>`;
+}
+// "needs the mint" reads as what to get: "You need the mint (win it from its holder, or revoke it)".
+function needs(g: GameState, why: string) {
+  const office = /^you don't hold (the (?:mint|treasury|generalship|fleet|citadel|assembly))$/i.exec(why);
+  const ways = ["Revoke an office", ...(switchOn(g, "quarrels") ? ["a quarrel in the assembly"] : []), ...(switchOn(g, "secrets") ? ["a secret over its holder"] : [])];
+  if (office) return `Needs ${office[1]}. Take it with ${ways.length > 1 ? `${ways.slice(0, -1).join(", ")} or ${ways.at(-1)}` : ways[0]}`;
+  return capital(why);
 }
 
 // Sending the army into an enemy army: the battle it would fight, every modifier on both sides, before you commit.
@@ -142,7 +183,7 @@ export const seasonHandlers: Handlers = {
   click: {
     "[data-act]": (b, c) => {
       const id = b.dataset.act!;
-      ui.openAction = ui.openAction === id ? null : id; ui.args = {};
+      ui.openAction = ui.openAction === id ? null : id; ui.args = {}; ui.lastResult = null;
       const item = menu(c.g).find((m) => m.id === id);
       if (item?.targets?.length === 1) ui.args.target = item.targets[0].value;
       c.render();
@@ -150,16 +191,19 @@ export const seasonHandlers: Handlers = {
     },
     "#do": (_, c) => {
       if (!ui.openAction) return;
-      act(c.g, ui.openAction, ui.args); sound.tick(); ui.openAction = null; ui.args = {}; c.save(); c.render();
+      const from = c.g.log.length, name = menu(c.g).find((m) => m.id === ui.openAction)?.name ?? "your action";
+      const title = targetName(c.g, name, ui.args);
+      act(c.g, ui.openAction, ui.args); sound.tick(); record(c.g, "actions", title, from); ui.openAction = null; ui.args = {}; c.save(); c.render();
+      document.querySelector(".result")?.scrollIntoView({ block: "nearest" });
     },
     "#cancel": (_, c) => { ui.openAction = null; ui.args = {}; c.render(); },
     "[data-grant]": (b, c) => {
       const r = c.g.requests.find((x) => x.id === b.dataset.grant);
       const ga = r && grantArgs(c.g, r);
-      if (ga) { act(c.g, ga.a, ga.args); sound.tick(); c.save(); c.render(); }
+      if (ga) { const from = c.g.log.length; act(c.g, ga.a, ga.args); sound.tick(); record(c.g, "requests", `you granted ${capital(c.g.people[r!.from].name)}'s petition`, from); c.save(); c.render(); }
     },
-    "[data-choose]": (b, c) => { chooseEvent(c.g, b.dataset.choose!, b.dataset.choice!); sound.tick(); c.save(); c.render(); },
-    "[data-refuse]": (b, c) => { refuseRequest(c.g, b.dataset.refuse!); c.save(); c.render(); },
+    "[data-choose]": (b, c) => { const from = c.g.log.length; chooseEvent(c.g, b.dataset.choose!, b.dataset.choice!); sound.tick(); record(c.g, "matters", b.textContent?.trim() ?? "your answer", from); c.save(); c.render(); },
+    "[data-refuse]": (b, c) => { const r = c.g.requests.find((x) => x.id === b.dataset.refuse); const from = c.g.log.length; refuseRequest(c.g, b.dataset.refuse!); if (r) record(c.g, "requests", `you refused ${capital(c.g.people[r.from].name)}`, from); c.save(); c.render(); },
     ...dinnerHandlers.click,
   },
   change: {

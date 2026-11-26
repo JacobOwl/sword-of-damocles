@@ -3,7 +3,7 @@
 // Lines are picked by a hash of the seed and the season, never with the game's dice, so replays stay exact.
 import flavorJson from "../../data/flavor.json" with { type: "json" };
 import calendarJson from "../../data/calendar.json" with { type: "json" };
-import { DATA, government, others, seasonName } from "../../src/core/index.ts";
+import { DATA, government, others, presetById, seasonName } from "../../src/core/index.ts";
 import type { GameState } from "../../src/core/index.ts";
 import { icon } from "./icons.ts";
 import { esc } from "../lib/text.ts";
@@ -93,7 +93,7 @@ export function showSeasonCard(g: GameState) {
   el.innerHTML = `<div class="sc-inner">
     <div class="tesserae" aria-hidden="true"></div>
     ${icon("sword", "sc-sword")}
-    <p class="sc-kicker">Year ${year} of ${g.exile?.active ? "the decade, in exile" : "your rule"} · season ${g.season + 1} of ${DATA.start.seasons}</p>
+    <p class="sc-kicker">Year ${year} of ${g.exile?.active ? "the decade, in exile" : "your rule"} · ${seasonCount(g).toLowerCase()}</p>
     <h2 class="sc-season">${esc(kind)}</h2>
     <p class="sc-year">${esc(rest.join(" "))}</p>
     ${g.season % 4 === 0 && dy ? `<p class="sc-diod">${esc(dy.text)} <span class="cite">(${esc(dy.cite)})</span></p>` : ""}
@@ -112,3 +112,11 @@ export function showSeasonCard(g: GameState) {
   window.addEventListener("keydown", close, { once: true });
   cardTimer = window.setTimeout(close, 3600);
 }
+
+// A test preset counts to its verdict ("Season 4 of 30"), then to the end of the game.
+export function seasonCount(g: GameState) {
+  const n = Math.min(g.season + 1, DATA.start.seasons);
+  const v = presetById(g.preset)?.verdictSeason;
+  return v && v < DATA.start.seasons && n <= v ? `Season ${n} of ${v} in this test` : `Season ${n} of ${DATA.start.seasons}`;
+}
+

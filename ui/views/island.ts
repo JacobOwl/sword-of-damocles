@@ -5,7 +5,7 @@ import {
   moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER,
 } from "../../src/core/index.ts";
 import type { Army, GameState } from "../../src/core/index.ts";
-import { esc, linkNames } from "../lib/text.ts";
+import { esc, linkNames, ui } from "../lib/text.ts";
 import * as A from "../components/island-art.ts";
 import { nowLine } from "../components/now.ts";
 
@@ -27,10 +27,10 @@ function mapSvg(g: GameState): string {
   const marks = NODES.map((n) => {
     const c = isl.cities[n.id];
     const [x, y] = P(n.id);
-    return A.cityMark(x, y, {
+    return `<g class="citymark${ui.city === n.id ? " on" : ""}" data-city="${n.id}" role="button" tabindex="0" aria-label="${esc(n.name)}: open its sheet">` + A.cityMark(x, y, {
       name: n.name, side: c.side, walled: cityWalls(g, n.id) > 0, fort: n.type === "fort", capital: n.id === "syracuse",
       besieged: isl.armies.some((a) => a.siege === n.id), approx: !!n.approx, label: LABEL[n.id],
-    });
+    }) + "</g>";
   }).join("");
   const armies = isl.armies.map((a, i) => {
     const [x, y] = P(a.at);
@@ -81,9 +81,49 @@ function cityRows(g: GameState) {
     const sieged = isl.armies.find((a) => a.siege === n.id);
     const leanWord = n.id === "syracuse" ? "" : c.lean >= 2 ? "warm to you" : c.lean === 1 ? "leans your way" : c.lean === 0 ? "undecided" : c.lean === -1 ? "cool to you" : "hostile to you";
     const notes = [sieged ? `<span class="warn">besieged by ${esc(armyName(g, sieged))}</span>` : "", c.sacked ? "sacked, still in ruins" : "", c.fear ? "afraid of you" : "", ...overNotes(g, n.id)].filter(Boolean).join("; ");
-    return `<tr><th scope="row">${esc(n.name)}</th><td><span class="side" style="--c:${SIDE_COLOR[c.side]}">${esc(capital(sideName(c.side)))}</span></td>
+    return `<tr class="${ui.city === n.id ? "on" : ""}"><th scope="row"><button type="button" class="linkish" data-city="${n.id}">${esc(n.name)}</button></th><td><span class="side" style="--c:${SIDE_COLOR[c.side]}">${esc(capital(sideName(c.side)))}</span></td>
       <td>${w ? `walls ${w}` : "no walls"}</td><td>${cityGrain(g, n.id)} months</td><td>${menWords(cityMen(g, n.id))}</td><td>${esc(leanWord)}</td><td class="small notes">${notes || `<span class="muted">${esc(n.detail)}</span>`}</td></tr>`;
   }).join("");
+}
+
+// The city sheet, opened by clicking a city on the map or in the table (Jacob: "I should be able to click on the city
+// and get info about it"). Everything it says is read from the state and the rules in src/core/island.ts.
+const LEAN_WORD = (l: number) => (l >= 2 ? "warm to you" : l === 1 ? "leans your way" : l === 0 ? "undecided" : l === -1 ? "cool to you" : "hostile to you");
+function citySheet(g: GameState, id: string) {
+  const isl = g.island!;
+  const n = NODES.find((x) => x.id === id)!;
+  const c = isl.cities[id];
+  const R = ISLAND.rules;
+  const w = cityWalls(g, id);
+  const sieged = isl.armies.find((a) => a.siege === id);
+  const here = isl.armies.filter((a) => a.at === id);
+  const rows: [string, string][] = [
+    ["Side", `${capital(sideName(c.side))}`],
+    ["Walls", w ? `${w} (each point makes it harder to storm and to frighten)` : "none: an open town"],
+    ["Grain", `${cityGrain(g, id)} months${sieged ? ", and falling under siege" : ""}`],
+    ["Men", menWords(cityMen(g, id))],
+  ];
+  if (id !== "syracuse") rows.push(["Toward you", `${LEAN_WORD(c.lean)}. Lean helps an embassy win it and makes it likelier to go over to your army nearby.`]);
+  if (id !== "syracuse") rows.push(["Fear of you", c.fear ? `${c.fear} of 3. Each sack you make adds 1 to every free town; it fades 1 each summer. Fear helps an embassy, helps a town go over to your army, and may make it surrender when your army arrives (one die plus fear, +1 if your army is twice its men, less its walls, −2 if Carthage's army is near; needs ${R.surrenderNeed}).` : "none. Sacking a town makes the others afraid."]);
+  if (c.side === "ally" || c.side === "syracuse") rows.push(["Pays you", `${R.allySilver} silver each summer while it has grain, and sends men when you muster`]);
+  if (c.side === "tributary") rows.push(["Pays Carthage", "tribute each summer, under the peace of 405"]);
+  if (c.sacked) rows.push(["Ruins", "sacked, and still rebuilding"]);
+  const notes = overNotes(g, id);
+  const how = id === "syracuse" ? "" : c.side === "syracuse" ? "It is yours." : c.side === "carthage" || c.side === "exiles" ? "To take it: Muster, then Send the army to besiege it; Storm the walls or starve it out. It will not go over or surrender from fear." : "To win it: Embassy to a city (lean and fear help), or march your army near it and it may go over; or besiege and take it.";
+  return `<div class="citysheet"><div class="fhead"><h3>${esc(n.name)}</h3><button type="button" class="small" data-city="">Close</button></div>
+    <p class="small muted">${esc(n.detail)}</p>
+    <dl class="sheetdl">${rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+    ${sieged ? `<p class="small warn">Besieged by ${esc(armyName(g, sieged))}.</p>` : ""}${here.length && !sieged ? `<p class="small">Here: ${here.map((a) => esc(armyName(g, a))).join(", ")}.</p>` : ""}
+    ${notes.length ? `<p class="small">Next season it ${notes.join("; ")}.</p>` : ""}
+    ${how ? `<p class="small"><b>What you can do.</b> ${esc(how)}</p>` : ""}</div>`;
+}
+
+function mapKey() {
+  const sides: [string, string][] = [["syracuse", "yours"], ["ally", "your ally"], ["free", "free"], ["tributary", "pays tribute to Carthage"], ["carthage", "Carthage's"], ["exiles", "held by the exiles"]];
+  return `<div class="mapkey small"><span class="label">Key</span>
+    ${sides.map(([k, l]) => `<span><i class="sw" style="background:${A.SIDE_COLOR[k]}"></i>${esc(l)}</span>`).join("")}
+    <span>Tower: walled city · roofs: open town · hill: fortress</span><span>Shields: armies, men in thousands · road numbers: days' march</span>
+    <span class="muted">Click a city for its sheet.</span></div>`;
 }
 
 function carthagePanel(g: GameState) {
@@ -129,7 +169,9 @@ export function islandView(g: GameState): string {
     <div class="island-main">
       <h2>Sicily</h2>
       <figure class="mapfig">${mapSvg(g)}
-        <figcaption class="small muted">Towers are walled cities, roofs an open town, the hill a fortress; colours show each city's side. Shields are armies (the helmet yours, the palm Carthage's), with their men in thousands. Numbers on the roads are marching days. Aetna's site is uncertain. Coast and rivers: Natural Earth (today's); the hills are drawn by eye.</figcaption></figure>
+        ${mapKey()}
+        <figcaption class="small muted">The helmet is your army, the palm Carthage's. Aetna's site is uncertain. Coast and rivers: Natural Earth (today's); the hills are drawn by eye.</figcaption></figure>
+      ${ui.city && isl.cities[ui.city] ? citySheet(g, ui.city) : ""}
       <h3>Armies</h3>${armies}
       ${abroad.length ? `<h3>This season abroad</h3><ul class="small">${abroad.map((e) => `<li>${linkNames(e.text)}${e.why ? ` <span class="muted">(${esc(e.why)})</span>` : ""}</li>`).join("")}</ul>` : ""}
       <h3>The cities</h3>

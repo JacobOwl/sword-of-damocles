@@ -1,10 +1,10 @@
 // The dangers column: plots against you, rivals, and who is who.
-import { DATA, openQuarrels, quarrelLine, agendaById, capital, defense, influence, officeName, officesOf, others, playerInfluence, plotStrength, rankTitle, seasonName, stageName, knobsFor, switchById, switchOn } from "../../src/core/index.ts";
+import { DATA, leaderOf, openQuarrels, quarrelLine, agendaById, capital, defense, influence, officeName, officesOf, others, playerInfluence, plotStrength, rankTitle, seasonName, stageName, knobsFor, switchById, switchOn } from "../../src/core/index.ts";
 import type { FactionId, GameState, Plot } from "../../src/core/index.ts";
 import { tipAttr } from "./help.ts";
 import { flags } from "./people.ts";
 import { portrait } from "../components/portraits.ts";
-import { esc, linkNames, opChip, pr, sign, ui, who } from "../lib/text.ts";
+import { esc, linkNames, opChip, opinionWord, pr, sign, ui, who } from "../lib/text.ts";
 import { FACTION_ICON, icon } from "../components/icons.ts";
 
 export function dangersCol(g: GameState) {
@@ -49,7 +49,7 @@ function plots(g: GameState) {
     </div>`;
   }).join("") : `<p class="small muted">No warnings. That you know of.</p>`;
   const advice = ps.length ? `<p class="small muted">What you can do: <b>Watch</b> a suspect to see whether he is in it. <b>Turn an informer</b> to learn its size. <b>Imprison</b> a named plotter to take him out. Keep the guard paid: it is most of your defense.${switchOn(g, "partialBlows") ? ` A blow that beats your defense by ${partialKnobs().wound} or less only wounds you; by ${partialKnobs().seize} or less it costs you an office; it must beat it by ${partialKnobs().seize + 1} or more to kill you.` : ""}</p>` : "";
-  return `<div><h2>Plots against you</h2>${body}${advice}</div>`;
+  return `<div><h2>Dangers: plots against you</h2>${body}${advice}</div>`;
 }
 
 // Switch "quarrels": every oath sworn before the assembly, yours and theirs, with its day.
@@ -61,6 +61,15 @@ function quarrels(g: GameState) {
     : `<p class="small muted">No quarrel is sworn before the assembly.</p>`;
   return `<div><h2>Quarrels sworn</h2>${body}
     <p class="small muted">A quarrel is fought by accusation in the assembly. The accused man's faction and any faction Angry with you stand with him; any faction Content or better stands with you. Give a man what he swore to take, or a gift of 3 silver if he swore to shame you, and his quarrel ends.</p></div>`;
+}
+
+// What a rival's influence means for you, in words (Jacob: "starting to match me in inlfence (not sure what that means)").
+function influenceSays(g: GameState, id: string, rank: number) {
+  const his = influence(g, id), yours = playerInfluence(g);
+  const fix = "Bring it down by taking his offices or weakening the faction behind him; raise yours with offices and a faction's backing.";
+  if (rank >= 3) return `<span class="warn">As a Pretender he works to take your place: the assembly, the guard or the strongest faction can switch to him${switchOn(g, "coalition") ? ", if a second faction is Angry with you" : ""}.</span> ${fix}`;
+  if (his >= yours) return `<span class="warn">His influence has reached yours: next he can rise to Pretender and try to take your place.</span> ${fix}`;
+  return `<span class="muted">Influence is one per office held plus half the power of the faction behind him. At ${yours} he rises to Pretender.</span>`;
 }
 
 function rivals(g: GameState) {
@@ -78,7 +87,7 @@ function rivals(g: GameState) {
       ${portrait(p.id, "m")}
       <div class="rival-text">
         <div class="fhead"><span>${who(p.id)} <span class="small">${opChip(p.opinion, true)}</span></span><span class="rank-col">${kind}</span></div>
-        <div class="small">${r ? `Scars: ${esc(r.scars.join(", "))}. ` : ""}${pol ? `${esc(pol.type)}, influence ${influence(g, p.id)} against your ${playerInfluence(g)}. ` : ""}<span class="muted">${p.status === "free" ? "In the city." : p.status === "held" ? "In your prison." : "Outside the walls."}</span></div>
+        <div class="small">${r ? `Scars: ${esc(r.scars.join(", "))}. ` : ""}${pol ? `${esc(pol.type)}, influence ${influence(g, p.id)} against your ${playerInfluence(g)}. ${influenceSays(g, p.id, pol.rank)} ` : ""}<span class="muted">${p.status === "free" ? "In the city." : p.status === "held" ? "In your prison." : "Outside the walls."}</span></div>
         ${mem ? `<div class="memory">${P.He} remembers: ${esc(mem.text)}.</div>` : ""}
         ${ag ? `<div class="small warn">${P.His} agenda, <i>${esc(ag.name)}</i>: step ${p.agenda!.step} of ${ag.steps.length}${p.agenda!.step < ag.steps.length ? `, next: ${esc(ag.steps[p.agenda!.step].toLowerCase())}` : ""}.</div>` : ""}
       </div></div>`;
@@ -88,16 +97,33 @@ function rivals(g: GameState) {
     <p class="small muted"><span class="tipped" ${tipAttr("enemy")}>Enemies</span> are made by wounds and want you dead (at most ${DATA.maxEnemies}). <span class="tipped" ${tipAttr("political")}>Political rivals</span> are made by ambition and want your place (at most ${DATA.maxPolitical}).</p></div>`;
 }
 
+// Who is who: the people who matter this season first, marked with why (Jacob's first test: "Too many people all
+// being shown with equal importance"). The rest fold under "Everyone else".
+function whyMatters(g: GameState, p: ReturnType<typeof others>[number]): { why: string; weight: number } | null {
+  const offs = officesOf(g, p.id);
+  const lead = (["family", "rich", "citizens", "guard"] as FactionId[]).find((f) => leaderOf(g, f)?.id === p.id);
+  const plotter = g.plots.some((pl) => pl.known.includes(p.id));
+  const asks = g.requests.some((r) => r.from === p.id);
+  const bits: string[] = [];
+  let w = 0;
+  if (p.rival) { bits.push("your enemy"); w += 5 + p.rival.rank; }
+  if (p.political) { bits.push("wants your place"); w += 5 + p.political.rank; }
+  if (plotter) { bits.push("in a plot you know of"); w += 6; }
+  if (offs.length) { bits.push(`holds ${offs.map((o) => officeName(o)).join(" and ")}`); w += 3 + offs.length; }
+  if (lead) { bits.push(`leads ${g.factions[lead].short}`); w += 3; }
+  if (asks) { bits.push("petitions you"); w += 2; }
+  if (!w && Math.abs(p.opinion) >= 3) { bits.push(p.opinion > 0 ? "devoted to you" : "hates you"); w += 1; }
+  return w ? { why: bits.join(", "), weight: w } : null;
+}
+
 function whoIsWho(g: GameState) {
-  const order: FactionId[] = ["family", "rich", "citizens", "guard"];
-  return `<div><h2>Who is who</h2>
-    ${order.map((f) => {
-      const ps = others(g).filter((p) => p.faction === f && p.status !== "absent" && p.status !== "dead");
-      if (!ps.length) return "";
-      return `<div class="area"><span class="label">${icon(FACTION_ICON[f], `f-${f}`)}${esc(g.factions[f].name)}</span>${ps.map((p) => {
-        const offs = officesOf(g, p.id);
-        return `<button type="button" class="row-person" data-person="${esc(p.id)}">${portrait(p.id, "s")}<span class="nm">${esc(capital(p.name))}${offs.length ? ` <span class="tag">${esc(offs.map((o) => capital(officeName(o).replace(/^the /, ""))).join(", "))}</span>` : ""}${p.status !== "free" ? ` <span class="tag">${p.status === "held" ? "in prison" : "outside"}</span>` : ""} ${flags(g, p)}</span>${opChip(p.opinion)}</button>`;
-      }).join("")}</div>`;
-    }).join("")}
+  const live = others(g).filter((p) => p.status !== "absent" && p.status !== "dead");
+  const rows = live.map((p) => ({ p, m: whyMatters(g, p) }));
+  const key = rows.filter((r) => r.m).sort((a, b) => b.m!.weight - a.m!.weight);
+  const rest = rows.filter((r) => !r.m);
+  const row = (p: (typeof live)[number], why?: string) => `<button type="button" class="row-person" data-person="${esc(p.id)}">${portrait(p.id, "s")}<span class="nm">${esc(capital(p.name))}${p.status !== "free" ? ` <span class="tag">${p.status === "held" ? "in prison" : "outside"}</span>` : ""}${why ? `<span class="small muted whyline">${esc(why)}</span>` : ""}</span><span class="opw small">${esc(opinionWord(p.opinion))}</span></button>`;
+  return `<div><h2>Who matters</h2>
+    ${key.length ? key.map((r) => row(r.p, r.m!.why)).join("") : `<p class="small muted">No one stands out yet.</p>`}
+    ${rest.length ? `<details class="everyone"><summary class="small">Everyone else (${rest.length})</summary>${rest.map((r) => row(r.p, `${capital(g.factions[r.p.faction as FactionId]?.short ?? "")}`)).join("")}</details>` : ""}
     <p class="small"><button type="button" data-view="court">Open the court</button></p></div>`;
 }

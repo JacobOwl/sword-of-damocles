@@ -444,6 +444,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided:** nothing. Report only. The thread 19 card on how to start the redesign stands; this doc does not repeat it.
 - **Added the same day:** Jacob's note on events and petitions (more petitions; mostly driven by what is happening, some by people's own initiative; not CK3's meaningless repeats) is section D of the lessons doc, as a direction for the redesign. Nothing built.
 
+## 2026-11-26 (second island test build, thread 35)
+- **Decided by Jacob:** make core, for the next test, every rule recommended in the recap except "A different first year": People escalate, One feud record, A Pretender needs a coalition, Quarrels with terms, Secrets and leverage, The purse runs dry, Lead the army yourself, Fallen not finished, A bought retreat disgraces the general (with the four from the first test). Next test is 30 seasons with check-ins. Building the citadel is the scenario's first aim; every scenario should have one (passed to thread 36 with start years chosen CK3-style).
+- **Done:** preset `secondIslandTest`; the display fixes from the lessons doc (section A); two bug fixes (the cavalry agenda after Aetna; an office passing to you in exile).
+- **Not done here:** the redesign (offices as the board, the rising cast, events from game state) is thread 36. Dinners, great works and grain convoys stay optional.
 ## 2026-11-26 (redesign proposal: offices, rivals, events, thread 36)
 - **Done:** `docs/council/2026-11-26-offices-rivals-events.md`, a proposal for Jacob's direction after his test: offices as a contested board, a small rising cast on one ladder of standing, and events and petitions made from the game's state and people's own moves. Three options for each, a recommendation (B, B, B), a build order and risks.
 - **Found:** an office held by someone else mostly only greys out one of the player's actions; no holder uses an office on his own, and people petition only for offices the player holds.

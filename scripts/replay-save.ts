@@ -17,6 +17,10 @@ const p = presetById(v.preset);
 console.log(`Seed ${v.seed}, ${p ? `${p.name}, ` : ""}${packageName(v.tuning)} balance, ${v.scenario === "island" ? "the island" : "the citadel"}${v.switches?.length ? `; switches: ${v.switches.map((x: string) => switchById(x)?.name ?? x).join(", ")}` : ""}.`);
 console.log(`Built from commit ${v.build ?? "unknown"}. ${v.inputs.length} moves; reached ${seasonName(s.over ? s.over.season : s.season)}${s.over ? ` (${s.over.reason})` : ""}.`);
 if (v.digest) console.log(v.digest === digest ? `Digest ${digest} matches: this is exactly the game that was played.` : `DIGEST MISMATCH: the file says ${v.digest}, this replay gives ${digest}. The rules changed since commit ${v.build}; check it out and replay there.`);
+for (const x of v.checkIns ?? []) {
+  console.log(`\nCheck-in at season ${x.season}${x.skipped ? ": skipped." : ":"}`);
+  if (!x.skipped) for (const [k, label] of [["retell", "Would retell"], ["confused", "Confused by"], ["level", "Difficulty"]]) if (x[k]) console.log(`  ${label}: ${x[k]}`);
+}
 if (v.verdict) {
   const x = v.verdict;
   console.log(`\nVerdict at season ${x.season}${x.skipped ? ": skipped." : ":"}`);

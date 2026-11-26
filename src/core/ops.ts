@@ -123,7 +123,13 @@ export function setStatus(s: GameState, pid: string, status: Status, why: string
   if (status !== "free") {
     // An office needs its holder in the city; held, exiled or dead holders lose it.
     for (const o of Object.keys(s.offices) as OfficeId[]) {
-      if (s.offices[o] === pid && (status === "dead" || status === "held")) setOffice(s, o, PLAYER, `${p.name} can no longer hold it`);
+      if (s.offices[o] === pid && (status === "dead" || status === "held")) {
+        // In exile the office passes to the man who rules the city, not to you (or stands empty under Carthage or the
+        // assembly). Found by the second island test batch, 2026-11-26: before, a dead holder handed it to you abroad.
+        const ruler = s.exile?.active ? s.exile.ruler : null;
+        const heir = !ruler ? PLAYER : ruler.kind === "person" && ruler.id && ruler.id !== pid && s.people[ruler.id]?.status === "free" ? ruler.id : null;
+        setOffice(s, o, heir, `${p.name} can no longer hold it`);
+      }
     }
   }
   if (was === "outside" && status === "free" && feudOf(p)) feudSurvive(s, pid, "came home from exile", "the Returned");

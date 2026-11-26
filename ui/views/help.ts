@@ -42,7 +42,7 @@ export function installTips() {
   let current: HTMLElement | null = null;
   const show = (el: HTMLElement) => {
     const key = el.dataset.tip!;
-    const text = TIPS[key] ?? key;
+    const text = el.dataset.tipText ?? TIPS[key] ?? key; // data-tip-text: a tip built for this moment (the ledger's breakdowns)
     tip.textContent = text;
     tip.hidden = false;
     current = el;

@@ -159,7 +159,7 @@ details.person .body { font-size: .9rem; padding: 2px 0 6px 10px; }
 /* ---------- Interface polish (thread 07) ---------- */
 body { overflow-x: hidden; }
 .tipped, [data-tip][tabindex] { text-decoration: underline dotted var(--rule); text-underline-offset: 3px; cursor: help; }
-.tip { position: absolute; z-index: 50; background: var(--ink); color: var(--page); font-family: var(--body); font-size: .9rem; line-height: 1.35; padding: 7px 10px; border-radius: 2px; box-shadow: 0 2px 8px rgba(43,29,18,.25); pointer-events: none; }
+.tip { white-space: pre-line; position: absolute; z-index: 50; background: var(--ink); color: var(--page); font-family: var(--body); font-size: .9rem; line-height: 1.35; padding: 7px 10px; border-radius: 2px; box-shadow: 0 2px 8px rgba(43,29,18,.25); pointer-events: none; }
 .ledger .v.gov { font-family: var(--display); font-weight: 400; }
 
 /* View switcher */
@@ -392,8 +392,51 @@ table.cities thead th { font-family: var(--display); font-weight: 400; color: va
 .now-danger { border-left-color: var(--blood); }
 .now-warn { border-left-color: var(--gold); }
 .now-calm { border-left-color: var(--olive); }
+.now-aim { border-left-color: var(--blood); background: rgba(140, 40, 30, .05); }
 
 /* Switch "exile" (Fallen, not finished): the city's factions toward you and toward the ruler. */
 .exile-moods { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: .92em; }
 .exile-moods th, .exile-moods td { text-align: left; padding: 3px 6px 3px 0; border-bottom: 1px solid var(--rule, rgba(60, 40, 20, .18)); vertical-align: top; }
 .exile-moods thead th { font-weight: normal; font-size: .85em; opacity: .75; }
+
+/* What your last choice did, shown where you made it (thread 35). */
+.result { margin: 6px 0 12px; padding: 8px 12px; border: 1px solid var(--rule); border-left: 3px solid var(--gold); background: rgba(255, 250, 238, .7); }
+.result ul { margin: 4px 0 0; padding-left: 18px; }
+.result li { font-size: .92em; }
+.result li.change { color: var(--muted); }
+
+/* What changed last season: the few lines that matter (thread 35). */
+.changed { margin: 0 0 14px; padding: 8px 12px; border: 1px solid var(--rule); background: rgba(255, 250, 238, .6); }
+.changed ul { margin: 4px 0 0; padding-left: 0; list-style: none; }
+.changed li { padding: 2px 0 2px 14px; position: relative; }
+.changed li::before { content: "•"; position: absolute; left: 0; color: var(--muted); }
+.changed li.ch-danger { font-weight: 600; color: var(--blood); }
+.changed li.ch-danger::before { content: "▼"; color: var(--blood); font-size: .8em; top: 4px; }
+.changed li.ch-good::before { content: "▲"; color: var(--olive); font-size: .8em; top: 4px; }
+.changed li.ch-warn::before { color: var(--gold); }
+.row-person .whyline { display: block; }
+.row-person .opw { margin-left: auto; color: var(--muted); white-space: nowrap; }
+details.everyone summary { margin: 6px 0; cursor: pointer; }
+
+/* The island: a real map key and the city sheet (thread 35). */
+.mapkey { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 6px 0 2px; align-items: center; }
+.mapkey .sw { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; border: 1px solid rgba(43,29,18,.35); }
+.citymark { cursor: pointer; }
+.citymark.on, .citymark:focus { outline: none; filter: drop-shadow(0 0 3px var(--gold)); }
+.citysheet { margin: 10px 0 14px; padding: 10px 14px; border: 1px solid var(--rule); border-left: 3px solid var(--gold); background: rgba(255, 250, 238, .7); }
+.citysheet h3 { margin: 0; }
+.sheetdl { display: grid; grid-template-columns: max-content 1fr; gap: 3px 12px; margin: 6px 0; font-size: .92em; }
+.sheetdl dt { color: var(--muted); }
+.sheetdl dd { margin: 0; }
+button.linkish { background: none; border: 0; padding: 0; font: inherit; font-weight: 600; color: inherit; cursor: pointer; text-decoration: underline dotted; }
+table.cities tr.on { background: rgba(176, 140, 60, .12); }
+
+/* Mood as a five-step track; agenda "you are here" (thread 35). */
+.moodtrack { display: inline-flex; align-items: center; gap: 2px; }
+.moodtrack i { display: inline-block; width: 9px; height: 9px; border: 1px solid var(--rule); background: transparent; }
+.moodtrack i.m0.on, .moodtrack i.m1.on { background: var(--blood); border-color: var(--blood); }
+.moodtrack i.m2.on { background: var(--gold); border-color: var(--gold); }
+.moodtrack i.m3.on, .moodtrack i.m4.on { background: var(--olive); border-color: var(--olive); }
+.moodtrack i.line { box-shadow: 2px 0 0 var(--blood); }
+.moodtrack .mood { margin-left: 5px; }
+.steps span.next { outline: 1px solid var(--gold); }

@@ -22,19 +22,32 @@ test("every preset names a balance, a game and switches that exist, and adds no 
   assert.equal(DEFAULT_TUNING, "standard", "Standard stays the engine default");
 });
 
-test("the first island test is the council's setup, listed first and recommended", () => {
+test("the first island test keeps the council's setup, so its saves replay", () => {
   const p = presetById("firstIslandTest")!;
   assert.equal(p.scenario, "island");
   assert.equal(p.tuning, "reapWhatYouSow");
   assert.deepEqual([...p.switches].sort(), ["armiesBreak", "clues", "partialBlows", "storyChronicle"]);
   assert.equal(p.verdictSeason, 10);
+  assert.equal(presetRules(p), "Reap what you sow balance; Warnings are clues, Blows can miss, Chronicle as story, Beaten armies can break.");
+  assert.match(startScreen(null, 7), /value="firstIslandTest"/, "still offered");
+});
+
+test("the second island test is listed first and recommended, with the rules Jacob made core (2026-11-26)", () => {
+  const p = presetById("secondIslandTest")!;
+  assert.equal(p.scenario, "island");
+  assert.equal(p.tuning, "reapWhatYouSow");
+  assert.deepEqual([...p.switches].sort(), ["armiesBreak", "bargainDisgraces", "clues", "coalition", "commission", "escalation", "exile", "feud", "partialBlows", "purseDry", "quarrels", "secrets", "storyChronicle"]);
+  assert.ok(!p.switches.includes("variedOpening"), "Jacob kept the first year as it is");
+  assert.equal(p.verdictSeason, 30);
+  assert.deepEqual(p.checkIns, [10, 20]);
+  for (const id of p.switches) assert.ok(switchById(id), id);
   const html = startScreen(null, 7);
   const first = html.indexOf('name="setup"');
-  assert.ok(html.indexOf('value="firstIslandTest"', first) - first < 40, "the preset is the first choice");
-  assert.match(html, /value="firstIslandTest" checked/);
+  assert.ok(html.indexOf('value="secondIslandTest"', first) - first < 40, "the preset is the first choice");
+  assert.match(html, /value="secondIslandTest" checked/);
   assert.match(text(html), /recommended/);
-  assert.match(text(html), /Rules on: Reap what you sow balance; Warnings are clues, Blows can miss, Chronicle as story, Beaten armies can break\./);
-  assert.equal(presetRules(p), "Reap what you sow balance; Warnings are clues, Blows can miss, Chronicle as story, Beaten armies can break.");
+  assert.match(text(html), /Rules on: Reap what you sow balance; Warnings are clues/);
+  assert.ok(!/Lead the army yourself\.<\/b>/.test(html.slice(first, html.indexOf('value="firstIslandTest"'))), "a rule inside the preset is not offered again beside it");
 });
 
 test("a preset game is the same game as its options, and replays exactly", () => {

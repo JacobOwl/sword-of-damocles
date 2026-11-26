@@ -1,14 +1,60 @@
 {
-  "note": "Ready-made setups for the start screen. A preset only picks a game, a balance package and rule switches that already exist; it adds no rules. Standard stays the engine default. All invention. Chosen by the assumptions council, 2026-11-23 (docs/council/2026-11-23-assumptions-council.md).",
+  "note": "Ready-made setups for the start screen. A preset only picks a game, a balance package and rule switches that already exist; it adds no rules. Standard stays the engine default. All invention. Chosen by the assumptions council, 2026-11-23 (docs/council/2026-11-23-assumptions-council.md). The second island test (2026-11-26) is the island game with the rules Jacob made core after his first test; the first stays so its saves replay.",
   "presets": [
+    {
+      "id": "secondIslandTest",
+      "kind": "invention",
+      "name": "Second island test",
+      "recommended": true,
+      "scenario": "island",
+      "tuning": "reapWhatYouSow",
+      "switches": [
+        "clues",
+        "partialBlows",
+        "storyChronicle",
+        "armiesBreak",
+        "escalation",
+        "feud",
+        "coalition",
+        "quarrels",
+        "secrets",
+        "purseDry",
+        "commission",
+        "exile",
+        "bargainDisgraces"
+      ],
+      "summary": "The island game with the rules Jacob made core after his first test (2026-11-26): men who are refused come back with demands, grudges are never wiped, a rival needs a second faction behind him, quarrels are fought in the assembly, secrets are leverage, the purse runs dry when you squeeze a faction that already hates you, you choose who leads the army, and losing Syracuse sends you into exile instead of ending the game. Thirty seasons, long enough to reach Carthage's war. The game checks in at seasons 10 and 20 and asks for your verdict at 30.",
+      "verdictSeason": 30,
+      "checkIns": [
+        10,
+        20
+      ],
+      "aim": {
+        "id": "citadel",
+        "done": "citadelBuilt",
+        "text": "Your first aim: build the citadel on the Island. With it you hold the three pillars of a tyranny (the citadel, the generalship and the treasury)."
+      },
+      "watch": [
+        "Did thirty seasons give you a story you would tell someone? Which moment, and which person?",
+        "Did a few people come to matter more than the rest? Who?",
+        "When you lost something (an office, a city, a friend), did you notice at once?",
+        "Did Carthage's war come, and did it feel like Carthage's choice?",
+        "Was any screen, word or number confusing? Note where."
+      ]
+    },
     {
       "id": "firstIslandTest",
       "kind": "invention",
       "name": "First island test",
-      "recommended": true,
+      "recommended": false,
       "scenario": "island",
       "tuning": "reapWhatYouSow",
-      "switches": ["clues", "partialBlows", "storyChronicle", "armiesBreak"],
+      "switches": [
+        "clues",
+        "partialBlows",
+        "storyChronicle",
+        "armiesBreak"
+      ],
       "summary": "The island game, set up for your first test: plots ripen slowly and grow from what you do, warnings are real clues, a blow can wound instead of kill, the chronicle follows people, and a beaten army can break. At the end of season 10 the game asks what you thought, then you play on.",
       "verdictSeason": 10,
       "watch": [

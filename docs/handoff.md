@@ -2,14 +2,19 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## The second island test build (thread 35, 2026-11-26)
+**Built.** Jacob said "start work on everything" and picked the core rules ("make those all core besides a different first year").
+- New preset **Second island test** (`secondIslandTest`, listed first, recommended): Reap what you sow; the four rules of the first test plus People escalate, One feud record, A Pretender needs a coalition, Quarrels with terms, Secrets and leverage, The purse runs dry, Lead the army yourself, Fallen not finished, A bought retreat disgraces the general. Thirty seasons: check-ins at 10 and 20 (two short questions), the verdict at 30. A first aim from the preset's data: build the citadel. The first test preset stays so his first save replays.
+- Display fixes from his notes and the AI testers: what your action did, shown where you took it; a "What changed" block at the top of each season (losing an office is the loudest line, and the "This season" line warns too); "Who matters" (people marked by why they matter, everyone else folded); dice lines only in Designer view; events waiting for an answer not repeated in the news; harvest lines collapsed; unavailable actions folded with what they need; silver and grain hover breakdowns (`src/core/forecast.ts`, mirrors season.ts and island.ts, keep in step); a warning when the guard's pay is more than your silver; a city sheet on click and a real map key; mood as a five-step track; agenda step and next step; office rules on hover; a government card that says two governments do nothing yet; a rival's influence explained.
+- Bugs fixed: "The cavalry come home" is given up once the exiles' leader is held or dead and Aetna has fallen (standard digest re-pinned); an office whose holder died passed to you while you were in exile (found by the 30-season batch).
+- **Batch on the new rules** (100 games, 30 seasons each, no crashes or broken states after the fix): the careful ruler still rules at 30 in 94%, the patron about the same, the iron hand 70%, the careless ruler 36%. Carthage goes to war about once a game and battles come about once a game for the careful ruler. **Watch:** the careful and patron bots almost never become tyrant with these rules (careful 2 in 100); the same crowding the 1,008-game batch saw. Jacob plays himself, so it is a bot effect until his game says otherwise. The Dionysius bot is not run by `npm run sim` (only `aar-runs`).
+- **Open, not mine:** `npm run verify-quotes` finds one quote in `data/quarrels.json` (Diodorus 13.91.4) not in the saved text. From PR #73.
+- **Questions for Jacob:** after the second test, which display fixes helped; whether the rules feel right together; the redesign proposal is thread 36.
+
 ## Redesign proposal: offices, rivals, events (thread 36, 2026-11-26)
 - Design only, nothing built: `docs/council/2026-11-26-offices-rivals-events.md`. Offices as a contested board, one ladder of standing for the rising few, and matters made from what just happened, with petitions to use your powers. Building the citadel stays the 405 game's opening goal (Jacob), and each scenario gets one.
 - **Settled (council, delegated by Jacob):** seats in three tiers (assembly leader easy; generalship, fleet, treasury, mint middle; captain of the guard and citadel hard), the way each changes set by the government, and a four-word "dug in" track with upkeep. New seat: captain of the guard; city commands as small seats. History card: `docs/research/offices-history.md`.
 - **Picked by Jacob:** captain of the guard and city leaders as seats; 2B (ladder of standing) and 3B (matters from moves). Next: build step 1 (office powers for holders and the crisis scene on a loss) once he says go.
-
-## Lessons from the first tests (thread 35, 2026-11-26)
-- One overview of everything learned from his game and the AI testers: `docs/playtests/2026-11-26-lessons.md`. Read it before starting the redesign or the display fixes.
-- **Questions for Jacob:** how to start the redesign (the thread 19 card); which display fixes; turn on "The purse runs dry" and a once-a-season repeat limit; make losing an office a crisis scene; keep the 405 start or start nearer 398.
 
 ## Jacob's first island test: the debrief (thread 19, 2026-11-26)
 - The gate is **not passed** ("tbh not much. No one or nothing stood out."). Full report: `docs/playtests/2026-11-26-jacob/debrief-report.md`; his words: `notes.md` there.

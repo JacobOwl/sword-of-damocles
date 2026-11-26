@@ -13,8 +13,11 @@ export const ui = {
   sheet: null as string | null, // person whose character sheet is open
   lastSeen: 0,
   verdict: null as Verdict | null, // your season-10 verdict in a preset game (ui/views/verdict.ts)
+  checkIns: [] as Verdict[], // shorter check-ins on the way to it, one per season in the preset's checkIns
   verdictDraft: {} as Record<string, string>, // what you typed before saving it
   copyOpen: false, // the "Copy my game" box is showing
+  city: null as string | null, // the city whose sheet is open on the island view
+  lastResult: null as null | { where: "actions" | "matters" | "requests"; title: string; from: number; to: number }, // what your last choice did, shown where you made it
 };
 
 export interface Verdict { season: number; retell: string; confused: string; unfair: string; level: "" | "easy" | "right" | "hard"; other: string; skipped?: boolean }
