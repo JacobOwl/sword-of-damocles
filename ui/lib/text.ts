@@ -16,6 +16,7 @@ export const ui = {
   checkIns: [] as Verdict[], // shorter check-ins on the way to it, one per season in the preset's checkIns
   verdictDraft: {} as Record<string, string>, // what you typed before saving it
   copyOpen: false, // the "Copy my game" box is showing
+  city: null as string | null, // the city whose sheet is open on the island view
   lastResult: null as null | { where: "actions" | "matters" | "requests"; title: string; from: number; to: number }, // what your last choice did, shown where you made it
 };
 

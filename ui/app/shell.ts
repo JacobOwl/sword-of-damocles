@@ -1,7 +1,7 @@
 // The app shell: the start screen, the page frame (masthead, ledger, views), the character-sheet dialog, and the clicks.
 // It only reads the simulation's state and sends it your choices; all rules live in src/core.
-import { DATA, PLAYER, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, presetById, presetOpts, switchOn } from "../../src/core/index.ts";
-import type { GameState } from "../../src/core/index.ts";
+import { DATA, PLAYER, storesForecast, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, presetById, presetOpts, switchOn } from "../../src/core/index.ts";
+import type { Flow, GameState } from "../../src/core/index.ts";
 import { howToPlay, tipAttr } from "../views/help.ts";
 import { court, sheet } from "../views/people.ts";
 import { islandView } from "../views/island.ts";
@@ -121,10 +121,11 @@ function ledger(g: GameState) {
   const guardPay = g.guard.arrearsSeasons ? `<span class="warn">owed ${g.guard.owed}, won't defend you</span>` : g.factions.guard.mood <= 1 ? `<span class="warn">paid, but too angry to defend you</span>` : g.guard.refusing ? `<span class="warn">refusing duty</span>` : g.plots.some((p) => p.guardBacking) ? `<span class="warn">sold to a plot</span>` : `<span class="good">paid, at your door</span>`;
   const bf = backingFaction(g);
   const MARK: Record<string, string> = { silver: "silver", grain: "grain", carthage: "palm", land: "land", guard: "helmet", defense: "defense", influence: "influence", government: "city" };
-  const L = (k: string, t: string) => `<span class="label tipped" ${tipAttr(k)}>${icon(MARK[k], k === "carthage" ? "f-carthage" : "")}${t}</span>`;
+  const L = (k: string, t: string, extra = "") => `<span class="label tipped" ${tipAttr(k)}${extra ? ` data-tip-text="${esc(extra)}"` : ""}>${icon(MARK[k], k === "carthage" ? "f-carthage" : "")}${t}</span>`;
+  const fc = storesForecast(g);
   return `<div class="ledger">
-    <div>${L("silver", "Silver")}<span class="v">${g.silver} <small>talents</small></span></div>
-    <div>${L("grain", "Grain")}<span class="v ${g.grain < 3 ? "warn" : ""}">${g.grain} <small>months</small></span></div>
+    <div>${L("silver", "Silver", breakdown(g, "Silver", fc.silver))}<span class="v">${g.silver} <small>talents</small></span>${net(fc.silver)}</div>
+    <div>${L("grain", "Grain", breakdown(g, "Grain", fc.grain))}<span class="v ${g.grain < 3 ? "warn" : ""}">${g.grain} <small>months</small></span>${net(fc.grain)}</div>
     <div>${g.island ? L("anger", "Carthage's anger") : L("carthage", "Carthage")}<span class="clock">${Array.from({ length: 10 }, (_, i) => `<i class="${i < g.clock ? "on" : ""}"></i>`).join("")}</span><span class="small muted">${g.clock} of 10</span></div>
     <div>${L("land", "Land to give")}<span class="v">${g.land}</span></div>
     <div>${L("guard", "The guard")}<span class="v">${g.guard.strength} <small>strong, ${guardPay}</small></span></div>
@@ -132,6 +133,22 @@ function ledger(g: GameState) {
     <div>${L("influence", "Your influence")}<span class="v">${playerInfluence(g)}</span><span class="small muted">${officesOf(g, PLAYER).length} offices${bf ? `, backed by ${esc(g.factions[bf].short)}` : ", no faction backs you"}</span></div>
     <div>${L("government", "Government")}<span class="v gov">${esc(government(g))}</span></div>
   </div><div class="meander ledger-rule" aria-hidden="true"></div>`;
+}
+
+// The ledger's hover breakdown: what the end of this season takes and adds, then what last season did.
+const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
+function breakdown(g: GameState, what: "Silver" | "Grain", fc: Flow[]) {
+  const next = fc.length ? fc.map((f) => `${signed(f.value)} ${f.label}${f.maybe ? " (maybe)" : ""}`).join("\n") : "nothing";
+  const total = fc.filter((f) => !f.maybe).reduce((a, f) => a + f.value, 0);
+  const prev = g.season - 1;
+  const re = new RegExp(`^${what} ([+-]\\d+)`);
+  const last = prev < 0 ? [] : g.log.filter((e) => e.season === prev && e.visible && e.kind === "change" && re.test(e.text)).map((e) => `${re.exec(e.text)![1]} ${e.why ?? ""}`.trim());
+  const now = g.log.filter((e) => e.season === g.season && e.visible && e.kind === "change" && re.test(e.text)).map((e) => `${re.exec(e.text)![1]} ${e.why ?? ""}`.trim());
+  return `At the end of this season:\n${next}\nNet ${signed(total)}.${now.length ? `\n\nSo far this season:\n${now.join("\n")}` : ""}${last.length ? `\n\nLast season:\n${last.join("\n")}` : ""}`;
+}
+function net(fc: Flow[]) {
+  const total = fc.filter((f) => !f.maybe).reduce((a, f) => a + f.value, 0);
+  return total ? `<span class="small ${total < 0 ? "warn" : "good"}" title="at the end of this season">${signed(total)} a season</span>` : "";
 }
 
 // ---------- Character sheet dialog ----------
@@ -191,6 +208,7 @@ const frameHandlers: Handlers = {
     "#again": restart,
     "[data-view]": (b, c) => { ui.view = b.dataset.view as typeof ui.view; c.render(); c.turn(); window.scrollTo({ top: 0 }); },
     "[data-tab]": (b, c) => { ui.tab = b.dataset.tab!; c.render(); },
+    "[data-city]": (b, c) => { const id = (b as HTMLElement).dataset.city || null; ui.city = ui.city === id ? null : id; c.render(); if (ui.city) document.querySelector(".citysheet")?.scrollIntoView({ block: "nearest" }); },
     "[data-person]": (b, c, e) => { e.preventDefault(); c.openSheet(b.dataset.person!); },
   },
   change: {

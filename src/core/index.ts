@@ -47,3 +47,5 @@ export type { ExileState } from "./exile.ts";
 // Switch "carthageChronicle" (bet B6): the decade told from Carthage's side, read from the log.
 export { carthageBook, logLine, numberWords } from "./carthage-chronicle.ts";
 export type { PunicBook, PunicYear, PunicSeason, PunicLine } from "./carthage-chronicle.ts";
+export { storesForecast } from "./forecast.ts";
+export type { Flow } from "./forecast.ts";
