@@ -425,3 +425,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** `docs/research/customs.md`, 25 attested customs, institutions and anecdotes (Syracuse, Sicily, Carthage, about 480 to 264 BC), ranked by fit, each cited, graded for how well attested, and given a game hook. Checked against `data/`, `design.md`, `full-game.md` and the switches; what the game already has is listed and skipped.
 - **Decided:** nothing for the game. Research only, for Jacob to pick. The Ear of Dionysius is marked later legend.
 - **Open:** Plutarch's *Timoleon* and Justin 19-21 were read online, not saved (`docs/later.md`).
+
+## 2026-11-26 (AI testers' first impressions, thread 34)
+- **Done:** after Jacob found the first island test overwhelming, five AI tester lenses walked the frozen build (commit 26744da) at desktop and phone width: `docs/playtests/2026-11-26-ai-first-impressions/findings.md`, with three screenshots. One session wrote all five seats (said in the doc).
+- **Found:** the first season screen shows about 1,680 words, 88 buttons, 37 actions (11 greyed) and a bit over four screen heights; events are printed twice; "See Dangers" points to a column named "Plots against you" on desktop.
+- **Decided:** nothing. Report only; the game and the test link are unchanged. Seventeen suggestions ranked, top five starred, for Jacob to pick.
