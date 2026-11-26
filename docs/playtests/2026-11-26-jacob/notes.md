@@ -14,6 +14,10 @@ Quoted word for word, before any summary (debrief plan, step 2).
 
 > so I don't own the mint is there any way I can strike coin? Ally the mint holder or get a favor or bribe or something
 
+(12:45 PM)
+
+> I can't see upkeep of silver and grain easily if at all
+
 He attached four screenshots with the first message: the mood tooltip (`mood-tip.png`), the agenda tooltip (`agenda-tip.png`), the "Who is who" list (`who-is-who.png`) and the Government label "Tyranny (yours)" (`government.png`).
 
 ## What the build he played actually does (checked in the code, thread 19)
@@ -25,6 +29,8 @@ He attached four screenshots with the first message: the mood tooltip (`mood-tip
 - **Seize property.** A roll of 4+ (a Loyal guard adds 1). Success: 2 or 3 silver, and the rich families lose 1 power. Either way the rich families' mood falls 1, the target gains a grudge, thinks 1 less of you and is Humiliated (a step toward rivalry). After you press the button the panel closes; the result is only a line in the season's news ("Your men empty the strongrooms of …" or "… had warning"), not shown where you acted. Nothing stops doing it again: the same man, every action, every season. Only the rising cost limits it. Strike coin is the exception (once a season). Most actions have no repeat limit.
 
 - **Strike coin without the mint.** Not possible: only the mint's holder may strike, and no favour, bribe or alliance lends it. The one way is Revoke an office (automatic for the mint, which is not an armed office); the holder takes -3 opinion, a grudge and is Humiliated.
+
+- **Upkeep.** The ledger shows only totals. Each season's end takes the guard's pay (its upkeep, in silver, if the treasury holder pays) and 2 months of grain (1 with a granary); summer adds 6 grain, a friendly fleet 2 in winter, allies and laws add silver. The guard's pay amount is not shown anywhere; the grain rule is only in the Grain tooltip. Grain below 3 next season gets a warning on the "This season" line; silver gets none.
 
 ## Our reading
 
