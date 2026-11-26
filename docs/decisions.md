@@ -448,3 +448,16 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided by Jacob:** make core, for the next test, every rule recommended in the recap except "A different first year": People escalate, One feud record, A Pretender needs a coalition, Quarrels with terms, Secrets and leverage, The purse runs dry, Lead the army yourself, Fallen not finished, A bought retreat disgraces the general (with the four from the first test). Next test is 30 seasons with check-ins. Building the citadel is the scenario's first aim; every scenario should have one (passed to thread 36 with start years chosen CK3-style).
 - **Done:** preset `secondIslandTest`; the display fixes from the lessons doc (section A); two bug fixes (the cavalry agenda after Aetna; an office passing to you in exile).
 - **Not done here:** the redesign (offices as the board, the rising cast, events from game state) is thread 36. Dinners, great works and grain convoys stay optional.
+## 2026-11-26 (redesign proposal: offices, rivals, events, thread 36)
+- **Done:** `docs/council/2026-11-26-offices-rivals-events.md`, a proposal for Jacob's direction after his test: offices as a contested board, a small rising cast on one ladder of standing, and events and petitions made from the game's state and people's own moves. Three options for each, a recommendation (B, B, B), a build order and risks.
+- **Found:** an office held by someone else mostly only greys out one of the player's actions; no holder uses an office on his own, and people petition only for offices the player holds.
+- **Decided:** nothing. Rules and direction are Jacob's call. The storyteller idea (3C) is parked in `docs/later.md`.
+- **Decided (Jacob):** building the citadel is the natural opening goal of the 405 game, and every scenario should have one. Start years picked CK3 style are his wish, but out of Phase 2 by `docs/scope.md`: parked in `docs/later.md` until he changes scope.
+
+## 2026-11-26 (how each seat changes hands, thread 36)
+- **Decided (council, Jacob delegated the pick):** Question 1 of the redesign is 1B, contested seats. Three tiers: the leader of the assembly changes easily by vote; the generalship, fleet, treasury and mint sit in the middle, voted or granted depending on the government; the captain of the guard (a new seat) and the citadel change only by force, betrayal or surrender. A "dug in" track (New, Settled, Dug in, Unshakeable) rises with time and placed men, falls with absence, defeat or a charge that sticks, and costs upkeep past Settled. City commands become small seats. Nothing built.
+- **Done:** research card `docs/research/offices-history.md` (Diodorus 11, 13, 14; Plutarch *Dion*; Polyaenus via the cast card). Quotes checked against the saved texts.
+- **Open:** cast (2A/2B/2C) and events (3A/3B/3C), Jacob's pick. Petalism parked.
+
+## 2026-11-26 (redesign picked, thread 36)
+- **Decided (Jacob):** "lets do capitan of the guard and have city leaders sure. 2b and 3b for now". The redesign is 1B, 2B, 3B, with the captain of the guard and city leaders as seats, built in the proposal's order behind the switch "The contested board". Nothing built yet.

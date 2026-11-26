@@ -11,6 +11,11 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Open, not mine:** `npm run verify-quotes` finds one quote in `data/quarrels.json` (Diodorus 13.91.4) not in the saved text. From PR #73.
 - **Questions for Jacob:** after the second test, which display fixes helped; whether the rules feel right together; the redesign proposal is thread 36.
 
+## Redesign proposal: offices, rivals, events (thread 36, 2026-11-26)
+- Design only, nothing built: `docs/council/2026-11-26-offices-rivals-events.md`. Offices as a contested board, one ladder of standing for the rising few, and matters made from what just happened, with petitions to use your powers. Building the citadel stays the 405 game's opening goal (Jacob), and each scenario gets one.
+- **Settled (council, delegated by Jacob):** seats in three tiers (assembly leader easy; generalship, fleet, treasury, mint middle; captain of the guard and citadel hard), the way each changes set by the government, and a four-word "dug in" track with upkeep. New seat: captain of the guard; city commands as small seats. History card: `docs/research/offices-history.md`.
+- **Picked by Jacob:** captain of the guard and city leaders as seats; 2B (ladder of standing) and 3B (matters from moves). Next: build step 1 (office powers for holders and the crisis scene on a loss) once he says go.
+
 ## Jacob's first island test: the debrief (thread 19, 2026-11-26)
 - The gate is **not passed** ("tbh not much. No one or nothing stood out."). Full report: `docs/playtests/2026-11-26-jacob/debrief-report.md`; his words: `notes.md` there.
 - **Questions for Jacob (the decisions sitting):** (1) his direction: a smaller cast that grows in importance and gets its own events (Nicoteles challenging him in court and assembly), and the offices as a contested board (bribe or ally holders, downsides when rivals hold one, NPCs seeking offices and asking favours of yours), which he wants to talk through; (2) the cheap display batch from his eleven questions (action results in place, tooltips, hover breakdowns, map key, city sheet, influence explained, less text): go or not; (3) rules as switches: the levy loophole, repeat limits per person, contesting the citadel, a later start nearer the war; (4) the cavalry-agenda bug; (5) which "other things" he never opened besides the Families tab.
