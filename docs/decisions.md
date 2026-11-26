@@ -474,3 +474,7 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** Jacob played the Second island test (killed season 24 of 30). Notes word for word, his save and a debrief in `docs/playtests/2026-11-26-jacob-test2/`. Nothing built during or after the test.
 - **Parked (Jacob's idea):** drag an army on the map with its reach and travel times shown, area foraging, war ruining crops: `docs/later.md`.
 - **Open:** eight bugs and the starred fixes in `debrief.md`; six design questions in `notes.md` for Jacob.
+
+## 2026-11-26 (Duet prompts, thread 40)
+- **Done:** `docs/duet-prompts.md` holds two ready-to-paste prompts for Duet jobs Jacob picked: mosaic portraits for Carthage's council and the rising-cast people without a face, and a history brief for each of the six tyrant campaigns. Both deliver draft PRs and change no game code.
+- **Open:** the rising-cast sheet is still only on branch `claude/rising-cast`; PR #89 (art library) is open for Jacob's review.
