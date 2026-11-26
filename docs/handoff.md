@@ -2,6 +2,13 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Jacob's second island test (thread 38, 2026-11-26)
+**Played.** Jacob played the Second island test and was killed in Autumn 399 BC, season 24 of 30, by the exiles' leader's plot. His words: `docs/playtests/2026-11-26-jacob-test2/notes.md`; replay and findings: `debrief.md` there; save `save.json` replays exactly on main (6bd1ae0).
+- **Built:** nothing. Report only.
+- **Broke (found by the test, not fixed):** guard pay never falls when guard men are lost (he paid 4 a season for a guard of 0); open towns on the map ignore their side's colour (CSS `fill: currentColor`); marriage has no check on sex; standing hints say "He" for women; Aetna stays the exiles' after they come home; "Pay in land" offers a free Leontini; raw role names "FavouriteKin/JokerKin" in an event; the blackmail-reveal line names the teller as the secret's subject.
+- **His verdict:** season 10 "right", season 20 "easy" ("I had a good rival for a bit but now I seem to be fully in control of everything"), then dead at 24 without seeing it coming. Chronicle "WAY too long". Same actions over and over (about 20 empty Strike coin and levy actions). Petitions for his seats felt like giving things up for nothing.
+- **Questions for the next design session:** the six design questions at the end of `notes.md` (love and rivals, Carthage's garrisons and war pacing, the mint held by a friend vs yourself, deals or a cap on seats, "Pay in land" on a free town); which of the starred fixes in `debrief.md` to build first.
+
 ## The contested board (thread 37, 2026-11-26)
 **Built.** Jacob said "Go" to the redesign (1B, 2B, 3B) and then "Why wouldn't that be in 2nd test": it is the switch `contestedBoard` (`src/core/board.ts`, `data/board.json`), **on in the Second island test preset**. It turns on escalation, feud, coalition and quarrels with it.
 - **Seats:** the six offices plus a seventh, the captain of the guard (Aristotle at the start). Each season a holder who is not you uses his seat for you, for his own, or against you (one plain line on the seat card): a hostile treasurer pays his own people first (silver −1 a season), the mint strikes for you or for his own or debases, the fleet carries his friends' trade or keeps the grain ships in, a general's following grows, the assembly's leader puts a measure to the assembly each spring, a hostile keeper shuts the Island's gates (an action lost once a year), and a captain who turns against you (opinion −1 or worse, a rival, or in a plot) takes the guard out of your defense. The captain and the citadel's keeper in a plot add the guard's strength and 2.
