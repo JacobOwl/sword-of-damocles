@@ -93,6 +93,10 @@ Asked in the thread because the save carried none. Questions: 1 what would you r
 
 > HAHA I didn't know the assmebly took my generalship[ tthat should've been a big crisis haha
 
+(1:20 PM, with four screenshots of what he looked at: `looked-ledger.png`, `looked-offices-factions.png`, `looked-matters.png`, `looked-map.png`)
+
+> I never cliekd on the court or the families. Basically what I looked at was these. Barely looked at plots. The main center screen with all the text was too much. Too many people all being shown with equal importance so didn't look at who is who or anything
+
 **The gate (Phase 2: do ten seasons give a story you would retell?):** in his words, "tbh not much. No one or nothing stood out." Not passed.
 
 ## The replay (thread 19, 2026-11-26)

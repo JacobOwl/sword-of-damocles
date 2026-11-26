@@ -37,7 +37,9 @@ He asked us to note this (1:14 PM). In 17 minutes of play he asked eleven questi
 
 **Reading:** the game does not explain its own systems where the player looks. Every question had an answer in the game, but in a tooltip, a fold, a table below the map or the news log. None was a rule he disagreed with, and none was about the story.
 
-**Never opened:** the Families tab, and "some other things" (asked which). So the invented families (175 people a game, births, deaths, marriages) did nothing for his story; they live entirely behind a tab.
+**What he looked at, and what he never opened** (1:20 PM, with screenshots): he used the silver and grain ledger, the offices and faction cards, "Matters before you" (the events) and the island map with its city table. He never opened the Court or the Families, barely looked at the plots, skimmed the centre column ("all the text was too much"), and skipped "Who is who" because "too many people all being shown with equal importance".
+
+**Reading:** he read the parts that have structure (objects with holders, factions with bars, choices, a map) and skipped the parts that are lists of people or prose. The invented families (about 175 people a game) and the plot ladders did nothing for his story. This supports his direction: the offices as the board, and only the few people who matter brought forward.
 
 ## His game beside the bots
 
