@@ -5,7 +5,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 ## Redesign proposal: offices, rivals, events (thread 36, 2026-11-26)
 - Design only, nothing built: `docs/council/2026-11-26-offices-rivals-events.md`. Offices as a contested board, one ladder of standing for the rising few, and matters made from what just happened, with petitions to use your powers. Building the citadel stays the 405 game's opening goal (Jacob), and each scenario gets one.
 - **Settled (council, delegated by Jacob):** seats in three tiers (assembly leader easy; generalship, fleet, treasury, mint middle; captain of the guard and citadel hard), the way each changes set by the government, and a four-word "dug in" track with upkeep. New seat: captain of the guard; city commands as small seats. History card: `docs/research/offices-history.md`.
-- **Questions for Jacob:** pick 2A/2B/2C (cast) and 3A/3B/3C (events), recommended B and B; and where to start building.
+- **Picked by Jacob:** captain of the guard and city leaders as seats; 2B (ladder of standing) and 3B (matters from moves). Next: build step 1 (office powers for holders and the crisis scene on a loss) once he says go.
 
 ## Lessons from the first tests (thread 35, 2026-11-26)
 - One overview of everything learned from his game and the AI testers: `docs/playtests/2026-11-26-lessons.md`. Read it before starting the redesign or the display fixes.
