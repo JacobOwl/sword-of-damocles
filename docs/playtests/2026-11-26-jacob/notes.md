@@ -30,6 +30,10 @@ Quoted word for word, before any summary (debrief plan, step 2).
 
 > I should be able to click on the city and get info about it. Wealth opinion etc
 
+(12:53 PM, with `map-icons.png`)
+
+> what are the different city icons. Gela  Catana Atena
+
 He attached four screenshots with the first message: the mood tooltip (`mood-tip.png`), the agenda tooltip (`agenda-tip.png`), the "Who is who" list (`who-is-who.png`) and the Government label "Tyranny (yours)" (`government.png`).
 
 ## What the build he played actually does (checked in the code, thread 19)
@@ -47,6 +51,8 @@ He attached four screenshots with the first message: the mood tooltip (`mood-tip
 - **Conquering and allying cities.** Embassy to a city (ally: silver each summer, men at muster) or Muster, Send the army, siege, Storm the walls. Our reading: he could not find how; the island actions sit in the long action list, not on the map. Answered in the thread.
 
 - **City info.** Clicking a city on the map does nothing. A table under the map lists each city's walls, grain, men, how it feels about you, and notes (besieged, sacked, afraid). Cities have no wealth number; allies pay a fixed silver in summer. His design: click a city for a sheet, like the character sheets.
+
+- **Map icons.** Shape is walls (tower: walled city; roofs: open town, as Gela and Acragas start after the 405 treaty; hill: the fortress at Aetna). Colour is the side: deep red yours, lighter red your ally, dark brown free, light purple pays tribute to Carthage, deep purple Carthaginian, slate blue the exiles. The key is one line of small text under the map and gives no colours, so he had to ask.
 
 ## Our reading
 
