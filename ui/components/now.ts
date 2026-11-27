@@ -1,7 +1,7 @@
 // "What matters this season": one plain line at the top of the season and island screens, naming the most
 // pressing thing in order: a blow that can fall, Carthage at your walls, an army or a city about to go hungry,
 // the guard unpaid, a war, Carthage's anger near war. It reads the state and changes nothing.
-import { CARTHAGE, PLAYER, presetById, quarrelsAgainstYou, yourQuarrels, armyName, capital, carthageArmy, nodeName, path, yourArmy, menWords } from "../../src/core/index.ts";
+import { CARTHAGE, PLAYER, presetById, quarrelsAgainstYou, yourQuarrels, armyName, capital, carthageArmy, nodeName, path, yourArmy, menWords, isLibya } from "../../src/core/index.ts";
 import type { GameState } from "../../src/core/index.ts";
 import { esc } from "../lib/text.ts";
 import { knownDanger } from "./ambient.ts";
@@ -21,10 +21,10 @@ export function whatMatters(g: GameState): { text: string; level: "danger" | "wa
   else if (ca && g.island) {
     const days = daysTo(ca.at, "syracuse");
     // Where your own army stands from theirs, so the player can judge a march without opening the map.
-    const yours = !ya ? "" : ya.at === ca.at ? " Your army stands at the same place." : ` Your army is at ${nodeName(ya.at)}, ${daysTo(ya.at, ca.at)} days from it.`;
+    const yours = !ya ? "" : ya.at === ca.at ? " Your army stands at the same place." : isLibya(ya.at) ? ` Your army is in Libya, at ${nodeName(ya.at)}.` : ` Your army is at ${nodeName(ya.at)}, ${daysTo(ya.at, ca.at)} days from it.`;
     out.push({ text: `${capital(armyName(g, ca))}, ${menWords(ca.men)}, is at ${nodeName(ca.at)}, ${days} days' march from Syracuse.${yours}`, level: days <= 6 ? "danger" : "warn" });
   }
-  if (ya && ya.food <= 1) out.push({ text: `Your army at ${nodeName(ya.at)} has food for ${ya.food <= 0 ? "no more seasons: it must forage or come home" : "one more season"}.`, level: ya.food <= 0 ? "danger" : "warn" });
+  if (ya && ya.food <= 1) out.push({ text: `Your army at ${nodeName(ya.at)} has food for ${ya.food <= 0 ? isLibya(ya.at) ? "no more seasons: it must plunder the farmland" : "no more seasons: it must forage or come home" : "one more season"}.`, level: ya.food <= 0 ? "danger" : "warn" });
   // Next season's rations, less the harvest if it is summer next.
   const next = (g.season + 1) % 4, ration = g.granary ? 1 : 2;
   const after = g.grain - ration + (next === 3 ? 6 : 0);

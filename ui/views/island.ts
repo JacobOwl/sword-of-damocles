@@ -3,7 +3,7 @@
 import {
   CARTHAGE, ISLAND, NODES, ROUTES, armyName, blocDef, capital, carthageAgenda, cityGrain, cityMen, cityWalls, goalDef, menWords,
   armyParts, partHeart, heartWord, partBonded, fleetsOn, fleetState, soundYours, soundTheirs, fleetName, carthageFleetName, admiralName, orderDef, youOrder, fleetObeys, FLEETS,
-  groundOn, GROUND, ABROAD, abroadOn, abroadState, abroadMood, abroadMoodWord, ABROAD_NODES,
+  groundOn, GROUND, LIBYA, libyaOn, libyaState, armyInLibya, isLibya, ABROAD, abroadOn, abroadState, abroadMood, abroadMoodWord, ABROAD_NODES,
   moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo, warCard, plateOn, planDef, habitLine, BATTLE, battleMods, supplyOn, foodState, ravaged, SUPPLY, townBoardsOn, townSeats, houseName, townDivided, sendsSupport,
 } from "../../src/core/index.ts";
 import type { Handlers } from "../app/clicks.ts";
@@ -49,6 +49,8 @@ function mapSvg(g: GameState): string {
   // Switch "armySupply": burnt fields, a scorched ring that fades when the year is out.
   const burnt = NODES.filter((n) => ravaged(g, n.id)).map((n) => { const [x, y] = P(n.id); return `<circle cx="${x.toFixed(1)}" cy="${(y - 2).toFixed(1)}" r="17" class="ravaged-ring"><title>${esc(n.name)}: its fields were burnt</title></circle>`; }).join("");
   const armies = isl.armies.map((a, i) => {
+    // Switch "libyaCrossing": an army in Libya is drawn off the map, on the lane to Carthage.
+    if (isLibya(a.at)) return A.armyMark(40, A.Y(37.2) + 100, { side: a.side, men: `${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k`, label: `${armyName(g, a)}, in Libya at ${nodeName(a.at)}`, dir: 1 });
     const [x, y] = P(a.at);
     const dir = a.side === "syracuse" && !ABROAD_NODES.some((n) => n.id === a.at) ? 1 : -1; // at Rhegium, on the map's edge, the shield stands to the left
     const edge = ABROAD_NODES.some((n) => n.id === a.at);
@@ -60,7 +62,7 @@ function mapSvg(g: GameState): string {
   const home = wc && isl.war && !isl.armies.some((a) => a.side === "carthage") && isl.carthage.mercs + isl.carthage.levy > 0
     ? A.armyMark(34, A.Y(37.2) + 26, { side: "carthage", men: `${Math.round((isl.carthage.mercs + isl.carthage.levy) * ISLAND.rules.menPerPoint / 1000)}k`, label: wc.landingDue !== undefined ? "Carthage's army, ready to sail: it lands next season" : "Carthage's men, gathering at home", dir: 1 }) : "";
   return `<svg viewBox="0 0 ${A.W} ${A.H}" class="island-map" role="img" aria-label="Map of Sicily: ${NODES.map((n) => `${n.name}, ${sideName(isl.cities[n.id].side)}`).join("; ")}">
-    ${A.islandBase()}${roads}${lanes}${A.toCarthage(A.Y(37.2))}${burnt}${reach}${marks}${armies}${home}
+    ${A.islandBase()}${roads}${lanes}${A.toCarthage(A.Y(37.2), armyInLibya(g) ? "To Libya" : "To Carthage", armyInLibya(g) ? "your army is there" : "two days' sail")}${burnt}${reach}${marks}${armies}${home}
   </svg>`;
 }
 
@@ -95,6 +97,9 @@ function fleetCard(g: GameState) {
   const threat = f.threat !== undefined ? `<p class="small warn"><b>The sea threat:</b> ${esc(capital(carthageFleetName(g)))} could sail on Syracuse while your army is away.</p>` : "";
   const sq = (n: number, d: number) => `${n} ${n === 1 ? "squadron" : "squadrons"}${d ? `, ${d} damaged` : ""}`;
   const rowers = FLEETS.rowers.find((r: any) => r.id === f.rowers);
+  const beached = libyaOn(g) && !!armyInLibya(g) && !libyaState(g).burnt;
+  if (beached) return `<h3>The fleets</h3><ul><li><b>${esc(capital(fleetName(g)))}</b>: ${sq(f.sq, f.damaged)}, drawn up on the beach of Libya beside your army. It sails no other order until the army comes home, and Syracuse's harbour is bare.</li>
+    <li><b>${esc(capital(carthageFleetName(g)))}</b>: ${sq(g.island!.carthage.ships, Math.min(f.cDamaged, g.island!.carthage.ships))}.</li></ul>${threat}`;
   return `<h3>The fleets</h3><ul>
     <li><b>${esc(capital(fleetName(g)))}</b>: ${sq(f.sq, f.damaged)}. Order: <b>${esc(o?.name ?? "")}</b> <span class="muted small">(${esc(f.orderWhy)})</span>. Rowers: ${esc(rowers?.name.toLowerCase() ?? "")}.${!obeys ? ` <span class="warn">${esc(capital(admiralName(g)))} keeps the ships from your service.</span>` : !youOrder(g) ? ` <span class="muted small">${esc(capital(admiralName(g)))} chooses the order himself; win his friendship to give it.</span>` : ""}
       ${youOrder(g) && !g.over ? `<br><span class="small">${FLEETS.orders.filter((x: any) => x.id !== "carry").map((x: any) => `<button type="button" class="small${f.order === x.id ? " on" : ""}" data-forder="${x.id}" title="${esc(x.text)}">${esc(x.name)}</button>`).join(" ")} <span class="muted">(the order uses no action)</span></span>` : ""}
@@ -256,6 +261,36 @@ function mapKey() {
     <span class="muted">Click a city for its sheet, and to send your army there.</span></div>`;
 }
 
+// Switch "libyaCrossing": the war in Libya, as a list of places (not drawn on a map until the positions are checked).
+function libyaPanel(g: GameState) {
+  if (!libyaOn(g)) return "";
+  const L = libyaState(g);
+  const a = armyInLibya(g);
+  if (!a && !L.crossings) return "";
+  const here = a ? LIBYA.places.find((p: any) => p.id === a.at) : undefined;
+  const rows = LIBYA.places.map((p: any) => {
+    const c = g.island!.cities[p.id];
+    if (!c) return "";
+    const state = p.id === "quarries" ? "your landing place" : c.sacked ? "razed" : c.side === "syracuse" ? "yours while your army is near" : "Carthage's";
+    const you = a?.at === p.id ? ` <b>Your army is here${a!.siege === p.id ? ", besieging it" : ""}.</b>` : here?.next.includes(p.id) ? " <span class=\"muted\">One march away.</span>" : "";
+    return `<li><b>${esc(capital(p.name))}</b> <span class="small">${esc(state)}${c.walls ? `, walls ${c.walls}` : ""}${p.port ? ", a harbour" : ""}.${you} <span class="muted">${esc(p.detail)}</span></span></li>`;
+  }).join("");
+  const bits: string[] = [];
+  if (a) {
+    const f = fleetState(g);
+    bits.push(L.burnt ? (L.vow === "regret" ? "You burnt the ships. The soldiers look at the sea and lose heart (−1 in battle) until they win or plunder." : "You burnt the ships: +1 in battle while the vow holds. A port town you hold builds a squadron each season.") : `The fleet lies on the beach at the Quarries (${f.sq} squadrons): your way home, and a target for Carthage's ships.`);
+    bits.push(L.answer ? `Carthage's council answered: ${esc(LIBYA.answers.find((x: any) => x.id === L.answer).name)}.` : "Carthage's council has not yet answered. It will, when your army comes near the city or in two seasons.");
+    if (L.foe) bits.push(`Carthage's own army, ${menWords(L.foe.men)}, marches out ${L.foe.due <= g.season + 1 ? "next season" : "in a season or two"}.`);
+    if (L.aelymas) bits.push("Aelymas and his Libyans march with you, and will leave you if you lose.");
+    bits.push(`Your army has ${a.food} ${a.food === 1 ? "season" : "seasons"} of food. It lives off the land: plunder the farmland to eat.`);
+  } else bits.push("Your army is not in Libya now.");
+  return `<section class="libya" aria-label="The war in Libya"><h3>The war in Libya</h3>
+    <p class="small"><i>${esc(LIBYA.whatIf)}</i></p>
+    <p class="small">${bits.join(" ")}</p>
+    <ul class="small libya-places">${rows}</ul>
+    <p class="small muted">Towns come over from fear or hatred of Carthage, and go back when your army marches away. Carthage itself cannot be stormed. The places are listed, not drawn: their positions are not yet checked against a source.</p></section>`;
+}
+
 // Switch "friendsAbroad": the powers across the sea, one card each: the mood word, the one wish, what is on it.
 function abroadPanel(g: GameState) {
   if (!abroadOn(g)) return "";
@@ -326,7 +361,7 @@ export function islandView(g: GameState): string {
         ${mapKey()}
         <figcaption class="small muted">The helmet is your army, the palm Carthage's. Aetna's site is uncertain. Coast and rivers: Natural Earth (today's); the hills are drawn by eye.</figcaption></figure>
       ${ui.city && isl.cities[ui.city] ? citySheet(g, ui.city) : ""}
-      <h3>Armies</h3>${armies}${battlePlate(g)}${fleetCard(g)}
+      <h3>Armies</h3>${armies}${battlePlate(g)}${fleetCard(g)}${libyaPanel(g)}
       ${abroad.length ? `<h3>This season abroad</h3><ul class="small">${abroad.map((e) => `<li>${linkNames(e.text)}${e.why ? ` <span class="muted">(${esc(e.why)})</span>` : ""}</li>`).join("")}</ul>` : ""}
       <h3>The cities</h3>
       <div class="tablewrap"><table class="cities"><thead><tr><th>City</th><th>Side</th><th>Walls</th><th>Grain</th><th>Men</th><th>Toward you</th><th class="notes">Notes</th></tr></thead><tbody>${cityRows(g)}</tbody></table></div>

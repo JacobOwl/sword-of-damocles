@@ -125,3 +125,38 @@ test("an assembly vote you are in is a debate: levers add to your side, and the 
   debateMove(s, "vote", sc.id);
   assert.ok((sc as any).answered);
 });
+
+test("libya: cross from Syracuse, land at the Quarries with a beach-or-burn choice, Carthage answers, and the city cannot be stormed", async () => {
+  const { crossCheck, libyaState, landingOpen, armyInLibya } = await import("../src/core/libya.ts");
+  let landed = 0;
+  for (const seed of [1, 3, 4, 6]) {
+    const s = t5(seed);
+    assert.match(crossCheck(s) ?? "", /no army|not at war|generalship/);
+    s.offices.fleet = "dionysius"; s.offices.generalship = "dionysius";
+    s.island!.war = true; s.island!.warSince = s.season;
+    fleetState(s).sq = 8;
+    muster(s, false);
+    const a = yourArmy(s)!;
+    a.commander = "leptines"; a.food = 4;
+    const r = perform(s, "crossLibya", {});
+    assert.ok(r.ok, JSON.stringify(r));
+    if (a.at !== "quarries") { assert.equal(pendingScene(s)?.kind, "sea"); continue; }
+    landed++;
+    const sc = landingOpen(s)!;
+    assert.ok(sc, "the landing asks beach or burn");
+    assert.ok(perform(s, "libyaLanding", { target: "burn", second: sc.id }).ok);
+    assert.equal(libyaState(s).burnt, true);
+    assert.ok(fleetState(s).sq < 8, "burnt ships are gone");
+    assert.match(perform(s, "libyaHome", {}).ok ? "" : "blocked", /blocked/, "no way home with the ships burnt");
+    for (let i = 0; i < 4 && !s.over && armyInLibya(s); i++) {
+      endSeason(s);
+      if (!armyInLibya(s)) break;
+      const to = ({ quarries: "megalepolis", megalepolis: "tunis", tunis: "carthago" } as any)[yourArmy(s)!.at];
+      if (to) perform(s, "libyaMarch", { target: to });
+    }
+    assert.deepEqual(brokenState(s), [], `seed ${seed}`);
+    if (libyaState(s).answered !== undefined) assert.ok(allScenes(s).some((x) => x.title === "Carthage answers the invasion"));
+    if (yourArmy(s)?.at === "carthago") { yourArmy(s)!.siege = "carthago"; yourArmy(s)!.siegeSince = s.season - 1; const r2 = perform(s, "assault", {}); assert.ok(!r2.ok); }
+  }
+  assert.ok(landed > 0, "at least one army landed");
+});

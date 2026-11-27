@@ -5,6 +5,7 @@ import islandJson from "../../data/island.json" with { type: "json" };
 import carthageJson from "../../data/carthage.json" with { type: "json" };
 import commissionJson from "../../data/commission.json" with { type: "json" };
 import abroadJson from "../../data/abroad.json" with { type: "json" };
+import libyaJson from "../../data/libya.json" with { type: "json" };
 import { traitById } from "./data.ts";
 import { HOOKS } from "./hooks.ts";
 import { carthageBlow } from "./returns.ts";
@@ -21,6 +22,7 @@ import { WAR, warOn, warTownChanged, warBattle, warArmyDestroyed, warTaken, warS
 // Switch "warFocus": a Carthaginian general whose way is kindness (Magon, Diodorus 14.90.3) spares what he takes.
 export const kindGeneral = (s: GameState, a: Army) => warOn(s) && a.side === "carthage" && CARTHAGE.people.find((p: any) => p.id === a.commander)?.method === "kindness";
 
+const poss = (s: GameState, n: string) => (n.endsWith("s") && on(s, "test5Fixes") ? `${n}'` : `${n}'s`); // switch "test5Fixes": "Leptines'", not "Leptines's"
 export const ISLAND = islandJson as any;
 export const CARTHAGE = carthageJson as any;
 const R = ISLAND.rules;
@@ -30,7 +32,10 @@ export const NODES = ISLAND.nodes as NodeDef[];
 // Switch "friendsAbroad": Rhegium, across the Strait. Not in NODES (no road, no town rolls): it is reached by sea, and
 // only has a city state when the switch is on (abroad.ts).
 export const ABROAD_NODES = [{ type: "city", detail: "A Greek city across the Strait of Messana, in Italy.", ...(abroadJson as any).rhegium }] as NodeDef[];
-export const nodeDef = (id: string) => NODES.find((n) => n.id === id) ?? ABROAD_NODES.find((n) => n.id === id);
+// Switch "libyaCrossing": the places of Libya (libya.ts). Not in NODES either: no roads to Sicily, reached by sea.
+export const LIBYA_NODES = (libyaJson as any).places as NodeDef[];
+export const isLibya = (id?: string) => !!id && LIBYA_NODES.some((n) => n.id === id);
+export const nodeDef = (id: string) => NODES.find((n) => n.id === id) ?? ABROAD_NODES.find((n) => n.id === id) ?? LIBYA_NODES.find((n) => n.id === id);
 export const nodeName = (id: string) => (id === "carthage" ? "Carthage" : nodeDef(id)?.name ?? id);
 export const sideName = (side: string) => ISLAND.sides[side] ?? side;
 
@@ -239,7 +244,7 @@ export function generalMods(s: GameState, a: Army): Mod[] {
   const traits: string[] = a.side === "syracuse"
     ? s.people[a.commander]?.traits ?? []
     : CARTHAGE.people.find((p: any) => p.id === a.commander)?.traits ?? [];
-  const who = a.side === "syracuse" ? (a.commander === PLAYER ? "your" : `${nameOf(s, a.commander)}'s`) : `${carthagePersonName(s, a.commander)}'s`;
+  const who = a.side === "syracuse" ? (a.commander === PLAYER ? "your" : poss(s, nameOf(s, a.commander))) : poss(s, carthagePersonName(s, a.commander));
   const mods: Mod[] = [];
   for (const t of traits) {
     const v = traitById(t)?.actor?.march;

@@ -83,7 +83,7 @@ export function sceneHtml(g: GameState, sc: Scene) {
     <div class="scgrid">
       <div class="scpic">${vignette(sc.art, sc.title)}<div class="scfaces">${sc.faces.map((f) => faceHtml(g, f)).join(`<span class="scvs" aria-hidden="true">against</span>`)}</div></div>
       <div class="sctext">
-        <p class="sc-kicker">${esc(KIND[sc.kind] ?? "")} · ${esc(seasonName(sc.season))}</p>
+        <p class="sc-kicker">${esc((sc as any).kicker ?? KIND[sc.kind] ?? "")} · ${esc(seasonName(sc.season))}</p>
         <h2 class="scttl">${esc(sc.title)}</h2>
         ${sc.result ? `<p class="scres ${sc.good === false ? "warn" : "good"}">${esc(sc.result)}</p>` : ""}
         ${speakers}
