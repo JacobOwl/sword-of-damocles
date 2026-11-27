@@ -6,6 +6,7 @@ import { nextRandom } from "./rng.ts";
 import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf, others, plotStrength } from "./state.ts";
 import { clock, event, log } from "./ops.ts";
+import { on } from "./switches.ts";
 import { deedSecret } from "./secrets.ts";
 import {
   CARTHAGE, ISLAND, NODES, armyName, assault, assaultMods, assaultNeed, bloc, blocPower, carthageArmy, carthagePersonName, chance, city,
@@ -125,7 +126,9 @@ const freeGeneral = (s: GameState) => {
 const CHECKS: Record<string, Check> = {
   trade: () => true,
   hire: (s) => C(s).silver >= actDef("hire").cost,
-  levy: (s) => C(s).blocs.libyans.mood >= 1 && !C(s).revolt,
+  // Switch "libyaSpared" (council 2026-11-27): Carthage stops levying once the Libyans are Angry, so its own levy no
+  // longer drives them into the revolts that kept its war away for years (seen twice in Jacob's second test).
+  levy: (s) => C(s).blocs.libyans.mood >= (on(s, "libyaSpared") ? 2 : 1) && !C(s).revolt,
   ships: (s) => C(s).silver >= actDef("ships").cost && C(s).ships < 8,
   fortify: (s) => C(s).silver >= actDef("fortify").cost && NODES.some((n) => city(s, n.id).side === "carthage" && city(s, n.id).men < actDef("fortify").maxMen && !s.island!.armies.some((a) => a.siege === n.id)),
   general: (s) => s.island!.war && !C(s).general && !!freeGeneral(s),

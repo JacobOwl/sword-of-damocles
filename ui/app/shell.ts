@@ -1,10 +1,10 @@
 // The app shell: the start screen, the page frame (masthead, ledger, views), the character-sheet dialog, and the clicks.
 // It only reads the simulation's state and sends it your choices; all rules live in src/core.
-import { DATA, PLAYER, storesForecast, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, presetById, presetOpts, switchOn } from "../../src/core/index.ts";
+import { DATA, PLAYER, storesForecast, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, presetById, presetOpts, switchOn, CARTHAGE } from "../../src/core/index.ts";
 import type { Flow, GameState } from "../../src/core/index.ts";
 import { howToPlay, tipAttr } from "../views/help.ts";
 import { court, sheet } from "../views/people.ts";
-import { islandView } from "../views/island.ts";
+import { islandView, islandHandlers } from "../views/island.ts";
 import { familiesView, paintCensusFaces } from "../views/families.ts";
 import { worksView } from "../views/works.ts";
 import { chronicleBook } from "../views/story.ts";
@@ -27,6 +27,8 @@ import { extrasFor, extraHandlers } from "./extras.ts";
 import { exileLedger, inExile } from "../views/exile.ts";
 
 const app = document.getElementById("app")!;
+// Where each of Carthage's voting blocs wants war (data/carthage.json warAnger), marked on the anger track.
+const WAR_AT = Object.values(CARTHAGE.numbers?.warAnger ?? {}) as number[];
 
 // ---------- Start screen ----------
 export function splash() {
@@ -126,7 +128,7 @@ function ledger(g: GameState) {
   return `<div class="ledger">
     <div>${L("silver", "Silver", breakdown(g, "Silver", fc.silver))}<span class="v">${g.silver} <small>talents</small></span>${net(fc.silver)}</div>
     <div>${L("grain", "Grain", breakdown(g, "Grain", fc.grain))}<span class="v ${g.grain < 3 ? "warn" : ""}">${g.grain} <small>months</small></span>${net(fc.grain)}</div>
-    <div>${g.island ? L("anger", "Carthage's anger") : L("carthage", "Carthage")}<span class="clock">${Array.from({ length: 10 }, (_, i) => `<i class="${i < g.clock ? "on" : ""}"></i>`).join("")}</span><span class="small muted">${g.clock} of 10</span></div>
+    <div>${g.island ? L("anger", "Carthage's anger") : L("carthage", "Carthage")}<span class="clock">${Array.from({ length: 10 }, (_, i) => `<i class="${i < g.clock ? "on" : ""}${g.island && WAR_AT.includes(i + 1) ? " war" : ""}"></i>`).join("")}</span><span class="small muted">${g.clock} of 10${g.island && !g.island.war ? `; war talk from ${Math.min(...WAR_AT)}` : ""}</span></div>
     <div>${L("land", "Land to give")}<span class="v">${g.land}</span></div>
     <div>${L("guard", "The guard")}<span class="v">${g.guard.strength} <small>strong, ${guardPay}</small></span></div>
     <div>${L("defense", "Your defense")}<span class="v">${d.total}</span><span class="small muted">${esc(d.parts.map((p) => `${p.value} ${p.label}`).join(" + "))}</span></div>
@@ -227,4 +229,4 @@ const frameHandlers: Handlers = {
     "#designer": (el, c) => { ui.designer = (el as HTMLInputElement).checked; c.save(); c.render(); },
   },
 };
-listen(app, [frameHandlers, helpHandlers, seasonHandlers, verdictHandlers, extraHandlers], () => (ui.s ? { g: ui.s, render, save, turn, openSheet } : null));
+listen(app, [frameHandlers, helpHandlers, seasonHandlers, verdictHandlers, islandHandlers, extraHandlers], () => (ui.s ? { g: ui.s, render, save, turn, openSheet } : null));

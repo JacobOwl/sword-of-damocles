@@ -19,7 +19,7 @@ export type { PresetDef } from "./presets.ts";
 // The island scenario (Phase 2).
 export {
   NODES, ROUTES, ISLAND, CARTHAGE, nodeDef, nodeName, sideName, cityWalls, cityMen, cityGrain, yourArmy, carthageArmy, armyName,
-  menWords, carthagePersonName, path, reachable, goOverMods, surrenderMods, battleForecast,
+  menWords, carthagePersonName, path, reachable, goOverMods, surrenderMods, battleForecast, friendly, hostileTo,
 } from "./island.ts";
 export { carthageAgenda, goalDef, blocDef, actDef, prefers, moodWord } from "./carthage.ts";
 export { inScenario } from "./actions.ts";
@@ -52,3 +52,4 @@ export { storesForecast } from "./forecast.ts";
 export { SEATS, BOARD, seatDef, seatName as boardSeatName, seatHolder, seatsOf, dugWord, standingName, standingOf, nextStep, race, votedNow, attitude, boardOn } from "./board.ts";
 export type { BoardState, SeatId } from "./board.ts";
 export type { Flow } from "./forecast.ts";
+export { pronoun, sexOf } from "./pronouns.ts";

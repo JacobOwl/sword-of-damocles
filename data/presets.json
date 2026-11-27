@@ -22,9 +22,15 @@
         "commission",
         "exile",
         "bargainDisgraces",
-        "contestedBoard"
+        "contestedBoard",
+        "guardBattleOnly",
+        "devotedHoldsBack",
+        "carthageHolds",
+        "libyaSpared",
+        "mintHabit",
+        "petitionOffers"
       ],
-      "summary": "The island game with the rules Jacob made core after his first test (2026-11-26), and the contested board (thread 37): the offices are seats people fight over, each holder uses his seat every season, the assembly votes on seats each spring, losing a seat is a crisis, a few people climb a ladder of standing, and matters come from what just happened. Also: men who are refused come back with demands, grudges are never wiped, a rival needs a second faction behind him, quarrels are fought in the assembly, secrets are leverage, the purse runs dry when you squeeze a faction that already hates you, you choose who leads the army, and losing Syracuse sends you into exile instead of ending the game. Thirty seasons, long enough to reach Carthage's war. The game checks in at seasons 10 and 20 and asks for your verdict at 30.",
+      "summary": "The island game with the rules Jacob made core after his first test (2026-11-26), and the contested board (thread 37): the offices are seats people fight over, each holder uses his seat every season, the assembly votes on seats each spring, losing a seat is a crisis, a few people climb a ladder of standing, and matters come from what just happened. Also: men who are refused come back with demands, grudges are never wiped, a rival needs a second faction behind him, quarrels are fought in the assembly, secrets are leverage, the purse runs dry when you squeeze a faction that already hates you, you choose who leads the army, and losing Syracuse sends you into exile instead of ending the game. After the second test: the guard dies only in battle, love holds a rival back, Carthage holds the towns it takes and spares Libya, the mint is an order, and petitions come with an offer. Thirty seasons, long enough to reach Carthage's war. The game checks in at seasons 10 and 20 and asks for your verdict at 30.",
       "verdictSeason": 30,
       "checkIns": [
         10,

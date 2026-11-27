@@ -2,6 +2,28 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Fixes from the second test (thread 39, 2026-11-27)
+**Built.** Jacob: "Build all and have council decide on the rule changes" (the 30-item list from thread 38). All on in the Second island test preset; the test link is updated.
+- **Bugs (PR #90):** guard pay follows the men; open towns in their side's colour; marriage by sex (the form names the spouse and says the dowry is yours); she/her in the standing line; Aetna freed when the exiles come home; "Pay in land" needs Leontini as ally or yours; no raw role names ("FavouriteKin"); "that you blackmailed him".
+- **Display:** the ladder step "A player" is now "A power", with "Next: ... Has: ..." as a list; mood track labelled Rebellious ... Loyal, with "Angry or worse backs plots"; each agenda says what slows it; seat cards follow the holder's attitude at once (mint: "each Autumn"); the town sheet's "Toward you" reworded; dotted rings on the map round towns within 6 days of your army; **orders from the map** (a town's sheet has March buttons, one action, battle odds shown, result in the sheet); a rival who likes you says what his love does; Carthage's anger track marks 6, 7, 8 and a line warns a point before any bloc wants war; Strike coin greys out and the levy on the rich leaves the list when they would bring in nothing; the army card says how it eats; Muster says why men can't join an army in the field; **the chronicle cut to its arcs** (how it ended, the four main threads, each year's turning points; the whole year folded; Jacob's game shows about 600 words of about 6,800); **"Coming for you"**, one card at the top of Dangers for the person most likely to end your rule (why, his plot, the factions behind it, what he did lately, what you can do), with a line in "This season".
+- **Rules (council, `docs/council/2026-11-27-second-test-rules.md`):** six switches, on in the preset: `guardBattleOnly`, `devotedHoldsBack`, `carthageHolds`, `libyaSpared` (the cause of the quiet war: Carthage levied Angry Libyans into revolt), `mintHabit`, `petitionOffers`. Not built, parked in `docs/later.md`: the seat cap, the pay-in-land promise, ravaging, dragging armies and area foraging, Carthage's diplomacy while recalled. Court and Families: no change; ideas parked.
+- **Batch** (`node scripts/second-test-batch.ts 100`, 30 seasons, preset with and without the six). No crashes or broken states. Libyan revolts fall from about 1.7 to 0.2 a game and the longest war lull from about 6 to 3 to 5 seasons; landings fall too (fewer recalls, fewer re-landings). The guard ends larger. The iron hand dies more (28 to 41 in 100), the careless ruler a little more, the careful ruler the same. Not tuned.
+
+| bot | rules | crashes | broken | ruling at 30 | killed | deposed | tyrannies | landings | Libyan revolts | war seasons | longest war lull | guard at end | strikes of coin |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| careful | without | 0 | 0 | 91% | 9 | 0 | 0.03 | 1.73 | 1.73 | 13.67 | 6.44 | 2.49 | 0.66 |
+| careful | with the six | 0 | 0 | 91% | 9 | 0 | 0.07 | 1.24 | 0.19 | 12.88 | 5.61 | 4.39 | 1.04 |
+| patron | without | 0 | 0 | 98% | 2 | 0 | 0.00 | 1.74 | 1.66 | 12.75 | 6.06 | 2.62 | 0.34 |
+| patron | with the six | 0 | 0 | 94% | 6 | 0 | 0.00 | 1.22 | 0.06 | 13.01 | 4.56 | 4.12 | 0.14 |
+| tyrant | without | 0 | 0 | 72% | 28 | 0 | 1.10 | 1.45 | 1.40 | 10.65 | 5.07 | 3.45 | 5.88 |
+| tyrant | with the six | 0 | 0 | 59% | 41 | 0 | 1.27 | 0.88 | 0.09 | 9.39 | 3.15 | 6.07 | 5.22 |
+| careless | without | 0 | 0 | 24% | 76 | 0 | 0.01 | 1.09 | 0.95 | 11.45 | 6.45 | 3.14 | 0.12 |
+| careless | with the six | 0 | 0 | 18% | 82 | 0 | 0.00 | 0.74 | 0.06 | 9.23 | 3.54 | 4.26 | 0.09 |
+
+- **Broke or odd:** the map's March buttons appear on free towns under the peace (the town sheet already warns that taking it breaks the treaty; same as the Send the army menu). The logged chronicle text (in the log and in replay-save) is unchanged; only the chronicle page is cut. A grudge from the start data reads its year raw ("..., 405").
+- **Changed for Jacob:** his second-test save no longer replays on main (rules changed); it replays on 8915213. The first test digest was re-pinned once (guard pay).
+- **Questions for the next design session:** is the "Coming for you" card the right man, and does it warn early enough? Do the six rules make the middle game harder or just different? Should the map's March buttons hide for towns under the peace? Court and Families: fold, cut or give a reason (ideas in `docs/later.md`).
+
 ## Focus 1, war and geopolitics: the council (thread 41, 2026-11-27)
 **Design only.** Jacob asked for a Paradox-DLC-style focus on war and geopolitics ("Make towns have some independent politics. More events. The better map and army controls. Battle system rules. War system... Better ui too"). Proposal: `docs/council/2026-11-27-war-and-geopolitics.md`; five seat statements and the brief in `docs/council/2026-11-27-war/`; new history card `docs/research/war-and-towns.md`.
 - **Built:** nothing in the game. **Changed:** nothing he owns; parked items added to `docs/later.md`.

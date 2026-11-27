@@ -1,5 +1,5 @@
 // The city column: the six offices and the four factions.
-import { DATA, FACTIONS, OFFICES, PLAYER, agendaById, band, capital, leaderOf, moodName, officeName, power, SEATS, seatDef, seatHolder, dugWord, standingName, standingOf, nextStep, race, votedNow, others } from "../../src/core/index.ts";
+import { DATA, FACTIONS, OFFICES, PLAYER, agendaById, band, capital, leaderOf, moodName, officeName, power, SEATS, seatDef, seatHolder, dugWord, standingName, standingOf, nextStep, race, votedNow, others, knobsFor, attitude } from "../../src/core/index.ts";
 import type { FactionId, GameState } from "../../src/core/index.ts";
 import { tipAttr } from "./help.ts";
 import { esc, who } from "../lib/text.ts";
@@ -15,7 +15,10 @@ function seatsBlock(g: GameState) {
     const st = b.seats[id];
     const unbuilt = id === "citadel" && !g.citadelBuilt;
     const holder = unbuilt ? `<span class="muted">not yet built${g.building?.what === "citadel" ? " (work has begun)" : ""}</span>` : h ? `${h === PLAYER ? "<b>You</b>" : who(h)} <span class="muted">· ${esc(dugWord(st?.dug ?? 0).toLowerCase())}</span>` : `<span class="muted">empty</span>`;
-    const did = !unbuilt && h && h !== PLAYER && st?.did ? `<div class="small ${st.att === "hostile" ? "warn" : st.att === "friendly" ? "" : "muted"}">${esc(capital(st.did))}.</div>` : "";
+    // The holder's line follows his attitude now, not at the season's end (second test: the mint line lagged a season).
+    const att = h && h !== PLAYER && g.people[h]?.status === "free" ? attitude(g, h) : undefined;
+    const said = att && att !== st?.att ? d.lines[att] : st?.did;
+    const did = !unbuilt && h && h !== PLAYER && said ? `<div class="small ${att === "hostile" ? "warn" : att === "friendly" ? "" : "muted"}">${esc(capital(said))}.</div>` : "";
     let how = "";
     if (!unbuilt && votedNow(g, id)) {
       const r = race(g, id);
@@ -57,7 +60,18 @@ function seatsTail(g: GameState, seats: string) {
 const MOOD_SAYS = ["Rebellious: backs or starts a plot; costs no longer sour it", "Angry: may back or start a plot", "Uneasy: neither helps nor plots", "Content: no plots; under Reap what you sow it also holds its agenda back", "Loyal: as Content, and a Loyal guard fights better"];
 function moodTrack(m: number) {
   const tip = MOOD_SAYS.map((t, i) => `${i === m ? "▶ " : ""}${t}`).reverse().join("\n");
-  return `<span class="moodtrack tipped" data-tip="mood" data-tip-text="${esc(tip)}" tabindex="0" aria-label="Mood: ${moodName(m)}">${[0, 1, 2, 3, 4].map((i) => `<i class="m${i}${i === m ? " on" : ""}${i === 1 ? " line" : ""}"></i>`).join("")} <span class="mood mood-${m}">${moodName(m)}</span></span>`;
+  return `<span class="moodtrack tipped" data-tip="mood" data-tip-text="${esc(tip)}" tabindex="0" aria-label="Mood: ${moodName(m)}"><span class="end">Rebellious</span>${[0, 1, 2, 3, 4].map((i) => `<i class="m${i}${i === m ? " on" : ""}${i === 1 ? " line" : ""}"></i>`).join("")}<span class="end">Loyal</span> <span class="mood mood-${m}">${moodName(m)}</span></span>`;
+}
+
+// What holds an agenda back, from agendaStep in src/core/ai.ts (second test: "I don't know how to stop or push back the agenda").
+function slowedBy(g: GameState, f: FactionId, against: boolean) {
+  return [
+    against && knobsFor(g.tuning).contentFactionsStall ? "keeping them Content (they hold back)" : "",
+    "blocking their leader (skips a step)",
+    "acting against them that season",
+    "their leader out of the city",
+    "cutting their power to Marginal (stops it)",
+  ].filter(Boolean).join(", ");
 }
 
 function faction(g: GameState, f: FactionId) {
@@ -72,10 +86,12 @@ function faction(g: GameState, f: FactionId) {
   return `<div class="faction f-${f}">
     <div class="fhead"><h3>${icon(FACTION_ICON[f], `f-${f}`)}${esc(fa.name)}</h3><span><span class="num">${pow}</span> <span class="band ${b} tipped" ${tipAttr("power")}>${b}</span></span></div>
     <div class="powerbar" aria-hidden="true">${bar}</div>
-    <div class="small">Mood ${moodTrack(fa.mood)}${lead ? ` · Led by ${who(lead.id)}` : ""}${fa.backing ? ` · <span class="warn">backs a plot</span>` : ""}</div>
+    <div class="small">Mood ${moodTrack(fa.mood)}${fa.backing ? ` · <span class="warn">backs a plot</span>` : ""}</div>
+    <div class="small ${fa.mood <= 1 ? "warn" : "muted"}">Angry or worse backs plots.${lead ? ` <span class="lead-line">Led by ${who(lead.id)}.</span>` : ""}</div>
     <div class="small">Wants: ${esc(goal)}</div>
     <div class="small">Agenda: <i class="tipped" ${tipAttr("agenda")} data-tip-text="${esc(`${ag.name}. Steps: ${ag.steps.join(", ")}. When complete: ${ag.completes} It moves a step when its roll succeeds, whether or not you act. Working against the faction slows it.`)}">${esc(ag.name)}</i>${fa.agenda.done ? ` <span class="muted">(${esc(fa.agenda.result ?? "done")})</span>` : `, step ${fa.agenda.step} of ${ag.steps.length}${ag.steps[fa.agenda.step] ? `; next: ${esc(ag.steps[fa.agenda.step].toLowerCase())}` : ""}`}</div>
     <div class="steps" aria-hidden="true">${ag.steps.map((st, i) => `<span class="${i < fa.agenda.step || fa.agenda.done ? "done" : ""} ${i === fa.agenda.step && !fa.agenda.done ? "next" : ""}">${esc(st)}</span>`).join("")}</div>
-    ${fa.agenda.done ? "" : `<div class="small${fa.agenda.step >= ag.steps.length - 1 ? " warn" : " muted"}">When done: ${esc(ag.completes)}</div>`}
+    ${fa.agenda.done ? "" : `<div class="small${fa.agenda.step >= ag.steps.length - 1 ? " warn" : " muted"}">When done: ${esc(ag.completes)}</div>
+    <div class="small muted">Slowed by: ${esc(slowedBy(g, f, ag.againstRuler === true))}.</div>`}
   </div>`;
 }

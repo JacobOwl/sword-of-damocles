@@ -17,7 +17,7 @@ export const ui = {
   verdictDraft: {} as Record<string, string>, // what you typed before saving it
   copyOpen: false, // the "Copy my game" box is showing
   city: null as string | null, // the city whose sheet is open on the island view
-  lastResult: null as null | { where: "actions" | "matters" | "requests"; title: string; from: number; to: number }, // what your last choice did, shown where you made it
+  lastResult: null as null | { where: "actions" | "matters" | "requests" | "map"; title: string; from: number; to: number }, // what your last choice did, shown where you made it
 };
 
 export interface Verdict { season: number; retell: string; confused: string; unfair: string; level: "" | "easy" | "right" | "hard"; other: string; skipped?: boolean }

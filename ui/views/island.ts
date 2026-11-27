@@ -2,8 +2,10 @@
 // It only reads the state; every rule is in src/core.
 import {
   CARTHAGE, ISLAND, NODES, ROUTES, armyName, blocDef, capital, carthageAgenda, cityGrain, cityMen, cityWalls, goalDef, menWords,
-  moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER,
+  moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo,
 } from "../../src/core/index.ts";
+import type { Handlers } from "../app/clicks.ts";
+import * as sound from "../lib/sound.ts";
 import type { Army, GameState } from "../../src/core/index.ts";
 import { esc, linkNames, ui, who } from "../lib/text.ts";
 import * as A from "../components/island-art.ts";
@@ -32,13 +34,17 @@ function mapSvg(g: GameState): string {
       besieged: isl.armies.some((a) => a.siege === n.id), approx: !!n.approx, label: LABEL[n.id],
     }) + "</g>";
   }).join("");
+  // Your army's reach (second test: "I don't understand ... what counts as near"): a dotted ring on each town within
+  // the days a town can go over to your army (data/island.json goOverDays).
+  const ya = yourArmy(g);
+  const reach = ya ? NODES.filter((n) => n.id !== ya.at && (path(ya.at, n.id)?.days.at(-1) ?? 999) <= ISLAND.rules.goOverDays).map((n) => { const [x, y] = P(n.id); return `<circle cx="${x.toFixed(1)}" cy="${(y - 2).toFixed(1)}" r="24" class="reach-ring"/>`; }).join("") : "";
   const armies = isl.armies.map((a, i) => {
     const [x, y] = P(a.at);
     const dir = a.side === "syracuse" ? 1 : -1;
     return A.armyMark(x + dir * 22, y - 20 - i * 4, { side: a.side, men: `${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k`, label: armyName(g, a), dir });
   }).join("");
   return `<svg viewBox="0 0 ${A.W} ${A.H}" class="island-map" role="img" aria-label="Map of Sicily: ${NODES.map((n) => `${n.name}, ${sideName(isl.cities[n.id].side)}`).join("; ")}">
-    ${A.islandBase()}${roads}${A.toCarthage(A.Y(37.2))}${marks}${armies}
+    ${A.islandBase()}${roads}${A.toCarthage(A.Y(37.2))}${reach}${marks}${armies}
   </svg>`;
 }
 
@@ -56,7 +62,8 @@ function armyLine(g: GameState, a: Army) {
   const where = a.siege ? `besieging ${nodeName(a.siege)}` : `at ${nodeName(a.at)}`;
   const food = a.food <= 0 ? `<span class="warn">no food left</span>` : `${a.food} ${a.food === 1 ? "season" : "seasons"} of food`;
   const guard = a.side === "syracuse" && a.guard ? `; ${menWords(a.guard)} of them are your guard${a.at === "syracuse" ? "" : ", away from your door"}` : "";
-  return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, ${food}${guard}.${leadLine(g, a)}</li>`;
+  const eats = a.side === "syracuse" ? `<br><span class="small muted">How it eats: one season of food each season. It refills to ${ISLAND.rules.foodOnMuster} in a town of yours or an ally's with ${ISLAND.rules.resupplyGrain} or more months of grain, if it is not besieging. In enemy land, Forage for one more season (the town hates you for it). With no food, men desert and sicken.</span>` : "";
+  return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, ${food}${guard}.${leadLine(g, a)}${eats}</li>`;
 }
 
 // The chance a town goes over this season, from the same roll the world step makes.
@@ -103,7 +110,7 @@ function citySheet(g: GameState, id: string) {
     ["Grain", `${cityGrain(g, id)} months${sieged ? ", and falling under siege" : ""}`],
     ["Men", menWords(cityMen(g, id))],
   ];
-  if (id !== "syracuse") rows.push(["Toward you", `${LEAN_WORD(c.lean)}. Lean helps an embassy win it and makes it likelier to go over to your army nearby.`]);
+  if (id !== "syracuse") rows.push(["Toward you", `${capital(LEAN_WORD(c.lean))}. The warmer a town, the likelier it joins you when you send an embassy, or when your army ends a season within ${R.goOverDays} days of it (the dotted rings on the map).`]);
   if (id !== "syracuse") rows.push(["Fear of you", c.fear ? `${c.fear} of 3. Each sack you make adds 1 to every free town; it fades 1 each summer. Fear helps an embassy, helps a town go over to your army, and may make it surrender when your army arrives (one die plus fear, +1 if your army is twice its men, less its walls, −2 if Carthage's army is near; needs ${R.surrenderNeed}).` : "none. Sacking a town makes the others afraid."]);
   if (c.side === "ally" || c.side === "syracuse") rows.push(["Pays you", `${R.allySilver} silver each summer while it has grain, and sends men when you muster`]);
   if (c.side === "tributary") rows.push(["Pays Carthage", "tribute each summer, under the peace of 405"]);
@@ -116,15 +123,48 @@ function citySheet(g: GameState, id: string) {
     <dl class="sheetdl">${rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
     ${sieged ? `<p class="small warn">Besieged by ${esc(armyName(g, sieged))}.</p>` : ""}${here.length && !sieged ? `<p class="small">Here: ${here.map((a) => esc(armyName(g, a))).join(", ")}.</p>` : ""}
     ${notes.length ? `<p class="small">Next season it ${notes.join("; ")}.</p>` : ""}
-    ${how ? `<p class="small"><b>What you can do.</b> ${esc(how)}</p>` : ""}</div>`;
+    ${how ? `<p class="small"><b>What you can do.</b> ${esc(how)}</p>` : ""}${marchHere(g, id)}${mapResult(g)}</div>`;
 }
+
+// Orders from the map (second test: "kinda sucks to keep tabbing back and forth between the map and the army commands").
+// The same action as Send the army in the season column, with its checks; one click is one action.
+function marchHere(g: GameState, id: string) {
+  const a = yourArmy(g);
+  if (!a || g.over || a.at === id || !reachable(g, a.at).includes(id)) return "";
+  const days = path(a.at, id)?.days.at(-1);
+  const pv = preview(g, "sendArmy", { target: id, second: "spare" });
+  if (!pv.ok) return `<p class="small muted">Send the army here (${days} days): ${esc(pv.why ?? "not now")}.</p>`;
+  const c = g.island!.cities[id];
+  const fc = battleForecast(g, a, id);
+  const fight = fc ? ` <span class="${fc.win >= 0.5 ? "good" : "warn"}">A battle: you win ${Math.round(fc.win * 100)} in 100.</span>` : "";
+  const btn = (order: string, label: string) => `<button type="button" class="small" data-march="${id}" data-order="${order}">${esc(label)}</button>`;
+  const buttons = friendly("syracuse", c.side) ? btn("spare", `March here (${days} days)`) : `${btn("spare", `March on it (${days} days), spare it if it falls`)} ${hostileTo(g, "syracuse", c.side) || c.side === "free" ? btn("sack", "March on it, sack it if it falls") : ""}`;
+  return `<p class="small marchhere"><b>Orders.</b> ${buttons} <span class="muted">Uses one action.</span>${fight}</p>`;
+}
+function mapResult(g: GameState) {
+  const r = ui.lastResult;
+  if (!r || r.where !== "map") return "";
+  const lines = g.log.slice(r.from, r.to).filter((e) => (e.visible || ui.designer) && (e.kind === "event" || e.kind === "change")).map((e) => `<li>${linkNames(e.text)}</li>`).join("");
+  return `<div class="result" role="status"><span class="label">What happened: ${esc(r.title)}</span>${lines ? `<ul>${lines}</ul>` : ""}</div>`;
+}
+export const islandHandlers: Handlers = {
+  click: {
+    "[data-march]": (b, c) => {
+      const id = b.dataset.march!, from = c.g.log.length;
+      act(c.g, "sendArmy", { target: id, second: b.dataset.order });
+      sound.tick();
+      ui.lastResult = { where: "map", title: `you sent the army to ${nodeName(id)}`, from, to: c.g.log.length };
+      ui.city = id; c.save(); c.render();
+    },
+  },
+};
 
 function mapKey() {
   const sides: [string, string][] = [["syracuse", "yours"], ["ally", "your ally"], ["free", "free"], ["tributary", "pays tribute to Carthage"], ["carthage", "Carthage's"], ["exiles", "held by the exiles"]];
   return `<div class="mapkey small"><span class="label">Key</span>
     ${sides.map(([k, l]) => `<span><i class="sw" style="background:${A.SIDE_COLOR[k]}"></i>${esc(l)}</span>`).join("")}
-    <span>Tower: walled city · roofs: open town · hill: fortress</span><span>Shields: armies, men in thousands · road numbers: days' march</span>
-    <span class="muted">Click a city for its sheet.</span></div>`;
+    <span>Tower: walled city · roofs: open town · hill: fortress</span><span>Shields: armies, men in thousands · road numbers: days' march</span><span>Dotted rings: towns within 6 days of your army, which may go over to you</span>
+    <span class="muted">Click a city for its sheet, and to send your army there.</span></div>`;
 }
 
 function carthagePanel(g: GameState) {

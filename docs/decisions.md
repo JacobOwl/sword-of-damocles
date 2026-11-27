@@ -481,6 +481,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Changed (display, decided here):** the step "A player" on the ladder of standing is now "A power" (Jacob's notes offered "A power" or "A man of weight"; "a power" also fits women). The hint is a short list: "Next: a power, with two of an office, leading a faction, a following. Has: none."
 - **Re-pinned:** the first island test digest (guard pay changes every game with the guard in the field).
 
+## 2026-11-27 (fixes from the second test, part 2: display and the council's rules, thread 39)
+- **Decided (council, delegated by Jacob):** items 23 to 30. Built and on in the Second island test: the guard dies only in battle, love holds a rival back, Carthage holds what it takes, Carthage spares Libya, the mint as an order, petitions come with an offer. Not built (parked): a cap on seats, Pay in land as a promise, ravaging, dragging armies and area foraging. Record: `docs/council/2026-11-27-second-test-rules.md`.
+- **Done:** display items 9 to 22, including orders from the map, the chronicle cut to its arcs, and the "Coming for you" card. 800 batch games, no crashes or broken states.
+- **Open:** see `docs/handoff.md`.
 ## 2026-11-26 (Duet prompts, thread 40)
 - **Done:** `docs/duet-prompts.md` holds two ready-to-paste prompts for Duet jobs Jacob picked: mosaic portraits for Carthage's council and the rising-cast people without a face, and a history brief for each of the six tyrant campaigns. Both deliver draft PRs and change no game code.
 - **Open:** the rising-cast sheet is still only on branch `claude/rising-cast`; PR #89 (art library) is open for Jacob's review.

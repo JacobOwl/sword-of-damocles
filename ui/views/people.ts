@@ -2,7 +2,7 @@
 import { sheetSecrets, secretsLedger } from "../components/intrigue.ts";
 import {
   DATA, PLAYER, agendaById, band, capital, influence, leaderOf, menu, moodName, officeName, officesOf, originById,
-  playerInfluence, power, rankTitle, seasonName, traitName, standingOf, standingName, nextStep,
+  playerInfluence, power, rankTitle, seasonName, traitName, standingOf, standingName, nextStep, attitude, switchOn, pronoun,
 } from "../../src/core/index.ts";
 import type { FactionId, GameState, Person } from "../../src/core/index.ts";
 import { tipAttr } from "./help.ts";
@@ -23,6 +23,15 @@ export function marker(id: string, tip = true) {
 }
 
 // Short flags shown on cards and in lists: rival, plot, held.
+// A rival who likes you (second test: "not super clear what happens when a man who loves me is a rival").
+function loveLine(s: GameState, p: Person) {
+  if (!p.political || p.opinion < 2) return "";
+  const he = pronoun(s, p.id, "he"), his = pronoun(s, p.id, "his"), He = pronoun(s, p.id, "He");
+  const seats = s.board && officesOf(s, p.id).length ? (attitude(s, p.id) === "friendly" ? ` ${capital(his)} offices work for you.` : ` A rival is no friend: ${his} offices still work against you.`) : "";
+  const climb = p.opinion >= 3 && switchOn(s, "devotedHoldsBack") ? `While ${he} stays Devoted, ${he} climbs no higher than Contender.` : `Liking you does not stop ${his} climb: at the top ${he} becomes a Pretender, who wants your place, not your life.`;
+  return `<div class="small">${He} likes you, but is still a political rival.${esc(seats)} ${esc(climb)}</div>`;
+}
+
 export function flags(s: GameState, p: Person) {
   const out: string[] = [];
   if (p.rival) out.push(`<span class="flag enemy">${esc(rankTitle(p.rival.rank))}</span>`);
@@ -66,6 +75,7 @@ export function sheet(s: GameState, id: string) {
       <div class="small">${marker(id)} · <span class="fmark f-${esc(p.faction)}">${icon(FACTION_ICON[p.faction] ?? "")}${esc(factionName(s, p.faction))}</span> · ${esc(statusWord(p))}${offs.length ? ` · holds <b>${esc(offs.map(officeShort).join(", "))}</b>` : ""}</div>
       <div class="small flags">${flags(s, p)}</div>
       ${s.board && !me ? `<div class="small">Standing: <b>${esc(standingName(standingOf(s, id)))}</b>${s.board.captain === id ? " · captain of the guard" : ""}. <span class="muted">${esc(nextStep(s, id))}</span></div>` : ""}
+      ${!me ? loveLine(s, p) : ""}
     </div>
     <button type="button" class="close" id="sheet-close" aria-label="Close">×</button>
   </header>`;

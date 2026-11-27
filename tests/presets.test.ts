@@ -36,7 +36,9 @@ test("the second island test is listed first and recommended, with the rules Jac
   const p = presetById("secondIslandTest")!;
   assert.equal(p.scenario, "island");
   assert.equal(p.tuning, "reapWhatYouSow");
-  assert.deepEqual([...p.switches].sort(), ["armiesBreak", "bargainDisgraces", "clues", "coalition", "commission", "contestedBoard", "escalation", "exile", "feud", "partialBlows", "purseDry", "quarrels", "secrets", "storyChronicle"]);
+  assert.deepEqual([...p.switches].sort(), ["armiesBreak", "bargainDisgraces", "clues", "coalition", "commission", "contestedBoard", "escalation", "exile", "feud", "partialBlows", "purseDry", "quarrels", "secrets", "storyChronicle",
+    // the council's picks after the second test (2026-11-27, docs/council/2026-11-27-second-test-rules.md)
+    "guardBattleOnly", "devotedHoldsBack", "carthageHolds", "libyaSpared", "mintHabit", "petitionOffers"].sort());
   assert.ok(!p.switches.includes("variedOpening"), "Jacob kept the first year as it is");
   assert.equal(p.verdictSeason, 30);
   assert.deepEqual(p.checkIns, [10, 20]);

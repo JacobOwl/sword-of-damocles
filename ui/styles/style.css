@@ -53,6 +53,7 @@ select, input { font-family: var(--body); font-size: 1rem; color: var(--ink); ba
 .clock { display: inline-flex; gap: 2px; margin-top: 6px; }
 .clock i { width: 9px; height: 14px; border: 1px solid var(--punic); display: inline-block; }
 .clock i.on { background: var(--punic); }
+.clock i.war { border-top: 3px solid var(--blood); }
 .warn { color: var(--blood); }
 .good { color: var(--olive); }
 
@@ -441,4 +442,7 @@ table.cities tr.on { background: rgba(176, 140, 60, .12); }
 .moodtrack i.m3.on, .moodtrack i.m4.on { background: var(--olive); border-color: var(--olive); }
 .moodtrack i.line { box-shadow: 2px 0 0 var(--blood); }
 .moodtrack .mood { margin-left: 5px; }
+.moodtrack .end { font-size: .78em; color: var(--muted); margin: 0 3px; } .lead-line { color: var(--ink); }
 .steps span.next { outline: 1px solid var(--gold); }
+.foe { border-left: 3px solid var(--blood); padding-left: 10px; margin-bottom: 14px; } .foe .fhead { display: flex; gap: 10px; align-items: center; justify-content: flex-start; }
+.cbrief { margin: 4px 0 6px 1.1em; padding: 0; } .cbrief li { margin: 2px 0; } .cfull summary { cursor: pointer; color: var(--muted); }
