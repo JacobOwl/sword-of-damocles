@@ -48,7 +48,7 @@ export function prefers(s: GameState, id: string): { goal: string; why: string }
     if (id === "hundred" && tired("hundred")) return { goal: "peace", why: tiredWhy() };
   }
   if (id === "elders") {
-    if (isl.war && (c.armiesLost >= N.peaceArmiesLost.elders || plague)) return { goal: "peace", why: plague ? "plague is in the city" : "an army is lost" };
+    if (isl.war && (c.armiesLost >= N.peaceArmiesLost.elders || (plague && !wc))) return { goal: "peace", why: plague && !wc ? "plague is in the city" : "an army is lost" }; // with the war card, plague counts as weariness
     if (!wc && isl.war && s.season - isl.warSince >= N.warWeary.elders && !lostTown) return { goal: "peace", why: `${s.season - isl.warSince} seasons of war have emptied the treasury` };
     if (anger >= N.warAnger.elders || lostTown) return { goal: "war", why: lostTown ? "a Punic town has fallen" : `Carthage's anger is ${anger}` };
     if (isl.war) return { goal: "war", why: "the war is on, and the Elders will not be seen to flinch" };
@@ -62,7 +62,7 @@ export function prefers(s: GameState, id: string): { goal: string; why: string }
     return { goal: "tribute", why: "Carthage's hold on Sicily comes first" };
   }
   // the people
-  if (isl.war && plague) return { goal: "peace", why: "plague is in the city" };
+  if (isl.war && plague && !wc) return { goal: "peace", why: "plague is in the city" };
   if (!wc && isl.war && s.season - isl.warSince >= N.warWeary.people && !lostTown) return { goal: "peace", why: `${s.season - isl.warSince} seasons of war, and nothing to show for it` };
   if (anger >= N.warAnger.people || lostTown || isl.war) return { goal: "war", why: isl.war ? "the war is on, and the people want it won" : lostTown ? "a Punic town has fallen" : `Carthage's anger is ${anger}` };
   return { goal: "rebuild", why: plague ? "plague is in the city" : "the people want to mend what the last war broke" };

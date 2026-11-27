@@ -5,6 +5,7 @@ import {
   PLAYER, alive, band, capital, defense, government, holds, nameOf, newGame, others, plotStrength, power, seasonName,
   stageFor, stageName, isPlayerTyranny, membersOf, leaderOf, officesOf, officeName,
 } from "./state.ts";
+import { presetById } from "./presets.ts";
 import { clock, event, grain, log, makeRival, mood, powerChange, rankChange, silver, endRival, setStatus, setOffice } from "./ops.ts";
 import { factionStep, peopleStep, updatePolitical, botTurn } from "./ai.ts";
 import { perform, refuse } from "./actions.ts";
@@ -361,6 +362,8 @@ function finish(s: GameState) {
 
 export function startGame(seed: number, tuning?: string, opts: GameOpts = {}): GameState {
   const s = newGame(seed, tuning, opts);
+  const opening = presetById(s.preset)?.opening;
+  if (opening) log(s, { actor: "world", text: opening.text, why: opening.why, visible: true, kind: "event" });
   if (on(s, "contestedBoard")) initBoard(s); // no dice: the same seed plays the same until the board acts
   if (exileOn(s) && on(s, "exileStart")) beginFallen(s); // switch "exileStart": the game opens in exile
   beginSeason(s);
