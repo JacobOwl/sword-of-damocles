@@ -1,5 +1,5 @@
 // Switch "warFocus" batch: games with the second island test's rules plus the war focus, counted (never tuned).
-//   npm run war-runs -- --seeds 100 [--bot careful] [--preset nearWarTest]
+//   npm run war-runs -- --seeds 100 [--bot careful] [--preset nearWarTest] [--off] [--without battlePlate,armySupply]
 import { runBotGame } from "../src/core/season.ts";
 import { presetOpts } from "../src/core/presets.ts";
 const argv = process.argv;
@@ -7,7 +7,8 @@ const num = (k: string, d: number) => { const i = argv.indexOf(k); return i > 0 
 const str = (k: string, d: string) => { const i = argv.indexOf(k); return i > 0 ? argv[i + 1] : d; };
 const N = num("--seeds", 100), bot = str("--bot", "careful"), preset = str("--preset", "secondIslandTest");
 const base = presetOpts(preset);
-const switches = [...new Set([...base.switches!, ...(argv.includes("--off") ? [] : ["warFocus"])])];
+const without = str("--without", "").split(",").filter(Boolean); // e.g. --without battlePlate,armySupply
+const switches = [...new Set([...base.switches!, ...(argv.includes("--off") ? [] : ["warFocus"])])].filter((x) => !without.includes(x));
 const t: Record<string, number> = {};
 const add = (k: string, v = 1) => { t[k] = (t[k] ?? 0) + v; };
 let crashes = 0;
@@ -33,6 +34,7 @@ for (let seed = 1; seed <= N; seed++) {
     add("tributeWithheld", L(/sends you no tribute this year/)); add("gatesOffered", L(/slips out of .+ by night/)); add("gatesTaken", s.log.filter((e) => /Pay his price/.test(e.why ?? "") || /Pay his price/.test(e.text)).length);
     if (s.island && (s.island as any).townBoards) add("dividedAtEnd", Object.keys((s.island as any).townBoards).filter((id) => new Set(((s.island as any).townBoards[id] as any[]).map((x) => x.lean)).size === 3).length);
     add("ravages", L(/ravages the land of/)); add("reinforcements", L(/^Fresh men from/)); add("allyDrift", L(/allies drift home after/)); add("hunger", s.counters.hungerSeasons ?? 0);
+    add("battlesWon", s.counters.battlesWon ?? 0); add("battlesLost", s.counters.battlesLost ?? 0); add("generalsFell", L(/falls in the battle/)); add("lineHeld", L(/Your line holds/));
     if (pw.length && sample.length < 3) sample.push(`seed ${seed}: ${pw[0].name}: ${pw[0].chapter}`);
   } catch (e) { crashes++; if (crashes < 4) console.error(`seed ${seed}:`, (e as Error).stack?.split("\n").slice(0, 4).join("\n")); }
 }

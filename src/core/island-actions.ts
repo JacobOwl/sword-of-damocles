@@ -8,6 +8,7 @@ import {
 } from "./island.ts";
 import { endWar, startWar } from "./carthage.ts";
 import { applyTerms, card, carthageAccepts, termsFor, termsText } from "./war.ts";
+import { BATTLE, planDef } from "./plate.ts";
 import { SUPPLY, ravage, ravageCheck, reinforce, reinforceCheck, reinforceFrom } from "./supply.ts";
 import { TOWNS, courtHouse, courtHouseMods, courtableSeat, houseName, seatsOf } from "./towns.ts";
 import type { Args, GameState, Mod } from "./types.ts";
@@ -165,6 +166,18 @@ export const ISLAND_IMPL: Record<string, Impl> = {
     },
   },
   // Switch "warFocus": you send envoys with the terms the war's ledger supports; Carthage takes them only if weary or losing.
+  // Switch "battlePlate": set your army's plan for its next battle. Free: an order, not an action.
+  battlePlan: {
+    target: () => BATTLE.plans.map((p: any) => ({ value: p.id, label: `${p.name}: ${p.text}` })),
+    second: () => [{ value: "all", label: "Commit every man" }, { value: "reserve", label: "Keep a reserve (-1, but a defeat is a retreat to camp)" }],
+    check: (s) => (!yourArmy(s) ? "you have no army in the field" : null),
+    run: (s, a) => {
+      const army = yourArmy(s)!;
+      army.plan = a.target as any;
+      army.reserve = a.second === "reserve";
+      event(s, PLAYER, `Your orders for the next battle: ${planDef(a.target)?.name.toLowerCase()}${army.reserve ? ", with a reserve held back" : ""}.`, "Battle plan");
+    },
+  },
   // Switch "armySupply": burn a hostile town's crops; bring fresh men to the army.
   ravage: {
     check: (s) => general(s) ?? ravageCheck(s, yourArmy(s)),

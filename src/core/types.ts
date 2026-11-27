@@ -201,6 +201,7 @@ export interface Army {
   onTake: "spare" | "sack";
   fedFrom?: string[]; fedSeason?: number; // switch "armySupply": the towns that fed it, and when
   reinforced?: number; // switch "armySupply": the season fresh men last came
+  plan?: "hold" | "wing" | "combined"; reserve?: boolean; // switch "battlePlate"
 }
 export interface Bloc { id: string; power: number; mood: number }
 export interface CarthagePerson { id: string; name: string; status: "free" | "command" | "disgraced" | "dead"; record?: { taken: number; won: number; lost: number } } // record: switch "warFocus"
