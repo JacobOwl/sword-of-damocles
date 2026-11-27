@@ -64,7 +64,7 @@ function leadLine(g: GameState, a: Army) {
   if (!c || c.army !== a.id) return "";
   if (c.leader === PLAYER) {
     const k = keeperValue(g, c.keeper, false);
-    return ` You lead it in person. ${esc(capital(k.label))} (your defense ${k.value > 0 ? "+" : ""}${k.value}), and every plot at home is 1 stronger while you are away.`;
+    return ` You lead it in person. ${esc(capital(k.label))} (${k.value ? `your defense ${k.value > 0 ? "+" : ""}${k.value}` : "no change to your defense: he no longer thinks well enough of you to add to it"}), and every plot at home is 1 stronger while you are away.`;
   }
   return c.lost ? " Its leader is lost; his officers bring it on under your orders." : ` ${linkNames(esc(capital(g.people[c.leader].name)))} leads it.`;
 }
@@ -90,7 +90,7 @@ function overNotes(g: GameState, id: string): string[] {
     const t = m.reduce((x, y) => x + y.value, 0);
     const p = [1, 2, 3, 4, 5, 6].filter((d) => d + t >= ISLAND.rules.goOverNeed).length;
     if (!p) continue; // the world step makes no roll it cannot win
-    out.push(`<span class="${side === "syracuse" ? "good" : "warn"}">may go over to ${side === "syracuse" ? "you" : "Carthage"} (${p} in 6 next season)</span>`);
+    out.push(`<span class="${side === "syracuse" ? "good" : "warn"}">${p === 6 ? "will" : "may"} go over to ${side === "syracuse" ? "you" : "Carthage"} (${p === 6 ? "certain next season, if nothing changes" : `${p} in 6 next season`})</span>`);
     break;
   }
   return out;
@@ -104,7 +104,7 @@ function cityRows(g: GameState) {
     const leanWord = n.id === "syracuse" ? "" : c.lean >= 2 ? "warm to you" : c.lean === 1 ? "leans your way" : c.lean === 0 ? "undecided" : c.lean === -1 ? "cool to you" : "hostile to you";
     const notes = [sieged ? `<span class="warn">besieged by ${esc(armyName(g, sieged))}</span>` : "", c.sacked ? "sacked, still in ruins" : "", c.fear ? "afraid of you" : "", ...overNotes(g, n.id)].filter(Boolean).join("; ");
     return `<tr class="${ui.city === n.id ? "on" : ""}"><th scope="row"><button type="button" class="linkish" data-city="${n.id}">${esc(n.name)}</button></th><td><span class="side" style="--c:${SIDE_COLOR[c.side]}">${esc(capital(sideName(c.side)))}</span></td>
-      <td>${w ? `walls ${w}` : "no walls"}</td><td>${cityGrain(g, n.id)} months</td><td>${menWords(cityMen(g, n.id))}</td><td>${esc(leanWord)}</td><td class="small notes">${notes || `<span class="muted">${esc(n.detail)}</span>`}</td></tr>`;
+      <td>${w ? `walls ${w}` : "no walls"}</td><td>${cityGrain(g, n.id)} months</td><td>${menWords(cityMen(g, n.id))}</td><td>${esc(leanWord)}</td><td class="small notes">${notes || `<span class="muted">${esc(g.island!.cities[n.id].side === n.side ? n.detail : `In 405: ${n.detail} Now ${sideName(g.island!.cities[n.id].side)}.`)}</span>`}</td></tr>`;
   }).join("");
 }
 
@@ -186,7 +186,7 @@ function marchHere(g: GameState, id: string) {
   if (!pv.ok) return `<p class="small muted">Send the army here (${days} days): ${esc(pv.why ?? "not now")}.</p>`;
   const c = g.island!.cities[id];
   const fc = battleForecast(g, a, id);
-  const fight = fc ? ` <span class="${fc.win >= 0.5 ? "good" : "warn"}">A battle: you win ${Math.round(fc.win * 100)} in 100.</span>` : "";
+  const fight = fc ? ` <span class="${fc.win >= 0.5 ? "good" : "warn"}">A battle: you win ${Math.round(fc.win * 100)} in 100${Math.round(fc.draw * 100) ? `, draw ${Math.round(fc.draw * 100)}` : ""}.</span>` : "";
   const btn = (order: string, label: string) => `<button type="button" class="small" data-march="${id}" data-order="${order}">${esc(label)}</button>`;
   const buttons = friendly("syracuse", c.side) ? btn("spare", `March here (${days} days)`) : `${btn("spare", `March on it (${days} days), spare it if it falls`)} ${hostileTo(g, "syracuse", c.side) || c.side === "free" ? btn("sack", "March on it, sack it if it falls") : ""}`;
   return `<p class="small marchhere"><b>Orders.</b> ${buttons} <span class="muted">Uses one action.</span>${fight}</p>`;

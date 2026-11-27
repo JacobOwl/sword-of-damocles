@@ -17,7 +17,7 @@ test("the Near-war test opens in spring 398 BC with the island already changed",
   assert.ok(s.citadelBuilt);
   for (const id of ["catana", "leontini", "aetna"]) assert.equal(city(s, id).side, "syracuse");
   assert.equal(city(s, "messana").side, "ally");
-  assert.ok(s.log.some((e) => /^Spring 398 BC\./.test(e.text)));
+  assert.ok(s.log.some((e) => /^Seven years after the peace with Carthage/.test(e.text)));
 });
 
 test("the Near-war test replays exactly and runs to the end without a broken state", () => {
@@ -86,4 +86,26 @@ test("battle plate: the plan is a free order and shows on your side of the battl
   const labels = battleMods(s, a).map((m) => m.label);
   assert.ok(labels.some((l) => /combined attack/.test(l)));
   assert.ok(labels.some((l) => /reserve/.test(l)));
+});
+
+// The war council's fixes (thread 43).
+test("peace terms name only the silver the payer has", async () => {
+  const { openWar, termsFor, card } = await import("../src/core/war.ts");
+  const s = near();
+  openWar(s, "a test");
+  const c = card(s)!;
+  c.ledger.push({ side: "syracuse", kind: "test", text: "a great victory", weight: 9, season: s.season } as any);
+  s.island!.carthage.silver = 1;
+  const t = termsFor(s, "carthage");
+  assert.equal(t.silver?.amount, 1, JSON.stringify(t)); // the ledger supports 4, but Carthage has 1
+});
+test("an army at Syracuse awes no town with aweNeedsMarch", async () => {
+  const { goOverMods } = await import("../src/core/island.ts");
+  const s = near();
+  s.silver = 9; s.grain = 9;
+  muster(s, true);
+  const labels = (goOverMods(s, "gela", "syracuse") ?? []).map((m) => m.label).join("; ");
+  assert.ok(!/awed by|strongest on the island/.test(labels), labels);
+  s.switches = (s.switches ?? []).filter((x) => x !== "aweNeedsMarch");
+  assert.ok(/awed by|strongest/.test((goOverMods(s, "gela", "syracuse") ?? []).map((m) => m.label).join("; ")));
 });

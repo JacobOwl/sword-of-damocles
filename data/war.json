@@ -55,6 +55,13 @@
     "newlyWonSeasons": 4,
     "kindness": {
       "goOver": 1
+    },
+    "stays": {
+      "note": "Switch carthageStays (invention, war council 2026-11-27): Carthage's first expedition is fought out.",
+      "fieldGrace": 3,
+      "plague": 1,
+      "generalFalls": 1,
+      "peaceLater": 1
     }
   },
   "carthageAims": [

@@ -16,6 +16,15 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Checks:** `npm test` 201 of 201; typecheck clean; 100 seeds 0 crashes, 0 broken states, 17 tyrannies (same as before); UI walk 115 snapshots, 0 page errors.
 - **Questions for Jacob:** after test 4, is the folded news missed? Is the actions list (about 30 buttons) the next thing to shrink?
 
+## Council fixes for test 4 (thread 43, 2026-11-27)
+**Built.** Jacob picked "Bugs plus the two rule switches". Both switches on in the Near-war test; the test link is updated.
+- **Fixed:** a general who fell in battle no longer comes back "in disgrace" to die twice (`src/core/island.ts`), and his leaderless army is "Carthage's army"; peace terms name only the silver the payer has (`termsFor`); the night march looks at the march before this season's (`movedBefore` on the army), and the battle odds count holding the line's draws and a combined attack's late parts; the header says the guard is "marching with the army"; the keeper line says "no change to your defense" instead of "your defense 0"; the city table says "In 405: ... Now yours" for towns that changed sides; the muster form no longer shows your own face; "6 in 6" reads "certain"; the opening line no longer repeats its date.
+- **New switches:** `carthageStays` (knobs `data/war.json` `stays`) and `aweNeedsMarch` (`src/core/island.ts` goOverMods and goingOver). Details and counts in `docs/playtests/2026-11-27-war-council/report.md`. Landing to Carthage wanting out: 3.3 to 4.1 seasons (was 1.9 to 2.8). Survival 78% to 92%, about as before. Not tuned.
+- **Not fixed:** two people share the title "captain of the guard" (Aristotle holds the seat; "the captain of the guard" is a separate invented man); the plan logs twice when you set plan and reserve; Aristotle's repeated petition.
+- **Checks:** `npm test` 203 of 203; typecheck clean; 100 seeds 0 crashes, 0 broken, 17 tyrannies; `npm run war-runs -- --seeds 200 --preset nearWarTest` 0 crashes; 1,500 council games 0 crashes, 0 broken, 0 replay differences.
+- **Changed for Jacob:** Near-war games replay differently from before (new switches, night-march fix).
+- **Questions for the next design session:** after test 4, does Carthage's war last long enough? It is still easy (deaths come from home).
+
 ## War council: AI testers play the Near-war test (thread 43, 2026-11-27)
 **Report only.** Jacob: "Have a council test the war system before me." Report: `docs/playtests/2026-11-27-war-council/report.md`; numbers: `council-runs.md` beside it; script `node scripts/war-council.ts --games 300` (five testers: warlord, defender, diplomat, one-big-army exploit hunter, turtle; `--one warlord:7` prints one game's log).
 - **Built:** the script only. No rule, data or game code changed.

@@ -14,6 +14,9 @@ import { patience } from "./supply.ts";
 export const WAR = warJson as any;
 const K = WAR.knobs;
 export const warOn = (s: GameState) => on(s, "warFocus") && !!s.island;
+// Switch "carthageStays" (war council): Carthage's weariness rises more slowly, so a landing is fought out.
+export const staysOn = (s: GameState) => warOn(s) && on(s, "carthageStays");
+export const STAYS = K.stays;
 
 export interface WarEntry { season: number; side: "syracuse" | "carthage"; text: string; weight: number; town?: string; kind: string }
 export interface Terms { towns: { id: string; to: Side }[]; silver?: { payer: "syracuse" | "carthage"; amount: number }; lines: string[] }
@@ -190,9 +193,10 @@ export function warSeason(s: GameState) {
   // Weariness: an army in the field, and every few seasons of war.
   const ya = yourArmy(s), ca = carthageArmy(s);
   if (ya && ya.since !== s.season) weary(s, "syracuse", K.weary.perSeasonInField, "the levies are kept in the field");
-  if (ca && ca.since !== s.season) weary(s, "carthage", K.weary.perSeasonInField, "an army is kept in Sicily");
-  if (n > 0 && n % K.weary.everyNSeasons === 0) { weary(s, "syracuse", 1, `${n} seasons of war`); weary(s, "carthage", 1, `${n} seasons of war`); }
-  if (k.plagueUntil >= s.season && s.flags.warPlagueSeen !== k.plagueUntil) { s.flags.warPlagueSeen = k.plagueUntil; weary(s, "carthage", K.weary.carthagePlague, "plague in Carthage"); }
+  const stays = staysOn(s);
+  if (ca && ca.since !== s.season && (!stays || s.season - ca.since >= STAYS.fieldGrace)) weary(s, "carthage", K.weary.perSeasonInField, "an army is kept in Sicily");
+  if (n > 0 && n % K.weary.everyNSeasons === 0) { weary(s, "syracuse", 1, `${n} seasons of war`); if (!stays || ca) weary(s, "carthage", 1, `${n} seasons of war`); }
+  if (k.plagueUntil >= s.season && s.flags.warPlagueSeen !== k.plagueUntil) { s.flags.warPlagueSeen = k.plagueUntil; weary(s, "carthage", stays ? STAYS.plague : K.weary.carthagePlague, "plague in Carthage"); }
   if (ya && !ya.siege && ya.since !== s.season) c.noBattle += 1;
   if (!ya) c.noBattle = 0;
   patience(s, ya, c.noBattle); // switch "armySupply": allies drift home from an army that will not fight
@@ -279,6 +283,8 @@ export function termsFor(s: GameState, proposer: "syracuse" | "carthage", shade 
     t.silver = { payer: "syracuse", amount: silverFor(-b) };
     if (b <= -T.townsAt) for (const n of NODES) if ((n.side === "tributary" || n.side === "carthage") && SIDE_GROUP(city(s, n.id).side) === "syracuse") t.towns.push({ id: n.id, to: n.side as Side });
   }
+  // The terms name only what the payer can pay, so the treaty's words match the silver that changes hands.
+  if (t.silver) t.silver.amount = Math.min(t.silver.amount, t.silver.payer === "carthage" ? s.island!.carthage.silver : s.silver);
   if (t.silver && t.silver.amount <= 0) t.silver = undefined;
   if (t.silver) t.lines.push(t.silver.payer === "carthage" ? `Carthage pays you ${t.silver.amount} silver for the cost of the war` : `You pay Carthage ${t.silver.amount} silver`);
   for (const x of t.towns) t.lines.push(x.to === "free" ? `${nodeName(x.id)} pays Carthage no more tribute and is free` : `${nodeName(x.id)} goes back to Carthage`);

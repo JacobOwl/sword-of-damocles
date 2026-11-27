@@ -121,7 +121,7 @@ function masthead(g: GameState) {
 
 function ledger(g: GameState) {
   const d = defense(g);
-  const guardPay = g.guard.arrearsSeasons ? `<span class="warn">owed ${g.guard.owed}, won't defend you</span>` : g.factions.guard.mood <= 1 ? `<span class="warn">paid, but too angry to defend you</span>` : g.guard.refusing ? `<span class="warn">refusing duty</span>` : g.plots.some((p) => p.guardBacking) ? `<span class="warn">sold to a plot</span>` : `<span class="good">paid, at your door</span>`;
+  const guardPay = g.guard.arrearsSeasons ? `<span class="warn">owed ${g.guard.owed}, won't defend you</span>` : g.factions.guard.mood <= 1 ? `<span class="warn">paid, but too angry to defend you</span>` : g.guard.refusing ? `<span class="warn">refusing duty</span>` : g.plots.some((p) => p.guardBacking) ? `<span class="warn">sold to a plot</span>` : g.island?.armies.some((a) => a.side === "syracuse" && a.guard > 0 && a.at !== "syracuse") ? `<span class="warn">paid, marching with the army</span>` : `<span class="good">paid, at your door</span>`;
   const bf = backingFaction(g);
   const MARK: Record<string, string> = { silver: "silver", grain: "grain", carthage: "palm", land: "land", guard: "helmet", defense: "defense", influence: "influence", government: "city" };
   const L = (k: string, t: string, extra = "") => `<span class="label tipped" ${tipAttr(k)}${extra ? ` data-tip-text="${esc(extra)}"` : ""}>${icon(MARK[k], k === "carthage" ? "f-carthage" : "")}${t}</span>`;

@@ -196,6 +196,7 @@ export interface Army {
   guardStart: number; // guard points that marched out
   since: number;
   moved: number; // last season it marched
+  movedBefore?: number; // the season it marched before that (switch "battlePlate": a night march needs a season at rest)
   siege?: string; // the city it besieges
   siegeSince: number;
   onTake: "spare" | "sack";

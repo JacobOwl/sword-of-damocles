@@ -566,3 +566,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small, here):** the council players live in their own script (`scripts/war-council.ts`) and reuse the playtest bot's checks; the playtest bot's setup list is not changed.
 - **Open:** Jacob picks which fixes to build; rule changes would be switches, off by default.
 
+## 2026-11-27 (council fixes for test 4, thread 43)
+- **Decided (Jacob, card: "Bugs plus the two rule switches"):** fix the bugs the war council found; add `carthageStays` and `aweNeedsMarch`, off by default, on in the Near-war test.
+- **Decided (small, here):** the numbers in `carthageStays` (3 seasons' grace, plague and a fallen general +1, peace a point later) were picked once and counted, not tuned to history; a fallen general's place goes to the next free man in Carthage's list, only with the switch. The night-march fix applies everywhere the plate is on, since it is a bug.
+- **Open:** whether Carthage's war now lasts long enough is for Jacob after test 4.
+
