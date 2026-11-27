@@ -11,6 +11,7 @@ import {
 } from "./state.ts";
 import { boardHooks, event, grudge, log, makeRival, mood, opinion, powerChange, setOffice, silver, grain, factionOf } from "./ops.ts";
 import { on } from "./switches.ts";
+import { HOOKS } from "./hooks.ts";
 import { fireBoard } from "./events.ts";
 import { away } from "./commission.ts";
 import { setSide } from "./island.ts";
@@ -169,6 +170,7 @@ export function vote(s: GameState, seat: string, why: string) {
   const line = (x: Stand) => `${capital(nameOf(s, x.id))} ${x.score}`;
   const wins = !holder || challenger.score > holder.score;
   const parts = [holder, challenger].filter(Boolean).map((x) => `${capital(nameOf(s, x!.id))}: ${x!.parts.map((m) => `${m.label} ${m.value >= 0 ? "+" : ""}${m.value}`).join(", ") || "nothing"}`).join("; ");
+  if (wins && holder?.id === PLAYER && HOOKS.veto?.(s, seat, seatName(seat))) return; // switch "friendsAbroad": Pharacidas speaks for you, once
   const winner = wins ? challenger.id : holder!.id;
   event(s, winner, `The assembly votes on ${seatName(seat)}: ${[holder, challenger].filter(Boolean).map((x) => line(x!)).join(", ")}. ${capital(nameOf(s, winner))} ${wins ? (winner === PLAYER ? "win it" : "wins it") : (winner === PLAYER ? "keep it" : "keeps it")}.`, `${why}. ${parts}`);
   delete s.board!.backed[seat];

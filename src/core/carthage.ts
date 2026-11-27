@@ -11,6 +11,7 @@ import { carthageParts, envoys } from "./contingents.ts";
 import { carthageBlow, maybeDebate, recovering, returnsOn, returnsPrefers, returnsState, returnsSeason, secondExpedition, takeInExiles } from "./returns.ts";
 import { on } from "./switches.ts";
 import { fleetIntercept, fleetSeason } from "./fleets.ts";
+import { abroadSeason } from "./abroad.ts";
 import { deedSecret } from "./secrets.ts";
 import {
   CARTHAGE, ISLAND, NODES, armyName, assault, assaultMods, assaultNeed, bloc, blocPower, carthageArmy, carthagePersonName, chance, city,
@@ -425,6 +426,7 @@ export function carthageStep(s: GameState) {
     for (const b of CARTHAGE.blocs.filter((x: any) => x.votes)) blocPower(s, b.id, prefers(s, b.id).goal === "war" ? -1 : 1, "an army was lost in Sicily");
   }
   generalOrders(s);
+  abroadSeason(s); // switch "friendsAbroad": envoys, help, Sparta's favour, the league
   fleetSeason(s); // switch "fleets": orders, mending, rowers, the sea threat
   warLate(s); // switch "test5Fixes": the landing warning and the war's matters, after the march
   // A free general who has disgraced himself may end his own life, as Himilcon did (Diodorus 14.76.4).

@@ -6,6 +6,7 @@ import type { Args, GameState } from "./types.ts";
 import { townHold } from "./secrets.ts";
 import { commanderOptions, commissionOn, keeperOptions } from "./commission.ts";
 import { LANDINGS, autoContractor, contractors, convoysOn } from "./convoys.ts";
+import { abroadOn, abroadState, envoyMen, helpCheck, moodOf, recruitCheck, marriageTargets } from "./abroad.ts";
 import { beachedAt, buildCheck, fleetsOn, soundTheirs, soundYours, strikeCheck } from "./fleets.ts";
 
 export interface IslandChoice { a: string; args?: Args; min?: number }
@@ -29,6 +30,17 @@ export function islandChoices(s: GameState, style: IslandStyle = {}): IslandChoi
   if (s.island && fleetsOn(s)) {
     if (!buildCheck(s) && s.silver >= 5 && soundYours(s) < soundTheirs(s)) out.push({ a: "buildSquadron", min: 0.5 });
     if (!strikeCheck(s) && (beachedAt(s) ? soundYours(s) + 4 > soundTheirs(s) : soundYours(s) > soundTheirs(s) + 1)) out.push({ a: "strikeFleet", min: 0.5 });
+  }
+  // Switch "friendsAbroad": keep Sparta's favour, send envoys, ask for help, marry into Locri.
+  if (s.island && abroadOn(s)) {
+    const ab = abroadState(s);
+    if (s.silver >= 6 && moodOf(s, "sparta") < 4 && (ab.lastGift.sparta ?? -99) < s.season - 3) out.push({ a: "giftAbroad", args: { target: "sparta" }, min: 0.5 });
+    const men = envoyMen(s);
+    if (men.length && !ab.envoys.length && (ab.at.sparta ?? -99) < s.season - 3) out.push({ a: "envoyAbroad", args: { target: "sparta", second: men[0].value }, min: 0.5 });
+    if (!helpCheck(s, "sparta")) out.push({ a: "askHelpAbroad", args: { target: "sparta" } });
+    else if (!helpCheck(s, "corinth")) out.push({ a: "askHelpAbroad", args: { target: "corinth" } });
+    if (!recruitCheck(s) && s.silver >= 8 && s.guard.strength < 5) out.push({ a: "recruitLaconia", min: 0.5 });
+    if (marriageTargets(s).some((x) => x.value === "locri")) out.push({ a: "offerMarriage", args: { target: "locri" }, min: 0.5 });
   }
   if (!s.island || (!holds(s, PLAYER, "generalship") && !commissionOn(s))) return out;
   const isl = s.island;

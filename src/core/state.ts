@@ -1,4 +1,5 @@
 // Building a new game, and read-only questions about a game state.
+import { HOOKS } from "./hooks.ts";
 import { DATA } from "./data.ts";
 import { T, DEFAULT_TUNING, knobsFor } from "./tuning.ts";
 import type { Faction, FactionId, GameOpts, GameState, OfficeId, Person, Plot } from "./types.ts";
@@ -76,6 +77,7 @@ export function newGame(seed: number, tuning: string = DEFAULT_TUNING, opts: Gam
   if (opts.scenario === "island") { s.scenario = "island"; s.island = newIsland(); s.census = newCensus(s); }
   const opening = presetById(opts.preset)?.opening;
   if (opening) applyOpening(s, opening, PLAYER);
+  if (s.island) HOOKS.abroadStart?.(s); // switch "friendsAbroad": the powers and Rhegium, set up with no dice
   if (switches.includes("secrets")) initSecrets(s); // no dice: the same seed plays the same with the switch off
   if (switches.includes("council")) initCouncil(s);
   return s;

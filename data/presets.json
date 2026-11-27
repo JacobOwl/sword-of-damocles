@@ -170,7 +170,8 @@
         "groundChoice",
         "contingents",
         "carthageReturns",
-        "fleets"
+        "fleets",
+        "friendsAbroad"
       ],
       "summary": "The Near-war test's rules with the deeper war of test 5, started in autumn 400 BC, two years before Carthage's great war: every battle is a scene (the ground, your plan, a turning point, the roll and what comes after), armies march in named town contingents whose hearts can fail, and battles are closer to even. Twenty seasons, to the end of the decade.",
       "verdictSeason": 20,

@@ -13,7 +13,7 @@ import { HOOKS } from "./hooks.ts";
 import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf } from "./state.ts";
 import { event, log, mood, silver, grain } from "./ops.ts";
-import { NODES, arrive, armyName, carthageArmy, carthagePersonName, city, cityGrainChange, friendly, loseMen, nodeDef, nodeName, yourArmy } from "./island.ts";
+import { ABROAD_NODES, NODES, arrive, armyName, carthageArmy, carthagePersonName, city, cityGrainChange, friendly, loseMen, nodeDef, nodeName, yourArmy } from "./island.ts";
 import { addScene, pendingScene, allScenes } from "./scenes.ts";
 import { boardOn, dig, vote, votedNow } from "./board.ts";
 import type { Army, GameState, Mod } from "./types.ts";
@@ -51,7 +51,7 @@ export function admiralName(s: GameState) { const h = admiral(s); return !h ? "n
 export function fleetName(s: GameState) { const h = admiral(s); return !h ? "the fleet of Syracuse" : h === PLAYER ? "your fleet" : `the fleet under ${nameOf(s, h)}`; }
 function carthageAdmiral(s: GameState): string | undefined { const m = C(s).people.magon; return m && m.status === "free" ? "magon" : undefined; }
 export function carthageFleetName(s: GameState) { const a = carthageAdmiral(s); return a ? `${poss(carthagePersonName(s, a))} fleet` : "Carthage's fleet"; }
-export const ports = () => NODES.filter((n) => n.port);
+export const ports = (s: GameState) => [...NODES.filter((n) => n.port), ...ABROAD_NODES.filter((n) => s.island?.cities[n.id])];
 // The order the fleet sails under now, if it sails at all.
 export function sailing(s: GameState, o: Order) { return fleetsOn(s) && fleetObeys(s) && soundYours(s) > 0 && fleetState(s).order === o; }
 
@@ -180,7 +180,7 @@ export function carryNeed(s: GameState) { const a = yourArmy(s); return a ? Math
 export function carryTargets(s: GameState) {
   const a = yourArmy(s);
   if (!a || !nodeDef(a.at)?.port) return [];
-  return ports().filter((n) => n.id !== a.at).map((n) => ({ value: n.id, label: `${n.name} (${friendly("syracuse", city(s, n.id).side) ? "a friendly port" : "an enemy shore"})` }));
+  return ports(s).filter((n) => n.id !== a.at).map((n) => ({ value: n.id, label: `${n.name} (${friendly("syracuse", city(s, n.id).side) ? "a friendly port" : "an enemy shore"})` }));
 }
 export function carryCheck(s: GameState): string | null {
   const a = yourArmy(s);
@@ -386,6 +386,7 @@ HOOKS.seaAfter = (s: GameState, pick?: string) => {
 };
 // The admiral as a rival: a victory won without you makes him (and armed citizens) bolder; a defeat costs him.
 function admiralAfter(s: GameState, won: boolean, margin: number) {
+  HOOKS.seaResult?.(s, won, margin); // switch "friendsAbroad": Sparta watches how its ships fare
   const h = admiral(s);
   const f = fleetState(s);
   if (!h) return;

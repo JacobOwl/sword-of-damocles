@@ -15,7 +15,7 @@ const t5 = (seed = 3) => { const o = presetOpts("test5"); return startGame(seed,
 
 test("the test 5 preset turns on every test 5 switch built so far, and bot games end without a broken state", () => {
   const o = presetOpts("test5");
-  for (const id of ["battleScenes", "groundChoice", "contingents", "carthageReturns", "fleets", "evenBattles", "test5Fixes"]) assert.ok(o.switches!.includes(id), id);
+  for (const id of ["battleScenes", "groundChoice", "contingents", "carthageReturns", "fleets", "friendsAbroad", "evenBattles", "test5Fixes"]) assert.ok(o.switches!.includes(id), id);
   for (const seed of [1, 2, 3]) {
     const s = runBotGame(seed, { bot: "simple", tuning: o.tuning, scenario: o.scenario, switches: o.switches, preset: o.preset });
     assert.deepEqual(brokenState(s), [], `seed ${seed}`);
@@ -72,4 +72,23 @@ test("carry the army: from Syracuse by sea, either landed or stopped by a battle
     sailed++;
   }
   assert.ok(sailed > 0, "at least one army was small enough to sail");
+});
+
+test("friends abroad: the powers start with their mood words, Rhegium is a town reached by sea, and help needs an envoy first", async () => {
+  const { abroadState, moodWordOf, helpCheck, giveGift, askHelp, pharacidasHere } = await import("../src/core/abroad.ts");
+  const s = t5(9);
+  const a = abroadState(s);
+  assert.equal(moodWordOf(s, "sparta"), "Watching");
+  assert.equal(moodWordOf(s, "league"), "Asleep");
+  assert.equal(s.island!.cities.rhegium.side, "free");
+  assert.match(helpCheck(s, "sparta") ?? "", /envoy/);
+  a.at.sparta = s.season;
+  s.silver = 10;
+  giveGift(s, "sparta");
+  assert.equal(moodWordOf(s, "sparta"), "Friendly");
+  assert.equal(helpCheck(s, "sparta"), null);
+  askHelp(s, "sparta");
+  assert.ok(!pharacidasHere(s), "help comes next season");
+  endSeason(s);
+  assert.ok(pharacidasHere(s), "Pharacidas arrives");
 });

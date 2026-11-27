@@ -363,3 +363,8 @@ button.primary:active:not(:disabled) { transform: translateY(1px); box-shadow: n
   .scbeats li { opacity: 0; animation: beat .5s ease-out forwards; animation-delay: calc(var(--i) * 0.45s + .2s); }
   @keyframes beat { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 }
+
+/* Switch "friendsAbroad": the powers across the sea, one card each (test 5). */
+.abroad { margin-top: 18px; }
+.powercards { list-style: none; padding: 0; margin: 6px 0; display: grid; gap: 8px; }
+.powercard { border-left: 3px solid var(--rule); padding: 4px 0 4px 10px; }

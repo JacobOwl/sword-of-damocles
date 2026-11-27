@@ -17,6 +17,7 @@ import { townHold, useHold, townLeader, SECRETS } from "./secrets.ts";
 import { afterScene, fightScene, pendingScene, GROUND } from "./scenes.ts";
 import { bindPart, bindTargets, envoyTargets, sendEnvoy, CONT } from "./contingents.ts";
 import { payMan, returnsState, sendHerald } from "./returns.ts";
+import { ABROAD, abroadOn, askHelp, envoyMen, envoyPowers, giftTargets, giveGift, helpCheck, marriageTargets, offerMarriage, recruitCheck, recruitLaconia, sendEnvoyAbroad } from "./abroad.ts";
 import { FLEETS, buildCheck, buildSquadron, carryArmy, carryCheck, carryTargets, fleetState, setOrder, setRowers, strikeCheck, strikeFleet, youOrder, admiralName, beachedAt } from "./fleets.ts";
 import { prefers } from "./carthage.ts";
 import { campaignCheck, commanderOptions, commissionOn, keeperOptions, musterNotes, startCampaign } from "./commission.ts";
@@ -226,6 +227,34 @@ export const ISLAND_IMPL: Record<string, Impl> = {
     target: (s) => FLEETS.rowers.filter((r: any) => r.id !== fleetState(s).rowers).map((r: any) => ({ value: r.id, label: `${r.name}: ${r.text}` })),
     check: (s) => (!youOrder(s) ? `${capital(admiralName(s))} holds the fleet and does not take your orders` : null),
     run: (s, a) => setRowers(s, a.target as any),
+  },
+  // Switch "friendsAbroad": the powers across the sea.
+  envoyAbroad: {
+    target: (s) => (abroadOn(s) ? envoyPowers(s) : []),
+    targetLabel: "To",
+    second: (s) => (abroadOn(s) ? envoyMen(s) : []),
+    secondLabel: "Who goes",
+    check: (s) => (!abroadOn(s) ? "the switch is off" : !envoyMen(s).length ? "no friend of yours is free to go" : null),
+    run: (s, a) => sendEnvoyAbroad(s, a.target!, a.second!),
+  },
+  offerMarriage: {
+    target: (s) => (abroadOn(s) ? marriageTargets(s) : []),
+    check: (s) => (!abroadOn(s) ? "the switch is off" : !marriageTargets(s).length ? "both towns have answered already" : null),
+    run: (s, a) => offerMarriage(s, a.target as any),
+  },
+  askHelpAbroad: {
+    target: () => [{ value: "sparta", label: "Sparta" }, { value: "corinth", label: "Corinth" }],
+    check: (s, a) => (!abroadOn(s) ? "the switch is off" : a.target ? helpCheck(s, a.target) : (helpCheck(s, "sparta") && helpCheck(s, "corinth"))),
+    run: (s, a) => askHelp(s, a.target as any),
+  },
+  giftAbroad: {
+    target: (s) => (abroadOn(s) ? giftTargets(s) : []),
+    check: (s) => (!abroadOn(s) ? "the switch is off" : s.silver < ABROAD.knobs.giftSilver ? `needs ${ABROAD.knobs.giftSilver} silver` : null),
+    run: (s, a) => giveGift(s, a.target!),
+  },
+  recruitLaconia: {
+    check: (s) => (!abroadOn(s) ? "the switch is off" : recruitCheck(s)),
+    run: (s) => recruitLaconia(s),
   },
   buildSquadron: {
     check: (s) => buildCheck(s),

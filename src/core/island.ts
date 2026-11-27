@@ -4,6 +4,7 @@
 import islandJson from "../../data/island.json" with { type: "json" };
 import carthageJson from "../../data/carthage.json" with { type: "json" };
 import commissionJson from "../../data/commission.json" with { type: "json" };
+import abroadJson from "../../data/abroad.json" with { type: "json" };
 import { traitById } from "./data.ts";
 import { HOOKS } from "./hooks.ts";
 import { carthageBlow } from "./returns.ts";
@@ -26,7 +27,10 @@ const R = ISLAND.rules;
 
 export interface NodeDef { id: string; name: string; type: string; side: Side; walls: number; men: number; grain: number; port?: boolean; marsh?: boolean; straits?: boolean; lean: number; lat: number; lon: number; detail: string; approx?: boolean }
 export const NODES = ISLAND.nodes as NodeDef[];
-export const nodeDef = (id: string) => NODES.find((n) => n.id === id);
+// Switch "friendsAbroad": Rhegium, across the Strait. Not in NODES (no road, no town rolls): it is reached by sea, and
+// only has a city state when the switch is on (abroad.ts).
+export const ABROAD_NODES = [{ type: "city", detail: "A Greek city across the Strait of Messana, in Italy.", ...(abroadJson as any).rhegium }] as NodeDef[];
+export const nodeDef = (id: string) => NODES.find((n) => n.id === id) ?? ABROAD_NODES.find((n) => n.id === id);
 export const nodeName = (id: string) => (id === "carthage" ? "Carthage" : nodeDef(id)?.name ?? id);
 export const sideName = (side: string) => ISLAND.sides[side] ?? side;
 

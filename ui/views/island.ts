@@ -3,7 +3,7 @@
 import {
   CARTHAGE, ISLAND, NODES, ROUTES, armyName, blocDef, capital, carthageAgenda, cityGrain, cityMen, cityWalls, goalDef, menWords,
   armyParts, partHeart, heartWord, partBonded, fleetsOn, fleetState, soundYours, soundTheirs, fleetName, carthageFleetName, admiralName, orderDef, youOrder, fleetObeys, FLEETS,
-  groundOn, GROUND,
+  groundOn, GROUND, ABROAD, abroadOn, abroadState, abroadMood, abroadMoodWord, ABROAD_NODES,
   moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo, warCard, plateOn, planDef, habitLine, BATTLE, battleMods, supplyOn, foodState, ravaged, SUPPLY, townBoardsOn, townSeats, houseName, townDivided, sendsSupport,
 } from "../../src/core/index.ts";
 import type { Handlers } from "../app/clicks.ts";
@@ -24,14 +24,17 @@ const SIDE_COLOR: Record<string, string> = {
 function mapSvg(g: GameState): string {
   // Drawn with the map kit in ui/island-art.ts (the art thread); this function only decides what goes where.
   const isl = g.island!;
-  const at = (id: string) => NODES.find((n) => n.id === id)!;
-  const P = (id: string): [number, number] => { const n = at(id); return [A.X(n.lon), A.Y(n.lat)]; };
+  const at = (id: string) => (NODES.find((n) => n.id === id) ?? ABROAD_NODES.find((n) => n.id === id))!;
+  const P = (id: string): [number, number] => { const n = at(id); return [Math.min(A.X(n.lon), A.W - 12), A.Y(n.lat)]; }; // Rhegium sits on the map's east edge
   const roads = ROUTES.map((r) => A.routePath(P(r.from), P(r.to), (r as { sea?: boolean }).sea ? "sea" : "road", r.days)).join("");
   const LABEL: Record<string, [number, number, "start" | "middle" | "end"]> = {
-    aetna: [-14, 4, "end"], catana: [16, 6, "start"], messana: [-12, -14, "end"], panormus: [0, -16, "middle"], motya: [12, 18, "start"],
+    rhegium: [-14, 20, "end"], aetna: [-14, 4, "end"], catana: [16, 6, "start"], messana: [-12, -14, "end"], panormus: [0, -16, "middle"], motya: [12, 18, "start"],
     leontini: [-14, 8, "end"], syracuse: [0, 30, "middle"],
   };
-  const marks = NODES.map((n) => {
+  // Switch "friendsAbroad": Rhegium across the Strait, with its sea lane to Messana.
+  const abroadNodes = ABROAD_NODES.filter((n) => isl.cities[n.id]);
+  const lanes = abroadNodes.map((n) => A.routePath(P("messana"), P(n.id), "sea", 1)).join("");
+  const marks = [...NODES, ...abroadNodes].map((n) => {
     const c = isl.cities[n.id];
     const [x, y] = P(n.id);
     return `<g class="citymark${ui.city === n.id ? " on" : ""}" data-city="${n.id}" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}" role="button" tabindex="0" aria-label="${esc(n.name)}: open its sheet">` + A.cityMark(x, y, {
@@ -47,8 +50,9 @@ function mapSvg(g: GameState): string {
   const burnt = NODES.filter((n) => ravaged(g, n.id)).map((n) => { const [x, y] = P(n.id); return `<circle cx="${x.toFixed(1)}" cy="${(y - 2).toFixed(1)}" r="17" class="ravaged-ring"><title>${esc(n.name)}: its fields were burnt</title></circle>`; }).join("");
   const armies = isl.armies.map((a, i) => {
     const [x, y] = P(a.at);
-    const dir = a.side === "syracuse" ? 1 : -1;
-    const mark = A.armyMark(x + dir * 22, y - 20 - i * 4, { side: a.side, men: `${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k`, label: armyName(g, a), dir });
+    const dir = a.side === "syracuse" && !ABROAD_NODES.some((n) => n.id === a.at) ? 1 : -1; // at Rhegium, on the map's edge, the shield stands to the left
+    const edge = ABROAD_NODES.some((n) => n.id === a.at);
+    const mark = A.armyMark(x + dir * 22, edge ? y + 26 : y - 20 - i * 4, { side: a.side, men: `${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k`, label: armyName(g, a), dir });
     return a.side === "syracuse" && supplyOn(g) && !g.over ? `<g class="drag-army" data-drag-army><title>Drag to a town to see the route and the towns that might go over</title>${mark}</g>` : mark;
   }).join("");
   // War focus: Carthage's hired men waiting at home, drawn on the sea lane, so a landing is never a surprise.
@@ -56,7 +60,7 @@ function mapSvg(g: GameState): string {
   const home = wc && isl.war && !isl.armies.some((a) => a.side === "carthage") && isl.carthage.mercs + isl.carthage.levy > 0
     ? A.armyMark(34, A.Y(37.2) + 26, { side: "carthage", men: `${Math.round((isl.carthage.mercs + isl.carthage.levy) * ISLAND.rules.menPerPoint / 1000)}k`, label: wc.landingDue !== undefined ? "Carthage's army, ready to sail: it lands next season" : "Carthage's men, gathering at home", dir: 1 }) : "";
   return `<svg viewBox="0 0 ${A.W} ${A.H}" class="island-map" role="img" aria-label="Map of Sicily: ${NODES.map((n) => `${n.name}, ${sideName(isl.cities[n.id].side)}`).join("; ")}">
-    ${A.islandBase()}${roads}${A.toCarthage(A.Y(37.2))}${burnt}${reach}${marks}${armies}${home}
+    ${A.islandBase()}${roads}${lanes}${A.toCarthage(A.Y(37.2))}${burnt}${reach}${marks}${armies}${home}
   </svg>`;
 }
 
@@ -143,7 +147,7 @@ function cityRows(g: GameState) {
 const LEAN_WORD = (l: number) => (l >= 2 ? "warm to you" : l === 1 ? "leans your way" : l === 0 ? "undecided" : l === -1 ? "cool to you" : "hostile to you");
 function citySheet(g: GameState, id: string) {
   const isl = g.island!;
-  const n = NODES.find((x) => x.id === id)!;
+  const n = (NODES.find((x) => x.id === id) ?? ABROAD_NODES.find((x) => x.id === id))!;
   const c = isl.cities[id];
   const R = ISLAND.rules;
   const w = cityWalls(g, id);
@@ -252,6 +256,27 @@ function mapKey() {
     <span class="muted">Click a city for its sheet, and to send your army there.</span></div>`;
 }
 
+// Switch "friendsAbroad": the powers across the sea, one card each: the mood word, the one wish, what is on it.
+function abroadPanel(g: GameState) {
+  if (!abroadOn(g)) return "";
+  const a = abroadState(g);
+  const cards = ABROAD.powers.map((p: any) => {
+    const lv = abroadMood(g, p.id);
+    const word = abroadMoodWord(g, p.id);
+    const top = p.moods.length - 1;
+    const cls = p.id === "league" ? (lv === 0 ? "good" : lv === top ? "warn" : "") : lv >= (p.helpAt ?? top) ? "good" : lv <= 0 || (p.id === "sparta" && lv <= 1) ? "warn" : "";
+    const pieces: string[] = [];
+    for (const e of a.envoys.filter((x) => x.to === p.id)) pieces.push(`${esc(capital(g.people[e.pid]?.name ?? "your envoy"))} is there as your envoy`);
+    if (a.at[p.id] !== undefined && g.season - a.at[p.id] <= ABROAD.knobs.envoyLasts) pieces.push("your envoy was heard this year: you may ask for help");
+    for (const h of a.help.filter((x) => x.from === p.id)) pieces.push(h.due !== undefined ? `${esc(ABROAD.help.find((x: any) => x.id === h.id).name)} on the way` : `${esc(ABROAD.help.find((x: any) => x.id === h.id).name)} with you`);
+    if (p.id === "locri" && a.married.locri) pieces.push(a.married.locri === "yes" ? "kin by your marriage" : "refused your marriage");
+    return `<li class="powercard"><b>${esc(p.name)}</b> <span class="small muted">${esc(p.where)}</span><br><b class="${cls}">${esc(word)}</b> <span class="small">Wants ${esc(p.wish)}.</span>${pieces.length ? `<br><span class="small">${capital(pieces.join("; "))}.</span>` : ""}</li>`;
+  }).join("");
+  const r = g.island!.cities.rhegium;
+  const rh = r ? `<p class="small"><b>Rhegium</b>, across the Strait: ${esc(LEAN_WORD(r.lean))}${a.married.rhegium === "no" ? ", and it refused your marriage" : ""}. Reached only by sea.</p>` : "";
+  return `<section class="abroad" aria-label="Across the sea"><h3>Across the sea</h3><ul class="powercards">${cards}</ul>${rh}
+    <p class="small muted">Sparta's favour must be kept with a gift each year, or its help sails home. The Italian league sleeps until you attack Rhegium or hold both sides of the Strait a year.</p></section>`;
+}
 function carthagePanel(g: GameState) {
   const c = g.island!.carthage;
   const goal = goalDef(c.goal);
@@ -306,6 +331,6 @@ export function islandView(g: GameState): string {
       <h3>The cities</h3>
       <div class="tablewrap"><table class="cities"><thead><tr><th>City</th><th>Side</th><th>Walls</th><th>Grain</th><th>Men</th><th>Toward you</th><th class="notes">Notes</th></tr></thead><tbody>${cityRows(g)}</tbody></table></div>
     </div>
-    ${carthagePanel(g)}
+    <div>${carthagePanel(g)}${abroadPanel(g)}</div>
   </div>`;
 }
