@@ -113,7 +113,7 @@ export function readBeats(s: GameState, seed: number) {
   const holder: Record<string, string> = Object.fromEntries(OFFICES.map((o) => [o, start.offices[o] ?? ""]));
   holder.captain = start.people.aristotle ? "aristotle" : "";
   const lost: Record<string, number> = {};
-  let regained: { season: number; seats: string[] } | null = null;
+  let regained = null as { season: number; seats: string[] } | null;
   const flushRegained = () => { if (regained) { add({ season: regained.season, kind: "seat", text: `You win back ${and(regained.seats.map((x) => (x === "captain" ? "the guard's command" : officeName(x))))}`, from: Math.min(...regained.seats.map((x) => lost[`was:${x}`] ?? regained!.season)) }); regained = null; } };
   let exileSeason = -99, homeSeason = -99;
   const seatTo = (e: LogEntry, seat: string, who: string) => {
@@ -157,7 +157,7 @@ export function readBeats(s: GameState, seed: number) {
       series[key] = { low: v, peak: v, peakAt: e.season };
     } else if (v < x.low) series[key] = { low: v, peak: v, peakAt: e.season };
   };
-  const moodKey: Record<string, string> = Object.fromEntries(FACTIONS.map((f) => [lc(s.factions[f].short), f]));
+  const moodKey: Record<string, (typeof FACTIONS)[number]> = Object.fromEntries(FACTIONS.map((f) => [lc(s.factions[f].short), f]));
   for (const f of FACTIONS) series[`mood:${f}`] = { low: start.factions[f].mood, peak: start.factions[f].mood, peakAt: 0 };
   series.silver = { low: start.silver, peak: start.silver, peakAt: 0 };
   series.guard = { low: start.guard.strength, peak: start.guard.strength, peakAt: 0 };
