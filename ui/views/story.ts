@@ -1,5 +1,5 @@
 // The season's events and the chronicle, written for reading. Both come straight from the one action log.
-import { PLAYER, openEvents, seasonName, storyBook, switchOn } from "../../src/core/index.ts";
+import { PLAYER, openEvents, seasonName, storyBook, switchOn, warChapter } from "../../src/core/index.ts";
 import type { GameState, LogEntry } from "../../src/core/index.ts";
 import { esc, linkNames, rollLine, ui } from "../lib/text.ts";
 import { chronicleLine, colophon, diodorusYear } from "../components/ambient.ts";
@@ -163,5 +163,9 @@ function storyChronicleBook(s: GameState) {
   const more = rest.length ? `<details class="cfull"><summary class="small">Other lives (${rest.length})</summary>${rest.map((l) => `<p><strong>${linkNames(l.name.charAt(0).toUpperCase() + l.name.slice(1))}.</strong> ${linkNames(sentences(l.text))}</p>`).join("")}</details>` : "";
   const ending = b.ending ? `<section class="cyear"><h3>How it ended</h3><p>${linkNames(sentences(b.ending))}</p></section>` : "";
   const threads = lives ? `<section class="cyear"><h3>The main threads</h3>${lives}${more}</section>` : "";
-  return `<article class="book"><h2>The chronicle</h2><p class="small muted">The turning points of each year. Open a year for the whole of it. Everything here is what you saw happen.</p>${ending}${threads}${years.join("")}</article>`;
+  // Switch "warFocus": each war told as one short chapter (src/core/war.ts warChapter).
+  const wars = (s.island?.pastWars ?? []).map((w) => `<p><strong>${esc(w.name.charAt(0).toUpperCase() + w.name.slice(1))}.</strong> ${linkNames(sentences(w.chapter))}</p>`).join("");
+  const warNow = s.island?.warCard && s.island.war ? `<p><strong>The war now.</strong> ${linkNames(sentences(warChapter(s, s.island.warCard, "It goes on.")))}</p>` : "";
+  const warSection = wars || warNow ? `<section class="cyear"><h3>The wars</h3>${wars}${warNow}</section>` : "";
+  return `<article class="book"><h2>The chronicle</h2><p class="small muted">The turning points of each year. Open a year for the whole of it. Everything here is what you saw happen.</p>${ending}${warSection}${threads}${years.join("")}</article>`;
 }

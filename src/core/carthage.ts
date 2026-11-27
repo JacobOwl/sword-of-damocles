@@ -13,6 +13,12 @@ import {
   friendly, march, menWords, nodeName, path, yourArmy, loseMen,
 } from "./island.ts";
 import type { Army, GameState } from "./types.ts";
+import { seasonName } from "./state.ts";
+import { lean, cityGrainChange } from "./island.ts";
+import { WAR, card, carthageOffers, closeWar, landingReady, noticePendulum, openWar, pendulum, pendulumAnger, warOn, warSeason, weary } from "./war.ts";
+// Switch "warFocus": where a raid falls (a port of yours or an ally's, not Syracuse) and which town Carthage courts.
+const raidTarget = (s: GameState) => NODES.filter((n) => n.port && n.id !== "syracuse" && ["syracuse", "ally"].includes(city(s, n.id).side) && city(s, n.id).grain >= 2).map((n) => n.id)[0];
+const courtTarget = (s: GameState) => NODES.filter((n) => ["free", "ally"].includes(city(s, n.id).side) && city(s, n.id).lean > -2).sort((a, b) => city(s, b.id).lean - city(s, a.id).lean || a.id.localeCompare(b.id)).map((n) => n.id)[0];
 
 const N = CARTHAGE.numbers;
 const MOODS = ["Rebellious", "Angry", "Uneasy", "Content", "Loyal"];
@@ -30,10 +36,20 @@ export function prefers(s: GameState, id: string): { goal: string; why: string }
   const plague = c.plagueUntil >= s.season;
   const lostTown = recent(s, "punicLost", 8);
   const lostTribute = recent(s, "tributeLost", 8);
-  const anger = s.clock;
+  // Switch "warFocus": holding much of the island unites the blocs (each goes to war a point sooner), and
+  // weariness, not a count of seasons, makes them want peace.
+  const anger = s.clock + pendulumAnger(s);
+  const wc = card(s);
+  const tired = (bloc: string) => (wc ? wc.weary.carthage >= WAR.knobs.weary.carthagePeace[bloc] : false);
+  const tiredWhy = () => `Carthage is weary of the war (${wc!.weary.carthage} of ${WAR.knobs.weary.max})`;
+  if (wc && isl.war) {
+    if (id === "elders" && tired("elders") && !lostTown) return { goal: "peace", why: tiredWhy() };
+    if (id === "people" && tired("people") && !lostTown) return { goal: "peace", why: tiredWhy() };
+    if (id === "hundred" && tired("hundred")) return { goal: "peace", why: tiredWhy() };
+  }
   if (id === "elders") {
     if (isl.war && (c.armiesLost >= N.peaceArmiesLost.elders || plague)) return { goal: "peace", why: plague ? "plague is in the city" : "an army is lost" };
-    if (isl.war && s.season - isl.warSince >= N.warWeary.elders && !lostTown) return { goal: "peace", why: `${s.season - isl.warSince} seasons of war have emptied the treasury` };
+    if (!wc && isl.war && s.season - isl.warSince >= N.warWeary.elders && !lostTown) return { goal: "peace", why: `${s.season - isl.warSince} seasons of war have emptied the treasury` };
     if (anger >= N.warAnger.elders || lostTown) return { goal: "war", why: lostTown ? "a Punic town has fallen" : `Carthage's anger is ${anger}` };
     if (isl.war) return { goal: "war", why: "the war is on, and the Elders will not be seen to flinch" };
     if (c.silver < N.silverForRebuild) return { goal: "rebuild", why: "the treasury is thin" };
@@ -47,7 +63,7 @@ export function prefers(s: GameState, id: string): { goal: string; why: string }
   }
   // the people
   if (isl.war && plague) return { goal: "peace", why: "plague is in the city" };
-  if (isl.war && s.season - isl.warSince >= N.warWeary.people && !lostTown) return { goal: "peace", why: `${s.season - isl.warSince} seasons of war, and nothing to show for it` };
+  if (!wc && isl.war && s.season - isl.warSince >= N.warWeary.people && !lostTown) return { goal: "peace", why: `${s.season - isl.warSince} seasons of war, and nothing to show for it` };
   if (anger >= N.warAnger.people || lostTown || isl.war) return { goal: "war", why: isl.war ? "the war is on, and the people want it won" : lostTown ? "a Punic town has fallen" : `Carthage's anger is ${anger}` };
   return { goal: "rebuild", why: plague ? "plague is in the city" : "the people want to mend what the last war broke" };
 }
@@ -101,8 +117,10 @@ export function startWar(s: GameState, text: string, why: string) {
     c.lean = Math.min(3, c.lean + 1);
   }
   log(s, { actor: "world", text: "The tribute towns stir: their people hope to be free of Carthage.", why: "war has come", visible: true, kind: "change" });
+  openWar(s, why); // switch "warFocus": the war card, its aims and its ledger
 }
-export function endWar(s: GameState, why: string) {
+// terms: switch "warFocus", the peace's terms in plain words (missing = each side keeps what it holds).
+export function endWar(s: GameState, why: string, terms?: string) {
   const isl = s.island!;
   isl.war = false;
   s.flags.peaceMade = s.season;
@@ -110,9 +128,11 @@ export function endWar(s: GameState, why: string) {
   count(s, "peaces");
   const ca = carthageArmy(s);
   if (ca) { isl.armies = isl.armies.filter((a) => a !== ca); isl.carthage.mercs += Math.floor(ca.men / 2); const g = isl.carthage.people[ca.commander]; if (g) g.status = "free"; }
-  event(s, "world", "Peace is made between Syracuse and Carthage. Each keeps what it holds.", why);
+  event(s, "world", `Peace is made between Syracuse and Carthage. ${terms ?? "Each keeps what it holds."}`, why);
   s.clock = Math.min(s.clock, 4);
   isl.carthage.goal = "rebuild";
+  isl.carthage.general = undefined;
+  closeWar(s, `Peace was made in ${seasonName(s.season)}. ${terms ?? "Each side kept what it held."}`);
 }
 
 // ---------- Carthage's acts ----------
@@ -132,12 +152,15 @@ const CHECKS: Record<string, Check> = {
   ships: (s) => C(s).silver >= actDef("ships").cost && C(s).ships < 8,
   fortify: (s) => C(s).silver >= actDef("fortify").cost && NODES.some((n) => city(s, n.id).side === "carthage" && city(s, n.id).men < actDef("fortify").maxMen && !s.island!.armies.some((a) => a.siege === n.id)),
   general: (s) => s.island!.war && !C(s).general && !!freeGeneral(s),
-  invade: (s) => s.island!.war && !!C(s).general && !carthageArmy(s) && C(s).mercs + C(s).levy >= actDef("invade").minMen && C(s).ships >= actDef("invade").minShips && !!landing(s),
+  invade: (s) => landingReady(s) && s.island!.war && !!C(s).general && !carthageArmy(s) && C(s).mercs + C(s).levy >= actDef("invade").minMen && C(s).ships >= actDef("invade").minShips && !!landing(s),
   reinforce: (s) => !!carthageArmy(s) && C(s).mercs + C(s).levy >= actDef("reinforce").minMen && C(s).ships >= actDef("reinforce").minShips,
   silver: (s) => s.clock >= actDef("silver").minAnger && C(s).silver >= actDef("silver").cost && (s.plots.length > 0 || others(s).some((p) => p.status === "free" && p.opinion <= -1)),
   peace: (s) => s.island!.war && C(s).offer < s.season - 1,
   recall: (s) => !!carthageArmy(s) && (C(s).goal !== "war" || carthageArmy(s)!.men <= 2),
   propitiate: (s) => C(s).silver >= actDef("propitiate").cost && (C(s).plagueUntil >= s.season || recent(s, "carthageArmyLost", 6) || recent(s, "carthagePlague", 6)) && !s.flags.propitiated,
+  // Switch "warFocus": in a lull Carthage's ships raid your coast, and its envoys court the towns.
+  raid: (s) => warOn(s) && s.island!.war && !carthageArmy(s) && C(s).ships >= actDef("raid").minShips && !!raidTarget(s),
+  court: (s) => warOn(s) && !carthageArmy(s) && C(s).silver >= actDef("court").cost && !!courtTarget(s),
   quiet: (s) => C(s).silver >= actDef("quiet").cost && C(s).blocs.libyans.mood <= actDef("quiet").maxMood,
 };
 
@@ -155,10 +178,27 @@ function doAct(s: GameState, id: string, goalName: string) {
       bloc(s, "elders", d.mood.elders, "trade pays");
       break;
     }
-    case "hire":
-      c.silver -= d.cost; c.mercs += d.mercs;
-      say(s, `${d.text} (${menWords(d.mercs)} hired.)`, why);
+    case "hire": {
+      // Switch "warFocus": a council united by your gains hires more (the great expedition).
+      const more = pendulum(s) && s.island!.war ? Math.ceil(d.mercs * WAR.knobs.pendulum.hireBonus) : 0;
+      c.silver -= d.cost; c.mercs += d.mercs + more;
+      say(s, `${d.text} (${menWords(d.mercs + more)} hired${more ? ", more than ever: the council is united against you" : ""}.)`, why);
       break;
+    }
+    case "raid": {
+      const t = raidTarget(s)!;
+      cityGrainChange(s, t, -d.grain, "Carthage's ships raid its coast");
+      event(s, "carthage", `Carthage's ships raid the coast of ${nodeName(t)} and burn its fields by the shore.`, `${why}; its army is not in Sicily, so its fleet keeps the war alive`);
+      weary(s, "syracuse", WAR.knobs.weary.raided, `the coast of ${nodeName(t)} was raided`);
+      break;
+    }
+    case "court": {
+      const t = courtTarget(s)!;
+      c.silver -= d.cost;
+      lean(s, t, -1, "Carthage's envoys bring gifts and promises");
+      say(s, `Carthage's envoys court ${nodeName(t)} with gifts and kind words.`, `${why}; Magon's way: win the towns, not burn them (Diodorus 14.90.3)`);
+      break;
+    }
     case "levy":
       c.levy += d.levy;
       say(s, `${d.text} (${menWords(d.levy)}.)`, why);
@@ -221,6 +261,7 @@ function doAct(s: GameState, id: string, goalName: string) {
     case "peace":
       c.offer = s.season;
       count(s, "peaceOffers");
+      if (carthageOffers(s)) break; // switch "warFocus": envoys with terms, as a matter before you
       event(s, "carthage", "Carthage's envoys come to Syracuse with terms: peace, and each side keeps what it holds. You may accept this season or the next.", why);
       break;
     case "recall": {
@@ -338,6 +379,9 @@ export function carthageStep(s: GameState) {
   if (!c.revolt && lib === 0) { c.revolt = true; count(s, "libyanRevolts"); event(s, "carthage", "The Libyan subjects rise against Carthage.", "the levies and dues drove them to it"); }
   else if (c.revolt && lib >= 2) { c.revolt = false; event(s, "carthage", "Libya is quiet again.", `the Libyans are ${MOODS[lib]}`); }
   if (c.revolt) c.silver = Math.max(0, c.silver - 1);
+  // Switch "warFocus": weariness, the announced landing, the return owed, aims met, the war's matters.
+  warSeason(s);
+  noticePendulum(s);
   // The council's goal, then its acts.
   chooseGoal(s);
   const goal = goalDef(c.goal);

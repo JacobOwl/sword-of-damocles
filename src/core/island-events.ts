@@ -12,6 +12,8 @@ import {
   loseMen, menWords, nodeDef, nodeName, path, takeCity, yourArmy, lean as leanCity, setSide, cityGrainChange,
 } from "./island.ts";
 import { endWar } from "./carthage.ts";
+import { WAR, applyTerms, card, termsFor, termsText, warNote, weary } from "./war.ts";
+const aimName = (side: "syracuse" | "carthage", id: string) => ((side === "carthage" ? WAR.carthageAims : WAR.yourAims).find((a: any) => a.id === id)?.name ?? id);
 import { leaderOfCity, councilOf, captainOf, censusPersonName } from "./census-game.ts";
 import type { Army, GameState, Side } from "./types.ts";
 
@@ -166,7 +168,8 @@ export function castPart(s: GameState, r: CensusRole | PunicRole, cast: Record<s
 // ---------- Effects ----------
 
 const ISLAND_EFFECTS = ["lean", "cityGrain", "cityMen", "cityWalls", "fear", "side", "takeCity", "armyMen", "armyFood", "siegeLines", "liftSiege",
-  "armyHome", "onTake", "bloc", "blocPower", "cSilver", "cMercs", "cLevy", "cShips", "cPlague", "generalFalls", "peace"] as const;
+  "armyHome", "onTake", "bloc", "blocPower", "cSilver", "cMercs", "cLevy", "cShips", "cPlague", "generalFalls", "peace",
+  "warAim", "weary", "noBattle", "terms", "warNote"] as const; // the last five: switch "warFocus" (war.ts)
 export const ISLAND_EFFECT_KEYS = new Set<string>(ISLAND_EFFECTS);
 const armyOf = (s: GameState, side: string) => (side === "carthage" ? carthageArmy(s) : yourArmy(s));
 const sgn = (n: number) => (n > 0 ? `+${n}` : `${n}`);
@@ -249,6 +252,20 @@ export function applyIslandEffect(s: GameState, cast: Record<string, string>, e:
       break;
     }
     case "peace": if (isl.war) endWar(s, why); break;
+    case "warAim": { const c = card(s); if (c) { c.yourAim = e.warAim; log(s, { actor: PLAYER, text: `Your aim in this war: ${aimName("syracuse", e.warAim)}.`, why, visible: true, kind: "event" }); } break; }
+    case "weary": weary(s, e.weary, e.by, why); break;
+    case "noBattle": { const c = card(s); if (c) c.noBattle = 0; break; }
+    case "warNote": warNote(s, e.warNote, "deed", e.text, e.weight ?? 1); break;
+    case "terms": {
+      const c = card(s);
+      if (!c || !isl.war || !c.terms) break;
+      if (e.terms === "accept" || e.terms === "better") {
+        const t = e.terms === "better" ? termsFor(s, "syracuse") : c.terms;
+        applyTerms(s, t, why);
+        endWar(s, why, termsText(t));
+      } else { c.terms = undefined; log(s, { actor: "carthage", text: "Carthage's envoys sail home without a peace.", why, visible: true, kind: "event" }); }
+      break;
+    }
   }
   return true;
 }
@@ -282,6 +299,11 @@ export function describeIslandEffect(s: GameState, cast: Record<string, string>,
     case "cPlague": return "Plague in Carthage";
     case "generalFalls": return `${capital(cast[e.generalFalls] ? partName(s, cast[e.generalFalls]) : "Carthage's general")} loses his command`;
     case "peace": return "Peace with Carthage: each side keeps what it holds";
+    case "warAim": return `Your aim: ${aimName("syracuse", e.warAim)}`;
+    case "weary": return `${e.weary === "carthage" ? "Carthage's" : "Syracuse's"} war weariness ${sgn(e.by)}`;
+    case "noBattle": return "The army's patience is restored";
+    case "warNote": return `In the war's ledger: ${e.text}`;
+    case "terms": { const c = card(s); return e.terms === "accept" && c?.terms ? `Peace: ${termsText(c.terms)}` : e.terms === "better" ? `Peace on the terms the war supports: ${termsText(termsFor(s, "syracuse"))}` : "The envoys go home"; }
   }
   return null;
 }
@@ -310,6 +332,11 @@ export function scoreIslandEffect(s: GameState, cast: Record<string, string>, e:
     case "cPlague": return 2;
     case "generalFalls": return 2;
     case "peace": return s.island.war ? 2 : 0;
+    case "warAim": return 0;
+    case "weary": return (e.weary === "carthage" ? 0.5 : -0.5) * e.by;
+    case "noBattle": return 1;
+    case "warNote": return 0.5;
+    case "terms": { const c = card(s); if (!c?.terms) return 0; const p = c.terms.silver?.payer === "syracuse" ? -c.terms.silver.amount : (c.terms.silver?.amount ?? 0); return e.terms === "refuse" ? 0 : 1 + p * 0.5 - c.terms.towns.filter((x) => x.to !== "free").length * 3; }
   }
   return 0;
 }
