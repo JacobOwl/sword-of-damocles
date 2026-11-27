@@ -290,6 +290,7 @@ export interface GameState {
   events?: EventsState;
   scenario?: Scenario; // missing = citadel (Phase 1)
   preset?: string; // the ready-made setup it was started from (data/presets.json), if any
+  startSeason?: number; // a late opening (src/core/opening.ts): the season the game began at, if not the first
   island?: IslandState;
   census?: import("./census.ts").Census; // the generated cast of invented people (island games only)
   secrets?: SecretsState; // switch "secrets"

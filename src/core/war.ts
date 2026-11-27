@@ -85,7 +85,7 @@ export function warChapter(s: GameState, c: WarCard, how: string): string {
     return `${p.name} ${fate}`;
   });
   const parts = [
-    `It began in ${seasonName(c.since)}${c.causes.length ? `, after ${c.causes.slice(-1)[0]}` : ""}.`,
+    `It began in ${seasonName(c.since)}${c.causes.length ? `, after ${c.causes.slice(-1)[0].replace(` (${seasonName(c.since)})`, "")}` : ""}.`,
     `Carthage fought to ${aimC.phrase}${aimY ? `; you, to ${aimY.phrase}` : ""}.`,
     turns.length ? `${turns.join(". ")}.` : "",
     gens.length ? `${gens.join("; ")}.` : "",
