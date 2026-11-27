@@ -575,3 +575,9 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 ## 2026-11-27 (thread 43, Jacob's test 4 debrief)
 
 - Jacob's test-4 save read and written up as a report only (`docs/playtests/2026-11-27-jacob-test4/`). Why: he stopped after six seasons and left the check-in empty; the save shows the war ending two seasons after the landing even with `carthageStays`. No rule changed; the fix list waits for Jacob.
+
+## 2026-11-27 (big scenes design, thread 46)
+- **Done (Jacob: "Can we explore this idea. Look up other games"):** a design proposal for big pop-up scenes, `docs/council/2026-11-27-big-scenes.md`, with games opened and quoted (CK3 Struggles, Six Ages, Griftlands, Banner Saga commentary) and others marked unverified. Report only: no rules changed.
+- **Decided (small, here):** a scene only shows what the simulation is already doing; it is never drawn by chance.
+- **Decided (Jacob, "Have councils look into these issues", then "ok do it" to the test 5 plan):** the doc became a council spec with every mechanic tied to a game or a passage; build order frame, battle and sea scenes (`battleScenes`), plot and crisis scenes (`crisisScenes`); the debate after test 5.
+- **Open:** whether a scene may kill you; which scenes pop up.
