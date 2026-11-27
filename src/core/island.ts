@@ -12,6 +12,7 @@ import { clock, event, grain, guardSet, mood, powerChange, setStatus, silver, ne
 import type { Army, CityState, GameState, IslandState, Mod, Side } from "./types.ts";
 import { townSideChanged, initTownBoards, houseMods, sendsSupport, seatFriend, newsOfDefeat, gateOffer } from "./towns.ts";
 import { fireTowns } from "./war.ts";
+import { supplyOn, feedFromArea } from "./supply.ts";
 import { WAR, warOn, warTownChanged, warBattle, warArmyDestroyed, warTaken, warSack, warCampPlague, warHunger } from "./war.ts";
 // Switch "warFocus": a Carthaginian general whose way is kindness (Magon, Diodorus 14.90.3) spares what he takes.
 export const kindGeneral = (s: GameState, a: Army) => warOn(s) && a.side === "carthage" && CARTHAGE.people.find((p: any) => p.id === a.commander)?.method === "kindness";
@@ -463,7 +464,7 @@ export function islandWorld(s: GameState) {
       if (n.id === "syracuse") continue;
       const c = city(s, n.id);
       const besieged = isl.armies.some((a) => a.siege === n.id);
-      if (!besieged && !c.sacked) cityGrainChange(s, n.id, 4, "the summer harvest");
+      if (!besieged && !c.sacked && !((c.ravagedUntil ?? -1) >= s.season)) cityGrainChange(s, n.id, 4, "the summer harvest"); // ravagedUntil: switch "armySupply"
       if (besieged) continue;
       if (c.side === "tributary") { isl.carthage.silver += R.tributeSilver; }
       const sends = sendsSupport(s, n.id); // switch "townBoards": a divided town, or one with no friend of yours, sends nothing
@@ -479,7 +480,9 @@ export function islandWorld(s: GameState) {
     if (a.since === s.season) continue;
     const c = city(s, a.at);
     const def = nodeDef(a.at)!;
-    if (friendly(a.side, c.side) && !a.siege && cityGrain(s, a.at) >= R.resupplyGrain && a.food < R.foodOnMuster) {
+    // Switch "armySupply": it feeds from the friendly towns within a few days, and a big army needs more of them.
+    if (supplyOn(s) && a.food < R.foodOnMuster && feedFromArea(s, a, R.foodOnMuster)) continue;
+    if (!supplyOn(s) && friendly(a.side, c.side) && !a.siege && cityGrain(s, a.at) >= R.resupplyGrain && a.food < R.foodOnMuster) {
       cityGrainChange(s, a.at, -R.resupplyGrain, `feeding ${armyName(s, a)}`);
       a.food = R.foodOnMuster;
       continue;

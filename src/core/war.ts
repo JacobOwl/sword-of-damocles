@@ -9,6 +9,7 @@ import { log, event, clock, mood, silver } from "./ops.ts";
 import { PLAYER, capital, seasonName } from "./state.ts";
 import { CARTHAGE, ISLAND, NODES, carthageArmy, carthagePersonName, city, menWords, nodeDef, nodeName, setSide, yourArmy } from "./island.ts";
 import type { GameState, Side } from "./types.ts";
+import { patience } from "./supply.ts";
 
 export const WAR = warJson as any;
 const K = WAR.knobs;
@@ -194,6 +195,7 @@ export function warSeason(s: GameState) {
   if (k.plagueUntil >= s.season && s.flags.warPlagueSeen !== k.plagueUntil) { s.flags.warPlagueSeen = k.plagueUntil; weary(s, "carthage", K.weary.carthagePlague, "plague in Carthage"); }
   if (ya && !ya.siege && ya.since !== s.season) c.noBattle += 1;
   if (!ya) c.noBattle = 0;
+  patience(s, ya, c.noBattle); // switch "armySupply": allies drift home from an army that will not fight
   // A revolt pauses the war but owes a return (the second test: "they haven't been back").
   if (k.revolt && !c.returnOwed) { c.returnOwed = true; event(s, "carthage", "Carthage's war is paused while Libya is in revolt. It will come back once Libya is quiet.", "the Libyan subjects are in revolt"); }
   if (!k.revolt && c.returnOwed) { c.returnOwed = false; clock(s, 1, "Libya is quiet, and Carthage has a war to finish"); event(s, "carthage", "Libya is quiet. Carthage turns back to its war with you.", "the revolt is over"); }
