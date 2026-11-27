@@ -11,4 +11,8 @@ Report only. Quotes were checked by script against the saved texts in JacobOwl/p
 | #95 | Mosaic portraits, Carthage's council and three more | Usable | Same coin form and tiles as the 24. Carthage's five faces look alike at small size, and Bomilcar's dark face is hard to read. Drawn without a browser, so tiles differ a little from the editor's; resaving from the editor fixes that. It lists four existing looks that jar (Dionysius in Carthage's purple, and others): Jacob's call. |
 | #97 | Playtest bot, 23,520 games | Strong | Found two real bugs, not yet fixed: a dead man keeps his council seat while you are in exile, and a dead man started a plot. Also content that never shows (no petition for land, "Men for the walls"). It edits package.json, handoff and decisions, so it needs main merged in before it lands. |
 | #89 | Art library | Fixed and merged by thread 40 | Flat medallions, not mosaics; a stray cache file; about 18 MB. Thread 40 fixed and merged it on 2026-11-27; not reviewed again here. |
-| #84 | Twenty petitions (on main) | Good | One quote is unverified: "had sold into slavery the Naxians and Catanians" (Diodorus 14.40.1). Diodorus 14.40 is not among the saved texts, so it can't be checked. Not shown to be wrong. |
+| #84 | Twenty petitions (on main) | Good | Every quote checks out. The Diodorus 14.40.1 line ("had sold into slavery the Naxians and Catanians") is in this repo's own `sources/diodorus/book14-19-40.loeb.excerpts.txt`; an earlier version of this review wrongly called it unverifiable. |
+
+## Second round (2026-11-27, evening)
+
+Merged on Jacob's say-so: #116 (Carthage's government card and a cast of 20), #117 (town casts for the 8 towns), #118 (story metrics over 600 games). Quotes in #116 and #117 all found in the saved texts of both repos. #118 needed two type fixes to pass `npm run typecheck` on main; its output was unchanged.
