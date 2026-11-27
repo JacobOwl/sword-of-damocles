@@ -71,3 +71,19 @@ test("with the switches off, the second island test is untouched by the new stat
   assert.equal((s.island as any).townBoards, undefined);
   assert.equal((s.island as any).warCard, undefined);
 });
+
+test("battle plate: the plan is a free order and shows on your side of the battle", async () => {
+  const { act } = await import("../src/core/index.ts");
+  const { battleMods } = await import("../src/core/island.ts");
+  const s = near();
+  muster(s, false);
+  const slots = s.slots;
+  act(s, "battlePlan", { target: "combined", second: "reserve" });
+  assert.equal(s.slots, slots, "setting the plan uses no action");
+  const a = yourArmy(s)!;
+  assert.equal(a.plan, "combined");
+  assert.equal(a.reserve, true);
+  const labels = battleMods(s, a).map((m) => m.label);
+  assert.ok(labels.some((l) => /combined attack/.test(l)));
+  assert.ok(labels.some((l) => /reserve/.test(l)));
+});

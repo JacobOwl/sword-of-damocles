@@ -13,6 +13,7 @@ import type { Army, CityState, GameState, IslandState, Mod, Side } from "./types
 import { townSideChanged, initTownBoards, houseMods, sendsSupport, seatFriend, newsOfDefeat, gateOffer } from "./towns.ts";
 import { fireTowns } from "./war.ts";
 import { supplyOn, feedFromArea } from "./supply.ts";
+import { planMods, combinedArrival, holdsToDraw, reserveSaves, afterBattle } from "./plate.ts";
 import { WAR, warOn, warTownChanged, warBattle, warArmyDestroyed, warTaken, warSack, warCampPlague, warHunger } from "./war.ts";
 // Switch "warFocus": a Carthaginian general whose way is kindness (Magon, Diodorus 14.90.3) spares what he takes.
 export const kindGeneral = (s: GameState, a: Army) => warOn(s) && a.side === "carthage" && CARTHAGE.people.find((p: any) => p.id === a.commander)?.method === "kindness";
@@ -236,6 +237,7 @@ export function battleMods(s: GameState, a: Army): Mod[] {
   if (a.side === "syracuse" && a.guard > 0 && s.factions.guard.mood === 4) m.push({ label: "the guard is Loyal", value: 1 });
   if (a.side === "syracuse" && s.guard.arrearsSeasons > 0 && a.guard > 0) m.push({ label: "the guard is unpaid", value: -1 });
   if (a.side === "syracuse" && a.commander === PLAYER && s.campaign?.leader === PLAYER) m.push({ label: "you lead in person", value: (commissionJson as any).knobs.inPerson }); // switch "commission"
+  m.push(...planMods(s, a, s.island!.armies.find((o) => o.side !== a.side && o.at === a.at) ?? s.island!.armies.find((o) => o.side !== a.side))); // switch "battlePlate"
   return m;
 }
 const sum = (m: Mod[]) => m.reduce((x, y) => x + y.value, 0);
@@ -244,9 +246,23 @@ const modText = (m: Mod[]) => m.map((x) => ` ${x.value >= 0 ? "+" : "-"}${Math.a
 export function battle(s: GameState, a: Army, b: Army) {
   const ma = battleMods(s, a), mb = battleMods(s, b);
   const da = d6(s), db = d6(s);
+  // Switch "battlePlate": the parts of a combined attack roll to arrive in time.
+  const lateA = combinedArrival(s, a), lateB = combinedArrival(s, b);
+  if (lateA) ma.push({ label: "parts came too late", value: lateA });
+  if (lateB) mb.push({ label: "parts came too late", value: lateB });
   const ta = da + sum(ma), tb = db + sum(mb);
   count(s, "battles");
   event(s, "world", `Battle at ${nodeName(a.at)}. ${capital(armyName(s, a))} rolled ${da}${modText(ma)} = ${ta}; ${armyName(s, b)} rolled ${db}${modText(mb)} = ${tb}.`, "two armies met");
+  const mineA = a.side === "syracuse" ? a : b, foeA = a.side === "syracuse" ? b : a;
+  const myMargin = (a.side === "syracuse" ? tb - ta : ta - tb); // how far you are beaten by, if beaten
+  if (ta !== tb && myMargin > 0 && holdsToDraw(s, mineA, myMargin)) {
+    event(s, PLAYER, "Your line holds. The enemy cannot break it, and the day ends without a victor.", "you held the line");
+    loseMen(s, a, Math.ceil(a.men / 6), "a bloody draw");
+    loseMen(s, b, Math.ceil(b.men / 6), "a bloody draw");
+    if (s.island!.armies.includes(a)) retreat(s, a, "it could not break through");
+    afterBattle(s, mineA, foeA, false);
+    return;
+  }
   if (ta === tb) {
     loseMen(s, a, Math.ceil(a.men / 6), "a bloody draw");
     loseMen(s, b, Math.ceil(b.men / 6), "a bloody draw");
@@ -260,7 +276,10 @@ export function battle(s: GameState, a: Army, b: Army) {
   warBattle(s, win.side, win.at); // switch "warFocus"
   if (lose.side === "syracuse") newsOfDefeat(s, win.at); // switch "townBoards"
   loseMen(s, win, Math.ceil(win.men / 6), "the cost of victory");
-  loseMen(s, lose, Math.ceil(lose.men / 3), "beaten in the field");
+  const saved = reserveSaves(s, lose); // switch "battlePlate": the reserve covers the retreat to camp
+  if (saved) event(s, PLAYER, "Your reserve covers the retreat. The survivors reach the camp, and night saves them.", "as the survivors in the camp were preserved by the coming of night (Diodorus 15.17.4)");
+  loseMen(s, lose, Math.ceil(lose.men / (saved ? 6 : 3)), "beaten in the field");
+  afterBattle(s, win.side === "syracuse" ? win : lose, win.side === "syracuse" ? lose : win, win.side === "syracuse");
   s.flags[win.side === "syracuse" ? "battleWon" : "battleLost"] = s.season; // for events (data/island-events.json)
   if (win.side === "syracuse") {
     mood(s, "citizens", 1, "a victory over Carthage");
@@ -272,7 +291,7 @@ export function battle(s: GameState, a: Army, b: Army) {
   }
   if (!s.island!.armies.includes(lose)) return;
   // Switch "armiesBreak": a beaten army that is starving, or was beaten once already this year, scatters.
-  if (on(s, "armiesBreak")) {
+  if (on(s, "armiesBreak") && !reserveSaves(s, lose)) {
     const twice = lose.beaten !== undefined && s.season - lose.beaten < R.breakWithin;
     if (lose.food <= 0 || twice) {
       count(s, "armiesBroken");

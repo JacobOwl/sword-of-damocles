@@ -1,0 +1,16 @@
+{
+  "kind": "invention",
+  "note": "Switch \"battlePlate\" (the war and geopolitics focus, council of 2026-11-27, question 5B): the same battle numbers underneath, with a plan, an earned stratagem and a reserve. The shapes come from Diodorus (the three-part plan that failed at Gela, 13.109.4-13.110.4; the men he distrusted sent first, 14.72.2-3; the survivors in the camp preserved by night, 15.17.4; after Magon fell Carthage sent to talk peace, 15.15.3-4; docs/research/war-and-towns.md); every number is invention.",
+  "plans": [
+    {"id": "hold", "kind": "invention", "name": "Hold the line", "text": "Safe: if you are beaten by 2 or less, it is a draw instead. Against a general who comes on hard, +1."},
+    {"id": "wing", "kind": "invention", "name": "Strike a wing", "text": "+1, and +1 more if your army is larger than theirs (their line is thinner)."},
+    {"id": "combined", "kind": "invention", "name": "A combined attack", "text": "+2 if both parts arrive in time. Each part rolls: on a 1 or 2 it comes too late, and each late part costs 2 (as at Gela in 405)."}
+  ],
+  "knobs": {
+    "holdDraw": 2,
+    "lateOn": 2,
+    "reserveMod": -1,
+    "generalFallsOn": 1,
+    "generalFallsWeary": 2
+  }
+}

@@ -9,14 +9,14 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Nothing wins almost always:** the careful bot in the first island test is the only one over 90% (92%); careful and patron 86% in the second test. No single action or greedy plan is an exploit.
 - **Not changed:** no game code or data. Fix ideas are in the report. The six tyrant campaigns are not playable yet (PR #96), so they are not covered.
 
-## War and geopolitics focus, stage 1 and the Near-war test (thread 41, 2026-11-27)
-**Built.** Jacob: "Build it", with the council's recommended pick on all seven questions (`docs/council/2026-11-27-war-and-geopolitics.md`). PRs #99, #102 and this one.
-- **The war card (switch `warFocus`, off by default; on in the new Near-war test preset):** aims for both sides, a ledger of named turning points, weariness on both sides, peace with terms from the ledger (Carthage's envoys, your Offer peace), the return owed after a Libyan revolt, Carthage's landing announced a season ahead, the pendulum, kind and harsh generals, raids and courting, five war matters, the war strip on the season and island pages, Carthage's waiting army on the map, each war told as a chapter in the Story. `data/war.json`, `src/core/war.ts`, `ui/components/war.ts`.
-- **Near-war test preset:** opens spring 398 BC (`opening` in `data/presets.json`, `src/core/opening.ts`, card `docs/research/opening-398.md`), 14 seasons, check-ins at 5 and 10. On the test link beside the Second island test.
-- **Checks:** `npm test` 195 of 195; 100 seeds 0 crashes, 0 broken; `npm run war-runs -- --seeds 100 --preset nearWarTest` 0 crashes, wars about 5 seasons, about 0.9 ended by terms a game.
-- **Not built yet:** stage 2 town boards, stage 3 map drag, supply by area and ravaging, stage 4 the battle plate. Side patterns on the map are not done.
-- **Third test overlap:** the debrief's "Carthage that can pay" proposal (`docs/playtests/2026-11-27-jacob/notes.md`) belongs to this focus; not built, Jacob picks.
-- **Questions for Jacob:** does the war strip tell you how the war is going? Should Carthage's plague end its war at once (the old rule) or only tire it (now, with the card)?
+## War and geopolitics focus, all four stages and the Near-war test (thread 41, 2026-11-27)
+**Built.** Jacob: "Build it" (council's recommended picks), then "For test 4 why not add the stuff you say come next". PRs #99, #102 to #106.
+- **Switches, all off by default and all on in the Near-war test preset:** `warFocus` (the war card: aims, ledger, weariness, peace terms, announced landings, the pendulum, raids and courting, war matters, the war strip, war chapters), `townBoards` (three houses a town, divided towns, gates from inside, purges on defeat, Court a house), `armySupply` (supply by area, Ravage, Reinforce, allies drift home, burnt fields, drag the army on the map), `battlePlate` (plan, reserve, earned stratagem, the plate on the island page, a beaten general may fall).
+- **Near-war test:** opens spring 398 BC (`src/core/opening.ts`, `docs/research/opening-398.md`), 14 seasons, check-ins at 5 and 10. This is test 4, on the test link.
+- **Checks:** `npm test` 201 of 201; 100 seeds 0 crashes, 0 broken; `npm run war-runs -- --seeds 200 --preset nearWarTest` 0 crashes (`--without <switches>` compares).
+- **Not built:** garrisons as their own rule, a Sicel lord who feeds one side, the army cartouche on the map, side patterns on the map, the season replayed on the map, wing commanders by name. Bots never set a battle plan, Ravage or Reinforce.
+- **Third test overlap:** "Carthage that can pay" (`docs/playtests/2026-11-27-jacob/notes.md`) is not built; Jacob picks.
+- **Questions for Jacob:** after test 4, does a war read as a story? Is the plate worth its screen space? Should plague end Carthage's war (old rule) or only tire it (now)?
 
 ## Duet review and new jobs (thread 42, 2026-11-27)
 **Report and prompts only.** Duet's work checked (`docs/duet-review-2026-11-27.md`): research good, quotes verified, portraits usable, playtest bot found two bugs (a dead man keeps his seat while you're in exile; a dead man starts a plot), not fixed yet. Twelve new self-contained jobs in `docs/duet-prompts.md` (3 to 14).

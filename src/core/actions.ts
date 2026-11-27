@@ -1022,7 +1022,7 @@ export interface MenuItem {
   targets?: Option[]; targetLabel?: string; secondLabel?: string; thirdLabel?: string; blocked: string | null;
 }
 // Switch "mintHabit" (council 2026-11-27): striking coin at your own mint is an order, not one of your three actions.
-export const freeAction = (s: GameState, action: string) => action === "strikeCoin" && on(s, "mintHabit");
+export const freeAction = (s: GameState, action: string) => (action === "strikeCoin" && on(s, "mintHabit")) || (action === "battlePlan" && on(s, "battlePlate")); // the battle plan is an order, not an action
 export function menu(s: GameState): MenuItem[] {
   return DATA.actions.filter((a) => !a.aiOnly && inScenario(s, a)).map((a) => {
     const impl = IMPL[a.id];

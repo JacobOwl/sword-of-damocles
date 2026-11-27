@@ -2,7 +2,7 @@
 // It only reads the state; every rule is in src/core.
 import {
   CARTHAGE, ISLAND, NODES, ROUTES, armyName, blocDef, capital, carthageAgenda, cityGrain, cityMen, cityWalls, goalDef, menWords,
-  moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo, warCard, supplyOn, foodState, ravaged, SUPPLY, townBoardsOn, townSeats, houseName, townDivided, sendsSupport,
+  moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo, warCard, plateOn, planDef, habitLine, BATTLE, battleMods, supplyOn, foodState, ravaged, SUPPLY, townBoardsOn, townSeats, houseName, townDivided, sendsSupport,
 } from "../../src/core/index.ts";
 import type { Handlers } from "../app/clicks.ts";
 import * as sound from "../lib/sound.ts";
@@ -141,6 +141,22 @@ function citySheet(g: GameState, id: string) {
     ${how ? `<p class="small"><b>What you can do.</b> ${esc(how)}</p>` : ""}${marchHere(g, id)}${mapResult(g)}</div>`;
 }
 
+// Switch "battlePlate": your plan against Carthage's army, each modifier a stamped token, the die still blank.
+function battlePlate(g: GameState) {
+  const ya = yourArmy(g);
+  if (!plateOn(g) || !ya || g.over) return "";
+  const foe = g.island!.armies.find((a) => a.side === "carthage");
+  const tok = (m: { label: string; value: number }) => `<li><span class="token ${m.value >= 0 ? "plus" : "minus"}">${m.value >= 0 ? "+" : "−"}${Math.abs(m.value)}</span> ${esc(m.label)}</li>`;
+  const mine = battleMods(g, ya), theirs = foe ? battleMods(g, foe) : [];
+  const plans = BATTLE.plans.map((p: any) => `<button type="button" class="small${ya.plan === p.id ? " on" : ""}" data-plan="${p.id}" title="${esc(p.text)}">${esc(p.name)}</button>`).join(" ");
+  return `<section class="plate" aria-label="The battle plate"><h4>The battle plate</h4>
+    <p class="small">${plans} <button type="button" class="small${ya.reserve ? " on" : ""}" data-reserve="${ya.reserve ? "" : "1"}">${ya.reserve ? "Reserve held back" : "Hold back a reserve"}</button> <span class="muted">(setting the plan uses no action)</span></p>
+    ${ya.plan ? `<p class="small"><b>${esc(planDef(ya.plan).name)}.</b> ${esc(planDef(ya.plan).text)}</p>` : `<p class="small muted">No plan set: your general fights his own way.</p>`}
+    <div class="platecols"><div><span class="label">${esc(capital(armyName(g, ya)))}</span><span class="die" aria-label="a die not yet thrown"></span><ul class="tokens small">${mine.map(tok).join("")}</ul></div>
+    <div><span class="label">${foe ? esc(capital(armyName(g, foe))) : "Carthage"}</span>${foe ? `<span class="die" aria-label="a die not yet thrown"></span><ul class="tokens small">${theirs.map(tok).join("")}</ul><p class="small muted">${esc(habitLine(g, foe))}</p>` : `<p class="small muted">No Carthaginian army is in Sicily.</p>`}</div></div>
+    <p class="small muted">Each side throws one die and adds its tokens; the higher total wins. The tokens on Carthage's side are as it stands now, where it stands.</p></section>`;
+}
+
 // Switch "townBoards": the town's three leading houses, each with its head and which way it leans.
 const HOUSE_LEAN: Record<string, [string, string]> = { you: ["your friend", "good"], carthage: ["Carthage's friend", "warn"], town: ["for the town alone", "muted"] };
 function housesBlock(g: GameState, id: string) {
@@ -182,6 +198,8 @@ function mapResult(g: GameState) {
 }
 export const islandHandlers: Handlers = {
   click: {
+    "[data-plan]": (b, c) => { const ya = yourArmy(c.g); act(c.g, "battlePlan", { target: b.dataset.plan, second: ya?.reserve ? "reserve" : "all" }); c.save(); c.render(); },
+    "[data-reserve]": (b, c) => { const ya = yourArmy(c.g); act(c.g, "battlePlan", { target: ya?.plan ?? "hold", second: b.dataset.reserve ? "reserve" : "all" }); c.save(); c.render(); },
     "[data-march]": (b, c) => {
       const id = b.dataset.march!, from = c.g.log.length;
       act(c.g, "sendArmy", { target: id, second: b.dataset.order });
@@ -249,7 +267,7 @@ export function islandView(g: GameState): string {
         ${mapKey()}
         <figcaption class="small muted">The helmet is your army, the palm Carthage's. Aetna's site is uncertain. Coast and rivers: Natural Earth (today's); the hills are drawn by eye.</figcaption></figure>
       ${ui.city && isl.cities[ui.city] ? citySheet(g, ui.city) : ""}
-      <h3>Armies</h3>${armies}
+      <h3>Armies</h3>${armies}${battlePlate(g)}
       ${abroad.length ? `<h3>This season abroad</h3><ul class="small">${abroad.map((e) => `<li>${linkNames(e.text)}${e.why ? ` <span class="muted">(${esc(e.why)})</span>` : ""}</li>`).join("")}</ul>` : ""}
       <h3>The cities</h3>
       <div class="tablewrap"><table class="cities"><thead><tr><th>City</th><th>Side</th><th>Walls</th><th>Grain</th><th>Men</th><th>Toward you</th><th class="notes">Notes</th></tr></thead><tbody>${cityRows(g)}</tbody></table></div>
