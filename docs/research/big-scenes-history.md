@@ -62,3 +62,14 @@ Files: Diodorus `diodorus/english/book11.loeb.txt`, `book13.loeb.txt`, `book13-1
 6. The paid fine (406 to 405): silence, accusation, a rich backer, the vote.
 7. Motya's night ladders (397): a habit, then the night; then the sack.
 8. Cronium (c. 383 to 375): a wing commander falls; save the line or yourself; night.
+
+## Passages used by the plot, crisis and debate scenes (test 5 build, thread 49)
+
+Opened in `phoenician-punic-world/sources/diodorus/english/` (Loeb), quoted as found.
+
+- Unrest, 404: "The revolters also proclaimed a large reward to any who would slay the tyrant and promised citizenship to any mercenaries who would come over to them" (14.8.3).
+- The blockade of the Island: "being shut off as he now was from access to the countryside and constantly being abandoned by the mercenaries, gathered together his friends to counsel with them" (14.8.4).
+- The council in the citadel: Heloris, "Tyranny is a fair winding-sheet"; Polyxenus advised "to use his swiftest horse and ride off into the domain of the Carthaginians to the Campanians"; Philistus said "it was not fitting to dash from the tyranny on a galloping horse but to be cast out, dragged by the leg" (14.8.5).
+- Feigned terms: "he sent ambassadors to those in revolt and urged them to allow him and his companions to leave the city, while he secretly dispatched messengers to the Campanians and promised them any price they should ask for the duration of the siege" (14.8.6).
+- Mercy after: "Dionysius treated with humanity the exiles who returned" (14.9.8).
+- The debate levers: Philistus "paid the fine and urged Dionysius to speak out" (13.91.4); "when Gelon was general with supreme power" (13.94.5); Pharacidas came "not to overthrow the rule of Dionysius", and "the mercenaries flocked about Dionysius" (14.70.2); "honouring some of them with gifts and inviting some to general banquets" (14.70.3).

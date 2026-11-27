@@ -3,7 +3,7 @@
 // "battleScenes" a battle waits for you in it: the ground, your plan, the turning point, the roll, and what comes after.
 // Council debates in Carthage, plot strikes and crises use the same frame. It reads the state and sends your choices
 // through act(), like every other screen.
-import { act, allScenes, pendingScene, plateNow, BATTLE, planDef, habitLine, carthageArmy, yourArmy, seasonName, switchOn, PLAYER } from "../../src/core/index.ts";
+import { act, allScenes, pendingScene, pendingChoice, plateNow, BATTLE, planDef, habitLine, carthageArmy, yourArmy, seasonName, switchOn, PLAYER } from "../../src/core/index.ts";
 import type { GameState, Scene } from "../../src/core/index.ts";
 import { esc, ui } from "../lib/text.ts";
 import { vignette } from "./vignettes.ts";
@@ -99,7 +99,7 @@ export function sceneHtml(g: GameState, sc: Scene) {
 // The scenes to show now: a battle waiting for you first, then any finished scene you have not yet seen.
 export function scenesDue(g: GameState): Scene[] {
   if (!g.island) return [];
-  const p = pendingScene(g);
+  const p = pendingScene(g) ?? pendingChoice(g);
   const s0 = seen(g);
   const done = allScenes(g).filter((x) => x.stage === "done" && !s0.has(x.id) && x.season >= g.season - 1);
   return p ? [p] : done.slice(0, 3);

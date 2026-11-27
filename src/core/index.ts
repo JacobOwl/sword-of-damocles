@@ -67,3 +67,4 @@ export { FLEETS, fleetsOn, fleetState, soundYours, soundTheirs, fleetName, carth
 export { returnsState, recovering, inTruce } from "./returns.ts";
 export { ABROAD, abroadOn, abroadState, moodOf as abroadMood, moodWordOf as abroadMoodWord, powerDef, pharacidasHere, helpHere } from "./abroad.ts";
 export { ABROAD_NODES } from "./island.ts";
+export { pendingChoice, signsOf, crisisOn, risingOf, CRISES } from "./crises.ts";

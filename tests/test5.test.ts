@@ -92,3 +92,36 @@ test("friends abroad: the powers start with their mood words, Rhegium is a town 
   endSeason(s);
   assert.ok(pharacidasHere(s), "Pharacidas arrives");
 });
+
+test("the city rises in phases, holds a council in the citadel once, and eases when the factions calm", async () => {
+  const { risingSeason, risingOf, crisisChoice, pendingChoice } = await import("../src/core/crises.ts");
+  const s = t5(12);
+  s.factions.citizens.mood = 0; s.factions.rich.mood = 0; s.guard.arrearsSeasons = 1;
+  risingSeason(s); assert.equal(risingOf(s)!.phase, 1);
+  risingSeason(s); assert.equal(risingOf(s)!.phase, 2);
+  risingSeason(s); assert.equal(risingOf(s)!.phase, 3);
+  const sc = pendingChoice(s)!;
+  assert.equal(sc.kind, "crisis");
+  assert.ok(sc.speakers!.length >= 2, "your friends speak first");
+  crisisChoice(s, "feign", sc.id);
+  assert.ok(risingOf(s)!.feignUntil! > s.season);
+  s.factions.citizens.mood = 2;
+  s.season += 2;
+  risingSeason(s);
+  assert.ok(s.over || risingOf(s)!.phase === 0, "after the feint the rising is broken or you fall");
+});
+
+test("an assembly vote you are in is a debate: levers add to your side, and the vote settles the seat", async () => {
+  const { debateMove, pendingChoice } = await import("../src/core/crises.ts");
+  const { HOOKS } = await import("../src/core/hooks.ts");
+  const s = t5(13);
+  s.silver = 10;
+  const foe = Object.values(s.people).find((p) => !p.player && p.status === "free")!.id;
+  assert.ok(HOOKS.debate!(s, "treasury", "the treasury", "the assembly meets in spring", 3, 5, foe, true));
+  const sc = pendingChoice(s)!;
+  assert.equal(sc.kind, "debate");
+  debateMove(s, "gifts", sc.id);
+  assert.match(sc.result!, /^You 5/);
+  debateMove(s, "vote", sc.id);
+  assert.ok((sc as any).answered);
+});
