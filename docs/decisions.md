@@ -633,3 +633,6 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Ran:** the five war-council testers, 200 games each, on `test5` (`docs/playtests/2026-11-27-test5-council/council-runs.md`), and a browser pass over the new scenes and panels at 1280 and 390 wide.
 - **Fixed:** an assembly debate whose other man died, fled or was jailed before the vote gave the seat to him (2 broken states in 1,000 games); now the vote does not go ahead. Second run: no problems.
 - **Not tuned:** survival 72% to 84% by tester; battles won about as often as lost.
+
+## 2026-11-27 (thread 50, test 5 playtest)
+- **Parked:** pop-up scenes for big non-battle events, to decide after Jacob's test 5 (`docs/later.md`). Nothing built.
