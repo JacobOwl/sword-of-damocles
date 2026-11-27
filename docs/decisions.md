@@ -493,3 +493,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** a five-seat council (historian, strategy designer, board-game designer, UI and map, player and story) on Jacob's first focus project. Proposal with seven questions and four build stages: `docs/council/2026-11-27-war-and-geopolitics.md`; statements in `docs/council/2026-11-27-war/`; card `docs/research/war-and-towns.md` (every quote opened in the saved texts).
 - **Decided (small, here):** treaties and battles from 392 and the 380s are used only as patterns for terms and battle, never as dated events in 405 to 395.
 - **Open (Jacob's):** the seven picks; a later-start test preset; naming the focus in `scope.md`. Nothing built.
+
+## 2026-11-27 (playtest bot)
+- **Done:** `npm run playtest` plays every setup on main hundreds of times with seven kinds of player and a one-action sweep, and writes `docs/playtests/2026-11-27-playtest-bot/` (report, tables, two charts). Report only, per the brief: no rule or data changed. Why: to find what breaks, what always wins and what never happens, with seeds to reproduce each.
+- **Decided (small, here):** the bot drives the engine only through the browser's calls, each player has its own random stream, and every game is replayed from its inputs; the raw counts (about 1.7 MB) stay out of the repo, written only with `--json`.
+- **Open (Jacob's):** which of the report's fix ideas to build (the council seat in exile, the dead plotter, land petitions, Motya).

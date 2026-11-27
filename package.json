@@ -19,7 +19,8 @@
     "story-sweep": "node scripts/story-sweep.ts",
     "debrief": "node scripts/debrief.ts",
     "aar-runs": "node scripts/aar-runs.ts",
-    "verify-quotes": "node scripts/verify-cast-quotes.mjs ../phoenician-punic-world"
+    "verify-quotes": "node scripts/verify-cast-quotes.mjs ../phoenician-punic-world",
+    "playtest": "node scripts/playtest.ts"
   },
   "engines": {
     "node": ">=22.18"

@@ -2,6 +2,13 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Playtest bot (2026-11-27)
+**Built, not merged.** Jacob: "Run the playtest bot". A headless bot, `npm run playtest` (`scripts/playtest.ts`, tables and charts in `scripts/playtest-report.ts`), plays every setup on main with seven kinds of player and a one-action sweep: 23,520 games in about 10 minutes on 4 cores, fixed seeds, every game replayed to check it comes out the same. Report: `docs/playtests/2026-11-27-playtest-bot/report.md`; tables: `results.md` beside it.
+- **Broke:** a dead man keeps his council seat while you are in exile (everything-on setup, 7% of games; `npm run playtest -- --one everything:idle:4`); a dead man started a plot once (`fallen:carefulDice:97`, an answer to a matter about a man who died earlier that season). No crashes, stuck seasons or replay differences.
+- **Never happens:** "Men for the walls"; "A seat lost: Arrest"; any petition for land (nothing makes one); Motya changing sides (0 to 2%).
+- **Nothing wins almost always:** the careful bot in the first island test is the only one over 90% (92%); careful and patron 86% in the second test. No single action or greedy plan is an exploit.
+- **Not changed:** no game code or data. Fix ideas are in the report. The six tyrant campaigns are not playable yet (PR #96), so they are not covered.
+
 ## Fixes from the second test (thread 39, 2026-11-27)
 **Built.** Jacob: "Build all and have council decide on the rule changes" (the 30-item list from thread 38). All on in the Second island test preset; the test link is updated.
 - **Bugs (PR #90):** guard pay follows the men; open towns in their side's colour; marriage by sex (the form names the spouse and says the dowry is yours); she/her in the standing line; Aetna freed when the exiles come home; "Pay in land" needs Leontini as ally or yours; no raw role names ("FavouriteKin"); "that you blackmailed him".
