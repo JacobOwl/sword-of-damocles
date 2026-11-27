@@ -30,7 +30,7 @@ export function applyOpening(s: GameState, o: Opening, player: string) {
     for (const [id, c] of Object.entries(o.cities ?? {})) {
       const st = s.island.cities[id];
       if (!st) throw new Error(`opening: unknown town ${id}`);
-      if (c.side) { st.side = c.side; st.since = o.season; }
+      if (c.side) { st.side = c.side; st.since = 0; } // held since before the opening, not newly won
       if (c.lean !== undefined) st.lean = c.lean;
       if (c.fear !== undefined) st.fear = c.fear;
     }

@@ -55,3 +55,5 @@ export type { Flow } from "./forecast.ts";
 export { pronoun, sexOf } from "./pronouns.ts";
 export { WAR, warOn, card as warCard, balance as warBalance, ledgerLines, termsFor, termsText, warChapter, townsHeld, pendulum, landingPossible } from "./war.ts";
 export type { WarCard, PastWar, Terms } from "./war.ts";
+export { townBoardsOn, seatsOf as townSeats, houseName, houseHead, divided as townDivided, sendsSupport, courtableSeat } from "./towns.ts";
+export type { Seat, HouseLean } from "./towns.ts";

@@ -1,0 +1,11 @@
+{
+  "kind": "invention",
+  "note": "Switch \"townBoards\" (the war and geopolitics focus, council of 2026-11-27, question 2B): each town's three leading houses, from the census, lean to you, to Carthage or to the town alone. The shapes come from Diodorus (docs/research/war-and-towns.md: generals who sell their town 14.15.1-2, a divided town 14.56.3-14.57.3, purges on news of a defeat 14.88.5, Magon's kindness 14.90.3); every number is invention.",
+  "knobs": {
+    "houseModMax": 2,
+    "dividedGoOver": 1,
+    "courtCost": 1,
+    "courtNeed": 4,
+    "gateOfferNeed": 4
+  }
+}

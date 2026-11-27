@@ -5267,6 +5267,77 @@
         "all numbers"
       ],
       "note": "Switch warFocus. Fired by war.ts once a game, after you win a battle."
+    },
+    {
+      "id": "gateFromInside",
+      "kind": "history",
+      "art": "gate",
+      "name": "A gate from inside",
+      "chained": true,
+      "when": {
+        "switchOn": "townBoards",
+        "island": {
+          "yourArmy": true
+        }
+      },
+      "places": {
+        "town": {
+          "besiegedBy": "you"
+        }
+      },
+      "roles": {
+        "friend": {
+          "census": "leader",
+          "of": "town"
+        }
+      },
+      "text": "A man slips out of {town} by night and comes to your tent. {Friend}, whose house is your friend inside the walls, will open a gate for you before dawn, for a price: silver now, and a place at the head of the town after.",
+      "why": "a house inside {town} is your friend, and your army is at its walls",
+      "choices": [
+        {
+          "id": "pay",
+          "label": "Pay his price and take the gate",
+          "history": true,
+          "cost": {
+            "silver": 2
+          },
+          "effects": [
+            {
+              "takeCity": "town"
+            },
+            {
+              "lean": "town",
+              "by": -1,
+              "why": "the town remembers who sold it"
+            }
+          ]
+        },
+        {
+          "id": "refuse",
+          "label": "Refuse: you will take it by your own arms",
+          "default": true
+        }
+      ],
+      "source": "Diodorus 14.15.1-2",
+      "card": "docs/research/war-and-towns.md",
+      "facts": [
+        {
+          "text": "Arcesilaus, general of Catana, offered to betray his city to Dionysius.",
+          "cite": "Diodorus 14.15.1",
+          "quote": "had offered to betray the city to him",
+          "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+        },
+        {
+          "text": "Procles, general of Naxos, was bought.",
+          "cite": "Diodorus 14.15.2",
+          "quote": "won over by great promises",
+          "file": "sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+        }
+      ],
+      "invented": [
+        "the price",
+        "the effect on the town's lean"
+      ]
     }
   ]
 }

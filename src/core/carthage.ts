@@ -6,6 +6,7 @@ import { nextRandom } from "./rng.ts";
 import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf, others, plotStrength } from "./state.ts";
 import { clock, event, log } from "./ops.ts";
+import { carthageCourtsHouse } from "./towns.ts";
 import { on } from "./switches.ts";
 import { deedSecret } from "./secrets.ts";
 import {
@@ -196,6 +197,7 @@ function doAct(s: GameState, id: string, goalName: string) {
       const t = courtTarget(s)!;
       c.silver -= d.cost;
       lean(s, t, -1, "Carthage's envoys bring gifts and promises");
+      carthageCourtsHouse(s, t); // switch "townBoards": one house a step toward Carthage
       say(s, `Carthage's envoys court ${nodeName(t)} with gifts and kind words.`, `${why}; Magon's way: win the towns, not burn them (Diodorus 14.90.3)`);
       break;
     }

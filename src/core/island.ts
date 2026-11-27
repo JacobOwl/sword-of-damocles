@@ -10,6 +10,8 @@ import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf, power, others } from "./state.ts";
 import { clock, event, grain, guardSet, mood, powerChange, setStatus, silver, nextId, log } from "./ops.ts";
 import type { Army, CityState, GameState, IslandState, Mod, Side } from "./types.ts";
+import { townSideChanged, initTownBoards, houseMods, sendsSupport, seatFriend, newsOfDefeat, gateOffer } from "./towns.ts";
+import { fireTowns } from "./war.ts";
 import { WAR, warOn, warTownChanged, warBattle, warArmyDestroyed, warTaken, warSack, warCampPlague, warHunger } from "./war.ts";
 // Switch "warFocus": a Carthaginian general whose way is kindness (Magon, Diodorus 14.90.3) spares what he takes.
 export const kindGeneral = (s: GameState, a: Army) => warOn(s) && a.side === "carthage" && CARTHAGE.people.find((p: any) => p.id === a.commander)?.method === "kindness";
@@ -97,6 +99,7 @@ export function setSide(s: GameState, id: string, side: Side, why: string) {
   const now: Record<string, string> = { syracuse: "is now yours", ally: "is now your ally", free: "is free again", tributary: "now pays tribute to Carthage", carthage: "is now Carthage's", exiles: "is held by the exiles" };
   log(s, { actor: "world", text: `${nodeName(id)} ${now[side] ?? `is now ${sideName(side)}`}.`, why, visible: true, kind: "change" });
   warTownChanged(s, id, before, side); // switch "warFocus": a line in the war's ledger
+  townSideChanged(s, id, side); // switch "townBoards"
 }
 const count = (s: GameState, k: string, by = 1) => { s.counters[k] = (s.counters[k] ?? 0) + by; };
 
@@ -254,6 +257,7 @@ export function battle(s: GameState, a: Army, b: Army) {
   const [win, lose] = ta > tb ? [a, b] : [b, a];
   event(s, "world", `${capital(armyName(s, win))} wins the battle at ${nodeName(win.at)}.`, "the higher roll");
   warBattle(s, win.side, win.at); // switch "warFocus"
+  if (lose.side === "syracuse") newsOfDefeat(s, win.at); // switch "townBoards"
   loseMen(s, win, Math.ceil(win.men / 6), "the cost of victory");
   loseMen(s, lose, Math.ceil(lose.men / 3), "beaten in the field");
   s.flags[win.side === "syracuse" ? "battleWon" : "battleLost"] = s.season; // for events (data/island-events.json)
@@ -324,6 +328,7 @@ function destroy(s: GameState, a: Army, why: string) {
   isl.armies = isl.armies.filter((x) => x !== a);
   event(s, a.side === "syracuse" ? PLAYER : "carthage", `${capital(armyName(s, a))} is destroyed.`, why);
   warArmyDestroyed(s, a.side, a.at, a.commander); // switch "warFocus"
+  if (a.side === "syracuse") newsOfDefeat(s, a.at); // switch "townBoards"
   if (a.side === "syracuse") {
     count(s, "armiesLostYours");
     s.flags.armyLost = s.season;
@@ -364,6 +369,7 @@ export function takeCity(s: GameState, a: Army, how: "surrendered" | "stormed" |
     setSide(s, id, def.side === "tributary" ? "tributary" : "carthage", `${carthagePersonName(s, a.commander)} took it`);
     s.flags[`punicTook_${id}`] = s.season; // read by switch "carthageHolds"
     warTaken(s, "carthage", a.commander); // switch "warFocus": the general's record
+    seatFriend(s, id, "carthage", carthagePersonName(s, a.commander)); // switch "townBoards"
     if (how === "stormed" && kindGeneral(s, a)) {
       event(s, "carthage", `${carthagePersonName(s, a.commander)} spares ${nodeName(id)} and treats its people kindly.`, "his way is to win the towns, not to burn them");
     } else if (how === "stormed") {
@@ -377,6 +383,7 @@ export function takeCity(s: GameState, a: Army, how: "surrendered" | "stormed" |
   }
   count(s, "citiesTaken");
   setSide(s, id, "syracuse", how === "surrendered" ? "it opened its gates to you" : how === "starved" ? "it starved and gave in" : "your army stormed it");
+  seatFriend(s, id, "syracuse", "you"); // switch "townBoards"
   if (a.onTake === "sack") {
     const loot = prev === "carthage" ? 4 : 2;
     silver(s, loot, `the sack of ${nodeName(id)}`);
@@ -446,6 +453,9 @@ export function chance(mods: Mod[], need: number) {
 // ---------- The world step for the island ----------
 export function islandWorld(s: GameState) {
   const isl = s.island!;
+  initTownBoards(s); // switch "townBoards": no dice
+  const gate = gateOffer(s);
+  if (gate) fireTowns(s, "gateFromInside", {}, { friend: `census:${gate.head}` });
   const q = s.season % 4;
   // Summer: cities harvest, tributaries pay Carthage, your cities pay you.
   if (q === 3) {
@@ -456,7 +466,9 @@ export function islandWorld(s: GameState) {
       if (!besieged && !c.sacked) cityGrainChange(s, n.id, 4, "the summer harvest");
       if (besieged) continue;
       if (c.side === "tributary") { isl.carthage.silver += R.tributeSilver; }
-      if ((c.side === "ally" || c.side === "syracuse") && c.grain >= 2) silver(s, R.allySilver, `tribute from ${nodeName(n.id)}`);
+      const sends = sendsSupport(s, n.id); // switch "townBoards": a divided town, or one with no friend of yours, sends nothing
+      if ((c.side === "ally" || c.side === "syracuse") && c.grain >= 2 && !sends.ok) log(s, { actor: "world", text: `${nodeName(n.id)} sends you no tribute this year.`, why: sends.why!, visible: true, kind: "change" });
+      else if ((c.side === "ally" || c.side === "syracuse") && c.grain >= 2) silver(s, R.allySilver, `tribute from ${nodeName(n.id)}`);
     }
     const trib = NODES.filter((n) => city(s, n.id).side === "tributary" && !isl.armies.some((a) => a.siege === n.id)).length;
     if (trib) event(s, "carthage", `The tribute of ${trib} Sicilian ${trib === 1 ? "town" : "towns"} reaches Carthage.`, "the peace of 405 made them pay");
@@ -566,6 +578,7 @@ export function goOverMods(s: GameState, id: string, side: Army["side"]): Mod[] 
     if (warOn(s) && c.since > 0 && s.season - c.since < WAR.knobs.newlyWonSeasons) m.push({ label: "newly won, loosely held", value: 1 });
     if (kindGeneral(s, army)) m.push({ label: `${carthagePersonName(s, army.commander)} treats the towns kindly`, value: WAR.knobs.kindness.goOver });
   }
+  m.push(...houseMods(s, id, side)); // switch "townBoards"
   if (army.men >= R.aweMen) m.push({ label: `awed by the size of ${armyName(s, army)}`, value: 1 });
   if (!foe || army.men > foe.men) m.push({ label: `${armyName(s, army)} is the strongest on the island`, value: 1 });
   if (foe && within(foe.at, id, R.goOverDays)) m.push({ label: `${armyName(s, foe)} is near`, value: -2 });
@@ -658,7 +671,7 @@ export function blocPower(s: GameState, id: string, d: number, why: string) {
 // ---------- Your army: mustering ----------
 export function musterSize(s: GameState, withGuard: boolean) {
   const cit = s.factions.citizens.mood >= 2 ? Math.max(1, Math.floor(power(s, "citizens") / 2)) : 0;
-  const allies = NODES.filter((n) => n.id !== "syracuse" && ["ally", "syracuse"].includes(city(s, n.id).side) && city(s, n.id).men >= 2).map((n) => n.id);
+  const allies = NODES.filter((n) => n.id !== "syracuse" && ["ally", "syracuse"].includes(city(s, n.id).side) && city(s, n.id).men >= 2 && sendsSupport(s, n.id).ok).map((n) => n.id);
   const guard = withGuard ? s.guard.strength : 0;
   return { citizens: cit, allies, guard, total: cit + allies.length + guard + 1 };
 }

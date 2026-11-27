@@ -2,7 +2,7 @@
 // It only reads the state; every rule is in src/core.
 import {
   CARTHAGE, ISLAND, NODES, ROUTES, armyName, blocDef, capital, carthageAgenda, cityGrain, cityMen, cityWalls, goalDef, menWords,
-  moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo, warCard,
+  moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo, warCard, townBoardsOn, townSeats, houseName, townDivided, sendsSupport,
 } from "../../src/core/index.ts";
 import type { Handlers } from "../app/clicks.ts";
 import * as sound from "../lib/sound.ts";
@@ -123,13 +123,32 @@ function citySheet(g: GameState, id: string) {
   if (c.sacked) rows.push(["Ruins", "sacked, and still rebuilding"]);
   if (g.board && id !== "syracuse" && (c.side === "ally" || c.side === "syracuse")) rows.push(["Command", g.board.commands[id] ? `${who(g.board.commands[id])} holds it for you. A man who is no friend of yours may open its gates when Carthage's army comes.` : "no one: give it to a man with Give a city's command"]);
   const notes = overNotes(g, id);
-  const how = id === "syracuse" ? "" : c.side === "syracuse" ? "It is yours." : c.side === "carthage" || c.side === "exiles" ? "To take it: Muster, then Send the army to besiege it; Storm the walls or starve it out. It will not go over or surrender from fear." : "To win it: Embassy to a city (lean and fear help), or march your army near it and it may go over; or besiege and take it.";
+  const how = id === "syracuse" ? "" : c.side === "syracuse" ? "It is yours." : c.side === "ally" ? "It is your ally: keep it warm, and keep Carthage's army away from it." : c.side === "carthage" || c.side === "exiles" ? "To take it: Muster, then Send the army to besiege it; Storm the walls or starve it out. It will not go over or surrender from fear." : "To win it: Embassy to a city (lean and fear help), or march your army near it and it may go over; or besiege and take it.";
   return `<div class="citysheet"><div class="fhead"><h3>${esc(n.name)}</h3><button type="button" class="small" data-city="">Close</button></div>
-    <p class="small muted">${esc(n.detail)}</p>
+    <p class="small muted">${esc(c.side === n.side ? n.detail : `Before: ${n.detail} Now ${sideName(c.side)}.`)}</p>
     <dl class="sheetdl">${rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+    ${housesBlock(g, id)}
     ${sieged ? `<p class="small warn">Besieged by ${esc(armyName(g, sieged))}.</p>` : ""}${here.length && !sieged ? `<p class="small">Here: ${here.map((a) => esc(armyName(g, a))).join(", ")}.</p>` : ""}
     ${notes.length ? `<p class="small">Next season it ${notes.join("; ")}.</p>` : ""}
     ${how ? `<p class="small"><b>What you can do.</b> ${esc(how)}</p>` : ""}${marchHere(g, id)}${mapResult(g)}</div>`;
+}
+
+// Switch "townBoards": the town's three leading houses, each with its head and which way it leans.
+const HOUSE_LEAN: Record<string, [string, string]> = { you: ["your friend", "good"], carthage: ["Carthage's friend", "warn"], town: ["for the town alone", "muted"] };
+function housesBlock(g: GameState, id: string) {
+  if (!townBoardsOn(g) || id === "syracuse") return "";
+  const x = townSeats(g, id);
+  if (!x.length) return "";
+  const c = g.island!.cities[id];
+  const lines = x.map((seat, i) => {
+    const [w, cls] = HOUSE_LEAN[seat.lean];
+    return `<li>${i === 0 ? "<b>First house:</b> " : ""}${esc(capital(houseName(g, seat)))}: <span class="${cls}">${esc(w)}</span></li>`;
+  }).join("");
+  const sup = sendsSupport(g, id);
+  const state = townDivided(g, id) ? `<p class="small warn">Divided: its houses pull three ways. It is easier for any army to win over${c.side === "ally" || c.side === "syracuse" ? ", and it sends you no silver or men" : ""}.</p>`
+    : (c.side === "ally" || c.side === "syracuse") && !sup.ok ? `<p class="small warn">It sends you no silver or men: ${esc(sup.why!)}.</p>` : "";
+  return `<h4 class="small">Its leading houses</h4><ul class="small houses">${lines}</ul>${state}
+    <p class="small muted">Each house for you adds 1 to the town going over to you, each for Carthage takes 1 away (2 at most). Win a house with Court a house; a friend inside a town you besiege may open a gate.</p>`;
 }
 
 // Orders from the map (second test: "kinda sucks to keep tabbing back and forth between the map and the army commands").
