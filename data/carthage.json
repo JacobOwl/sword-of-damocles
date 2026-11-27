@@ -261,6 +261,24 @@
         "trade",
         "hire"
       ]
+    },
+    {
+      "id": "recover",
+      "kind": "invention",
+      "name": "Recover",
+      "text": "Carthage mends what it lost, courts the Sicilian towns, takes in the men you drove out, and makes ready to come back.",
+      "switch": "carthageReturns",
+      "note": "Switch carthageReturns (thread 48 spec 1): Magon 'set about retrieving the Carthaginian cause after the disaster' (Diodorus 14.90.2-3); 'they constructed ships and made careful provision of supplies' (14.77.5). Numbers invention.",
+      "priorities": [
+        "quiet",
+        "court",
+        "exiles",
+        "trade",
+        "ships",
+        "hire",
+        "propitiate",
+        "fortify"
+      ]
     }
   ],
   "actions": [
@@ -390,6 +408,15 @@
       "cost": 1,
       "switch": "warFocus",
       "note": "Switch warFocus: Magon 'showed kindness to the subject cities' (Diodorus 14.90.3). Numbers invention."
+    },
+    {
+      "id": "exiles",
+      "kind": "invention",
+      "name": "Take in the exiles",
+      "text": "Carthage welcomes the men you drove out of Syracuse.",
+      "cost": 0,
+      "switch": "carthageReturns",
+      "note": "Magon 'received the victims of Dionysius' wars' (Diodorus 14.90.3). Numbers invention."
     }
   ],
   "numbers": {
@@ -414,5 +441,50 @@
     },
     "moodHeals": true
   },
-  "notes_method": "method: switch warFocus. Himilcon took Eryx by treachery (Diodorus 14.55.4); Magon 'showed kindness to the subject cities' (14.90.3). Hanno and Bomilcar are invented; their methods are invention."
+  "notes_method": "method: switch warFocus. Himilcon took Eryx by treachery (Diodorus 14.55.4); Magon 'showed kindness to the subject cities' (14.90.3). Hanno and Bomilcar are invented; their methods are invention.",
+  "returns": {
+    "kind": "invention",
+    "note": "Switch carthageReturns (thread 48 spec 1, docs/council/2026-11-27-abroad.md). Every number is invention.",
+    "recoverSeasons": 5,
+    "forgetSeasons": 8,
+    "truceSeasons": 6,
+    "peaceSilver": 6,
+    "destroyedWeary": 1,
+    "recoverEase": 1,
+    "secondHire": 2,
+    "payCost": 2,
+    "payFoundOn": 1,
+    "unansweredAfter": 2,
+    "speakers": {
+      "elders": [
+        "hanno",
+        "magon",
+        "an elder of Carthage"
+      ],
+      "hundred": [
+        "bomilcar",
+        "himilcon",
+        "a judge of the Hundred"
+      ],
+      "people": [
+        "magon",
+        "himilcon",
+        "a man of the people"
+      ]
+    },
+    "second": [
+      {
+        "id": "sardinians",
+        "kind": "invention",
+        "name": "the Sardinians",
+        "share": 0.25
+      },
+      {
+        "id": "italians",
+        "kind": "invention",
+        "name": "the Italian hired men",
+        "share": 0.25
+      }
+    ]
+  }
 }

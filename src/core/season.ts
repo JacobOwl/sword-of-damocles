@@ -27,6 +27,10 @@ import { convoysArrive, convoysOn, convoysSail } from "./convoys.ts";
 import { worksSeason } from "./works.ts";
 import { quarrelsSeasonEnd } from "./quarrels.ts";
 import { boardSeason, initBoard } from "./board.ts";
+import { settleScenes } from "./scenes.ts";
+import { escorting } from "./fleets.ts";
+import { HOOKS } from "./hooks.ts";
+import { countSign, risingSeason, settleChoices } from "./crises.ts";
 import { beginFallen, exileBeginSeason, exileDecadeEnd, exileEndSeason, exileOn, inExile, maybeExile } from "./exile.ts";
 
 // ---------- World ----------
@@ -50,7 +54,7 @@ function worldStep(s: GameState) {
     const h = s.offices.fleet;
     const friendly = h && (h === PLAYER || (s.people[h].status === "free" && s.people[h].opinion >= 0));
     const damaged = s.flags.fleetDamaged !== undefined && s.season - s.flags.fleetDamaged < 3;
-    if (friendly && !damaged && !convoysOn(s)) grain(s, 2, `${h === PLAYER ? "your" : nameOf(s, h!) + "'s"} fleet brings grain`);
+    if (friendly && !damaged && !convoysOn(s) && escorting(s)) grain(s, 2, `${h === PLAYER ? "your" : nameOf(s, h!) + "'s"} fleet brings grain`);
   }
   for (const id of s.laws) {
     const l = lawById(id)!;
@@ -141,7 +145,7 @@ function powerStep(s: GameState) {
     }
   }
   // Enemies who come to like you stop being enemies.
-  for (const p of others(s)) if (p.rival && p.opinion >= 2) endRival(s, p.id, `his opinion of you reached ${p.opinion}`);
+  for (const p of others(s)) if (p.rival && p.opinion >= 2 && (!on(s, "test5Fixes") || p.rival.since < s.season)) endRival(s, p.id, `his opinion of you reached ${p.opinion}`);
   updatePolitical(s);
   // Drift (a default, not in rules v2): power that did not move this season eases 1 toward 5,
   // because holding influence takes work. Without it every faction ran to 10 in the headless runs.
@@ -170,6 +174,7 @@ function powerStep(s: GameState) {
     s.flags.gov = govCode;
   }
   if (govCode === 10) s.counters.tyrantSeasons = (s.counters.tyrantSeasons ?? 0) + 1;
+  risingSeason(s); // switch "crisisScenes": the city rises in phases
 }
 
 // ---------- The sword ----------
@@ -211,6 +216,7 @@ function warn(s: GameState, pl: Plot) {
   else if (pl.stage === 1) text = `Whispers: ${pick(s, w.whispers)}`;
   else if (pl.stage === 2) text = `Rumors: ${pick(s, w.rumors).replace("{faction}", fname)}`;
   else text = `Named: ${pick(s, w.named).replace("{names}", pl.known.map((k) => s.people[k].name).join(" and "))}`;
+  countSign(s, pl); // switch "crisisScenes": each warning is a counted sign on the plot's card
   if (pl.informer) text += ` Your informer says it has ${pl.members.length} members and strength ${plotStrength(s, pl).total}.`;
   log(s, { actor: "world", text, why: `a plot at ${stageName(pl.stage)}`, visible: true, kind: "warning" });
 }
@@ -236,7 +242,8 @@ function strike(s: GameState, pl: Plot) {
   const worst = on(s, "partialBlows") ? (switchById("partialBlows") as any).knobs.seize : 0;
   s.counters.strikeDeathChance = (s.counters.strikeDeathChance ?? 0) + [1, 2, 3, 4, 5, 6].filter((d) => d + add > def.total + worst).length / 6;
   event(s, pl.leader, `The plot strikes. Rolled ${die}${mods.map((m) => ` +${m.value} ${m.label}`).join("")} = ${total}, against your defense of ${def.total} (${def.parts.map((p) => `${p.value} ${p.label}`).join(", ")}). It must beat your defense.`, "the sword check");
-  if (total > def.total && on(s, "partialBlows") && partialBlow(s, pl, total - def.total)) return;
+  const scene = (out: string) => HOOKS.strikeScene?.(s, pl, { die, total, def, chance, out }); // switch "crisisScenes"
+  if (total > def.total && on(s, "partialBlows") && partialBlow(s, pl, total - def.total)) { scene("wounded"); return; }
   if (total > def.total) {
     const fate = d6(s);
     s.counters.blows = (s.counters.blows ?? 0) + 1;
@@ -245,6 +252,7 @@ function strike(s: GameState, pl: Plot) {
       : { reason: "killed", text: `The sword falls. You are killed by men you trusted. ${capital(leader.name)} led them.`, season: s.season };
     s.over.by = leader.id;
     event(s, pl.leader, s.over.text, "the plot beat your defense");
+    scene(s.over.reason);
     return;
   }
   s.counters.plotsFailed = (s.counters.plotsFailed ?? 0) + 1;
@@ -260,6 +268,7 @@ function strike(s: GameState, pl: Plot) {
   if (pl.guardBacking) event(s, "guard", "The guard that sold itself to the plot stands exposed.", "the plot failed");
   s.plots = s.plots.filter((p) => p !== pl);
   s.flags.plotBroken = s.season;
+  scene("failed");
 }
 
 // Why a blow only wounded you, in words that are true for this blow (council 2026-11-25: a margin above the wound
@@ -338,6 +347,10 @@ export function endSeason(s: GameState) {
   if (s.step !== "player" || s.over) return;
   s.inputs.push({ t: "end" });
   if (inExile(s)) { settleEvents(s); if (!s.over) exileEndSeason(s); finish(s); return; } // switch "exile"
+  if (s.island) settleChoices(s); // switches "crisisScenes", "assemblyDebates": answers left open take their defaults
+  if (s.over) { finish(s); return; }
+  if (s.island) settleScenes(s); // switch "battleScenes": a battle left unfought is fought with the safe choices
+  if (s.over) { finish(s); return; }
   settleEvents(s); // events you left unanswered take their default choice
   for (const r of s.requests.slice()) refuse(s, r.id, true);
   if (s.campaign) campaignCheck(s); // switch "commission": the homecoming, before the plots are weighed

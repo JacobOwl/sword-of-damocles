@@ -9,6 +9,7 @@
 // same roll your fleet makes against Carthage's transports (5 or more), harder if warships escort it.
 // Every number is in data/convoys.json; the sourced pattern is in docs/research/grain-and-sea.md. The rules are invention.
 import convoysJson from "../../data/convoys.json" with { type: "json" };
+import { escorting, hunting } from "./fleets.ts";
 import { on } from "./switches.ts";
 import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf } from "./state.ts";
@@ -133,9 +134,9 @@ export function catchMods(s: GameState, v: Convoy): Mod[] | null {
   if (!s.island!.war) return null;
   if (v.side === "syracuse") {
     if (s.island!.carthage.ships < k.carthageHuntShips) return null;
-    return fleetFriendly(s) ? [{ label: "your warships escort it", value: -k.escort }] : [];
+    return fleetFriendly(s) && escorting(s) ? [{ label: "your warships escort it", value: -k.escort }] : []; // switch "fleets": only when escorting
   }
-  return fleetFriendly(s) ? [] : null;
+  return fleetFriendly(s) && hunting(s) ? [] : null; // switch "fleets": only when watching or blockading
 }
 export function contractorMods(s: GameState, id: string): Mod[] {
   const r = s.convoys?.contractors[id] ?? { skimmed: 0, audited: -99 };

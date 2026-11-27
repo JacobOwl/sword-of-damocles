@@ -4,7 +4,11 @@
 import islandJson from "../../data/island.json" with { type: "json" };
 import carthageJson from "../../data/carthage.json" with { type: "json" };
 import commissionJson from "../../data/commission.json" with { type: "json" };
+import abroadJson from "../../data/abroad.json" with { type: "json" };
+import libyaJson from "../../data/libya.json" with { type: "json" };
 import { traitById } from "./data.ts";
+import { HOOKS } from "./hooks.ts";
+import { carthageBlow } from "./returns.ts";
 import { on } from "./switches.ts";
 import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf, power, others } from "./state.ts";
@@ -18,13 +22,20 @@ import { WAR, warOn, warTownChanged, warBattle, warArmyDestroyed, warTaken, warS
 // Switch "warFocus": a Carthaginian general whose way is kindness (Magon, Diodorus 14.90.3) spares what he takes.
 export const kindGeneral = (s: GameState, a: Army) => warOn(s) && a.side === "carthage" && CARTHAGE.people.find((p: any) => p.id === a.commander)?.method === "kindness";
 
+const poss = (s: GameState, n: string) => (n.endsWith("s") && on(s, "test5Fixes") ? `${n}'` : `${n}'s`); // switch "test5Fixes": "Leptines'", not "Leptines's"
 export const ISLAND = islandJson as any;
 export const CARTHAGE = carthageJson as any;
 const R = ISLAND.rules;
 
 export interface NodeDef { id: string; name: string; type: string; side: Side; walls: number; men: number; grain: number; port?: boolean; marsh?: boolean; straits?: boolean; lean: number; lat: number; lon: number; detail: string; approx?: boolean }
 export const NODES = ISLAND.nodes as NodeDef[];
-export const nodeDef = (id: string) => NODES.find((n) => n.id === id);
+// Switch "friendsAbroad": Rhegium, across the Strait. Not in NODES (no road, no town rolls): it is reached by sea, and
+// only has a city state when the switch is on (abroad.ts).
+export const ABROAD_NODES = [{ type: "city", detail: "A Greek city across the Strait of Messana, in Italy.", ...(abroadJson as any).rhegium }] as NodeDef[];
+// Switch "libyaCrossing": the places of Libya (libya.ts). Not in NODES either: no roads to Sicily, reached by sea.
+export const LIBYA_NODES = (libyaJson as any).places as NodeDef[];
+export const isLibya = (id?: string) => !!id && LIBYA_NODES.some((n) => n.id === id);
+export const nodeDef = (id: string) => NODES.find((n) => n.id === id) ?? ABROAD_NODES.find((n) => n.id === id) ?? LIBYA_NODES.find((n) => n.id === id);
 export const nodeName = (id: string) => (id === "carthage" ? "Carthage" : nodeDef(id)?.name ?? id);
 export const sideName = (side: string) => ISLAND.sides[side] ?? side;
 
@@ -139,7 +150,7 @@ export const marchBudget = (s: GameState) => (s.season % 4 === 1 ? R.winterMarch
 export function reachable(s: GameState, from: string): string[] {
   return NODES.map((n) => n.id).filter((id) => id !== from && (path(from, id)?.days.at(-1) ?? 999) <= marchBudget(s));
 }
-function nearestFriendly(s: GameState, a: Army, avoid?: string): string | null {
+export function nearestFriendly(s: GameState, a: Army, avoid?: string): string | null {
   let best: string | null = null, bestD = 999;
   for (const n of NODES) {
     if (n.id === avoid || !friendly(a.side, city(s, n.id).side)) continue;
@@ -229,11 +240,11 @@ export function arrive(s: GameState, a: Army) {
   if (a.side === "carthage" && a.at === "syracuse") s.flags.besieged = s.season;
 }
 
-function generalMods(s: GameState, a: Army): Mod[] {
+export function generalMods(s: GameState, a: Army): Mod[] {
   const traits: string[] = a.side === "syracuse"
     ? s.people[a.commander]?.traits ?? []
     : CARTHAGE.people.find((p: any) => p.id === a.commander)?.traits ?? [];
-  const who = a.side === "syracuse" ? (a.commander === PLAYER ? "your" : `${nameOf(s, a.commander)}'s`) : `${carthagePersonName(s, a.commander)}'s`;
+  const who = a.side === "syracuse" ? (a.commander === PLAYER ? "your" : poss(s, nameOf(s, a.commander))) : poss(s, carthagePersonName(s, a.commander));
   const mods: Mod[] = [];
   for (const t of traits) {
     const v = traitById(t)?.actor?.march;
@@ -249,14 +260,41 @@ export function battleMods(s: GameState, a: Army): Mod[] {
   if (a.side === "syracuse" && a.guard > 0 && s.factions.guard.mood === 4) m.push({ label: "the guard is Loyal", value: 1 });
   if (a.side === "syracuse" && s.guard.arrearsSeasons > 0 && a.guard > 0) m.push({ label: "the guard is unpaid", value: -1 });
   if (a.side === "syracuse" && a.commander === PLAYER && s.campaign?.leader === PLAYER) m.push({ label: "you lead in person", value: (commissionJson as any).knobs.inPerson }); // switch "commission"
-  m.push(...planMods(s, a, s.island!.armies.find((o) => o.side !== a.side && o.at === a.at) ?? s.island!.armies.find((o) => o.side !== a.side))); // switch "battlePlate"
+  const foe = s.island!.armies.find((o) => o.side !== a.side && o.at === a.at) ?? s.island!.armies.find((o) => o.side !== a.side);
+  m.push(...planMods(s, a, foe)); // switch "battlePlate"
+  // Switch "evenBattles" (test 4 debrief, fix 3): Carthage's general fights to a plan of his own, and everything
+  // besides numbers adds up to +3 at most on either side.
+  if (on(s, "evenBattles")) {
+    if (a.side === "carthage") {
+      const way = CARTHAGE.people.find((p: any) => p.id === a.commander)?.method;
+      if (way === "force") { m.push({ label: `${carthagePersonName(s, a.commander)} strikes a wing`, value: 1 }); if (foe && a.men > foe.men) m.push({ label: "your line is thinner than his", value: 1 }); }
+      else if (way === "kindness") m.push({ label: `${carthagePersonName(s, a.commander)} holds a firm line, with a reserve`, value: 1 });
+    }
+    const extra = m.slice(1).reduce((t, x) => t + x.value, 0);
+    if (extra > 3) m.push({ label: "no more than +3 from everything but numbers", value: 3 - extra });
+  }
   return m;
 }
 const sum = (m: Mod[]) => m.reduce((x, y) => x + y.value, 0);
 const modText = (m: Mod[]) => m.map((x) => ` ${x.value >= 0 ? "+" : "-"}${Math.abs(x.value)} ${x.label}`).join("");
 
+// Switch "battleScenes" (test 5, docs/council/2026-11-27-big-scenes.md): battlescene.ts registers a hook that stops
+// the two armies face to face and fights the battle as a scene in your next player step. Without it the battle is
+// fought at once, as before, with the same dice in the same order.
+
+export interface BattleRoll { ma: Mod[]; mb: Mod[]; da: number; db: number; ta: number; tb: number }
+// What the battle's choices change after the roll (switch "battleScenes"); empty for a battle fought at once.
+export interface BattleChoices { winAfter?: string; loseAfter?: string; rout?: boolean; drawBy?: number; pursuitDiv?: number; reserveCaught?: boolean }
+export interface BattleOut { result: "win" | "lose" | "draw" | "held"; winner?: Army["side"]; margin: number; lostA: number; lostB: number; destroyed: Army["side"][]; saved?: boolean; after?: string }
+
 export function battle(s: GameState, a: Army, b: Army) {
-  const ma = battleMods(s, a), mb = battleMods(s, b);
+  if (HOOKS.scene?.(s, a, b)) return; // the armies stand face to face; the scene fights it
+  const r = battleRoll(s, a, b);
+  battleResult(s, a, b, r, {});
+}
+// The dice: both sides' modifiers, a die each, and the parts of a combined attack rolling to arrive.
+export function battleRoll(s: GameState, a: Army, b: Army, extraA: Mod[] = [], extraB: Mod[] = []): BattleRoll {
+  const ma = [...battleMods(s, a), ...extraA], mb = [...battleMods(s, b), ...extraB];
   const da = d6(s), db = d6(s);
   // Switch "battlePlate": the parts of a combined attack roll to arrive in time.
   const lateA = combinedArrival(s, a), lateB = combinedArrival(s, b);
@@ -265,15 +303,23 @@ export function battle(s: GameState, a: Army, b: Army) {
   const ta = da + sum(ma), tb = db + sum(mb);
   count(s, "battles");
   event(s, "world", `Battle at ${nodeName(a.at)}. ${capital(armyName(s, a))} rolled ${da}${modText(ma)} = ${ta}; ${armyName(s, b)} rolled ${db}${modText(mb)} = ${tb}.`, "two armies met");
+  return { ma, mb, da, db, ta, tb };
+}
+export function battleResult(s: GameState, a: Army, b: Army, r: BattleRoll, o: BattleChoices): BattleOut {
+  const { ta, tb } = r;
+  const menA = a.men, menB = b.men;
+  const lostOf = () => ({ lostA: menA - (s.island!.armies.includes(a) ? a.men : 0), lostB: menB - (s.island!.armies.includes(b) ? b.men : 0) });
+  const gone = () => [a, b].filter((x) => !s.island!.armies.includes(x)).map((x) => x.side);
+  const report = (out: BattleOut) => { HOOKS.report?.(s, a, b, r, out); return out; };
   const mineA = a.side === "syracuse" ? a : b, foeA = a.side === "syracuse" ? b : a;
   const myMargin = (a.side === "syracuse" ? tb - ta : ta - tb); // how far you are beaten by, if beaten
-  if (ta !== tb && myMargin > 0 && holdsToDraw(s, mineA, myMargin)) {
+  if (ta !== tb && myMargin > 0 && (holdsToDraw(s, mineA, myMargin) || (o.drawBy !== undefined && myMargin <= o.drawBy))) {
     event(s, PLAYER, "Your line holds. The enemy cannot break it, and the day ends without a victor.", "you held the line");
     loseMen(s, a, Math.ceil(a.men / 6), "a bloody draw");
     loseMen(s, b, Math.ceil(b.men / 6), "a bloody draw");
     if (s.island!.armies.includes(a)) retreat(s, a, "it could not break through");
     afterBattle(s, mineA, foeA, false);
-    return;
+    return report({ result: "held", margin: Math.abs(ta - tb), ...lostOf(), destroyed: gone() });
   }
   if (ta === tb) {
     loseMen(s, a, Math.ceil(a.men / 6), "a bloody draw");
@@ -281,7 +327,7 @@ export function battle(s: GameState, a: Army, b: Army) {
     event(s, "world", "Neither side gives way. Both armies draw off, bloodied.", "the rolls were equal");
     // The one that marched in falls back.
     if (s.island!.armies.includes(a)) retreat(s, a, "it could not break through");
-    return;
+    return report({ result: "draw", margin: 0, ...lostOf(), destroyed: gone() });
   }
   const [win, lose] = ta > tb ? [a, b] : [b, a];
   event(s, "world", `${capital(armyName(s, win))} wins the battle at ${nodeName(win.at)}.`, "the higher roll");
@@ -290,7 +336,16 @@ export function battle(s: GameState, a: Army, b: Army) {
   loseMen(s, win, Math.ceil(win.men / 6), "the cost of victory");
   const saved = reserveSaves(s, lose); // switch "battlePlate": the reserve covers the retreat to camp
   if (saved) event(s, PLAYER, "Your reserve covers the retreat. The survivors reach the camp, and night saves them.", "as the survivors in the camp were preserved by the coming of night (Diodorus 15.17.4)");
-  loseMen(s, lose, Math.ceil(lose.men / (saved ? 6 : 3)), "beaten in the field");
+  // Switch "battleScenes": what the winner and the loser chose after the roll changes the losses (scenes.ts).
+  let div = saved ? 6 : 3;
+  if (o.winAfter === "sack" || o.winAfter === "terms") div = Math.max(div, 4);
+  if (o.loseAfter === "truce") div = 6;
+  if (o.rout) div = 2;
+  loseMen(s, lose, Math.ceil(lose.men / div), "beaten in the field");
+  if (o.winAfter === "pursue" && s.island!.armies.includes(lose)) {
+    if (o.reserveCaught) loseMen(s, win, Math.ceil(win.men / 6), "caught in disorder by the enemy's reserve in the pursuit");
+    else loseMen(s, lose, Math.ceil(lose.men / (o.pursuitDiv ?? 6)), "cut down in the pursuit");
+  }
   afterBattle(s, win.side === "syracuse" ? win : lose, win.side === "syracuse" ? lose : win, win.side === "syracuse");
   s.flags[win.side === "syracuse" ? "battleWon" : "battleLost"] = s.season; // for events (data/island-events.json)
   if (win.side === "syracuse") {
@@ -301,20 +356,23 @@ export function battle(s: GameState, a: Army, b: Army) {
     mood(s, "citizens", -1, "your army was beaten");
     count(s, "battlesLost");
   }
-  if (!s.island!.armies.includes(lose)) return;
+  const out = (): BattleOut => report({ result: win.side === "syracuse" ? "win" : "lose", winner: win.side, margin: Math.abs(ta - tb), ...lostOf(), destroyed: gone(), saved });
+  if (!s.island!.armies.includes(lose)) return out();
   // Switch "armiesBreak": a beaten army that is starving, or was beaten once already this year, scatters.
-  if (on(s, "armiesBreak") && !reserveSaves(s, lose)) {
+  if (on(s, "armiesBreak") && !reserveSaves(s, lose) && o.loseAfter !== "truce") {
     const twice = lose.beaten !== undefined && s.season - lose.beaten < R.breakWithin;
     if (lose.food <= 0 || twice) {
       count(s, "armiesBroken");
-      return destroy(s, lose, twice ? "beaten twice within a year, its men lose heart and scatter" : "beaten with no food left, its men scatter to find their own");
+      destroy(s, lose, twice ? "beaten twice within a year, its men lose heart and scatter" : "beaten with no food left, its men scatter to find their own");
+      return out();
     }
   }
   lose.beaten = s.season;
-  retreat(s, lose, "beaten in the field");
+  retreat(s, lose, o.loseAfter === "truce" ? "it asked a truce to bury its dead and slipped away by night, leaving its fires burning" : "beaten in the field");
+  return out();
 }
 
-function retreat(s: GameState, a: Army, why: string) {
+export function retreat(s: GameState, a: Army, why: string) {
   const to = nearestFriendly(s, a, a.at);
   if (!to) return destroy(s, a, "it had nowhere to retreat to");
   const p = path(a.at, to)!;
@@ -355,7 +413,7 @@ export function loseMen(s: GameState, a: Army, n: number, why: string) {
   if (a.men <= 0) destroy(s, a, why);
 }
 
-function destroy(s: GameState, a: Army, why: string) {
+export function destroy(s: GameState, a: Army, why: string) {
   const isl = s.island!;
   isl.armies = isl.armies.filter((x) => x !== a);
   event(s, a.side === "syracuse" ? PLAYER : "carthage", `${capital(armyName(s, a))} is destroyed.`, why);
@@ -376,6 +434,7 @@ function destroy(s: GameState, a: Army, why: string) {
     if (g && g.status !== "dead") { g.status = "disgraced"; event(s, "carthage", `${g.name} comes home to Carthage in disgrace.`, "he lost his army"); } // a general who fell in the battle stays dead
     if (c.general === a.commander) c.general = undefined;
     clock(s, -2, "Carthage has lost an army and fears you");
+    carthageBlow(s, `the loss of ${g?.name ?? "its"}'s army`.replace("its's", "its")); // switch "carthageReturns"
   }
 }
 
@@ -547,7 +606,8 @@ export function islandWorld(s: GameState) {
     const id = a.siege;
     const def = nodeDef(id)!;
     // Switch "greatWorks": your great fleet keeps the sea open to your own ports (Diodorus 14.50.4).
-    const blockade = a.side === "carthage" && isl.carthage.ships >= 4 && !(s.works?.fleet && friendly("syracuse", city(s, id).side));
+    const hb = HOOKS.blockade?.(s, a, id); // switch "fleets": whoever holds the sea closes it
+    const blockade = hb !== undefined ? hb : a.side === "carthage" && isl.carthage.ships >= 4 && !(s.works?.fleet && friendly("syracuse", city(s, id).side));
     const loss = def.port && !blockade ? R.siegeGrainLossPort : R.siegeGrainLoss;
     cityGrainChange(s, id, -loss, `besieged by ${armyName(s, a)}`);
     if (cityGrain(s, id) === 0) {
@@ -579,6 +639,7 @@ export function islandWorld(s: GameState) {
   }
   // Fear fades: once a year, in summer, each city's fear of you drops by one.
   if (q === 3) for (const n of NODES) { const c = city(s, n.id); if (c.fear > 0) { c.fear -= 1; log(s, { actor: "world", text: `${nodeName(n.id)} fears you a little less (fear ${c.fear}).`, why: "a year has passed", visible: true, kind: "change" }); } }
+  HOOKS.far?.(s); // switch "contingents": far-off town levies go home unless paid
   goingOver(s);
 }
 
@@ -718,6 +779,7 @@ export function muster(s: GameState, withGuard: boolean) {
   for (const id of m.allies) city(s, id).men -= 1;
   const a: Army = { id: nextId(s, "army"), side: "syracuse", at: "syracuse", men: m.total, food: R.foodOnMuster, commander: s.offices.generalship ?? PLAYER, guard: m.guard, guardStart: m.guard, since: s.season, moved: -1, siegeSince: -1, onTake: "spare" };
   s.island!.armies.push(a);
+  HOOKS.muster?.(s, a, m); // switch "contingents": the army marches in named parts
   count(s, "musters");
   const parts = [`${m.citizens} from the citizens' levy`, ...(m.allies.length ? [`${m.allies.length} from ${m.allies.map(nodeName).join(" and ")}`] : []), ...(m.guard ? [`${m.guard} of the guard`] : []), "1 of your household"];
   event(s, PLAYER, `You muster the army at Syracuse: ${menWords(a.men)} (${parts.join(", ")}).`, "Muster the army");

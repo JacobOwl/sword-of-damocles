@@ -1,0 +1,31 @@
+{
+  "kind": "invention",
+  "note": "Switch \"groundChoice\" (test 5, docs/council/2026-11-27-units-ground-navy.md part 2, thread 47). Before a battle each general rolls a die, plus his skill (traits, at most 2), plus 1 in friendly land, plus 1 if his army has horse; the higher roll picks one of the place's ground cards. Inspired by CK3 (advantage from commander and terrain), Commands & Colors: Ancients (terrain caps horse) and EU4 (being caught crossing a river). Gela's river (13.109.5) and Syracuse's marsh (14.70.5) are history; the other cards and every number are invention.",
+  "cards": [
+    {"id": "plain", "kind": "invention", "name": "Open plain", "line": "Horse +1; chariots cancel the other side's horse.", "open": true},
+    {"id": "hills", "kind": "invention", "name": "Broken hills", "line": "Horse and chariots give nothing; the side that knows the land +1.", "broken": true},
+    {"id": "pass", "kind": "invention", "name": "A pass", "line": "Horse and chariots give nothing; the side that knows the land +1.", "broken": true},
+    {"id": "river", "kind": "history", "source": "Diodorus 13.109.5 (the river at Gela); Plutarch, Timoleon 27", "card": "docs/research/units-and-ground.md", "name": "River and plain", "line": "If the ground roll is won by 3 or more, the loser is caught half across the river: -2.", "open": true, "river": true},
+    {"id": "marsh", "kind": "history", "source": "Diodorus 14.70.5 (the marsh by the Great Harbour)", "card": "docs/research/units-and-ground.md", "name": "Marsh by the harbour", "line": "Horse gives nothing; a camp here sickens."},
+    {"id": "heights", "kind": "invention", "name": "The Epipolae heights", "line": "The side that knows the land +1.", "broken": true},
+    {"id": "shore", "kind": "invention", "name": "The shore", "line": "Ships at hand: a beaten army that reaches them loses fewer men.", "shore": true},
+    {"id": "lava", "kind": "invention", "name": "Lava fields", "line": "Horse and chariots give nothing; the side that knows the land +1.", "broken": true}
+  ],
+  "places": {
+    "syracuse": ["marsh", "heights", "shore"],
+    "gela": ["river", "shore"],
+    "acragas": ["hills", "river"],
+    "leontini": ["plain", "river"],
+    "catana": ["shore", "lava"],
+    "messana": ["shore", "hills"],
+    "motya": ["shore", "plain"],
+    "panormus": ["shore", "hills"],
+    "aetna": ["hills", "pass"],
+    "rhegium": ["shore", "hills"]
+  },
+  "wishes": [
+    {"id": "open", "kind": "invention", "name": "Seek open ground", "text": "If your general picks the ground, he looks for a plain (good for horse)."},
+    {"id": "broken", "kind": "invention", "name": "Seek broken ground", "text": "If your general picks the ground, he looks for hills or a pass (good for the side that knows the land)."}
+  ],
+  "knobs": {"riverBy": 3, "riverCaught": -2, "refuseNeed": 4, "refuseFail": -1}
+}

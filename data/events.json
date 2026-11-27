@@ -71,7 +71,7 @@
     },
     {
       "id": "rhegiumRefuses", "kind": "history", "art": "wedding", "name": "No bride from Rhegium", "weight": 4,
-      "when": { "from": "spring-399", "until": "summer-397" },
+      "when": { "from": "spring-399", "until": "summer-397", "switchOff": "friendsAbroad" },
       "text": "You sent envoys to Rhegium asking for a bride from among its citizens, and promised them land and strength in return. After much debate their assembly has voted no.",
       "why": "you need children to secure your rule, and friends on the Strait before a war",
       "choices": [

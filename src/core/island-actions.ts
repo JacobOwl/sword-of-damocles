@@ -1,10 +1,11 @@
 // Your actions on the island (Phase 2). Names, costs and texts are in data/actions.json (scenario "island");
 // the rules are here. actions.ts adds these to the menu.
 import { PLAYER, capital, holds } from "./state.ts";
+import { on } from "./switches.ts";
 import { event, silver, grain, clock } from "./ops.ts";
 import {
   ISLAND, NODES, assault, assaultMods, assaultNeed, bloc, city, cityWalls, disband, friendly, march, menWords, muster, musterSize,
-  nodeName, path, reachable, sideName, yourArmy, carthageArmy, hostileTo, armyName, punicHeld,
+  nodeName, path, reachable, sideName, yourArmy, carthageArmy, hostileTo, armyName, punicHeld, CARTHAGE,
 } from "./island.ts";
 import { endWar, startWar } from "./carthage.ts";
 import { applyTerms, card, carthageAccepts, termsFor, termsText } from "./war.ts";
@@ -13,6 +14,14 @@ import { SUPPLY, ravage, ravageCheck, reinforce, reinforceCheck, reinforceFrom }
 import { TOWNS, courtHouse, courtHouseMods, courtableSeat, houseName, seatsOf } from "./towns.ts";
 import type { Args, GameState, Mod } from "./types.ts";
 import { townHold, useHold, townLeader, SECRETS } from "./secrets.ts";
+import { afterScene, fightScene, pendingScene, GROUND } from "./scenes.ts";
+import { bindPart, bindTargets, envoyTargets, sendEnvoy, CONT } from "./contingents.ts";
+import { payMan, returnsState, sendHerald } from "./returns.ts";
+import { ABROAD, abroadOn, askHelp, envoyMen, envoyPowers, giftTargets, giveGift, helpCheck, marriageTargets, offerMarriage, recruitCheck, recruitLaconia, sendEnvoyAbroad } from "./abroad.ts";
+import { crossCheck, crossToLibya, homeCheck, libyaLanding, landingOpen, marchCheck, marchInLibya, marchTargets, plunder, plunderCheck, raze, razeCheck, sailHome, slipAway, armyInLibya, libyaOn } from "./libya.ts";
+import { crisisChoice, debateMove, plotChoice, pendingChoice } from "./crises.ts";
+import { FLEETS, buildCheck, buildSquadron, carryArmy, carryCheck, carryTargets, fleetState, setOrder, setRowers, strikeCheck, strikeFleet, youOrder, admiralName, beachedAt } from "./fleets.ts";
+import { prefers } from "./carthage.ts";
 import { campaignCheck, commanderOptions, commissionOn, keeperOptions, musterNotes, startCampaign } from "./commission.ts";
 
 const R = ISLAND.rules;
@@ -81,7 +90,7 @@ export const ISLAND_IMPL: Record<string, Impl> = {
   assault: {
     check: (s) => {
       const a = yourArmy(s);
-      return general(s) ?? (!a?.siege ? "your army is not besieging a city" : a.siegeSince === s.season ? "the siege lines need a season first" : s.flags.assaulted === s.season ? "the army has stormed once this season" : null);
+      return general(s) ?? (!a?.siege ? "your army is not besieging a city" : a.siege === "carthago" ? "Carthage cannot be stormed: its walls run from sea to sea (Diodorus 20.59.2)" : a.siegeSince === s.season ? "the siege lines need a season first" : s.flags.assaulted === s.season ? "the army has stormed once this season" : null);
     },
     odds: (s) => assaultMods(s, yourArmy(s)!),
     need: assaultNeed(),
@@ -197,6 +206,146 @@ export const ISLAND_IMPL: Record<string, Impl> = {
     odds: (s, a) => courtHouseMods(s, a.target!),
     need: TOWNS.knobs.courtNeed,
     run: (s, a, ok) => courtHouse(s, a.target!, ok),
+  },
+  // Switch "battleScenes": the choices inside a battle scene (ui/components/scene.ts). Free: they use no action.
+  sceneFight: {
+    target: (s) => (pendingScene(s)?.stage === "choose" ? pendingScene(s)!.turn!.options.map((o) => ({ value: o.id, label: o.label })) : []),
+    second: (s) => [{ value: "fight", label: "Fight" }, ...(on(s, "groundChoice") ? [{ value: "refuse", label: "Try to refuse battle" }] : [])],
+    check: (s) => (pendingScene(s)?.stage !== "choose" ? "no battle waits to be fought" : null),
+    run: (s, a) => fightScene(s, a.target, a.second === "refuse"),
+  },
+  sceneAfter: {
+    target: (s) => (pendingScene(s)?.stage === "after" ? (pendingScene(s)!.options ?? []).map((o) => ({ value: o.id, label: o.label })) : []),
+    check: (s) => (pendingScene(s)?.stage !== "after" ? "no battle waits for its end" : null),
+    run: (s, a) => afterScene(s, a.target),
+  },
+  // Switch "fleets": the fleet's order, its rowers, the crossing, and a strike at Carthage's fleet.
+  fleetOrder: {
+    target: () => FLEETS.orders.filter((o: any) => o.id !== "carry").map((o: any) => ({ value: o.id, label: `${o.name}: ${o.text}` })),
+    check: (s) => (!youOrder(s) ? `${capital(admiralName(s))} holds the fleet and does not take your orders` : null),
+    run: (s, a) => setOrder(s, a.target as any),
+  },
+  fleetRowers: {
+    target: (s) => FLEETS.rowers.filter((r: any) => r.id !== fleetState(s).rowers).map((r: any) => ({ value: r.id, label: `${r.name}: ${r.text}` })),
+    check: (s) => (!youOrder(s) ? `${capital(admiralName(s))} holds the fleet and does not take your orders` : null),
+    run: (s, a) => setRowers(s, a.target as any),
+  },
+  // Switches "crisisScenes" and "assemblyDebates": answers inside a scene (they use no action).
+  plotChoice: {
+    target: (s) => ((pendingChoice(s)?.kind === "plot" ? (pendingChoice(s) as any).choices : []) as any[]).map((o) => ({ value: o.id, label: o.label })),
+    check: (s) => (pendingChoice(s)?.kind !== "plot" ? "no plot waits for your judgement" : null),
+    run: (s, a) => plotChoice(s, a.target!, a.second),
+  },
+  crisisChoice: {
+    target: (s) => ((pendingChoice(s)?.kind === "crisis" && !(pendingChoice(s) as any).settle ? (pendingChoice(s) as any).choices : []) as any[]).map((o) => ({ value: o.id, label: o.label })),
+    check: (s) => (pendingChoice(s)?.kind !== "crisis" || (pendingChoice(s) as any).settle ? "no council waits for your choice" : null),
+    run: (s, a) => crisisChoice(s, a.target!, a.second),
+  },
+  debateMove: {
+    target: (s) => ((pendingChoice(s)?.kind === "debate" ? (pendingChoice(s) as any).choices : []) as any[]).map((o) => ({ value: o.id, label: o.label })),
+    check: (s) => (pendingChoice(s)?.kind !== "debate" ? "no debate is under way" : null),
+    run: (s, a) => debateMove(s, a.target!, a.second),
+  },
+  // Switch "libyaCrossing": carry the war to Libya (a what-if).
+  crossLibya: {
+    check: (s) => general(s) ?? crossCheck(s),
+    run: (s) => crossToLibya(s),
+  },
+  libyaLanding: {
+    target: (s) => ((landingOpen(s) as any)?.choices ?? []).map((o: any) => ({ value: o.id, label: o.label })),
+    check: (s) => (!landingOpen(s) ? "no landing waits for your choice" : null),
+    run: (s, a) => libyaLanding(s, a.target!, a.second),
+  },
+  libyaMarch: {
+    target: (s) => marchTargets(s),
+    check: (s) => general(s) ?? marchCheck(s),
+    run: (s, a) => marchInLibya(s, a.target!),
+  },
+  libyaPlunder: {
+    check: (s) => general(s) ?? plunderCheck(s),
+    run: (s) => plunder(s),
+  },
+  libyaRaze: {
+    check: (s) => general(s) ?? razeCheck(s),
+    run: (s) => raze(s),
+  },
+  libyaHome: {
+    check: (s) => general(s) ?? homeCheck(s),
+    run: (s) => sailHome(s),
+  },
+  libyaSlip: {
+    check: (s) => (!libyaOn(s) ? "the switch is off" : !armyInLibya(s) ? "your army is not in Libya" : yourArmy(s)!.commander !== PLAYER ? "you are not with the army" : null),
+    run: (s) => slipAway(s),
+  },
+  // Switch "friendsAbroad": the powers across the sea.
+  envoyAbroad: {
+    target: (s) => (abroadOn(s) ? envoyPowers(s) : []),
+    targetLabel: "To",
+    second: (s) => (abroadOn(s) ? envoyMen(s) : []),
+    secondLabel: "Who goes",
+    check: (s) => (!abroadOn(s) ? "the switch is off" : !envoyMen(s).length ? "no friend of yours is free to go" : null),
+    run: (s, a) => sendEnvoyAbroad(s, a.target!, a.second!),
+  },
+  offerMarriage: {
+    target: (s) => (abroadOn(s) ? marriageTargets(s) : []),
+    check: (s) => (!abroadOn(s) ? "the switch is off" : !marriageTargets(s).length ? "both towns have answered already" : null),
+    run: (s, a) => offerMarriage(s, a.target as any),
+  },
+  askHelpAbroad: {
+    target: () => [{ value: "sparta", label: "Sparta" }, { value: "corinth", label: "Corinth" }],
+    check: (s, a) => (!abroadOn(s) ? "the switch is off" : a.target ? helpCheck(s, a.target) : (helpCheck(s, "sparta") && helpCheck(s, "corinth"))),
+    run: (s, a) => askHelp(s, a.target as any),
+  },
+  giftAbroad: {
+    target: (s) => (abroadOn(s) ? giftTargets(s) : []),
+    check: (s) => (!abroadOn(s) ? "the switch is off" : s.silver < ABROAD.knobs.giftSilver ? `needs ${ABROAD.knobs.giftSilver} silver` : null),
+    run: (s, a) => giveGift(s, a.target!),
+  },
+  recruitLaconia: {
+    check: (s) => (!abroadOn(s) ? "the switch is off" : recruitCheck(s)),
+    run: (s) => recruitLaconia(s),
+  },
+  buildSquadron: {
+    check: (s) => buildCheck(s),
+    run: (s) => buildSquadron(s),
+  },
+  sailArmy: {
+    target: (s) => carryTargets(s),
+    check: (s) => general(s) ?? carryCheck(s),
+    run: (s, a) => carryArmy(s, a.target!),
+  },
+  strikeFleet: {
+    check: (s) => strikeCheck(s),
+    notes: (s) => (beachedAt(s) ? ["Its ships were drawn up on the beach when its army landed: +2 for you."] : []),
+    run: (s) => strikeFleet(s),
+  },
+  groundWish: {
+    target: () => GROUND.wishes.map((w: any) => ({ value: w.id, label: `${w.name}: ${w.text}` })),
+    check: (s) => (!yourArmy(s) ? "you have no army in the field" : null),
+    run: (s, a) => { (yourArmy(s) as any).wish = a.target; },
+  },
+  // Switch "contingents": bind a contingent against Carthage's envoys; send your own into Carthage's camp.
+  bindPart: {
+    target: (s) => bindTargets(s),
+    second: () => [{ value: "hostages", label: "Take hostages (its town cools toward you)" }, { value: "paid", label: `Pay them (${CONT.knobs.payCost} silver, this season)` }],
+    check: (s, a) => (!yourArmy(s) ? "you have no army in the field" : a.second === "paid" && s.silver < CONT.knobs.payCost ? `needs ${CONT.knobs.payCost} silver` : null),
+    run: (s, a) => bindPart(s, a.target!, a.second === "paid" ? "paid" : "hostages"),
+  },
+  sendEnvoyPart: {
+    target: (s) => envoyTargets(s),
+    check: (s) => (!carthageArmy(s) ? "Carthage has no army in Sicily" : s.silver < CONT.knobs.envoyCost ? `needs ${CONT.knobs.envoyCost} silver` : null),
+    run: (s, a) => sendEnvoy(s, a.target!),
+  },
+  // Switch "carthageReturns": tip Carthage's council before it debates.
+  sendHerald: {
+    target: () => [{ value: "demand", label: "A demand: give up the Greek towns, or war (Carthage's people lean to war)" }, { value: "terms", label: "Terms: peace, each keeps what it holds (Carthage's Elders lean to waiting)" }],
+    check: (s) => (returnsState(s)?.herald?.season === s.season ? "your herald is already on his way" : null),
+    run: (s, a) => sendHerald(s, a.target === "terms" ? "terms" : "demand"),
+  },
+  payMan: {
+    target: (s) => CARTHAGE.blocs.filter((b: any) => b.votes).map((b: any) => ({ value: b.id, label: `${capital(b.name)}: ${prefers(s, b.id).goal === "war" ? "now for war" : prefers(s, b.id).goal === "peace" ? "now for peace" : "now for waiting"}` })),
+    check: (s) => (s.silver < CARTHAGE.returns.payCost ? `needs ${CARTHAGE.returns.payCost} silver` : null),
+    run: (s, a) => payMan(s, a.target!),
   },
   offerPeace: {
     notes: (s) => (card(s) ? [`Your terms would be: ${termsText(termsFor(s, "syracuse"))}`] : []),
