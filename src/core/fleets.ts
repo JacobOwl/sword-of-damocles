@@ -13,7 +13,7 @@ import { HOOKS } from "./hooks.ts";
 import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf } from "./state.ts";
 import { event, log, mood, silver, grain } from "./ops.ts";
-import { ABROAD_NODES, NODES, arrive, armyName, carthageArmy, carthagePersonName, city, cityGrainChange, friendly, loseMen, nodeDef, nodeName, yourArmy } from "./island.ts";
+import { ABROAD_NODES, NODES, isLibya, arrive, armyName, carthageArmy, carthagePersonName, city, cityGrainChange, friendly, loseMen, nodeDef, nodeName, yourArmy } from "./island.ts";
 import { addScene, pendingScene, allScenes } from "./scenes.ts";
 import { boardOn, dig, vote, votedNow } from "./board.ts";
 import type { Army, GameState, Mod } from "./types.ts";
@@ -53,7 +53,7 @@ function carthageAdmiral(s: GameState): string | undefined { const m = C(s).peop
 export function carthageFleetName(s: GameState) { const a = carthageAdmiral(s); return a ? `${poss(carthagePersonName(s, a))} fleet` : "Carthage's fleet"; }
 export const ports = (s: GameState) => [...NODES.filter((n) => n.port), ...ABROAD_NODES.filter((n) => s.island?.cities[n.id])];
 // The order the fleet sails under now, if it sails at all.
-export function sailing(s: GameState, o: Order) { return fleetsOn(s) && fleetObeys(s) && soundYours(s) > 0 && fleetState(s).order === o; }
+export function sailing(s: GameState, o: Order) { return fleetsOn(s) && fleetObeys(s) && soundYours(s) > 0 && fleetState(s).order === o && !HOOKS.fleetAbroad?.(s); } // switch "libyaCrossing": a fleet on Libya's beach sails no other order
 
 // ---------- Hooks the older code calls (each returns undefined when the switch is off) ----------
 // The interception roll at the crossing (carthage.ts intercept): only when watching; a sea battle if escorts fight.
@@ -120,7 +120,7 @@ function ownOrder(s: GameState): [Order, string] {
 function seaThreat(s: GameState) {
   const f = fleetState(s);
   const ya = yourArmy(s);
-  const yours = fleetObeys(s) ? soundYours(s) : 0;
+  const yours = fleetObeys(s) && !HOOKS.fleetAbroad?.(s) ? soundYours(s) : 0; // switch "libyaCrossing": the fleet is on Libya's beach
   const threat = s.island!.war && soundTheirs(s) >= Math.max(K.threatMin, yours) && !!ya && ya.at !== "syracuse";
   if (!threat) { f.threat = undefined; return; }
   if (f.threat !== undefined && f.threat < s.season) {
@@ -188,6 +188,7 @@ export function carryCheck(s: GameState): string | null {
   if (!a) return "you have no army in the field";
   if (a.moved === s.season) return "the army has marched this season";
   if (!nodeDef(a.at)?.port) return `${nodeName(a.at)} has no harbour`;
+  if (isLibya(a.at)) return "the army is in Libya: sail home from a port there";
   if (!youOrder(s)) return `${capital(admiralName(s))} does not take your orders`;
   if (soundYours(s) < carryNeed(s)) return `the army needs ${carryNeed(s)} sound squadrons to carry it; the fleet has ${soundYours(s)}`;
   if (pendingScene(s)) return "a battle waits to be fought";
@@ -215,6 +216,7 @@ function land(s: GameState, a: Army, dest: string) {
   event(s, PLAYER, `${capital(fleetName(s))} carries ${armyName(s, a)} from ${nodeName(from)} to ${nodeName(dest)} in one season.`, "the army goes by sea");
   count(s, "crossings");
   arrive(s, a);
+  HOOKS.landed?.(s, a, dest); // switch "libyaCrossing"
 }
 // Strike Carthage's fleet where it lies beached beside its army (Motya, 14.50.1; Syracuse, 14.73.2).
 export function beachedAt(s: GameState): string | undefined {

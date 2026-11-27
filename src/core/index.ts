@@ -66,5 +66,7 @@ export { armyParts, heart as partHeart, heartWord, bonded as partBonded, contOn,
 export { FLEETS, fleetsOn, fleetState, soundYours, soundTheirs, fleetName, carthageFleetName, admiralName, orderDef, youOrder, fleetObeys } from "./fleets.ts";
 export { returnsState, recovering, inTruce } from "./returns.ts";
 export { ABROAD, abroadOn, abroadState, moodOf as abroadMood, moodWordOf as abroadMoodWord, powerDef, pharacidasHere, helpHere } from "./abroad.ts";
+export { LIBYA, libyaOn, libyaState, inLibya, armyInLibya, landingOpen } from "./libya.ts";
+export { LIBYA_NODES, isLibya } from "./island.ts";
 export { ABROAD_NODES } from "./island.ts";
 export { pendingChoice, signsOf, crisisOn, risingOf, CRISES } from "./crises.ts";

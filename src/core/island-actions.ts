@@ -18,6 +18,7 @@ import { afterScene, fightScene, pendingScene, GROUND } from "./scenes.ts";
 import { bindPart, bindTargets, envoyTargets, sendEnvoy, CONT } from "./contingents.ts";
 import { payMan, returnsState, sendHerald } from "./returns.ts";
 import { ABROAD, abroadOn, askHelp, envoyMen, envoyPowers, giftTargets, giveGift, helpCheck, marriageTargets, offerMarriage, recruitCheck, recruitLaconia, sendEnvoyAbroad } from "./abroad.ts";
+import { crossCheck, crossToLibya, homeCheck, libyaLanding, landingOpen, marchCheck, marchInLibya, marchTargets, plunder, plunderCheck, raze, razeCheck, sailHome, slipAway, armyInLibya, libyaOn } from "./libya.ts";
 import { crisisChoice, debateMove, plotChoice, pendingChoice } from "./crises.ts";
 import { FLEETS, buildCheck, buildSquadron, carryArmy, carryCheck, carryTargets, fleetState, setOrder, setRowers, strikeCheck, strikeFleet, youOrder, admiralName, beachedAt } from "./fleets.ts";
 import { prefers } from "./carthage.ts";
@@ -89,7 +90,7 @@ export const ISLAND_IMPL: Record<string, Impl> = {
   assault: {
     check: (s) => {
       const a = yourArmy(s);
-      return general(s) ?? (!a?.siege ? "your army is not besieging a city" : a.siegeSince === s.season ? "the siege lines need a season first" : s.flags.assaulted === s.season ? "the army has stormed once this season" : null);
+      return general(s) ?? (!a?.siege ? "your army is not besieging a city" : a.siege === "carthago" ? "Carthage cannot be stormed: its walls run from sea to sea (Diodorus 20.59.2)" : a.siegeSince === s.season ? "the siege lines need a season first" : s.flags.assaulted === s.season ? "the army has stormed once this season" : null);
     },
     odds: (s) => assaultMods(s, yourArmy(s)!),
     need: assaultNeed(),
@@ -236,14 +237,45 @@ export const ISLAND_IMPL: Record<string, Impl> = {
     run: (s, a) => plotChoice(s, a.target!, a.second),
   },
   crisisChoice: {
-    target: (s) => ((pendingChoice(s)?.kind === "crisis" ? (pendingChoice(s) as any).choices : []) as any[]).map((o) => ({ value: o.id, label: o.label })),
-    check: (s) => (pendingChoice(s)?.kind !== "crisis" ? "no council waits for your choice" : null),
+    target: (s) => ((pendingChoice(s)?.kind === "crisis" && !(pendingChoice(s) as any).settle ? (pendingChoice(s) as any).choices : []) as any[]).map((o) => ({ value: o.id, label: o.label })),
+    check: (s) => (pendingChoice(s)?.kind !== "crisis" || (pendingChoice(s) as any).settle ? "no council waits for your choice" : null),
     run: (s, a) => crisisChoice(s, a.target!, a.second),
   },
   debateMove: {
     target: (s) => ((pendingChoice(s)?.kind === "debate" ? (pendingChoice(s) as any).choices : []) as any[]).map((o) => ({ value: o.id, label: o.label })),
     check: (s) => (pendingChoice(s)?.kind !== "debate" ? "no debate is under way" : null),
     run: (s, a) => debateMove(s, a.target!, a.second),
+  },
+  // Switch "libyaCrossing": carry the war to Libya (a what-if).
+  crossLibya: {
+    check: (s) => general(s) ?? crossCheck(s),
+    run: (s) => crossToLibya(s),
+  },
+  libyaLanding: {
+    target: (s) => ((landingOpen(s) as any)?.choices ?? []).map((o: any) => ({ value: o.id, label: o.label })),
+    check: (s) => (!landingOpen(s) ? "no landing waits for your choice" : null),
+    run: (s, a) => libyaLanding(s, a.target!, a.second),
+  },
+  libyaMarch: {
+    target: (s) => marchTargets(s),
+    check: (s) => general(s) ?? marchCheck(s),
+    run: (s, a) => marchInLibya(s, a.target!),
+  },
+  libyaPlunder: {
+    check: (s) => general(s) ?? plunderCheck(s),
+    run: (s) => plunder(s),
+  },
+  libyaRaze: {
+    check: (s) => general(s) ?? razeCheck(s),
+    run: (s) => raze(s),
+  },
+  libyaHome: {
+    check: (s) => general(s) ?? homeCheck(s),
+    run: (s) => sailHome(s),
+  },
+  libyaSlip: {
+    check: (s) => (!libyaOn(s) ? "the switch is off" : !armyInLibya(s) ? "your army is not in Libya" : yourArmy(s)!.commander !== PLAYER ? "you are not with the army" : null),
+    run: (s) => slipAway(s),
   },
   // Switch "friendsAbroad": the powers across the sea.
   envoyAbroad: {

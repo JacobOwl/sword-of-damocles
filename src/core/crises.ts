@@ -252,7 +252,8 @@ function resolveDebate(s: GameState, sc: Scene) {
 export function settleChoices(s: GameState) {
   for (const sc of allScenes(s)) {
     if (!(sc as any).open || (sc as any).answered) continue;
-    if (sc.kind === "plot") plotChoice(s, "watch", sc.id);
+    if ((sc as any).settle) HOOKS[(sc as any).settle]?.(s, sc); // a choice owned by another module (libya.ts)
+    else if (sc.kind === "plot") plotChoice(s, "watch", sc.id);
     else if (sc.kind === "crisis") crisisChoice(s, "stay", sc.id);
     else if (sc.kind === "debate") resolveDebate(s, sc);
     if (s.over) return;

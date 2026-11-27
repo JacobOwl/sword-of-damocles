@@ -1025,7 +1025,7 @@ export interface MenuItem {
 }
 // Switch "mintHabit" (council 2026-11-27): striking coin at your own mint is an order, not one of your three actions.
 export const freeAction = (s: GameState, action: string) => (action === "strikeCoin" && on(s, "mintHabit")) || (action === "battlePlan" && on(s, "battlePlate")) || FREE_ORDERS.has(action);
-const FREE_ORDERS = new Set(["sceneFight", "sceneAfter", "groundWish", "fleetOrder", "councilSpeak", "debateMove", "crisisChoice", "plotChoice"]); // switches of test 5: choices inside a scene, and standing orders // the battle plan is an order, not an action
+const FREE_ORDERS = new Set(["sceneFight", "sceneAfter", "groundWish", "fleetOrder", "councilSpeak", "debateMove", "crisisChoice", "plotChoice", "libyaLanding"]); // switches of test 5: choices inside a scene, and standing orders // the battle plan is an order, not an action
 export function menu(s: GameState): MenuItem[] {
   return DATA.actions.filter((a) => !a.aiOnly && !(a as any).sceneOnly && inScenario(s, a)).map((a) => {
     const impl = IMPL[a.id];

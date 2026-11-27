@@ -1,6 +1,6 @@
 // The app shell: the start screen, the page frame (masthead, ledger, views), the character-sheet dialog, and the clicks.
 // It only reads the simulation's state and sends it your choices; all rules live in src/core.
-import { DATA, PLAYER, storesForecast, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, presetById, presetOpts, switchOn, CARTHAGE, pendingScene } from "../../src/core/index.ts";
+import { DATA, PLAYER, storesForecast, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, presetById, presetOpts, switchOn, CARTHAGE, pendingScene, pendingChoice } from "../../src/core/index.ts";
 import type { Flow, GameState } from "../../src/core/index.ts";
 import { howToPlay, tipAttr } from "../views/help.ts";
 import { court, sheet } from "../views/people.ts";
@@ -99,7 +99,7 @@ export function render() {
   if (g.over && !endedSound) { endedSound = true; sound.ending(g.over.reason); }
   ui.lastSeen = g.log.length;
   if (ui.sheet) openSheet(ui.sheet, false);
-  if (g.island && !g.over && pendingScene(g) && !document.querySelector(".scene")) showScenes(() => ui.s, () => { save(); render(); }); // test 5: a battle waits for you
+  if (g.island && !g.over && (pendingScene(g) || pendingChoice(g)) && !document.querySelector(".scene")) showScenes(() => ui.s, () => { save(); render(); }); // test 5: a battle waits for you
 }
 
 // "Copy my game": the seed, the setup, every move and your verdict, as one line of text to paste into a thread.
