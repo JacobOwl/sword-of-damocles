@@ -11,9 +11,10 @@ import { botById, playSeason } from "../src/core/bots.ts";
 import { NODES, city, yourArmy, carthageArmy, friendly, reachable, cityWalls, path } from "../src/core/island.ts";
 
 type R = () => number;
-const o = presetOpts("nearWarTest");
+const PRESET_ID = (() => { const i = process.argv.indexOf("--preset"); return i > 0 ? process.argv[i + 1] : "nearWarTest"; })(); // --preset test5
+const o = presetOpts(PRESET_ID);
 { const i = process.argv.indexOf("--without"); if (i > 0) { const w = process.argv[i + 1].split(","); o.switches = o.switches!.filter((x) => !w.includes(x)); } } // e.g. --without carthageStays,aweNeedsMarch
-SETUPS.push({ id: "nearwar", name: `${PRESETS.find((p) => p.id === "nearWarTest")!.name} (test 4)`, tuning: o.tuning, opts: { scenario: o.scenario, switches: o.switches, preset: o.preset } });
+SETUPS.push({ id: "nearwar", name: PRESETS.find((p) => p.id === PRESET_ID)!.name, tuning: o.tuning, opts: { scenario: o.scenario, switches: o.switches, preset: o.preset } });
 
 const can = (s: GameState, a: string, args: Args = {}) => preview(s, a, args).ok;
 const tryAct = (s: GameState, a: string, args: Args = {}) => (s.slots > 0 && !s.over && can(s, a, args) ? (act(s, a, args), true) : false);

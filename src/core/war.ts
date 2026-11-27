@@ -10,6 +10,7 @@ import { PLAYER, capital, seasonName } from "./state.ts";
 import { CARTHAGE, ISLAND, NODES, carthageArmy, carthagePersonName, city, menWords, nodeDef, nodeName, setSide, yourArmy } from "./island.ts";
 import type { GameState, Side } from "./types.ts";
 import { patience } from "./supply.ts";
+import { returnsOn } from "./returns.ts";
 
 export const WAR = warJson as any;
 const K = WAR.knobs;
@@ -146,7 +147,7 @@ export function warBattle(s: GameState, winner: "syracuse" | "carthage", at: str
 export function warArmyDestroyed(s: GameState, side: "syracuse" | "carthage", where: string, commander?: string) {
   if (!card(s)) return;
   warNote(s, other(side), "armyDestroyed", `${side === "syracuse" ? "your army is destroyed" : `${commander ? `${carthagePersonName(s, commander)}'s` : "Carthage's"} army is destroyed`} near ${nodeName(where)}`, K.ledgerWeights.armyDestroyed, where);
-  weary(s, side, K.weary.armyDestroyed, "an army was destroyed");
+  weary(s, side, side === "carthage" && returnsOn(s) ? CARTHAGE.returns.destroyedWeary : K.weary.armyDestroyed, "an army was destroyed"); // switch "carthageReturns": a loss, not the end
 }
 export function warTaken(s: GameState, side: "syracuse" | "carthage", commander: string) {
   const k = s.island!.carthage;
@@ -214,6 +215,21 @@ export function warSeason(s: GameState) {
     }
   }
   // The announced landing: a season's warning before Carthage's army comes (warnings before the blow).
+  if (ca) (c as any).landed = true;
+  if (!on(s, "test5Fixes")) { announceLanding(s, c); maybeMatters(s, c); }
+}
+// Switch "test5Fixes": the landing warning and the war's matters come after Carthage's acts and its general's march,
+// so the warning counts the men hired that season and "the army wants battle" never follows a battle just fought.
+export function warLate(s: GameState) {
+  const c = card(s);
+  if (!c || !s.island!.war || !on(s, "test5Fixes")) return;
+  if (carthageArmy(s)) { (c as any).landed = true; c.landingDue = undefined; }
+  announceLanding(s, c);
+  maybeMatters(s, c);
+}
+function announceLanding(s: GameState, c: WarCard) {
+  const k = s.island!.carthage;
+  const ca = carthageArmy(s);
   if (!ca && c.landingDue === undefined && landingPossible(s)) {
     c.landingDue = s.season + 1;
     const men = k.mercs + k.levy;
@@ -221,7 +237,6 @@ export function warSeason(s: GameState) {
     log(s, { actor: "carthage", text: `Carthage readies its fleet: about ${menWords(men).replace("about ", "")} under ${who} will land in Sicily next season.`, why: "merchants count the ships and the hired men gathering at Carthage", visible: true, kind: "warning" });
   }
   if (ca) c.landingDue = undefined;
-  maybeMatters(s, c);
 }
 // What the landing needs, without the announcement (carthage.ts CHECKS.invade adds landingReady).
 export function landingPossible(s: GameState): boolean {
@@ -239,6 +254,7 @@ export function landingReady(s: GameState): boolean {
 function aimMet(s: GameState, c: WarCard, side: "syracuse" | "carthage", id: string): boolean {
   const ours = (x: string) => SIDE_GROUP(city(s, x).side) === "syracuse";
   if (side === "syracuse") {
+    if (on(s, "test5Fixes") && (id === "west" || id === "free") && !(c as any).landed) return false; // test 4: met before Carthage had landed
     if (id === "west") return ours("motya") || ours("panormus");
     if (id === "free") return !NODES.some((n) => city(s, n.id).side === "tributary");
     if (id === "hold") return s.season - c.since >= 6 && !c.ledger.some((e) => e.side === "carthage" && e.kind === "town");

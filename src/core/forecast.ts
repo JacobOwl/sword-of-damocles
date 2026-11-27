@@ -2,6 +2,7 @@
 // (Jacob's first test: "I should be able to mouse over it and have income expenses listed"). It reads the state and
 // changes nothing; the rules it mirrors are in season.ts (rations, harvest, fleet, laws, the guard's pay) and
 // island.ts (allies' tribute, the levies' pay). Keep the two in step.
+import { escorting } from "./fleets.ts";
 import { lawById } from "./data.ts";
 import { ISLAND, NODES, yourArmy } from "./island.ts";
 import { convoysOn } from "./convoys.ts";
@@ -19,7 +20,7 @@ export function storesForecast(s: GameState): { silver: Flow[]; grain: Flow[] } 
     const h = s.offices.fleet;
     const friendly = h && (h === PLAYER || (s.people[h].status === "free" && s.people[h].opinion >= 0));
     const damaged = s.flags.fleetDamaged !== undefined && s.season - s.flags.fleetDamaged < 3;
-    if (friendly && !damaged && !convoysOn(s)) grain.push({ label: `${h === PLAYER ? "your" : `${nameOf(s, h!)}'s`} fleet brings grain`, value: 2 });
+    if (friendly && !damaged && !convoysOn(s) && escorting(s)) grain.push({ label: `${h === PLAYER ? "your" : `${nameOf(s, h!)}'s`} fleet brings grain`, value: 2 });
   }
   for (const id of s.laws) {
     const l = lawById(id)!;

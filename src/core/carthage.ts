@@ -7,7 +7,12 @@ import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf, others, plotStrength } from "./state.ts";
 import { clock, event, log } from "./ops.ts";
 import { carthageCourtsHouse } from "./towns.ts";
+import { carthageParts, envoys } from "./contingents.ts";
+import { carthageBlow, maybeDebate, recovering, returnsOn, returnsPrefers, returnsState, returnsSeason, secondExpedition, takeInExiles } from "./returns.ts";
 import { on } from "./switches.ts";
+import { fleetIntercept, fleetSeason } from "./fleets.ts";
+import { abroadSeason } from "./abroad.ts";
+import { libyaSeason } from "./libya.ts";
 import { deedSecret } from "./secrets.ts";
 import {
   CARTHAGE, ISLAND, NODES, armyName, assault, assaultMods, assaultNeed, bloc, blocPower, carthageArmy, carthagePersonName, chance, city,
@@ -16,7 +21,7 @@ import {
 import type { Army, GameState } from "./types.ts";
 import { seasonName } from "./state.ts";
 import { lean, cityGrainChange } from "./island.ts";
-import { WAR, card, carthageOffers, closeWar, landingReady, noticePendulum, openWar, pendulum, pendulumAnger, staysOn, warOn, warSeason, weary } from "./war.ts";
+import { warLate, WAR, card, carthageOffers, closeWar, landingReady, noticePendulum, openWar, pendulum, pendulumAnger, staysOn, warOn, warSeason, weary } from "./war.ts";
 // Switch "warFocus": where a raid falls (a port of yours or an ally's, not Syracuse) and which town Carthage courts.
 const raidTarget = (s: GameState) => NODES.filter((n) => n.port && n.id !== "syracuse" && ["syracuse", "ally"].includes(city(s, n.id).side) && city(s, n.id).grain >= 2).map((n) => n.id)[0];
 const courtTarget = (s: GameState) => NODES.filter((n) => ["free", "ally"].includes(city(s, n.id).side) && city(s, n.id).lean > -2).sort((a, b) => city(s, b.id).lean - city(s, a.id).lean || a.id.localeCompare(b.id)).map((n) => n.id)[0];
@@ -31,7 +36,11 @@ const say = (s: GameState, text: string, why: string, visible = true) => log(s, 
 const recent = (s: GameState, flag: string, n: number) => s.flags[flag] !== undefined && s.season - s.flags[flag] < n;
 
 // What each voting bloc wants this season, and why. Thresholds are in data/carthage.json (numbers).
+// Switch "carthageReturns": the recovery, the truce, the herald and the bribe adjust what each bloc wants (returns.ts).
 export function prefers(s: GameState, id: string): { goal: string; why: string } {
+  return returnsPrefers(s, id, prefersBase(s, id), recent(s, "punicLost", 8));
+}
+function prefersBase(s: GameState, id: string): { goal: string; why: string } {
   const isl = s.island!;
   const c = isl.carthage;
   const plague = c.plagueUntil >= s.season;
@@ -88,6 +97,7 @@ function chooseGoal(s: GameState) {
   const eldersWant = prefers(s, "elders").goal;
   const decidedBy = eldersWant === best ? "the council" : "the people's assembly, since the Elders were against it";
   setGoal(s, best, `${groupWhy(why[best])}; decided by ${decidedBy}`);
+  maybeDebate(s, voters.map((b: any) => ({ id: b.id, name: b.name, ...prefers(s, b.id) })), best, decidedBy); // switch "carthageReturns": the debate as a scene
 }
 // "the Elders and the Hundred, since Carthage's anger is 8" reads better than one bracket per bloc saying the same thing.
 function groupWhy(pairs: [string, string][]) {
@@ -130,9 +140,10 @@ export function endWar(s: GameState, why: string, terms?: string) {
   const ca = carthageArmy(s);
   if (ca) { isl.armies = isl.armies.filter((a) => a !== ca); isl.carthage.mercs += Math.floor(ca.men / 2); const g = isl.carthage.people[ca.commander]; if (g) g.status = "free"; }
   event(s, "world", `Peace is made between Syracuse and Carthage. ${terms ?? "Each keeps what it holds."}`, why);
-  s.clock = Math.min(s.clock, 4);
-  isl.carthage.goal = "rebuild";
+  if (!returnsOn(s)) s.clock = Math.min(s.clock, 4); // switch "carthageReturns": anger keeps its level, and a truce holds instead
+  isl.carthage.goal = returnsOn(s) ? "recover" : "rebuild";
   isl.carthage.general = undefined;
+  carthageBlow(s, "the peace", true);
   closeWar(s, `Peace was made in ${seasonName(s.season)}. ${terms ?? "Each side kept what it held."}`);
 }
 
@@ -162,6 +173,7 @@ const CHECKS: Record<string, Check> = {
   // Switch "warFocus": in a lull Carthage's ships raid your coast, and its envoys court the towns.
   raid: (s) => warOn(s) && s.island!.war && !carthageArmy(s) && C(s).ships >= actDef("raid").minShips && !!raidTarget(s),
   court: (s) => warOn(s) && !carthageArmy(s) && C(s).silver >= actDef("court").cost && !!courtTarget(s),
+  exiles: (s) => returnsOn(s) && Object.values(s.people).some((x) => !x.player && x.status === "outside" && !(returnsState(s)?.exiles ?? []).includes(x.id)),
   quiet: (s) => C(s).silver >= actDef("quiet").cost && C(s).blocs.libyans.mood <= actDef("quiet").maxMood,
 };
 
@@ -181,7 +193,7 @@ function doAct(s: GameState, id: string, goalName: string) {
     }
     case "hire": {
       // Switch "warFocus": a council united by your gains hires more (the great expedition).
-      const more = pendulum(s) && s.island!.war ? Math.ceil(d.mercs * WAR.knobs.pendulum.hireBonus) : 0;
+      const more = (pendulum(s) && s.island!.war ? Math.ceil(d.mercs * WAR.knobs.pendulum.hireBonus) : 0) + (recovering(s) ? CARTHAGE.returns.secondHire : 0); // switch "carthageReturns": hiring for the return
       c.silver -= d.cost; c.mercs += d.mercs + more;
       say(s, `${d.text} (${menWords(d.mercs + more)} hired${more ? ", more than ever: the council is united against you" : ""}.)`, why);
       break;
@@ -227,9 +239,15 @@ function doAct(s: GameState, id: string, goalName: string) {
     case "invade": {
       const at = landing(s)!;
       const men = c.mercs + c.levy;
+      (c as any).mercs0 = c.mercs; (c as any).levy0 = c.levy;
       c.mercs = 0; c.levy = 0;
       const a: Army = { id: `carthage${s.season}`, side: "carthage", at, men, food: 2, commander: c.general!, guard: 0, guardStart: 0, since: s.season, moved: s.season, siegeSince: -1, onTake: "sack" };
       s.island!.armies.push(a);
+      { // switch "contingents"; with "carthageReturns" the second expedition brings Sardinians and Italians too (Diodorus 14.95.1)
+        let m = (c as any).mercs0 ?? 0;
+        const extra = secondExpedition(s).map((x) => { const n = Math.floor(((c as any).mercs0 ?? 0) * x.share); m -= n; return { id: x.id, name: x.name, men: n }; }).filter((x) => x.men > 0);
+        carthageParts(s, a, m, (c as any).levy0 ?? 0, extra);
+      }
       count(s, "landings");
       event(s, "carthage", `${carthagePersonName(s, a.commander)} lands at ${nodeName(at)} with ${menWords(men)}.`, why);
       intercept(s, a);
@@ -282,6 +300,9 @@ function doAct(s: GameState, id: string, goalName: string) {
       say(s, `${d.text}`, `${why}; the gods seem to be against Carthage`);
       bloc(s, "people", d.mood.people, "the gods are honoured");
       break;
+    case "exiles":
+      takeInExiles(s);
+      break;
     case "quiet":
       c.silver -= d.cost;
       say(s, d.text, `${why}; the Libyans are ${MOODS[c.blocs.libyans.mood]}`);
@@ -292,6 +313,7 @@ function doAct(s: GameState, id: string, goalName: string) {
 
 // Your fleet may catch Carthage's transports at sea (Leptines did, Diodorus 14.55.2).
 function intercept(s: GameState, a: Army) {
+  if (fleetIntercept(s, a)) return; // switch "fleets": only a fleet watching the crossing, and escorts fight
   const f = s.offices.fleet;
   if (!f || (s.flags.fleetDamaged !== undefined && s.season - s.flags.fleetDamaged < 3)) return;
   const friend = f === PLAYER || (s.people[f]?.status === "free" && s.people[f].opinion >= 0);
@@ -381,8 +403,10 @@ export function carthageStep(s: GameState) {
   if (!c.revolt && lib === 0) { c.revolt = true; count(s, "libyanRevolts"); event(s, "carthage", "The Libyan subjects rise against Carthage.", "the levies and dues drove them to it"); }
   else if (c.revolt && lib >= 2) { c.revolt = false; event(s, "carthage", "Libya is quiet again.", `the Libyans are ${MOODS[lib]}`); }
   if (c.revolt) c.silver = Math.max(0, c.silver - 1);
+  returnsSeason(s); // switch "carthageReturns": the recovery, the anger floor, an unanswered landing, old losses fade
   // Switch "warFocus": weariness, the announced landing, the return owed, aims met, the war's matters.
   warSeason(s);
+  envoys(s); // switch "contingents": Carthage's envoys go to your weakest contingent
   noticePendulum(s);
   // The council's goal, then its acts.
   chooseGoal(s);
@@ -403,6 +427,10 @@ export function carthageStep(s: GameState) {
     for (const b of CARTHAGE.blocs.filter((x: any) => x.votes)) blocPower(s, b.id, prefers(s, b.id).goal === "war" ? -1 : 1, "an army was lost in Sicily");
   }
   generalOrders(s);
+  abroadSeason(s); // switch "friendsAbroad": envoys, help, Sparta's favour, the league
+  fleetSeason(s); // switch "fleets": orders, mending, rowers, the sea threat
+  libyaSeason(s); // switch "libyaCrossing": the war in Libya
+  warLate(s); // switch "test5Fixes": the landing warning and the war's matters, after the march
   // A free general who has disgraced himself may end his own life, as Himilcon did (Diodorus 14.76.4).
   for (const p of Object.values(c.people)) if (p.status === "disgraced" && s.flags.carthageArmyLost === s.season - 1 && p.id === "himilcon") {
     p.status = "dead";
