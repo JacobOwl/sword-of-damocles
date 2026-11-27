@@ -505,3 +505,9 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (by me, small calls):** library art enters the game only through `scripts/build-library-art.mjs` (one source, safe to rerun); Carthage's men get the flat medallions, not mosaics, so they look foreign beside the Syracusans; unverified city coin types stay out of the game. Why: keeps one source for each drawing and keeps guesses off the screen.
 - **Open:** whether to keep the medallions for Carthage; fetching the 32 real pictures on Jacob's PC.
 
+## 2026-11-27 (war focus, stage 1: the war card, thread 41)
+
+- **Decided (Jacob, "Build it", with the council's recommended picks):** the war as one object (1B), built behind the switch `warFocus`, off by default. Data in `data/war.json` (every number invention), engine in `src/core/war.ts`.
+- **Done:** each side's aim, a ledger of named events (battles, towns, sacks, plague, aims met), weariness on both sides with lines at 4, 7 and 10 for you and bloc lines in Carthage, peace with terms read from the ledger (Carthage's envoys, and your own Offer peace), Carthage's return owed after a Libyan revolt, its landing announced a season ahead, the pendulum (holding four towns unites Carthage's council), kind and harsh Carthaginian generals, two new Carthaginian acts (raid the grain, court a tribute town), five war matters, the war strip on the season and island pages, Carthage's waiting army on the sea lane, each finished war told as a short chapter in the Story.
+- **Counted, not tuned (100 games, careful bot, Second island test preset):** on: 0 crashes, 1.9 wars a game, 1.1 ended by terms, wars 6.4 seasons long, 1.6 landings, 3.3 raids, the pendulum reached in 67 games. Off: 1.3 wars, none ended by terms. More wars with the switch on, mostly from the pendulum.
+- **Open:** town boards, map and supply, the battle plate (stages 2 to 4), the near-war preset.

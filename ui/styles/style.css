@@ -452,3 +452,17 @@ table.cities tr.on { background: rgba(176, 140, 60, .12); }
 .steps span.next { outline: 1px solid var(--gold); }
 .foe { border-left: 3px solid var(--blood); padding-left: 10px; margin-bottom: 14px; } .foe .fhead { display: flex; gap: 10px; align-items: center; justify-content: flex-start; }
 .cbrief { margin: 4px 0 6px 1.1em; padding: 0; } .cbrief li { margin: 2px 0; } .cfull summary { cursor: pointer; color: var(--muted); }
+
+/* The war strip (war focus): one band, ruled top and bottom, no box walls. */
+.warstrip { margin: 6px 0 14px; padding: 8px 2px; border-top: 2px solid var(--blood); border-bottom: 1px solid var(--rule); }
+.warstrip .wartop { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.warstrip h3 { margin: 0; color: var(--blood); }
+.warstrip .warcols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 4px 18px; margin: 6px 0; }
+.warstrip .label { display: inline-block; min-width: 7.5em; color: var(--muted); font-size: .85em; }
+.warstrip .warturns { margin: 4px 0; padding-left: 1.1em; }
+.warstrip .warturns li.good::marker { color: var(--olive); }
+.warstrip .warturns li.warn::marker { color: var(--blood); }
+.wmarks { display: inline-flex; gap: 2px; vertical-align: middle; }
+.wmark { width: 7px; height: 11px; border: 1px solid var(--rule); background: transparent; }
+.wmark.on { background: var(--accent); border-color: var(--accent); }
+.wmark.line { margin-right: 4px; }
