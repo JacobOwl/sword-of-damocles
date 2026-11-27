@@ -582,6 +582,12 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (Jacob, "Have councils look into these issues", then "ok do it" to the test 5 plan):** the doc became a council spec with every mechanic tied to a game or a passage; build order frame, battle and sea scenes (`battleScenes`), plot and crisis scenes (`crisisScenes`); the debate after test 5.
 - **Open:** whether a scene may kill you; which scenes pop up.
 
+## 2026-11-27 (units, ground and navy design, thread 47)
+- **Done:** a council of five seats (historian, video-game designer, board-game designer, player and story, navy) on Jacob's unit types, ground and town contingents, then the navy for test 5. Spec `docs/council/2026-11-27-units-ground-navy.md`, statements in `docs/council/2026-11-27-units/`, card `docs/research/units-and-ground.md`. Every rule names its game or passage; inventions are marked.
+- **Decided (Jacob, "ok do it" to the test 5 plan, and "maybe some navy"):** the navy enters Phase 2 scope as a small navy (`docs/scope.md`). Three switches for test 5: `contingents`, `groundChoice`, `fleets`.
+- **Decided (small, here, on the seats' split):** no flat −1 for wavering (it acts through the loyalty test, breaking first and leaving); contingents leave only by the envoy test or the drift-home rule; refusing battle is a roll; rivers punish only a side caught crossing; three arms, not five (light troops are not a sourced type here); the horsemen-as-rich-families rule is labelled an inference.
+- **Open:** the loyalty test's harshness and Carthage's levers, after test 5.
+
 ## 2026-11-27 (thread 48: going abroad, council)
 
 - Council of four seats on invading Carthage and diplomacy abroad, run as Jacob asked ("Have councils look into these issues... inspired by other games... real history and plausable stuff"). Record and build spec: `docs/council/2026-11-27-abroad.md`; seats in `docs/council/2026-11-27-abroad/`; card `docs/research/powers-398.md`. Nothing built.

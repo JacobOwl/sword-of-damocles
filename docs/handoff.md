@@ -18,6 +18,15 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **New threads from his ideas:** 46 big event scenes; unit types and terrain.
 - **Questions for Jacob:** was the war too short? Why stop at six seasons?
 
+## Contingents, ground and a small navy, the spec for test 5 (thread 47, 2026-11-27)
+**Spec only, no code.** Jacob: unit types ("cavalary and war elephants"), ground a better and luckier general sets up, town contingents that "backstab us or fight worst or break first", "maybe some navy"; then "Have councils look into these issues" and "ok do it" to the test 5 plan. Record: `docs/council/2026-11-27-units-ground-navy.md`; five seats in `docs/council/2026-11-27-units/`; card `docs/research/units-and-ground.md`.
+- **Contingents** (switch `contingents`): up to five named parts per army, hearts read from town, faction or pay; Carthage's envoy and the Sekigahara-style loyalty test answered by a bond (hostages, pay, friendly house); breaking first; +1 before their own walls; far from home they go home unless paid; towns remember. Carthage's army the same.
+- **Ground** (switch `groundChoice`): one ground roll (general's skill, local knowledge, horse), ground cards per place, two wishes, caught crossing a river on a win by 3, refusing battle as a roll, pursuit data for thread 46. Three arms (heavy, horse, chariots); horsemen read the rich families (an inference, labelled).
+- **Navy** (switch `fleets`): scope changed by Jacob's ask (`docs/scope.md`); one named fleet each side in squadrons, orders, the crossing, blockade, the sea-threat warning, one sea battle, the admiral as rival, who rows.
+- **No elephants** in 405 to 395 (Pyrrhus about 278; Carthage's 262, after the span). Parked items in `docs/later.md`.
+- **Sent to** thread 49 (the test 5 build) and thread 48 (it uses "the fleet" and "the crossing").
+- **Questions for Jacob:** is the loyalty test too harsh (a whole contingent changes sides)? Do Carthage's contingents make it easier for you?
+
 ## Big scenes, the spec for test 5 (thread 46, 2026-11-27)
 **Spec only, no code.** Jacob: battles, serious plots and crises should get their own pop-up with art, some multi-part; "Have councils look into these issues... I prefer us being inspired by other games than you making up stuff"; then "ok do it" to the test 5 plan. Spec: `docs/council/2026-11-27-big-scenes.md`; games report `docs/council/2026-11-27-big-scenes/games.md`; history card `docs/research/big-scenes-history.md`.
 - **Every mechanic names its game or passage** (Six Ages, King of Dragon Pass, CK3 Struggles and schemes, Disco Elysium, Banner Saga, Griftlands, Republic of Rome, Pentiment, Stellaris; Diodorus 11, 13, 14, 15, Thucydides, Plutarch).

@@ -25,12 +25,13 @@ New in Phase 2:
 - **Armies with supply** as objects on the map: men, months of food, a commander. They march along routes, eat as they go, forage in enemy land, besiege cities (walls, hunger, plague) and fight battles with every modifier shown first.
 - **Cities that change sides** by embassy, fear, siege or revolt.
 - **Exile and return** (added by Jacob, 2026-11-23): a separate scenario, off by default, on the Workshop page. When you lose Syracuse you flee to Aetna or Rhegium with a few loyal men and your feud records, and plot your way back while someone else rules. The default game and the test preset still end at a fall.
+- **A small navy** (added by Jacob for test 5, 2026-11-27: "maybe some navy", then "ok do it" to the test 5 plan): a named fleet each side in squadrons, one order a season (watch, escort, carry, blockade), and one sea-battle scene. Spec: `docs/council/2026-11-27-units-ground-navy.md`, Part 3. No ship types.
 - **Friends and rivals across the sea** (Jacob, 2026-11-27, for test 5: "some geopolitics expasion with carthage and more diplo"): Sparta, Corinth, Locri and the Italian Greek league as cards with a mood and a few actions, each from a passage; Rhegium as a town on the map. Design: `docs/council/2026-11-27-abroad.md`.
 - Defined actions only, CK3-style. No freeform orders and no improvised results, for you or for Carthage.
 
 ## Out (cut for now)
 
-The full island of about 25 cities, the mercenary market (companies, prices, contracts), naval battles beyond a single interception roll, generations, choosing the start date, other playable characters, playing as Carthage, the Sikel league as a full faction, Greece and Italy beyond the few cards below, invading Africa (test 6), the city map of Syracuse's districts, coin art (real coin photographs), the history browser, the biased-historian voice, the board game.
+The full island of about 25 cities, the mercenary market (companies, prices, contracts), naval warfare beyond the small navy above (ship types, wind, many fleets), generations, choosing the start date, other playable characters, playing as Carthage, the Sikel league as a full faction, Greece and Italy beyond the few cards above, invading Africa (test 6), the city map of Syracuse's districts, coin art (real coin photographs), the history browser, the biased-historian voice, the board game.
 
 ## Gate to Phase 3
 
