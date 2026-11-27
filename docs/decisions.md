@@ -485,3 +485,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (council, delegated by Jacob):** items 23 to 30. Built and on in the Second island test: the guard dies only in battle, love holds a rival back, Carthage holds what it takes, Carthage spares Libya, the mint as an order, petitions come with an offer. Not built (parked): a cap on seats, Pay in land as a promise, ravaging, dragging armies and area foraging. Record: `docs/council/2026-11-27-second-test-rules.md`.
 - **Done:** display items 9 to 22, including orders from the map, the chronicle cut to its arcs, and the "Coming for you" card. 800 batch games, no crashes or broken states.
 - **Open:** see `docs/handoff.md`.
+## 2026-11-26 (Duet prompts, thread 40)
+- **Done:** `docs/duet-prompts.md` holds two ready-to-paste prompts for Duet jobs Jacob picked: mosaic portraits for Carthage's council and the rising-cast people without a face, and a history brief for each of the six tyrant campaigns. Both deliver draft PRs and change no game code.
+- **Open:** the rising-cast sheet is still only on branch `claude/rising-cast`; PR #89 (art library) is open for Jacob's review.
+
+## 2026-11-27 (war and geopolitics focus: the council, thread 41)
+- **Done:** a five-seat council (historian, strategy designer, board-game designer, UI and map, player and story) on Jacob's first focus project. Proposal with seven questions and four build stages: `docs/council/2026-11-27-war-and-geopolitics.md`; statements in `docs/council/2026-11-27-war/`; card `docs/research/war-and-towns.md` (every quote opened in the saved texts).
+- **Decided (small, here):** treaties and battles from 392 and the 380s are used only as patterns for terms and battle, never as dated events in 405 to 395.
+- **Open (Jacob's):** the seven picks; a later-start test preset; naming the focus in `scope.md`. Nothing built.
