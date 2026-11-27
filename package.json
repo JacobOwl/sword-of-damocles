@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "check": "npm test",
     "sim": "node scripts/sim.ts",
+    "war-runs": "node scripts/war-runs.ts",
     "build": "node scripts/build-ui.ts",
     "census": "node scripts/census.ts",
     "museum": "node scripts/museum.ts",

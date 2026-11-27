@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10" width="12" height="10">
+<title>Scales, ink (tile)</title>
+<desc>Overlapping scales for a field: armour, roofs, fish, a dragon. Repeats both ways. Colourway: iron-gall ink on a transparent ground. Tiles both ways.</desc>
+<path d="M0 5A3 3 0 0 0 6 5A3 3 0 0 0 12 5M-3 10A3 3 0 0 0 3 10A3 3 0 0 0 9 10A3 3 0 0 0 15 10M-3 0A3 3 0 0 0 3 0A3 3 0 0 0 9 0A3 3 0 0 0 15 0" fill="none" stroke="#2b1d12" stroke-width="0.9" stroke-linejoin="miter" stroke-linecap="butt"/>
+</svg>

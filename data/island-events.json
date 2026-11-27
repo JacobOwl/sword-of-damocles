@@ -16,7 +16,7 @@
     {
       "id": "traitorAtTheGate",
       "kind": "history",
-      "art": "gate",
+      "art": "torchlight",
       "name": "A gate at midnight",
       "weight": 6,
       "once": false,
@@ -242,7 +242,7 @@
     {
       "id": "towersAndCatapults",
       "kind": "history",
-      "art": "siege",
+      "art": "siegetower",
       "name": "Towers six storeys high",
       "weight": 5,
       "when": {
@@ -329,7 +329,7 @@
     {
       "id": "heraldsToTheTemples",
       "kind": "history",
-      "art": "temple",
+      "art": "oracle",
       "name": "Heralds to the temples",
       "weight": 6,
       "once": false,
@@ -459,7 +459,7 @@
     {
       "id": "greeksInTheEnemyRanks",
       "kind": "history",
-      "art": "dagger",
+      "art": "captives",
       "name": "Greeks who fought for Carthage",
       "weight": 4,
       "once": false,
@@ -557,7 +557,7 @@
     {
       "id": "firstOnTheWall",
       "kind": "history",
-      "art": "coins",
+      "art": "trophy",
       "name": "The first man on the wall",
       "weight": 4,
       "once": false,
@@ -1375,7 +1375,7 @@
     {
       "id": "himilconsBargain",
       "kind": "history",
-      "art": "letter",
+      "art": "nightletter",
       "name": "A bargain by night",
       "weight": 8,
       "when": {
@@ -1716,7 +1716,7 @@
     {
       "id": "captainCourted",
       "kind": "invention",
-      "art": "horse",
+      "art": "bribe",
       "name": "Punic silver for a captain",
       "weight": 2,
       "when": {
@@ -2682,7 +2682,7 @@
     {
       "id": "partisansBanished",
       "kind": "history",
-      "art": "gate",
+      "art": "exile",
       "name": "Your friends driven out",
       "weight": 6,
       "once": false,
@@ -3522,7 +3522,7 @@
     {
       "id": "hundredAuditTheGeneral",
       "kind": "invention",
-      "art": "tanit",
+      "art": "trial",
       "name": "A rumor from Carthage: the general on trial",
       "weight": 4,
       "when": {
@@ -3733,7 +3733,7 @@
     {
       "id": "dockyardSpeakers",
       "kind": "invention",
-      "art": "tanit",
+      "art": "shipyard",
       "name": "A rumor from Carthage: the dockyards cry for war",
       "weight": 5,
       "when": {
@@ -3908,7 +3908,7 @@
     {
       "id": "carthageMourns",
       "kind": "history",
-      "art": "tanit",
+      "art": "mourning",
       "name": "Carthage in mourning",
       "weight": 6,
       "when": {
@@ -4091,7 +4091,7 @@
     {
       "id": "sallyFromTheWalls",
       "kind": "invention",
-      "art": "siege",
+      "art": "catapult",
       "name": "A sally from the walls",
       "weight": 7,
       "once": false,
@@ -4423,7 +4423,7 @@
     {
       "id": "fleetInTheHarbour",
       "kind": "history",
-      "art": "warship",
+      "art": "carthagefleet",
       "name": "Ships in the Great Harbour",
       "weight": 6,
       "when": {
@@ -4736,7 +4736,7 @@
     {
       "id": "tyrantOfEnna",
       "kind": "history",
-      "art": "letter",
+      "art": "triskeles",
       "name": "A man who would be tyrant",
       "weight": 4,
       "once": true,
@@ -4848,6 +4848,425 @@
         "the odds",
         "all numbers"
       ]
+    },
+    {
+      "id": "warAims",
+      "kind": "invention",
+      "art": "herald",
+      "name": "What the war is for",
+      "chained": true,
+      "when": {
+        "switchOn": "warFocus",
+        "island": {
+          "war": true
+        }
+      },
+      "text": "The city is at war with Carthage. Your friends ask what you mean to win, so that they can tell the assembly and the allies. Whatever you choose will be the measure of the war: the chronicle will judge you by it.",
+      "why": "a war has begun",
+      "choices": [
+        {
+          "id": "west",
+          "label": "Drive Carthage from the west: take Motya or Panormus",
+          "effects": [
+            {
+              "warAim": "west"
+            },
+            {
+              "mood": "guard",
+              "by": 1,
+              "why": "they smell the plunder of Carthage's own towns"
+            }
+          ]
+        },
+        {
+          "id": "free",
+          "label": "Free the Greek cities from Carthage's tribute",
+          "effects": [
+            {
+              "warAim": "free"
+            },
+            {
+              "mood": "citizens",
+              "by": 1,
+              "why": "a war to free the Greeks"
+            }
+          ]
+        },
+        {
+          "id": "hold",
+          "label": "Hold what you have, and lose nothing",
+          "default": true,
+          "effects": [
+            {
+              "warAim": "hold"
+            },
+            {
+              "mood": "rich",
+              "by": 1,
+              "why": "a careful war spares their trade"
+            }
+          ]
+        }
+      ],
+      "invented": [
+        "the whole matter: Dionysius' letter named what he wanted (Diodorus 14.47.2), the three aims are invention",
+        "the moods"
+      ],
+      "note": "Switch warFocus. Fired by war.ts when a war opens."
+    },
+    {
+      "id": "peaceEnvoys",
+      "kind": "history",
+      "art": "herald",
+      "name": "Peace envoys with terms",
+      "chained": true,
+      "when": {
+        "switchOn": "warFocus",
+        "island": {
+          "war": true
+        }
+      },
+      "text": "Carthage's envoys come to Syracuse with terms for a peace. What they offer follows from how the war has gone. You may take their terms, send them back for better ones, or send them home.",
+      "why": "Carthage's council wants peace",
+      "choices": [
+        {
+          "id": "accept",
+          "label": "Take Carthage's terms",
+          "history": true,
+          "effects": [
+            {
+              "terms": "accept"
+            }
+          ]
+        },
+        {
+          "id": "press",
+          "label": "Send them back for the terms the war has earned",
+          "roll": {
+            "need": 4,
+            "mods": [
+              {
+                "trait": "you",
+                "action": "envoy"
+              }
+            ],
+            "success": {
+              "text": "The envoys go home and come back with better terms. Peace is made.",
+              "effects": [
+                {
+                  "terms": "better"
+                }
+              ]
+            },
+            "failure": {
+              "text": "The envoys take offence and sail home. The war goes on.",
+              "effects": [
+                {
+                  "terms": "refuse"
+                },
+                {
+                  "clock": 1,
+                  "why": "Carthage's envoys were sent home insulted"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "refuse",
+          "label": "Send them home: the war goes on",
+          "default": true,
+          "effects": [
+            {
+              "terms": "refuse"
+            }
+          ]
+        }
+      ],
+      "source": "Diodorus 14.96.3-4, 15.17.5",
+      "card": "docs/research/war-and-towns.md",
+      "facts": [
+        {
+          "text": "In 392 the peace gave Dionysius the Sicels and Tauromenium.",
+          "cite": "Diodorus 14.96.4",
+          "quote": "The conditions were like the former except that the Siceli were to be subject to Dionysius and that he was to receive Tauromenium",
+          "file": "sources/diodorus/english/book14-78-96.txt"
+        }
+      ],
+      "invented": [
+        "the terms are read from the war's ledger; their sizes are invention",
+        "the roll to press for better"
+      ],
+      "note": "Switch warFocus. Fired by war.ts when Carthage's peace act runs. The treaties of 392 and the 380s are patterns, not events of this decade."
+    },
+    {
+      "id": "armyWantsBattle",
+      "kind": "history",
+      "art": "camp",
+      "name": "The army wants battle",
+      "chained": true,
+      "when": {
+        "switchOn": "warFocus",
+        "island": {
+          "war": true,
+          "yourArmy": true
+        }
+      },
+      "places": {
+        "ally": {
+          "side": [
+            "ally"
+          ],
+          "optional": true
+        }
+      },
+      "text": "Your army has sat in the field for seasons with no battle. The allies' captains come to your tent: fight now, while we are here, or we go home to our harvests.",
+      "why": "the army has been in the field for seasons without a battle",
+      "choices": [
+        {
+          "id": "pay",
+          "label": "Keep them with silver and promises",
+          "cost": {
+            "silver": 2
+          },
+          "effects": [
+            {
+              "noBattle": true
+            }
+          ]
+        },
+        {
+          "id": "wait",
+          "label": "Tell them time and want will ruin the enemy without fighting",
+          "history": true,
+          "roll": {
+            "need": 4,
+            "mods": [
+              {
+                "trait": "you",
+                "action": "feast"
+              }
+            ],
+            "success": {
+              "text": "They grumble, but they stay.",
+              "effects": [
+                {
+                  "noBattle": true
+                }
+              ]
+            },
+            "failure": {
+              "text": "Angered, many of them leave for home and for the forts nearby.",
+              "effects": [
+                {
+                  "noBattle": true
+                },
+                {
+                  "armyMen": "yours",
+                  "by": -1,
+                  "why": "the allies desert the camp"
+                },
+                {
+                  "lean": "ally",
+                  "by": -1,
+                  "why": "its men went home in anger"
+                },
+                {
+                  "mood": "citizens",
+                  "by": -1,
+                  "why": "you would not fight"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "home",
+          "label": "Let the allies go home",
+          "default": true,
+          "effects": [
+            {
+              "noBattle": true
+            },
+            {
+              "armyMen": "yours",
+              "by": -1,
+              "why": "the allies go home"
+            },
+            {
+              "weary": "syracuse",
+              "by": -1,
+              "why": "fewer men in the field"
+            }
+          ]
+        }
+      ],
+      "source": "Diodorus 14.61.1-3, 14.96.2",
+      "card": "docs/research/war-and-towns.md",
+      "facts": [
+        {
+          "text": "In 396 the Sicilian Greeks, angry that Dionysius would not fight, deserted him.",
+          "cite": "Diodorus 14.61.3",
+          "quote": "The majority of the Sicilian Greeks, being angered at his unwillingness to encounter the enemy, deserted Dionysius",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        },
+        {
+          "text": "In 392 he said time and want would ruin the enemy; the Syracusans deserted him.",
+          "cite": "Diodorus 14.96.2",
+          "quote": "time and want would ruin the barbarians without fighting. Provoked to anger at this the Syracusans deserted him",
+          "file": "sources/diodorus/english/book14-78-96.txt"
+        }
+      ],
+      "invented": [
+        "the trigger (seasons in the field without a battle)",
+        "all numbers"
+      ],
+      "note": "Switch warFocus. Fired by war.ts."
+    },
+    {
+      "id": "victorsWelcome",
+      "kind": "history",
+      "art": "herald",
+      "name": "A victor's welcome",
+      "chained": true,
+      "when": {
+        "switchOn": "warFocus",
+        "island": {
+          "war": true
+        }
+      },
+      "roles": {
+        "victor": {}
+      },
+      "text": "{Victor} has beaten Carthage's army in the field, and you were not there. The soldiers cheer his name, and in the agora men say that when you are away even a small force is enough.",
+      "why": "your army won a battle under {victor}",
+      "choices": [
+        {
+          "id": "honour",
+          "label": "Honour {victor} before the assembly",
+          "effects": [
+            {
+              "opinion": "victor",
+              "by": 2
+            },
+            {
+              "influence": "victor",
+              "by": 1,
+              "why": "the city's thanks"
+            },
+            {
+              "mood": "citizens",
+              "by": 1,
+              "why": "the victory is shared"
+            }
+          ]
+        },
+        {
+          "id": "claim",
+          "label": "Take the credit yourself",
+          "default": true,
+          "effects": [
+            {
+              "grudge": "victor",
+              "reason": "you took the credit for his victory"
+            },
+            {
+              "mood": "guard",
+              "by": 1,
+              "why": "their master's victory"
+            }
+          ]
+        },
+        {
+          "id": "gift",
+          "label": "Reward him quietly with silver",
+          "cost": {
+            "silver": 2
+          },
+          "effects": [
+            {
+              "opinion": "victor",
+              "by": 1
+            }
+          ]
+        }
+      ],
+      "source": "Diodorus 14.64.3, 14.69.3",
+      "card": "docs/research/war-and-towns.md",
+      "facts": [
+        {
+          "text": "The Syracusans, having won without Dionysius, grew proud.",
+          "cite": "Diodorus 14.64.3",
+          "quote": "without his presence, had won a victory over the Carthaginians, they were now puffed up with pride",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        },
+        {
+          "text": "Theodorus: when he is absent, even a small detachment is enough.",
+          "cite": "Diodorus 14.69.3",
+          "quote": "even a small detachment is sufficient",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        }
+      ],
+      "invented": [
+        "the choices and their effects"
+      ],
+      "note": "Switch warFocus. Fired by war.ts after a battle your army won under another man."
+    },
+    {
+      "id": "truceOfDays",
+      "kind": "invention",
+      "art": "herald",
+      "name": "A truce of a few days",
+      "chained": true,
+      "when": {
+        "switchOn": "warFocus",
+        "island": {
+          "war": true,
+          "carthageArmy": true
+        }
+      },
+      "text": "Beaten in the field, Carthage's general sends heralds: a truce of a few days, to bury the dead and to put your terms to his council at home.",
+      "why": "you won a battle, and Carthage's army still stands",
+      "choices": [
+        {
+          "id": "grant",
+          "label": "Grant the truce",
+          "default": true,
+          "effects": [
+            {
+              "armyMen": "carthage",
+              "by": 1,
+              "why": "its general drills his men through the truce"
+            },
+            {
+              "weary": "syracuse",
+              "by": -1,
+              "why": "a few days' rest"
+            }
+          ]
+        },
+        {
+          "id": "refuse",
+          "label": "Refuse: press them while they are beaten",
+          "effects": [
+            {
+              "armyFood": "carthage",
+              "by": -1,
+              "why": "you give them no rest"
+            },
+            {
+              "weary": "syracuse",
+              "by": 1,
+              "why": "no rest for your men"
+            }
+          ]
+        }
+      ],
+      "invented": [
+        "the whole matter is a pattern from the war of the 380s (Diodorus 15.16.1-2): there Carthage asked a truce and its new general drilled the army through it; it is not an event of 405 to 395",
+        "all numbers"
+      ],
+      "note": "Switch warFocus. Fired by war.ts once a game, after you win a battle."
     }
   ]
 }

@@ -59,7 +59,7 @@ export function whatChanged(g: GameState, season: number): Change[] {
 }
 
 export function changedBlock(g: GameState) {
-  if (g.season === 0) return "";
+  if (g.season === (g.startSeason ?? 0)) return "";
   const prev = g.over ? g.over.season : g.season - 1;
   const xs = whatChanged(g, prev);
   if (!xs.length) return `<div class="changed calm"><span class="label">What changed in ${esc(seasonName(prev))}</span><p class="small">Nothing that shifts the balance of power.</p></div>`;
@@ -68,7 +68,7 @@ export function changedBlock(g: GameState) {
 
 // For the "This season" line: an office of yours taken last season.
 export function officeLost(g: GameState): string | null {
-  if (g.season === 0 || g.over) return null;
+  if (g.season === (g.startSeason ?? 0) || g.over) return null;
   const x = whatChanged(g, g.season - 1).find((c) => c.text.startsWith("You lost "));
   return x ? x.text.replace(/ \(.*\)\.$/, ".") : null;
 }

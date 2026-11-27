@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Theatre</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M1.4 15 A10.6 10.6 0 0 1 22.6 15 H16 A4 4 0 0 0 8 15 Z"/><path d="M3.6 15 A8.4 8.4 0 0 1 20.4 15 M5.8 15 A6.2 6.2 0 0 1 18.2 15" class="cut line" style="stroke-width:0.55"/><path d="M8.36 12.9 L2.99 9.8" class="cut line" style="stroke-width:0.5"/><path d="M9.9 11.36 L6.8 5.99" class="cut line" style="stroke-width:0.5"/><path d="M12 10.8 L12 4.6" class="cut line" style="stroke-width:0.5"/><path d="M14.1 11.36 L17.2 5.99" class="cut line" style="stroke-width:0.5"/><path d="M15.64 12.9 L21.01 9.8" class="cut line" style="stroke-width:0.5"/><circle class="line" cx="12" cy="15" r="3" style="stroke-width:.8"/><rect x="4" y="19.4" width="16" height="2.8"/><path d="M7 19.4 V22.2 M12 19.4 V22.2 M17 19.4 V22.2" class="cut line" style="stroke-width:0.6"/>
+</svg>

@@ -101,6 +101,7 @@ import islandEventsJson from "../../data/island-events.json" with { type: "json"
 import dinnersJson from "../../data/dinners.json" with { type: "json" };
 import exileJson from "../../data/exile.json" with { type: "json" };
 import boardJson from "../../data/board.json" with { type: "json" };
+import { setWarFire } from "./war.ts";
 import { applyBoardEffect, describeBoardEffect, scoreBoardEffect, seatName } from "./board.ts";
 export const COURT_EVENTS = (eventsJson as any).events as EventDef[];
 export const ISLAND_EVENTS = ((islandEventsJson as any).events as EventDef[]).map((e) => ({ ...e, scenario: "island" as const }));
@@ -411,6 +412,8 @@ export function fireNow(s: GameState, id: string, roles: Record<string, string>)
   fire(s, def, cast, def.why);
   return true;
 }
+
+setWarFire(fireNow); // switch "warFocus": war.ts puts its matters before you through this
 
 // Switch "contestedBoard": a matter of the board, its people given, with the seat or faction it is about.
 export function fireBoard(s: GameState, id: string, roles: Record<string, string>, extra: Record<string, string>): boolean {

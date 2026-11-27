@@ -182,7 +182,7 @@
    "id": "boardLostVoted",
    "kind": "invention",
    "chained": true,
-   "art": "assembly",
+   "art": "petalism",
    "name": "A seat lost",
    "roles": {
     "taker": {
@@ -513,7 +513,7 @@
    "id": "boardLostHard",
    "kind": "invention",
    "chained": true,
-   "art": "walls",
+   "art": "arrest",
    "name": "A seat lost",
    "roles": {
     "taker": {
@@ -615,7 +615,7 @@
    "id": "boardTerms",
    "kind": "invention",
    "chained": true,
-   "art": "letter",
+   "art": "treaty",
    "name": "New hands, new terms",
    "roles": {
     "holder": {
@@ -766,7 +766,7 @@
    "id": "boardRiseRival",
    "kind": "invention",
    "chained": true,
-   "art": "assembly",
+   "art": "denounced",
    "name": "A rival in the open",
    "roles": {
     "riser": {
@@ -1310,7 +1310,7 @@
    "id": "boardMeasureAudit",
    "kind": "invention",
    "chained": true,
-   "art": "coins",
+   "art": "scales",
    "name": "A measure in the assembly",
    "roles": {
     "speaker": {
@@ -1792,7 +1792,7 @@
    "id": "boardAskCaptain",
    "kind": "invention",
    "chained": true,
-   "art": "walls",
+   "art": "duel",
    "name": "A favour of the guard",
    "roles": {
     "asker": {
@@ -1950,7 +1950,7 @@
    "id": "boardPetTrial",
    "kind": "invention",
    "chained": true,
-   "art": "assembly",
+   "art": "trial",
    "name": "Try the beaten general",
    "roles": {
     "speaker": {

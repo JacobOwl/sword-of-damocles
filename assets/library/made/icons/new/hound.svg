@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Hound (Segesta)</title>
+<desc>The hound is the badge on Segesta's coins (general knowledge, unverified).</desc>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M4 9.6 C6 8.4 14 8.6 17 9 C18.4 9.2 19.4 10 19.8 11 L21.8 14 C22.2 15 21.6 16 20.6 15.6 L18.6 14.4 L17.6 13.2 C17 13.8 16.6 14.4 16.6 15.2 L17 21.6 H15.6 L14.8 15.6 C12 16 9 15.8 7.4 15.2 L7 21.6 H5.6 L5.2 14.6 C4.2 13.8 3.8 12.6 4 11.2 C2.6 11.6 1.4 13 1.2 14.6 C0.8 12.2 2 9.8 4 9.6 Z"/><path d="M18.6 10.4 L17.6 8 L19.6 9.6 Z"/><circle class="cut" cx="19.4" cy="12.2" r="0.45"/>
+</svg>

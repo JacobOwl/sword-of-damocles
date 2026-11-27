@@ -136,7 +136,8 @@
           "quote": "In the end he passed sentence of death upon himself and starved himself to death",
           "file": "sources/diodorus/english/book14.loeb.txt"
         }
-      ]
+      ],
+      "method": "force"
     },
     {
       "id": "magon",
@@ -160,7 +161,8 @@
           "quote": "no less than eighty thousand in number and under the command of Magon",
           "file": "sources/diodorus/english/book14-78-96.txt"
         }
-      ]
+      ],
+      "method": "kindness"
     },
     {
       "id": "hanno",
@@ -171,7 +173,8 @@
       "general": 1,
       "traits": [
         "cautious"
-      ]
+      ],
+      "method": "kindness"
     },
     {
       "id": "bomilcar",
@@ -182,7 +185,8 @@
       "general": 2,
       "traits": [
         "bold"
-      ]
+      ],
+      "method": "force"
     }
   ],
   "goals": [
@@ -211,7 +215,8 @@
         "hire",
         "silver",
         "trade",
-        "ships"
+        "ships",
+        "court"
       ]
     },
     {
@@ -225,6 +230,8 @@
         "reinforce",
         "hire",
         "levy",
+        "raid",
+        "court",
         "ships",
         "silver",
         "trade"
@@ -364,6 +371,25 @@
         "libyans": 1
       },
       "maxMood": 1
+    },
+    {
+      "id": "raid",
+      "kind": "invention",
+      "name": "Raid the coast",
+      "text": "Carthage's ships raid a Sicilian coast.",
+      "grain": 2,
+      "minShips": 2,
+      "switch": "warFocus",
+      "note": "Switch warFocus: in a lull of the war Carthage's fleet raids your coast, as Himilcon's squadron raided the harbour to draw off Dionysius' fleet (Diodorus 14.49.1-2). Numbers invention."
+    },
+    {
+      "id": "court",
+      "kind": "invention",
+      "name": "Court a town",
+      "text": "Carthage's envoys court a Sicilian town.",
+      "cost": 1,
+      "switch": "warFocus",
+      "note": "Switch warFocus: Magon 'showed kindness to the subject cities' (Diodorus 14.90.3). Numbers invention."
     }
   ],
   "numbers": {
@@ -387,5 +413,6 @@
       "people": 12
     },
     "moodHeals": true
-  }
+  },
+  "notes_method": "method: switch warFocus. Himilcon took Eryx by treachery (Diodorus 14.55.4); Magon 'showed kindness to the subject cities' (14.90.3). Hanno and Bomilcar are invented; their methods are invention."
 }
