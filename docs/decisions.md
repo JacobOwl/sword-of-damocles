@@ -516,3 +516,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 
 - **Decided (coordinator's note on Jacob's "Build it"):** a test preset that opens in spring 398 BC near the war, so a test reaches Carthage in its first seasons. A preset may now carry an `opening` (`src/core/opening.ts`): a later start season and plain state set once before any dice (citadel, the Epipolae wall, Aetna, Catana and Leontini yours, Messana an ally, plague in Carthage, anger 5). The history is on `docs/research/opening-398.md`; the numbers are invention. Fourteen seasons; the check-ins and the verdict count from the start.
 - **Changed (with the war card only):** plague in Carthage no longer makes the Elders and the people want peace outright; it counts as weariness (+2), like the council's design. Without it the near-war wars lasted 2.5 seasons on average; with it, 5.0 (100 games, careful bot). Counted, not tuned to history.
+## 2026-11-27 (Duet review and twelve new jobs, thread 42)
+- **Done:** reviewed Duet's PRs #84, #86, #95, #96, #97 (`docs/duet-review-2026-11-27.md`); wrote jobs 3 to 14 in `docs/duet-prompts.md`.
+- **Decided (small, here):** Duet jobs stay out of `src/`, `ui/`, `data/`, `tests/` and `package.json` while threads 39 and 41 build there; drafts go to `docs/drafts/`, the Godot trial to its own `godot/` folder. Each prompt carries its own rules so it can be pasted alone.
+- **Open (Jacob's):** which jobs to run, and whether to merge the drafts #86, #95, #96 and the bot #97.
+
