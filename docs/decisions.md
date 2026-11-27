@@ -587,3 +587,10 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (Jacob, "ok do it" to the test 5 plan, and "maybe some navy"):** the navy enters Phase 2 scope as a small navy (`docs/scope.md`). Three switches for test 5: `contingents`, `groundChoice`, `fleets`.
 - **Decided (small, here, on the seats' split):** no flat −1 for wavering (it acts through the loyalty test, breaking first and leaving); contingents leave only by the envoy test or the drift-home rule; refusing battle is a roll; rivers punish only a side caught crossing; three arms, not five (light troops are not a sourced type here); the horsemen-as-rich-families rule is labelled an inference.
 - **Open:** the loyalty test's harshness and Carthage's levers, after test 5.
+
+## 2026-11-27 (thread 48: going abroad, council)
+
+- Council of four seats on invading Carthage and diplomacy abroad, run as Jacob asked ("Have councils look into these issues... inspired by other games... real history and plausable stuff"). Record and build spec: `docs/council/2026-11-27-abroad.md`; seats in `docs/council/2026-11-27-abroad/`; card `docs/research/powers-398.md`. Nothing built.
+- Test 5 takes two switches from it, both off by default and on in the test 5 preset: `carthageReturns` (a lost army starts a recovery, the council debates in a yearly scene, a second, bigger expedition; Diodorus 14.90, 14.95) and `friendsAbroad` (Sparta, Corinth, Locri and the Italian Greek league as cards; Rhegium on the map; envoy, marriage, help, gift, Spartan recruiting; Sparta's help as objects that leave when its favour drops; the league wakes when poked). Why: Jacob's test 5 plan ("ok do it", 2026-11-27), items 1 and 5.
+- Scope: "Italy and Greece as more than names" moves to In as those few cards and Rhegium, because Jacob asked for "some geopolitics expasion with carthage and more diplo" for test 5. Invading Africa stays out until test 6 (Jacob's plan).
+- No Athens, Persia or Xenophon in the game until a text is saved: nothing in the saved texts ties them to Syracuse in 398 to 395.

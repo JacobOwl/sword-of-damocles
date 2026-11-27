@@ -2,6 +2,14 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Going abroad, the spec for test 5 (thread 48, 2026-11-27)
+**Spec only, no code.** Jacob: "I want to be able to invade carthage and I want to have dilpo with greece city states and other powers if theres history behind it"; then "Have councils look into these issues"; then "ok do it" to the test 5 plan (this thread has items 1 and 5). Spec: `docs/council/2026-11-27-abroad.md`; seats in `docs/council/2026-11-27-abroad/`; card `docs/research/powers-398.md`.
+- **Spec 1, `carthageReturns`:** a lost army starts a recovery (Recover goal, Take in the exiles, Magon's courting; 14.90), `armiesLost` fades, a truce after a treaty, a yearly council debate scene with three named speakers and your levers (herald, paying a man, sparing them), a second, bigger expedition from Libya, Sardinia and Italy, announced a season ahead (14.95.1), unrest while a landing goes unanswered (Republic of Rome).
+- **Spec 2, `friendsAbroad`:** Sparta, Corinth, Locri and the Italian Greek league as cards on the map's edge with a mood word; Rhegium as a town; actions envoy, marriage, ask for help, gift, recruit in Laconia; Sparta's help (Pharacidas, a squadron, a band) as objects that leave if its favour drops (Pax Pamir), Pharacidas' veto of a liberty vote (14.70); the league wakes only when poked (Here I Stand, 14.91.1).
+- **Scope changed** (Jacob's ask): Italy and Greece as those few cards and Rhegium are In. Africa waits for test 6 (`docs/later.md`).
+- **Compatible with** thread 46 (debate and veto are big scenes) and thread 47 (allied squadrons, the crossing, Carthage's contingents).
+- **Questions for Jacob:** can Pharacidas' veto be refused? Debate scene yearly or only after big blows? Should Rhegium's second front open in year one or only when poked?
+
 ## Jacob's test 4, read from the save (thread 43, 2026-11-27)
 **Report only.** Jacob played the Near-war test (v26) for six seasons and stopped: "basically done with this save". Debrief: `docs/playtests/2026-11-27-jacob-test4/debrief.md`, save beside it (replays exactly).
 - **Verdict:** the war had a full arc but was over in four seasons (two after the landing): two wins, Himilcon's army destroyed, peace for 2 silver. Easy again; danger only at home (both factions Rebellious, two plots). Jacob did not see the battle at Acragas: a battle Carthage starts is one line in the summary.
