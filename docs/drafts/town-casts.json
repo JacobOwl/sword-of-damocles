@@ -1,0 +1,3827 @@
+{
+ "kind": "invention",
+ "note": "Draft cast for the town boards: fixed houses for every town, 410 to 390 BC. Shapes follow data/census.json (bodies, houses, people); the cast fields (lean, stance, gate, move, from, to, facts) are additions. Real people and their facts are kind history, checked against the saved texts; everything else is invention. Not loaded by the game.",
+ "card": "docs/drafts/town-casts.md",
+ "startYear": 405,
+ "bodies": [
+  {
+   "id": "leontini",
+   "kind": "invention",
+   "name": "the leading men of Leontini",
+   "place": "leontini",
+   "tie": {
+    "kind": "city",
+    "id": "leontini"
+   },
+   "houses": 5,
+   "standing": [
+    1,
+    3
+   ],
+   "groups": {
+    "siceliot": 0.8,
+    "greekAbroad": 0.2
+   },
+   "roles": [
+    "the first man of Leontini",
+    "an exile of Acragas, settled in Leontini",
+    "a refugee of Gela, here since 405",
+    "a grain-lord of the Leontine plain",
+    "a captain of the mercenaries given Leontini, from about 396"
+   ],
+   "onMap": true,
+   "replaces": "the body of the same id in data/census.json"
+  },
+  {
+   "id": "catana",
+   "kind": "invention",
+   "name": "the leading men of Catana",
+   "place": "catana",
+   "tie": {
+    "kind": "city",
+    "id": "catana"
+   },
+   "houses": 6,
+   "standing": [
+    1,
+    3
+   ],
+   "groups": {
+    "siceliot": 0.83,
+    "campanian": 0.17
+   },
+   "roles": [
+    "the general of the Catanians",
+    "the harbour-master of Catana",
+    "a landowner under Aetna",
+    "a friend of Rhegium",
+    "captain of the Campanians given Catana",
+    "a Catanian who escaped the sale, at Mylae about 394"
+   ],
+   "onMap": true,
+   "replaces": "the body of the same id in data/census.json"
+  },
+  {
+   "id": "naxos",
+   "kind": "invention",
+   "name": "the leading men of Naxos",
+   "place": "naxos",
+   "tie": {
+    "kind": "city",
+    "id": "naxos"
+   },
+   "houses": 5,
+   "standing": [
+    1,
+    3
+   ],
+   "groups": {
+    "siceliot": 0.8,
+    "sikel": 0.2
+   },
+   "roles": [
+    "the commander of the Naxians",
+    "a leader of the Naxian assembly",
+    "a friend of Rhegium",
+    "a headman of the Sikels given Naxos' land",
+    "a Naxian survivor, at Mylae about 394"
+   ],
+   "onMap": false,
+   "replaces": null,
+   "note": "Not on the island map: a build would need a node with this id first."
+  },
+  {
+   "id": "messana",
+   "kind": "invention",
+   "name": "the leading men of Messana",
+   "place": "messana",
+   "tie": {
+    "kind": "city",
+    "id": "messana"
+   },
+   "houses": 7,
+   "standing": [
+    1,
+    3
+   ],
+   "groups": {
+    "siceliot": 0.71,
+    "italiote": 0.29
+   },
+   "roles": [
+    "a Messenian who spoke against the war (no office given)",
+    "the first man of Messana, one of its generals about 399",
+    "a shipowner of the strait",
+    "a friend of Rhegium",
+    "head of the party that sent its families away in 396",
+    "head of the party of the oracle in 396",
+    "a Locrian settled in Messana in 395"
+   ],
+   "onMap": true,
+   "replaces": "the body of the same id in data/census.json"
+  },
+  {
+   "id": "gela",
+   "kind": "invention",
+   "name": "the leading men of Gela",
+   "place": "gela",
+   "tie": {
+    "kind": "city",
+    "id": "gela"
+   },
+   "houses": 6,
+   "standing": [
+    1,
+    3
+   ],
+   "groups": {
+    "greekAbroad": 0.17,
+    "siceliot": 0.83
+   },
+   "roles": [
+    "the Spartan put in charge of Gela by the Syracusans",
+    "son of one of the rich men put to death in 405",
+    "a landowner back from exile",
+    "a leader of the Geloan people",
+    "a priest of the old temples",
+    "a widow who led the women to the altars in 405"
+   ],
+   "onMap": true,
+   "replaces": "the body of the same id in data/census.json"
+  },
+  {
+   "id": "acragas",
+   "kind": "invention",
+   "name": "the leading men of Acragas",
+   "place": "acragas",
+   "tie": {
+    "kind": "city",
+    "id": "acragas"
+   },
+   "houses": 7,
+   "standing": [
+    1,
+    3
+   ],
+   "groups": {
+    "siceliot": 1.0
+   },
+   "roles": [
+    "the fifth general of 406, spared by the crowd",
+    "the horse-breeder, whose daughter's wedding had eight hundred chariots",
+    "the man who collects Carthage's tribute",
+    "heir of Tellias, who kept the wine-cellars",
+    "Olympic foot-race winner of 412",
+    "of the old party friendly to Syracuse, now Dionysius' partisan",
+    "a leader of the returned people, about 393"
+   ],
+   "onMap": true,
+   "replaces": "the body of the same id in data/census.json"
+  },
+  {
+   "id": "motya",
+   "kind": "invention",
+   "name": "the leading men of Motya",
+   "place": "motya",
+   "tie": {
+    "kind": "city",
+    "id": "motya"
+   },
+   "houses": 6,
+   "standing": [
+    1,
+    3
+   ],
+   "groups": {
+    "siceliot": 0.33,
+    "punic": 0.5,
+    "libyan": 0.17
+   },
+   "roles": [
+    "a Greek who fought for Carthage at Motya",
+    "Dionysius' commander of the garrison, 397 to 396",
+    "the first man of Motya",
+    "the dyer and trader (census role), a widow who runs the dye-works",
+    "the shipwright of the harbour",
+    "head of a Libyan household of Motya"
+   ],
+   "onMap": true,
+   "replaces": "the body of the same id in data/census.json"
+  },
+  {
+   "id": "panormus",
+   "kind": "invention",
+   "name": "the leading men of Panormus",
+   "place": "panormus",
+   "tie": {
+    "kind": "city",
+    "id": "panormus"
+   },
+   "houses": 5,
+   "standing": [
+    1,
+    3
+   ],
+   "groups": {
+    "punic": 0.8,
+    "siceliot": 0.2
+   },
+   "roles": [
+    "the first man of Panormus",
+    "a merchant of the harbour",
+    "a priest of Baal (census role)",
+    "captain of the town's levy",
+    "a Himeraean widow who keeps a trading house at Panormus"
+   ],
+   "onMap": true,
+   "replaces": "the body of the same id in data/census.json"
+  },
+  {
+   "id": "aetna",
+   "kind": "invention",
+   "name": "the exiles at Aetna",
+   "place": "aetna",
+   "tie": {
+    "kind": "city",
+    "id": "aetna"
+   },
+   "houses": 5,
+   "standing": [
+    1,
+    3
+   ],
+   "groups": {
+    "siceliot": 0.8,
+    "campanian": 0.2
+   },
+   "roles": [
+    "leader of the exiles",
+    "a cavalryman who fled Syracuse (census role)",
+    "an exile who lost his land, with wife and children left in Syracuse",
+    "a young hothead of the exiles (census role)",
+    "captain of the Campanians at Aetna, from 396"
+   ],
+   "onMap": true,
+   "replaces": "the body of the same id in data/census.json"
+  },
+  {
+   "id": "camarina",
+   "kind": "invention",
+   "name": "the leading men of Camarina",
+   "place": "camarina",
+   "tie": {
+    "kind": "city",
+    "id": "camarina"
+   },
+   "houses": 4,
+   "standing": [
+    1,
+    3
+   ],
+   "groups": {
+    "siceliot": 1.0
+   },
+   "roles": [
+    "a commander at Acragas in 406",
+    "a rich man who carried his silver out in 405",
+    "led his people to Leontini rather than Syracuse in 405",
+    "captain of the levy that joined Dionysius first in 397"
+   ],
+   "onMap": false,
+   "replaces": null,
+   "note": "Not on the island map: a build would need a node with this id first."
+  },
+  {
+   "id": "selinus",
+   "kind": "invention",
+   "name": "the leading men of Selinus",
+   "place": "selinus",
+   "tie": {
+    "kind": "city",
+    "id": "selinus"
+   },
+   "houses": 4,
+   "standing": [
+    1,
+    3
+   ],
+   "groups": {
+    "siceliot": 1.0
+   },
+   "roles": [
+    "the man who had counselled peace with Carthage",
+    "a survivor who came back with Hermocrates about 408",
+    "a survivor farming under the tribute",
+    "captain of the men who joined Dionysius in 397"
+   ],
+   "onMap": false,
+   "replaces": null,
+   "note": "Not on the island map: a build would need a node with this id first."
+  },
+  {
+   "id": "himera",
+   "kind": "invention",
+   "name": "the leading men of Himera",
+   "place": "himera",
+   "tie": {
+    "kind": "city",
+    "id": "himera"
+   },
+   "houses": 3,
+   "standing": [
+    1,
+    2
+   ],
+   "groups": {
+    "siceliot": 1.0
+   },
+   "roles": [
+    "a Himeraean who marched with Hermocrates about 408",
+    "a Himeraean who made friends with Himilcon in 396",
+    "a widow among those shipped to Messana in 409"
+   ],
+   "onMap": false,
+   "replaces": null,
+   "note": "Not on the island map: a build would need a node with this id first."
+  }
+ ],
+ "houses": [
+  {
+   "id": "leontini-lysimachus",
+   "kind": "invention",
+   "body": "leontini",
+   "place": "leontini",
+   "head": "leontini-lysimachus",
+   "standing": 3,
+   "group": "siceliot",
+   "founded": "leontini-lysimachus",
+   "from": 405,
+   "to": 403,
+   "lean": "town",
+   "role": "the first man of Leontini",
+   "stance": {
+    "syracuse": "Sells it grain and fears being swallowed by it.",
+    "carthage": "Far away; Carthage's peace left Leontini free (13.114.1).",
+    "commons": "Speaks for the old townsmen against the refugees Syracuse settled on them."
+   },
+   "gate": "Syracusan citizenship for every household, with the old farms kept: the terms Dionysius in fact offered (14.15.4).",
+   "move": "Calls the assembly to hand the town over before a siege, so that no one is sold as the Naxians were."
+  },
+  {
+   "id": "leontini-thrasydaeus",
+   "kind": "invention",
+   "body": "leontini",
+   "place": "leontini",
+   "head": "leontini-thrasydaeus",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "leontini-thrasydaeus",
+   "from": 405,
+   "to": 405,
+   "lean": "you",
+   "role": "an exile of Acragas, settled in Leontini",
+   "stance": {
+    "syracuse": "Backs Dionysius, who took up the refugees' anger at the generals (13.91.2 to 13.91.3).",
+    "carthage": "Hates it: it razed his city (13.108.2).",
+    "commons": "Billets his people on the townsmen, who resent it."
+   },
+   "gate": "A war on Carthage and a road home to Acragas.",
+   "move": "Goes home to Acragas once the peace lets its people back (13.114.1), taking his house off this board."
+  },
+  {
+   "id": "leontini-hippocrates",
+   "kind": "invention",
+   "body": "leontini",
+   "place": "leontini",
+   "head": "leontini-hippocrates",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "leontini-hippocrates",
+   "from": 405,
+   "to": 404,
+   "lean": "town",
+   "role": "a refugee of Gela, here since 405",
+   "stance": {
+    "syracuse": "Against Dionysius: his people walked out on him (13.113.4).",
+    "carthage": "Against: it took his city.",
+    "commons": "Leads the Geloan families camped in the town."
+   },
+   "gate": "Never for Dionysius; for the exiles at Aetna, if they came.",
+   "move": "Spreads the charge that Dionysius gave Gela up on purpose, the talk Diodorus reports in 13.112.1."
+  },
+  {
+   "id": "leontini-deinocrates",
+   "kind": "invention",
+   "body": "leontini",
+   "place": "leontini",
+   "head": "leontini-deinocrates",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "leontini-deinocrates",
+   "from": 405,
+   "to": 403,
+   "lean": "you",
+   "role": "a grain-lord of the Leontine plain",
+   "stance": {
+    "syracuse": "Sells it his grain.",
+    "carthage": "Would sell to its army just as gladly.",
+    "commons": "His tenants work the plain; he lends them seed at a price."
+   },
+   "gate": "His estates kept and a fair price for the harvest.",
+   "move": "Holds back the harvest to raise the price before a siege."
+  },
+  {
+   "id": "leontini-acestorides",
+   "kind": "invention",
+   "body": "leontini",
+   "place": "leontini",
+   "head": "leontini-acestorides",
+   "standing": 3,
+   "group": "greekAbroad",
+   "founded": "leontini-acestorides",
+   "from": 396,
+   "to": 395,
+   "lean": "you",
+   "role": "a captain of the mercenaries given Leontini, from about 396",
+   "stance": {
+    "syracuse": "Took the land in place of his pay (14.78.2) and still wants the rest.",
+    "carthage": "Fought it in 396.",
+    "commons": "His men are the new townsmen; the old ones went to Syracuse in 403 (14.15.4)."
+   },
+   "gate": "Back pay.",
+   "move": "Marches his men to the citadel to demand their pay \"with some sharpness\", as the ten thousand did at Syracuse (14.78.2)."
+  },
+  {
+   "id": "catana-arcesilaus",
+   "kind": "history",
+   "body": "catana",
+   "place": "catana",
+   "head": "catana-arcesilaus",
+   "standing": 3,
+   "group": "siceliot",
+   "founded": "catana-arcesilaus",
+   "from": 405,
+   "to": 403,
+   "lean": "you",
+   "role": "the general of the Catanians",
+   "stance": {
+    "syracuse": "Sold it the city.",
+    "carthage": "Not stated.",
+    "commons": "Disarmed, then sold, after he opened the gate (14.15.1, 14.15.3)."
+   },
+   "gate": "He opened it himself. His price is not given; at Naxos the price was \"great promises\" (14.15.2).",
+   "move": "Offers the gate from inside, before any siege.",
+   "facts": [
+    {
+     "text": "He \"had offered to betray the city\" and let Dionysius in \"about midnight\" (14.15.1).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "catana-timocrates",
+   "kind": "invention",
+   "body": "catana",
+   "place": "catana",
+   "head": "catana-timocrates",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "catana-timocrates",
+   "from": 405,
+   "to": 403,
+   "lean": "town",
+   "role": "the harbour-master of Catana",
+   "stance": {
+    "syracuse": "Trades with it and fears its fleet.",
+    "carthage": "Would water its ships, as its fleet later used the harbour (14.60.7).",
+    "commons": "Pays the rowers and dockmen."
+   },
+   "gate": "The harbour dues left in his hands under any master.",
+   "move": "Sells grain and timber to whichever fleet is in the bay."
+  },
+  {
+   "id": "catana-adranodorus",
+   "kind": "invention",
+   "body": "catana",
+   "place": "catana",
+   "head": "catana-adranodorus",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "catana-adranodorus",
+   "from": 405,
+   "to": 403,
+   "lean": "carthage",
+   "role": "a landowner under Aetna",
+   "stance": {
+    "syracuse": "Fears Dionysius' horsemen in his fields.",
+    "carthage": "Sees Carthage's peace of 405 as the one thing holding Dionysius back.",
+    "commons": "His tenants; he keeps them fed and quiet."
+   },
+   "gate": "None for Dionysius; for a Carthaginian army that promised to leave his land alone.",
+   "move": "Sends a man to Carthage's officers with an offer of supplies."
+  },
+  {
+   "id": "catana-philistion",
+   "kind": "invention",
+   "body": "catana",
+   "place": "catana",
+   "head": "catana-philistion",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "catana-philistion",
+   "from": 405,
+   "to": 403,
+   "lean": "town",
+   "role": "a friend of Rhegium",
+   "stance": {
+    "syracuse": "Against: Catana and Naxos are Rhegium's kin, Chalcidians (14.40.1).",
+    "carthage": "Against.",
+    "commons": "For the assembly over the general."
+   },
+   "gate": "Rhegium's army.",
+   "move": "Asks Rhegium to send men before Dionysius comes."
+  },
+  {
+   "id": "catana-magius",
+   "kind": "invention",
+   "body": "catana",
+   "place": "catana",
+   "head": "catana-magius",
+   "standing": 3,
+   "group": "campanian",
+   "founded": "catana-magius",
+   "from": 403,
+   "to": 396,
+   "lean": "you",
+   "role": "captain of the Campanians given Catana",
+   "stance": {
+    "syracuse": "Housed by Dionysius in a sold city (14.15.3); moved by him to Aetna in 396 (14.58.2).",
+    "carthage": "At Aetna his men \"would gladly have joined the Carthaginians\" but were held by hostages (14.61.6).",
+    "commons": "His men took the Catanians' houses."
+   },
+   "gate": "Land and a share of the spoils, Himilcon's offer (14.61.5), once the hostages are home.",
+   "move": "Holds the walls for whoever pays. From 396 the house sits at Aetna (see Aetna).",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "catana-pasiphilus",
+   "kind": "invention",
+   "body": "catana",
+   "place": "catana",
+   "head": "catana-pasiphilus",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "catana-pasiphilus",
+   "from": 394,
+   "to": 394,
+   "lean": "town",
+   "role": "a Catanian who escaped the sale, at Mylae about 394",
+   "stance": {
+    "syracuse": "Wants Dionysius dead.",
+    "carthage": "Would take its help.",
+    "commons": "He is what is left of them."
+   },
+   "gate": "Any army that takes him home.",
+   "move": "Joins Rhegium's war on Messana, which began as his people were settled at Mylae (14.87.1)."
+  },
+  {
+   "id": "naxos-procles",
+   "kind": "history",
+   "body": "naxos",
+   "place": "naxos",
+   "head": "naxos-procles",
+   "standing": 3,
+   "group": "siceliot",
+   "founded": "naxos-procles",
+   "from": 405,
+   "to": 403,
+   "lean": "you",
+   "role": "the commander of the Naxians",
+   "stance": {
+    "syracuse": "Sold it the city.",
+    "carthage": "Not stated.",
+    "commons": "Let them be sold into slavery by the man he let in; only his own kin were spared."
+   },
+   "gate": "Great promises, paid in gifts, and his own kin spared (14.15.2).",
+   "move": "Names his price to Dionysius before the army comes.",
+   "facts": [
+    {
+     "text": "Won over \"by great promises\", he handed the city over; Dionysius paid \"the promised gifts\" and granted \"him his kinsmen\" (14.15.2).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "naxos-megacles",
+   "kind": "invention",
+   "body": "naxos",
+   "place": "naxos",
+   "head": "naxos-megacles",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "naxos-megacles",
+   "from": 405,
+   "to": 403,
+   "lean": "town",
+   "role": "a leader of the Naxian assembly",
+   "stance": {
+    "syracuse": "Against.",
+    "carthage": "Against.",
+    "commons": "Their voice."
+   },
+   "gate": "None; he would arm the people for the walls.",
+   "move": "Moves in the assembly to take the command from Procles."
+  },
+  {
+   "id": "naxos-themistus",
+   "kind": "invention",
+   "body": "naxos",
+   "place": "naxos",
+   "head": "naxos-themistus",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "naxos-themistus",
+   "from": 405,
+   "to": 403,
+   "lean": "town",
+   "role": "a friend of Rhegium",
+   "stance": {
+    "syracuse": "Against: Rhegium was \"of the same blood\" as Naxos (14.40.1).",
+    "carthage": "No dealings.",
+    "commons": "For them."
+   },
+   "gate": "Rhegium's ships.",
+   "move": "Sends envoys across the strait for help."
+  },
+  {
+   "id": "naxos-sikelheadman",
+   "kind": "invention",
+   "body": "naxos",
+   "place": "naxos",
+   "head": "naxos-sikelheadman",
+   "standing": 1,
+   "group": "sikel",
+   "founded": "naxos-sikelheadman",
+   "from": 403,
+   "to": 392,
+   "lean": "carthage",
+   "role": "a headman of the Sikels given Naxos' land",
+   "stance": {
+    "syracuse": "Took the land as Dionysius' gift (14.15.3), then held the hill against him (14.88.1 to 14.88.4).",
+    "carthage": "Took its offers in 396 (14.59.2).",
+    "commons": "Claims the hill for the Sikels' fathers (14.88.1)."
+   },
+   "gate": "None; the hill is theirs by right.",
+   "move": "Walls the peak and names the town (14.59.2).",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "naxos-zoippus",
+   "kind": "invention",
+   "body": "naxos",
+   "place": "naxos",
+   "head": "naxos-zoippus",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "naxos-zoippus",
+   "from": 394,
+   "to": 394,
+   "lean": "town",
+   "role": "a Naxian survivor, at Mylae about 394",
+   "stance": {
+    "syracuse": "Hates Dionysius.",
+    "carthage": "Neither.",
+    "commons": "The scattered."
+   },
+   "gate": "A home.",
+   "move": "Leaves Mylae under the truce and looks for a town that will take him (14.87.3)."
+  },
+  {
+   "id": "messana-laomedon",
+   "kind": "history",
+   "body": "messana",
+   "place": "messana",
+   "head": "messana-laomedon",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "messana-laomedon",
+   "from": 405,
+   "to": 396,
+   "lean": "town",
+   "role": "a Messenian who spoke against the war (no office given)",
+   "stance": {
+    "syracuse": "No war with Dionysius.",
+    "carthage": "Not stated.",
+    "commons": "With the people's vote: the soldiers went home \"since the people had not approved the war\" (14.40.5)."
+   },
+   "gate": "None; he keeps the town out of other men's wars.",
+   "move": "Speaks to the levy on the march and turns it home (14.40.4 to 14.40.5): a move that cancels the town's support.",
+   "facts": [
+    {
+     "text": "His \"harangue\" turned the army home; he said not to war on Dionysius \"who had done them no wrong\" (14.40.4 to 14.40.5).",
+     "files": [
+      "sources/diodorus/book14-19-40.loeb.excerpts.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "messana-theodotes",
+   "kind": "invention",
+   "body": "messana",
+   "place": "messana",
+   "head": "messana-theodotes",
+   "standing": 3,
+   "group": "siceliot",
+   "founded": "messana-theodotes",
+   "from": 405,
+   "to": 396,
+   "lean": "town",
+   "role": "the first man of Messana, one of its generals about 399",
+   "stance": {
+    "syracuse": "Against Dionysius: led the army out with Rhegium (14.40.4).",
+    "carthage": "No dealings until 396.",
+    "commons": "Goes over their heads, \"without obtaining a vote of the people\" (14.40.4)."
+   },
+   "gate": "Rhegium's generals.",
+   "move": "Takes the levy out without a vote.",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "messana-archagathus",
+   "kind": "invention",
+   "body": "messana",
+   "place": "messana",
+   "head": "messana-archagathus",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "messana-archagathus",
+   "from": 405,
+   "to": 396,
+   "lean": "you",
+   "role": "a shipowner of the strait",
+   "stance": {
+    "syracuse": "Carries timber and grain to Syracuse and wants the strait quiet.",
+    "carthage": "Fears for his ships if it comes.",
+    "commons": "Hires the rowers."
+   },
+   "gate": "His ships safe and the harbour open.",
+   "move": "Carries word of Rhegium's plans to Syracuse."
+  },
+  {
+   "id": "messana-micythus",
+   "kind": "invention",
+   "body": "messana",
+   "place": "messana",
+   "head": "messana-micythus",
+   "standing": 1,
+   "group": "italiote",
+   "founded": "messana-micythus",
+   "from": 405,
+   "to": 396,
+   "lean": "town",
+   "role": "a friend of Rhegium",
+   "stance": {
+    "syracuse": "Against; Rhegium shelters the Syracusan exiles (14.40.2).",
+    "carthage": "Against.",
+    "commons": "For the vote."
+   },
+   "gate": "Rhegium's army.",
+   "move": "Brings Rhegium's generals across the strait to win over Messana's (14.40.3)."
+  },
+  {
+   "id": "messana-polyzelus",
+   "kind": "invention",
+   "body": "messana",
+   "place": "messana",
+   "head": "messana-polyzelus",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "messana-polyzelus",
+   "from": 405,
+   "to": 396,
+   "lean": "town",
+   "role": "head of the party that sent its families away in 396",
+   "stance": {
+    "syracuse": "Sees no help coming: their own horse were at Syracuse (14.56.4).",
+    "carthage": "Thinks it cannot be held off with the walls down (14.56.4).",
+    "commons": "Saves his own and leaves the rest."
+   },
+   "gate": "Safe conduct for his household.",
+   "move": "Sends wives, children and valuables to neighbouring towns (14.56.4).",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "messana-hicetas",
+   "kind": "invention",
+   "body": "messana",
+   "place": "messana",
+   "head": "messana-hicetas",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "messana-hicetas",
+   "from": 405,
+   "to": 396,
+   "lean": "town",
+   "role": "head of the party of the oracle in 396",
+   "stance": {
+    "syracuse": "Will fight beside it.",
+    "carthage": "Sure it will lose, by the oracle (14.56.5).",
+    "commons": "Leads the young men out."
+   },
+   "gate": "Never.",
+   "move": "Sends the ablest young men to hold Peloris (14.56.6).",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "messana-crinippus",
+   "kind": "invention",
+   "body": "messana",
+   "place": "messana",
+   "head": "messana-crinippus",
+   "standing": 2,
+   "group": "italiote",
+   "founded": "messana-crinippus",
+   "from": 395,
+   "to": 393,
+   "lean": "you",
+   "role": "a Locrian settled in Messana in 395",
+   "stance": {
+    "syracuse": "Owes his land to Dionysius (14.78.5).",
+    "carthage": "Against.",
+    "commons": "The old Messenians see him as Dionysius' man."
+   },
+   "gate": "Dionysius' army, any day.",
+   "move": "Holds the town with Dionysius' mercenaries (14.87.2). If the board turns, he is one of \"the partisans of Dionysius\" banished (14.88.5)."
+  },
+  {
+   "id": "gela-dexippus",
+   "kind": "history",
+   "body": "gela",
+   "place": "gela",
+   "head": "gela-dexippus",
+   "standing": 3,
+   "group": "greekAbroad",
+   "founded": "gela-dexippus",
+   "from": 406,
+   "to": 405,
+   "lean": "town",
+   "role": "the Spartan put in charge of Gela by the Syracusans",
+   "stance": {
+    "syracuse": "Syracuse's officer, but not Dionysius' man (13.93.4, 13.96.1).",
+    "carthage": "Fought it at Acragas; accused there of treachery (13.87.5), a story only.",
+    "commons": "A foreigner over them, whose guards were paid from the rich men's goods (13.93.2)."
+   },
+   "gate": "The Syracusan state, not its new master.",
+   "move": "Refuses to join the ruler. Left in place, he is the man who might \"restore to the Syracusans their liberty\" (13.96.1). Off the board before play starts.",
+   "facts": [
+    {
+     "text": "Put \"in charge by the Syracusans\" (13.93.1); \"would not join\" Dionysius (13.93.4); sent \"to Greece\" (13.96.1). At Acragas the story was that he took \"a bribe of fifteen talents\" (13.88.7).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13-1-42-91-96.loeb.txt",
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gela-thrasybulus",
+   "kind": "invention",
+   "body": "gela",
+   "place": "gela",
+   "head": "gela-thrasybulus",
+   "standing": 3,
+   "group": "siceliot",
+   "founded": "gela-thrasybulus",
+   "from": 405,
+   "to": 395,
+   "lean": "carthage",
+   "role": "son of one of the rich men put to death in 405",
+   "stance": {
+    "syracuse": "Dionysius killed his father and took the estate (13.93.2).",
+    "carthage": "Its tribute-men might give back what Dionysius took.",
+    "commons": "They cheered his father's death (13.93.3)."
+   },
+   "gate": "His father's land back, from anyone.",
+   "move": "Carries the charge that Dionysius gave Gela up on purpose (13.112.1) to Carthage's officers.",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "gela-archagathus",
+   "kind": "invention",
+   "body": "gela",
+   "place": "gela",
+   "head": "gela-archagathus",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "gela-archagathus",
+   "from": 405,
+   "to": 395,
+   "lean": "carthage",
+   "role": "a landowner back from exile",
+   "stance": {
+    "syracuse": "Fled it; came home under Carthage's peace.",
+    "carthage": "Pays its tribute (13.114.1) and wants its protection.",
+    "commons": "Wary of them."
+   },
+   "gate": "Gela has no walls (13.114.1). What turns him: a promise to keep his land under any master.",
+   "move": "Pays the tribute early to win Carthage's favour."
+  },
+  {
+   "id": "gela-pasiphilus",
+   "kind": "invention",
+   "body": "gela",
+   "place": "gela",
+   "head": "gela-pasiphilus",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "gela-pasiphilus",
+   "from": 405,
+   "to": 395,
+   "lean": "town",
+   "role": "a leader of the Geloan people",
+   "stance": {
+    "syracuse": "Hailed Dionysius as their liberator (13.93.3 to 13.93.4), then turned on him after the night flight (13.112.1).",
+    "carthage": "Against.",
+    "commons": "Theirs; he shares their envy of \"the most influential citizens\" (13.93.3)."
+   },
+   "gate": "The rich men's land shared out.",
+   "move": "Carries a decree of honours to a ruler who pleases the people (13.93.4).",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "gela-telines",
+   "kind": "invention",
+   "body": "gela",
+   "place": "gela",
+   "head": "gela-telines",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "gela-telines",
+   "from": 405,
+   "to": 395,
+   "lean": "you",
+   "role": "a priest of the old temples",
+   "stance": {
+    "syracuse": "Will back any war that brings the god home.",
+    "carthage": "It carried off Apollo to Tyre (13.108.4).",
+    "commons": "Keeps their festivals."
+   },
+   "gate": "An army that swears to bring Apollo back.",
+   "move": "Calls for war at every festival."
+  },
+  {
+   "id": "gela-damarete",
+   "kind": "invention",
+   "body": "gela",
+   "place": "gela",
+   "head": "gela-damarete",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "gela-damarete",
+   "from": 405,
+   "to": 395,
+   "lean": "town",
+   "role": "a widow who led the women to the altars in 405",
+   "stance": {
+    "syracuse": "Will not be sent there (13.108.6).",
+    "carthage": "Against.",
+    "commons": "Speaks for the families."
+   },
+   "gate": "None while the men stand.",
+   "move": "Fills the altars to stop a vote to send the families away (13.108.6)."
+  },
+  {
+   "id": "acragas-argeius",
+   "kind": "history",
+   "body": "acragas",
+   "place": "acragas",
+   "head": "acragas-argeius",
+   "standing": 3,
+   "group": "siceliot",
+   "founded": "acragas-argeius",
+   "from": 405,
+   "to": 395,
+   "lean": "town",
+   "role": "the fifth general of 406, spared by the crowd",
+   "stance": {
+    "syracuse": "The relief army's commander accused him and his colleagues (13.87.5).",
+    "carthage": "Fought it.",
+    "commons": "They stoned his colleagues and spared him for his youth."
+   },
+   "gate": "None for any army; he has seen what happens to generals who fail.",
+   "move": "Speaks for whatever the assembly already wants.",
+   "facts": [
+    {
+     "text": "The crowd killed four generals; \"the fifth, Argeius by name, who was very much younger, they spared\" (13.87.5).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "acragas-antisthenes",
+   "kind": "history",
+   "body": "acragas",
+   "place": "acragas",
+   "head": "acragas-antisthenes",
+   "standing": 3,
+   "group": "siceliot",
+   "founded": "acragas-antisthenes",
+   "from": 405,
+   "to": 395,
+   "lean": "town",
+   "role": "the horse-breeder, whose daughter's wedding had eight hundred chariots",
+   "stance": {
+    "syracuse": "Its alliance cost him his city.",
+    "carthage": "Its peace lets him keep his horses.",
+    "commons": "He feasted the whole citizen body at the wedding (13.84.1)."
+   },
+   "gate": "His estates and horses kept.",
+   "move": "Throws a feast for the citizens to win the assembly.",
+   "facts": [
+    {
+     "text": "At his daughter's wedding \"more than eight hundred chariots followed the bride\" (13.84.1).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "acragas-zoippus",
+   "kind": "invention",
+   "body": "acragas",
+   "place": "acragas",
+   "head": "acragas-zoippus",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "acragas-zoippus",
+   "from": 405,
+   "to": 395,
+   "lean": "carthage",
+   "role": "the man who collects Carthage's tribute",
+   "stance": {
+    "syracuse": "Against: Syracuse's war would end his office.",
+    "carthage": "Its man; the tribute passes through his hands (13.114.1).",
+    "commons": "Squeezes them, and keeps a share."
+   },
+   "gate": "Carthage's army; for Syracuse, a promise that he keeps his office.",
+   "move": "Raises the tribute on his enemies' land."
+  },
+  {
+   "id": "acragas-megacles",
+   "kind": "invention",
+   "body": "acragas",
+   "place": "acragas",
+   "head": "acragas-megacles",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "acragas-megacles",
+   "from": 405,
+   "to": 395,
+   "lean": "you",
+   "role": "heir of Tellias, who kept the wine-cellars",
+   "stance": {
+    "syracuse": "Wants it to make war on Carthage.",
+    "carthage": "His father burned himself in Athena's temple rather than be taken (13.90.2).",
+    "commons": "Keeps his father's open door for strangers (13.83.1)."
+   },
+   "gate": "A war that rebuilds the city.",
+   "move": "Opens what is left of the cellars, once \"three hundred great casks hewn out of the very rock\" (13.83.3), to feed a levy for Dionysius."
+  },
+  {
+   "id": "acragas-exaenetus",
+   "kind": "history",
+   "body": "acragas",
+   "place": "acragas",
+   "head": "acragas-exaenetus",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "acragas-exaenetus",
+   "from": 405,
+   "to": 395,
+   "lean": "town",
+   "role": "Olympic foot-race winner of 412",
+   "stance": {
+    "syracuse": "Not stated.",
+    "carthage": "Not stated.",
+    "commons": "Their champion."
+   },
+   "gate": "Not stated; in play, the young men follow him.",
+   "move": "Stands for general with the crowd behind him.",
+   "facts": [
+    {
+     "text": "Won at Olympia in 412 and came home with \"three hundred chariots belonging to citizens of Acragas\" (13.82.7).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "acragas-polyzelus",
+   "kind": "invention",
+   "body": "acragas",
+   "place": "acragas",
+   "head": "acragas-polyzelus",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "acragas-polyzelus",
+   "from": 405,
+   "to": 393,
+   "lean": "you",
+   "role": "of the old party friendly to Syracuse, now Dionysius' partisan",
+   "stance": {
+    "syracuse": "Its old friend: his party was driven out in 413 (Thucydides 7.50.1).",
+    "carthage": "Against.",
+    "commons": "They drove his party out once and will again."
+   },
+   "gate": "Dionysius.",
+   "move": "Sends the levy to Dionysius first (14.47.6). Banished with \"the partisans of Dionysius\" about 393 if the board turns (14.88.5).",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "acragas-themistus",
+   "kind": "invention",
+   "body": "acragas",
+   "place": "acragas",
+   "head": "acragas-themistus",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "acragas-themistus",
+   "from": 395,
+   "to": 393,
+   "lean": "town",
+   "role": "a leader of the returned people, about 393",
+   "stance": {
+    "syracuse": "Against: leads the banishing of Dionysius' partisans (14.88.5).",
+    "carthage": "Willing to deal: Magon \"showed kindness to the subject cities\" (14.90.3).",
+    "commons": "Theirs."
+   },
+   "gate": "Carthage's army, if it keeps the town free of Dionysius.",
+   "move": "Banishes Dionysius' friends (14.88.5)."
+  },
+  {
+   "id": "motya-daimenes",
+   "kind": "history",
+   "body": "motya",
+   "place": "motya",
+   "head": "motya-daimenes",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "motya-daimenes",
+   "from": 405,
+   "to": 397,
+   "lean": "carthage",
+   "role": "a Greek who fought for Carthage at Motya",
+   "stance": {
+    "syracuse": "Fights it to the end.",
+    "carthage": "Fights for it.",
+    "commons": "Lives among the Motyans; the Greek dedication in the sacred pool (Nigro 2022) hints that Greeks worshipped there too."
+   },
+   "gate": "None: a Greek who fought for Carthage could expect no mercy from Syracuse.",
+   "move": "Holds a tower to the last.",
+   "facts": [
+    {
+     "text": "Crucified with \"other Greeks who had fought on the side of the Carthaginians\" (14.53.4).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "motya-biton",
+   "kind": "history",
+   "body": "motya",
+   "place": "motya",
+   "head": "biton",
+   "standing": 3,
+   "group": "siceliot",
+   "founded": "biton",
+   "from": 397,
+   "to": 396,
+   "lean": "you",
+   "role": "Dionysius' commander of the garrison, 397 to 396",
+   "stance": {
+    "syracuse": "Its man.",
+    "carthage": "Its besieger in 396 (14.55.4).",
+    "commons": "Holds a town whose people were sold."
+   },
+   "gate": "Already cast: see `rising-cast.md`, where his own move is to make terms to save his garrison.",
+   "move": "See `rising-cast.md`.",
+   "headFromCast": "biton",
+   "note": "The head is in the starting cast (data/people.json), not repeated here.",
+   "facts": [
+    {
+     "text": "Left in command, with a garrison \"composed largely of Siceli\" (14.53.5).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "motya-bostar",
+   "kind": "invention",
+   "body": "motya",
+   "place": "motya",
+   "head": "motya-bostar",
+   "standing": 3,
+   "group": "punic",
+   "founded": "motya-bostar",
+   "from": 405,
+   "to": 397,
+   "lean": "carthage",
+   "role": "the first man of Motya",
+   "stance": {
+    "syracuse": "Its enemy.",
+    "carthage": "Its colony's first man; waits for its fleet (14.48.1).",
+    "commons": "Holds them together by fear of the sack (14.52.1 to 14.52.2)."
+   },
+   "gate": "Only Carthage's relief.",
+   "move": "Breaks the causeway to the shore, as \"the Motyans breached\" it in 397 (14.48.2), and readies the town for siege."
+  },
+  {
+   "id": "motya-sibbolet",
+   "kind": "invention",
+   "body": "motya",
+   "place": "motya",
+   "head": "motya-sibbolet",
+   "standing": 2,
+   "group": "punic",
+   "founded": "motya-sibbolet",
+   "from": 405,
+   "to": 397,
+   "lean": "town",
+   "role": "the dyer and trader (census role), a widow who runs the dye-works",
+   "stance": {
+    "syracuse": "Sells cloth to Greek buyers in peace.",
+    "carthage": "Loyal while its ships come.",
+    "commons": "Employs many of the town's workers."
+   },
+   "gate": "Her stores, her ships and her people spared. The one Motyan who might bargain.",
+   "move": "Sends a ship to Carthage begging for the fleet, and a second, secretly, to sound out Syracuse."
+  },
+  {
+   "id": "motya-carthalo",
+   "kind": "invention",
+   "body": "motya",
+   "place": "motya",
+   "head": "motya-carthalo",
+   "standing": 2,
+   "group": "punic",
+   "founded": "motya-carthalo",
+   "from": 405,
+   "to": 397,
+   "lean": "carthage",
+   "role": "the shipwright of the harbour",
+   "stance": {
+    "syracuse": "Its enemy.",
+    "carthage": "Builds and mends its triremes.",
+    "commons": "His yard feeds many families."
+   },
+   "gate": "None.",
+   "move": "Mans the masts with fire-throwers, as the Motyans did (14.51.2)."
+  },
+  {
+   "id": "motya-zarzas",
+   "kind": "invention",
+   "body": "motya",
+   "place": "motya",
+   "head": "motya-zarzas",
+   "standing": 1,
+   "group": "libyan",
+   "founded": "motya-zarzas",
+   "from": 405,
+   "to": 397,
+   "lean": "town",
+   "role": "head of a Libyan household of Motya",
+   "stance": {
+    "syracuse": "Fears it most.",
+    "carthage": "Serves it but owes it little.",
+    "commons": "One of them."
+   },
+   "gate": "His family's freedom, not to be sold.",
+   "move": "Hides his family's silver in the cisterns."
+  },
+  {
+   "id": "panormus-maharbal",
+   "kind": "invention",
+   "body": "panormus",
+   "place": "panormus",
+   "head": "panormus-maharbal",
+   "standing": 3,
+   "group": "punic",
+   "founded": "panormus-maharbal",
+   "from": 405,
+   "to": 395,
+   "lean": "carthage",
+   "role": "the first man of Panormus",
+   "stance": {
+    "syracuse": "Its enemy.",
+    "carthage": "Carthage's landing place (14.55.4); he hosts its generals.",
+    "commons": "Leads them out to fight for their fields (13.63.4)."
+   },
+   "gate": "Only Carthage.",
+   "move": "Readies the harbour and stores for Carthage's army."
+  },
+  {
+   "id": "panormus-bodostor",
+   "kind": "invention",
+   "body": "panormus",
+   "place": "panormus",
+   "head": "panormus-bodostor",
+   "standing": 2,
+   "group": "punic",
+   "founded": "panormus-bodostor",
+   "from": 405,
+   "to": 395,
+   "lean": "town",
+   "role": "a merchant of the harbour",
+   "stance": {
+    "syracuse": "Trades with Greek towns when there is peace.",
+    "carthage": "Pays its harbour dues; resents its levies.",
+    "commons": "Hires porters and boatmen."
+   },
+   "gate": "Trade kept open and his warehouses spared.",
+   "move": "Buys up grain before Carthage's army lands."
+  },
+  {
+   "id": "panormus-synalus",
+   "kind": "invention",
+   "body": "panormus",
+   "place": "panormus",
+   "head": "panormus-synalus",
+   "standing": 2,
+   "group": "punic",
+   "founded": "panormus-synalus",
+   "from": 405,
+   "to": 395,
+   "lean": "carthage",
+   "role": "a priest of Baal (census role)",
+   "stance": {
+    "syracuse": "The enemy of the gods.",
+    "carthage": "The mother city.",
+    "commons": "Keeps the festivals and the sacrifices."
+   },
+   "gate": "None.",
+   "move": "Calls for the town to arm when Dionysius' men cut the trees (14.48.5)."
+  },
+  {
+   "id": "panormus-adherbal",
+   "kind": "invention",
+   "body": "panormus",
+   "place": "panormus",
+   "head": "panormus-adherbal",
+   "standing": 1,
+   "group": "punic",
+   "founded": "panormus-adherbal",
+   "from": 405,
+   "to": 395,
+   "lean": "carthage",
+   "role": "captain of the town's levy",
+   "stance": {
+    "syracuse": "Its enemy.",
+    "carthage": "Carthage's.",
+    "commons": "Leads the men who \"offered battle en masse\" (13.63.4)."
+   },
+   "gate": "None.",
+   "move": "Marches out to fight raiders in the fields."
+  },
+  {
+   "id": "panormus-heraclia",
+   "kind": "invention",
+   "body": "panormus",
+   "place": "panormus",
+   "head": "panormus-heraclia",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "panormus-heraclia",
+   "from": 405,
+   "to": 395,
+   "lean": "town",
+   "role": "a Himeraean widow who keeps a trading house at Panormus",
+   "stance": {
+    "syracuse": "Her kin fight for it (14.47.6).",
+    "carthage": "Her hosts, who razed her city (13.62.4).",
+    "commons": "A stranger among them."
+   },
+   "gate": "A safe road for her household.",
+   "move": "Carries news between Panormus and the Greek towns."
+  },
+  {
+   "id": "aetna-leader",
+   "kind": "history",
+   "body": "aetna",
+   "place": "aetna",
+   "head": "cavalryLeader",
+   "standing": 3,
+   "group": "siceliot",
+   "founded": "cavalryLeader",
+   "from": 405,
+   "to": 403,
+   "lean": "town",
+   "role": "leader of the exiles",
+   "stance": {
+    "syracuse": "Against Dionysius; for the Syracuse of before 405.",
+    "carthage": "Not stated.",
+    "commons": "The exiles are of every sort, rich riders and common men."
+   },
+   "gate": "Already cast; not repeated here.",
+   "move": "Already cast; not repeated here.",
+   "headFromCast": "cavalryLeader",
+   "note": "The head is in the starting cast (data/people.json), not repeated here.",
+   "facts": [
+    {
+     "text": "The cavalry \"fled from the city and occupied Aetnê\" (13.113.3); the hard core stayed \"watching for an opportunity against him\" (14.9.8).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt",
+      "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "aetna-theodotes",
+   "kind": "invention",
+   "body": "aetna",
+   "place": "aetna",
+   "head": "aetna-theodotes",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "aetna-theodotes",
+   "from": 405,
+   "to": 403,
+   "lean": "town",
+   "role": "a cavalryman who fled Syracuse (census role)",
+   "stance": {
+    "syracuse": "Rode against Dionysius in 405 (13.113.3).",
+    "carthage": "Not his friend, but no worse than the tyrant.",
+    "commons": "A rich man's son among poor exiles."
+   },
+   "gate": "Opens for no one; he wants to ride out, not let anyone in.",
+   "move": "Raids Dionysius' farms from the hill."
+  },
+  {
+   "id": "aetna-hippocrates",
+   "kind": "invention",
+   "body": "aetna",
+   "place": "aetna",
+   "head": "aetna-hippocrates",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "aetna-hippocrates",
+   "from": 405,
+   "to": 404,
+   "lean": "town",
+   "role": "an exile who lost his land, with wife and children left in Syracuse",
+   "stance": {
+    "syracuse": "Will take the terms to see his family (14.9.7).",
+    "carthage": "Against.",
+    "commons": "One of the many."
+   },
+   "gate": "His family safe and his land given back.",
+   "move": "Leaves the fortress under Dionysius' word (14.9.7), and his house goes home.",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "aetna-thrasydaeus",
+   "kind": "invention",
+   "body": "aetna",
+   "place": "aetna",
+   "head": "aetna-thrasydaeus",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "aetna-thrasydaeus",
+   "from": 405,
+   "to": 403,
+   "lean": "town",
+   "role": "a young hothead of the exiles (census role)",
+   "stance": {
+    "syracuse": "Prays for Dionysius' death (14.9.7).",
+    "carthage": "Would take its help against the tyrant.",
+    "commons": "Rouses the poorer exiles."
+   },
+   "gate": "Anyone marching on Syracuse.",
+   "move": "Answers the envoys with a curse (14.9.7).",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "aetna-magius",
+   "kind": "invention",
+   "body": "aetna",
+   "place": "aetna",
+   "head": "catana-magius",
+   "standing": 3,
+   "group": "campanian",
+   "founded": "catana-magius",
+   "from": 396,
+   "to": 395,
+   "lean": "you",
+   "role": "captain of the Campanians at Aetna, from 396",
+   "stance": {
+    "syracuse": "Bound by the hostages he gave and the men he sent (14.61.6).",
+    "carthage": "Would gladly join it (14.61.6).",
+    "commons": "His men hold the fortress."
+   },
+   "gate": "Himilcon's offer, land and spoils (14.61.5), once the hostages are free.",
+   "move": "Sends to Himilcon in secret, and waits.",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group.",
+   "continues": "catana-magius"
+  },
+  {
+   "id": "camarina-menes",
+   "kind": "history",
+   "body": "camarina",
+   "place": "camarina",
+   "head": "camarina-menes",
+   "standing": 3,
+   "group": "siceliot",
+   "founded": "camarina-menes",
+   "from": 405,
+   "to": 395,
+   "lean": "town",
+   "role": "a commander at Acragas in 406",
+   "stance": {
+    "syracuse": "Served with the Syracusan-led army; his town later broke with Dionysius (13.113.4).",
+    "carthage": "Fought it.",
+    "commons": "Knows how to turn a crowd on its generals (13.87.5)."
+   },
+   "gate": "None stated; in play, whoever the assembly wants.",
+   "move": "Accuses a town's generals before the assembly: the move Dionysius himself made at Syracuse.",
+   "facts": [
+    {
+     "text": "He \"lodged an accusation against the Acragantine generals\" and \"so incited all who were present\" that four were stoned (13.87.5).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "camarina-timocrates",
+   "kind": "invention",
+   "body": "camarina",
+   "place": "camarina",
+   "head": "camarina-timocrates",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "camarina-timocrates",
+   "from": 405,
+   "to": 395,
+   "lean": "carthage",
+   "role": "a rich man who carried his silver out in 405",
+   "stance": {
+    "syracuse": "Blames Dionysius for the flight (14.68.2).",
+    "carthage": "Pays its tribute and keeps his silver.",
+    "commons": "Left the old and sick behind (13.111.3); they remember."
+   },
+   "gate": "His silver safe.",
+   "move": "Pays Carthage's tribute for the whole town and takes a hold over it."
+  },
+  {
+   "id": "camarina-lysimachus",
+   "kind": "invention",
+   "body": "camarina",
+   "place": "camarina",
+   "head": "camarina-lysimachus",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "camarina-lysimachus",
+   "from": 405,
+   "to": 395,
+   "lean": "town",
+   "role": "led his people to Leontini rather than Syracuse in 405",
+   "stance": {
+    "syracuse": "Against Dionysius (13.113.4).",
+    "carthage": "Against.",
+    "commons": "Brought them home."
+   },
+   "gate": "None for Dionysius.",
+   "move": "Takes his people to Leontini (13.113.4).",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "camarina-hicetas",
+   "kind": "invention",
+   "body": "camarina",
+   "place": "camarina",
+   "head": "camarina-hicetas",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "camarina-hicetas",
+   "from": 397,
+   "to": 395,
+   "lean": "you",
+   "role": "captain of the levy that joined Dionysius first in 397",
+   "stance": {
+    "syracuse": "Marches with it (14.47.6).",
+    "carthage": "War on it means the end of the tribute.",
+    "commons": "His men are the town's farmers."
+   },
+   "gate": "War on Carthage.",
+   "move": "Brings the levy first of all the towns (14.47.6)."
+  },
+  {
+   "id": "selinus-empedion",
+   "kind": "history",
+   "body": "selinus",
+   "place": "selinus",
+   "head": "selinus-empedion",
+   "standing": 3,
+   "group": "siceliot",
+   "founded": "selinus-empedion",
+   "from": 405,
+   "to": 395,
+   "lean": "carthage",
+   "role": "the man who had counselled peace with Carthage",
+   "stance": {
+    "syracuse": "Against its wars.",
+    "carthage": "Its friend, rewarded for it (13.59.3).",
+    "commons": "He got his kin back when theirs were sold."
+   },
+   "gate": "Carthage, always; for Syracuse, nothing.",
+   "move": "Goes to Carthage's general on the town's behalf, as he did in 409.",
+   "facts": [
+    {
+     "text": "He \"had always favoured the cause of the Carthaginians\" and was given back his goods and kin (13.59.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "selinus-deinocrates",
+   "kind": "invention",
+   "body": "selinus",
+   "place": "selinus",
+   "head": "selinus-deinocrates",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "selinus-deinocrates",
+   "from": 405,
+   "to": 395,
+   "lean": "you",
+   "role": "a survivor who came back with Hermocrates about 408",
+   "stance": {
+    "syracuse": "Hermocrates' man, and so Syracuse's (13.63.3).",
+    "carthage": "Took his city.",
+    "commons": "Gathered them back from all quarters (13.63.3)."
+   },
+   "gate": "A Syracusan army.",
+   "move": "Rebuilds a stretch of the wall the peace forbids."
+  },
+  {
+   "id": "selinus-philistion",
+   "kind": "invention",
+   "body": "selinus",
+   "place": "selinus",
+   "head": "selinus-philistion",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "selinus-philistion",
+   "from": 405,
+   "to": 395,
+   "lean": "town",
+   "role": "a survivor farming under the tribute",
+   "stance": {
+    "syracuse": "Wants no more wars.",
+    "carthage": "Pays and hates paying.",
+    "commons": "One of them."
+   },
+   "gate": "A year without soldiers in his fields.",
+   "move": "Hides the harvest from the tribute-men."
+  },
+  {
+   "id": "selinus-adranodorus",
+   "kind": "invention",
+   "body": "selinus",
+   "place": "selinus",
+   "head": "selinus-adranodorus",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "selinus-adranodorus",
+   "from": 397,
+   "to": 395,
+   "lean": "you",
+   "role": "captain of the men who joined Dionysius in 397",
+   "stance": {
+    "syracuse": "Marches with it (14.47.6).",
+    "carthage": "Against.",
+    "commons": "Leads the young men."
+   },
+   "gate": "War on Carthage.",
+   "move": "Joins the army as it passes (14.47.6)."
+  },
+  {
+   "id": "himera-thrasybulus",
+   "kind": "invention",
+   "body": "himera",
+   "place": "himera",
+   "head": "himera-thrasybulus",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "himera-thrasybulus",
+   "from": 405,
+   "to": 395,
+   "lean": "you",
+   "role": "a Himeraean who marched with Hermocrates about 408",
+   "stance": {
+    "syracuse": "Fought for Hermocrates (13.63.3) and answers Dionysius' call (14.47.6).",
+    "carthage": "Killed his kin (13.62.4).",
+    "commons": "Speaks for the families who were shipped out."
+   },
+   "gate": "Any war on Carthage.",
+   "move": "Brings the Himeraeans to Dionysius in 397 (14.47.6).",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "himera-crinippus",
+   "kind": "invention",
+   "body": "himera",
+   "place": "himera",
+   "head": "himera-crinippus",
+   "standing": 2,
+   "group": "siceliot",
+   "founded": "himera-crinippus",
+   "from": 405,
+   "to": 395,
+   "lean": "carthage",
+   "role": "a Himeraean who made friends with Himilcon in 396",
+   "stance": {
+    "syracuse": "Thinks it brought only ruin.",
+    "carthage": "Makes terms with it (14.56.2).",
+    "commons": "Wants them left in peace on their farms."
+   },
+   "gate": "Carthage's peace.",
+   "move": "Takes Himilcon's friendship for the town (14.56.2).",
+   "realGroup": true,
+   "note": "An invented head for a real but nameless group."
+  },
+  {
+   "id": "himera-damarata",
+   "kind": "invention",
+   "body": "himera",
+   "place": "himera",
+   "head": "himera-damarata",
+   "standing": 1,
+   "group": "siceliot",
+   "founded": "himera-damarata",
+   "from": 405,
+   "to": 395,
+   "lean": "town",
+   "role": "a widow among those shipped to Messana in 409",
+   "stance": {
+    "syracuse": "Its ships saved her and left her husband behind (13.61.4 to 13.61.5).",
+    "carthage": "Killed him (13.62.4).",
+    "commons": "Keeps the names of the dead."
+   },
+   "gate": "A place to bury her dead.",
+   "move": "Asks every army for leave to rebuild the old town."
+  }
+ ],
+ "people": [
+  {
+   "id": "leontini-lysimachus",
+   "kind": "invention",
+   "given": "Lysimachus",
+   "fatherName": "Hicetas",
+   "sex": "m",
+   "born": 452,
+   "group": "siceliot",
+   "body": "leontini",
+   "place": "leontini",
+   "house": "leontini-lysimachus",
+   "children": [],
+   "traits": [
+    "cautious",
+    "patient"
+   ],
+   "ambition": "Safety",
+   "role": "the first man of Leontini",
+   "alive": true
+  },
+  {
+   "id": "leontini-thrasydaeus",
+   "kind": "invention",
+   "given": "Thrasydaeus",
+   "fatherName": "Polyzelus",
+   "sex": "m",
+   "born": 458,
+   "group": "siceliot",
+   "body": "leontini",
+   "place": "leontini",
+   "house": "leontini-thrasydaeus",
+   "children": [],
+   "traits": [
+    "vengeful",
+    "bold"
+   ],
+   "ambition": "Revenge",
+   "role": "an exile of Acragas, settled in Leontini",
+   "alive": true
+  },
+  {
+   "id": "leontini-hippocrates",
+   "kind": "invention",
+   "given": "Hippocrates",
+   "fatherName": "Telines",
+   "sex": "m",
+   "born": 455,
+   "group": "siceliot",
+   "body": "leontini",
+   "place": "leontini",
+   "house": "leontini-hippocrates",
+   "children": [],
+   "traits": [
+    "proud",
+    "suspicious"
+   ],
+   "ambition": "Revenge",
+   "role": "a refugee of Gela, here since 405",
+   "alive": true
+  },
+  {
+   "id": "leontini-deinocrates",
+   "kind": "invention",
+   "given": "Deinocrates",
+   "fatherName": "Archagathus",
+   "sex": "m",
+   "born": 450,
+   "group": "siceliot",
+   "body": "leontini",
+   "place": "leontini",
+   "house": "leontini-deinocrates",
+   "children": [],
+   "traits": [
+    "greedy",
+    "wealthy"
+   ],
+   "ambition": "Wealth",
+   "role": "a grain-lord of the Leontine plain",
+   "alive": true
+  },
+  {
+   "id": "leontini-acestorides",
+   "kind": "invention",
+   "given": "Acestorides",
+   "fatherName": "Pyrrhicus",
+   "sex": "m",
+   "born": 438,
+   "group": "greekAbroad",
+   "body": "leontini",
+   "place": "leontini",
+   "house": "leontini-acestorides",
+   "children": [],
+   "traits": [
+    "blunt",
+    "greedy"
+   ],
+   "ambition": "Wealth",
+   "role": "a captain of the mercenaries given Leontini, from about 396",
+   "alive": true
+  },
+  {
+   "id": "catana-arcesilaus",
+   "kind": "history",
+   "given": "Arcesilaus",
+   "fatherName": null,
+   "sex": "m",
+   "born": null,
+   "group": "siceliot",
+   "body": "catana",
+   "place": "catana",
+   "house": "catana-arcesilaus",
+   "children": [],
+   "traits": [
+    "ambitious",
+    "shrewd"
+   ],
+   "ambition": "Power",
+   "role": "the general of the Catanians",
+   "alive": true,
+   "note": "A real person: birth year and father's name are not in the texts.",
+   "did": {
+    "text": "He \"had offered to betray the city\" and let Dionysius in \"about midnight\" (14.15.1).",
+    "files": [
+     "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    ]
+   }
+  },
+  {
+   "id": "catana-timocrates",
+   "kind": "invention",
+   "given": "Timocrates",
+   "fatherName": "Zoippus",
+   "sex": "m",
+   "born": 449,
+   "group": "siceliot",
+   "body": "catana",
+   "place": "catana",
+   "house": "catana-timocrates",
+   "children": [],
+   "traits": [
+    "shrewd",
+    "greedy"
+   ],
+   "ambition": "Wealth",
+   "role": "the harbour-master of Catana",
+   "alive": true
+  },
+  {
+   "id": "catana-adranodorus",
+   "kind": "invention",
+   "given": "Adranodorus",
+   "fatherName": "Themistus",
+   "sex": "m",
+   "born": 456,
+   "group": "siceliot",
+   "body": "catana",
+   "place": "catana",
+   "house": "catana-adranodorus",
+   "children": [],
+   "traits": [
+    "cautious",
+    "wealthy"
+   ],
+   "ambition": "Safety",
+   "role": "a landowner under Aetna",
+   "alive": true
+  },
+  {
+   "id": "catana-philistion",
+   "kind": "invention",
+   "given": "Philistion",
+   "fatherName": "Megacles",
+   "sex": "m",
+   "born": 462,
+   "group": "siceliot",
+   "body": "catana",
+   "place": "catana",
+   "house": "catana-philistion",
+   "children": [],
+   "traits": [
+    "loyal",
+    "fiery"
+   ],
+   "ambition": "Office",
+   "role": "a friend of Rhegium",
+   "alive": true
+  },
+  {
+   "id": "catana-magius",
+   "kind": "invention",
+   "given": "Magius",
+   "fatherName": "Vibius",
+   "sex": "m",
+   "born": 445,
+   "group": "campanian",
+   "body": "catana",
+   "place": "catana",
+   "house": "catana-magius",
+   "children": [],
+   "traits": [
+    "greedy",
+    "bold"
+   ],
+   "ambition": "Wealth",
+   "role": "captain of the Campanians given Catana",
+   "alive": true
+  },
+  {
+   "id": "catana-pasiphilus",
+   "kind": "invention",
+   "given": "Pasiphilus",
+   "fatherName": "Crinippus",
+   "sex": "m",
+   "born": 465,
+   "group": "siceliot",
+   "body": "catana",
+   "place": "catana",
+   "house": "catana-pasiphilus",
+   "children": [],
+   "traits": [
+    "vengeful",
+    "grim"
+   ],
+   "ambition": "Revenge",
+   "role": "a Catanian who escaped the sale, at Mylae about 394",
+   "alive": true
+  },
+  {
+   "id": "naxos-procles",
+   "kind": "history",
+   "given": "Procles",
+   "fatherName": null,
+   "sex": "m",
+   "born": null,
+   "group": "siceliot",
+   "body": "naxos",
+   "place": "naxos",
+   "house": "naxos-procles",
+   "children": [],
+   "traits": [
+    "greedy",
+    "shrewd"
+   ],
+   "ambition": "Wealth",
+   "role": "the commander of the Naxians",
+   "alive": true,
+   "note": "A real person: birth year and father's name are not in the texts.",
+   "did": {
+    "text": "Won over \"by great promises\", he handed the city over; Dionysius paid \"the promised gifts\" and granted \"him his kinsmen\" (14.15.2).",
+    "files": [
+     "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+    ]
+   }
+  },
+  {
+   "id": "naxos-megacles",
+   "kind": "invention",
+   "given": "Megacles",
+   "fatherName": "Theodotes",
+   "sex": "m",
+   "born": 457,
+   "group": "siceliot",
+   "body": "naxos",
+   "place": "naxos",
+   "house": "naxos-megacles",
+   "children": [],
+   "traits": [
+    "dutiful",
+    "brave"
+   ],
+   "ambition": "Office",
+   "role": "a leader of the Naxian assembly",
+   "alive": true
+  },
+  {
+   "id": "naxos-themistus",
+   "kind": "invention",
+   "given": "Themistus",
+   "fatherName": "Lysimachus",
+   "sex": "m",
+   "born": 460,
+   "group": "siceliot",
+   "body": "naxos",
+   "place": "naxos",
+   "house": "naxos-themistus",
+   "children": [],
+   "traits": [
+    "loyal",
+    "silverTongued"
+   ],
+   "ambition": "Safety",
+   "role": "a friend of Rhegium",
+   "alive": true
+  },
+  {
+   "id": "naxos-sikelheadman",
+   "kind": "invention",
+   "given": null,
+   "fatherName": null,
+   "sex": "m",
+   "born": 448,
+   "group": "sikel",
+   "body": "naxos",
+   "place": "naxos",
+   "house": "naxos-sikelheadman",
+   "children": [],
+   "traits": [
+    "proud",
+    "patient"
+   ],
+   "ambition": "Power",
+   "role": "a headman of the Sikels given Naxos' land",
+   "alive": true,
+   "nameNote": "No Sikel name is free: the three saved are kept off the living. The generator's rule would give him a Sicilian Greek name."
+  },
+  {
+   "id": "naxos-zoippus",
+   "kind": "invention",
+   "given": "Zoippus",
+   "fatherName": "Philistion",
+   "sex": "m",
+   "born": 463,
+   "group": "siceliot",
+   "body": "naxos",
+   "place": "naxos",
+   "house": "naxos-zoippus",
+   "children": [],
+   "traits": [
+    "vengeful",
+    "grim"
+   ],
+   "ambition": "Revenge",
+   "role": "a Naxian survivor, at Mylae about 394",
+   "alive": true
+  },
+  {
+   "id": "messana-laomedon",
+   "kind": "history",
+   "given": "Laomedon",
+   "fatherName": null,
+   "sex": "m",
+   "born": null,
+   "group": "siceliot",
+   "body": "messana",
+   "place": "messana",
+   "house": "messana-laomedon",
+   "children": [],
+   "traits": [
+    "blunt",
+    "cautious"
+   ],
+   "ambition": "Safety",
+   "role": "a Messenian who spoke against the war (no office given)",
+   "alive": true,
+   "note": "A real person: birth year and father's name are not in the texts.",
+   "did": {
+    "text": "His \"harangue\" turned the army home; he said not to war on Dionysius \"who had done them no wrong\" (14.40.4 to 14.40.5).",
+    "files": [
+     "sources/diodorus/book14-19-40.loeb.excerpts.txt"
+    ]
+   }
+  },
+  {
+   "id": "messana-theodotes",
+   "kind": "invention",
+   "given": "Theodotes",
+   "fatherName": "Deinocrates",
+   "sex": "m",
+   "born": 451,
+   "group": "siceliot",
+   "body": "messana",
+   "place": "messana",
+   "house": "messana-theodotes",
+   "children": [],
+   "traits": [
+    "ambitious",
+    "wellConnected"
+   ],
+   "ambition": "Office",
+   "role": "the first man of Messana, one of its generals about 399",
+   "alive": true
+  },
+  {
+   "id": "messana-archagathus",
+   "kind": "invention",
+   "given": "Archagathus",
+   "fatherName": "Timocrates",
+   "sex": "m",
+   "born": 454,
+   "group": "siceliot",
+   "body": "messana",
+   "place": "messana",
+   "house": "messana-archagathus",
+   "children": [],
+   "traits": [
+    "shrewd",
+    "wealthy"
+   ],
+   "ambition": "Wealth",
+   "role": "a shipowner of the strait",
+   "alive": true
+  },
+  {
+   "id": "messana-micythus",
+   "kind": "invention",
+   "given": "Micythus",
+   "fatherName": "Nypsius",
+   "sex": "m",
+   "born": 459,
+   "group": "italiote",
+   "body": "messana",
+   "place": "messana",
+   "house": "messana-micythus",
+   "children": [],
+   "traits": [
+    "fiery",
+    "loyal"
+   ],
+   "ambition": "Revenge",
+   "role": "a friend of Rhegium",
+   "alive": true
+  },
+  {
+   "id": "messana-polyzelus",
+   "kind": "invention",
+   "given": "Polyzelus",
+   "fatherName": "Thrasybulus",
+   "sex": "m",
+   "born": 448,
+   "group": "siceliot",
+   "body": "messana",
+   "place": "messana",
+   "house": "messana-polyzelus",
+   "children": [],
+   "traits": [
+    "cautious",
+    "wealthy"
+   ],
+   "ambition": "Safety",
+   "role": "head of the party that sent its families away in 396",
+   "alive": true
+  },
+  {
+   "id": "messana-hicetas",
+   "kind": "invention",
+   "given": "Hicetas",
+   "fatherName": "Pasiphilus",
+   "sex": "m",
+   "born": 466,
+   "group": "siceliot",
+   "body": "messana",
+   "place": "messana",
+   "house": "messana-hicetas",
+   "children": [],
+   "traits": [
+    "bold",
+    "fiery"
+   ],
+   "ambition": "Power",
+   "role": "head of the party of the oracle in 396",
+   "alive": true
+  },
+  {
+   "id": "messana-crinippus",
+   "kind": "invention",
+   "given": "Crinippus",
+   "fatherName": "Hippocrates",
+   "sex": "m",
+   "born": 450,
+   "group": "italiote",
+   "body": "messana",
+   "place": "messana",
+   "house": "messana-crinippus",
+   "children": [],
+   "traits": [
+    "loyal",
+    "harsh"
+   ],
+   "ambition": "Office",
+   "role": "a Locrian settled in Messana in 395",
+   "alive": true,
+   "nameNote": "A Sicilian Greek name by the generator's rule: the Italian Greek pool has only two names free."
+  },
+  {
+   "id": "gela-dexippus",
+   "kind": "history",
+   "given": "Dexippus",
+   "fatherName": null,
+   "sex": "m",
+   "born": null,
+   "group": "greekAbroad",
+   "body": "gela",
+   "place": "gela",
+   "house": "gela-dexippus",
+   "children": [],
+   "traits": [
+    "proud",
+    "cautious"
+   ],
+   "ambition": "Office",
+   "role": "the Spartan put in charge of Gela by the Syracusans",
+   "alive": true,
+   "note": "A real person: birth year and father's name are not in the texts.",
+   "did": {
+    "text": "Put \"in charge by the Syracusans\" (13.93.1); \"would not join\" Dionysius (13.93.4); sent \"to Greece\" (13.96.1). At Acragas the story was that he took \"a bribe of fifteen talents\" (13.88.7).",
+    "files": [
+     "phoenician-punic-world: sources/diodorus/english/book13-1-42-91-96.loeb.txt",
+     "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+    ]
+   }
+  },
+  {
+   "id": "gela-thrasybulus",
+   "kind": "invention",
+   "given": "Thrasybulus",
+   "fatherName": "Lysimachus",
+   "sex": "m",
+   "born": 460,
+   "group": "siceliot",
+   "body": "gela",
+   "place": "gela",
+   "house": "gela-thrasybulus",
+   "children": [],
+   "traits": [
+    "vengeful",
+    "wealthy"
+   ],
+   "ambition": "Revenge",
+   "role": "son of one of the rich men put to death in 405",
+   "alive": true
+  },
+  {
+   "id": "gela-archagathus",
+   "kind": "invention",
+   "given": "Archagathus",
+   "fatherName": "Hicetas",
+   "sex": "m",
+   "born": 452,
+   "group": "siceliot",
+   "body": "gela",
+   "place": "gela",
+   "house": "gela-archagathus",
+   "children": [],
+   "traits": [
+    "patient",
+    "cautious"
+   ],
+   "ambition": "Safety",
+   "role": "a landowner back from exile",
+   "alive": true
+  },
+  {
+   "id": "gela-pasiphilus",
+   "kind": "invention",
+   "given": "Pasiphilus",
+   "fatherName": "Zoippus",
+   "sex": "m",
+   "born": 461,
+   "group": "siceliot",
+   "body": "gela",
+   "place": "gela",
+   "house": "gela-pasiphilus",
+   "children": [],
+   "traits": [
+    "fiery",
+    "showy"
+   ],
+   "ambition": "Office",
+   "role": "a leader of the Geloan people",
+   "alive": true
+  },
+  {
+   "id": "gela-telines",
+   "kind": "invention",
+   "given": "Telines",
+   "fatherName": "Megacles",
+   "sex": "m",
+   "born": 447,
+   "group": "siceliot",
+   "body": "gela",
+   "place": "gela",
+   "house": "gela-telines",
+   "children": [],
+   "traits": [
+    "dutiful",
+    "proud"
+   ],
+   "ambition": "Office",
+   "role": "a priest of the old temples",
+   "alive": true
+  },
+  {
+   "id": "gela-damarete",
+   "kind": "invention",
+   "given": "Damarete",
+   "fatherName": "Polyzelus",
+   "sex": "f",
+   "born": 445,
+   "group": "siceliot",
+   "body": "gela",
+   "place": "gela",
+   "house": "gela-damarete",
+   "children": [],
+   "traits": [
+    "brave",
+    "proud"
+   ],
+   "ambition": "Safety",
+   "role": "a widow who led the women to the altars in 405",
+   "alive": true
+  },
+  {
+   "id": "acragas-argeius",
+   "kind": "history",
+   "given": "Argeius",
+   "fatherName": null,
+   "sex": "m",
+   "born": null,
+   "group": "siceliot",
+   "body": "acragas",
+   "place": "acragas",
+   "house": "acragas-argeius",
+   "children": [],
+   "traits": [
+    "cautious",
+    "patient"
+   ],
+   "ambition": "Safety",
+   "role": "the fifth general of 406, spared by the crowd",
+   "alive": true,
+   "note": "A real person: birth year and father's name are not in the texts.",
+   "did": {
+    "text": "The crowd killed four generals; \"the fifth, Argeius by name, who was very much younger, they spared\" (13.87.5).",
+    "files": [
+     "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+    ]
+   }
+  },
+  {
+   "id": "acragas-antisthenes",
+   "kind": "history",
+   "given": "Antisthenes",
+   "fatherName": null,
+   "sex": "m",
+   "born": null,
+   "group": "siceliot",
+   "body": "acragas",
+   "place": "acragas",
+   "house": "acragas-antisthenes",
+   "children": [],
+   "traits": [
+    "showy",
+    "generous"
+   ],
+   "ambition": "Wealth",
+   "role": "the horse-breeder, whose daughter's wedding had eight hundred chariots",
+   "alive": true,
+   "note": "A real person: birth year and father's name are not in the texts.",
+   "did": {
+    "text": "At his daughter's wedding \"more than eight hundred chariots followed the bride\" (13.84.1).",
+    "files": [
+     "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+    ]
+   }
+  },
+  {
+   "id": "acragas-zoippus",
+   "kind": "invention",
+   "given": "Zoippus",
+   "fatherName": "Hicetas",
+   "sex": "m",
+   "born": 453,
+   "group": "siceliot",
+   "body": "acragas",
+   "place": "acragas",
+   "house": "acragas-zoippus",
+   "children": [],
+   "traits": [
+    "shrewd",
+    "greedy"
+   ],
+   "ambition": "Wealth",
+   "role": "the man who collects Carthage's tribute",
+   "alive": true
+  },
+  {
+   "id": "acragas-megacles",
+   "kind": "invention",
+   "given": "Megacles",
+   "fatherName": "Tellias",
+   "sex": "m",
+   "born": 448,
+   "group": "siceliot",
+   "body": "acragas",
+   "place": "acragas",
+   "house": "acragas-megacles",
+   "children": [],
+   "traits": [
+    "generous",
+    "vengeful"
+   ],
+   "ambition": "Revenge",
+   "role": "heir of Tellias, who kept the wine-cellars",
+   "alive": true,
+   "nameNote": "Tellias is real; this son is invented."
+  },
+  {
+   "id": "acragas-exaenetus",
+   "kind": "history",
+   "given": "Exaenetus",
+   "fatherName": null,
+   "sex": "m",
+   "born": null,
+   "group": "siceliot",
+   "body": "acragas",
+   "place": "acragas",
+   "house": "acragas-exaenetus",
+   "children": [],
+   "traits": [
+    "brave",
+    "showy"
+   ],
+   "ambition": "Office",
+   "role": "Olympic foot-race winner of 412",
+   "alive": true,
+   "note": "A real person: birth year and father's name are not in the texts.",
+   "did": {
+    "text": "Won at Olympia in 412 and came home with \"three hundred chariots belonging to citizens of Acragas\" (13.82.7).",
+    "files": [
+     "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+    ]
+   }
+  },
+  {
+   "id": "acragas-polyzelus",
+   "kind": "invention",
+   "given": "Polyzelus",
+   "fatherName": "Timocrates",
+   "sex": "m",
+   "born": 456,
+   "group": "siceliot",
+   "body": "acragas",
+   "place": "acragas",
+   "house": "acragas-polyzelus",
+   "children": [],
+   "traits": [
+    "loyal",
+    "ambitious"
+   ],
+   "ambition": "Office",
+   "role": "of the old party friendly to Syracuse, now Dionysius' partisan",
+   "alive": true
+  },
+  {
+   "id": "acragas-themistus",
+   "kind": "invention",
+   "given": "Themistus",
+   "fatherName": "Deinocrates",
+   "sex": "m",
+   "born": 462,
+   "group": "siceliot",
+   "body": "acragas",
+   "place": "acragas",
+   "house": "acragas-themistus",
+   "children": [],
+   "traits": [
+    "fiery",
+    "proud"
+   ],
+   "ambition": "Power",
+   "role": "a leader of the returned people, about 393",
+   "alive": true
+  },
+  {
+   "id": "motya-daimenes",
+   "kind": "history",
+   "given": "Daimenes",
+   "fatherName": null,
+   "sex": "m",
+   "born": null,
+   "group": "siceliot",
+   "body": "motya",
+   "place": "motya",
+   "house": "motya-daimenes",
+   "children": [],
+   "traits": [
+    "loyal",
+    "brave"
+   ],
+   "ambition": "Safety",
+   "role": "a Greek who fought for Carthage at Motya",
+   "alive": true,
+   "note": "A real person: birth year and father's name are not in the texts.",
+   "did": {
+    "text": "Crucified with \"other Greeks who had fought on the side of the Carthaginians\" (14.53.4).",
+    "files": [
+     "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+    ]
+   }
+  },
+  {
+   "id": "motya-bostar",
+   "kind": "invention",
+   "given": "Bostar",
+   "fatherName": "Gisco",
+   "sex": "m",
+   "born": 449,
+   "group": "punic",
+   "body": "motya",
+   "place": "motya",
+   "house": "motya-bostar",
+   "children": [],
+   "traits": [
+    "proud",
+    "dutiful"
+   ],
+   "ambition": "Office",
+   "role": "the first man of Motya",
+   "alive": true
+  },
+  {
+   "id": "motya-sibbolet",
+   "kind": "invention",
+   "given": "Sibbolet",
+   "fatherName": "Adherbal",
+   "sex": "f",
+   "born": 446,
+   "group": "punic",
+   "body": "motya",
+   "place": "motya",
+   "house": "motya-sibbolet",
+   "children": [],
+   "traits": [
+    "shrewd",
+    "wealthy"
+   ],
+   "ambition": "Wealth",
+   "role": "the dyer and trader (census role), a widow who runs the dye-works",
+   "alive": true,
+   "nameNote": "Sibbolet is a businesswoman's name from a Carthage gravestone (names.md)."
+  },
+  {
+   "id": "motya-carthalo",
+   "kind": "invention",
+   "given": "Carthalo",
+   "fatherName": "Malchus",
+   "sex": "m",
+   "born": 452,
+   "group": "punic",
+   "body": "motya",
+   "place": "motya",
+   "house": "motya-carthalo",
+   "children": [],
+   "traits": [
+    "patient",
+    "grim"
+   ],
+   "ambition": "Safety",
+   "role": "the shipwright of the harbour",
+   "alive": true
+  },
+  {
+   "id": "motya-zarzas",
+   "kind": "invention",
+   "given": "Zarzas",
+   "fatherName": "Naravas",
+   "sex": "m",
+   "born": 458,
+   "group": "libyan",
+   "body": "motya",
+   "place": "motya",
+   "house": "motya-zarzas",
+   "children": [],
+   "traits": [
+    "suspicious",
+    "brave"
+   ],
+   "ambition": "Safety",
+   "role": "head of a Libyan household of Motya",
+   "alive": true
+  },
+  {
+   "id": "panormus-maharbal",
+   "kind": "invention",
+   "given": "Maharbal",
+   "fatherName": "Sapho",
+   "sex": "m",
+   "born": 450,
+   "group": "punic",
+   "body": "panormus",
+   "place": "panormus",
+   "house": "panormus-maharbal",
+   "children": [],
+   "traits": [
+    "proud",
+    "wellConnected"
+   ],
+   "ambition": "Office",
+   "role": "the first man of Panormus",
+   "alive": true
+  },
+  {
+   "id": "panormus-bodostor",
+   "kind": "invention",
+   "given": "Bodostor",
+   "fatherName": "Hasdrubal",
+   "sex": "m",
+   "born": 455,
+   "group": "punic",
+   "body": "panormus",
+   "place": "panormus",
+   "house": "panormus-bodostor",
+   "children": [],
+   "traits": [
+    "shrewd",
+    "greedy"
+   ],
+   "ambition": "Wealth",
+   "role": "a merchant of the harbour",
+   "alive": true
+  },
+  {
+   "id": "panormus-synalus",
+   "kind": "invention",
+   "given": "Synalus",
+   "fatherName": "Bostar",
+   "sex": "m",
+   "born": 447,
+   "group": "punic",
+   "body": "panormus",
+   "place": "panormus",
+   "house": "panormus-synalus",
+   "children": [],
+   "traits": [
+    "dutiful",
+    "harsh"
+   ],
+   "ambition": "Office",
+   "role": "a priest of Baal (census role)",
+   "alive": true
+  },
+  {
+   "id": "panormus-adherbal",
+   "kind": "invention",
+   "given": "Adherbal",
+   "fatherName": "Malchus",
+   "sex": "m",
+   "born": 462,
+   "group": "punic",
+   "body": "panormus",
+   "place": "panormus",
+   "house": "panormus-adherbal",
+   "children": [],
+   "traits": [
+    "brave",
+    "fiery"
+   ],
+   "ambition": "Power",
+   "role": "captain of the town's levy",
+   "alive": true
+  },
+  {
+   "id": "panormus-heraclia",
+   "kind": "invention",
+   "given": "Heraclia",
+   "fatherName": "Crinippus",
+   "sex": "f",
+   "born": 450,
+   "group": "siceliot",
+   "body": "panormus",
+   "place": "panormus",
+   "house": "panormus-heraclia",
+   "children": [],
+   "traits": [
+    "patient",
+    "silverTongued"
+   ],
+   "ambition": "Safety",
+   "role": "a Himeraean widow who keeps a trading house at Panormus",
+   "alive": true
+  },
+  {
+   "id": "aetna-theodotes",
+   "kind": "invention",
+   "given": "Theodotes",
+   "fatherName": "Zoippus",
+   "sex": "m",
+   "born": 463,
+   "group": "siceliot",
+   "body": "aetna",
+   "place": "aetna",
+   "house": "aetna-theodotes",
+   "children": [],
+   "traits": [
+    "proud",
+    "bold"
+   ],
+   "ambition": "Revenge",
+   "role": "a cavalryman who fled Syracuse (census role)",
+   "alive": true
+  },
+  {
+   "id": "aetna-hippocrates",
+   "kind": "invention",
+   "given": "Hippocrates",
+   "fatherName": "Polyzelus",
+   "sex": "m",
+   "born": 454,
+   "group": "siceliot",
+   "body": "aetna",
+   "place": "aetna",
+   "house": "aetna-hippocrates",
+   "children": [],
+   "traits": [
+    "cautious",
+    "dutiful"
+   ],
+   "ambition": "Safety",
+   "role": "an exile who lost his land, with wife and children left in Syracuse",
+   "alive": true
+  },
+  {
+   "id": "aetna-thrasydaeus",
+   "kind": "invention",
+   "given": "Thrasydaeus",
+   "fatherName": "Megacles",
+   "sex": "m",
+   "born": 470,
+   "group": "siceliot",
+   "body": "aetna",
+   "place": "aetna",
+   "house": "aetna-thrasydaeus",
+   "children": [],
+   "traits": [
+    "fiery",
+    "vengeful"
+   ],
+   "ambition": "Revenge",
+   "role": "a young hothead of the exiles (census role)",
+   "alive": true
+  },
+  {
+   "id": "camarina-menes",
+   "kind": "history",
+   "given": "Menes",
+   "fatherName": null,
+   "sex": "m",
+   "born": null,
+   "group": "siceliot",
+   "body": "camarina",
+   "place": "camarina",
+   "house": "camarina-menes",
+   "children": [],
+   "traits": [
+    "silverTongued",
+    "harsh"
+   ],
+   "ambition": "Power",
+   "role": "a commander at Acragas in 406",
+   "alive": true,
+   "note": "A real person: birth year and father's name are not in the texts.",
+   "did": {
+    "text": "He \"lodged an accusation against the Acragantine generals\" and \"so incited all who were present\" that four were stoned (13.87.5).",
+    "files": [
+     "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+    ]
+   }
+  },
+  {
+   "id": "camarina-timocrates",
+   "kind": "invention",
+   "given": "Timocrates",
+   "fatherName": "Theodotes",
+   "sex": "m",
+   "born": 451,
+   "group": "siceliot",
+   "body": "camarina",
+   "place": "camarina",
+   "house": "camarina-timocrates",
+   "children": [],
+   "traits": [
+    "cautious",
+    "wealthy"
+   ],
+   "ambition": "Wealth",
+   "role": "a rich man who carried his silver out in 405",
+   "alive": true
+  },
+  {
+   "id": "camarina-lysimachus",
+   "kind": "invention",
+   "given": "Lysimachus",
+   "fatherName": "Thrasybulus",
+   "sex": "m",
+   "born": 458,
+   "group": "siceliot",
+   "body": "camarina",
+   "place": "camarina",
+   "house": "camarina-lysimachus",
+   "children": [],
+   "traits": [
+    "proud",
+    "suspicious"
+   ],
+   "ambition": "Safety",
+   "role": "led his people to Leontini rather than Syracuse in 405",
+   "alive": true
+  },
+  {
+   "id": "camarina-hicetas",
+   "kind": "invention",
+   "given": "Hicetas",
+   "fatherName": "Megacles",
+   "sex": "m",
+   "born": 466,
+   "group": "siceliot",
+   "body": "camarina",
+   "place": "camarina",
+   "house": "camarina-hicetas",
+   "children": [],
+   "traits": [
+    "bold",
+    "loyal"
+   ],
+   "ambition": "Office",
+   "role": "captain of the levy that joined Dionysius first in 397",
+   "alive": true
+  },
+  {
+   "id": "selinus-empedion",
+   "kind": "history",
+   "given": "Empedion",
+   "fatherName": null,
+   "sex": "m",
+   "born": null,
+   "group": "siceliot",
+   "body": "selinus",
+   "place": "selinus",
+   "house": "selinus-empedion",
+   "children": [],
+   "traits": [
+    "cautious",
+    "wellConnected"
+   ],
+   "ambition": "Safety",
+   "role": "the man who had counselled peace with Carthage",
+   "alive": true,
+   "note": "A real person: birth year and father's name are not in the texts.",
+   "did": {
+    "text": "He \"had always favoured the cause of the Carthaginians\" and was given back his goods and kin (13.59.3).",
+    "files": [
+     "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+    ]
+   }
+  },
+  {
+   "id": "selinus-deinocrates",
+   "kind": "invention",
+   "given": "Deinocrates",
+   "fatherName": "Telines",
+   "sex": "m",
+   "born": 457,
+   "group": "siceliot",
+   "body": "selinus",
+   "place": "selinus",
+   "house": "selinus-deinocrates",
+   "children": [],
+   "traits": [
+    "bold",
+    "loyal"
+   ],
+   "ambition": "Revenge",
+   "role": "a survivor who came back with Hermocrates about 408",
+   "alive": true
+  },
+  {
+   "id": "selinus-philistion",
+   "kind": "invention",
+   "given": "Philistion",
+   "fatherName": "Archagathus",
+   "sex": "m",
+   "born": 452,
+   "group": "siceliot",
+   "body": "selinus",
+   "place": "selinus",
+   "house": "selinus-philistion",
+   "children": [],
+   "traits": [
+    "patient",
+    "grim"
+   ],
+   "ambition": "Safety",
+   "role": "a survivor farming under the tribute",
+   "alive": true
+  },
+  {
+   "id": "selinus-adranodorus",
+   "kind": "invention",
+   "given": "Adranodorus",
+   "fatherName": "Hicetas",
+   "sex": "m",
+   "born": 465,
+   "group": "siceliot",
+   "body": "selinus",
+   "place": "selinus",
+   "house": "selinus-adranodorus",
+   "children": [],
+   "traits": [
+    "brave",
+    "fiery"
+   ],
+   "ambition": "Office",
+   "role": "captain of the men who joined Dionysius in 397",
+   "alive": true
+  },
+  {
+   "id": "himera-diocles",
+   "kind": "history",
+   "given": "Diocles",
+   "fatherName": null,
+   "sex": "m",
+   "born": null,
+   "group": "siceliot",
+   "body": "himera",
+   "place": "himera",
+   "house": null,
+   "children": [],
+   "traits": [],
+   "ambition": null,
+   "role": "the Syracusan who commanded at Himera in 409",
+   "alive": true,
+   "note": "A real person: birth year and father's name are not in the texts.",
+   "did": {
+    "text": "Commanded at Himera (13.61.3); \"Diocles was exiled\" about 408 (13.75.5).",
+    "files": [
+     "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt",
+     "phoenician-punic-world: sources/diodorus/english/book13-gaps.txt"
+    ]
+   }
+  },
+  {
+   "id": "himera-thrasybulus",
+   "kind": "invention",
+   "given": "Thrasybulus",
+   "fatherName": "Philistion",
+   "sex": "m",
+   "born": 459,
+   "group": "siceliot",
+   "body": "himera",
+   "place": "himera",
+   "house": "himera-thrasybulus",
+   "children": [],
+   "traits": [
+    "vengeful",
+    "loyal"
+   ],
+   "ambition": "Revenge",
+   "role": "a Himeraean who marched with Hermocrates about 408",
+   "alive": true
+  },
+  {
+   "id": "himera-crinippus",
+   "kind": "invention",
+   "given": "Crinippus",
+   "fatherName": "Hicetas",
+   "sex": "m",
+   "born": 452,
+   "group": "siceliot",
+   "body": "himera",
+   "place": "himera",
+   "house": "himera-crinippus",
+   "children": [],
+   "traits": [
+    "shrewd",
+    "patient"
+   ],
+   "ambition": "Safety",
+   "role": "a Himeraean who made friends with Himilcon in 396",
+   "alive": true
+  },
+  {
+   "id": "himera-damarata",
+   "kind": "invention",
+   "given": "Damarata",
+   "fatherName": "Megacles",
+   "sex": "f",
+   "born": 448,
+   "group": "siceliot",
+   "body": "himera",
+   "place": "himera",
+   "house": "himera-damarata",
+   "children": [],
+   "traits": [
+    "proud",
+    "grim"
+   ],
+   "ambition": "Safety",
+   "role": "a widow among those shipped to Messana in 409",
+   "alive": true
+  }
+ ],
+ "towns": [
+  {
+   "id": "syracuse",
+   "name": "Syracuse",
+   "onMap": true,
+   "map": "your city; the town boards skip it",
+   "held": [
+    {
+     "text": "From 405 Dionysius: the peace said \"the Syracusans shall be subject to Dionysius\" (13.114.1).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "The exiles. About 408 Diocles, who had led the people, was sent away: \"Diocles was exiled\" (13.75.5). After 405 the exiles gathered at Aetna (see Aetna) and across the strait: the Syracusans \"who had been exiled by Dionysius, for most of them were at that time resident in Rhegium\" (14.40.2).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13-gaps.txt",
+      "sources/diodorus/book14-19-40.loeb.excerpts.txt"
+     ]
+    }
+   ],
+   "blank": "Not blank: Syracuse is the one town the texts fill. Its people are already cast, so they are pointed to here and not cast again.",
+   "cast": "The starting cast in the game's people file, `docs/research/cast-405-395.md` and `docs/drafts/rising-cast.md` (Leptines, Heloris, Philistus, Theodorus, Nicoteles, Damon the smith and the rest). The rising cast's ladder and yearly moves are where Syracuse's own politics live.",
+   "boardAtStart": []
+  },
+  {
+   "id": "leontini",
+   "name": "Leontini",
+   "onMap": true,
+   "map": "a free town, walled, leaning neither way",
+   "held": [
+    {
+     "text": "406: Acragas' refugees \"made their home in Leontini, the Syracusans having given them this city for their dwelling-place\" (13.89.4).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    },
+    {
+     "text": "405: \"This city was at that time an outpost of the Syracusans, being full of exiles and foreigners.\" Dionysius counted on them, \"desiring as they did a change of government\" (13.95.3), and there the people voted him \"a guard of six hundred soldiers\" (13.95.5).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+     ]
+    },
+    {
+     "text": "405: \"the Geloans and Camarinaeans, who were at odds with Dionysius, left him and departed to Leontini\" (13.113.4). The peace then said \"the inhabitants of Leontini and Messenê and the Siceli shall all live under laws of their own making\" (13.114.1).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "Dionysius. His first march on it, about 403, came to nothing (14.14.3 to 14.14.4). The second time he told them to \"hand over their city and enjoy citizenship in Syracuse\", and the Leontines, \"reflecting on the fate of the Naxians and Catanians\", \"left their city, and removed to Syracuse\" (14.15.4).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+     ]
+    },
+    {
+     "text": "396: he was \"most concerned\" to \"fortify the citadels of the Leontines and to store in them the harvest from the plains\" (14.58.1).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    },
+    {
+     "text": "About 396/5: his mercenaries, \"who numbered about ten thousand\", took \"in lieu of their pay the city and territory of the Leontines\", \"because the territory was good land\" (14.78.2 to 14.78.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-78-96.txt"
+     ]
+    },
+    {
+     "text": "Earlier, as background: \"some Leontine exiles\" pleaded at Athens for help in 415 (Thucydides 6.19.1).",
+     "files": [
+      "phoenician-punic-world: sources/sicilian-wars/thucydides-6-7-7-87.crawley.txt"
+     ]
+    }
+   ],
+   "blank": "Blank for names. No Leontine is named in any saved text of these years, and who ran the town in 405 to 403 is not said. The cast is invented on the groups the texts do give: the refugees and exiles, the Syracusan outpost, the grain of the plain and, after 396, the mercenaries.",
+   "politics": {
+    "in": "In: the refugees and exiles Syracuse put there, who gave Dionysius his guard (13.95.3 to 13.95.5).",
+    "out": "Out: the Leontines themselves, unnamed in every line; that they resented the newcomers is invention.",
+    "split": "What splits them: whether to trust Dionysius. Acragas' refugees backed him; Gela's and Camarina's walked out on him (13.113.4). After 396 the mercenaries are the town."
+   },
+   "best": {
+    "passage": "13.95.3",
+    "quote": "This city was at that time an outpost of the Syracusans, being full of exiles and foreigners."
+   },
+   "boardAtStart": [
+    "leontini-lysimachus",
+    "leontini-hippocrates",
+    "leontini-thrasydaeus"
+   ]
+  },
+  {
+   "id": "catana",
+   "name": "Catana",
+   "onMap": true,
+   "map": "a free town, walled, leaning a little to Carthage",
+   "held": [
+    {
+     "text": "Background, 415: it refused the Athenians, \"there being a Syracusan party in the town\" (Thucydides 6.50.3). A man who \"was a native of Catana\" carried a false message for Athens, naming \"members of their party still left in the city\" (6.64.2).",
+     "files": [
+      "phoenician-punic-world: sources/sicilian-wars/thucydides-6-7-7-87.crawley.txt"
+     ]
+    },
+    {
+     "text": "About 403: \"Arcesilaüs, the general of the Catanians, had offered to betray the city to him. Consequently, being admitted by Arcesilaüs about midnight, he became master of Catanê. After taking their arms from the citizens, he placed an adequate garrison in the city\" (14.15.1).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+     ]
+    },
+    {
+     "text": "Then Dionysius sold the Catanians, \"selling the captives he took as booty in Syracuse\", and \"granted to the Campanians the city of the Catanians as their dwelling-place\" (14.15.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "Rhegium, \"colonists of Chalcis\", was angered that he had sold \"the Naxians and Catanians, their kinsmen\" (14.40.1). About 394 Rhegium \"settled in Mylae the surviving Naxians and Catanians\" (14.87.1).",
+     "files": [
+      "sources/diodorus/book14-19-40.loeb.excerpts.txt",
+      "phoenician-punic-world: sources/diodorus/english/book14-gap-sections.txt"
+     ]
+    },
+    {
+     "text": "396: Dionysius moved the Campanians \"who were dwelling in Catanê\" to Aetna (14.58.2), and Carthage's fleet, after the sea battle, \"anchored their triremes in the harbour of Catanê\" (14.60.7).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    }
+   ],
+   "blank": "Arcesilaus is the only Catanian named, in one sentence. What he was paid, whether he went to Syracuse and what became of him are not told. The people who were sold have no names.",
+   "politics": {
+    "in": "In: the general Arcesilaus and the men on the walls (14.15.1).",
+    "out": "Out: the citizens, who lost their arms and then their freedom (14.15.1, 14.15.3).",
+    "split": "What splits them: Syracuse or Rhegium and the Chalcidian kin (14.40.1). That the old Syracusan party of 415 (Thucydides 6.50.3) was behind Arcesilaus is my reading, not stated."
+   },
+   "best": {
+    "passage": "14.15.1",
+    "quote": "being admitted by Arcesilaüs about midnight, he became master of Catanê"
+   },
+   "boardAtStart": [
+    "catana-arcesilaus",
+    "catana-adranodorus",
+    "catana-timocrates"
+   ]
+  },
+  {
+   "id": "naxos",
+   "name": "Naxos",
+   "onMap": false,
+   "map": "not on the island map; in the places file only, gone after about 403",
+   "held": [
+    {
+     "text": "Background, 415: the Athenians were \"Received by the Naxians\" (Thucydides 6.50.3).",
+     "files": [
+      "phoenician-punic-world: sources/sicilian-wars/thucydides-6-7-7-87.crawley.txt"
+     ]
+    },
+    {
+     "text": "About 403: \"Procles, the commander of the Naxians, on being won over by great promises, delivered over his native city to Dionysius, who, after paying the promised gifts to the traitor and granting him his kinsmen, sold the inhabitants into slavery, turned their property over to the soldiers to plunder, and razed the walls and the dwellings\" (14.15.2).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "The Sikels. Dionysius gave \"the territory of the Naxians\" to \"the neighbouring Siceli\" (14.15.3). In 396 Siceli took the peak of Taurus, Siceli \"who, however, had no leader\" (14.59.1); \"having been induced by Himilcon's offers, they occupied this peak\", walled it, and \"named the city Tauromenium\" (14.59.2).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt",
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    },
+    {
+     "text": "About 394/3 they held it against Dionysius, saying \"they had only recovered territory that belonged to their fathers\" (14.88.1); \"Dionysius himself saved only his corslet\" (14.88.4). The peace of 392 gave him the town; he \"banished most of the Siceli who were in it\" (14.96.4).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-78-96.txt",
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    },
+    {
+     "text": "The Naxians who survived: Rhegium settled them at Mylae (14.87.1); the Messenians took Mylae and \"let the Naxians who had been settled there go free under a truce\", and they \"made their dwelling some in one place and others in another\" (14.87.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-gap-sections.txt",
+      "phoenician-punic-world: sources/diodorus/english/book14-78-96.txt"
+     ]
+    }
+   ],
+   "blank": "Procles is the only Naxian named. The Sikels of Taurus are named by no one; Diodorus says they \"had no leader\" (14.59.1).",
+   "politics": {
+    "in": "In: the commander Procles, who held the gate (14.15.2).",
+    "out": "Out: the people, who had no say and were sold (14.15.2).",
+    "split": "What splits them: Dionysius' gifts against Rhegium's kinship (14.15.2, 14.40.1). After 403 the town is gone and its land passes to the Sikels."
+   },
+   "best": {
+    "passage": "14.15.2",
+    "quote": "after paying the promised gifts to the traitor and granting him his kinsmen, sold the inhabitants into slavery"
+   },
+   "boardAtStart": [
+    "naxos-procles",
+    "naxos-megacles",
+    "naxos-themistus"
+   ]
+  },
+  {
+   "id": "messana",
+   "name": "Messana",
+   "onMap": true,
+   "map": "a free town on the strait, walled, leaning neither way",
+   "held": [
+    {
+     "text": "Background, 415: when a plot to let Athens in was betrayed, word went \"to the friends of the Syracusans in Messina, who had at once put to death its authors\" (Thucydides 6.74.1).",
+     "files": [
+      "phoenician-punic-world: sources/sicilian-wars/thucydides-6-7-7-87.crawley.txt"
+     ]
+    },
+    {
+     "text": "About 408 Hermocrates, \"after he had arrived at Messenê, he had five triremes built and hired a thousand soldiers\" (13.63.2). In 409 half of Himera's people sailed \"as far as Messenê\" (13.61.5).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13-gaps.txt",
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    },
+    {
+     "text": "404: Messana and Rhegium sent triremes to the Syracusans who rose against Dionysius, \"being eager to support them in the cause of freedom\" (14.8.2).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+     ]
+    },
+    {
+     "text": "About 399, Rhegium's generals \"induced the generals of the Messenians to join in the war\". \"Now the generals were won over by the Rhegians and, without obtaining a vote of the people,\" \"led forth their forces\". Then \"opposition broke out among the soldiers due to a harangue delivered by the Messenian Laomedon\"; \"for he advised them not begin a war against Dionysius who had done them no wrong\", and \"since the people had not approved the war\", the soldiers went home, \"deserting their generals\" (14.40.3 to 14.40.5).",
+     "files": [
+      "sources/diodorus/book14-19-40.loeb.excerpts.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "Dionysius: about 398 he \"made a present to the Messenians of a large piece of territory on their borders, binding them to him by such a benefaction\" (14.44.4).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    },
+    {
+     "text": "Himilcon: in 396 he wanted it because \"it had an excellent harbour, capable of accommodating all his ships\" (14.56.1). The town \"could not agree among themselves about the war\" (14.56.3). One party, seeing \"their own cavalry were at Syracuse\" and that \"their walls had fallen down\", \"removed from the city their children and wives and most valuable possessions to neighbouring cities\" (14.56.4). Another trusted an oracle, \"Carthaginians must be bearers of water in Messenê\" (14.56.5), and \"selected the ablest troops from among their young men and dispatched them to Peloris\" (14.56.6). Himilcon took it and \"threw down the walls of Messenê\" (14.58.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    },
+    {
+     "text": "395: Dionysius \"settled in Messenê a thousand Locrians, four thousand Medmaeans, and six hundred Messenians from the Peloponnesus\", then moved the last to a new town: \"The Messenians named their city Tyndaris\" (14.78.5 to 14.78.6).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-78-96.txt"
+     ]
+    },
+    {
+     "text": "About 394 Rhegium sent Heloris against it; \"the Messenians and the mercenaries of Dionysius, who were holding the city\" beat him (14.87.2). Soon after, \"the Acragantini and Messenians banished the partisans of Dionysius, asserted their freedom, and renounced their alliance with the tyrant\" (14.88.5), and Magon \"launched an attack upon the territory of Messenê\" (14.90.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-gap-sections.txt",
+      "phoenician-punic-world: sources/diodorus/english/book14-78-96.txt"
+     ]
+    }
+   ],
+   "blank": "Laomedon is the only Messenian named. The generals of about 399, the leaders of the two parties of 396 and the partisans banished about 393 have no names.",
+   "politics": {
+    "in": "In: the generals, who could take the army out \"without obtaining a vote of the people\" (14.40.4).",
+    "out": "Out: the people and the men who spoke for them, like Laomedon, until the soldiers walked home (14.40.5).",
+    "split": "What splits them: Rhegium or Dionysius; and in 396, flee or fight (14.56.3 to 14.56.6)."
+   },
+   "best": {
+    "passage": "14.40.4 to 14.40.5",
+    "quote": "the generals marched \"without obtaining a vote of the people,\" and the army went home \"since the people had not approved the war"
+   },
+   "boardAtStart": [
+    "messana-theodotes",
+    "messana-archagathus",
+    "messana-laomedon"
+   ]
+  },
+  {
+   "id": "gela",
+   "name": "Gela",
+   "onMap": true,
+   "map": "pays tribute to Carthage, no walls, leaning a little your way",
+   "held": [
+    {
+     "text": "406: the Spartan Dexippus \"was tarrying in Gela, enjoying high regard by reason of the city of his birth\", and led \"fifteen hundred mercenaries\" to Acragas (13.85.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    },
+    {
+     "text": "405: Gela \"at that time was under the eye of Dexippus, the Lacedaemonian, who had been put in charge by the Syracusans\" (13.93.1).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+     ]
+    },
+    {
+     "text": "\"when Dionysius on arrival found the wealthiest citizens engaged in strife with the people, he accused them in an assembly and secured their condemnation, whereupon he put them to death and confiscated their possessions\" (13.93.2). The people thought him \"responsible for their liberation; for in their envy of the most influential citizens they stigmatized the superiority these men possessed as a despotism over themselves\" (13.93.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "Dionysius, who tried to win Dexippus, \"and when Dexippus would not join with him\" went home (13.93.4); later \"Dexippus the Lacedaemonian he dismissed to Greece\", \"lest he should seize a favourable opportunity and restore to the Syracusans their liberty\" (13.96.1).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+     ]
+    },
+    {
+     "text": "Carthage, 405: it took \"a bronze statue of Apollo of colossal size\" and sent it \"to Tyre\" (13.108.4). The Geloans voted to send their families to Syracuse, \"but when the women fled to the altars about the market-place and begged to share the same fortune as the men, they yielded to them\" (13.108.6).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    },
+    {
+     "text": "After Dionysius led them out by night, \"the hatred against Dionysius was flaring up\" (13.112.1), and the Geloans, \"at odds with Dionysius\", went to Leontini (13.113.4). The peace let them back to a town \"which shall be unfortified, but shall pay tribute to the Carthaginians\" (13.114.1).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    },
+    {
+     "text": "397: \"He received first the levy from Camarina, then those of Gela and Acragas\" (14.47.6). In 396 Theodorus says Dionysius \"betrayed Gela and Camarina and made these cities desolate\" (14.68.2), in a speech Diodorus wrote.",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    }
+   ],
+   "blank": "Dexippus is the only person named at Gela, and he is a Spartan. The rich men killed in 405 and the people's leaders have no names.",
+   "politics": {
+    "in": "In: \"the wealthiest citizens\", until Dionysius had them condemned (13.93.2), and the Spartan put in charge (13.93.1).",
+    "out": "Out: the people, who called the rich men's standing \"a despotism over themselves\" (13.93.3).",
+    "split": "What splits them: rich against poor, which Dionysius used; after 405, the blame for the night flight (13.112.1)."
+   },
+   "best": {
+    "passage": "13.93.3",
+    "quote": "in their envy of the most influential citizens they stigmatized the superiority these men possessed as a despotism over themselves"
+   },
+   "boardAtStart": [
+    "gela-thrasybulus",
+    "gela-archagathus",
+    "gela-pasiphilus"
+   ]
+  },
+  {
+   "id": "acragas",
+   "name": "Acragas",
+   "onMap": true,
+   "map": "pays tribute to Carthage, no walls, leaning a little your way",
+   "held": [
+    {
+     "text": "Background, 413: Syracuse sent Sicanus \"to Agrigentum where there was a revolution\" (Thucydides 7.46.1); he failed, \"the party friendly to the Syracusans having been driven out\" (7.50.1).",
+     "files": [
+      "phoenician-punic-world: sources/sicilian-wars/thucydides-6-7-7-87.crawley.txt"
+     ]
+    },
+    {
+     "text": "The rich: \"perhaps the richest man was Tellias\", who told his servants to \"invite every stranger to be his guest\" (13.83.1). \"Antisthenes at any rate, who was called Rhodus\", married off his daughter, and \"more than eight hundred chariots followed the bride\" (13.84.1). In 412 Exaenetus of Acragas won the foot race at Olympia and came home with \"three hundred chariots belonging to citizens of Acragas\" (13.82.7).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    },
+    {
+     "text": "406: Carthage asked them \"to become their allies, but otherwise to stay neutral\"; they \"would not entertain these terms\" (13.85.2). In the assembly \"Menes of Camarina, who had been put in command, came forward and lodged an accusation against the Acragantine generals\"; the crowd \"killed four of them, but the fifth, Argeius by name, who was very much younger, they spared\" (13.87.5).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "Carthage: the city was left; Tellias \"set fire to the temple and burned himself together with the dedications in it\" (13.90.2); the refugees in Syracuse \"lodged accusations against their generals\" (13.91.2). In 405 Himilcon \"razed to the ground the city of the Acragantini\" (13.108.2). The peace let its people back, unwalled and paying tribute (13.114.1).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt",
+      "phoenician-punic-world: sources/diodorus/english/book13-1-42-91-96.loeb.txt"
+     ]
+    },
+    {
+     "text": "Dionysius: its levy joined him in 397 (14.47.6). About 394/3 \"the Acragantini and Messenians banished the partisans of Dionysius\" (14.88.5).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt",
+      "phoenician-punic-world: sources/diodorus/english/book14-78-96.txt"
+     ]
+    },
+    {
+     "text": "Undated: Pausanias says \"war was waged by the Agrigentines\" on Motye, which was \"inhabited by Libyans and Phoenicians\", and the spoils paid for bronze boys at Olympia (Pausanias 5.25.5).",
+     "files": [
+      "phoenician-punic-world: sources/sicily-tyrants/pausanias-5-25-27-6-9.jones.txt"
+     ]
+    }
+   ],
+   "blank": "Who led the town after its people came back is not named, nor who led the banishing about 393. The rich men named are known from Timaeus' stories of the old city, and whether they lived past 406 is not told, except Tellias, who died.",
+   "politics": {
+    "in": "In: the generals and the rich houses, until the assembly stoned four generals in 406 (13.87.5).",
+    "out": "Out: the crowd, which in that hour was the real power; after 405 the friends of Syracuse, banished about 393 (14.88.5).",
+    "split": "What splits them: who lost the city, and whether to trust Syracuse again (13.91.2, 14.88.5)."
+   },
+   "best": {
+    "passage": "13.87.5",
+    "quote": "killed four of them, but the fifth, Argeius by name, who was very much younger, they spared"
+   },
+   "boardAtStart": [
+    "acragas-antisthenes",
+    "acragas-argeius",
+    "acragas-zoippus"
+   ]
+  },
+  {
+   "id": "motya",
+   "name": "Motya",
+   "onMap": true,
+   "map": "Carthage's town, strongly walled, leaning hard to Carthage",
+   "held": [
+    {
+     "text": "Carthage: Motya was \"a Carthaginian colony, which they used as their chief base of operations against Sicily\" (14.47.4). In 406 Carthage \"summoned forty triremes from Panormus and Motyê\" (13.88.4). About 408 Hermocrates \"laid waste the territory of the inhabitants of Motyê\" (13.63.4).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt",
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt",
+      "phoenician-punic-world: sources/diodorus/english/book13-gaps.txt"
+     ]
+    },
+    {
+     "text": "397: the Motyans were \"expecting aid from the Carthaginians\", knowing Syracuse would strike first \"because it was most loyal to the Carthaginians\" (14.48.1); they held out \"even though they had for the moment no allies to help them\" (14.51.2).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    },
+    {
+     "text": "They fought \"with their wives and children before their eyes\" (14.52.1). \"Most appalling for the Phoenicians and the greatest cause of their despair was the thought how cruelly they had used their Greek captives and the prospect of their suffering the same treatment\" (14.52.2).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    },
+    {
+     "text": "The sack yielded \"much silver and not a little gold, as well as costly raiment\" (14.53.3). Dionysius \"rewarded Archylus, who had been the first to mount the wall, with one hundred minas\", sold the Motyans who lived, and \"he crucified Daïmenes and other Greeks who had fought on the side of the Carthaginians and had been taken captive\" (14.53.4).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "Dionysius, then Carthage again: he left it \"under the command of Biton of Syracuse; and the garrison was composed largely of Siceli\" (14.53.5). In 396 \"Himilcon reduced Motyê by siege\" (14.55.4).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    },
+    {
+     "text": "The place itself: an inscription \"found in a votive pit beside the south-eastern corner of the pool\" carries a Greek dedication to Ba'al, and the sacred precinct ran from 550 to 397/396 BC (Nigro 2022, [doi:10.15184/aqy.2022.8](https://doi.org/10.15184/aqy.2022.8)). Pausanias calls the town \"inhabited by Libyans and Phoenicians\" (5.25.5), though he puts it at the wrong end of the island.",
+     "files": [
+      "phoenician-punic-world: sources/archaeology/motya-nigro-2022-antiquity-kothon.txt",
+      "phoenician-punic-world: sources/sicily-tyrants/pausanias-5-25-27-6-9.jones.txt"
+     ]
+    }
+   ],
+   "blank": "Blank for the Motyans themselves. No Phoenician of Motya is named in any saved text, and how the town governed itself is not told (`war-and-towns.md` says the same). The two names are a Greek who fought for Carthage (Daimenes) and Syracuse's garrison commander (Biton).",
+   "politics": {
+    "in": "In: the Phoenician houses of Carthage's \"chief base\" (14.47.4), unnamed.",
+    "out": "Out: no one we can see; Greeks lived and fought there on Carthage's side (14.53.4).",
+    "split": "What splits them: nothing the texts show. Fear held them together: of the sack, and of paying for how they had treated Greek captives (14.52.2)."
+   },
+   "best": {
+    "passage": "14.52.2",
+    "quote": "the thought how cruelly they had used their Greek captives and the prospect of their suffering the same treatment"
+   },
+   "boardAtStart": [
+    "motya-bostar",
+    "motya-carthalo",
+    "motya-sibbolet"
+   ]
+  },
+  {
+   "id": "panormus",
+   "name": "Panormus",
+   "onMap": true,
+   "map": "Carthage's town, walled, leaning hard to Carthage",
+   "held": [
+    {
+     "text": "Carthage. About 408 Hermocrates ravaged its land, and \"when the inhabitants offered battle en masse before the city he slew about five hundred of them and shut up the rest within their walls\" (13.63.4). In 406 its triremes sailed with Motya's: \"forty triremes from Panormus and Motyê\" (13.88.4).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13-gaps.txt",
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    },
+    {
+     "text": "397: \"of the rest of the cities only five remained loyal to the Carthaginians, these being Halicyae, Solûs, Aegesta, Panormus, and Entella\" (14.48.4). Dionysius \"plundered the territory of Solûs and Panormus\" and \"cut down the trees on it\" (14.48.5).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "396: Carthage's great landing came here: \"After Himilcon had put in at Panormus and disembarked his army\" (14.55.4). Theodorus blames Dionysius for not fighting: \"First of all at Panormus, when the enemy were disembarking\" (14.68.5).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    }
+   ],
+   "blank": "Blank. No one at Panormus is named in any saved text, and nothing is told of who led it. The cast is invented on the census roles and on the one thing the texts show: its people came out and fought for their fields.",
+   "politics": {
+    "in": "In: Carthage's friends, which the texts make the whole town (14.48.4).",
+    "out": "Out: no one named; the Greek traders and the many strangers in a port are invention.",
+    "split": "What splits them: nothing the texts show. The town fought as one for its land (13.63.4)."
+   },
+   "best": {
+    "passage": "13.63.4",
+    "quote": "when the inhabitants offered battle en masse before the city he slew about five hundred of them"
+   },
+   "boardAtStart": [
+    "panormus-maharbal",
+    "panormus-bodostor",
+    "panormus-synalus"
+   ]
+  },
+  {
+   "id": "aetna",
+   "name": "Aetna",
+   "onMap": true,
+   "map": "the exiles' fortress, strongly walled, leaning against you",
+   "held": [
+    {
+     "text": "405: \"The main body of the cavalry which was left fled from the city and occupied Aetnê\" (13.113.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    },
+    {
+     "text": "404: \"more than seven thousand of them were gathered with the cavalry at Aetnê\" (14.9.5). Dionysius sent envoys \"asking the exiles to accept terms and return to their native land\" (14.9.6). \"Now certain of them, who had left behind children and wives, felt compelled to accept the offer\"; the rest, reminded that he had buried their dead, said he deserved the same, and \"they prayed to the gods that they might, the sooner the better, see him obtain it\" (14.9.7). They \"would by no means put any trust in the tyrant, remained in Aetnê, watching for an opportunity against him\" (14.9.8).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt",
+      "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "About 403 Dionysius \"won the fortress, the exiles there being no match for an army of such size\" (14.14.2). About 400 he \"founded in Sicily a city just below the crest of Mount Aetnê\", \"and named it Adranum, after a certain famous temple\" (14.37.5, this repo's excerpts).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14-1-18-97-117.loeb.txt",
+      "sources/diodorus/book14-19-40.loeb.excerpts.txt"
+     ]
+    },
+    {
+     "text": "396: he moved the Campanians of Catana to Aetna, \"since it was an exceptionally strong fortress\" (14.58.2). Himilcon \"sent ambassadors to the Campanians who held Aetnê, urging them to revolt from Dionysius\" (14.61.4), promising \"to give them a large amount of territory and to let them share in the spoils of the war\" (14.61.5). \"But since the Campanians had given hostages to Dionysius and had sent their choicest troops to Syracuse, they were compelled to maintain the alliance with Dionysius, although they would gladly have joined the Carthaginians\" (14.61.6).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    }
+   ],
+   "blank": "Blank for names. The leader of the exiles is real but no saved text names him (he is already in the starting cast without a name). The Campanian captains are not named either.",
+   "politics": {
+    "in": "In (405 to 403): the exiled horsemen and the seven thousand who joined them (14.9.5).",
+    "out": "Out: the exiles with families in Syracuse, who took the terms and went (14.9.7). From 396 the Campanians hold it for Dionysius.",
+    "split": "What splits them: trust in Dionysius' word against hatred of him (14.9.7 to 14.9.8)."
+   },
+   "best": {
+    "passage": "14.9.7",
+    "quote": "they prayed to the gods that they might, the sooner the better, see him obtain it"
+   },
+   "boardAtStart": [
+    "aetna-leader",
+    "aetna-hippocrates",
+    "aetna-theodotes"
+   ]
+  },
+  {
+   "id": "camarina",
+   "name": "Camarina",
+   "onMap": false,
+   "map": "not on the island map; one of Carthage's tribute towns in the places file",
+   "held": [
+    {
+     "text": "Background, 415: Syracuse feared that \"the Camarinaeans had not sent what they did send for the first battle very willingly\" (Thucydides 6.75.3); \"Hermocrates, with some others, accordingly arrived at Camarina from Syracuse, and Euphemus and others from the Athenians\" to argue before its assembly (6.75.4).",
+     "files": [
+      "phoenician-punic-world: sources/sicilian-wars/thucydides-6-7-7-87.crawley.txt"
+     ]
+    },
+    {
+     "text": "406, at Acragas: \"Menes of Camarina, who had been put in command, came forward and lodged an accusation against the Acragantine generals\" (13.87.5).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "405: Dionysius \"compelled the residents of that city also to depart with their children and wives to Syracuse\"; \"some gathered together silver and gold and whatever could be easily carried\", and \"some, who were aged or suffering from illness, were left behind because they had no relatives or friends\" (13.111.3). The Camarinaeans, \"at odds with Dionysius\", went to Leontini (13.113.4). The peace made them a tribute town (13.114.1).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    },
+    {
+     "text": "397: \"He received first the levy from Camarina\" (14.47.6). In 396 Theodorus says he \"betrayed Gela and Camarina\" (14.68.2).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    }
+   ],
+   "blank": "Menes is the only Camarinaean named, at Acragas, not at home. Who led Camarina in these years is not told.",
+   "politics": {
+    "in": "In: no one named at home; Menes held a command abroad (13.87.5).",
+    "out": "Out: the old and the poor, left behind in the flight of 405 (13.111.3).",
+    "split": "What splits them: whether Dionysius saved them or sold them (13.113.4, 14.68.2)."
+   },
+   "best": {
+    "passage": "13.111.3",
+    "quote": "some, who were aged or suffering from illness, were left behind because they had no relatives or friends"
+   },
+   "boardAtStart": [
+    "camarina-menes",
+    "camarina-lysimachus",
+    "camarina-timocrates"
+   ]
+  },
+  {
+   "id": "selinus",
+   "name": "Selinus",
+   "onMap": false,
+   "map": "not on the island map; one of Carthage's tribute towns in the places file",
+   "held": [
+    {
+     "text": "410: the Selinuntians wanted \"to carve off for themselves a large portion of the neighbouring territory\", so Segesta put itself in Carthage's hands (13.43.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    },
+    {
+     "text": "409: after the sack, \"twenty-six hundred in number, made their way in safety to Acragas\" (13.58.3). \"Empedion had always favoured the cause of the Carthaginians and before the siege had counselled the citizens not to go to war against the Carthaginians\"; Hannibal gave back his goods, \"his kinsmen who were among the captives\", and let the survivors \"dwell in the city and to cultivate its fields upon payment of tribute to the Carthaginians\" (13.59.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "About 408 Hermocrates, with \"above a thousand of the Himeraeans who had been driven from their home\", took the town: \"seizing Selinus he built a wall about a part of the city and called to him from all quarters the Selinuntians who were still alive\" (13.63.3).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13-gaps.txt"
+     ]
+    },
+    {
+     "text": "405: a tribute town by the peace (13.114.1). 397: Dionysius marched to Motya \"after adding the men of Selinus, as he passed by\" (14.47.6).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt",
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    }
+   ],
+   "blank": "Empedion is the only Selinuntian named. Who led the town after 408 is not told.",
+   "politics": {
+    "in": "In, under Carthage: Empedion, whose friendship with Carthage saved his house (13.59.3).",
+    "out": "Out: those who had wanted the war, and Hermocrates' men, who came back with a wall the peace did not allow (13.63.3).",
+    "split": "What splits them: Carthage's tribute against Syracuse's war."
+   },
+   "best": {
+    "passage": "13.59.3",
+    "quote": "Empedion had always favoured the cause of the Carthaginians and before the siege had counselled the citizens not to go to war"
+   },
+   "boardAtStart": [
+    "selinus-empedion",
+    "selinus-deinocrates",
+    "selinus-philistion"
+   ]
+  },
+  {
+   "id": "himera",
+   "name": "Himera",
+   "onMap": false,
+   "map": "not on the island map; razed in 409, a tribute town in the places file",
+   "held": [
+    {
+     "text": "409: \"Diocles, who commanded the forces in Himera\" (13.61.3), a Syracusan, advised a retreat; they would \"embark half the populace on the triremes\" (13.61.4). \"Although the Himeraeans complained indignantly at this conclusion\", the ships carried women, children and others \"as far as Messenê\" (13.61.5).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    },
+    {
+     "text": "Hannibal took it and \"the city he razed to the ground, two hundred and forty years after its founding\"; of the men, \"some three thousand\" were tortured and killed where his grandfather fell (13.62.4).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13.loeb.txt"
+     ]
+    }
+   ],
+   "wanted": [
+    {
+     "text": "About 408, \"above a thousand of the Himeraeans who had been driven from their home\" joined Hermocrates (13.63.3). About 407 Carthage \"founded in Sicily right at the warm (therma) springs a city which they named Therma\" (13.79.8).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book13-gaps.txt"
+     ]
+    },
+    {
+     "text": "397: Dionysius \"sent for the Himeraeans, whose home was on the other side of Sicily\" (14.47.6). 396: Himilcon \"formed relations of friendship with the Himeraeans and the dwellers in the fort of Cephaloedium\" (14.56.2).",
+     "files": [
+      "phoenician-punic-world: sources/diodorus/english/book14.loeb.txt"
+     ]
+    }
+   ],
+   "blank": "Blank for Himeraeans. No man of Himera is named in these years; Diocles was a Syracusan. Where the Himeraeans of 397 lived is not said beyond \"the other side of Sicily\".",
+   "politics": {
+    "in": "In: no one; the town was razed in 409 (13.62.4).",
+    "out": "Out: its people, scattered to Messana, Hermocrates' camp and \"the other side of Sicily\" (13.61.5, 13.63.3, 14.47.6).",
+    "split": "What splits them: Dionysius' war (14.47.6) or Himilcon's friendship (14.56.2)."
+   },
+   "best": {
+    "passage": "13.61.5",
+    "quote": "Although the Himeraeans complained indignantly at this conclusion"
+   },
+   "boardAtStart": [
+    "himera-crinippus",
+    "himera-thrasybulus",
+    "himera-damarata"
+   ]
+  }
+ ]
+}
