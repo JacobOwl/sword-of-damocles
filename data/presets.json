@@ -79,7 +79,8 @@
         "petitionOffers",
         "warFocus",
         "townBoards",
-        "armySupply"
+        "armySupply",
+        "battlePlate"
       ],
       "summary": "The second island test's rules, with the war focus on (a war with aims, a ledger of turning points, weariness on both sides, peace with terms), started in spring 398 BC instead of 405. You hold the citadel, the Epipolae wall is up, Catana, Leontini and Aetna are yours, Messana is a friend, and Carthage is weak with plague. Carthage's anger is close to war. Each town's three leading houses lean to you, to Carthage or to the town alone (towns that choose). Fourteen seasons, to the end of the decade.",
       "verdictSeason": 14,

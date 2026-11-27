@@ -473,3 +473,14 @@ table.cities tr.on { background: rgba(176, 140, 60, .12); }
 .island-map .drag-days { font: 600 13px var(--serif, serif); fill: var(--blood); paint-order: stroke; stroke: var(--page); stroke-width: 3; }
 .island-map .drag-halo { fill: rgba(142, 42, 28, .08); stroke: var(--blood); stroke-width: 1.5; stroke-dasharray: 3 3; }
 .island-map .drag-odds { font: 600 12px var(--serif, serif); fill: var(--blood); text-anchor: middle; paint-order: stroke; stroke: var(--page); stroke-width: 3; }
+/* The battle plate (war focus): two columns, stamped tokens, a blank die. */
+.plate { margin: 10px 0; padding-top: 8px; border-top: 1px solid var(--rule); }
+.plate h4 { margin: 0 0 4px; }
+.plate button.on { background: var(--ink); color: var(--page); }
+.plate .platecols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 6px 18px; }
+.plate .tokens { list-style: none; padding: 0; margin: 4px 0; }
+.plate .tokens li { margin: 2px 0; }
+.plate .token { display: inline-block; min-width: 2.1em; text-align: center; border-radius: 50%; padding: 1px 4px; border: 1.5px solid var(--accent); font-weight: 700; }
+.plate .token.plus { color: var(--olive); border-color: var(--olive); }
+.plate .token.minus { color: var(--blood); border-color: var(--blood); }
+.plate .die { display: inline-block; width: 16px; height: 16px; border: 1.5px solid var(--ink); border-radius: 3px; margin-left: 8px; vertical-align: -3px; background: var(--page); }
