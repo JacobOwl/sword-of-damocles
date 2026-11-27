@@ -26,13 +26,14 @@ export function warStrip(g: GameState): string {
   const b = warBalance(g);
   const lean = b >= 2 ? `<b class="good">The war goes your way.</b>` : b <= -2 ? `<b class="warn">The war goes Carthage's way.</b>` : `The war is even.`;
   const turns = ledgerLines(g, 5).map((e) => `<li class="${e.side === "syracuse" ? "good" : "warn"}"><span class="muted small">${esc(seasonName(e.season))}</span> ${linkNames(e.text.charAt(0).toUpperCase() + e.text.slice(1))}</li>`).join("");
-  const quiet = c.returnOwed ? `<p class="small"><b>Quiet for now:</b> Carthage's war is paused while Libya is in revolt. It will come back.</p>`
+  const landed = g.island.armies.some((a) => a.side === "carthage");
+  const quiet = landed ? "" : c.returnOwed ? `<p class="small"><b>Quiet for now:</b> Carthage's war is paused while Libya is in revolt. It will come back.</p>`
     : c.landingDue !== undefined ? `<p class="small warn"><b>A landing is coming:</b> Carthage's fleet is ready and lands ${c.landingDue <= g.season ? "this season" : "next season"}.</p>`
-    : !g.island.armies.some((a) => a.side === "carthage") && !landingPossible(g) ? `<p class="small muted">Carthage has no army in Sicily and not yet enough men or ships to send one.</p>` : "";
+    : !landingPossible(g) ? `<p class="small muted">Carthage has no army in Sicily and not yet enough men or ships to send one.</p>` : "";
   const offer = c.terms && c.termsFrom === "carthage" && c.termsSeason === g.season
     ? `<p class="small"><b>Carthage offers:</b> ${esc(termsText(c.terms))}</p>`
     : `<p class="small"><b>Peace now would be:</b> ${esc(termsText(termsFor(g, "syracuse")))}</p>`;
-  const why = c.causes.length ? ` after ${esc(c.causes[c.causes.length - 1])}` : "";
+  const why = c.causes.length ? `, after ${esc(c.causes[c.causes.length - 1].replace(` (${seasonName(c.since)})`, ""))}` : "";
   return `<section class="warstrip" aria-label="The war">
     <div class="wartop"><h3>At war with Carthage</h3><span class="small muted">since ${esc(seasonName(c.since))}${why}</span></div>
     <div class="warcols">

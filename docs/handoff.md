@@ -2,6 +2,15 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## War and geopolitics focus, stage 1 and the Near-war test (thread 41, 2026-11-27)
+**Built.** Jacob: "Build it", with the council's recommended pick on all seven questions (`docs/council/2026-11-27-war-and-geopolitics.md`). PRs #99, #102 and this one.
+- **The war card (switch `warFocus`, off by default; on in the new Near-war test preset):** aims for both sides, a ledger of named turning points, weariness on both sides, peace with terms from the ledger (Carthage's envoys, your Offer peace), the return owed after a Libyan revolt, Carthage's landing announced a season ahead, the pendulum, kind and harsh generals, raids and courting, five war matters, the war strip on the season and island pages, Carthage's waiting army on the map, each war told as a chapter in the Story. `data/war.json`, `src/core/war.ts`, `ui/components/war.ts`.
+- **Near-war test preset:** opens spring 398 BC (`opening` in `data/presets.json`, `src/core/opening.ts`, card `docs/research/opening-398.md`), 14 seasons, check-ins at 5 and 10. On the test link beside the Second island test.
+- **Checks:** `npm test` 195 of 195; 100 seeds 0 crashes, 0 broken; `npm run war-runs -- --seeds 100 --preset nearWarTest` 0 crashes, wars about 5 seasons, about 0.9 ended by terms a game.
+- **Not built yet:** stage 2 town boards, stage 3 map drag, supply by area and ravaging, stage 4 the battle plate. Side patterns on the map are not done.
+- **Third test overlap:** the debrief's "Carthage that can pay" proposal (`docs/playtests/2026-11-27-jacob/notes.md`) belongs to this focus; not built, Jacob picks.
+- **Questions for Jacob:** does the war strip tell you how the war is going? Should Carthage's plague end its war at once (the old rule) or only tire it (now, with the card)?
+
 ## The art library, fixed and in the game (thread 40, 2026-11-27)
 **Built.** Jacob, on PR #89 (Duet's art library): "Fix, expand upon, and add the art where you can and in the future." Merged with #89's own commit, so #89 counts as merged.
 - **In the game:** the library's 39 event scenes are game pictures now (`scripts/build-library-art.mjs` writes `ui/components/library-scenes.ts`); 32 events, matters, exile and dinner asks that shared a generic picture got their own (Damocles' banquet, trials, treaties, bribes, the Punic fleet, mourning, the siege tower and more; list in `docs/art-direction.md`). Carthage's council has faces on the island view, and Carthage's horse-and-palm coin heads its panel (`ui/components/library-pictures.ts`).
