@@ -2,6 +2,14 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Jacob's test 4, read from the save (thread 43, 2026-11-27)
+**Report only.** Jacob played the Near-war test (v26) for six seasons and stopped: "basically done with this save". Debrief: `docs/playtests/2026-11-27-jacob-test4/debrief.md`, save beside it (replays exactly).
+- **Verdict:** the war had a full arc but was over in four seasons (two after the landing): two wins, Himilcon's army destroyed, peace for 2 silver. Easy again; danger only at home (both factions Rebellious, two plots). Jacob did not see the battle at Acragas: a battle Carthage starts is one line in the summary.
+- **Bugs found, not fixed:** "the army wants battle" fires before the season's battle; the landing warning counts men before that season's hiring (30,000 said, 55,000 landed); "You's hold on the generalship" and a New/Settled flip in one season; a rival for less than a season.
+- **Starred fixes (Jacob picks):** a battle scene for every battle (thread 46), Carthage stays after one lost army (switch), battles closer to even (switch), the two war bugs, the drag-preview hint.
+- **New threads from his ideas:** 46 big event scenes; unit types and terrain.
+- **Questions for Jacob:** was the war too short? Why stop at six seasons?
+
 ## Big scenes, the spec for test 5 (thread 46, 2026-11-27)
 **Spec only, no code.** Jacob: battles, serious plots and crises should get their own pop-up with art, some multi-part; "Have councils look into these issues... I prefer us being inspired by other games than you making up stuff"; then "ok do it" to the test 5 plan. Spec: `docs/council/2026-11-27-big-scenes.md`; games report `docs/council/2026-11-27-big-scenes/games.md`; history card `docs/research/big-scenes-history.md`.
 - **Every mechanic names its game or passage** (Six Ages, King of Dragon Pass, CK3 Struggles and schemes, Disco Elysium, Banner Saga, Griftlands, Republic of Rome, Pentiment, Stellaris; Diodorus 11, 13, 14, 15, Thucydides, Plutarch).

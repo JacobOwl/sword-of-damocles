@@ -571,6 +571,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small, here):** the numbers in `carthageStays` (3 seasons' grace, plague and a fallen general +1, peace a point later) were picked once and counted, not tuned to history; a fallen general's place goes to the next free man in Carthage's list, only with the switch. The night-march fix applies everywhere the plate is on, since it is a bug.
 - **Open:** whether Carthage's war now lasts long enough is for Jacob after test 4.
 
+
+## 2026-11-27 (thread 43, Jacob's test 4 debrief)
+
+- Jacob's test-4 save read and written up as a report only (`docs/playtests/2026-11-27-jacob-test4/`). Why: he stopped after six seasons and left the check-in empty; the save shows the war ending two seasons after the landing even with `carthageStays`. No rule changed; the fix list waits for Jacob.
+
 ## 2026-11-27 (big scenes design, thread 46)
 - **Done (Jacob: "Can we explore this idea. Look up other games"):** a design proposal for big pop-up scenes, `docs/council/2026-11-27-big-scenes.md`, with games opened and quoted (CK3 Struggles, Six Ages, Griftlands, Banner Saga commentary) and others marked unverified. Report only: no rules changed.
 - **Decided (small, here):** a scene only shows what the simulation is already doing; it is never drawn by chance.
