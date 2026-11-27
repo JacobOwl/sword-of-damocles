@@ -1,0 +1,19 @@
+{
+  "kind": "invention",
+  "note": "Switch \"contingents\" (test 5, docs/council/2026-11-27-units-ground-navy.md part 1, thread 47). An army is a few named contingents, each with a heart read from its town or faction (never rolled). Carthage puts an envoy on your worst-hearted contingent a season ahead; when battle is joined it turns unless you bound it with hostages, pay or a friend at the head of its town (Sekigahara's loyalty challenge; the Campanians held by hostages, Diodorus 14.61.6; the Sicels who went over in a body, 14.58.1). In a lost battle the worst-hearted part breaks first; a town's levy before its own walls fights harder (13.60.4); a town's levy far from home goes home unless paid (Hannibal: Rome vs Carthage; 13.88.7). Every number is invention.",
+  "hearts": {"steady": "Steady", "wavering": "Wavering", "leaving": "Ready to leave"},
+  "carthageParts": [
+    {"id": "libyans", "kind": "invention", "name": "the Libyan levy", "arm": "heavy", "from": "levy"},
+    {"id": "iberians", "kind": "invention", "name": "the Iberians", "arm": "heavy", "from": "mercs", "share": 0.5},
+    {"id": "campanians", "kind": "invention", "name": "the Campanians", "arm": "heavy", "from": "mercs", "share": 0.5},
+    {"id": "horse", "kind": "invention", "name": "Carthage's horse and chariots", "arm": "chariots", "points": 1, "minMen": 6}
+  ],
+  "knobs": {
+    "envoyDays": 6,
+    "envoyCost": 1,
+    "payCost": 1,
+    "farDays": 10,
+    "ownWalls": 1,
+    "horsemen": 1
+  }
+}

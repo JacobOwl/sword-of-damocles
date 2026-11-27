@@ -131,6 +131,89 @@
       ]
     },
     {
+      "id": "test5",
+      "kind": "invention",
+      "name": "Test 5: the deeper war",
+      "recommended": false,
+      "scenario": "island",
+      "tuning": "reapWhatYouSow",
+      "switches": [
+        "clues",
+        "partialBlows",
+        "storyChronicle",
+        "armiesBreak",
+        "escalation",
+        "feud",
+        "coalition",
+        "quarrels",
+        "secrets",
+        "purseDry",
+        "commission",
+        "exile",
+        "bargainDisgraces",
+        "contestedBoard",
+        "guardBattleOnly",
+        "devotedHoldsBack",
+        "carthageHolds",
+        "libyaSpared",
+        "mintHabit",
+        "petitionOffers",
+        "warFocus",
+        "townBoards",
+        "armySupply",
+        "battlePlate",
+        "carthageStays",
+        "aweNeedsMarch",
+        "test5Fixes",
+        "evenBattles",
+        "battleScenes",
+        "groundChoice",
+        "contingents"
+      ],
+      "summary": "The Near-war test's rules with the deeper war of test 5, started in autumn 400 BC, two years before Carthage's great war: every battle is a scene (the ground, your plan, a turning point, the roll and what comes after), armies march in named town contingents whose hearts can fail, and battles are closer to even. Twenty seasons, to the end of the decade.",
+      "verdictSeason": 20,
+      "checkIns": [
+        7,
+        14
+      ],
+      "opening": {
+        "season": 20,
+        "citadel": true,
+        "walls": true,
+        "silver": 8,
+        "grain": 8,
+        "clock": 5,
+        "guard": 4,
+        "cities": {
+          "catana": {
+            "side": "syracuse"
+          },
+          "leontini": {
+            "side": "syracuse"
+          },
+          "aetna": {
+            "side": "syracuse"
+          },
+          "messana": {
+            "side": "free",
+            "lean": 1
+          }
+        },
+        "text": "Five years after the peace with Carthage, you hold the citadel on the Island, and the new wall runs along Epipolae. Aetna, Catana and Leontini are yours. Messana's people would rather be your friends than your enemies. Carthage is rebuilding, and its anger at you grows each year; if war came, every town that pays it tribute might come over to you.",
+        "why": "the game opens two years before the war of 398 (Diodorus 14.14 to 14.18, 14.40)",
+        "kind": "history",
+        "source": "Diodorus 14.14.2, 14.15.3-4, 14.18.3, 14.40.4-5",
+        "card": "docs/research/opening-398.md"
+      },
+      "watch": [
+        "Did each battle feel like a moment with a choice in it, not a line in the summary?",
+        "Did a town's men holding, breaking or turning matter to you?",
+        "When Carthage lost, did it feel beaten, or ready to come back?",
+        "Was the war hard enough? Where did it go wrong for you, if it did?",
+        "Was any screen, word or number confusing? Note where."
+      ]
+    },
+    {
       "id": "firstIslandTest",
       "kind": "invention",
       "name": "First island test",

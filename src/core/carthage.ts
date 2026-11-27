@@ -7,6 +7,7 @@ import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf, others, plotStrength } from "./state.ts";
 import { clock, event, log } from "./ops.ts";
 import { carthageCourtsHouse } from "./towns.ts";
+import { carthageParts, envoys } from "./contingents.ts";
 import { on } from "./switches.ts";
 import { deedSecret } from "./secrets.ts";
 import {
@@ -16,7 +17,7 @@ import {
 import type { Army, GameState } from "./types.ts";
 import { seasonName } from "./state.ts";
 import { lean, cityGrainChange } from "./island.ts";
-import { WAR, card, carthageOffers, closeWar, landingReady, noticePendulum, openWar, pendulum, pendulumAnger, staysOn, warOn, warSeason, weary } from "./war.ts";
+import { warLate, WAR, card, carthageOffers, closeWar, landingReady, noticePendulum, openWar, pendulum, pendulumAnger, staysOn, warOn, warSeason, weary } from "./war.ts";
 // Switch "warFocus": where a raid falls (a port of yours or an ally's, not Syracuse) and which town Carthage courts.
 const raidTarget = (s: GameState) => NODES.filter((n) => n.port && n.id !== "syracuse" && ["syracuse", "ally"].includes(city(s, n.id).side) && city(s, n.id).grain >= 2).map((n) => n.id)[0];
 const courtTarget = (s: GameState) => NODES.filter((n) => ["free", "ally"].includes(city(s, n.id).side) && city(s, n.id).lean > -2).sort((a, b) => city(s, b.id).lean - city(s, a.id).lean || a.id.localeCompare(b.id)).map((n) => n.id)[0];
@@ -227,9 +228,11 @@ function doAct(s: GameState, id: string, goalName: string) {
     case "invade": {
       const at = landing(s)!;
       const men = c.mercs + c.levy;
+      (c as any).mercs0 = c.mercs; (c as any).levy0 = c.levy;
       c.mercs = 0; c.levy = 0;
       const a: Army = { id: `carthage${s.season}`, side: "carthage", at, men, food: 2, commander: c.general!, guard: 0, guardStart: 0, since: s.season, moved: s.season, siegeSince: -1, onTake: "sack" };
       s.island!.armies.push(a);
+      carthageParts(s, a, (c as any).mercs0 ?? 0, (c as any).levy0 ?? 0); // switch "contingents"
       count(s, "landings");
       event(s, "carthage", `${carthagePersonName(s, a.commander)} lands at ${nodeName(at)} with ${menWords(men)}.`, why);
       intercept(s, a);
@@ -383,6 +386,7 @@ export function carthageStep(s: GameState) {
   if (c.revolt) c.silver = Math.max(0, c.silver - 1);
   // Switch "warFocus": weariness, the announced landing, the return owed, aims met, the war's matters.
   warSeason(s);
+  envoys(s); // switch "contingents": Carthage's envoys go to your weakest contingent
   noticePendulum(s);
   // The council's goal, then its acts.
   chooseGoal(s);
@@ -403,6 +407,7 @@ export function carthageStep(s: GameState) {
     for (const b of CARTHAGE.blocs.filter((x: any) => x.votes)) blocPower(s, b.id, prefers(s, b.id).goal === "war" ? -1 : 1, "an army was lost in Sicily");
   }
   generalOrders(s);
+  warLate(s); // switch "test5Fixes": the landing warning and the war's matters, after the march
   // A free general who has disgraced himself may end his own life, as Himilcon did (Diodorus 14.76.4).
   for (const p of Object.values(c.people)) if (p.status === "disgraced" && s.flags.carthageArmyLost === s.season - 1 && p.id === "himilcon") {
     p.status = "dead";

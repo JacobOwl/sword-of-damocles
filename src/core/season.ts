@@ -27,6 +27,7 @@ import { convoysArrive, convoysOn, convoysSail } from "./convoys.ts";
 import { worksSeason } from "./works.ts";
 import { quarrelsSeasonEnd } from "./quarrels.ts";
 import { boardSeason, initBoard } from "./board.ts";
+import { settleScenes } from "./scenes.ts";
 import { beginFallen, exileBeginSeason, exileDecadeEnd, exileEndSeason, exileOn, inExile, maybeExile } from "./exile.ts";
 
 // ---------- World ----------
@@ -141,7 +142,7 @@ function powerStep(s: GameState) {
     }
   }
   // Enemies who come to like you stop being enemies.
-  for (const p of others(s)) if (p.rival && p.opinion >= 2) endRival(s, p.id, `his opinion of you reached ${p.opinion}`);
+  for (const p of others(s)) if (p.rival && p.opinion >= 2 && (!on(s, "test5Fixes") || p.rival.since < s.season)) endRival(s, p.id, `his opinion of you reached ${p.opinion}`);
   updatePolitical(s);
   // Drift (a default, not in rules v2): power that did not move this season eases 1 toward 5,
   // because holding influence takes work. Without it every faction ran to 10 in the headless runs.
@@ -338,6 +339,8 @@ export function endSeason(s: GameState) {
   if (s.step !== "player" || s.over) return;
   s.inputs.push({ t: "end" });
   if (inExile(s)) { settleEvents(s); if (!s.over) exileEndSeason(s); finish(s); return; } // switch "exile"
+  if (s.island) settleScenes(s); // switch "battleScenes": a battle left unfought is fought with the safe choices
+  if (s.over) { finish(s); return; }
   settleEvents(s); // events you left unanswered take their default choice
   for (const r of s.requests.slice()) refuse(s, r.id, true);
   if (s.campaign) campaignCheck(s); // switch "commission": the homecoming, before the plots are weighed

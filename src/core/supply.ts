@@ -2,6 +2,7 @@
 // a few days' march, and a big army eats an area faster, which is the brake on one giant army. Ravage burns a hostile
 // town's crops for a year; Reinforce brings fresh men to an army in the field; an army kept waiting without a battle
 // loses its allies. Shapes from Diodorus (docs/research/war-and-towns.md); numbers invention (data/supply.json).
+import { addToPart } from "./contingents.ts";
 import supplyJson from "../../data/supply.json" with { type: "json" };
 import { on } from "./switches.ts";
 import { log, event, silver, clock } from "./ops.ts";
@@ -106,6 +107,7 @@ export function reinforce(s: GameState, a: Army) {
   silver(s, -K.reinforceCost, "pay for fresh men");
   city(s, from).men -= 1;
   a.men += 1;
+  addToPart(s, a, from); // switch "contingents"
   a.reinforced = s.season;
   event(s, PLAYER, `Fresh men from ${nodeName(from)} join ${armyName(s, a)} (now ${menWords(a.men)}).`, "Reinforce the army");
 }
