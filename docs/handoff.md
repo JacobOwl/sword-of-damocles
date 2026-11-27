@@ -2,6 +2,10 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Duet review and new jobs (thread 42, 2026-11-27)
+**Report and prompts only.** Duet's work checked (`docs/duet-review-2026-11-27.md`): research good, quotes verified, portraits usable, playtest bot found two bugs (a dead man keeps his seat while you're in exile; a dead man starts a plot), not fixed yet. Twelve new self-contained jobs in `docs/duet-prompts.md` (3 to 14).
+- **Questions for the next design session:** which Duet drafts to merge; who fixes the two bugs from #97.
+
 ## The art library, fixed and in the game (thread 40, 2026-11-27)
 **Built.** Jacob, on PR #89 (Duet's art library): "Fix, expand upon, and add the art where you can and in the future." Merged with #89's own commit, so #89 counts as merged.
 - **In the game:** the library's 39 event scenes are game pictures now (`scripts/build-library-art.mjs` writes `ui/components/library-scenes.ts`); 32 events, matters, exile and dinner asks that shared a generic picture got their own (Damocles' banquet, trials, treaties, bribes, the Punic fleet, mourning, the siege tower and more; list in `docs/art-direction.md`). Carthage's council has faces on the island view, and Carthage's horse-and-palm coin heads its panel (`ui/components/library-pictures.ts`).
