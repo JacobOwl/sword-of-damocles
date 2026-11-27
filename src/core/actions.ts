@@ -1,5 +1,7 @@
 // The action menu (rules v2). Each action says who it can target, what the odds are (shown before rolling),
 // and what happens. Names, costs and texts live in data/actions.json; the rules live here.
+import { pendingScene } from "./scenes.ts";
+import { nodeName } from "./island.ts";
 import { flavored, withStock } from "./vary.ts";
 import { DATA, actionById, lawById, placeById, traitById, originById } from "./data.ts";
 import { d6 } from "./rng.ts";
@@ -1022,9 +1024,10 @@ export interface MenuItem {
   targets?: Option[]; targetLabel?: string; secondLabel?: string; thirdLabel?: string; blocked: string | null;
 }
 // Switch "mintHabit" (council 2026-11-27): striking coin at your own mint is an order, not one of your three actions.
-export const freeAction = (s: GameState, action: string) => (action === "strikeCoin" && on(s, "mintHabit")) || (action === "battlePlan" && on(s, "battlePlate")); // the battle plan is an order, not an action
+export const freeAction = (s: GameState, action: string) => (action === "strikeCoin" && on(s, "mintHabit")) || (action === "battlePlan" && on(s, "battlePlate")) || FREE_ORDERS.has(action);
+const FREE_ORDERS = new Set(["sceneFight", "sceneAfter", "groundWish", "fleetOrder", "councilSpeak", "debateMove", "crisisChoice", "plotChoice"]); // switches of test 5: choices inside a scene, and standing orders // the battle plan is an order, not an action
 export function menu(s: GameState): MenuItem[] {
-  return DATA.actions.filter((a) => !a.aiOnly && inScenario(s, a)).map((a) => {
+  return DATA.actions.filter((a) => !a.aiOnly && !(a as any).sceneOnly && inScenario(s, a)).map((a) => {
     const impl = IMPL[a.id];
     const targets = impl.target?.(s) ?? undefined;
     let blocked: string | null = null;
@@ -1082,8 +1085,10 @@ export function validate(s: GameState, action: string, args: Args): string | nul
     const opts = impl.third(s, args);
     if (opts.length && (!args.option || !opts.some((o) => o.value === args.option))) return `choose ${impl.thirdLabel?.toLowerCase() ?? "an option"}`;
   }
+  if (ARMY_ACTIONS.has(action) && s.island && pendingScene(s)) return `a battle is joined at ${nodeName(pendingScene(s)!.at!)}: fight it first`;
   return impl.check?.(s, args) ?? null;
 }
+const ARMY_ACTIONS = new Set(["sendArmy", "assault", "forage", "disband", "ravage", "reinforce", "muster", "sailArmy"]);
 
 export function perform(s: GameState, action: string, args: Args): { ok: boolean; error?: string } {
   const why = validate(s, action, args);

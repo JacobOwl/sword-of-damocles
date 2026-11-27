@@ -1,6 +1,7 @@
 // Your actions on the island (Phase 2). Names, costs and texts are in data/actions.json (scenario "island");
 // the rules are here. actions.ts adds these to the menu.
 import { PLAYER, capital, holds } from "./state.ts";
+import { on } from "./switches.ts";
 import { event, silver, grain, clock } from "./ops.ts";
 import {
   ISLAND, NODES, assault, assaultMods, assaultNeed, bloc, city, cityWalls, disband, friendly, march, menWords, muster, musterSize,
@@ -13,6 +14,8 @@ import { SUPPLY, ravage, ravageCheck, reinforce, reinforceCheck, reinforceFrom }
 import { TOWNS, courtHouse, courtHouseMods, courtableSeat, houseName, seatsOf } from "./towns.ts";
 import type { Args, GameState, Mod } from "./types.ts";
 import { townHold, useHold, townLeader, SECRETS } from "./secrets.ts";
+import { afterScene, fightScene, pendingScene, GROUND } from "./scenes.ts";
+import { bindPart, bindTargets, envoyTargets, sendEnvoy, CONT } from "./contingents.ts";
 import { campaignCheck, commanderOptions, commissionOn, keeperOptions, musterNotes, startCampaign } from "./commission.ts";
 
 const R = ISLAND.rules;
@@ -197,6 +200,35 @@ export const ISLAND_IMPL: Record<string, Impl> = {
     odds: (s, a) => courtHouseMods(s, a.target!),
     need: TOWNS.knobs.courtNeed,
     run: (s, a, ok) => courtHouse(s, a.target!, ok),
+  },
+  // Switch "battleScenes": the choices inside a battle scene (ui/components/scene.ts). Free: they use no action.
+  sceneFight: {
+    target: (s) => (pendingScene(s)?.stage === "choose" ? pendingScene(s)!.turn!.options.map((o) => ({ value: o.id, label: o.label })) : []),
+    second: (s) => [{ value: "fight", label: "Fight" }, ...(on(s, "groundChoice") ? [{ value: "refuse", label: "Try to refuse battle" }] : [])],
+    check: (s) => (pendingScene(s)?.stage !== "choose" ? "no battle waits to be fought" : null),
+    run: (s, a) => fightScene(s, a.target, a.second === "refuse"),
+  },
+  sceneAfter: {
+    target: (s) => (pendingScene(s)?.stage === "after" ? (pendingScene(s)!.options ?? []).map((o) => ({ value: o.id, label: o.label })) : []),
+    check: (s) => (pendingScene(s)?.stage !== "after" ? "no battle waits for its end" : null),
+    run: (s, a) => afterScene(s, a.target),
+  },
+  groundWish: {
+    target: () => GROUND.wishes.map((w: any) => ({ value: w.id, label: `${w.name}: ${w.text}` })),
+    check: (s) => (!yourArmy(s) ? "you have no army in the field" : null),
+    run: (s, a) => { (yourArmy(s) as any).wish = a.target; },
+  },
+  // Switch "contingents": bind a contingent against Carthage's envoys; send your own into Carthage's camp.
+  bindPart: {
+    target: (s) => bindTargets(s),
+    second: () => [{ value: "hostages", label: "Take hostages (its town cools toward you)" }, { value: "paid", label: `Pay them (${CONT.knobs.payCost} silver, this season)` }],
+    check: (s, a) => (!yourArmy(s) ? "you have no army in the field" : a.second === "paid" && s.silver < CONT.knobs.payCost ? `needs ${CONT.knobs.payCost} silver` : null),
+    run: (s, a) => bindPart(s, a.target!, a.second === "paid" ? "paid" : "hostages"),
+  },
+  sendEnvoyPart: {
+    target: (s) => envoyTargets(s),
+    check: (s) => (!carthageArmy(s) ? "Carthage has no army in Sicily" : s.silver < CONT.knobs.envoyCost ? `needs ${CONT.knobs.envoyCost} silver` : null),
+    run: (s, a) => sendEnvoy(s, a.target!),
   },
   offerPeace: {
     notes: (s) => (card(s) ? [`Your terms would be: ${termsText(termsFor(s, "syracuse"))}`] : []),

@@ -59,3 +59,7 @@ export { townBoardsOn, seatsOf as townSeats, houseName, houseHead, divided as to
 export type { Seat, HouseLean } from "./towns.ts";
 export { supplyOn, foodState, ravaged, supplyTowns, grainNeed, SUPPLY } from "./supply.ts";
 export { plateOn, planDef, habitLine, stratagems, BATTLE } from "./plate.ts";
+// Test 5: scenes, contingents, the ground.
+export { allScenes, pendingScene, plateNow, scenesOn, groundOn, groundCard, GROUND, SCENES } from "./scenes.ts";
+export type { Scene, SceneOpt } from "./scenes.ts";
+export { armyParts, heart as partHeart, heartWord, bonded as partBonded, contOn, CONT } from "./contingents.ts";

@@ -108,7 +108,7 @@ function dig(s: GameState, seat: string, d: number, why: string) {
   const n = Math.max(0, Math.min(seatDef(seat).max, st.dug + d));
   if (n === st.dug) return;
   st.dug = n;
-  log(s, { actor: h, text: `${capital(nameOf(s, h))}'s hold on ${seatName(seat)}: ${dugWord(n)}.`, why, visible: true, kind: "change" });
+  log(s, { actor: h, text: `${h === PLAYER ? "Your" : `${capital(nameOf(s, h))}'s`} hold on ${seatName(seat)}: ${dugWord(n)}.`, why, visible: true, kind: "change" });
 }
 
 // Is he using his seat for you, against you, or for his own?
@@ -418,7 +418,7 @@ function falls(s: GameState) {
     if (!h || !st) continue;
     if (st.holder !== h) { b.seats[seat] = { holder: h, dug: 0, since: s.season }; continue; } // changed hands without the hook
     const gone = h === PLAYER ? away(s) : s.people[h].status === "outside" || s.people[h].where === "field";
-    if (gone && st.dug > 0) dig(s, seat, -1, `${nameOf(s, h)} ${h === PLAYER ? "are" : "is"} away from the city, and others take his place in it`);
+    if (gone && st.dug > 0) dig(s, seat, -1, h === PLAYER ? "you are away from the city, and others take your place in it" : `${nameOf(s, h)} is away from the city, and others take his place in it`);
   }
   const lost = s.counters.battlesLost ?? 0;
   if (lost > b.battlesLost) {
@@ -432,7 +432,8 @@ function falls(s: GameState) {
     const h = seatHolder(s, seat);
     const st = b.seats[seat];
     if (!h || (seat === "citadel" && !s.citadelBuilt)) continue;
-    if (s.season - st.since >= 3 && st.dug < seatDef(seat).max) dig(s, seat, 1, "another year held without a loss");
+    const lostNow = s.log.some((e) => e.season === s.season && e.kind === "change" && e.text.endsWith(`hold on ${seatName(seat)}: ${dugWord(st.dug)}.`) && e.why !== "another year held without a loss");
+    if (s.season - st.since >= 3 && st.dug < seatDef(seat).max && !(lostNow && on(s, "test5Fixes"))) dig(s, seat, 1, "another year held without a loss"); // not in a season it already slipped (test 4: New and Settled in one season)
     if (st.dug >= 2) {
       const pays = h === PLAYER ? s.silver >= K.upkeep : (factionOf(s, h) ? power(s, factionOf(s, h)!) >= 5 : false);
       if (h === PLAYER && pays) silver(s, -K.upkeep, `upkeep for your hold on ${seatName(seat)}: gifts to the men you placed there`);
