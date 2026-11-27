@@ -358,6 +358,8 @@ export function describe(s: GameState, inst: EventInstance, effects: Effect[]): 
     else if (e.disarm) out.push("The citizens are disarmed: their power -2, mood -2");
     else if (e.payArrears) out.push("The guard's arrears are cleared");
     else if (e.end) out.push("Your rule ends");
+    // Switch "petitionOffers": what the asker gives back, said as his offer.
+    if (e.offer && e.why && out.length) out[out.length - 1] = `In return, ${fill(s, e.why, inst.roles)}: ${out[out.length - 1].charAt(0).toLowerCase()}${out[out.length - 1].slice(1)}`;
   }
   return out;
 }

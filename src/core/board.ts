@@ -359,7 +359,7 @@ function powers(s: GameState) {
     line(st, att, say);
     if (seat === "treasury" && att === "hostile" && s.silver > 0) { silver(s, -1, `${p.name} pays his own people first`); if (q === 0 && f && s.factions[f].mood < 3) mood(s, f, 1, `${p.name} pays his own from the treasury`); }
     else if (seat === "mint" && q === 0) {
-      if (att === "friendly") silver(s, 1, `${p.name} strikes coin for you`);
+      if (att === "friendly") { silver(s, 1, `${p.name} strikes coin for you`); if (on(s, "mintHabit")) gain(`${p.name}'s name is on the coin he strikes for you`); }
       else if (att === "neutral" && f) powerChange(s, f, 1, `${p.name} strikes coin for his own faction`);
       else if (att === "hostile") { silver(s, -1, `${p.name} debases the coin, and prices rise`); mood(s, "citizens", -1, `${p.name} debased the coin, and bread costs more`); }
     } else if (seat === "fleet" && q === 1) {

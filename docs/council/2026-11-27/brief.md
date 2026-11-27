@@ -1,0 +1,22 @@
+# Brief: council on the rule questions from Jacob's second test (thread 39, 2026-11-27)
+
+Jacob played the Second island test (preset `secondIslandTest`, 30 seasons) and was killed in season 24. His words: `docs/playtests/2026-11-26-jacob-test2/notes.md`; replay findings: `debrief.md` there. He then said: "Build all and have council decide on the rule changes." So this council **decides** (not only advises) items 23 to 30, and the decisions are built into the Second island test preset straight away (he is not mid-game; breaking his save is fine). Every rule stays a switch in `data/switches.json` so older games replay; "decide yes" means: build it and turn it on in the second test preset.
+
+Jacob's taste: Leder Games, Republic of Rome, John Company, CK3, Dwarf Fortress. Emergent stories, power held as objects, readable bots. He hates meaningless repeat popups. He found his game "easy" by season 20 ("fully in control of everything"), then died suddenly without seeing it coming. He kept doing the same actions (Strike coin 12 times, the levy 11 times). The project rule: do not tune to match historical rates; count and look for broken results. Keep player-facing text short.
+
+## The eight questions
+
+23. **The guard only dies in battle** (Jacob's own lean: "My guard should probably come home right?"). Today `loseMen` in `src/core/island.ts` takes losses from the guard and the levy in proportion, for battle, hunger, desertion, plague and storming alike. His 3 guard units died of hunger in a siege. Option: losses outside battle fall on the levy only.
+24. **Should love slow a rival's climb?** Today `attitude` in `src/core/board.ts`: a rival is hostile unless bound to you by marriage with opinion 0 or better. A rival's political rank rises when his faction's agenda advances or he completes an agenda step (`rankChange` in `src/core/ai.ts`); rank 3 makes him a Pretender with "Take his place". Hipparinus was Devoted (+3) and a Rival, leading a Rebellious faction that backed a plot.
+25. **Retaking a town Carthage took** costs one embassy (1 silver): Carthage leaves no garrison after taking a town and leaving (the "fortify" action exists in `data/carthage.json` but its army moved on). Make retaking harder?
+26. **Carthage's war went quiet for years** once its army was recalled to deal with a Libyan revolt, while Jacob held most of the island. Bring it back sooner? (Carthage's goals and priorities in `data/carthage.json`; logic in `src/core/carthage.ts`.)
+27. **The mint.** A friendly holder strikes +1 silver for you each Autumn for free (`powers` in board.ts). Holding it yourself, "Strike coin" (`src/core/actions.ts`) costs one of three actions a season, gives 2 silver and -1 to the rich families' mood (with "The purse runs dry", less when they are Rebellious). Jacob: "Having an ally own the mint gives me free money ... owning it myself takes a 3rd of my action econ". Change either side?
+28. **Requests for your offices** (board petitions in `data/board.json`, cast in board.ts) felt like "giving things up for nothing". Options: every request comes with an offer (a deal), or a CK3-style limit on how many seats one man (or you) can hold, or both.
+29. **"Pay in land" with a free town** (event `mercenariesWantLeontini`, `data/island-events.json`). The bug fix already forbids it (Leontini must be your ally or yours). Alternative: allow it as a promise you must keep by taking the town, or the mercenaries turn on you.
+30. **Jacob's parked idea**: drag armies on the map with reach and travel time shown, forage a whole area, war ruining crops. Partly covered by display fixes already being built: click a town to march there, and dotted rings on towns within 6 days of your army. Build the rest (area foraging, crops ruined by war), or park it?
+
+Plus one note (not a build order): across both tests Jacob never felt a need to open the **Court** or **Families** pages. Weigh folding them into the main screen, cutting them, or giving them a reason to exist. No big change unasked.
+
+## What each seat writes
+
+Read the files you need (search, don't read whole files). For each item 23 to 30 and the Court/Families note: your verdict (build and turn on / build as an off switch / don't build), the smallest rule that does it, its cost (cheap / medium / costly), and one line of why, tied to what Jacob said. Under 700 words. Don't edit any files. Say plainly where you checked the code and where you are guessing.

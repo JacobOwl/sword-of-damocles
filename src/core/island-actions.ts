@@ -4,7 +4,7 @@ import { PLAYER, capital, holds } from "./state.ts";
 import { event, silver, grain, clock } from "./ops.ts";
 import {
   ISLAND, NODES, assault, assaultMods, assaultNeed, bloc, city, cityWalls, disband, friendly, march, menWords, muster, musterSize,
-  nodeName, path, reachable, sideName, yourArmy, carthageArmy, hostileTo, armyName,
+  nodeName, path, reachable, sideName, yourArmy, carthageArmy, hostileTo, armyName, punicHeld,
 } from "./island.ts";
 import { endWar, startWar } from "./carthage.ts";
 import type { Args, GameState, Mod } from "./types.ts";
@@ -41,7 +41,7 @@ export const ISLAND_IMPL: Record<string, Impl> = {
       { value: "guard", label: `The levies and the guard (${menWords(musterSize(s, true).total)}; your defense loses the guard)` },
     ],
     secondLabel: "Who marches",
-    check: (s) => general(s) ?? (yourArmy(s) ? "your army is already in the field" : s.silver < 2 ? "needs 2 silver" : s.grain < R.grainOnMuster ? `needs ${R.grainOnMuster} months of grain` : null),
+    check: (s) => general(s) ?? (yourArmy(s) ? "your army is already in the field: men can't be added to it there. Bring it home to a town of yours and disband it, then muster again" : s.silver < 2 ? "needs 2 silver" : s.grain < R.grainOnMuster ? `needs ${R.grainOnMuster} months of grain` : null),
     run: (s, a) => {
       silver(s, -2, "mustering the army");
       grain(s, -R.grainOnMuster, "food for the army's baggage");
@@ -119,7 +119,8 @@ export const ISLAND_IMPL: Record<string, Impl> = {
       const m: Mod[] = [];
       if (c.lean) m.push({ label: c.lean > 0 ? `${nodeName(c.id)} leans your way` : `${nodeName(c.id)} leans against you`, value: c.lean });
       if (c.fear) m.push({ label: "they fear your army", value: c.fear });
-      if (s.island!.war && c.side === "tributary") m.push({ label: "at war, the tribute towns want to be free", value: 1 });
+      if (punicHeld(s, c.id)) m.push({ label: "Carthage's men still hold it", value: -2 });
+      else if (s.island!.war && c.side === "tributary") m.push({ label: "at war, the tribute towns want to be free", value: 1 });
       const ya = yourArmy(s);
       if (ya && (ya.at === c.id || (path(ya.at, c.id)?.days.at(-1) ?? 99) <= 6)) m.push({ label: "your army is near", value: 1 });
       const ca = carthageArmy(s);

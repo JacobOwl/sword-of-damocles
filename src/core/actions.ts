@@ -117,6 +117,14 @@ function gainLeverage(s: GameState, holder: string, over: string, how: string) {
 }
 // Switch "purseDry": once the rich families are Rebellious, each squeeze (coin, the levy) yields 1 less than the
 // last, and their purses refill by 1 every few seasons. Without the switch the full sum, as before.
+// What the next squeeze would bring in, without taking it (second test: Strike coin 12 times for silver once).
+export function squeezeYield(s: GameState, base: number): number {
+  if (!on(s, "purseDry") || s.factions.rich.mood > 0) return base;
+  const k = (switchById("purseDry") as any).knobs as { drop: number; refillSeasons: number };
+  const since = s.flags.richSqueezedAt === undefined ? 0 : Math.floor((s.season - s.flags.richSqueezedAt) / k.refillSeasons);
+  const dry = Math.max(0, (s.flags.richSqueeze ?? 0) - since);
+  return Math.max(0, base - dry * k.drop);
+}
 function squeezeRich(s: GameState, base: number, what: string): number {
   if (!on(s, "purseDry") || s.factions.rich.mood > 0) return base;
   const k = (switchById("purseDry") as any).knobs as { drop: number; refillSeasons: number };
@@ -420,7 +428,7 @@ export const IMPL: Record<string, Impl> = {
     },
   },
   proposeLaw: {
-    target: (s) => DATA.laws.filter((l) => (l.repeatable || !s.laws.includes(l.id)) && s.flags[`failed_${l.id}`] !== s.season).map((l) => ({ value: l.id, label: `${l.name} (${l.detail})` })),
+    target: (s) => DATA.laws.filter((l) => (l.repeatable || !s.laws.includes(l.id)) && s.flags[`failed_${l.id}`] !== s.season && !(l.once && l.against?.includes("rich") && squeezeYield(s, l.once.silver) === 0)).map((l) => ({ value: l.id, label: `${l.name} (${l.detail})` })),
     odds: (s, a) => vote(s, a.target!).mods,
     run: (s, a, ok) => {
       const law = lawById(a.target!)!;
@@ -464,13 +472,17 @@ export const IMPL: Record<string, Impl> = {
     },
   },
   strikeCoin: {
-    check: (s) => (!holds(s, PLAYER, "mint") ? "you don't hold the mint" : s.flags.coin === s.season ? "already struck this season" : null),
+    notes: (s) => (on(s, "mintHabit") ? [`Uses none of your three actions.${s.flags.coin === s.season - 1 ? " You struck last season too: the rich take it harder each season running." : ""}`] : []),
+    check: (s) => (!holds(s, PLAYER, "mint") ? "you don't hold the mint" : s.flags.coin === s.season ? "already struck this season" : squeezeYield(s, 2) === 0 ? "brings in nothing now: the rich families have nothing left to give (their purses refill slowly)" : null),
     run: (s) => {
+      // Switch "mintHabit": striking season after season costs the rich one more step of mood each time.
+      const streak = on(s, "mintHabit") && s.flags.coin === s.season - 1 ? (s.flags.coinStreak ?? 0) + 1 : 0;
+      if (on(s, "mintHabit")) s.flags.coinStreak = streak;
       s.flags.coin = s.season;
       const fc = flavored(s, "strikeCoin", "You strike coin at the mint.");
       withStock(event(s, PLAYER, fc.text, "Strike coin"), fc.stock);
       silver(s, squeezeRich(s, 2, "new coin"), "new coin");
-      mood(s, "rich", -1, "debased coin eats their wealth");
+      mood(s, "rich", -1 - streak, streak ? `debased coin eats their wealth, ${streak + 1} seasons running` : "debased coin eats their wealth");
     },
   },
   build: {
@@ -938,7 +950,13 @@ export function politicalType(p: Person): string {
 export function politicalRank(s: GameState, pid: string, d: number, why: string) {
   const p = s.people[pid];
   if (!p.political) return;
-  const r = Math.max(0, Math.min(3, p.political.rank + d));
+  let r = Math.max(0, Math.min(3, p.political.rank + d));
+  // Switch "devotedHoldsBack" (council 2026-11-27): a Devoted man (opinion +3) climbs no higher than Contender while he loves you.
+  if (r === 3 && p.opinion >= 3 && on(s, "devotedHoldsBack")) {
+    r = p.political.rank;
+    if (s.flags[`heldBack_${pid}`] === undefined) event(s, pid, `${capital(p.name)} could reach for your place, but ${pronoun(s, pid, "he")} loves you too well to try. While ${pronoun(s, pid, "he")} stays Devoted, ${pronoun(s, pid, "he")} climbs no higher.`, why);
+    s.flags[`heldBack_${pid}`] = s.season;
+  }
   if (r === p.political.rank) return;
   if (r === 0) { p.political = undefined; event(s, pid, `${capital(p.name)} is no longer a political rival.`, why); return; }
   const up = r > p.political.rank;
@@ -1003,13 +1021,15 @@ export interface MenuItem {
   id: string; name: string; area: string; cost: string; roll: string; success: string; failure?: string; ruler?: boolean; reach?: boolean;
   targets?: Option[]; targetLabel?: string; secondLabel?: string; thirdLabel?: string; blocked: string | null;
 }
+// Switch "mintHabit" (council 2026-11-27): striking coin at your own mint is an order, not one of your three actions.
+export const freeAction = (s: GameState, action: string) => action === "strikeCoin" && on(s, "mintHabit");
 export function menu(s: GameState): MenuItem[] {
   return DATA.actions.filter((a) => !a.aiOnly && inScenario(s, a)).map((a) => {
     const impl = IMPL[a.id];
     const targets = impl.target?.(s) ?? undefined;
     let blocked: string | null = null;
     if (s.step !== "player" || s.over) blocked = "not your turn";
-    else if (s.slots < 1) blocked = "no actions left this season";
+    else if (s.slots < 1 && !freeAction(s, a.id)) blocked = "no actions left this season";
     else if (targets && targets.length === 0) blocked = "no one to choose";
     else if (!targets && impl.check) blocked = impl.check(s, {});
     if (!blocked && s.building && a.id !== "build" && false) blocked = null;
@@ -1048,7 +1068,7 @@ export function validate(s: GameState, action: string, args: Args): string | nul
   if (!impl || !def || def.aiOnly || !inScenario(s, def)) return "unknown action";
   if (s.over) return "the game is over";
   if (s.step !== "player") return "not your turn";
-  if (s.slots < 1) return "no actions left this season";
+  if (s.slots < 1 && !freeAction(s, action)) return "no actions left this season";
   const targets = impl.target?.(s);
   if (targets) {
     const opts = targets;
@@ -1071,7 +1091,7 @@ export function perform(s: GameState, action: string, args: Args): { ok: boolean
   const impl = IMPL[action];
   if (s.council) councilHeard(s, action, args, preview(s, action, args).chance);
   s.inputs.push({ t: "act", action, args: { ...args } });
-  s.slots -= 1;
+  if (!freeAction(s, action)) s.slots -= 1;
   const mods = impl.odds?.(s, args) ?? null;
   const name = actionById(action)!.name;
   if (mods === null) { impl.run(s, args, true, 0); return { ok: true }; }

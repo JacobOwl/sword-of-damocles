@@ -92,9 +92,9 @@
    "changes": "Granted by whoever rules, like the treasury. No source names a mint office: the seat is invention.",
    "power": "Each autumn he strikes coin, for you or for his own.",
    "lines": {
-    "friendly": "strikes coin for you",
-    "neutral": "strikes coin for his own faction",
-    "hostile": "debases the coin, and prices rise"
+    "friendly": "strikes coin for you each Autumn (1 silver)",
+    "neutral": "strikes coin for his own faction each Autumn",
+    "hostile": "debases the coin each Autumn, and prices rise"
    }
   },
   {
@@ -1611,6 +1611,14 @@
       {
        "influence": "asker",
        "by": 1
+      },
+      {
+       "silver": 1,
+       "why": "a share of the profit from your ships",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
       }
      ]
     },
@@ -1654,6 +1662,14 @@
       {
        "factionMood": "asker",
        "by": 1
+      },
+      {
+       "silver": 2,
+       "why": "the wedding gifts, sent on to you",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
       }
      ]
     },
@@ -1698,6 +1714,15 @@
       {
        "factionPower": "asker",
        "by": 1
+      },
+      {
+       "guard": "strength",
+       "by": 1,
+       "why": "the boy's company stands with your guard",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
       }
      ]
     },
@@ -1740,6 +1765,14 @@
       },
       {
        "favor": "asker"
+      },
+      {
+       "informer": "asker",
+       "why": "between friends, he tells you what he hears",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
       }
      ]
     },
@@ -1780,6 +1813,14 @@
       {
        "guard": "upkeep",
        "by": 1
+      },
+      {
+       "silver": 1,
+       "why": "the kinsman's family pays for the place",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
       }
      ]
     },
@@ -1822,6 +1863,15 @@
       },
       {
        "bound": "asker"
+      },
+      {
+       "guard": "strength",
+       "by": 1,
+       "why": "his men stand guard on the Island",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
       }
      ]
     },

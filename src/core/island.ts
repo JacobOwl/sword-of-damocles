@@ -282,8 +282,27 @@ function retreat(s: GameState, a: Army, why: string) {
   event(s, a.side === "syracuse" ? PLAYER : "carthage", `${capital(armyName(s, a))} falls back from ${nodeName(from)} to ${nodeName(to)} (${p.days.at(-1)} days).`, why);
 }
 
+// Switch "guardBattleOnly" (council 2026-11-27, Jacob's rule): only battle and storming kill the guard. Hunger,
+// plague, desertion and the sea take the levy; if the levy is gone, the guard marches home instead of dying.
+const BATTLE_WHY = new Set(["a bloody draw", "the cost of victory", "beaten in the field", "dead under the walls", "cut down in the streets of Syracuse"]);
 export function loseMen(s: GameState, a: Army, n: number, why: string) {
   if (n <= 0) return;
+  if (a.side === "syracuse" && a.guard > 0 && !BATTLE_WHY.has(why) && on(s, "guardBattleOnly")) {
+    const levy = a.men - a.guard;
+    const lost = Math.min(n, levy);
+    a.men -= lost;
+    if (lost) log(s, { actor: PLAYER, text: `${capital(armyName(s, a))} loses ${menWords(lost)} of the levy (now ${menWords(a.men)}).`, why, visible: true, kind: "change" });
+    if (a.men <= a.guard) {
+      const isl = s.island!;
+      isl.armies = isl.armies.filter((x) => x !== a);
+      count(s, "armiesLostYours");
+      s.flags.armyLost = s.season;
+      event(s, PLAYER, `${capital(armyName(s, a))} breaks up: the levy is gone, and the guard marches home to Syracuse.`, why);
+      if (a.guard < a.guardStart) guardSet(s, "strength", -Math.min(a.guardStart - a.guard, s.guard.strength), "mercenaries lost in battle");
+      mood(s, "citizens", -1, "the army was lost");
+    }
+    return;
+  }
   const before = a.men;
   a.men = Math.max(0, a.men - n);
   const lost = before - a.men;
@@ -317,6 +336,8 @@ function destroy(s: GameState, a: Army, why: string) {
 }
 
 // ---------- Taking a city ----------
+// Switch "carthageHolds" (council 2026-11-27): a town Carthage took in the last eight seasons keeps a few of its men.
+export const punicHeld = (s: GameState, id: string) => on(s, "carthageHolds") && s.flags[`punicTook_${id}`] !== undefined && s.season - s.flags[`punicTook_${id}`] < 8 && ["tributary", "carthage"].includes(city(s, id).side);
 export function takeCity(s: GameState, a: Army, how: "surrendered" | "stormed" | "starved") {
   const id = a.at;
   const c = city(s, id);
@@ -334,6 +355,7 @@ export function takeCity(s: GameState, a: Army, how: "surrendered" | "stormed" |
     }
     count(s, "citiesLost");
     setSide(s, id, def.side === "tributary" ? "tributary" : "carthage", `${carthagePersonName(s, a.commander)} took it`);
+    s.flags[`punicTook_${id}`] = s.season; // read by switch "carthageHolds"
     if (how === "stormed") {
       c.men = 0; c.grain = 0; c.sacked = true;
       event(s, "carthage", `${carthagePersonName(s, a.commander)} sacks ${nodeName(id)}. Its people flee to the hills.`, "it was taken by storm");
@@ -521,7 +543,8 @@ export function goOverMods(s: GameState, id: string, side: Army["side"]): Mod[] 
   if (side === "syracuse") {
     if (c.lean) m.push({ label: c.lean > 0 ? "they lean your way" : "they lean against you", value: c.lean });
     if (c.fear) m.push({ label: "they fear you", value: c.fear });
-    if (c.side === "tributary") m.push(isl.war ? { label: "at war, the tribute towns want to be free", value: 1 } : { label: "they fear Carthage's anger", value: -1 });
+    if (punicHeld(s, id)) m.push({ label: "Carthage's men still hold it", value: -2 });
+    else if (c.side === "tributary") m.push(isl.war ? { label: "at war, the tribute towns want to be free", value: 1 } : { label: "they fear Carthage's anger", value: -1 });
   } else {
     if (c.lean) m.push({ label: c.lean < 0 ? "they hate you" : "they are loyal to you", value: -c.lean });
     if (c.side === "syracuse") m.push({ label: "your garrison holds it", value: -1 });

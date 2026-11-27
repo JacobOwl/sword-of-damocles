@@ -1,11 +1,12 @@
 // "What matters this season": one plain line at the top of the season and island screens, naming the most
 // pressing thing in order: a blow that can fall, Carthage at your walls, an army or a city about to go hungry,
 // the guard unpaid, a war, Carthage's anger near war. It reads the state and changes nothing.
-import { PLAYER, presetById, quarrelsAgainstYou, yourQuarrels, armyName, capital, carthageArmy, nodeName, path, yourArmy, menWords } from "../../src/core/index.ts";
+import { CARTHAGE, PLAYER, presetById, quarrelsAgainstYou, yourQuarrels, armyName, capital, carthageArmy, nodeName, path, yourArmy, menWords } from "../../src/core/index.ts";
 import type { GameState } from "../../src/core/index.ts";
 import { esc } from "../lib/text.ts";
 import { knownDanger } from "./ambient.ts";
 import { officeLost } from "./changed.ts";
+import { foe } from "./foe.ts";
 
 const daysTo = (a: string, b: string) => (a === b ? 0 : path(a, b)?.days.at(-1) ?? 99);
 
@@ -32,10 +33,21 @@ export function whatMatters(g: GameState): { text: string; level: "danger" | "wa
   if (g.guard.arrearsSeasons) out.push({ text: "The guard is unpaid and will not defend you.", level: "danger" });
   else if (g.offices.treasury === PLAYER && g.silver < g.guard.upkeep) out.push({ text: `The guard's pay (${g.guard.upkeep} silver) is due at the end of this season and you have ${g.silver}. Raise silver (a levy, striking coin) or the guard goes unpaid.`, level: "danger" });
   if (g.island?.war && !ca) out.push({ text: "You are at war with Carthage, though its army is not on the island.", level: "warn" });
-  if (g.island && !g.island.war && g.clock >= 8) out.push({ text: `Carthage's anger is ${g.clock} of 10: its council is close to war.`, level: "warn" });
+  // A season's warning before war (second test: "I just got into a war with carthage apparently? Not clear how").
+  if (g.island && !g.island.war) {
+    const W = CARTHAGE.numbers.warAnger as Record<string, number>;
+    const NAME: Record<string, string> = { hundred: "the Hundred", people: "the people's assembly", elders: "the Elders" };
+    const rises = g.season % 4 === 3 ? 1 : 0; // the yearly rise comes in the summer step (src/core/season.ts)
+    const want = Object.entries(W).filter(([, n]) => g.clock >= n).map(([b]) => NAME[b]);
+    const soon = Object.entries(W).filter(([, n]) => g.clock < n && g.clock + 1 >= n).map(([b]) => NAME[b]);
+    if (want.length) out.push({ text: `Carthage's anger is ${g.clock} of 10: ${want.join(" and ")} want war now. If the blocs that want it hold most of the council's power, war comes.`, level: "danger" });
+    else if (soon.length) out.push({ text: `Carthage's anger is ${g.clock} of 10. One more point and ${soon.join(" and ")} want war${rises ? "; it rises by 1 at the end of this season" : ""}. Taking its towns or tribute, raids and riots add to it.`, level: "warn" });
+  }
   // Switch "quarrels": an oath whose day is this season.
   for (const q of quarrelsAgainstYou(g).filter((q) => q.due <= g.season)) out.push({ text: `${capital(g.people[q.by].name)}'s quarrel with you comes to its day this season. See Dangers.`, level: "warn" });
   for (const q of yourQuarrels(g).filter((q) => q.due <= g.season)) out.push({ text: `Your oath against ${g.people[q.against].name} must be made good this season, or the city will remember it. See Dangers.`, level: "warn" });
+  const f = foe(g);
+  if (f) out.push({ text: `${capital(f.p.name)} ${f.why}. See Coming for you, under Dangers.`, level: f.plot && f.plot.stage >= 3 ? "danger" : "warn" });
   if (!out.length && d.stage >= 1) out.push({ text: `A plot is forming (${["", "Whispers", "Rumors", "Named"][d.stage]}). See Dangers.`, level: "warn" });
   return out;
 }

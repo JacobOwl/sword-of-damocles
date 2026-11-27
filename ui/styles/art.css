@@ -311,3 +311,5 @@ button.primary:active:not(:disabled) { transform: translateY(1px); box-shadow: n
 .tag.new { color: var(--olive); }
 .custom select { max-width: 100%; }
 .custom { min-width: 0; }
+.island-map .reach-ring { fill: none; stroke: var(--blood); stroke-width: 1.2; stroke-dasharray: 2 3; opacity: .7; pointer-events: none; }
+.marchhere button { margin: 2px 4px 2px 0; }

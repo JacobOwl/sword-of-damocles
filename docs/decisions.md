@@ -480,3 +480,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** the eight bugs. Guard pay now falls with every guardsman lost and is never more than the men left. Open towns take their side's colour on the map. Marriage matches your relative with someone of the other sex in that house, and refuses if there is no one. The standing line uses her and she. Aetna is free again once the exiles come home. "Pay in land" needs Leontini to be your ally or yours. An effect on an optional person nobody filled is no longer shown ("FavouriteKin"). A blackmail told by its victim reads "that you blackmailed him".
 - **Changed (display, decided here):** the step "A player" on the ladder of standing is now "A power" (Jacob's notes offered "A power" or "A man of weight"; "a power" also fits women). The hint is a short list: "Next: a power, with two of an office, leading a faction, a following. Has: none."
 - **Re-pinned:** the first island test digest (guard pay changes every game with the guard in the field).
+
+## 2026-11-27 (fixes from the second test, part 2: display and the council's rules, thread 39)
+- **Decided (council, delegated by Jacob):** items 23 to 30. Built and on in the Second island test: the guard dies only in battle, love holds a rival back, Carthage holds what it takes, Carthage spares Libya, the mint as an order, petitions come with an offer. Not built (parked): a cap on seats, Pay in land as a promise, ravaging, dragging armies and area foraging. Record: `docs/council/2026-11-27-second-test-rules.md`.
+- **Done:** display items 9 to 22, including orders from the map, the chronicle cut to its arcs, and the "Coming for you" card. 800 batch games, no crashes or broken states.
+- **Open:** see `docs/handoff.md`.
