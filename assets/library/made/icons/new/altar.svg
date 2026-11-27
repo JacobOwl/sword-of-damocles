@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Altar with fire</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M5 13 H19 V21 H5 Z"/><path d="M3.6 21 H20.4 V22.8 H3.6 Z M4 11.4 H20 V13 H4 Z M4 11.4 V9.6 L6.2 11.4 Z M20 11.4 V9.6 L17.8 11.4 Z"/><path transform="translate(12 10.6) scale(0.95)" d="M0 -9 C2.4 -6.2 4 -4.2 3.4 -1.6 C3 0.2 1.6 0.9 0 0.9 C-1.6 0.9 -3.1 0.2 -3.3 -1.6 C-3.6 -3.6 -2.3 -4.7 -1.7 -6.2 C-1.1 -4.7 -0.5 -4.1 -0.3 -3.2 C0.6 -4.9 0.7 -6.9 0 -9 Z"/><path d="M7 15.4 C9 18 11 18 12 15.4 C13 18 15 18 17 15.4" class="cut line" style="stroke-width:0.6"/>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+<title>Corner: bracket</title>
+<desc>A plain double-rule corner with a stud: the catalogue look.</desc>
+<path d="M3 61V3H61" fill="none" stroke="#2b1d12" stroke-width="1.6"/><path d="M10 50V10H50" fill="none" stroke="#7a5424" stroke-width=".9"/><rect x="6" y="6" width="8" height="8" fill="#7a5424"/><circle cx="24" cy="24" r="3" fill="#7a5424"/>
+</svg>

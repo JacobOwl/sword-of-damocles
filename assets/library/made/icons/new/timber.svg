@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Timber</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<circle cx="7" cy="17.4" r="4.6"/><circle cx="17" cy="17.4" r="4.6"/><circle cx="12" cy="9.2" r="4.6"/><circle class="cut line" cx="7" cy="17.4" r="2.8" style="stroke-width:.55"/><circle class="cut line" cx="17" cy="17.4" r="2.8" style="stroke-width:.55"/><circle class="cut line" cx="12" cy="9.2" r="2.8" style="stroke-width:.55"/><circle class="cut" cx="7" cy="17.4" r="0.7"/><circle class="cut" cx="17" cy="17.4" r="0.7"/><circle class="cut" cx="12" cy="9.2" r="0.7"/>
+</svg>

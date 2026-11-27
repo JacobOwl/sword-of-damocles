@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+<title>Fleuron: rosette</title>
+<desc>An eight-petal rosette.</desc>
+<circle cx="24" cy="24" r="5.2" fill="#7a5424"/><ellipse cx="36.4" cy="24" rx="6.8" ry="3.2" transform="rotate(0 36.4 24)" fill="#7a5424"/><ellipse cx="32.77" cy="32.77" rx="6.8" ry="3.2" transform="rotate(45 32.77 32.77)" fill="#7a5424"/><ellipse cx="24" cy="36.4" rx="6.8" ry="3.2" transform="rotate(90 24 36.4)" fill="#7a5424"/><ellipse cx="15.23" cy="32.77" rx="6.8" ry="3.2" transform="rotate(135 15.23 32.77)" fill="#7a5424"/><ellipse cx="11.6" cy="24" rx="6.8" ry="3.2" transform="rotate(180 11.6 24)" fill="#7a5424"/><ellipse cx="15.23" cy="15.23" rx="6.8" ry="3.2" transform="rotate(225 15.23 15.23)" fill="#7a5424"/><ellipse cx="24" cy="11.6" rx="6.8" ry="3.2" transform="rotate(270 24 11.6)" fill="#7a5424"/><ellipse cx="32.77" cy="15.23" rx="6.8" ry="3.2" transform="rotate(315 32.77 15.23)" fill="#7a5424"/>
+</svg>

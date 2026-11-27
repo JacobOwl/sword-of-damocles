@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Lambda shield (Sparta)</title>
+<desc>The lambda shield sign of the Spartans is a later tradition (general knowledge, unverified).</desc>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<circle cx="12" cy="12" r="10.4"/><circle class="cut line" cx="12" cy="12" r="8.4" style="stroke-width:.8"/><path d="M7.4 17.4 L12 5.8 L16.6 17.4" class="cut line" style="stroke-width:2.4"/>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Torch</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<rect x="11.2" y="10.4" width="1.6" height="12.4" rx=".4"/><path d="M8.8 8.4 H15.2 L13.8 10.8 H10.2 Z"/><path transform="translate(12 8) scale(0.95)" d="M0 -9 C2.4 -6.2 4 -4.2 3.4 -1.6 C3 0.2 1.6 0.9 0 0.9 C-1.6 0.9 -3.1 0.2 -3.3 -1.6 C-3.6 -3.6 -2.3 -4.7 -1.7 -6.2 C-1.1 -4.7 -0.5 -4.1 -0.3 -3.2 C0.6 -4.9 0.7 -6.9 0 -9 Z"/><path d="M11.2 14 H12.8 M11.2 17 H12.8" class="cut line" style="stroke-width:0.6"/>
+</svg>
