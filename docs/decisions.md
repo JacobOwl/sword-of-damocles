@@ -554,4 +554,4 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 ## 2026-11-27 (portraits and more art, thread 40)
 - **Done (Jacob: "Why not add portraits and art"):** Carthage's council gets Duet's mosaic faces (PR #95 looks, `ui/art/carthage-looks.json`), season cards a season picture, two war events their own picture.
 - **Decided (small, here):** mosaics, not the flat medallions, for Carthage's men, because every face in the game is a mosaic coin; this settles part 1's open question. Carthage's looks live in their own file so the 24-person cast file and the census faces are untouched. Duet's suggested fixes to the existing 24 are listed for Jacob, not made (his taste).
-
+- **Decided (delegated small taste call, thread 40):** four looks changed in `ui/art/portrait-looks.json`: Dionysius' cloak gold (purple is Carthage's colour), Thearides black-haired like his brothers, Daphnaeus in a general's helmet, Demarchus white-haired. Invention, as before.
