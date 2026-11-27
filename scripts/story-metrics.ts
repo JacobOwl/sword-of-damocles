@@ -249,7 +249,9 @@ export function readBeats(s: GameState, seed: number) {
   }
   flushRegained();
   beats.sort((a, b) => a.season - b.season);
-  const played = s.over ? s.over.season + 1 : Math.min(s.season, SEASONS);
+  // An end that came after the 30th season (in the opening of the 31st) is past the game, like every line from then.
+  const over = s.over && s.over.season < SEASONS ? s.over : undefined;
+  const played = over ? over.season + 1 : Math.min(s.season, SEASONS);
   // Quiet stretch: the longest run of seasons with no beat. A season counts as eventful if a beat ends in it, or if
   // a two-part beat that later finished began in it (the war's first season, the exile's flight, the seat's loss).
   const busy = new Set<number>();
@@ -258,7 +260,7 @@ export function readBeats(s: GameState, seed: number) {
   for (let i = 0; i < played; i++) {
     if (busy.has(i)) run = 0; else { run++; if (run > longest) { longest = run; longestFrom = i - run + 1; } }
   }
-  return { beats, played, relapses, quiet: { length: longest, from: longestFrom }, unfinishedWar: warStart >= 0 ? warStart : undefined, exiledAtEnd: exileStart >= 0 };
+  return { beats, played, over, relapses, quiet: { length: longest, from: longestFrom }, unfinishedWar: warStart >= 0 ? warStart : undefined, exiledAtEnd: exileStart >= 0 };
 }
 
 // ---------- Repeated sentences ----------
@@ -300,6 +302,7 @@ export interface GameRec {
   sentences: [string, number, boolean][];
   facts: Record<string, number>; // what else happened, for "what separates the good games from the dull"
 }
+const firstAt = (lines: LogEntry[], test: (t: string) => boolean) => { const e = lines.find((x) => test(x.text)); return e ? e.season + 1 : 0; };
 export function record(playerId: string, seed: number, withSentences = true): GameRec {
   const problems: string[] = [];
   let s: GameState;
@@ -327,11 +330,15 @@ export function record(playerId: string, seed: number, withSentences = true): Ga
     linesSeen: lines.length,
     unfinishedWar: r.unfinishedWar !== undefined ? 1 : 0,
     relapses: r.relapses, // a faction soured back to Rebellious
-    wonAtEnd: s.over ? 0 : 1,
+    wonAtEnd: r.over || r.exiledAtEnd ? 0 : 1,
+    // when the big things first happen (season number, 0 if never)
+    warAt: firstAt(lines, (t) => /^(Carthage declares war on Syracuse|You declare war on Carthage)\./.test(t)),
+    strikeAt: firstAt(lines, (t) => t.startsWith("The plot strikes.")),
+    fleeAt: firstAt(lines, (t) => t.startsWith("You are not finished. You flee to")),
   };
   const keys = withSentences ? sentenceKeys(s) : new Map();
   return {
-    player: playerId, seed, end: s.over?.reason ?? "ruling", endSeason: s.over ? s.over.season : -1, played: r.played, beats: r.beats, quiet: r.quiet,
+    player: playerId, seed, end: r.over?.reason ?? (r.exiledAtEnd ? "exile" : "ruling"), endSeason: r.over ? r.over.season : -1, played: r.played, beats: r.beats, quiet: r.quiet,
     firstTen: r.beats.filter((x) => x.season < 10).length, kinds, problems, facts,
     sentences: [...keys].map(([k, v]) => [k, v.n, v.news] as [string, number, boolean]),
   };
@@ -350,8 +357,8 @@ const f1 = (x: number) => x.toFixed(1), f2 = (x: number) => x.toFixed(2);
 const pct = (a: number, b: number) => `${b ? Math.round((100 * a) / b) : 0}%`;
 const md = (x: string) => x.replace(/([|*_<>`\\])/g, "\\$1");
 const replayCmd = (r: { player: string; seed: number }) => `node scripts/story-metrics.ts --one ${r.player}:${r.seed}`;
-const ENDS: Record<string, string> = { ruling: "still ruling", survived: "still ruling", killed: "killed", exiled: "in exile", deposed: "deposed", fallen: "Syracuse fell", crash: "crashed" };
-const endText = (r: GameRec) => (r.end === "ruling" ? "still ruling" : `${ENDS[r.end] ?? r.end} in season ${r.endSeason + 1}`);
+const ENDS: Record<string, string> = { exile: "in exile at the end", ruling: "still ruling", survived: "still ruling", killed: "killed", exiled: "in exile", deposed: "deposed", fallen: "Syracuse fell", crash: "crashed" };
+const endText = (r: GameRec) => (r.end === "ruling" || r.end === "exile" ? ENDS[r.end] : `${ENDS[r.end] ?? r.end} in season ${r.endSeason + 1}`);
 const sheetName = (r: GameRec) => `${r.player === "tyrant" ? "iron-hand" : r.player}-${r.seed}.md`;
 const playerName = (p: string) => PLAYER_NAMES[p];
 const kindsText = (r: GameRec) => KINDS.filter((k) => r.kinds[k.id]).map((k) => `${r.kinds[k.id]} ${SHORT[k.id][r.kinds[k.id] === 1 ? 0 : 1]}`).join(", ") || "none";
@@ -522,7 +529,7 @@ function writeStoryReport(out: string, recs: GameRec[], N: number) {
   row("Still ruling after 30 seasons", ...PLAYER_IDS.map((p) => by(p).filter((r) => r.end === "ruling").length));
   row("Killed before then", ...PLAYER_IDS.map((p) => by(p).filter((r) => r.end === "killed").length));
   const otherEnds = [...new Set(ok.map((r) => r.end))].filter((e) => e !== "ruling" && e !== "killed");
-  for (const e of otherEnds) row(`Ended ${ENDS[e] ?? e}`, ...PLAYER_IDS.map((p) => by(p).filter((r) => r.end === e).length));
+  for (const e of otherEnds) row(e === "exile" ? `In exile after ${SEASONS} seasons` : `Ended: ${ENDS[e] ?? e}`, ...PLAYER_IDS.map((p) => by(p).filter((r) => r.end === e).length));
   row("Seasons played, on average", ...PLAYER_IDS.map((p) => f1(mean(by(p).map((r) => r.played)))));
   row("Beats per game: average", ...PLAYER_IDS.map((p) => f1(mean(by(p).map((r) => r.beats.length)))));
   row("Beats per game: middle game", ...PLAYER_IDS.map((p) => median(by(p).map((r) => r.beats.length))));
@@ -565,6 +572,15 @@ function writeStoryReport(out: string, recs: GameRec[], N: number) {
   row("Games with something begun and closed", ...PLAYER_IDS.map((p) => pct(ft(p).filter((x) => x.payoff).length, by(p).length)));
   row("... leaving out the generalship won back", ...PLAYER_IDS.map((p) => pct(ft(p).filter((x) => x.payoffBeyondVote).length, by(p).length)));
   row("Games with both a man with a story and something closed", ...PLAYER_IDS.map((p) => pct(ft(p).filter((x) => x.arc && x.payoff).length, by(p).length)));
+  L.push(``);
+
+  L.push(`## When the big things happen`, ``, `The first season in which each happens, among the games where it does.`, ``);
+  head("", ...PLAYER_IDS.map(playerName));
+  for (const [key, what] of [["warAt", "Carthage declares war"], ["strikeAt", "A plot strikes at you"], ["fleeAt", "You flee into exile"]] as const) {
+    row(`${what}: by season 10`, ...PLAYER_IDS.map((p) => pct(by(p).filter((r) => r.facts[key] && r.facts[key] <= 10).length, by(p).length)));
+    row(`... by season ${SEASONS}`, ...PLAYER_IDS.map((p) => pct(by(p).filter((r) => r.facts[key]).length, by(p).length)));
+    row(`... season it first happens, middle game`, ...PLAYER_IDS.map((p) => { const xs = by(p).map((r) => r.facts[key]).filter((x) => x); return xs.length ? median(xs) : "never"; }));
+  }
   L.push(``);
 
   L.push(`## Quiet stretches`, ``, `How long each game's longest stretch with no beat is, and where in the game it falls.`, ``);
@@ -658,7 +674,7 @@ function writeStoryReport(out: string, recs: GameRec[], N: number) {
   const picks = [...most.map((r, i) => [`one of the five games with the most beats (${i + 1} of 5)`, r] as const), ...fewest.map((r, i) => [`one of the five games with the fewest beats (${i + 1} of 5)`, r] as const)];
   for (const [why, r] of picks) {
     const s = play(r.player, r.seed);
-    const S: string[] = [`# ${capital(playerName(r.player))}, seed ${r.seed}`, ``, `Second island test, ${SEASONS} seasons at most: ${why}. Ended: ${endText(r)}${s.over ? ` (${md(s.over.text)})` : ""}.`, ``];
+    const S: string[] = [`# ${capital(playerName(r.player))}, seed ${r.seed}`, ``, `Second island test, ${SEASONS} seasons at most: ${why}. Ended: ${endText(r)}${s.over && r.endSeason >= 0 ? ` (${md(s.over.text)})` : ""}.`, ``];
     S.push(`Replay: \`${replayCmd(r)}\` (add \`--log\` for every line the player saw).`, ``);
     S.push(`**${r.beats.length} beats** of ${Object.keys(r.kinds).length} kinds: ${kindsText(r)}. **Longest quiet stretch:** ${r.quiet.length ? `${r.quiet.length} seasons, ${seasonName(r.quiet.from)} to ${seasonName(r.quiet.from + r.quiet.length - 1)}` : "none"}.`, ``, `## The beats`);
     let last = -1;
@@ -666,7 +682,7 @@ function writeStoryReport(out: string, recs: GameRec[], N: number) {
     S.push(``, `## The game's own chronicle`, ``, `As the game tells it in the story view, up to the last season played.`, ``);
     const book = storyBook(s, Math.min(s.over ? s.over.season : s.season - 1, SEASONS - 1));
     for (const x of book.seasons) { S.push(`**Season ${x.season + 1}, ${x.name}.** ${x.paragraphs.map(md).join(" ")}`, ``); }
-    if (book.ending && s.over) S.push(`**The end.** ${md(book.ending)}`, ``);
+    if (book.ending && s.over && r.endSeason >= 0) S.push(`**The end.** ${md(book.ending)}`, ``);
     writeFileSync(`${out}/sheets/${sheetName(r)}`, S.join("\n"));
   }
   process.stderr.write(`Wrote results.md, games.md, two charts and ${picks.length} sheets to ${out}.\n`);
@@ -691,7 +707,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const s = play(p, seed);
     const r = readBeats(s, seed);
     console.log(`Second island test, played by ${PLAYERS.find((x) => x.id === p)!.name}, seed ${seed}, ${SEASONS} seasons at most.`);
-    console.log(`Ended: ${s.over ? `${s.over.reason} in ${seasonName(s.over.season)}: ${s.over.text}` : `still ruling after ${r.played} seasons`}`);
+    console.log(`Ended: ${r.over ? `${r.over.reason} in ${seasonName(r.over.season)}: ${r.over.text}` : r.exiledAtEnd ? `in exile after ${r.played} seasons` : `still ruling after ${r.played} seasons`}`);
     console.log(`${r.beats.length} beats. Longest quiet stretch: ${r.quiet.length} seasons (${seasonName(r.quiet.from)} to ${seasonName(r.quiet.from + r.quiet.length - 1)}).\n`);
     let last = -1;
     for (const b of r.beats) { if (b.season !== last) { last = b.season; console.log(`${seasonName(b.season)} (season ${b.season + 1})`); } console.log(`  ${KINDS.find((k) => k.id === b.kind)!.name}: ${b.text}.`); }

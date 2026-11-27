@@ -1,6 +1,6 @@
 # The iron hand, seed 169
 
-Second island test, 30 seasons at most: one of the five games with the most beats (4 of 5). Ended: still ruling.
+Second island test, 30 seasons at most: one of the five games with the most beats (4 of 5). Ended: in exile at the end.
 
 Replay: `node scripts/story-metrics.ts --one tyrant:169` (add `--log` for every line the player saw).
 

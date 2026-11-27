@@ -26,8 +26,9 @@ The **longest quiet stretch** is the longest run of seasons with no beat in it. 
 |  | the careful ruler | the patron | the iron hand |
 | --- | ---: | ---: | ---: |
 | Games | 200 | 200 | 200 |
-| Still ruling after 30 seasons | 181 | 192 | 129 |
+| Still ruling after 30 seasons | 170 | 176 | 86 |
 | Killed before then | 19 | 8 | 71 |
+| In exile after 30 seasons | 11 | 16 | 43 |
 | Seasons played, on average | 29.0 | 29.8 | 26.0 |
 | Beats per game: average | 12.6 | 14.4 | 25.1 |
 | Beats per game: middle game | 12 | 14 | 26 |
@@ -83,6 +84,22 @@ What a player has to tell after ten seasons. **A man with a story**: someone (no
 | Games with something begun and closed | 51% | 41% | 37% |
 | ... leaving out the generalship won back | 9% | 19% | 28% |
 | Games with both a man with a story and something closed | 10% | 13% | 32% |
+
+## When the big things happen
+
+The first season in which each happens, among the games where it does.
+
+|  | the careful ruler | the patron | the iron hand |
+| --- | ---: | ---: | ---: |
+| Carthage declares war: by season 10 | 7% | 3% | 5% |
+| ... by season 30 | 96% | 100% | 87% |
+| ... season it first happens, middle game | 16 | 17 | 16 |
+| A plot strikes at you: by season 10 | 2% | 0% | 17% |
+| ... by season 30 | 16% | 7% | 63% |
+| ... season it first happens, middle game | 21 | 23 | 17.5 |
+| You flee into exile: by season 10 | 2% | 1% | 10% |
+| ... by season 30 | 18% | 27% | 38% |
+| ... season it first happens, middle game | 21 | 22 | 19.5 |
 
 ## Quiet stretches
 
@@ -269,9 +286,9 @@ The five games with the most beats and the five with the fewest, of all 600. Tie
 |  | Player | Seed | Beats | Kinds | Ended | Longest quiet | Sheet | Replay |
 | --- | --- | ---: | ---: | ---: | --- | --- | --- | --- |
 | Most 1 | the iron hand | 98 | 39 | 6 | still ruling | 3 seasons | [sheet](sheets/iron-hand-98.md) | `node scripts/story-metrics.ts --one tyrant:98` |
-| Most 2 | the iron hand | 116 | 39 | 6 | still ruling | 3 seasons | [sheet](sheets/iron-hand-116.md) | `node scripts/story-metrics.ts --one tyrant:116` |
+| Most 2 | the iron hand | 116 | 39 | 6 | in exile at the end | 3 seasons | [sheet](sheets/iron-hand-116.md) | `node scripts/story-metrics.ts --one tyrant:116` |
 | Most 3 | the iron hand | 44 | 38 | 5 | still ruling | 3 seasons | [sheet](sheets/iron-hand-44.md) | `node scripts/story-metrics.ts --one tyrant:44` |
-| Most 4 | the iron hand | 169 | 38 | 6 | still ruling | 3 seasons | [sheet](sheets/iron-hand-169.md) | `node scripts/story-metrics.ts --one tyrant:169` |
+| Most 4 | the iron hand | 169 | 38 | 6 | in exile at the end | 3 seasons | [sheet](sheets/iron-hand-169.md) | `node scripts/story-metrics.ts --one tyrant:169` |
 | Most 5 | the iron hand | 45 | 37 | 6 | still ruling | 3 seasons | [sheet](sheets/iron-hand-45.md) | `node scripts/story-metrics.ts --one tyrant:45` |
 | Fewest 1 | the careful ruler | 46 | 3 | 3 | still ruling | 10 seasons | [sheet](sheets/careful-46.md) | `node scripts/story-metrics.ts --one careful:46` |
 | Fewest 2 | the iron hand | 198 | 3 | 2 | killed in season 18 | 9 seasons | [sheet](sheets/iron-hand-198.md) | `node scripts/story-metrics.ts --one tyrant:198` |
