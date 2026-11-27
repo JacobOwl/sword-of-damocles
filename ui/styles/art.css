@@ -149,6 +149,7 @@ h2 { border-bottom: 0; background: linear-gradient(var(--rule), var(--rule)) 0 c
 .sc-inner { background: var(--page); background-image: radial-gradient(var(--speck) 1px, transparent 1.3px); background-size: 7px 7px; width: min(520px, 100%); padding: 0 0 4px; text-align: center; box-shadow: 0 0 0 1px var(--ink), 0 0 0 6px var(--page), 0 0 0 7px var(--rule), 0 24px 60px rgba(20,12,6,.5); }
 .sc-inner .tesserae { margin: 0; }
 .sc-sword { display: block; margin: 16px auto 0; width: 44px; height: 56px; color: var(--ink); --cut: var(--page); }
+.sc-pic .tondo { width: 76px; height: 76px; margin: 8px auto 0; }
 .sc-kicker { font-family: var(--display); letter-spacing: .12em; color: var(--muted); font-size: .85rem; margin: 6px 0 0; }
 .sc-season { font-family: var(--display); font-size: clamp(2.6rem, 9vw, 3.8rem); letter-spacing: .2em; border: 0; background: none; padding: 0; margin: 2px 0 0; line-height: 1; }
 .sc-year { font-family: var(--num); font-size: 1.3rem; font-weight: 600; color: var(--accent); margin: 0 0 10px; }

@@ -6,6 +6,7 @@ import calendarJson from "../../data/calendar.json" with { type: "json" };
 import { DATA, government, others, presetById, seasonName } from "../../src/core/index.ts";
 import type { GameState } from "../../src/core/index.ts";
 import { icon } from "./icons.ts";
+import { vignette } from "./vignettes.ts";
 import { esc } from "../lib/text.ts";
 
 type Line = { id: string; text: string; season?: string; if?: string; by?: string };
@@ -77,6 +78,9 @@ export function swordOverhead(g: GameState) {
 }
 
 // ---------- The season card ----------
+// Each season's picture, from the art library's scenes (invention): the grape harvest for autumn, then winter's
+// rain, spring's flowers and summer's sun.
+const SEASON_ART: Record<string, string> = { Autumn: "vintage", Winter: "winter", Spring: "spring", Summer: "summer" };
 let cardTimer = 0;
 export function showSeasonCard(g: GameState) {
   if (g.over || typeof document === "undefined") return;
@@ -93,6 +97,7 @@ export function showSeasonCard(g: GameState) {
   el.innerHTML = `<div class="sc-inner">
     <div class="tesserae" aria-hidden="true"></div>
     ${icon("sword", "sc-sword")}
+    <div class="sc-pic">${vignette(SEASON_ART[kind], `Picture for ${kind.toLowerCase()}`)}</div>
     <p class="sc-kicker">Year ${year} of ${g.exile?.active ? "the decade, in exile" : "your rule"} · ${seasonCount(g).toLowerCase()}</p>
     <h2 class="sc-season">${esc(kind)}</h2>
     <p class="sc-year">${esc(rest.join(" "))}</p>

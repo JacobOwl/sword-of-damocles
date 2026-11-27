@@ -11,6 +11,7 @@ import { esc, linkNames, ui, who } from "../lib/text.ts";
 import * as A from "../components/island-art.ts";
 import { nowLine } from "../components/now.ts";
 import { LIBRARY_PICTURES } from "../components/library-pictures.ts";
+import { PORTRAITS } from "../components/portraits.ts";
 import { warStrip } from "../components/war.ts";
 
 
@@ -231,7 +232,7 @@ function carthagePanel(g: GameState) {
   const men = (CARTHAGE.people as any[]).map((p) => {
     const st = c.people[p.id];
     const words = { free: "at home", command: "in command of the war", disgraced: "in disgrace", dead: "dead" }[st.status];
-    const face = LIBRARY_PICTURES[`face:${p.id}`];
+    const face = PORTRAITS[p.id]; // mosaic faces from ui/art/carthage-looks.json (invention)
     const img = face ? `<img class="cface${st.status === "dead" ? " dead" : ""}" src="${esc(face)}" alt="" width="44" height="44">` : "";
     return `<li>${img}<span>${esc(p.name)} <span class="small muted">(${esc(p.role)}; ${esc(words)}${p.kind === "history" ? "; real person" : "; invented"})</span></span></li>`;
   }).join("");
