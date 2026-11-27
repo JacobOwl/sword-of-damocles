@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Dolphin</title>
+<desc>Dolphins ring Arethusa on Syracuse's coins (sourced: docs/research/art-motifs.md).</desc>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M2.4 16 C3.6 10 9 5.8 14.8 6.2 C17.2 6.4 18.8 7.4 19.8 8.6 L22.6 9.2 L20.4 10.4 C21 12.4 20.4 14.2 19 15.6 L17.6 14 C17.2 11.6 15.6 10 13 10.2 C9.4 10.6 6.6 13.4 5.4 17.4 L7.8 20.8 L3.4 19.8 L1.4 22 L1.6 17.4 Z"/><path d="M10.4 7 L9.4 3.4 L13.6 6.2 Z M13.2 10.8 L12.4 14.6 L15.4 11.6 Z"/><circle class="cut" cx="18.2" cy="9.2" r="0.6"/>
+</svg>

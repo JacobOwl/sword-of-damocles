@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Battering ram</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M2.4 9.6 L12 3.2 L21.6 9.6 V16.8 H2.4 Z"/><path d="M5 10.8 H19 M5 13.6 H19" class="cut line" style="stroke-width:0.6"/><rect x="0.4" y="11.4" width="5" height="2.4"/><path d="M0.2 10.2 L2.2 12.6 L0.2 15 Z"/><circle cx="6.4" cy="19.4" r="2.6"/><circle cx="17.6" cy="19.4" r="2.6"/><circle class="cut" cx="6.4" cy="19.4" r="0.9"/><circle class="cut" cx="17.6" cy="19.4" r="0.9"/><circle cx="12" cy="19.4" r="2.6"/><circle class="cut" cx="12" cy="19.4" r="0.9"/>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 8" width="28" height="8">
+<title>Tesserae band (tile)</title>
+<desc>The tesserae band of ui/styles/art.css, drawn as a tile. Tiles left to right.</desc>
+<rect width="28" height="8" fill="#efe4c8"/><rect x="0" y="1" width="6" height="6" fill="#c8743a"/><rect x="7" y="1" width="6" height="6" fill="#1d1410"/><rect x="14" y="1" width="6" height="6" fill="#b8913a"/><rect x="21" y="1" width="6" height="6" fill="#1d1410"/>
+</svg>

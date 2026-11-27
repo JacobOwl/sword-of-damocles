@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>citadel (game icon)</title>
+<desc>Exported from ui/components/icons.ts.</desc>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M5 22.4 V9.6 H4.2 V5 H7.4 V7 H9.6 V5 H11 V3 H13 V5 H14.4 V7 H16.6 V5 H19.8 V9.6 H19 V22.4 Z"/>
+    <path d="M9.8 22.4 V17.4 C9.8 15.8 10.8 15 12 15 C13.2 15 14.2 15.8 14.2 17.4 V22.4 Z" class="cut"/>
+    <rect x="11.4" y="9.4" width="1.2" height="3" class="cut"/><rect x="7" y="11" width="1" height="2.4" class="cut"/><rect x="16" y="11" width="1" height="2.4" class="cut"/>
+</svg>

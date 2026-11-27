@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 140" width="360" height="140">
+<title>Tablet with handles (tabula ansata)</title>
+<desc>A label plaque with dovetail handles. The form is commonest in Roman times; use it as a generic plaque, not as a period piece for 400 BC.</desc>
+<path d="M60 14H300V126H60Z" fill="#e6d7b0" stroke="#2b1d12" stroke-width="1.6"/><path d="M60 14L14 40V100L60 126M300 14L346 40V100L300 126" fill="#e6d7b0" stroke="#2b1d12" stroke-width="1.6" stroke-linejoin="round"/><path d="M60 14V126M300 14V126" stroke="#2b1d12" stroke-width="1"/><rect x="70" y="24" width="220" height="92" fill="none" stroke="#7a5424" stroke-width="0.8"/><circle cx="34" cy="70" r="4" fill="#2b1d12"/><circle cx="326" cy="70" r="4" fill="#2b1d12"/>
+</svg>

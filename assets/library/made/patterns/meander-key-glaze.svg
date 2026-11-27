@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
+<title>Meander key on rails, glaze (tile)</title>
+<desc>The same tile as .meander in ui/styles/art.css: a key hooked on the lower rail. Colourway: clay on black glaze, to sit with the red-figure pictures. Tiles left to right.</desc>
+<rect width="12" height="12" fill="#1d1410"/><path d="M0 10.5H12M0 1.5H12M1 9V3.4H9V7.6H4.4V5.4H6.8" fill="none" stroke="#c8743a" stroke-width="1.1" stroke-linejoin="miter" stroke-linecap="butt"/>
+</svg>
