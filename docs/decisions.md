@@ -484,3 +484,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 ## 2026-11-26 (Duet prompts, thread 40)
 - **Done:** `docs/duet-prompts.md` holds two ready-to-paste prompts for Duet jobs Jacob picked: mosaic portraits for Carthage's council and the rising-cast people without a face, and a history brief for each of the six tyrant campaigns. Both deliver draft PRs and change no game code.
 - **Open:** the rising-cast sheet is still only on branch `claude/rising-cast`; PR #89 (art library) is open for Jacob's review.
+
+## 2026-11-27 (war and geopolitics focus: the council, thread 41)
+- **Done:** a five-seat council (historian, strategy designer, board-game designer, UI and map, player and story) on Jacob's first focus project. Proposal with seven questions and four build stages: `docs/council/2026-11-27-war-and-geopolitics.md`; statements in `docs/council/2026-11-27-war/`; card `docs/research/war-and-towns.md` (every quote opened in the saved texts).
+- **Decided (small, here):** treaties and battles from 392 and the 380s are used only as patterns for terms and battle, never as dated events in 405 to 395.
+- **Open (Jacob's):** the seven picks; a later-start test preset; naming the focus in `scope.md`. Nothing built.
