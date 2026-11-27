@@ -9,7 +9,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **The war's events:** peace envoys get the treaty, a victor's welcome the trophy.
 - **Waiting:** Dion, Aristides and Magon's son have looks but are not in the game yet (`docs/later.md`).
 - **Checks:** `npm test` 200 of 200; typecheck clean; 100 seeds: 0 crashes, 0 broken states, 17 tyrannies.
-- **Questions for Jacob (from Duet's notes, not changed):** Dionysius' cloak is Punic purple, Carthage's colour (cheap fix: blood red or gold); Theste's veil and Doris' hair bag are lilac; Daphnaeus and Demarchus have nearly the same face; Thearides is brown-haired beside two black-haired brothers.
+- **Looks fixed (Duet's notes, Jacob delegated the call):** Dionysius' cloak is gold, not Carthage's purple; Thearides has black hair like his brothers; Daphnaeus wears a general's helmet and Demarchus has white hair, so the two are told apart. Only those four pictures changed (the other 20 re-draw byte for byte). Still lilac, not changed: Theste's veil and Doris' hair bag.
 
 ## Playtest bot (2026-11-27)
 **Built, not merged.** Jacob: "Run the playtest bot". A headless bot, `npm run playtest` (`scripts/playtest.ts`, tables and charts in `scripts/playtest-report.ts`), plays every setup on main with seven kinds of player and a one-action sweep: 23,520 games in about 10 minutes on 4 cores, fixed seeds, every game replayed to check it comes out the same. Report: `docs/playtests/2026-11-27-playtest-bot/report.md`; tables: `results.md` beside it.
