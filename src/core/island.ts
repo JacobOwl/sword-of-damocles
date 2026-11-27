@@ -6,6 +6,7 @@ import carthageJson from "../../data/carthage.json" with { type: "json" };
 import commissionJson from "../../data/commission.json" with { type: "json" };
 import { traitById } from "./data.ts";
 import { HOOKS } from "./hooks.ts";
+import { carthageBlow } from "./returns.ts";
 import { on } from "./switches.ts";
 import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf, power, others } from "./state.ts";
@@ -424,6 +425,7 @@ export function destroy(s: GameState, a: Army, why: string) {
     if (g && g.status !== "dead") { g.status = "disgraced"; event(s, "carthage", `${g.name} comes home to Carthage in disgrace.`, "he lost his army"); } // a general who fell in the battle stays dead
     if (c.general === a.commander) c.general = undefined;
     clock(s, -2, "Carthage has lost an army and fears you");
+    carthageBlow(s, `the loss of ${g?.name ?? "its"}'s army`.replace("its's", "its")); // switch "carthageReturns"
   }
 }
 

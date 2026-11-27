@@ -5,7 +5,7 @@ import { on } from "./switches.ts";
 import { event, silver, grain, clock } from "./ops.ts";
 import {
   ISLAND, NODES, assault, assaultMods, assaultNeed, bloc, city, cityWalls, disband, friendly, march, menWords, muster, musterSize,
-  nodeName, path, reachable, sideName, yourArmy, carthageArmy, hostileTo, armyName, punicHeld,
+  nodeName, path, reachable, sideName, yourArmy, carthageArmy, hostileTo, armyName, punicHeld, CARTHAGE,
 } from "./island.ts";
 import { endWar, startWar } from "./carthage.ts";
 import { applyTerms, card, carthageAccepts, termsFor, termsText } from "./war.ts";
@@ -16,6 +16,8 @@ import type { Args, GameState, Mod } from "./types.ts";
 import { townHold, useHold, townLeader, SECRETS } from "./secrets.ts";
 import { afterScene, fightScene, pendingScene, GROUND } from "./scenes.ts";
 import { bindPart, bindTargets, envoyTargets, sendEnvoy, CONT } from "./contingents.ts";
+import { payMan, returnsState, sendHerald } from "./returns.ts";
+import { prefers } from "./carthage.ts";
 import { campaignCheck, commanderOptions, commissionOn, keeperOptions, musterNotes, startCampaign } from "./commission.ts";
 
 const R = ISLAND.rules;
@@ -229,6 +231,17 @@ export const ISLAND_IMPL: Record<string, Impl> = {
     target: (s) => envoyTargets(s),
     check: (s) => (!carthageArmy(s) ? "Carthage has no army in Sicily" : s.silver < CONT.knobs.envoyCost ? `needs ${CONT.knobs.envoyCost} silver` : null),
     run: (s, a) => sendEnvoy(s, a.target!),
+  },
+  // Switch "carthageReturns": tip Carthage's council before it debates.
+  sendHerald: {
+    target: () => [{ value: "demand", label: "A demand: give up the Greek towns, or war (Carthage's people lean to war)" }, { value: "terms", label: "Terms: peace, each keeps what it holds (Carthage's Elders lean to waiting)" }],
+    check: (s) => (returnsState(s)?.herald?.season === s.season ? "your herald is already on his way" : null),
+    run: (s, a) => sendHerald(s, a.target === "terms" ? "terms" : "demand"),
+  },
+  payMan: {
+    target: (s) => CARTHAGE.blocs.filter((b: any) => b.votes).map((b: any) => ({ value: b.id, label: `${capital(b.name)}: ${prefers(s, b.id).goal === "war" ? "now for war" : prefers(s, b.id).goal === "peace" ? "now for peace" : "now for waiting"}` })),
+    check: (s) => (s.silver < CARTHAGE.returns.payCost ? `needs ${CARTHAGE.returns.payCost} silver` : null),
+    run: (s, a) => payMan(s, a.target!),
   },
   offerPeace: {
     notes: (s) => (card(s) ? [`Your terms would be: ${termsText(termsFor(s, "syracuse"))}`] : []),
