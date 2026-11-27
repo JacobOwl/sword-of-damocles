@@ -2,6 +2,10 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Duet review and new jobs (thread 42, 2026-11-27)
+**Report and prompts only.** Duet's work checked (`docs/duet-review-2026-11-27.md`): research good, quotes verified, portraits usable, playtest bot found two bugs (a dead man keeps his seat while you're in exile; a dead man starts a plot), not fixed yet. Twelve new self-contained jobs in `docs/duet-prompts.md` (3 to 14).
+- **Questions for the next design session:** which Duet drafts to merge; who fixes the two bugs from #97.
+
 ## Fixes from the second test (thread 39, 2026-11-27)
 **Built.** Jacob: "Build all and have council decide on the rule changes" (the 30-item list from thread 38). All on in the Second island test preset; the test link is updated.
 - **Bugs (PR #90):** guard pay follows the men; open towns in their side's colour; marriage by sex (the form names the spouse and says the dowry is yours); she/her in the standing line; Aetna freed when the exiles come home; "Pay in land" needs Leontini as ally or yours; no raw role names ("FavouriteKin"); "that you blackmailed him".

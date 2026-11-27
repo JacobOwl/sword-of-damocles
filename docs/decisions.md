@@ -493,3 +493,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done:** a five-seat council (historian, strategy designer, board-game designer, UI and map, player and story) on Jacob's first focus project. Proposal with seven questions and four build stages: `docs/council/2026-11-27-war-and-geopolitics.md`; statements in `docs/council/2026-11-27-war/`; card `docs/research/war-and-towns.md` (every quote opened in the saved texts).
 - **Decided (small, here):** treaties and battles from 392 and the 380s are used only as patterns for terms and battle, never as dated events in 405 to 395.
 - **Open (Jacob's):** the seven picks; a later-start test preset; naming the focus in `scope.md`. Nothing built.
+
+## 2026-11-27 (Duet review and twelve new jobs, thread 42)
+- **Done:** reviewed Duet's PRs #84, #86, #95, #96, #97 (`docs/duet-review-2026-11-27.md`); wrote jobs 3 to 14 in `docs/duet-prompts.md`.
+- **Decided (small, here):** Duet jobs stay out of `src/`, `ui/`, `data/`, `tests/` and `package.json` while threads 39 and 41 build there; drafts go to `docs/drafts/`, the Godot trial to its own `godot/` folder. Each prompt carries its own rules so it can be pasted alone.
+- **Open (Jacob's):** which jobs to run, and whether to merge the drafts #86, #95, #96 and the bot #97.
