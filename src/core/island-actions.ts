@@ -8,6 +8,7 @@ import {
 } from "./island.ts";
 import { endWar, startWar } from "./carthage.ts";
 import { applyTerms, card, carthageAccepts, termsFor, termsText } from "./war.ts";
+import { TOWNS, courtHouse, courtHouseMods, courtableSeat, houseName, seatsOf } from "./towns.ts";
 import type { Args, GameState, Mod } from "./types.ts";
 import { townHold, useHold, townLeader, SECRETS } from "./secrets.ts";
 import { campaignCheck, commanderOptions, commissionOn, keeperOptions, musterNotes, startCampaign } from "./commission.ts";
@@ -163,6 +164,15 @@ export const ISLAND_IMPL: Record<string, Impl> = {
     },
   },
   // Switch "warFocus": you send envoys with the terms the war's ledger supports; Carthage takes them only if weary or losing.
+  // Switch "townBoards": court the highest house of a town that is not yet yours.
+  courtHouse: {
+    target: (s) => NODES.filter((n) => n.id !== "syracuse" && courtableSeat(s, n.id) >= 0 && !s.island!.armies.some((a) => a.siege === n.id))
+      .map((n) => ({ value: n.id, label: `${n.name}: ${houseName(s, seatsOf(s, n.id)[courtableSeat(s, n.id)])}` })),
+    check: (s) => (s.silver < TOWNS.knobs.courtCost ? `needs ${TOWNS.knobs.courtCost} silver` : null),
+    odds: (s, a) => courtHouseMods(s, a.target!),
+    need: TOWNS.knobs.courtNeed,
+    run: (s, a, ok) => courtHouse(s, a.target!, ok),
+  },
   offerPeace: {
     notes: (s) => (card(s) ? [`Your terms would be: ${termsText(termsFor(s, "syracuse"))}`] : []),
     check: (s) => (!s.island!.war ? "you are not at war" : !card(s) ? "not in this game" : s.flags.peaceOffered === s.season ? "your envoys are already on their way" : null),

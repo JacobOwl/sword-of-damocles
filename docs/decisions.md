@@ -526,3 +526,9 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small, here):** the bot drives the engine only through the browser's calls, each player has its own random stream, and every game is replayed from its inputs; the raw counts (about 1.7 MB) stay out of the repo, written only with `--json`.
 - **Open (Jacob's):** which of the report's fix ideas to build (the council seat in exile, the dead plotter, land petitions, Motya).
 
+
+## 2026-11-27 (war focus, stage 2: towns that choose, thread 41)
+
+- **Decided (Jacob's "Build it", council pick 2B):** town boards behind the switch `townBoards`, off by default, on in the Near-war test. Data `data/towns.json` (all invention), engine `src/core/towns.ts`.
+- **Done:** each town's three leading houses (from the census) lean to you, to Carthage or to the town alone, set up with no dice from the town's side and lean. Houses add or take away up to 2 on a town going over; a divided town (three ways) is easier for any army to win and sends no silver or men; an ally with no friend of yours sends nothing. A town that changes sides gets a friend of its new side; a town taken by arms gets the winner's friend at its head and drives out the loser's friends. News of your defeat lets outnumbered friends be driven out (14.88.5). A friend inside a town you besiege may offer a gate (the matter "A gate from inside", 14.15.1-2). New action Court a house; Carthage's courting also turns a house. The town sheet shows the houses, and its description now says when the town's side has changed since 405; an ally's sheet no longer tells you how to win it.
+- **Counted, not tuned (100 games, Near-war test, careful bot):** 0 crashes; about 4 house shifts, 0.5 purges, 0.1 gates and 2 withheld tributes a game; 0.3 towns divided at the end.

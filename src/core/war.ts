@@ -315,6 +315,10 @@ export function carthageAccepts(s: GameState): { ok: boolean; why: string } {
 // events.ts registers its fireNow here, so this module does not import the whole event engine (an import cycle).
 let fireHook: ((s: GameState, id: string, roles: Record<string, string>) => boolean) | null = null;
 export const setWarFire = (f: typeof fireHook) => { fireHook = f; };
+// Switch "townBoards": the same hook, with extra parts cast (events.ts fireBoard), for matters outside a war.
+let townsHook: ((s: GameState, id: string, roles: Record<string, string>, extra: Record<string, string>) => boolean) | null = null;
+export const setTownsFire = (f: typeof townsHook) => { townsHook = f; };
+export const fireTowns = (s: GameState, id: string, roles: Record<string, string>, extra: Record<string, string>) => townsHook?.(s, id, roles, extra) ?? false;
 
 function fireMatter(s: GameState, id: string, roles: Record<string, string>, force = false) {
   const c = card(s);

@@ -101,7 +101,7 @@ import islandEventsJson from "../../data/island-events.json" with { type: "json"
 import dinnersJson from "../../data/dinners.json" with { type: "json" };
 import exileJson from "../../data/exile.json" with { type: "json" };
 import boardJson from "../../data/board.json" with { type: "json" };
-import { setWarFire } from "./war.ts";
+import { setWarFire, setTownsFire } from "./war.ts";
 import { applyBoardEffect, describeBoardEffect, scoreBoardEffect, seatName } from "./board.ts";
 export const COURT_EVENTS = (eventsJson as any).events as EventDef[];
 export const ISLAND_EVENTS = ((islandEventsJson as any).events as EventDef[]).map((e) => ({ ...e, scenario: "island" as const }));
@@ -425,6 +425,8 @@ export function fireBoard(s: GameState, id: string, roles: Record<string, string
   fire(s, def, cast, def.why);
   return true;
 }
+
+setTownsFire(fireBoard); // switch "townBoards": a gate from inside
 
 // Switch "exile": in exile, only the follow-ups and the exile's own matters come before you.
 export function drawExileEvents(s: GameState) {
