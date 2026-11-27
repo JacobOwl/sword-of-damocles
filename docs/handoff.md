@@ -18,6 +18,11 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Third test overlap:** "Carthage that can pay" (`docs/playtests/2026-11-27-jacob/notes.md`) is not built; Jacob picks.
 - **Questions for Jacob:** after test 4, does a war read as a story? Is the plate worth its screen space? Should plague end Carthage's war (old rule) or only tire it (now)?
 
+## Duet's PRs merged and two bugs fixed (thread 42, 2026-11-27)
+**Built.** Merged #86, #95, #96, #97. Fixed the two bugs the playtest bot found: a dead man kept his council seat while you were in exile (`src/core/exile.ts` now refills seats each exile season), and a dead man could start a plot from an event answer (`src/core/events.ts`). Rerun of the two exile setups: no problems in 4,200 games.
+- **Changed for Jacob:** exile games with the council switch can replay differently from before.
+- **Questions for the next design session:** the portraits in #95 are drafts in `docs/drafts/portraits/`; which go into `ui/art/`?
+
 ## Duet review and new jobs (thread 42, 2026-11-27)
 **Report and prompts only.** Duet's work checked (`docs/duet-review-2026-11-27.md`): research good, quotes verified, portraits usable, playtest bot found two bugs (a dead man keeps his seat while you're in exile; a dead man starts a plot), not fixed yet. Twelve new self-contained jobs in `docs/duet-prompts.md` (3 to 14).
 - **Questions for the next design session:** which Duet drafts to merge; who fixes the two bugs from #97.
