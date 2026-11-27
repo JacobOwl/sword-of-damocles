@@ -201,7 +201,7 @@ export interface Army {
   onTake: "spare" | "sack";
 }
 export interface Bloc { id: string; power: number; mood: number }
-export interface CarthagePerson { id: string; name: string; status: "free" | "command" | "disgraced" | "dead" }
+export interface CarthagePerson { id: string; name: string; status: "free" | "command" | "disgraced" | "dead"; record?: { taken: number; won: number; lost: number } } // record: switch "warFocus"
 export interface CarthageState {
   blocs: Record<string, Bloc>;
   goal: string;
@@ -249,7 +249,7 @@ export interface Convoy {
 }
 export interface Contractor { id: string; runs: number; skimmed: number; short: number; sold: number; barred: boolean; audited: number }
 export interface ConvoyState { fleet: Convoy[]; done: Convoy[]; contractors: Record<string, Contractor>; caught: Record<string, number> } // caught: the season an army's convoy was last caught, by army id
-export interface IslandState { cities: Record<string, CityState>; armies: Army[]; war: boolean; warSince: number; carthage: CarthageState; sacks?: string[] } // sacks: the cities you sacked, in order
+export interface IslandState { cities: Record<string, CityState>; armies: Army[]; war: boolean; warSince: number; carthage: CarthageState; sacks?: string[]; warCard?: import("./war.ts").WarCard; pastWars?: import("./war.ts").PastWar[] } // sacks: the cities you sacked, in order
 
 export interface GameState {
   version: 1;
@@ -290,6 +290,7 @@ export interface GameState {
   events?: EventsState;
   scenario?: Scenario; // missing = citadel (Phase 1)
   preset?: string; // the ready-made setup it was started from (data/presets.json), if any
+  startSeason?: number; // a late opening (src/core/opening.ts): the season the game began at, if not the first
   island?: IslandState;
   census?: import("./census.ts").Census; // the generated cast of invented people (island games only)
   secrets?: SecretsState; // switch "secrets"

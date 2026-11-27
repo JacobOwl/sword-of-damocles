@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Merchant ship under sail</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M1.8 14.8 C4.8 19.6 19.2 19.6 22.4 14.2 L20.4 13.8 C16 16.2 8 16.4 3.6 14.4 Z"/><path d="M12 15.6 V2.8" class="line" style="stroke-width:1"/><path d="M5.4 4 H18.6" class="line" style="stroke-width:1"/><path d="M6 4.6 H18 C17.6 8 17.6 11 18 13.4 H6 C6.4 11 6.4 8 6 4.6 Z"/><path d="M9 5 V13 M12 5 V13 M15 5 V13" class="cut line" style="stroke-width:0.5"/><path d="M21.6 14.6 C22.8 12.2 22.4 10.4 21 9.8 C21.6 11.4 21.4 12.8 20.6 14 Z"/>
+</svg>

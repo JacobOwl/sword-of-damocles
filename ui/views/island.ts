@@ -2,7 +2,7 @@
 // It only reads the state; every rule is in src/core.
 import {
   CARTHAGE, ISLAND, NODES, ROUTES, armyName, blocDef, capital, carthageAgenda, cityGrain, cityMen, cityWalls, goalDef, menWords,
-  moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo,
+  moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo, warCard,
 } from "../../src/core/index.ts";
 import type { Handlers } from "../app/clicks.ts";
 import * as sound from "../lib/sound.ts";
@@ -10,6 +10,8 @@ import type { Army, GameState } from "../../src/core/index.ts";
 import { esc, linkNames, ui, who } from "../lib/text.ts";
 import * as A from "../components/island-art.ts";
 import { nowLine } from "../components/now.ts";
+import { LIBRARY_PICTURES } from "../components/library-pictures.ts";
+import { warStrip } from "../components/war.ts";
 
 
 const SIDE_COLOR: Record<string, string> = {
@@ -43,8 +45,12 @@ function mapSvg(g: GameState): string {
     const dir = a.side === "syracuse" ? 1 : -1;
     return A.armyMark(x + dir * 22, y - 20 - i * 4, { side: a.side, men: `${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k`, label: armyName(g, a), dir });
   }).join("");
+  // War focus: Carthage's hired men waiting at home, drawn on the sea lane, so a landing is never a surprise.
+  const wc = warCard(g);
+  const home = wc && isl.war && !isl.armies.some((a) => a.side === "carthage") && isl.carthage.mercs + isl.carthage.levy > 0
+    ? A.armyMark(34, A.Y(37.2) + 26, { side: "carthage", men: `${Math.round((isl.carthage.mercs + isl.carthage.levy) * ISLAND.rules.menPerPoint / 1000)}k`, label: wc.landingDue !== undefined ? "Carthage's army, ready to sail: it lands next season" : "Carthage's men, gathering at home", dir: 1 }) : "";
   return `<svg viewBox="0 0 ${A.W} ${A.H}" class="island-map" role="img" aria-label="Map of Sicily: ${NODES.map((n) => `${n.name}, ${sideName(isl.cities[n.id].side)}`).join("; ")}">
-    ${A.islandBase()}${roads}${A.toCarthage(A.Y(37.2))}${reach}${marks}${armies}
+    ${A.islandBase()}${roads}${A.toCarthage(A.Y(37.2))}${reach}${marks}${armies}${home}
   </svg>`;
 }
 
@@ -180,12 +186,14 @@ function carthagePanel(g: GameState) {
   const men = (CARTHAGE.people as any[]).map((p) => {
     const st = c.people[p.id];
     const words = { free: "at home", command: "in command of the war", disgraced: "in disgrace", dead: "dead" }[st.status];
-    return `<li>${esc(p.name)} <span class="small muted">(${esc(p.role)}; ${esc(words)}${p.kind === "history" ? "; real person" : "; invented"})</span></li>`;
+    const face = LIBRARY_PICTURES[`face:${p.id}`];
+    const img = face ? `<img class="cface${st.status === "dead" ? " dead" : ""}" src="${esc(face)}" alt="" width="44" height="44">` : "";
+    return `<li>${img}<span>${esc(p.name)} <span class="small muted">(${esc(p.role)}; ${esc(words)}${p.kind === "history" ? "; real person" : "; invented"})</span></span></li>`;
   }).join("");
   const plague = c.plagueUntil >= g.season ? `<p class="warn small">Plague is in Carthage.</p>` : "";
   const revolt = c.revolt ? `<p class="warn small">The Libyans are in revolt.</p>` : "";
   return `<div class="carthage">
-    <h2>Carthage</h2>
+    <div class="fhead"><h2>Carthage</h2><img class="ccoin" src="${esc(LIBRARY_PICTURES["coin:carthage"])}" alt="Carthage's coin: a horse, and a date palm" title="Carthage's first coins (about 410 to 390 BC) bore a horse and a date palm. The drawing is invention." width="48" height="48"></div>
     <p><span class="label">Its goal</span> <b>${esc(goal.name)}</b>. ${esc(goal.text)} <span class="small muted">Why: ${esc(c.goalWhy)}.</span></p>
     <p class="small">${g.island!.war ? `<span class="warn">At war with you since ${esc(seasonWord(g, g.island!.warSince))}.</span>` : "At peace with you."}
       Anger toward Syracuse ${g.clock} of 10. Its treasury holds ${c.silver} silver; at home it has ${c.mercs ? `${menWords(c.mercs)} hired` : "no hired men"} and ${c.levy ? `${menWords(c.levy)} in Libyan levies` : "no Libyan levies"}; ${c.ships} squadrons of ships.
@@ -194,7 +202,8 @@ function carthagePanel(g: GameState) {
     <h3>The council</h3><ul class="blocs">${blocs}</ul>
     <p class="small muted">The council picks the goal the most power wants. If the Elders are against it, the people's assembly decides (after Aristotle, who wrote two generations later).</p>
     <h3>What it does next, in order</h3><ol class="small">${next}</ol>
-    <h3>Its men</h3><ul class="small">${men}</ul>
+    <h3>Its men</h3><ul class="small cmen">${men}</ul>
+    <p class="small muted">Their faces are invention: no source shows them.</p>
   </div>`;
 }
 function seasonWord(g: GameState, n: number) {
@@ -206,7 +215,7 @@ export function islandView(g: GameState): string {
   const isl = g.island!;
   const armies = isl.armies.length ? `<ul>${isl.armies.map((a) => armyLine(g, a)).join("")}</ul>` : `<p class="muted small">No army is in the field.</p>`;
   const abroad = g.log.filter((e) => e.visible && e.season === g.season && (e.actor === "carthage" || /army|siege|Battle|march|gates|ally|tribute|Plague/i.test(e.text)) && e.kind !== "chronicle").slice(-12);
-  return `${nowLine(g)}<div class="island">
+  return `${nowLine(g)}${warStrip(g)}<div class="island">
     <div class="island-main">
       <h2>Sicily</h2>
       <figure class="mapfig">${mapSvg(g)}

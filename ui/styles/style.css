@@ -366,6 +366,12 @@ table.cities thead th { font-family: var(--display); font-weight: 400; color: va
 .carthage ul.blocs { list-style: none; padding: 0; margin: 4px 0 8px; }
 .carthage ul.blocs li { margin-bottom: 6px; }
 .carthage h3 { margin-top: 10px; }
+.carthage > .fhead { align-items: center; }
+.carthage ul.cmen { list-style: none; padding: 0; margin: 4px 0 4px; }
+.carthage ul.cmen li { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.carthage .cface { flex: none; width: 44px; height: 44px; }
+.carthage .cface.dead { filter: grayscale(1); opacity: .6; }
+.carthage .ccoin { flex: none; width: 48px; height: 48px; filter: drop-shadow(0 1px 1.5px rgba(43,29,18,.35)); }
 
 /* The island's invented families (ui/census.ts) */
 .census .census-card { cursor: default; }
@@ -446,3 +452,17 @@ table.cities tr.on { background: rgba(176, 140, 60, .12); }
 .steps span.next { outline: 1px solid var(--gold); }
 .foe { border-left: 3px solid var(--blood); padding-left: 10px; margin-bottom: 14px; } .foe .fhead { display: flex; gap: 10px; align-items: center; justify-content: flex-start; }
 .cbrief { margin: 4px 0 6px 1.1em; padding: 0; } .cbrief li { margin: 2px 0; } .cfull summary { cursor: pointer; color: var(--muted); }
+
+/* The war strip (war focus): one band, ruled top and bottom, no box walls. */
+.warstrip { margin: 6px 0 14px; padding: 8px 2px; border-top: 2px solid var(--blood); border-bottom: 1px solid var(--rule); }
+.warstrip .wartop { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.warstrip h3 { margin: 0; color: var(--blood); }
+.warstrip .warcols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 4px 18px; margin: 6px 0; }
+.warstrip .label { display: inline-block; min-width: 6.5em; color: var(--muted); font-size: .85em; }
+.warstrip .warturns { margin: 4px 0; padding-left: 1.1em; }
+.warstrip .warturns li.good::marker { color: var(--olive); }
+.warstrip .warturns li.warn::marker { color: var(--blood); }
+.wmarks { display: inline-flex; gap: 2px; vertical-align: middle; }
+.wmark { width: 7px; height: 11px; border: 1px solid var(--rule); background: transparent; }
+.wmark.on { background: var(--accent); border-color: var(--accent); }
+.wmark.line { margin-right: 4px; }

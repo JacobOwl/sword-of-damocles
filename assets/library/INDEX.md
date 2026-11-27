@@ -1,0 +1,434 @@
+# Art library index
+
+Every item in the library, grouped by kind. Built by tools/build-catalog.mjs from made/manifest.json and real/sources.json; do not edit by hand. 401 items. Search catalog.json for anything finer (README.md has examples).
+
+## Icons (108)
+
+- **Altar with fire**: [altar.svg](made/icons/new/altar.svg) (new). sacrifice, oath, gods, festival, suppliant
+- **Amphora**: [amphora.svg](made/icons/new/amphora.svg) (new). wine, oil, trade, store, jar
+- **Anchor**: [anchor.svg](made/icons/new/anchor.svg) (new). harbour, port, fleet, trade
+- **Staff of Asclepius**: [asclepius.svg](made/icons/new/asclepius.svg) (new). sickness, physician, plague, healing
+- **Voting urn**: [ballot.svg](made/icons/new/ballot.svg) (new). assembly, vote, election, trial, jury
+- **Battering ram**: [batteringram.svg](made/icons/new/batteringram.svg) (new). siege, gate, assault, walls
+- **Beacon tower**: [beacon.svg](made/icons/new/beacon.svg) (new). signal, warning, watch, news, invasion
+- **Almond blossom**: [blossom.svg](made/icons/new/blossom.svg) (new). spring, new year, hope, growth
+- **Bow and arrow**: [bow.svg](made/icons/new/bow.svg) (new). archers, cretans, skirmish, hunt
+- **Loaf of bread**: [bread.svg](made/icons/new/bread.svg) (new). food, grain, dole, famine
+- **Ox skull (bucranion)**: [bucranion.svg](made/icons/new/bucranion.svg) (new). cattle, sacrifice, herds, farm
+- **Bull (Gela)**: [bull.svg](made/icons/new/bull.svg) (new; Gela). gela, city, river god, coin type, cattle
+- **Arrow-shooting catapult**: [catapult.svg](made/icons/new/catapult.svg) (new; Syracuse, Motya). siege, artillery, engineers, motya, invention
+- **City walls**: [citywalls.svg](made/icons/new/citywalls.svg) (new; Syracuse, Epipolae). walls, fortification, epipolae, siege, defence
+- **Club of Herakles**: [club.svg](made/icons/new/club.svg) (new). herakles, strength, melqart, hero
+- **Cock (Himera)**: [cock.svg](made/icons/new/cock.svg) (new; Himera). himera, city, coin type, dawn
+- **Stack of coins**: [coinstack.svg](made/icons/new/coinstack.svg) (new). silver, treasury, pay, tribute, talents
+- **Crab (Akragas)**: [crab.svg](made/icons/new/crab.svg) (new; Akragas). akragas, agrigento, city, coin type
+- **Disc and crescent**: [crescentdisc.svg](made/icons/new/crescentdisc.svg) (new; Carthage). carthage, baal hammon, punic, moon, religion
+- **Diadem**: [diadem.svg](made/icons/new/diadem.svg) (new). kingship, tyranny, crown, agathokles, hieron
+- **Dolphin**: [dolphin.svg](made/icons/new/dolphin.svg) (new; Syracuse). syracuse, arethusa, sea, coin, mint
+- **Eagle**: [eagle.svg](made/icons/new/eagle.svg) (new; Akragas). zeus, akragas, omen, kingship, pyrrhus
+- **Ear**: [ear.svg](made/icons/new/ear.svg) (new; Syracuse). eavesdropping, informers, ear of dionysius, rumour, spies
+- **Fetters**: [fetters.svg](made/icons/new/fetters.svg) (new). prison, captives, slavery, arrest, punishment
+- **Tunny fish**: [fish.svg](made/icons/new/fish.svg) (new). fish, sea, food, trade
+- **Fountain**: [fountain.svg](made/icons/new/fountain.svg) (new; Syracuse, Ortygia). arethusa, spring, water, ortygia, siege
+- **assembly**: [assembly.svg](made/icons/game/assembly.svg) (game). office, citizens, vote, seat
+- **carthage**: [carthage.svg](made/icons/game/carthage.svg) (game; Carthage). enemy, punic, threat
+- **citadel**: [citadel.svg](made/icons/game/citadel.svg) (game; Syracuse, Ortygia). office, ortygia, fortress, seat
+- **city**: [city.svg](made/icons/game/city.svg) (game; Syracuse). area, syracuse, streets
+- **court**: [court.svg](made/icons/game/court.svg) (game). area, palace, family
+- **defense**: [defense.svg](made/icons/game/defense.svg) (game). resource, walls, safety
+- **embassy**: [embassy.svg](made/icons/game/embassy.svg) (game). area, diplomacy, envoys
+- **fleet**: [fleet.svg](made/icons/game/fleet.svg) (game). office, navy, warship, seat
+- **generalship**: [generalship.svg](made/icons/game/generalship.svg) (game). office, army, command, seat
+- **government**: [government.svg](made/icons/game/government.svg) (game). rule, state, council
+- **grain**: [grain.svg](made/icons/game/grain.svg) (game). citizens, faction, food, harvest
+- **guard**: [guard.svg](made/icons/game/guard.svg) (game). resource, bodyguard, mercenaries
+- **hearth**: [hearth.svg](made/icons/game/hearth.svg) (game). family, faction, household, home
+- **helmet**: [helmet.svg](made/icons/game/helmet.svg) (game). guard, mercenaries, faction, army
+- **horse**: [horse.svg](made/icons/game/horse.svg) (game). rich families, cavalry, faction, knights
+- **influence**: [influence.svg](made/icons/game/influence.svg) (game). resource, favour, standing
+- **land**: [land.svg](made/icons/game/land.svg) (game). resource, estates, farms
+- **lyre**: [lyre.svg](made/icons/game/lyre.svg) (game). poetry, music, dionysius the poet
+- **mint**: [mint.svg](made/icons/game/mint.svg) (game). office, coins, silver, seat
+- **mute**: [mute.svg](made/icons/game/mute.svg) (game). silence, sound off, ui
+- **palm**: [palm.svg](made/icons/game/palm.svg) (game; Carthage). carthage, punic, faction, enemy
+- **plot**: [plot.svg](made/icons/game/plot.svg) (game). intrigue, conspiracy, danger
+- **rival**: [rival.svg](made/icons/game/rival.svg) (game). rival, enemy, ambition
+- **scheming**: [scheming.svg](made/icons/game/scheming.svg) (game). area, plots, intrigue
+- **silver**: [silver.svg](made/icons/game/silver.svg) (game). resource, money
+- **spies**: [spies.svg](made/icons/game/spies.svg) (game). area, intrigue, secrets
+- **sword**: [sword.svg](made/icons/game/sword.svg) (game). ruler, dionysius, faction, power, war
+- **treasury**: [treasury.svg](made/icons/game/treasury.svg) (game). office, silver, money, seat
+- **war**: [war.svg](made/icons/game/war.svg) (game). area, army, campaign
+- **Bunch of grapes**: [grapes.svg](made/icons/new/grapes.svg) (new; Naxos). wine, vineyard, naxos, dionysos, feast
+- **Clasped hands**: [handshake.svg](made/icons/new/handshake.svg) (new). alliance, treaty, loyalty, oath, friendship, pact
+- **Hare (Messana)**: [hare.svg](made/icons/new/hare.svg) (new; Messana). messana, messina, city, coin type
+- **Hound (Segesta)**: [hound.svg](made/icons/new/hound.svg) (new; Segesta). segesta, elymians, city, coin type, hunt
+- **House**: [house.svg](made/icons/new/house.svg) (new). household, family, estate, confiscation, home
+- **Metal ingot**: [ingot.svg](made/icons/new/ingot.svg) (new). bronze, iron, arms, metal, trade
+- **Key**: [key.svg](made/icons/new/key.svg) (new). citadel, treasury, trust, keeper, gates
+- **Koppa (Corinth)**: [koppa.svg](made/icons/new/koppa.svg) (new; Syracuse, Corinth). corinth, mother city, timoleon, coin type, letter
+- **Lambda shield (Sparta)**: [lambda.svg](made/icons/new/lambda.svg) (new; Sparta). sparta, lacedaemon, ally, admiral, mercenaries
+- **Oil lamp**: [lamp.svg](made/icons/new/lamp.svg) (new). night, secret meeting, conspiracy, study, vigil
+- **Lion's face (Leontini, Rhegium)**: [lionmask.svg](made/icons/new/lionmask.svg) (new; Leontini, Rhegium). leontini, rhegium, city, coin type, lion, melqart
+- **Merchant ship under sail**: [merchantship.svg](made/icons/new/merchantship.svg) (new). trade, grain ship, exile, voyage, embassy
+- **Purse of silver**: [moneybag.svg](made/icons/new/moneybag.svg) (new). silver, bribe, pay, wealth, loan
+- **Moon and star**: [moon.svg](made/icons/new/moon.svg) (new). night, secret, omen, month, night attack
+- **Olive branch**: [olive.svg](made/icons/new/olive.svg) (new). oil, peace, farm, suppliant
+- **Owl**: [owl.svg](made/icons/new/owl.svg) (new; Athens). athena, athens, wisdom, night
+- **Olive leaf (petalism)**: [petal.svg](made/icons/new/petal.svg) (new; Syracuse). exile vote, petalism, banishment, assembly
+- **Storage jar (pithos)**: [pithos.svg](made/icons/new/pithos.svg) (new). granary, store, grain, jar, siege supplies
+- **Plough**: [plough.svg](made/icons/new/plough.svg) (new). farm, land, countryside, citizens, land grant
+- **Phial of poison**: [poison.svg](made/icons/new/poison.svg) (new). poison, murder, plot, physician, drugs
+- **Stone quarry**: [quarry.svg](made/icons/new/quarry.svg) (new; Syracuse). latomiae, ear of dionysius, prisoners, building stone, punishment
+- **Storm cloud and rain**: [rain.svg](made/icons/new/rain.svg) (new). winter, storm, bad sailing, flood
+- **Bronze ram**: [ram.svg](made/icons/new/ram.svg) (new). warship, naval battle, ramming
+- **Balance scales**: [scales.svg](made/icons/new/scales.svg) (new). justice, trade, weighing, fairness, market
+- **Papyrus roll**: [scroll.svg](made/icons/new/scroll.svg) (new). decree, law, letter, history, chronicle
+- **Wild celery leaf (Selinus)**: [selinon.svg](made/icons/new/selinon.svg) (new; Selinus). selinus, selinunte, city, coin type
+- **Sheaf of wheat**: [sheaf.svg](made/icons/new/sheaf.svg) (new). grain, harvest, tithe, demeter
+- **Shipsheds**: [shipsheds.svg](made/icons/new/shipsheds.svg) (new). dockyard, fleet, arsenal, harbour, building programme
+- **Sickle**: [sickle.svg](made/icons/new/sickle.svg) (new). harvest, summer, farm, reaping
+- **Siege tower**: [siegetower.svg](made/icons/new/siegetower.svg) (new; Motya). siege, motya, assault, engineers, walls
+- **Signet ring**: [signet.svg](made/icons/new/signet.svg) (new). seal, authority, letter, forgery, proof
+- **Sling and lead shot**: [sling.svg](made/icons/new/sling.svg) (new). slingers, balearic, skirmish, light troops
+- **Spear**: [spear.svg](made/icons/new/spear.svg) (new). hoplite, citizen levy, arms, war
+- **Grave stele**: [stele.svg](made/icons/new/stele.svg) (new). death, funeral, memory, ending, epitaph
+- **Stoa (market hall)**: [stoa.svg](made/icons/new/stoa.svg) (new). agora, market, trade, gossip, law court
+- **Sun**: [sun.svg](made/icons/new/sun.svg) (new). summer, drought, campaign season, day
+- **Swan (Kamarina)**: [swan.svg](made/icons/new/swan.svg) (new; Kamarina). kamarina, camarina, city, coin type, lake
+- **Wax tablet and stylus**: [tablet.svg](made/icons/new/tablet.svg) (new). secret note, letter, accounts, message, spy report
+- **Sign of Tanit**: [tanit.svg](made/icons/new/tanit.svg) (new; Carthage). carthage, tanit, punic, religion, council
+- **Temple**: [temple.svg](made/icons/new/temple.svg) (new; Syracuse). temple, athena, apollo, olympieion, sacrilege, dedication
+- **Camp tent**: [tent.svg](made/icons/new/tent.svg) (new). camp, army in the field, siege lines, plague
+- **Theatre**: [theatre.svg](made/icons/new/theatre.svg) (new). theatre, assembly in the theatre, festival, plays, crowd
+- **Throne**: [throne.svg](made/icons/new/throne.svg) (new). power, rule, court, audience
+- **Thunderbolt of Zeus**: [thunderbolt.svg](made/icons/new/thunderbolt.svg) (new). zeus, omen, storm, timoleon, liberation
+- **Timber**: [timber.svg](made/icons/new/timber.svg) (new; Etna). wood, ships, shipbuilding, etna, store
+- **Torch**: [torch.svg](made/icons/new/torch.svg) (new). wedding, demeter, night march, festival, arson
+- **Tragic mask**: [tragicmask.svg](made/icons/new/tragicmask.svg) (new). theatre, tragedy, dionysius the poet, festival, pretence
+- **Trident**: [trident.svg](made/icons/new/trident.svg) (new). poseidon, sea, storm, fleet, earthquake
+- **Tripod (oracle)**: [tripod.svg](made/icons/new/tripod.svg) (new; Delphi). delphi, oracle, apollo, prize, dedication
+- **Trireme**: [trireme.svg](made/icons/new/trireme.svg) (new). warship, fleet, navy, battle, ram
+- **Triskeles (Sicily)**: [triskeles.svg](made/icons/new/triskeles.svg) (new; Sicily). sicily, agathokles, island, coin type
+- **Trophy of captured arms**: [trophy.svg](made/icons/new/trophy.svg) (new). victory, battle won, agathokles, triumph
+- **Water clock**: [waterclock.svg](made/icons/new/waterclock.svg) (new). time, speeches, law court, deadline, trial
+
+## Icon sprite (1)
+
+- **Every icon as one SVG sprite**: [sprite.svg](made/icons/sprite.svg) (all). sprite, symbols, all icons
+
+## Event pictures (68)
+
+- **Arethusa and the dolphins**: [arethusa.svg](made/events/new/arethusa.svg) (new; Syracuse, Ortygia). arethusa, syracuse, coin, nymph, dolphins, ortygia
+- **Arrest**: [arrest.svg](made/events/new/arrest.svg) (new). arrest, guard, prison, captive, purge
+- **An audience with the ruler**: [audience.svg](made/events/new/audience.svg) (new). audience, petition, court, throne, favour
+- **The beacons are lit**: [beacon.svg](made/events/new/beacon.svg) (new). beacon, warning, invasion, news, signal
+- **Silver changes hands**: [bribe.svg](made/events/new/bribe.svg) (new). bribe, silver, corruption, pay, favour
+- **Captives**: [captives.svg](made/events/new/captives.svg) (new). captives, slavery, prisoners, after the sack
+- **Carthage's fleet sails**: [carthagefleet.svg](made/events/new/carthagefleet.svg) (new; Carthage). carthage, invasion, punic, fleet, himilcon
+- **The new catapult**: [catapult.svg](made/events/new/catapult.svg) (new; Syracuse, Motya). catapult, siege, engineers, invention, motya, artillery
+- **The sword on a hair**: [damocles.svg](made/events/new/damocles.svg) (new). damocles, sword, feast, danger, the title, tyranny
+- **The philosopher's visit**: [debate.svg](made/events/new/debate.svg) (new; Syracuse). philosopher, plato, debate, teaching, court
+- **A man denounced**: [denounced.svg](made/events/new/denounced.svg) (new). accusation, assembly, trial, enemy, speech
+- **Hoplites clash**: [duel.svg](made/events/new/duel.svg) (new). battle, hoplites, war, duel, citizen levy
+- **An eagle overhead**: [eagle.svg](made/events/new/eagle.svg) (new). omen, eagle, zeus, sign, kingship
+- **The listening quarry**: [eavesdrop.svg](made/events/new/eavesdrop.svg) (new; Syracuse). ear of dionysius, quarry, eavesdropping, spies, prisoners
+- **Into exile**: [exile.svg](made/events/new/exile.svg) (new). exile, banishment, voyage, flight, departure
+- **Empty stores**: [famine.svg](made/events/new/famine.svg) (new). famine, hunger, siege, grain, shortage
+- **amphora**: [amphora.svg](made/events/game/amphora.svg) (game). amphora
+- **arms**: [arms.svg](made/events/game/arms.svg) (game). arms
+- **assembly**: [assembly.svg](made/events/game/assembly.svg) (game). assembly
+- **camp**: [camp.svg](made/events/game/camp.svg) (game). camp
+- **coins**: [coins.svg](made/events/game/coins.svg) (game). coins
+- **dagger**: [dagger.svg](made/events/game/dagger.svg) (game). dagger
+- **dice**: [dice.svg](made/events/game/dice.svg) (game). dice
+- **feast**: [feast.svg](made/events/game/feast.svg) (game). feast
+- **fire**: [fire.svg](made/events/game/fire.svg) (game). fire
+- **gate**: [gate.svg](made/events/game/gate.svg) (game). gate
+- **grainship**: [grainship.svg](made/events/game/grainship.svg) (game). grainship
+- **harvest**: [harvest.svg](made/events/game/harvest.svg) (game). harvest
+- **hearth**: [hearth.svg](made/events/game/hearth.svg) (game). hearth
+- **herald**: [herald.svg](made/events/game/herald.svg) (game). herald
+- **hilltown**: [hilltown.svg](made/events/game/hilltown.svg) (game). hilltown
+- **horse**: [horse.svg](made/events/game/horse.svg) (game). horse
+- **letter**: [letter.svg](made/events/game/letter.svg) (game). letter
+- **lyre**: [lyre.svg](made/events/game/lyre.svg) (game). lyre
+- **mask**: [mask.svg](made/events/game/mask.svg) (game). mask
+- **omen**: [omen.svg](made/events/game/omen.svg) (game). omen
+- **palm**: [palm.svg](made/events/game/palm.svg) (game). palm
+- **sickness**: [sickness.svg](made/events/game/sickness.svg) (game). sickness
+- **siege**: [siege.svg](made/events/game/siege.svg) (game). siege
+- **storm**: [storm.svg](made/events/game/storm.svg) (game). storm
+- **tanit**: [tanit.svg](made/events/game/tanit.svg) (game). tanit
+- **temple**: [temple.svg](made/events/game/temple.svg) (game). temple
+- **walls**: [walls.svg](made/events/game/walls.svg) (game). walls
+- **warship**: [warship.svg](made/events/game/warship.svg) (game). warship
+- **wedding**: [wedding.svg](made/events/game/wedding.svg) (game). wedding
+- **The harbour**: [harbour.svg](made/events/new/harbour.svg) (new). harbour, port, anchor, trade, fleet
+- **Mourning at the grave**: [mourning.svg](made/events/new/mourning.svg) (new). death, funeral, mourning, grave, loss
+- **A letter by lamplight**: [nightletter.svg](made/events/new/nightletter.svg) (new). letter, night, secret, conspiracy, message
+- **An oath at the altar**: [oath.svg](made/events/new/oath.svg) (new). oath, altar, gods, loyalty, sacrifice
+- **Asking the oracle**: [oracle.svg](made/events/new/oracle.svg) (new; Delphi). oracle, delphi, omen, prophecy, apollo
+- **Voting on olive leaves**: [petalism.svg](made/events/new/petalism.svg) (new; Syracuse). petalism, exile vote, assembly, banishment, vote
+- **Poison**: [poison.svg](made/events/new/poison.svg) (new). poison, murder, plot, physician
+- **Sacrifice**: [sacrifice.svg](made/events/new/sacrifice.svg) (new). sacrifice, altar, festival, gods, cattle
+- **Weighing the silver**: [scales.svg](made/events/new/scales.svg) (new). treasury, silver, tribute, accounts, trade
+- **Warships meet**: [seabattle.svg](made/events/new/seabattle.svg) (new; Catana). naval battle, fleet, trireme, catana, ramming
+- **Building the fleet**: [shipyard.svg](made/events/new/shipyard.svg) (new). shipyard, fleet, building programme, timber, shipsheds
+- **Siege tower at the walls**: [siegetower.svg](made/events/new/siegetower.svg) (new; Motya). siege, motya, assault, tower, walls
+- **Spring flowers**: [spring.svg](made/events/new/spring.svg) (new). spring, season, new year, hope
+- **High summer**: [summer.svg](made/events/new/summer.svg) (new). summer, season, drought, campaign season
+- **A day at the theatre**: [theatre.svg](made/events/new/theatre.svg) (new). theatre, plays, tragedy, festival, crowd, poetry
+- **By torchlight**: [torchlight.svg](made/events/new/torchlight.svg) (new). night, procession, festival, demeter, march
+- **Envoys agree**: [treaty.svg](made/events/new/treaty.svg) (new). treaty, embassy, envoys, peace, alliance
+- **Speaking against the water clock**: [trial.svg](made/events/new/trial.svg) (new). trial, law court, jury, speech, deadline
+- **The three legs of Sicily**: [triskeles.svg](made/events/new/triskeles.svg) (new; Sicily). sicily, island, emblem, triskeles
+- **A trophy on the field**: [trophy.svg](made/events/new/trophy.svg) (new). victory, battle won, trophy, triumph
+- **The vintage**: [vintage.svg](made/events/new/vintage.svg) (new). autumn, season, wine, harvest, vineyard
+- **A word in the ear**: [whisper.svg](made/events/new/whisper.svg) (new). informer, rumour, spies, secret, intrigue
+- **Winter storms**: [winter.svg](made/events/new/winter.svg) (new). winter, season, storm, no sailing
+
+## Coins, tokens and seals (34)
+
+- **Akragas coin, crab**: [akragas-crab.svg](made/coins/akragas-crab.svg) (Akragas). akragas, coin, silver, crab, greek city
+- **Akragas coin, eagle**: [akragas-eagle.svg](made/coins/akragas-eagle.svg) (Akragas). akragas, coin, silver, eagle, greek city
+- **Blank bronze coin**: [blank-bronze.svg](made/coins/blank-bronze.svg). blank, counter, ui, bronze
+- **Blank gold coin**: [blank-gold.svg](made/coins/blank-gold.svg). blank, counter, ui, gold
+- **Blank lead coin**: [blank-lead.svg](made/coins/blank-lead.svg). blank, counter, ui, lead
+- **Blank silver coin**: [blank-silver.svg](made/coins/blank-silver.svg). blank, counter, ui, silver
+- **Carthage (Siculo-Punic) coin, horse**: [carthage-horse.svg](made/coins/carthage-horse.svg) (Carthage, Sicily). carthage, coin, silver, horse, punic
+- **Carthage (Siculo-Punic) coin, palm**: [carthage-palm.svg](made/coins/carthage-palm.svg) (Carthage, Sicily). carthage, coin, silver, palm, punic
+- **Corinth coin, koppa**: [corinth-koppa.svg](made/coins/corinth-koppa.svg) (Corinth). corinth, coin, silver, koppa, greek city
+- **Gela coin, bull**: [gela-bull.svg](made/coins/gela-bull.svg) (Gela). gela, coin, silver, bull, greek city
+- **Himera coin, cock**: [himera-cock.svg](made/coins/himera-cock.svg) (Himera). himera, coin, silver, cock, greek city
+- **Kamarina coin, swan**: [kamarina-swan.svg](made/coins/kamarina-swan.svg) (Kamarina). kamarina, coin, silver, swan, greek city
+- **Leontini coin, lionmask**: [leontini-lion.svg](made/coins/leontini-lion.svg) (Leontini). leontini, coin, silver, lionmask, greek city
+- **Messana coin, hare**: [messana-hare.svg](made/coins/messana-hare.svg) (Messana). messana, coin, silver, hare, greek city
+- **Naxos coin, grapes**: [naxos-grapes.svg](made/coins/naxos-grapes.svg) (Naxos). naxos, coin, silver, grapes, greek city
+- **Rhegium coin, lionmask**: [rhegium-lion.svg](made/coins/rhegium-lion.svg) (Rhegium). rhegium, coin, silver, lionmask, greek city
+- **Lead seal of the assembly**: [seal-assembly.svg](made/coins/seal-assembly.svg). seal, office, assembly, order, letter
+- **Lead seal of the citadel**: [seal-citadel.svg](made/coins/seal-citadel.svg). seal, office, citadel, order, letter
+- **Lead seal of the fleet**: [seal-fleet.svg](made/coins/seal-fleet.svg). seal, office, fleet, order, letter
+- **Lead seal of the generalship**: [seal-generalship.svg](made/coins/seal-generalship.svg). seal, office, generalship, order, letter
+- **Lead seal of the mint**: [seal-mint.svg](made/coins/seal-mint.svg). seal, office, mint, order, letter
+- **Lead seal of the treasury**: [seal-treasury.svg](made/coins/seal-treasury.svg). seal, office, treasury, order, letter
+- **Segesta coin, hound**: [segesta-hound.svg](made/coins/segesta-hound.svg) (Segesta). segesta, coin, silver, hound, greek city
+- **Selinus coin, selinon**: [selinus-leaf.svg](made/coins/selinus-leaf.svg) (Selinus). selinus, coin, silver, selinon, greek city
+- **Sicily coin, triskeles**: [sicily-triskeles.svg](made/coins/sicily-triskeles.svg) (Sicily). sicily, coin, silver, triskeles, greek city
+- **Syracuse tetradrachm, Arethusa and dolphins**: [syracuse-arethusa.svg](made/coins/syracuse-arethusa.svg) (Syracuse, Ortygia). syracuse, arethusa, coin, silver, dolphins, ortygia
+- **Syracuse (bronze) coin, dolphin**: [syracuse-dolphin.svg](made/coins/syracuse-dolphin.svg) (Syracuse). syracuse, coin, bronze, dolphin, greek city
+- **Syracuse (bronze) coin, trident**: [syracuse-trident.svg](made/coins/syracuse-trident.svg) (Syracuse). syracuse, coin, bronze, trident, greek city
+- **Faction token: Carthage**: [token-carthage.svg](made/coins/token-carthage.svg) (Carthage). faction, carthage, token, badge
+- **Faction token: the citizens**: [token-citizens.svg](made/coins/token-citizens.svg). faction, citizens, token, badge
+- **Faction token: the family**: [token-family.svg](made/coins/token-family.svg). faction, family, token, badge
+- **Faction token: the guard**: [token-guard.svg](made/coins/token-guard.svg). faction, guard, token, badge
+- **Faction token: the rich families**: [token-rich.svg](made/coins/token-rich.svg). faction, rich, token, badge
+- **Faction token: the ruler**: [token-ruler.svg](made/coins/token-ruler.svg). faction, ruler, token, badge
+
+## Cast medallions (23)
+
+- **Andron (medallion)**: [andron.svg](made/medallions/andron.svg). andron, family, portrait, cast, real person, has game portrait
+- **Archylus of Thurii (medallion)**: [archylus.svg](made/medallions/archylus.svg). archylus of thurii, guard, portrait, cast, real person, has game portrait
+- **Aristides of Locri (medallion)**: [aristides.svg](made/medallions/aristides.svg) (Locri). aristides of locri, rich, portrait, cast, real person, no game portrait
+- **Aristomache (medallion)**: [aristomache.svg](made/medallions/aristomache.svg). aristomache, rich, portrait, cast, real person, has game portrait
+- **Aristotle the Spartan (medallion)**: [aristotle.svg](made/medallions/aristotle.svg). aristotle the spartan, guard, portrait, cast, real person, has game portrait
+- **Biton of Syracuse (medallion)**: [biton.svg](made/medallions/biton.svg) (Syracuse). biton of syracuse, guard, portrait, cast, real person, has game portrait
+- **Bomilcar (medallion)**: [bomilcar.svg](made/medallions/bomilcar.svg) (Carthage). bomilcar, carthage, portrait, cast, invented person, no game portrait
+- **Damon the smith (medallion)**: [damon.svg](made/medallions/damon.svg). damon the smith, citizens, portrait, cast, invented person, has game portrait
+- **Dion (medallion)**: [dion.svg](made/medallions/dion.svg). dion, rich, portrait, cast, real person, no game portrait
+- **Dionysius I (medallion)**: [dionysius.svg](made/medallions/dionysius.svg). dionysius i, ruler, portrait, cast, real person, has game portrait
+- **Doris of Locri (medallion)**: [doris.svg](made/medallions/doris.svg) (Locri). doris of locri, family, portrait, cast, real person, has game portrait
+- **Hanno the elder (medallion)**: [hanno.svg](made/medallions/hanno.svg) (Carthage). hanno the elder, carthage, portrait, cast, invented person, no game portrait
+- **Heloris (medallion)**: [heloris.svg](made/medallions/heloris.svg). heloris, family, portrait, cast, real person, has game portrait
+- **Himilcon (medallion)**: [himilcon.svg](made/medallions/himilcon.svg) (Carthage). himilcon, carthage, portrait, cast, real person, no game portrait
+- **Hipparinus (medallion)**: [hipparinus.svg](made/medallions/hipparinus.svg). hipparinus, rich, portrait, cast, real person, has game portrait
+- **Leptines (medallion)**: [leptines.svg](made/medallions/leptines.svg). leptines, family, portrait, cast, real person, has game portrait
+- **Magon (medallion)**: [magon.svg](made/medallions/magon.svg) (Carthage). magon, carthage, portrait, cast, real person, no game portrait
+- **Magon's son (medallion)**: [magon-son.svg](made/medallions/magon-son.svg) (Carthage). magon's son, carthage, portrait, cast, real person, no game portrait
+- **Nicoteles the Corinthian (medallion)**: [nicoteles.svg](made/medallions/nicoteles.svg). nicoteles the corinthian, citizens, portrait, cast, real person, has game portrait
+- **Philistus (medallion)**: [philistus.svg](made/medallions/philistus.svg). philistus, rich, portrait, cast, real person, has game portrait
+- **Polyxenus (medallion)**: [polyxenus.svg](made/medallions/polyxenus.svg). polyxenus, family, portrait, cast, real person, has game portrait
+- **Thearides (medallion)**: [thearides.svg](made/medallions/thearides.svg). thearides, family, portrait, cast, real person, has game portrait
+- **Theodorus (medallion)**: [theodorus.svg](made/medallions/theodorus.svg). theodorus, rich, portrait, cast, real person, has game portrait
+
+## Maps (10)
+
+- **The central Mediterranean**: [central-mediterranean.svg](made/maps/central-mediterranean.svg) (Carthage, Sicily, Italy). mediterranean, carthage, italy, sicily, africa, overview, sea lanes
+- **The central Mediterranean (blank base map)**: [central-mediterranean-blank.svg](made/maps/central-mediterranean-blank.svg) (Mediterranean). base map, blank, no labels, central-mediterranean
+- **The Greek cities of Italy**: [magna-graecia.svg](made/maps/magna-graecia.svg) (Rhegium, Locri, Croton). italy, magna graecia, locri, rhegium, croton, heloris, doris of locri
+- **The Mediterranean**: [mediterranean.svg](made/maps/mediterranean.svg) (Syracuse, Carthage, Corinth). mediterranean, overview, corinth, sparta, tyre, carthage, world map
+- **The Mediterranean (blank base map)**: [mediterranean-blank.svg](made/maps/mediterranean-blank.svg) (Mediterranean). base map, blank, no labels, mediterranean
+- **Sicily in 405 BC: who held what (the game's island)**: [sicily-405-sides.svg](made/maps/sicily-405-sides.svg) (Carthage, Sicily). sicily, 405 bc, sides, carthage, roads, island scenario, game
+- **Sicily (blank base map)**: [sicily-blank.svg](made/maps/sicily-blank.svg) (Sicily). base map, blank, no labels, sicily
+- **Sicily: the ancient sites**: [sicily-sites.svg](made/maps/sicily-sites.svg) (Sicily). sicily, island, cities, sites, pleiades, overview
+- **Syracuse: Ortygia, the harbours and Epipolae**: [syracuse.svg](made/maps/syracuse.svg) (Syracuse, Ortygia, Epipolae). syracuse, ortygia, epipolae, euryalus, great harbour, city plan, walls
+- **The Punic west of Sicily**: [west-sicily.svg](made/maps/west-sicily.svg) (Carthage, Motya, Segesta). sicily, carthage, punic, motya, lilybaeum, eryx, segesta, panormus
+
+## Frames, dividers and ornament (31)
+
+- **Plain cartouche**: [cartouche-plain.svg](made/ornament/cartouche-plain.svg). cartouche, label, plaque, title, map
+- **Tablet with handles (tabula ansata)**: [cartouche-tabula-ansata.svg](made/ornament/cartouche-tabula-ansata.svg). cartouche, label, plaque, inscription, title
+- **Compass rose**: [compass-rose.svg](made/ornament/compass-rose.svg). compass, map, north, wind rose
+- **Corner: bracket**: [corner-bracket.svg](made/ornament/corner-bracket.svg). corner, bracket, frame, catalogue
+- **Corner: meander**: [corner-meander.svg](made/ornament/corner-meander.svg). corner, meander, frame, border
+- **Corner: palmette**: [corner-palmette.svg](made/ornament/corner-palmette.svg). corner, palmette, frame, border
+- **Corner: tesserae**: [corner-tesserae.svg](made/ornament/corner-tesserae.svg). corner, tesserae, mosaic, frame
+- **Divider: three dots**: [divider-dots.svg](made/ornament/divider-dots.svg). divider, dots, asterism, section break, simple
+- **Divider: ivy**: [divider-ivy.svg](made/ornament/divider-ivy.svg). divider, ivy, dionysus, symposium, rule
+- **Divider: laurel**: [divider-laurel.svg](made/ornament/divider-laurel.svg). divider, laurel, victory, triumph, rule
+- **Divider: short meander**: [divider-meander.svg](made/ornament/divider-meander.svg). divider, meander, rule, short
+- **Divider: sword on a hair**: [divider-sword-on-hair.svg](made/ornament/divider-sword-on-hair.svg). divider, rule, sword, damocles, danger, game, section break
+- **Divider: tesserae**: [divider-tesserae.svg](made/ornament/divider-tesserae.svg). divider, tesserae, mosaic, rule, game
+- **Divider: wave**: [divider-wave.svg](made/ornament/divider-wave.svg). divider, wave, sea, rule
+- **Fleuron: ivy leaf**: [fleuron-hedera.svg](made/ornament/fleuron-hedera.svg). fleuron, ivy, hedera, divider, section break
+- **Fleuron: three dots**: [fleuron-interpunct.svg](made/ornament/fleuron-interpunct.svg). fleuron, interpunct, punctuation, inscription, divider
+- **Fleuron: lotus**: [fleuron-lotus.svg](made/ornament/fleuron-lotus.svg). fleuron, lotus, flower, egypt, punic
+- **Fleuron: palmette**: [fleuron-palmette.svg](made/ornament/fleuron-palmette.svg). fleuron, palmette, divider, ornament
+- **Fleuron: rosette**: [fleuron-rosette.svg](made/ornament/fleuron-rosette.svg). fleuron, rosette, flower, divider
+- **Fleuron: sword on a hair**: [fleuron-sword.svg](made/ornament/fleuron-sword.svg). fleuron, sword, damocles, danger, game, section break
+- **Catalogue card frame**: [frame-catalogue-card.svg](made/ornament/frame-catalogue-card.svg). frame, card, catalogue, panel, title band
+- **Drop-cap box**: [frame-dropcap.svg](made/ornament/frame-dropcap.svg). frame, drop cap, initial, chronicle, book
+- **Inscription block**: [frame-inscription.svg](made/ornament/frame-inscription.svg). frame, inscription, stone, decree, title, law, public notice
+- **Meander frame**: [frame-meander.svg](made/ornament/frame-meander.svg). frame, meander, greek key, border, panel
+- **Papyrus roll, open**: [frame-scroll.svg](made/ornament/frame-scroll.svg). frame, scroll, papyrus, book, history, chronicle, philistus, quotation
+- **Greek grave stele**: [frame-stele-greek.svg](made/ornament/frame-stele-greek.svg). frame, stele, grave, memorial, death, epitaph
+- **Punic votive stele**: [frame-stele-punic.svg](made/ornament/frame-stele-punic.svg) (Carthage, Motya). frame, stele, punic, carthage, tanit, votive, motya
+- **Tesserae frame**: [frame-tesserae.svg](made/ornament/frame-tesserae.svg). frame, tesserae, mosaic, big moments, season, ending
+- **Empty tondo**: [frame-tondo-empty.svg](made/ornament/frame-tondo-empty.svg). frame, tondo, red figure, event, blank
+- **Wax tablet, open**: [frame-wax-tablet.svg](made/ornament/frame-wax-tablet.svg). frame, letter, tablet, wax, writing, denunciation, secret, stylus
+- **Victor's ribbon**: [ribbon-taenia.svg](made/ornament/ribbon-taenia.svg). ribbon, taenia, victory, games, banner, title
+
+## Patterns (tiles) (45)
+
+- **Bead and reel, bronze**: [bead-and-reel-bronze.svg](made/patterns/bead-and-reel-bronze.svg). bead and reel, astragal, moulding, border, thin, bronze
+- **Bead and reel, glaze**: [bead-and-reel-glaze.svg](made/patterns/bead-and-reel-glaze.svg). bead and reel, astragal, moulding, border, thin, glaze
+- **Chequer band, bronze**: [checker-bronze.svg](made/patterns/checker-bronze.svg). chequer, checkerboard, geometric, border, bronze
+- **Chequer band, glaze**: [checker-glaze.svg](made/patterns/checker-glaze.svg). chequer, checkerboard, geometric, border, glaze
+- **Dentils, bronze**: [dentils-bronze.svg](made/patterns/dentils-bronze.svg). dentils, cornice, architecture, temple, border, bronze
+- **Dentils, glaze**: [dentils-glaze.svg](made/patterns/dentils-glaze.svg). dentils, cornice, architecture, temple, border, glaze
+- **Egg and dart, bronze**: [egg-and-dart-bronze.svg](made/patterns/egg-and-dart-bronze.svg). egg and dart, ionic, moulding, border, architecture, bronze
+- **Egg and dart, glaze**: [egg-and-dart-glaze.svg](made/patterns/egg-and-dart-glaze.svg). egg and dart, ionic, moulding, border, architecture, glaze
+- **Egg and dart, ink**: [egg-and-dart-ink.svg](made/patterns/egg-and-dart-ink.svg). egg and dart, ionic, moulding, border, architecture, ink
+- **Guilloche, bronze**: [guilloche-bronze.svg](made/patterns/guilloche-bronze.svg). guilloche, twist, plait, border, mosaic, bronze
+- **Guilloche, glaze**: [guilloche-glaze.svg](made/patterns/guilloche-glaze.svg). guilloche, twist, plait, border, mosaic, glaze
+- **Ivy band, bronze**: [ivy-bronze.svg](made/patterns/ivy-bronze.svg). ivy, dionysus, wine, symposium, border, game, bronze
+- **Ivy band, glaze**: [ivy-glaze.svg](made/patterns/ivy-glaze.svg). ivy, dionysus, wine, symposium, border, game, glaze
+- **Laurel band, bronze**: [laurel-bronze.svg](made/patterns/laurel-bronze.svg). laurel, wreath, victory, apollo, border, bronze
+- **Laurel band, glaze**: [laurel-glaze.svg](made/patterns/laurel-glaze.svg). laurel, wreath, victory, apollo, border, glaze
+- **Laurel band, ink**: [laurel-ink.svg](made/patterns/laurel-ink.svg). laurel, wreath, victory, apollo, border, ink
+- **Deep meander hooks, bronze**: [meander-deep-bronze.svg](made/patterns/meander-deep-bronze.svg). meander, greek key, border, wide, bronze
+- **Deep meander hooks, glaze**: [meander-deep-glaze.svg](made/patterns/meander-deep-glaze.svg). meander, greek key, border, wide, glaze
+- **Meander key on rails, bronze**: [meander-key-bronze.svg](made/patterns/meander-key-bronze.svg). meander, greek key, border, rule, game, bronze
+- **Meander key on rails, glaze**: [meander-key-glaze.svg](made/patterns/meander-key-glaze.svg). meander, greek key, border, rule, game, glaze
+- **Running meander, bronze**: [meander-running-bronze.svg](made/patterns/meander-running-bronze.svg). meander, greek key, border, continuous, bronze
+- **Running meander, glaze**: [meander-running-glaze.svg](made/patterns/meander-running-glaze.svg). meander, greek key, border, continuous, glaze
+- **Running meander, ink**: [meander-running-ink.svg](made/patterns/meander-running-ink.svg). meander, greek key, border, continuous, ink
+- **Palmette and lotus, bronze**: [palmette-lotus-bronze.svg](made/patterns/palmette-lotus-bronze.svg). palmette, lotus, anthemion, border, vase, bronze
+- **Palmette and lotus, glaze**: [palmette-lotus-glaze.svg](made/patterns/palmette-lotus-glaze.svg). palmette, lotus, anthemion, border, vase, glaze
+- **Pebble mosaic field**: [pebble-field.svg](made/patterns/pebble-field.svg). pebbles, mosaic, field, background, floor, dark, colour
+- **Rays, bronze**: [rays-bronze.svg](made/patterns/rays-bronze.svg). rays, black figure, vase foot, border, triangles, bronze
+- **Rays, glaze**: [rays-glaze.svg](made/patterns/rays-glaze.svg). rays, black figure, vase foot, border, triangles, glaze
+- **Dot rosettes, bronze**: [rosettes-bronze.svg](made/patterns/rosettes-bronze.svg). rosette, dots, field, background, textile, bronze
+- **Dot rosettes, glaze**: [rosettes-glaze.svg](made/patterns/rosettes-glaze.svg). rosette, dots, field, background, textile, glaze
+- **Scales, bronze**: [scales-bronze.svg](made/patterns/scales-bronze.svg). scales, imbrication, armour, field, background, bronze
+- **Scales, glaze**: [scales-glaze.svg](made/patterns/scales-glaze.svg). scales, imbrication, armour, field, background, glaze
+- **Scales, ink**: [scales-ink.svg](made/patterns/scales-ink.svg). scales, imbrication, armour, field, background, ink
+- **Sea ripples, bronze**: [sea-bronze.svg](made/patterns/sea-bronze.svg). sea, water, waves, map, field, background, bronze
+- **Sea ripples, glaze**: [sea-glaze.svg](made/patterns/sea-glaze.svg). sea, water, waves, map, field, background, glaze
+- **Sea ripples, ink**: [sea-ink.svg](made/patterns/sea-ink.svg). sea, water, waves, map, field, background, ink
+- **Tesserae band**: [tesserae-band.svg](made/patterns/tesserae-band.svg). tesserae, mosaic, border, big moments, game, colour
+- **Tesserae band on glaze**: [tesserae-band-glaze.svg](made/patterns/tesserae-band-glaze.svg). tesserae, mosaic, border, dark, colour
+- **Tesserae field**: [tesserae-field.svg](made/patterns/tesserae-field.svg). tesserae, mosaic, field, background, floor, colour
+- **Tongues, bronze**: [tongues-bronze.svg](made/patterns/tongues-bronze.svg). tongues, vase shoulder, border, black figure, bronze
+- **Tongues, glaze**: [tongues-glaze.svg](made/patterns/tongues-glaze.svg). tongues, vase shoulder, border, black figure, glaze
+- **Running wave, bronze**: [wave-bronze.svg](made/patterns/wave-bronze.svg). wave, running dog, vitruvian scroll, sea, border, bronze
+- **Running wave, glaze**: [wave-glaze.svg](made/patterns/wave-glaze.svg). wave, running dog, vitruvian scroll, sea, border, glaze
+- **Zigzag, bronze**: [zigzag-bronze.svg](made/patterns/zigzag-bronze.svg). zigzag, chevron, geometric, border, simple, bronze
+- **Zigzag, glaze**: [zigzag-glaze.svg](made/patterns/zigzag-glaze.svg). zigzag, chevron, geometric, border, simple, glaze
+
+## Textures (tiles) (8)
+
+- **Bronze with verdigris**: [bronze.png](made/textures/bronze.png). bronze, metal, verdigris, patina, armour, background
+- **Black glaze**: [glaze.png](made/textures/glaze.png). glaze, pottery, black, red figure, background, dark
+- **Limestone**: [limestone.png](made/textures/limestone.png) (Syracuse, Epipolae). limestone, stone, walls, quarry, epipolae, background
+- **Marble**: [marble.png](made/textures/marble.png). marble, stone, temple, statue, background, white
+- **Papyrus**: [papyrus.png](made/textures/papyrus.png). papyrus, scroll, book, background, fibres
+- **Parchment**: [parchment.png](made/textures/parchment.png). parchment, page, paper, background, game
+- **Sea wash**: [sea-wash.png](made/textures/sea-wash.png). sea, water, map, background, pale
+- **Terracotta**: [terracotta.png](made/textures/terracotta.png). terracotta, clay, pottery, tile, background, warm
+
+## Real art (73)
+
+- **Terracotta from Puig des Molins, Ibiza**: [africa-ibiza-tanit-terracotta.jpg](real/images/africa-ibiza-tanit-terracotta.jpg) (Public domain; Africa, Spain). punic west, ibiza, tanit, terracotta
+- **Coin of Massinissa (CNG)**: [africa-massinissa-coin.jpg](real/images/africa-massinissa-coin.jpg) (Public domain; Africa). punic west, massinissa
+- **Aristotle, Palazzo Altemps (Roman copy after Lysippos)**: [aristotle.jpg](real/images/aristotle.jpg) (Public domain). aristotle
+- **Ships of Tyre and Sidon bringing tribute, Balawat gates (Shalmaneser III); old drawing from Pinches**: [balawat-tyre-sidon-ships.jpg](real/images/balawat-tyre-sidon-ships.jpg) (Public domain; Tyre, Sidon). balawat, sidon, ships
+- **Tondo of an Attic red-figure kylix: a man and a hetaira reclining on a couch at a symposium, with kalos inscription (categorised under kottabos)**: [Commons page](https://commons.wikimedia.org/wiki/File:Banqueters_Met_1979.11.8.jpg) (not downloaded yet) (CC BY 2.5; Athens). symposium, banquet, red-figure, kylix, vase, hetaira, kottabos, nudity
+- **Carthaginian quarter shekel, 237-209 BC (SNG BM Spain 102)**: [barcid-quarter-shekel.jpg](real/images/barcid-quarter-shekel.jpg) (Public domain; Spain). barcid, quarter, shekel
+- **Bronze helmet of Chalcidian type, H. 24.1 cm**: [Commons page](https://commons.wikimedia.org/wiki/File:Bronze_helmet_of_Chalcidian_type_MET_DP105636.jpg) (not downloaded yet) (CC0 1.0). helmet, chalcidian helmet, hoplite, bronze, armour, greek arms, met, cc0
+- **Bronze pilos (conical helmet), H. 20.5 cm**: [Commons page](https://commons.wikimedia.org/wiki/File:Bronze_pilos_(helmet_of_conical_shape)_MET_DP147256.jpg) (not downloaded yet) (CC0 1.0). helmet, pilos, conical helmet, hoplite, bronze, armour, greek arms, late 5th century
+- **The Punic ports of Carthage today**: [carthage-punic-ports.jpg](real/images/carthage-punic-ports.jpg) (CC BY 2.0; Carthage). carthage, places, punic, ports
+- **Carthage bronze unit, Bibliothèque nationale de France (Luynes)**: [coin-bronze-unit.jpg](real/images/coin-bronze-unit.jpg) (Public domain; Carthage). coin, money, punic, bronze, unit
+- **Sicilo-Punic tetradrachm, horse head, Museo archeologico nazionale, Florence**: [coin-camp-tetradrachm.jpg](real/images/coin-camp-tetradrachm.jpg) (CC BY 3.0). coin, money, punic, camp, tetradrachm
+- **Carthage silver dishekel, Bibliothèque nationale de France**: [coin-carthage-dishekel.jpg](real/images/coin-carthage-dishekel.jpg) (Public domain; Carthage). coin, money, punic, dishekel
+- **Ebusus silver drachm, Bibliothèque nationale de France**: [coin-ebusus-drachm.jpg](real/images/coin-ebusus-drachm.jpg) (Public domain; Spain). coin, money, punic, ebusus, drachm
+- **Landscape oil painting of the unfinished Doric temple of Segesta on its hill, with the artist sketching in the foreground**: [Commons page](https://commons.wikimedia.org/wiki/File:Cole_Thomas_The_Temple_of_Segesta_with_the_Artist_Sketching_1843.jpg) (not downloaded yet) (Public domain (PD-Art|PD-old-auto-expired; author died 1848; published before 1931); Segesta, Sicily). segesta, elymian, temple, doric, landscape, sicily, hudson river school
+- **Oil on canvas, 89 x 131 cm: the Temple of Concordia at Agrigento**: [Commons page](https://commons.wikimedia.org/wiki/File:Concordia_Tempel.jpg) (not downloaded yet) (Public domain (PD-Art | PD-old-100, PD-US-expired; Public Domain Mark 1.0); Akragas). akragas, agrigento, temple of concordia, doric temple, valley of the temples, klenze, 19th-century painting
+- **Bronze Corinthian helmet (gift of Charles de Gaulle, 1963)**: [Commons page](https://commons.wikimedia.org/wiki/File:Corinthian_helmet_Louvre_Br4491.jpg) (not downloaded yet) (Public domain (PD-self, released by the photographer Jastrow)). corinthian helmet, hoplite, bronze, armour, greek, museum object
+- **Large neoclassical oil painting (228 x 258 cm) of the Damocles banquet: Damocles feasting beneath the sword hung by a hair**: [Commons page](https://commons.wikimedia.org/wiki/File:Damocl%C3%A8s_(Dubost,_1804).jpg) (not downloaded yet) (Public domain (PD-old-100); Syracuse). damocles, sword of damocles, banquet, tyrant, syracuse, neoclassical, low-res
+- **Syracuse silver decadrachm by Euainetos, one side only: head of Arethusa left with earring and necklace, four dolphins around, shell behind head, legend SYRAKOSION**: [Commons page](https://commons.wikimedia.org/wiki/File:Decadrachm_Arethusa_CdM_Paris_FG1365.jpg) (not downloaded yet) (CC BY 2.5 (Creative Commons Attribution 2.5 Generic); Syracuse). coin, syracuse, decadrachm, euainetos, arethusa, dolphins, silver, single side
+- **Syracuse silver decadrachm signed by Euainetos: galloping quadriga with Nike above, armour/trophy in exergue / head of Arethusa with dolphins; museum exhibit photo**: [Commons page](https://commons.wikimedia.org/wiki/File:Dekadrachm_of_Syracuse,_signed_Euainetos,_obverse_galloping_quadriga_with_Nike,_reverse_head_of_Arethousa,_Syracuse,_405-400_BC,_silver.jpg) (not downloaded yet) (CC0 1.0 (photo) + Public domain (PD-old-70) for the artwork; Syracuse). coin, syracuse, decadrachm, euainetos, arethusa, dolphins, quadriga, nike
+- **Syracuse silver decadrachm signed by Kimon: galloping quadriga with Nike above (armour/trophy in exergue) / head of Arethusa with four dolphins; museum exhibit photo**: [Commons page](https://commons.wikimedia.org/wiki/File:Dekadrachm_of_Syracuse,_signed_Kimon,_obverse_galloping_quadriga_with_Nike,_reverse_head_of_Arethousa,_Syracuse,_405-400_BC,_silver_-_Arthur_M._Sackler_Museum,_Harvard_University_-_DSC01515.jpg) (not downloaded yet) (CC0 1.0 (photo) + Public domain (PD-old-70) for the artwork; Syracuse). coin, syracuse, decadrachm, kimon, arethusa, dolphins, quadriga, nike
+- **Silver 32-litrai piece of Hieron II of Syracuse, photographed in a museum display case (page description: 'Ancient Greek coins in the Altes Museum Berlin'); which side(s) are shown is not stated on the page**: [Commons page](https://commons.wikimedia.org/wiki/File:Dinastie_della_grecia_occidentale,_hieron_II,_32_litri_di_siracusa,_274-216_ac_ca.JPG) (not downloaded yet) (CC BY 3.0 (Creative Commons Attribution 3.0 Unported); Syracuse, Sicily). syracuse, hieron-ii, silver, 32-litrai, hellenistic, display-case-photo, 3rd-century-bc
+- **Wood engraving: Dion introduces Plato at the court of the tyrant Dionysius in Syracuse (c. 390 BC)**: [Commons page](https://commons.wikimedia.org/wiki/File:Dion_presents_Plato_to_Dionysius.jpg) (not downloaded yet) (Public domain (PD-Art | PD-old-100; Public Domain Mark 1.0); Syracuse). dionysius i, plato, dion, court scene, tyrant, 19th-century engraving, syracuse
+- **Oil painting of a bearded scholar at a desk with books, compasses and a celestial globe, traditionally called 'Archimedes Thoughtful'**: [Commons page](https://commons.wikimedia.org/wiki/File:Domenico-Fetti_Archimedes_1620.jpg) (not downloaded yet) (Public domain (PD-Art|PD-old-100); Syracuse). archimedes, scholar, syracuse, baroque, portrait
+- **Photograph of the interior of the Ear of Dionysius, an artificial limestone cave in the Latomia del Paradiso**: [Commons page](https://commons.wikimedia.org/wiki/File:Ear_of_Dionysius.jpg) (not downloaded yet) (CC BY 2.0; Syracuse). ear of dionysius, orecchio di dionisio, latomie, quarry, cave, syracuse, dionysius i, prison quarries
+- **Oil on canvas, 52 x 84.5 cm: landscape with the fallen columns of the Temple of Hera (Temple E) at Selinunte**: [Commons page](https://commons.wikimedia.org/wiki/File:Friedrich_Nehrlich_-_Ruins_of_the_Temple_of_Hera_at_Selinunte_-_y1978-38_-_Princeton_University_Art_Museum.jpg) (not downloaded yet) (Public domain (PD-Art | PD-old-100, PD-US-expired); Carthage, Selinus). selinus, selinunte, temple of hera, temple e, doric temple, ruins, 409 bc sack, carthage
+- **Throne of Ashtart**: [gods-ashtart-throne.jpg](real/images/gods-ashtart-throne.jpg) (Public domain). gods, religion, punic, ashtart, throne
+- **Phoenician goddess (Astarte) on a throne, Kunsthistorisches Museum, Vienna**: [gods-astarte-cyprus-throne.jpg](real/images/gods-astarte-cyprus-throne.jpg) (CC0). gods, religion, punic, astarte, cyprus, throne
+- **Statue of Baalshamin**: [gods-baal-shamem-palmyra.jpg](real/images/gods-baal-shamem-palmyra.jpg) (CC0). gods, religion, punic, baal, shamem, palmyra
+- **Baal from Thinissut, Bardo Museum**: [gods-baal-thinissut-bardo.jpg](real/images/gods-baal-thinissut-bardo.jpg) (Public domain). gods, religion, punic, baal, thinissut, bardo
+- **Votive statue, Eshmun**: [gods-eshmun-votive-head.jpg](real/images/gods-eshmun-votive-head.jpg) (Public domain). gods, religion, punic, eshmun, votive, head
+- **Male god, Reshef-Melqart, Museo de Huelva**: [gods-melqart-huelva.jpg](real/images/gods-melqart-huelva.jpg) (CC BY 4.0; Spain). gods, religion, punic, melqart, huelva
+- **Silver coin of Tyre, Melqart and dolphin, 347-346 BC, BnF**: [gods-melqart-tyre-coin.jpg](real/images/gods-melqart-tyre-coin.jpg) (CC0; Tyre). gods, religion, punic, melqart
+- **Punic stele carved with a ship's rudder, Louvre AO 23043**: [gods-stele-ship-rudder.jpg](real/images/gods-stele-ship-rudder.jpg) (CC0). gods, religion, punic, stele, ship, rudder
+- **Punic stele dedicated to Tanit and Baal Hammon, with a flower and a caduceus, Louvre AO 23120**: [gods-tanit-baal-hammon-stele.jpg](real/images/gods-tanit-baal-hammon-stele.jpg) (CC0). gods, religion, punic, tanit, baal, hammon, stele
+- **Punic stele with a sign of Tanit, Louvre AO 23068**: [gods-tanit-stele-louvre.jpg](real/images/gods-tanit-stele-louvre.jpg) (CC0). gods, religion, punic, tanit, stele, louvre
+- **Capua bust long said to show Hannibal (identity doubtful)**: [hannibal-capua-bust.jpg](real/images/hannibal-capua-bust.jpg) (Public domain). hannibal, barcids, second punic war, capua, bust
+- **Hasdrubal coin**: [hannibal-hasdrubal-coin.jpg](real/images/hannibal-hasdrubal-coin.jpg) (Public domain). hannibal, barcids, second punic war, hasdrubal
+- **Battle of Zama, battle plan (modern drawing)**: [hannibal-zama-battleplan.png](real/images/hannibal-zama-battleplan.png) (Public domain; Africa). hannibal, barcids, second punic war, zama, battleplan
+- **Bronze Corinthian-type hoplite helmet with a matching pair of bronze greaves (shin guards), photographed together**: [Commons page](https://commons.wikimedia.org/wiki/File:Helmet_of_the_Corinthian_Type_and_Pair_of_Greaves_MET_DP-13164-001.jpg) (not downloaded yet) (CC0 1.0). helmet, corinthian helmet, greaves, hoplite, armour, bronze, met
+- **Marble bust of Herodotus, Metropolitan Museum (Roman copy)**: [herodotus.jpg](real/images/herodotus.jpg) (CC0). herodotus
+- **Sarcophagus of Ahiram from Byblos, photo published 1936**: [homeland-ahiram-sarcophagus.jpg](real/images/homeland-ahiram-sarcophagus.jpg) (Public domain; Byblos, Phoenicia). phoenicia, homeland, lebanon, ahiram, sarcophagus
+- **Courtyard of the fortress of Arwad**: [homeland-arwad-fortress.jpg](real/images/homeland-arwad-fortress.jpg) (CC BY 2.5; Arwad, Phoenicia). phoenicia, homeland, lebanon, arwad, fortress
+- **Ancient ruins of Byblos, Lebanon**: [homeland-byblos-ruins.jpg](real/images/homeland-byblos-ruins.jpg) (CC BY 4.0; Byblos, Phoenicia). phoenicia, homeland, lebanon, byblos, ruins
+- **Iron single-edged curved sword of machaira/kopis type, 54.6 cm long**: [Commons page](https://commons.wikimedia.org/wiki/File:Iron_machaira_(sword)_MET_LC-2001_543.jpg) (not downloaded yet) (CC0 1.0). kopis, machaira, sword, weapon, iron, hoplite, met
+- **Pen, black ink, sepia wash and pencil, 44.4 x 33.8 cm: interior of the Ear of Dionysius quarry cave**: [Commons page](https://commons.wikimedia.org/wiki/File:Jakob_Philipp_Hackert_-_Grotte_Oreille_de_Denys.jpg) (not downloaded yet) (Public domain (PD-Art | PD-old-100; Public Domain Mark 1.0); Syracuse). ear of dionysius, latomie, quarry, cave, syracuse, grand tour, hackert, prison quarries
+- **Marseille tariff, Punic inscription (CIS I 165)**: [marseille-tariff.jpg](real/images/marseille-tariff.jpg) (Public domain). marseille, tariff
+- **Siculo-Punic silver tetradrachm of Lilybaion with Punic legend RSh MLQRT (Rash Melqart), side 1 of 2; other side is the '(2 of 2)' file**: [Commons page](https://commons.wikimedia.org/wiki/File:Monnaie_-_T%C3%A9tradrachme,_argent,_Lilybaion_(Rash_Melqart),_Sicile_-_btv1b8589277j_(1_of_2).jpg) (not downloaded yet) (Public domain (PD-France / PD-old; anonymous ancient work); Carthage, Lilybaeum, Sicily). coin, siculo-punic, carthage, lilybaion, rash melqart, tetradrachm, silver, single side
+- **Carthaginian bronze trishekel (Punic coinage of Zeugitana), side 2 of 2; other side is the '(1 of 2)' file**: [Commons page](https://commons.wikimedia.org/wiki/File:Monnaie_-_Trishekel,_bronze,_Carthage,_Zeugitane_-_btv1b103345194_(2_of_2).jpg) (not downloaded yet) (Public domain (PD-France / PD-old; anonymous ancient work); Carthage). coin, carthage, punic, bronze, trishekel, single side, high resolution, later than game period
+- **Photograph of excavated stone walls and ruins on the island of Motya beside the water (page description says only 'Motya'; the view looks like the Kothon area)**: [Commons page](https://commons.wikimedia.org/wiki/File:Motya_(8).jpg) (not downloaded yet) (CC BY 2.0; Motya, Sicily). motya, mozia, phoenician, carthaginian, punic, ruins, lagoon, 397 bc siege
+- **Side A of a Sicilian red-figure calyx-krater: comic (phlyax) theatre scene of a masked master and his slave on stage**: [Commons page](https://commons.wikimedia.org/wiki/File:Phlyax_scene_Louvre_CA7249.jpg) (not downloaded yet) (CC BY 3.0; Sicily). phlyax, theatre, comedy, masks, slave, red-figure, sicilian vase, krater
+- **Oil on canvas, 110 x 164 cm: imagined reconstruction of the ancient Greek city of Akragas (Agrigento), shown at the Salon of 1787**: [Commons page](https://commons.wikimedia.org/wiki/File:Pierre-Henri_de_Valenciennes_-_The_Ancient_City_of_Agrigento_-_WGA24226.jpg) (not downloaded yet) (Public domain (PD-Art | PD-old-100, author died 1819; PD-US published before 1931; Public Domain Mark 1.0); Akragas, Sicily). akragas, agrigento, greek city, neoclassical landscape, reconstruction, temples, sicily
+- **Engraved plan of ancient Syracuse from an 1820 travel book**: [Commons page](https://commons.wikimedia.org/wiki/File:Plan_of_Ancient_Syracuse_-_Hughes_Thomas_Smart_-_1820.jpg) (not downloaded yet) (Public domain (PD-Art | PD-old-70; PD-1996; Public Domain Mark 1.0); Syracuse, Ortygia, Epipolae). syracuse, city plan, engraved map, grand tour, epipolae, ortygia, harbours
+- **Gold tablets from Pyrgi, Etruscan and Phoenician**: [pyrgi-tablets.jpg](real/images/pyrgi-tablets.jpg) (Public domain). pyrgi, tablets
+- **Walls of Motya (Mozia)**: [sicily-motya-walls.jpg](real/images/sicily-motya-walls.jpg) (CC BY 2.0; Motya, Sicily). sicily, places, motya, walls
+- **Selinunte, Temple C from the air**: [sicily-selinunte-temple-c-air.jpg](real/images/sicily-selinunte-temple-c-air.jpg) (CC BY 3.0; Selinus, Sicily). sicily, places, selinunte, temple
+- **Byrsa, Beule's excavations (19th-century plate), Carthage**: [siege-byrsa-excavations-beule.jpg](real/images/siege-byrsa-excavations-beule.jpg) (Public domain; Carthage). carthage, siege, 146 bc, byrsa, excavations, beule
+- **Silver tetradrachm signed by Eukleidas, AR 16.99 g. Obverse: fast quadriga driven left by female charioteer with flaming torch, Nike flying above to crown her, barley ear in exergue. Reverse: facing three-quarter head of Athena in triple-crested Attic helmet, signature EYKLEIDA on helmet, four dolphins around. Both sides shown side by side.**: [Commons page](https://commons.wikimedia.org/wiki/File:Silver_Tetradrachm_of_Syracuse_(Sicily),_Signed_by_Eukleidas.jpg) (not downloaded yet) (CC BY 2.0 (Creative Commons Attribution 2.0 Generic), via Flickr, confirmed by Flickr upload bot 26 March 2011; Syracuse, Sicily). syracuse, tetradrachm, silver, athena-facing, quadriga, nike, dolphins, signed-die
+- **Syracuse silver decadrachm of the Demareteion type (Demareteion master): Arethusa head with dolphins / quadriga with Nike; museum display photo**: [Commons page](https://commons.wikimedia.org/wiki/File:Siracusa,_decadracma_di_demareteion,_465_ac_ca.JPG) (not downloaded yet) (CC BY 3.0 (Creative Commons Attribution 3.0 Unported); Syracuse). coin, syracuse, decadrachm, demareteion, arethusa, dolphins, quadriga, silver
+- **Historical black-and-white photograph of the Doric Temple of Concordia**: [Commons page](https://commons.wikimedia.org/wiki/File:Sommer,_Giorgio_(1834-1891)_-_Agrigento,_Tempio_della_Concordia.jpg) (not downloaded yet) (Public domain (PD-old-100; Public Domain Mark 1.0); Akragas). akragas, agrigento, temple of concordia, doric temple, valley of the temples, historical photograph, sommer
+- **Map: inset plan of ancient Syracuse (Ortygia, Achradina, Tyche, Neapolis, Epipolae, Euryalus), cropped from the atlas page**: [Commons page](https://commons.wikimedia.org/wiki/File:Syracusae_-_Shepherd-c-030-031.jpg) (not downloaded yet) (Public domain (PD-Art | PD-old-70; Public Domain Mark 1.0; 'public domain due to its age'); Syracuse, Ortygia, Epipolae). syracuse, city plan, ortygia, epipolae, euryalus, walls of dionysius, historical atlas
+- **Syracuse silver decadrachm (43.25 g), one side: head of Arethusa surrounded by dolphins; reverse (quadriga) is a separate file 'Syracuse Deca Gallica collection Smith-Lesouef 88 revers.jpg'**: [Commons page](https://commons.wikimedia.org/wiki/File:Syracuse_Deca_Gallica_collection_Smith-Lesouef_88_avers.jpg) (not downloaded yet) (Public domain (PD-old-100) + Public Domain Mark 1.0; Syracuse). coin, syracuse, decadrachm, euainetos, arethusa, dolphins, silver, single side
+- **Sign of Tanit, line drawing (PNG from SVG)**: [tanit-symbol.png](real/images/tanit-symbol.png) (Public domain). tanit, symbol
+- **Pen, brown ink and wash drawing of the Damocles banquet scene: Damocles at the tyrant's table under the hanging sword**: [Commons page](https://commons.wikimedia.org/wiki/File:The_Sword_of_Damocles_MET_DP820566.jpg) (not downloaded yet) (CC0 1.0; Syracuse). damocles, sword of damocles, banquet, tyrant, syracuse, drawing, met
+- **Photograph of the cavea of the ancient Greek theatre, Neapolis, Syracuse**: [Commons page](https://commons.wikimedia.org/wiki/File:Theatre_at_Syracuse,_Sicily.jpg) (not downloaded yet) (CC BY 2.0; Syracuse, Sicily). greek theatre, syracuse, neapolis, cavea, theatre, aeschylus, site photo
+- **Phoenician-style Nimrud ivory of two sphinxes flanking a cartouche**: [trade-nimrud-ivory-sphinx.jpg](real/images/trade-nimrud-ivory-sphinx.jpg) (CC0). trade, crafts, nimrud, ivory, sphinx
+- **Al Mina site, Tyre, Lebanon**: [tyre-al-mina-site.jpg](real/images/tyre-al-mina-site.jpg) (CC BY 4.0; Tyre, Phoenicia). tyre, phoenicia, homeland, mina, site
+- **The cothon of Carthage seen from the old citadel of Byrsa, print**: [war-cothon-carthage-print.jpg](real/images/war-cothon-carthage-print.jpg) (Public domain; Carthage). war, army, weapons, cothon, print
+- **Dekadrachm of Carthage, goddess Tanit, about 260 BC, National Museum of American History**: [war-dekadrachm-tanit.jpg](real/images/war-dekadrachm-tanit.jpg) (CC0; Carthage). war, army, weapons, dekadrachm, tanit
+- **Knife (falcata), Metropolitan Museum 32.75.260**: [war-falcata-met.jpg](real/images/war-falcata-met.jpg) (CC0; Spain). war, army, weapons, falcata
+- **Helmet of the Montefortino type**: [war-montefortino-helmet-2.jpg](real/images/war-montefortino-helmet-2.jpg) (Public domain). war, army, weapons, montefortino, helmet
+- **Helmet of the Montefortino type, Metropolitan Museum**: [war-montefortino-helmet-met.jpg](real/images/war-montefortino-helmet-met.jpg) (CC0). war, army, weapons, montefortino, helmet
+- **Carthage tetradrachm, Tanit and horse, serrated edge, about 200 BC**: [war-tanit-horse-tetradrachm.jpg](real/images/war-tanit-horse-tetradrachm.jpg) (Public domain; Carthage). war, army, weapons, tanit, horse, tetradrachm
+- **Oil painting: Damocles on the tyrant's couch at a banquet, looking up in terror at the sword hanging by a single hair; attendants around him**: [Commons page](https://commons.wikimedia.org/wiki/File:WestallDamocles.JPG) (not downloaded yet) (Public domain (PD-Art|PD-old-100-expired; published before 1931); Syracuse). damocles, sword of damocles, dionysius, banquet, tyrant, syracuse, neoclassical

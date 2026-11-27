@@ -61,6 +61,8 @@ Jacob's own essay project is his: don't frame the game around a thesis. Show sou
 
 Museum-catalogue look, matching the Phoenician-Punic World site: light parchment, no dark mode, no walls of boxes, mosaic-style coin portraits later (placeholders first, real coin photos preferred over drawn faces). Jacob judges on a computer, not a phone, but check both. Quality bar for sourcing: Bret Devereaux's ACOUP, numbers first, ancient passage for each number.
 
+**Art library first.** Before drawing anything new (an event picture, an icon, a face, a coin, a frame or a map), search `assets/library/catalog.json` (README there). Event scenes are already in the game: give an event one with `"art"`. To take in anything else, add it to `scripts/build-library-art.mjs` and rerun it; never paste library SVGs by hand. New drawings go into the library's tools first, then into the game the same way. Pictures of city coins and other `general knowledge, unverified` items stay out of the game until checked against a saved source.
+
 ## Design tastes (to steer proposals)
 
 Leder Games (Root, Oath, Arcs), Republic of Rome, John Company, CK3, Dwarf Fortress and Songs of Syx. Asymmetric factions, power held as objects, a persistent world, emergent stories. Not a Reigns-style card game. Supply-chain parallels appeal to him (the army-supply idea is parked for Phase 2).

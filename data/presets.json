@@ -50,6 +50,82 @@
       ]
     },
     {
+      "id": "nearWarTest",
+      "kind": "invention",
+      "name": "Near-war test",
+      "recommended": false,
+      "scenario": "island",
+      "tuning": "reapWhatYouSow",
+      "switches": [
+        "clues",
+        "partialBlows",
+        "storyChronicle",
+        "armiesBreak",
+        "escalation",
+        "feud",
+        "coalition",
+        "quarrels",
+        "secrets",
+        "purseDry",
+        "commission",
+        "exile",
+        "bargainDisgraces",
+        "contestedBoard",
+        "guardBattleOnly",
+        "devotedHoldsBack",
+        "carthageHolds",
+        "libyaSpared",
+        "mintHabit",
+        "petitionOffers",
+        "warFocus"
+      ],
+      "summary": "The second island test's rules, with the war focus on (a war with aims, a ledger of turning points, weariness on both sides, peace with terms), started in spring 398 BC instead of 405. You hold the citadel, the Epipolae wall is up, Catana, Leontini and Aetna are yours, Messana is a friend, and Carthage is weak with plague. Carthage's anger is close to war. Fourteen seasons, to the end of the decade.",
+      "verdictSeason": 14,
+      "checkIns": [
+        5,
+        10
+      ],
+      "opening": {
+        "season": 26,
+        "citadel": true,
+        "walls": true,
+        "silver": 8,
+        "grain": 8,
+        "clock": 5,
+        "guard": 4,
+        "cities": {
+          "catana": {
+            "side": "syracuse"
+          },
+          "leontini": {
+            "side": "syracuse"
+          },
+          "aetna": {
+            "side": "syracuse"
+          },
+          "messana": {
+            "side": "ally",
+            "lean": 1
+          }
+        },
+        "carthage": {
+          "plagueUntil": 29
+        },
+        "text": "Spring 398 BC. Seven years after the peace with Carthage, you hold the citadel on the Island, and the new wall runs along Epipolae. Aetna, Catana and Leontini are yours, and Messana is your friend. In Libya a plague is killing Carthage's people. Some Greeks in Syracuse are leaving for Carthage's towns, but if there were war, every town that pays Carthage tribute might come over to you.",
+        "why": "the game opens near the war of 398 (Diodorus 14.14 to 14.18, 14.41, 14.44 to 14.45)",
+        "kind": "history",
+        "source": "Diodorus 14.14.2, 14.15.3-4, 14.18.3, 14.41.1, 14.44.4, 14.45.3",
+        "card": "docs/research/opening-398.md"
+      },
+      "watch": [
+        "Did the war feel like a story with a shape: why it began, what each side wanted, the turning points, how it ended?",
+        "Could you tell from the war strip how the war was going and what peace would cost?",
+        "Did Carthage's landing come as a warning first, or as a surprise?",
+        "Did any town do something on its own that you did not expect?",
+        "Was any screen, word or number confusing? Note where."
+      ]
+    },
+    {
       "id": "firstIslandTest",
       "kind": "invention",
       "name": "First island test",

@@ -184,7 +184,7 @@
       ]
     },
     {
-      "id": "mostValiant", "kind": "history", "art": "feast", "name": "The bravest man alive", "chained": true, "dinner": true,
+      "id": "mostValiant", "kind": "history", "art": "trophy", "name": "The bravest man alive", "chained": true, "dinner": true,
       "roles": { "a": {} },
       "text": "{A} will not call you the bravest man alive. The table has gone quiet.",
       "why": "a guest who will not flatter",
@@ -200,7 +200,7 @@
       "invented": ["the guest", "every choice but anger, and every effect"]
     },
     {
-      "id": "atTheDoor", "kind": "history", "art": "feast", "name": "Searched at the door", "chained": true, "dinner": true,
+      "id": "atTheDoor", "kind": "history", "art": "arrest", "name": "Searched at the door", "chained": true, "dinner": true,
       "roles": { "a": { "status": ["free"] } },
       "text": "{A} waits at the door between your guards, and they look to you.",
       "why": "an enemy at your table",
@@ -215,7 +215,7 @@
       "invented": ["the guest", "the choices other than the search, and every effect"]
     },
     {
-      "id": "yourVerses", "kind": "history", "art": "feast", "name": "Your verses", "chained": true, "dinner": true,
+      "id": "yourVerses", "kind": "history", "art": "theatre", "name": "Your verses", "chained": true, "dinner": true,
       "roles": { "a": {} },
       "text": "{A} has called your verses poor, before the whole table. Your servants wait for a word.",
       "why": "a frank answer at your table",
@@ -230,7 +230,7 @@
       "invented": ["the guest", "the choices other than the quarries, and every effect"]
     },
     {
-      "id": "quarriesPardon", "kind": "history", "art": "feast", "name": "A pardon from the quarries", "chained": true, "dinner": true,
+      "id": "quarriesPardon", "kind": "history", "art": "captives", "name": "A pardon from the quarries", "chained": true, "dinner": true,
       "roles": { "a": { "status": ["held"] } },
       "text": "Your friends ask you to forgive {a}, who has been in the quarries since your dinner.",
       "why": "friends ask for a pardon the day after",
