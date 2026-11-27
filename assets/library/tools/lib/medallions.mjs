@@ -34,6 +34,9 @@ const CAST = [
   ["himilcon", "Himilcon", "ΙΜΙΛΚΩΝ", "carthage", { beard: true }, true, null],
   ["magon", "Magon", "ΜΑΓΩΝ", "carthage", { beard: true, hair: "helmet" }, true, null],
   ["magon-son", "Magon's son", "", "carthage", { beard: false }, true, null],
+  // Carthage's two invented council men (data/carthage.json), so the whole council has faces.
+  ["hanno", "Hanno the elder", "ΑΝΝΩΝ", "carthage", { beard: true, hair: "bald" }, false, null, "data/carthage.json"],
+  ["bomilcar", "Bomilcar", "ΒΟΜΙΛΚΑΣ", "carthage", { beard: false }, false, null, "data/carthage.json"],
 ];
 
 function medallion(id, greek, faction, opts) {
@@ -54,10 +57,10 @@ function medallion(id, greek, faction, opts) {
 }
 
 export function MEDALLIONS() {
-  return CAST.map(([id, name, greek, faction, opts, real, portrait]) => {
+  return CAST.map(([id, name, greek, faction, opts, real, portrait, from = "docs/drafts/rising-cast.md"]) => {
     const col = FIELD[faction];
     const css = `.line{fill:none;stroke:${GOLD};stroke-linecap:round;stroke-linejoin:round}.cut{fill:${col}}.cut.line{fill:none;stroke:${col}}.hair{stroke:${GOLD};stroke-width:.5}.shadow path,.shadow circle,.shadow ellipse{fill:#000;stroke:none}.shadow .line{fill:none;stroke:#000}`;
-    const note = `${real ? "A real person" : "An invented person"} in docs/drafts/rising-cast.md; the face is invention (the game's head drawing).` +
+    const note = `${real ? "A real person" : "An invented person"} in ${from}; the face is invention (the game's head drawing).` +
       (greek ? " The Greek name is my transliteration." : " No legend: the sources do not name him.") +
       (portrait ? ` The game already has a mosaic portrait, ui/art/portraits/${portrait}; this is an alternative.` : " The game has no portrait for this person yet.");
     return {

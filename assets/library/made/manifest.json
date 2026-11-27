@@ -1,6 +1,6 @@
 {
  "note": "Every drawn asset in made/. Built by tools/build-made.mjs; do not edit by hand. status in-game = exported from the game's own code; new = drawn for this library.",
- "count": 326,
+ "count": 328,
  "items": [
   {
    "file": "made/coins/akragas-crab.svg",
@@ -102,7 +102,7 @@
   },
   {
    "file": "made/coins/carthage-horse.svg",
-   "bytes": 6222,
+   "bytes": 6311,
    "status": "new",
    "id": "coin-carthage-horse",
    "type": "coin",
@@ -115,11 +115,11 @@
     "punic"
    ],
    "metal": "silver",
-   "note": "A Punic-style coin with a game icon as its badge (Carthage struck palm and horse types in Sicily: general knowledge, unverified). No legend."
+   "note": "A Punic-style coin with a game icon as its badge. Carthage's first coins (about 410 to 390 BC) bore a horse and a date palm (checked: docs/research/art-motifs.md, from a saved Wikipedia page). The drawing is invention. No legend."
   },
   {
    "file": "made/coins/carthage-palm.svg",
-   "bytes": 6854,
+   "bytes": 6943,
    "status": "new",
    "id": "coin-carthage-palm",
    "type": "coin",
@@ -132,7 +132,7 @@
     "punic"
    ],
    "metal": "silver",
-   "note": "A Punic-style coin with a game icon as its badge (Carthage struck palm and horse types in Sicily: general knowledge, unverified). No legend."
+   "note": "A Punic-style coin with a game icon as its badge. Carthage's first coins (about 410 to 390 BC) bore a horse and a date palm (checked: docs/research/art-motifs.md, from a saved Wikipedia page). The drawing is invention. No legend."
   },
   {
    "file": "made/coins/corinth-koppa.svg",
@@ -4031,6 +4031,26 @@
    "note": "A real person in docs/drafts/rising-cast.md; the face is invention (the game's head drawing). The Greek name is my transliteration. The game already has a mosaic portrait, ui/art/portraits/biton.webp; this is an alternative."
   },
   {
+   "file": "made/medallions/bomilcar.svg",
+   "bytes": 6274,
+   "status": "new",
+   "id": "medallion-bomilcar",
+   "type": "medallion",
+   "title": "Bomilcar (medallion)",
+   "person": "Bomilcar",
+   "faction": "carthage",
+   "real": false,
+   "tags": [
+    "bomilcar",
+    "carthage",
+    "portrait",
+    "cast",
+    "invented person",
+    "no game portrait"
+   ],
+   "note": "An invented person in data/carthage.json; the face is invention (the game's head drawing). The Greek name is my transliteration. The game has no portrait for this person yet."
+  },
+  {
    "file": "made/medallions/damon.svg",
    "bytes": 7592,
    "status": "new",
@@ -4109,6 +4129,26 @@
     "has game portrait"
    ],
    "note": "A real person in docs/drafts/rising-cast.md; the face is invention (the game's head drawing). The Greek name is my transliteration. The game already has a mosaic portrait, ui/art/portraits/doris.webp; this is an alternative."
+  },
+  {
+   "file": "made/medallions/hanno.svg",
+   "bytes": 5961,
+   "status": "new",
+   "id": "medallion-hanno",
+   "type": "medallion",
+   "title": "Hanno the elder (medallion)",
+   "person": "Hanno the elder",
+   "faction": "carthage",
+   "real": false,
+   "tags": [
+    "hanno the elder",
+    "carthage",
+    "portrait",
+    "cast",
+    "invented person",
+    "no game portrait"
+   ],
+   "note": "An invented person in data/carthage.json; the face is invention (the game's head drawing). The Greek name is my transliteration. The game has no portrait for this person yet."
   },
   {
    "file": "made/medallions/heloris.svg",

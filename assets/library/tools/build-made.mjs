@@ -7,7 +7,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { ICON_NAMES, iconBody } from "../../../ui/components/icons.ts";
-import { VIGNETTE_NAMES, VIGNETTES } from "../../../ui/components/vignettes.ts";
+import { GAME_VIGNETTE_NAMES, VIGNETTES } from "../../../ui/components/vignettes.ts";
 import { iconDoc, C, esc } from "./lib/style.mjs";
 import { NEW_ICONS } from "./lib/icons-new.mjs";
 import { tondoDoc, NEW_TONDOS } from "./lib/tondos.mjs";
@@ -73,7 +73,7 @@ for (const ic of NEW_ICONS) {
 }
 
 // ---- Event pictures: the game's own tondos, then new ones ----
-for (const name of VIGNETTE_NAMES) {
+for (const name of GAME_VIGNETTE_NAMES) {
   put(`events/game/${name}.svg`, tondoDoc(`${name} (game event picture)`, VIGNETTES[name], "Exported from ui/components/vignettes.ts."), {
     id: `event-game-${name}`, type: "event", set: "game", title: name, tags: [name], status: "in-game",
     source: "ui/components/vignettes.ts", use: `"art": "${name}" on an event in data/events.json`,

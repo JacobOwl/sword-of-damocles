@@ -10,6 +10,7 @@ import type { Army, GameState } from "../../src/core/index.ts";
 import { esc, linkNames, ui, who } from "../lib/text.ts";
 import * as A from "../components/island-art.ts";
 import { nowLine } from "../components/now.ts";
+import { LIBRARY_PICTURES } from "../components/library-pictures.ts";
 
 
 const SIDE_COLOR: Record<string, string> = {
@@ -180,12 +181,14 @@ function carthagePanel(g: GameState) {
   const men = (CARTHAGE.people as any[]).map((p) => {
     const st = c.people[p.id];
     const words = { free: "at home", command: "in command of the war", disgraced: "in disgrace", dead: "dead" }[st.status];
-    return `<li>${esc(p.name)} <span class="small muted">(${esc(p.role)}; ${esc(words)}${p.kind === "history" ? "; real person" : "; invented"})</span></li>`;
+    const face = LIBRARY_PICTURES[`face:${p.id}`];
+    const img = face ? `<img class="cface${st.status === "dead" ? " dead" : ""}" src="${esc(face)}" alt="" width="44" height="44">` : "";
+    return `<li>${img}<span>${esc(p.name)} <span class="small muted">(${esc(p.role)}; ${esc(words)}${p.kind === "history" ? "; real person" : "; invented"})</span></span></li>`;
   }).join("");
   const plague = c.plagueUntil >= g.season ? `<p class="warn small">Plague is in Carthage.</p>` : "";
   const revolt = c.revolt ? `<p class="warn small">The Libyans are in revolt.</p>` : "";
   return `<div class="carthage">
-    <h2>Carthage</h2>
+    <div class="fhead"><h2>Carthage</h2><img class="ccoin" src="${esc(LIBRARY_PICTURES["coin:carthage"])}" alt="Carthage's coin: a horse, and a date palm" title="Carthage's first coins (about 410 to 390 BC) bore a horse and a date palm. The drawing is invention." width="48" height="48"></div>
     <p><span class="label">Its goal</span> <b>${esc(goal.name)}</b>. ${esc(goal.text)} <span class="small muted">Why: ${esc(c.goalWhy)}.</span></p>
     <p class="small">${g.island!.war ? `<span class="warn">At war with you since ${esc(seasonWord(g, g.island!.warSince))}.</span>` : "At peace with you."}
       Anger toward Syracuse ${g.clock} of 10. Its treasury holds ${c.silver} silver; at home it has ${c.mercs ? `${menWords(c.mercs)} hired` : "no hired men"} and ${c.levy ? `${menWords(c.levy)} in Libyan levies` : "no Libyan levies"}; ${c.ships} squadrons of ships.
@@ -194,7 +197,8 @@ function carthagePanel(g: GameState) {
     <h3>The council</h3><ul class="blocs">${blocs}</ul>
     <p class="small muted">The council picks the goal the most power wants. If the Elders are against it, the people's assembly decides (after Aristotle, who wrote two generations later).</p>
     <h3>What it does next, in order</h3><ol class="small">${next}</ol>
-    <h3>Its men</h3><ul class="small">${men}</ul>
+    <h3>Its men</h3><ul class="small cmen">${men}</ul>
+    <p class="small muted">Their faces are invention: no source shows them.</p>
   </div>`;
 }
 function seasonWord(g: GameState, n: number) {

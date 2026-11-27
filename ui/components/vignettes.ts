@@ -3,6 +3,7 @@
 // (see docs/art-direction.md). Clay parts use currentColor-free classes so CSS decides the two colours.
 import { iconBody } from "./icons.ts";
 import * as F from "./figures.ts";
+import { LIBRARY_SCENES } from "./library-scenes.ts";
 
 // An icon from the set, placed and scaled into the 120-unit tondo.
 const use = (name: string, x: number, y: number, s: number, rot = 0) =>
@@ -23,7 +24,7 @@ const grapes = (x: number, y: number) => {
 };
 
 
-export const VIGNETTES: Record<string, string> = {
+const GAME_SCENES: Record<string, string> = {
   feast: `${F.symposiast(57, 74, 1, 1.12)}${grapes(88, 30)}`,
   wedding: `${F.standingWoman(48, 94, 1, { veil: true, arm: "veil" }, 1.18)}${F.standingWoman(80, 94, -1, { arm: "torch" }, 1.08)}`,
   hearth: `${use("hearth", 58, 52, 1.6)}${F.standingWoman(40, 94, 1, { arm: "forward" }, 1.15)}`,
@@ -143,6 +144,10 @@ export const VIGNETTES: Record<string, string> = {
     <path d="M38 88 H82" class="line" style="stroke-width:1.4"/>`,
 };
 
+// The game's own pictures, then the 39 scenes drawn for the art library (assets/library, copied in by
+// scripts/build-library-art.mjs). A game picture wins if both use a name.
+export const VIGNETTES: Record<string, string> = { ...LIBRARY_SCENES, ...GAME_SCENES };
+export const GAME_VIGNETTE_NAMES = Object.keys(GAME_SCENES);
 export const VIGNETTE_NAMES = Object.keys(VIGNETTES);
 
 function meanderRing() {

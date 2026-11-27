@@ -1,15 +1,17 @@
 # Art library
 
-A store of pictures for The Sword of Damocles that Claude Code (or anyone) can search and use later: art drawn in the game's own styles, and real ancient art under open licences. Nothing here is wired into the game yet. Taking an item into the game is a separate change.
+A store of pictures for The Sword of Damocles that Claude Code (or anyone) can search and use later: art drawn in the game's own styles, and real ancient art under open licences.
 
-**399 items.** 326 drawn for this library, 73 real.
+**In the game now (thread 40, 2026-11-27):** all 39 new event scenes (32 of them on events; poison, beacon, Arethusa, eagle, winter, summer and vintage wait for one), the four medallions of Carthage's council (Himilcon, Magon, Hanno the elder, Bomilcar) and Carthage's horse coin, on the island view. `scripts/build-library-art.mjs` copies them into `ui/components/library-scenes.ts` and `ui/components/library-pictures.ts`; rerun it after `tools/build-made.mjs`. Everything else is waiting to be used. Rule for future work (in `CLAUDE.md`): look here before drawing anything new.
+
+**401 items.** 328 drawn for this library, 73 real.
 
 | Kind | Count | Where | What it is |
 |---|---|---|---|
 | Icons | 108 | made/icons/ | The game's 29 black-figure icons exported, plus 79 new ones: goods, sea, war, rule, gods, cities, places and time. Also one sprite with all of them. |
 | Event pictures | 68 | made/events/ | The game's 29 red-figure tondos exported, plus 39 new scenes: Damocles, a trial, an exile vote, a catapult, a sea battle, a treaty, an oracle, poison, a night letter, the Ear of Dionysius, the four seasons and more. |
 | Coins and tokens | 34 | made/coins/ | 18 city coin types (Syracuse, Akragas, Himera, Segesta, Selinus, Gela, Leontini, Rhegium, Messana, Kamarina, Naxos, Corinth, Carthage and others), 6 faction tokens, 6 lead office seals, 4 blank flans. |
-| Cast medallions | 21 | made/medallions/ | Coin portraits of 21 people from the cast list in PR 86 (docs/drafts/rising-cast.md, not merged yet), each on their faction's colour with a Greek legend. The faces are invention. |
+| Cast medallions | 23 | made/medallions/ | Coin portraits of 21 people from the rising-cast sheet (docs/drafts/rising-cast.md, on branch claude/rising-cast) and Carthage's two invented council men, Hanno the elder and Bomilcar, each on their faction's colour with a Greek legend. The faces are invention. |
 | Maps | 10 | made/maps/ | Sicily's ancient sites, Sicily in 405 BC by side, the central Mediterranean, Magna Graecia, the Punic west of Sicily, the whole Mediterranean, Syracuse with Ortygia and Epipolae, and three blank base maps. |
 | Frames and ornament | 31 | made/ornament/ | Catalogue card, meander and tesserae frames, an empty tondo, Greek and Punic stelae, a wax tablet, a papyrus roll, plaques, an inscription block, corners, fleurons, dividers (one with the sword on a hair), a victor's ribbon, a compass rose. |
 | Patterns | 45 | made/patterns/ | Seamless tiles: meanders, wave, egg and dart, bead and reel, laurel, ivy, palmette and lotus, guilloche, dentils, zigzag, chequer, rays, tongues, scales, rosettes, sea ripples, tesserae, pebbles. Most come in bronze (for parchment) and clay on black glaze. |

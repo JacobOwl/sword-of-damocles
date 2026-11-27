@@ -1,7 +1,7 @@
 {
  "about": "The Sword of Damocles art library: drawn art in the game's own style plus real ancient art under open licences. One record per item. Search with jq (see README.md). Facets place, people, gods, mood and era are worked out from tags and titles by tools/build-catalog.mjs, so treat them as a finding aid, not as facts.",
  "counts": {
-  "items": 399,
+  "items": 401,
   "by_type": {
    "icon": 108,
    "real": 73,
@@ -9,13 +9,13 @@
    "pattern": 45,
    "coin": 34,
    "ornament": 31,
-   "medallion": 21,
+   "medallion": 23,
    "map": 10,
    "texture": 8,
    "sprite": 1
   },
   "by_origin": {
-   "made": 326,
+   "made": 328,
    "real": 73
   },
   "real_by_status": {
@@ -27,7 +27,7 @@
  "facets": {
   "place": {
    "Syracuse": 40,
-   "Carthage": 26,
+   "Carthage": 28,
    "Sicily": 20,
    "Motya": 8,
    "Akragas": 7,
@@ -129,7 +129,7 @@
   },
   "era": {
    "timeless (icons and ornament)": 193,
-   "drawn for the game's years (c. 405-367 BC)": 123,
+   "drawn for the game's years (c. 405-367 BC)": 125,
    "date not stated": 36,
    "modern print, painting or drawing (after 1500)": 14,
    "archaic and classical (600-323 BC)": 12,
@@ -304,7 +304,7 @@
   {
    "origin": "made",
    "file": "made/coins/carthage-horse.svg",
-   "bytes": 6222,
+   "bytes": 6311,
    "status": "new",
    "id": "coin-carthage-horse",
    "type": "coin",
@@ -317,7 +317,7 @@
     "punic"
    ],
    "metal": "silver",
-   "note": "A Punic-style coin with a game icon as its badge (Carthage struck palm and horse types in Sicily: general knowledge, unverified). No legend.",
+   "note": "A Punic-style coin with a game icon as its badge. Carthage's first coins (about 410 to 390 BC) bore a horse and a date palm (checked: docs/research/art-motifs.md, from a saved Wikipedia page). The drawing is invention. No legend.",
    "thumb": "made/coins/carthage-horse.svg",
    "licence": "Drawn for this project (same terms as the game)",
    "attribution_required": false,
@@ -334,7 +334,7 @@
   {
    "origin": "made",
    "file": "made/coins/carthage-palm.svg",
-   "bytes": 6854,
+   "bytes": 6943,
    "status": "new",
    "id": "coin-carthage-palm",
    "type": "coin",
@@ -347,7 +347,7 @@
     "punic"
    ],
    "metal": "silver",
-   "note": "A Punic-style coin with a game icon as its badge (Carthage struck palm and horse types in Sicily: general knowledge, unverified). No legend.",
+   "note": "A Punic-style coin with a game icon as its badge. Carthage's first coins (about 410 to 390 BC) bore a horse and a date palm (checked: docs/research/art-motifs.md, from a saved Wikipedia page). The drawing is invention. No legend.",
    "thumb": "made/coins/carthage-palm.svg",
    "licence": "Drawn for this project (same terms as the game)",
    "attribution_required": false,
@@ -6936,6 +6936,38 @@
   },
   {
    "origin": "made",
+   "file": "made/medallions/bomilcar.svg",
+   "bytes": 6274,
+   "status": "new",
+   "id": "medallion-bomilcar",
+   "type": "medallion",
+   "title": "Bomilcar (medallion)",
+   "person": "Bomilcar",
+   "faction": "carthage",
+   "real": false,
+   "tags": [
+    "bomilcar",
+    "carthage",
+    "portrait",
+    "cast",
+    "invented person",
+    "no game portrait"
+   ],
+   "note": "An invented person in data/carthage.json; the face is invention (the game's head drawing). The Greek name is my transliteration. The game has no portrait for this person yet.",
+   "thumb": "made/medallions/bomilcar.svg",
+   "licence": "Drawn for this project (same terms as the game)",
+   "attribution_required": false,
+   "place": [
+    "Carthage"
+   ],
+   "people": [],
+   "gods": [],
+   "mood": [],
+   "era": "drawn for the game's years (c. 405-367 BC)",
+   "use_for": "portrait of a cast member (coin medallion)"
+  },
+  {
+   "origin": "made",
    "file": "made/medallions/damon.svg",
    "bytes": 7592,
    "status": "new",
@@ -7061,6 +7093,38 @@
    "people": [
     "Doris of Locri"
    ],
+   "gods": [],
+   "mood": [],
+   "era": "drawn for the game's years (c. 405-367 BC)",
+   "use_for": "portrait of a cast member (coin medallion)"
+  },
+  {
+   "origin": "made",
+   "file": "made/medallions/hanno.svg",
+   "bytes": 5961,
+   "status": "new",
+   "id": "medallion-hanno",
+   "type": "medallion",
+   "title": "Hanno the elder (medallion)",
+   "person": "Hanno the elder",
+   "faction": "carthage",
+   "real": false,
+   "tags": [
+    "hanno the elder",
+    "carthage",
+    "portrait",
+    "cast",
+    "invented person",
+    "no game portrait"
+   ],
+   "note": "An invented person in data/carthage.json; the face is invention (the game's head drawing). The Greek name is my transliteration. The game has no portrait for this person yet.",
+   "thumb": "made/medallions/hanno.svg",
+   "licence": "Drawn for this project (same terms as the game)",
+   "attribution_required": false,
+   "place": [
+    "Carthage"
+   ],
+   "people": [],
    "gods": [],
    "mood": [],
    "era": "drawn for the game's years (c. 405-367 BC)",

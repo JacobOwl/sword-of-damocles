@@ -1,6 +1,6 @@
 # Art library index
 
-Every item in the library, grouped by kind. Built by tools/build-catalog.mjs from made/manifest.json and real/sources.json; do not edit by hand. 399 items. Search catalog.json for anything finer (README.md has examples).
+Every item in the library, grouped by kind. Built by tools/build-catalog.mjs from made/manifest.json and real/sources.json; do not edit by hand. 401 items. Search catalog.json for anything finer (README.md has examples).
 
 ## Icons (108)
 
@@ -225,7 +225,7 @@ Every item in the library, grouped by kind. Built by tools/build-catalog.mjs fro
 - **Faction token: the rich families**: [token-rich.svg](made/coins/token-rich.svg). faction, rich, token, badge
 - **Faction token: the ruler**: [token-ruler.svg](made/coins/token-ruler.svg). faction, ruler, token, badge
 
-## Cast medallions (21)
+## Cast medallions (23)
 
 - **Andron (medallion)**: [andron.svg](made/medallions/andron.svg). andron, family, portrait, cast, real person, has game portrait
 - **Archylus of Thurii (medallion)**: [archylus.svg](made/medallions/archylus.svg). archylus of thurii, guard, portrait, cast, real person, has game portrait
@@ -233,10 +233,12 @@ Every item in the library, grouped by kind. Built by tools/build-catalog.mjs fro
 - **Aristomache (medallion)**: [aristomache.svg](made/medallions/aristomache.svg). aristomache, rich, portrait, cast, real person, has game portrait
 - **Aristotle the Spartan (medallion)**: [aristotle.svg](made/medallions/aristotle.svg). aristotle the spartan, guard, portrait, cast, real person, has game portrait
 - **Biton of Syracuse (medallion)**: [biton.svg](made/medallions/biton.svg) (Syracuse). biton of syracuse, guard, portrait, cast, real person, has game portrait
+- **Bomilcar (medallion)**: [bomilcar.svg](made/medallions/bomilcar.svg) (Carthage). bomilcar, carthage, portrait, cast, invented person, no game portrait
 - **Damon the smith (medallion)**: [damon.svg](made/medallions/damon.svg). damon the smith, citizens, portrait, cast, invented person, has game portrait
 - **Dion (medallion)**: [dion.svg](made/medallions/dion.svg). dion, rich, portrait, cast, real person, no game portrait
 - **Dionysius I (medallion)**: [dionysius.svg](made/medallions/dionysius.svg). dionysius i, ruler, portrait, cast, real person, has game portrait
 - **Doris of Locri (medallion)**: [doris.svg](made/medallions/doris.svg) (Locri). doris of locri, family, portrait, cast, real person, has game portrait
+- **Hanno the elder (medallion)**: [hanno.svg](made/medallions/hanno.svg) (Carthage). hanno the elder, carthage, portrait, cast, invented person, no game portrait
 - **Heloris (medallion)**: [heloris.svg](made/medallions/heloris.svg). heloris, family, portrait, cast, real person, has game portrait
 - **Himilcon (medallion)**: [himilcon.svg](made/medallions/himilcon.svg) (Carthage). himilcon, carthage, portrait, cast, real person, no game portrait
 - **Hipparinus (medallion)**: [hipparinus.svg](made/medallions/hipparinus.svg). hipparinus, rich, portrait, cast, real person, has game portrait

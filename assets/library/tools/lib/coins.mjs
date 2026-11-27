@@ -91,7 +91,7 @@ export function COINS() {
   for (const [id, city, badge, metal, leg] of CITY) {
     const isPunic = city.startsWith("Carthage");
     const note = isPunic
-      ? "A Punic-style coin with a game icon as its badge (Carthage struck palm and horse types in Sicily: general knowledge, unverified). No legend."
+      ? "A Punic-style coin with a game icon as its badge. Carthage's first coins (about 410 to 390 BC) bore a horse and a date palm (checked: docs/research/art-motifs.md, from a saved Wikipedia page). The drawing is invention. No legend."
       : `The ${city.replace(/ \(.*/, "")} badge follows a well-known coin type (general knowledge, unverified); the drawing is invention${leg ? ", and the legend is my spelling" : ""}.`;
     const s = leg ? 2.75 : 3.2;
     const off = 60 - 12 * s;

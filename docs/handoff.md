@@ -2,6 +2,16 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## The art library, fixed and in the game (thread 40, 2026-11-27)
+**Built.** Jacob, on PR #89 (Duet's art library): "Fix, expand upon, and add the art where you can and in the future." Merged with #89's own commit, so #89 counts as merged.
+- **In the game:** the library's 39 event scenes are game pictures now (`scripts/build-library-art.mjs` writes `ui/components/library-scenes.ts`); 32 events, matters, exile and dinner asks that shared a generic picture got their own (Damocles' banquet, trials, treaties, bribes, the Punic fleet, mourning, the siege tower and more; list in `docs/art-direction.md`). Carthage's council has faces on the island view, and Carthage's horse-and-palm coin heads its panel (`ui/components/library-pictures.ts`).
+- **Expanded:** medallions for Hanno the elder and Bomilcar, so all four council men have one. The Carthage coin type is now sourced (`docs/research/art-motifs.md`, from the saved Wikipedia coinage page; meaning of horse and palm disputed, shown).
+- **Fixed:** the stray Python cache file is gone and ignored; the library README says what is in the game. My earlier "Doris looks bearded" was wrong: it was the small contact sheet.
+- **For the future:** `CLAUDE.md` now says to look in the library before drawing anything new, and to bring art in only through the build script.
+- **Not done:** the 32 real pictures still need downloading on Jacob's PC (Wikimedia is blocked from the cloud); seven scenes and the city coins wait (`docs/later.md`). The 24 Syracusans keep their mosaic portraits.
+- **Checks:** `npm test` 195 of 195; typecheck clean; 100 seeds: 0 crashes, 0 broken states, 17 tyrannies, output identical to before the change.
+- **Questions for Jacob:** do the flat medallions suit Carthage's men, or should they get mosaic faces like everyone else (the Duet portrait prompt covers that)? Any picture swap that feels wrong?
+
 ## Fixes from the second test (thread 39, 2026-11-27)
 **Built.** Jacob: "Build all and have council decide on the rule changes" (the 30-item list from thread 38). All on in the Second island test preset; the test link is updated.
 - **Bugs (PR #90):** guard pay follows the men; open towns in their side's colour; marriage by sex (the form names the spouse and says the dowry is yours); she/her in the standing line; Aetna freed when the exiles come home; "Pay in land" needs Leontini as ally or yours; no raw role names ("FavouriteKin"); "that you blackmailed him".

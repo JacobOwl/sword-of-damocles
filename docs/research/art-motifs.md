@@ -26,6 +26,18 @@ Used for: the legend ΣΥΡΑΚΟΣΙΩΝ ("of the Syracusans") on the title coi
 
 The Damocles story is in Cicero, *Tusculan Disputations* 5.61 to 5.62, which is **not saved**, and two saved modern pages disagree about which Dionysius it belongs to (see `events-405-395.md`). The title scene (a couch, a cup, a sword on a hair) is the game's title drawn, not a claim about Dionysius I.
 
+## Carthage's coin: the horse and the palm
+
+Checked 2026-11-27 in `sources/coinage/wikipedia-carthaginian-coinage.txt` (Phoenician-Punic World repo, a saved Wikipedia page, so a modern summary, not an ancient source):
+
+> "The first attested Carthaginian coinage seems to have been minted in 410 or 409 BC, to pay for the massive Carthaginian military intervention in Sicily that led to the Second Sicilian War (410-404 BC) and it continued through until the end of the Third Sicilian War (398-393 BC)."
+
+> "The obverse of these earliest coins bears the front half of a horse facing right, with a Punic language legend reading QRTḤDŠT (𐤒𐤓𐤕𐤇𐤃𐤔𐤕, 'Carthage'). The reverse depicts a date palm tree, with the inscription MḤNT (𐤌𐤇𐤍𐤕, 'the encampment')."
+
+Dates: the page gives about 410 to 390 BC for this "Series I" silver, ending by the early 380s. **Disagreement shown, not decided:** what the horse and palm meant is disputed on the same page (the horse as Baal Hammon, as Justin's foundation omen, or as victory; the palm as a Greek pun on *phoinix* or as a sun symbol; Robinson doubted the pun).
+
+Used for: the horse-and-palm coin at the head of Carthage's panel on the island view (the drawing is invention; the types are history), and the palm as Carthage's icon.
+
 ## Not checked
 
-- The palm tree as Carthage's mark: it is on coins struck in Punic Sicily, but this is general knowledge, not checked against a saved source. It is used as an icon only, labelled invention.
+- The other city coin types in the art library (`assets/library/made/coins/`: Akragas crab and eagle, Gela bull, Leontini lion, Messana hare and others) are general knowledge, not checked against a saved source. They stay out of the game until checked.
