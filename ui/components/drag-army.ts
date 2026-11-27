@@ -70,7 +70,7 @@ function draw(g: GameState, target: string | null) {
     const txt = document.createElementNS(NS, "text");
     txt.setAttribute("x", String(p[0])); txt.setAttribute("y", String(p[1] + 34));
     txt.setAttribute("class", "drag-odds");
-    txt.textContent = `${t.p} in 6`;
+    txt.textContent = t.p === 6 ? "certain" : `${t.p} in 6`;
     layer.appendChild(txt);
   }
 }

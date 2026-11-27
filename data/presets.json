@@ -80,7 +80,9 @@
         "warFocus",
         "townBoards",
         "armySupply",
-        "battlePlate"
+        "battlePlate",
+        "carthageStays",
+        "aweNeedsMarch"
       ],
       "summary": "The second island test's rules, with the war focus on (a war with aims, a ledger of turning points, weariness on both sides, peace with terms), started in spring 398 BC instead of 405. You hold the citadel, the Epipolae wall is up, Catana, Leontini and Aetna are yours, Messana is a friend, and Carthage is weak with plague. Carthage's anger is close to war. Each town's three leading houses lean to you, to Carthage or to the town alone (towns that choose). Fourteen seasons, to the end of the decade.",
       "verdictSeason": 14,
@@ -114,7 +116,7 @@
         "carthage": {
           "plagueUntil": 29
         },
-        "text": "Spring 398 BC. Seven years after the peace with Carthage, you hold the citadel on the Island, and the new wall runs along Epipolae. Aetna, Catana and Leontini are yours, and Messana is your friend. In Libya a plague is killing Carthage's people. Some Greeks in Syracuse are leaving for Carthage's towns, but if there were war, every town that pays Carthage tribute might come over to you.",
+        "text": "Seven years after the peace with Carthage, you hold the citadel on the Island, and the new wall runs along Epipolae. Aetna, Catana and Leontini are yours, and Messana is your friend. In Libya a plague is killing Carthage's people. Some Greeks in Syracuse are leaving for Carthage's towns, but if there were war, every town that pays Carthage tribute might come over to you.",
         "why": "the game opens near the war of 398 (Diodorus 14.14 to 14.18, 14.41, 14.44 to 14.45)",
         "kind": "history",
         "source": "Diodorus 14.14.2, 14.15.3-4, 14.18.3, 14.41.1, 14.44.4, 14.45.3",

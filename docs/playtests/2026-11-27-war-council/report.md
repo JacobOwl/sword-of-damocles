@@ -25,7 +25,7 @@
 4. **The guard is shown "paid, at your door" while it marches with the army** (header, `ui/app/shell.ts` line 124). Defense correctly drops; the label does not.
 5. **The keeper's line disagrees with itself.** The muster form says Leptines adds +1 to your defense while you are away; the army line then says "Leptines keeps the citadel (your defense 0)" and the defense total shows no keeper token after the army leaves.
 6. **The 398 opening keeps the 405 city notes.** Leontini (yours): "Free under the peace. Taking it breaks the treaty"; Messana (ally): "Free under the peace"; Gela and Acragas once yours: "Pays tribute to Carthage and may not rebuild its walls"; Aetna (yours) "hostile to you", "where the exiled horsemen hold out". The title page still says "405 to 395 BC" and opens with Autumn 405.
-7. **A stale war matter.** "Carthage's army is close to Acragas, whose old walls have fallen down" fired the season after that army had been beaten and fled to Panormus.
+7. ~~**A stale war matter.**~~ Not a bug: checked after the report. The beaten army had fallen back to Panormus, 6 days from Acragas, which is within the matter's reach.
 8. **"Send The captain of the guard"** appears as its own man in the muster list beside Aristotle the Spartan, who holds the captaincy.
 9. **"you 0 Indifferent"**: the muster form shows your own portrait with an opinion of yourself.
 10. **Small text:** each season's summary opens "Spring 398 BC. Spring 398 BC." (the opening line starts with its own date); setting the plan and then the reserve logs two order lines; "A favour" petitions from Aristotle repeat every season ("the fifth time").
@@ -71,3 +71,10 @@ Starred are the top five. "Cheap" is an hour or less; "costly" is a session or m
 - Should Carthage's first expedition last about a year, and should a second one come inside the 14 seasons?
 - Should towns come over by awe at all, or only by embassy, gates and siege?
 - Do you want the bugs fixed (cheap, no rule change) before you play test 4, and any of the starred rule switches on in the preset?
+
+## Built after the report (Jacob picked "bugs plus the two rule switches")
+
+- **Fixed:** bugs 1 to 5, 6 (the city table says "In 405: ... Now yours"), 9, the doubled date, and "6 in 6" (now "certain, if nothing changes"). A fallen general's army is "Carthage's army" until someone takes it. The night march now looks at the march before this season's, so an army that marched last season no longer earns it by marching again; the odds count holding the line's draws and a combined attack's late parts. Not fixed: bug 8 (two people share the title "captain of the guard"), the double plan line, Aristotle's repeated petition.
+- **New switches, on in the Near-war test:** `carthageStays` (Carthage tires more slowly: no field weariness for its first 3 seasons in Sicily, the seasons of war count for it only while its army is there, plague and a fallen general +1 not +2, each bloc wants peace a point later; a fallen general is replaced by the next man free) and `aweNeedsMarch` (an army still at Syracuse awes no town; at most one town a season comes over by awe).
+- **Counted again** (300 games a tester, [council-runs-with-fixes.md](council-runs-with-fixes.md)): from the landing to Carthage wanting out, 3.3 to 4.1 seasons on average (2.5 to 2.8 without the switches, the diplomat 1.9 to 3.6); landings over in 3 seasons or fewer, 19% to 65% (78% to 100%). More battles (1.8 to 2.4 a game for the fighting testers, from 1.4 to 2.0). Survival barely moves: 78% to 92% (84% to 94%); deaths still come mostly from home. Not tuned.
+

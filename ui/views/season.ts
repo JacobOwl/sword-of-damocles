@@ -180,7 +180,7 @@ function panel(g: GameState, i: ReturnType<typeof menu>[number]) {
       ${thirds.length ? `<label class="label" for="o-${i.id}">${esc(i.thirdLabel ?? "Option")}</label><select id="o-${i.id}" data-arg="option"><option value="">Choose…</option>${thirds.map((o) => `<option value="${esc(o.value)}" ${args.option === o.value ? "selected" : ""}>${esc(o.label)}</option>`).join("")}</select>` : ""}
     </div>` : ""}
     ${notes.length ? `<ul class="small prices">${notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
-    ${target ? `<div class="small target-line">${portrait(target.id, "s")} ${who(target.id)} ${opChip(target.opinion, true)} ${flags(g, target)}</div>` : ""}
+    ${target && target.id !== PLAYER ? `<div class="small target-line">${portrait(target.id, "s")} ${who(target.id)} ${opChip(target.opinion, true)} ${flags(g, target)}</div>` : ""}
     ${fight}
     <div class="odds">${fight && pv.ok ? `<span class="muted">The march itself is certain; the battle is not.</span>` : odds}</div>
     ${pv.ok ? counselLines(g, i.id, args, pv.chance) : ""}

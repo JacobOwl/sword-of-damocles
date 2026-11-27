@@ -13,7 +13,7 @@ import type { Army, CityState, GameState, IslandState, Mod, Side } from "./types
 import { townSideChanged, initTownBoards, houseMods, sendsSupport, seatFriend, newsOfDefeat, gateOffer } from "./towns.ts";
 import { fireTowns } from "./war.ts";
 import { supplyOn, feedFromArea } from "./supply.ts";
-import { planMods, combinedArrival, holdsToDraw, reserveSaves, afterBattle } from "./plate.ts";
+import { planMods, combinedArrival, holdsToDraw, reserveSaves, afterBattle, plateOn, PLATE } from "./plate.ts";
 import { WAR, warOn, warTownChanged, warBattle, warArmyDestroyed, warTaken, warSack, warCampPlague, warHunger } from "./war.ts";
 // Switch "warFocus": a Carthaginian general whose way is kindness (Magon, Diodorus 14.90.3) spares what he takes.
 export const kindGeneral = (s: GameState, a: Army) => warOn(s) && a.side === "carthage" && CARTHAGE.people.find((p: any) => p.id === a.commander)?.method === "kindness";
@@ -51,6 +51,7 @@ export const armyAt = (s: GameState, node: string) => s.island!.armies.filter((a
 export const menWords = (pts: number) => `about ${(Math.max(0, pts) * R.menPerPoint).toLocaleString("en-US")} men`;
 export function armyName(s: GameState, a: Army): string {
   if (a.side === "syracuse") return "your army";
+  if (s.island?.carthage.people[a.commander]?.status === "dead") return "Carthage's army"; // its general fell and no one took his place
   return `${carthagePersonName(s, a.commander)}'s army`;
 }
 export const carthagePersonName = (s: GameState, id: string) => s.island?.carthage.people[id]?.name ?? CARTHAGE.people.find((p: any) => p.id === id)?.name ?? "Carthage";
@@ -162,6 +163,7 @@ export function march(s: GameState, a: Army, dest: string, why: string) {
     if (s.island!.armies.some((o) => o.side !== a.side && o.at === stop)) break; // an enemy army bars the road
   }
   if (stop === from) return;
+  if (a.moved !== s.season) a.movedBefore = a.moved;
   a.moved = s.season;
   if (a.siege) { a.siege = undefined; }
   a.at = stop;
@@ -188,10 +190,20 @@ export function battleForecast(s: GameState, a: Army, dest: string): { at: strin
   a.at = stop; // look, don't move: put it back at once
   const mine = battleMods(s, a), theirs = battleMods(s, foe);
   a.at = from;
-  const d = sum(mine) - sum(theirs);
+  const d0 = sum(mine) - sum(theirs);
+  // Switch "battlePlate": a combined attack's two parts may each come too late (-2 each), and holding the line
+  // turns a narrow defeat into a draw, so the odds count both, as the battle will.
+  const mineArmy = a.side === "syracuse" ? a : foe;
+  const pLate = plateOn(s) && mineArmy.plan === "combined" ? PLATE.lateOn / 6 : 0;
+  const lates = pLate ? [[0, (1 - pLate) ** 2], [1, 2 * pLate * (1 - pLate)], [2, pLate ** 2]] : [[0, 1]];
   let win = 0, draw = 0;
-  for (let x = 1; x <= 6; x++) for (let y = 1; y <= 6; y++) { if (x + d > y) win++; else if (x + d === y) draw++; }
-  return { at: stop, foe, mine, theirs, win: win / 36, draw: draw / 36, lose: (36 - win - draw) / 36 };
+  for (const [k, pk] of lates) {
+    const d = d0 - 2 * k;
+    for (let x = 1; x <= 6; x++) for (let y = 1; y <= 6; y++) {
+      if (x + d > y) win += pk; else if (x + d === y || holdsToDraw(s, mineArmy, y - (x + d))) draw += pk;
+    }
+  }
+  return { at: stop, foe, mine, theirs, win: win / 36, draw: draw / 36, lose: 1 - (win + draw) / 36 };
 }
 
 export function arrive(s: GameState, a: Army) {
@@ -361,7 +373,7 @@ function destroy(s: GameState, a: Army, why: string) {
     c.armiesLost += 1;
     s.flags.carthageArmyLost = s.season;
     const g = c.people[a.commander];
-    if (g) { g.status = "disgraced"; event(s, "carthage", `${g.name} comes home to Carthage in disgrace.`, "he lost his army"); }
+    if (g && g.status !== "dead") { g.status = "disgraced"; event(s, "carthage", `${g.name} comes home to Carthage in disgrace.`, "he lost his army"); } // a general who fell in the battle stays dead
     if (c.general === a.commander) c.general = undefined;
     clock(s, -2, "Carthage has lost an army and fears you");
   }
@@ -601,8 +613,10 @@ export function goOverMods(s: GameState, id: string, side: Army["side"]): Mod[] 
     if (kindGeneral(s, army)) m.push({ label: `${carthagePersonName(s, army.commander)} treats the towns kindly`, value: WAR.knobs.kindness.goOver });
   }
   m.push(...houseMods(s, id, side)); // switch "townBoards"
-  if (army.men >= R.aweMen) m.push({ label: `awed by the size of ${armyName(s, army)}`, value: 1 });
-  if (!foe || army.men > foe.men) m.push({ label: `${armyName(s, army)} is the strongest on the island`, value: 1 });
+  // Switch "aweNeedsMarch" (war council): an army still standing at Syracuse awes no one.
+  const parade = side === "syracuse" && on(s, "aweNeedsMarch") && army.at === "syracuse";
+  if (!parade && army.men >= R.aweMen) m.push({ label: `awed by the size of ${armyName(s, army)}`, value: 1 });
+  if (!parade && (!foe || army.men > foe.men)) m.push({ label: `${armyName(s, army)} is the strongest on the island`, value: 1 });
   if (foe && within(foe.at, id, R.goOverDays)) m.push({ label: `${armyName(s, foe)} is near`, value: -2 });
   if (cityWalls(s, id) >= 2) m.push({ label: "they trust their walls", value: -1 });
   return m;
@@ -613,6 +627,7 @@ function goingOver(s: GameState) {
     for (const side of ["syracuse", "carthage"] as const) {
       const m = goOverMods(s, n.id, side);
       if (!m) continue;
+      if (side === "syracuse" && on(s, "aweNeedsMarch") && s.flags.wonByAwe === s.season) continue; // switch "aweNeedsMarch": one town a season
       const army = isl.armies.find((a) => a.side === side)!;
       const total = sum(m);
       if (total + 6 < R.goOverNeed) continue; // no roll can do it, so no roll is made
@@ -625,6 +640,7 @@ function goingOver(s: GameState) {
       if (!ok) break;
       if (side === "syracuse") {
         count(s, "wonOver");
+        s.flags.wonByAwe = s.season;
         setSide(s, n.id, "ally", `awed by your army, ${nodeName(n.id)} goes over to you`);
         c.lean = Math.max(c.lean, 1);
         event(s, PLAYER, `${nodeName(n.id)} comes over to you without a blow.`, `your army is near and ${m.filter((x) => x.value > 0).map((x) => x.label).join(", ")}`);

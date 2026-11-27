@@ -16,7 +16,7 @@ import {
 import type { Army, GameState } from "./types.ts";
 import { seasonName } from "./state.ts";
 import { lean, cityGrainChange } from "./island.ts";
-import { WAR, card, carthageOffers, closeWar, landingReady, noticePendulum, openWar, pendulum, pendulumAnger, warOn, warSeason, weary } from "./war.ts";
+import { WAR, card, carthageOffers, closeWar, landingReady, noticePendulum, openWar, pendulum, pendulumAnger, staysOn, warOn, warSeason, weary } from "./war.ts";
 // Switch "warFocus": where a raid falls (a port of yours or an ally's, not Syracuse) and which town Carthage courts.
 const raidTarget = (s: GameState) => NODES.filter((n) => n.port && n.id !== "syracuse" && ["syracuse", "ally"].includes(city(s, n.id).side) && city(s, n.id).grain >= 2).map((n) => n.id)[0];
 const courtTarget = (s: GameState) => NODES.filter((n) => ["free", "ally"].includes(city(s, n.id).side) && city(s, n.id).lean > -2).sort((a, b) => city(s, b.id).lean - city(s, a.id).lean || a.id.localeCompare(b.id)).map((n) => n.id)[0];
@@ -41,7 +41,7 @@ export function prefers(s: GameState, id: string): { goal: string; why: string }
   // weariness, not a count of seasons, makes them want peace.
   const anger = s.clock + pendulumAnger(s);
   const wc = card(s);
-  const tired = (bloc: string) => (wc ? wc.weary.carthage >= WAR.knobs.weary.carthagePeace[bloc] : false);
+  const tired = (bloc: string) => (wc ? wc.weary.carthage >= WAR.knobs.weary.carthagePeace[bloc] + (staysOn(s) ? WAR.knobs.stays.peaceLater : 0) : false); // switch "carthageStays": a point later
   const tiredWhy = () => `Carthage is weary of the war (${wc!.weary.carthage} of ${WAR.knobs.weary.max})`;
   if (wc && isl.war) {
     if (id === "elders" && tired("elders") && !lostTown) return { goal: "peace", why: tiredWhy() };

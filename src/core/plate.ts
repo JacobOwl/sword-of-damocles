@@ -6,12 +6,13 @@ import { on } from "./switches.ts";
 import { log, event, mood } from "./ops.ts";
 import { PLAYER } from "./state.ts";
 import { CARTHAGE, carthagePersonName, nodeDef } from "./island.ts";
-import { card, weary } from "./war.ts";
+import { STAYS, card, staysOn, weary } from "./war.ts";
 import { d6 } from "./rng.ts";
 import type { Army, GameState, Mod } from "./types.ts";
 
 export const BATTLE = battleJson as any;
 const K = BATTLE.knobs;
+export const PLATE = K; // the plate's knobs, for the battle odds in island.ts
 export const plateOn = (s: GameState) => on(s, "battlePlate") && !!s.island;
 export const planDef = (id?: string) => BATTLE.plans.find((p: any) => p.id === id);
 
@@ -26,8 +27,10 @@ export function habitLine(s: GameState, foe: Army | undefined): string {
 // The stratagems your army has earned now, from what it did and what you hold.
 export function stratagems(s: GameState, a: Army, at = a.at): Mod[] {
   const m: Mod[] = [];
-  if (a.side === "carthage") return a.moved !== s.season - 1 && a.since < s.season ? [{ label: "a night march: its men rested last season", value: 1 }] : [];
-  if (a.moved !== s.season - 1 && a.since < s.season) m.push({ label: "a night march: your men rested last season", value: 1 });
+  // Rested last season: it did not march then (if it marched this season, look at the march before).
+  const rested = (a.moved === s.season ? a.movedBefore ?? -1 : a.moved) !== s.season - 1 && a.since < s.season;
+  if (a.side === "carthage") return rested ? [{ label: "a night march: its men rested last season", value: 1 }] : [];
+  if (rested) m.push({ label: "a night march: your men rested last season", value: 1 });
   if (a.guard > 0 && s.factions.guard.mood <= 2) m.push({ label: "you send the men you distrust in first (the guard will resent it)", value: 1 });
   if (nodeDef(at)?.port && s.offices.fleet === PLAYER) m.push({ label: "your ships threaten their beach camp", value: 1 });
   return m.slice(0, 1); // one stratagem a battle: the first earned
@@ -70,7 +73,14 @@ export function afterBattle(s: GameState, mine: Army, foe: Army, won: boolean) {
     if (st && st.status !== "dead") {
       st.status = "dead";
       event(s, "carthage", `${carthagePersonName(s, foe.commander)} falls in the battle. Carthage's army loses heart.`, "its general was killed (as Magon fell at Cabala, Diodorus 15.15.3)");
-      if (card(s)) weary(s, "carthage", K.generalFallsWeary, "its general fell in battle");
+      if (card(s)) weary(s, "carthage", staysOn(s) ? STAYS.generalFalls : K.generalFallsWeary, "its general fell in battle");
+      // Switch "carthageStays": the next man free to lead takes the army over.
+      const next = staysOn(s) ? Object.values(k.people).find((p) => p.status === "free") : undefined;
+      if (next) {
+        next.status = "command"; foe.commander = next.id;
+        if (k.general === st.id) k.general = next.id;
+        event(s, "carthage", `${next.name} takes command of the army in Sicily.`, `${carthagePersonName(s, st.id)} is dead, and ${next.name} was the next man free to lead`);
+      }
     }
   }
 }
