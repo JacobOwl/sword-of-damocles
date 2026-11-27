@@ -16,6 +16,14 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Checks:** `npm test` 201 of 201; typecheck clean; 100 seeds 0 crashes, 0 broken states, 17 tyrannies (same as before); UI walk 115 snapshots, 0 page errors.
 - **Questions for Jacob:** after test 4, is the folded news missed? Is the actions list (about 30 buttons) the next thing to shrink?
 
+## War council: AI testers play the Near-war test (thread 43, 2026-11-27)
+**Report only.** Jacob: "Have a council test the war system before me." Report: `docs/playtests/2026-11-27-war-council/report.md`; numbers: `council-runs.md` beside it; script `node scripts/war-council.ts --games 300` (five testers: warlord, defender, diplomat, one-big-army exploit hunter, turtle; `--one warlord:7` prints one game's log).
+- **Built:** the script only. No rule, data or game code changed.
+- **Verdict:** the war has a face (war card, houses, gates, plate) but ends too fast and is too easy. Every tester survives 85% to 95% of 300 games; Carthage lands in nearly every game and turns to peace within about 3 seasons of landing. A muster at Syracuse still wins open towns by awe ("6 in 6").
+- **Broke (found, not fixed):** a general who fell in battle is set back to "disgraced" when his army is destroyed and starves himself a second time (`src/core/island.ts` line 364); treaty text promises more silver than Carthage's treasury pays (`applyTerms`); the plate's odds leave out the night march and use the army's current place; the header says the guard is "at your door" while it marches; the keeper's +1 disagrees with "your defense 0"; the 398 opening keeps 405 city notes; a stale "walls weak" war matter; an extra "captain of the guard" in the muster list.
+- **Checks:** 1,500 games, 0 crashes, 0 broken states, 0 replay differences. Browser games were on the build before PR #110 (season screen layout).
+- **Questions for Jacob:** which of the starred five to build before test 4 (rules as switches); should Carthage's first expedition last about a year; should towns come over by awe at all.
+
 ## Portraits and more art (thread 40, part 2, 2026-11-27)
 **Built.** Jacob: "Why not add portraits and art".
 - **Carthage's council has mosaic faces**: Duet's draft looks (PR #95) for Himilcon, Magon, Hanno the elder and Bomilcar, now `ui/art/carthage-looks.json` and `ui/art/portraits/<id>.webp`. Drawn in a real browser with the mosaic editor's own code; a check re-drew Dionysius byte for byte the same as his file. They replace the flat medallions shown in part 1 (those stay in the library). The test now wants a portrait for every Syracusan and every man of Carthage's council.

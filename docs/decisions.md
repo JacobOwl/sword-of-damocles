@@ -561,3 +561,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (delegated, "as you see fit"):** the news folds closed under the turn instead of leading it, since Jacob reads the structured parts. Every line is still one click away.
 - **Open:** 10, 12, 15, 16 parked in `docs/later.md`.
 
+## 2026-11-27 (war council playtest, thread 43)
+- **Done (Jacob: "Have a council test the war system before me"):** five bot testers, 300 games each on the Near-war test, plus browser games at desktop and phone width. Report and fix list (top five starred) in `docs/playtests/2026-11-27-war-council/report.md`. Report only: no rules changed.
+- **Decided (small, here):** the council players live in their own script (`scripts/war-council.ts`) and reuse the playtest bot's checks; the playtest bot's setup list is not changed.
+- **Open:** Jacob picks which fixes to build; rule changes would be switches, off by default.
+
