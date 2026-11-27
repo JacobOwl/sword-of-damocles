@@ -49,7 +49,7 @@ So for each great war of our years, Diodorus' Greek source used the word for kin
 - 410/409: Segesta's envoys "laid before the Senate the instructions the people had given them"; the Carthaginians were "in no little quandary", eager for the city but afraid of Syracuse, until Hannibal "also advised them to acquire the city" (13.43.4 to 13.43.5).
 - 406/405: the Carthaginians "voted to prepare great armaments" (13.80.1), then sent "certain citizens who were held in high esteem among the Carthaginians with large sums of money, some to Iberia and others to the Baliarides Islands" to hire men (13.80.2).
 - 398/397: Dionysius' herald brought a letter "to the senate". "When it had been read in the council and subsequently before the people", Carthage was distressed, "for the plague had killed great numbers of them, and they were also totally unprepared"; they "dispatched members of the senate with large sums of money to recruit mercenaries in Europe" (14.47.1 to 14.47.3).
-- 383/382: after Cabala the Carthaginians asked for a truce "in order that they might discuss the question with their government" (15.16.1).
+- 383/382: after Cabala, Dionysius demanded that they leave the cities of Sicily; the men in the field "stated that it was not in their power to hand over the cities" and asked for a truce "in order that they might discuss the question with their government" (15.15.4 to 15.16.1). Diodorus calls this a trick ("their accustomed knavery"), but the excuse only works if a general in the field could not give away towns.
 
 So in our years a council receives foreign letters and envoys first, the people hear them next, and senators themselves carry the silver abroad to hire armies.
 
@@ -235,6 +235,8 @@ diodorus/english/book14.loeb.txt | When it had been read in the council and subs
 diodorus/english/book14.loeb.txt | for the plague had killed great numbers of them, and they were also totally unprepared
 diodorus/english/book14.loeb.txt | dispatched members of the senate with large sums of money to recruit mercenaries in Europe
 diodorus/english/book15.loeb.txt | in order that they might discuss the question with their government
+diodorus/english/book15.loeb.txt | stated that it was not in their power to hand over the cities
+diodorus/english/book15.loeb.txt | their accustomed knavery
 governance/aristotle-politics-2.11.txt | chosen from these rather than by age
 governance/aristotle-politics-2.11.txt | for as they are put in control of important matters, if they are men of no value they do great harm
 polybius/book6-51-52.shuckburgh.txt | the Gerusia had the powers of an aristocracy

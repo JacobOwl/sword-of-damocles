@@ -1,0 +1,1010 @@
+{
+  "note": "Draft cast for Carthage's home politics, 410 to 380 BC, in data/people.json's shape. Not wired into the game. Card: docs/drafts/carthage-cast.md; history records cite docs/research/carthage-government.md. 'faction' is one of Carthage's blocs in data/carthage.json (elders, hundred, people, libyans) and is always a game proposal. 'wants' is one of Carthage's goals there (rebuild, tribute, war, peace, libya). 'opinion' is of the ruler of Syracuse. 'status' outside means alive, in Carthage or Libya. 'general' and 'method' are the two extra fields that data/carthage.json gives its people; the ids himilcon, magon, hanno and bomilcar are the same people as there. 'enters' is the first season someone can appear (format season-year). The fields named in 'invented' are game invention.",
+  "people": [
+    {
+      "id": "hannibal",
+      "kind": "history",
+      "name": "Hannibal son of Gisco",
+      "faction": "elders",
+      "role": "Carthage's foremost citizen and general of 410 to 406",
+      "traits": [
+        "proud",
+        "harsh"
+      ],
+      "ambition": "Revenge",
+      "opinion": -3,
+      "kin": [
+        "himilcon"
+      ],
+      "family": [
+        {
+          "person": "himilcon",
+          "relation": "kinsman, of the same family (Diodorus 13.80.1)"
+        }
+      ],
+      "wants": "war",
+      "marriageable": false,
+      "status": "dead",
+      "grudges": [],
+      "politicalType": "Champion",
+      "general": 3,
+      "method": "force",
+      "rivalNote": "Dead before a 405 start (plague before Acragas, 406). Kept for an earlier start and to explain the family. His motive is the one Diodorus gives: his family's disgrace at Himera.",
+      "player": false,
+      "source": "Diodorus 13.43.5 to 13.43.6, 13.62.4, 13.62.6, 13.80.1, 13.86.3",
+      "card": "docs/research/carthage-government.md",
+      "facts": [
+        {
+          "text": "Carthage's foremost citizen in 410/409.",
+          "cite": "Diodorus 13.43.5",
+          "quote": "Hannibal, their foremost citizen",
+          "file": "sources/diodorus/english/book13.loeb.txt"
+        },
+        {
+          "text": "Chosen general while lawfully holding sovereign power.",
+          "cite": "Diodorus 13.43.5",
+          "quote": "they selected as general Hannibal, who at the time lawfully exercised sovereign powers",
+          "file": "sources/diodorus/english/book13.loeb.txt"
+        },
+        {
+          "text": "In the Greek: king, according to the laws, at the time.",
+          "cite": "Diodorus 13.43.5 (Greek)",
+          "quote": "κατὰ νόμους τότε βασιλεύοντα",
+          "file": "sources/diodorus/sicilian-wars.greek.txt"
+        },
+        {
+          "text": "Grandson of the general who died at Himera; son of an exile.",
+          "cite": "Diodorus 13.43.5",
+          "quote": "He was the grandson of Hamilcar, who fought in the war against Gelon and died at Himera, and the son of Gescon, who had been exiled because of his father's defeat",
+          "file": "sources/diodorus/english/book13.loeb.txt"
+        },
+        {
+          "text": "Hated the Greeks and meant to wipe out his family's disgrace.",
+          "cite": "Diodorus 13.43.6",
+          "quote": "by nature was a hater of the Greeks and at the same time desired to wipe out the disgraces which had befallen his ancestors",
+          "file": "sources/diodorus/english/book13.loeb.txt"
+        },
+        {
+          "text": "Killed some three thousand captives where his grandfather fell, 409.",
+          "cite": "Diodorus 13.62.4",
+          "quote": "he led to the spot where once his grandfather Hamilcar had been slain by Gelon",
+          "file": "sources/diodorus/english/book13.loeb.txt"
+        },
+        {
+          "text": "Welcomed home in triumph, 409.",
+          "cite": "Diodorus 13.62.6",
+          "quote": "the whole city came out to meet him, paying him homage and honour",
+          "file": "sources/diodorus/english/book13.loeb.txt"
+        },
+        {
+          "text": "Asked to be excused for his age, 406.",
+          "cite": "Diodorus 13.80.1",
+          "quote": "When he begged to be excused because of his age",
+          "file": "sources/diodorus/english/book13.loeb.txt"
+        },
+        {
+          "text": "Died of plague before Acragas, 406.",
+          "cite": "Diodorus 13.86.3",
+          "quote": "Among the dead was also Hannibal the general",
+          "file": "sources/diodorus/english/book13.loeb.txt"
+        }
+      ],
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "wants",
+        "politicalType",
+        "marriageable",
+        "enters",
+        "faction",
+        "general",
+        "method",
+        "status at a 405 start is history; the rest of the list is invention"
+      ]
+    },
+    {
+      "id": "himilcon",
+      "kind": "history",
+      "name": "Himilcon",
+      "faction": "elders",
+      "role": "General of Carthage; king for the war of 396",
+      "traits": [
+        "bold"
+      ],
+      "ambition": "Office",
+      "opinion": -2,
+      "kin": [
+        "hannibal",
+        "himilconSon"
+      ],
+      "family": [
+        {
+          "person": "hannibal",
+          "relation": "kinsman, of the same family (Diodorus 13.80.1)"
+        },
+        {
+          "person": "himilconSon",
+          "relation": "son (Justin 19.3.11, late)"
+        }
+      ],
+      "wants": "war",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [],
+      "politicalType": "Champion",
+      "general": 3,
+      "method": "force",
+      "rivalNote": "Same man as the game's Himilcon in data/carthage.json (traits, general and method kept). His home side: king in 396, home in rags the same year, judged himself, no trial.",
+      "player": false,
+      "source": "Diodorus 13.80.1, 14.54.5, 14.75.4, 14.76.3 to 14.76.4; Justin 19.3.1, 19.3.11",
+      "card": "docs/research/carthage-government.md",
+      "facts": [
+        {
+          "text": "Son of Hanno, of Hannibal's family; made co-general in 406.",
+          "cite": "Diodorus 13.80.1",
+          "quote": "another general, Himilcon, the son of Hanno and of the same family",
+          "file": "sources/diodorus/english/book13.loeb.txt"
+        },
+        {
+          "text": "Given supreme command for the war of 396.",
+          "cite": "Diodorus 14.54.5",
+          "quote": "lawfully according Himilcon sovereign power",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        },
+        {
+          "text": "In the Greek: made king according to the law.",
+          "cite": "Diodorus 14.54.5 (Greek)",
+          "quote": "Ἰμίλκωνα βασιλέα κατὰ νόμον καταστήσαντες",
+          "file": "sources/diodorus/sicilian-wars.greek.txt"
+        },
+        {
+          "text": "Fled by night with the citizens and left the rest of his army.",
+          "cite": "Diodorus 14.75.4",
+          "quote": "manned forty triremes during the night with the citizens of Carthage and began his flight, abandoning all the rest of his army",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        },
+        {
+          "text": "Came home in disgrace.",
+          "cite": "Diodorus 14.76.3",
+          "quote": "slipped away in disgrace to Carthage with a few survivors",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        },
+        {
+          "text": "Starved himself to death.",
+          "cite": "Diodorus 14.76.4",
+          "quote": "In the end he passed sentence of death upon himself and starved himself to death",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        },
+        {
+          "text": "Came off his ship dressed as a slave (late source).",
+          "cite": "Justin 19.3.1",
+          "quote": "with his belt removed, and in a mean dress like that of a slave",
+          "file": "sources/justin/justin-18.7-19.1.watson.txt"
+        },
+        {
+          "text": "Shut his door, even on his sons, and ended his life (late source).",
+          "cite": "Justin 19.3.11",
+          "quote": "admitting no one, not even his sons, to his presence, he put an end to his life",
+          "file": "sources/justin/justin-18.7-19.1.watson.txt"
+        }
+      ],
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "wants",
+        "politicalType",
+        "marriageable",
+        "enters",
+        "faction",
+        "general",
+        "method"
+      ]
+    },
+    {
+      "id": "himilconSon",
+      "kind": "history",
+      "name": "Himilcon's son",
+      "faction": "elders",
+      "role": "A son of the disgraced general (no text names him)",
+      "traits": [
+        "dutiful",
+        "proud"
+      ],
+      "ambition": "Office",
+      "opinion": -2,
+      "kin": [
+        "himilcon"
+      ],
+      "family": [
+        {
+          "person": "himilcon",
+          "relation": "father (dead from 396)"
+        }
+      ],
+      "wants": "rebuild",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [
+        "his father's army died of plague before your walls and his father died of the shame, 396"
+      ],
+      "politicalType": "Heir",
+      "general": 1,
+      "rivalNote": "Justin says only that Himilco had sons. Which son, his name, age and everything he does are invention. The grudge is invention built on history.",
+      "player": false,
+      "source": "Justin 19.3.11",
+      "card": "docs/research/carthage-government.md",
+      "facts": [
+        {
+          "text": "Himilcon had sons (late source).",
+          "cite": "Justin 19.3.11",
+          "quote": "not even his sons",
+          "file": "sources/justin/justin-18.7-19.1.watson.txt"
+        }
+      ],
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "wants",
+        "politicalType",
+        "marriageable",
+        "enters",
+        "faction",
+        "general",
+        "method",
+        "name",
+        "grudges",
+        "which son"
+      ]
+    },
+    {
+      "id": "magon",
+      "kind": "history",
+      "name": "Magon",
+      "faction": "elders",
+      "role": "Admiral of Carthage in 396; general in 392; king in 383",
+      "traits": [
+        "cautious"
+      ],
+      "ambition": "Office",
+      "opinion": 0,
+      "kin": [
+        "magonSon"
+      ],
+      "family": [
+        {
+          "person": "magonSon",
+          "relation": "son"
+        }
+      ],
+      "wants": "tribute",
+      "marriageable": false,
+      "status": "outside",
+      "enters": "summer-396",
+      "entersNote": "first named as Himilcon's admiral, about 396 (range 397 to 395)",
+      "grudges": [],
+      "politicalType": "Climber",
+      "general": 2,
+      "method": "kindness",
+      "rivalNote": "Same man as the game's Magon in data/carthage.json (traits, general and method kept). The only man of these years who rises from admiral under a disgraced king to king.",
+      "player": false,
+      "source": "Diodorus 14.59.1, 14.90.2 to 14.90.3, 14.95.1, 14.96.4, 15.15.2 to 15.15.3, 15.16.2",
+      "card": "docs/research/carthage-government.md",
+      "facts": [
+        {
+          "text": "Himilcon's admiral, about 396.",
+          "cite": "Diodorus 14.59.1",
+          "quote": "he dispatched Magon his admiral with his naval armament",
+          "file": "sources/diodorus/english/book14.loeb.txt"
+        },
+        {
+          "text": "Won the subject towns by kindness, about 393.",
+          "cite": "Diodorus 14.90.3",
+          "quote": "showed kindness to the subject cities and received the victims of Dionysius' wars",
+          "file": "sources/diodorus/english/book14-78-96.txt"
+        },
+        {
+          "text": "Led a great army in 392.",
+          "cite": "Diodorus 14.95.1",
+          "quote": "no less than eighty thousand in number and under the command of Magon",
+          "file": "sources/diodorus/english/book14-78-96.txt"
+        },
+        {
+          "text": "Sailed home after the peace of 392.",
+          "cite": "Diodorus 14.96.4",
+          "quote": "After the conclusion of the treaty Magon sailed off",
+          "file": "sources/diodorus/english/book14-78-96.txt"
+        },
+        {
+          "text": "Chosen general as king for the war of 383/382.",
+          "cite": "Diodorus 15.15.2",
+          "quote": "As general they chose their king Magon",
+          "file": "sources/diodorus/english/book15.loeb.txt"
+        },
+        {
+          "text": "Killed at Cabala.",
+          "cite": "Diodorus 15.15.3",
+          "quote": "There fell also Magon their king after a splendid combat",
+          "file": "sources/diodorus/english/book15.loeb.txt"
+        },
+        {
+          "text": "Given a great funeral.",
+          "cite": "Diodorus 15.16.2",
+          "quote": "gave their king Magon a magnificent funeral",
+          "file": "sources/diodorus/english/book15.loeb.txt"
+        }
+      ],
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "wants",
+        "politicalType",
+        "marriageable",
+        "enters",
+        "faction",
+        "general",
+        "method"
+      ]
+    },
+    {
+      "id": "magonSon",
+      "kind": "history",
+      "name": "Magon's son",
+      "faction": "elders",
+      "role": "General after his father fell; victor at Cronium (no text names him)",
+      "traits": [
+        "ambitious",
+        "brave"
+      ],
+      "ambition": "Office",
+      "opinion": -2,
+      "kin": [
+        "magon"
+      ],
+      "family": [
+        {
+          "person": "magon",
+          "relation": "father (killed at Cabala)"
+        }
+      ],
+      "wants": "war",
+      "marriageable": false,
+      "status": "outside",
+      "enters": "summer-383",
+      "entersNote": "made general in the war Diodorus files under 383/382 (many modern accounts put it later, to about 375)",
+      "grudges": [
+        "his father Magon was killed fighting your army at Cabala"
+      ],
+      "politicalType": "Heir",
+      "general": 2,
+      "method": "force",
+      "rivalNote": "Two traits follow Diodorus' words (ambition, courage); the rest is invention. The grudge is invention built on history.",
+      "player": false,
+      "source": "Diodorus 15.16.1 to 15.16.2, 15.17.5",
+      "card": "docs/research/carthage-government.md",
+      "facts": [
+        {
+          "text": "Made general when his father fell.",
+          "cite": "Diodorus 15.16.2",
+          "quote": "replaced him as general with his son, who, though he was young indeed, was full of ambition and distinguished for his courage",
+          "file": "sources/diodorus/english/book15.loeb.txt"
+        },
+        {
+          "text": "Drilled the army through a truce.",
+          "cite": "Diodorus 15.16.2",
+          "quote": "He spent the entire period of the truce drilling and exercising his troops",
+          "file": "sources/diodorus/english/book15.loeb.txt"
+        },
+        {
+          "text": "The truce was asked so the men in the field could consult the government at home.",
+          "cite": "Diodorus 15.16.1",
+          "quote": "in order that they might discuss the question with their government",
+          "file": "sources/diodorus/english/book15.loeb.txt"
+        },
+        {
+          "text": "His peace made Dionysius pay.",
+          "cite": "Diodorus 15.17.5",
+          "quote": "Dionysius paid the Carthaginians one thousand talents",
+          "file": "sources/diodorus/english/book15.loeb.txt"
+        }
+      ],
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "wants",
+        "politicalType",
+        "marriageable",
+        "enters",
+        "faction",
+        "general",
+        "method",
+        "grudges"
+      ]
+    },
+    {
+      "id": "suniatus",
+      "kind": "history",
+      "name": "Suniatus",
+      "faction": "elders",
+      "role": "The most powerful man in Carthage, who wrote to Syracuse in Greek (one late source)",
+      "traits": [
+        "shrewd",
+        "vengeful"
+      ],
+      "ambition": "Power",
+      "opinion": 2,
+      "kin": [],
+      "wants": "peace",
+      "marriageable": false,
+      "status": "outside",
+      "enters": "summer-385",
+      "entersNote": "Justin's order puts him about 387 to 383; Wikipedia dates the ban on Greek to 368, after these years",
+      "grudges": [],
+      "politicalType": "Spymaster",
+      "rivalNote": "Known only from Justin, centuries later. He hated Hanno the general and betrayed his army's approach to Dionysius. In the game his letter could reach you as news, and be caught.",
+      "player": false,
+      "source": "Justin 20.5.11 to 20.5.13",
+      "card": "docs/research/carthage-government.md",
+      "facts": [
+        {
+          "text": "The most powerful Carthaginian of his day, Hanno's enemy (late source).",
+          "cite": "Justin 20.5.12",
+          "quote": "whose enemy Suniatus, the most powerful of the Carthaginians at that time",
+          "file": "sources/justin/justin-18.7-19.1.watson.txt"
+        },
+        {
+          "text": "Wrote to Dionysius in Greek about the army and its slow general.",
+          "cite": "Justin 20.5.12",
+          "quote": "in a letter written in Greek, of the approach of the army and the inactivity of its leader",
+          "file": "sources/justin/justin-18.7-19.1.watson.txt"
+        },
+        {
+          "text": "The letter was caught; found guilty of treason.",
+          "cite": "Justin 20.5.12",
+          "quote": "was found, through the letter being intercepted, guilty of treason",
+          "file": "sources/justin/justin-18.7-19.1.watson.txt"
+        },
+        {
+          "text": "Then the senate banned the study of Greek.",
+          "cite": "Justin 20.5.13",
+          "quote": "that no Carthaginian should thenceforward study the Greek literature or language",
+          "file": "sources/justin/justin-18.7-19.1.watson.txt"
+        }
+      ],
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "wants",
+        "politicalType",
+        "marriageable",
+        "enters",
+        "faction",
+        "general",
+        "method"
+      ]
+    },
+    {
+      "id": "hannoGeneral",
+      "kind": "history",
+      "name": "Hanno the general",
+      "faction": "elders",
+      "role": "Leader of a Carthaginian expedition to Sicily (one late source; not Hanno the elder)",
+      "traits": [
+        "cautious",
+        "patient"
+      ],
+      "ambition": "Office",
+      "opinion": -1,
+      "kin": [],
+      "wants": "war",
+      "marriageable": false,
+      "status": "outside",
+      "enters": "summer-385",
+      "entersNote": "as for Suniatus: Justin's order about 387 to 383, possibly the 360s",
+      "grudges": [],
+      "politicalType": "Climber",
+      "general": 1,
+      "rivalNote": "One sentence in Justin. Diodorus names Magon as general of the war of 383/382, so this may be another war or Justin's error. Not the invented Hanno the elder.",
+      "player": false,
+      "source": "Justin 20.5.11 to 20.5.12",
+      "card": "docs/research/carthage-government.md",
+      "facts": [
+        {
+          "text": "Led the expedition (late source).",
+          "cite": "Justin 20.5.11",
+          "quote": "The leader in the expedition was Hanno the Carthaginian",
+          "file": "sources/justin/justin-18.7-19.1.watson.txt"
+        },
+        {
+          "text": "His enemy called him slow.",
+          "cite": "Justin 20.5.12",
+          "quote": "the inactivity of its leader",
+          "file": "sources/justin/justin-18.7-19.1.watson.txt"
+        }
+      ],
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "wants",
+        "politicalType",
+        "marriageable",
+        "enters",
+        "faction",
+        "general",
+        "method"
+      ]
+    },
+    {
+      "id": "libyanLeader",
+      "kind": "history",
+      "name": "the leader of the Libyan rising",
+      "faction": "libyans",
+      "role": "A leader of the Libyan rising of 396 (no text names one)",
+      "traits": [
+        "fiery",
+        "proud"
+      ],
+      "ambition": "Safety",
+      "opinion": 0,
+      "kin": [],
+      "wants": "libya",
+      "marriageable": false,
+      "status": "outside",
+      "enters": "summer-396",
+      "entersNote": "the rising followed the disaster at Syracuse, 396 (range 397 to 395)",
+      "grudges": [],
+      "politicalType": "Champion",
+      "rivalNote": "The rising is history; the man is unnamed, and Diodorus says the rebels had no capable commanders and quarrelled over the command. 'wants' here is the goal his rising forces on Carthage (Quiet Libya).",
+      "player": false,
+      "source": "Diodorus 14.77.1, 14.77.3, 14.77.6",
+      "card": "docs/research/carthage-government.md",
+      "facts": [
+        {
+          "text": "The Libyans hated Carthage's rule, and more so after Syracuse.",
+          "cite": "Diodorus 14.77.1",
+          "quote": "who had long hated the oppressive rule of the Carthaginians and even more at this time because of the betrayal of the soldiers at Syracuse",
+          "file": "sources/religion/diodorus-14.77-loeb.txt"
+        },
+        {
+          "text": "A very large rising (Diodorus' number).",
+          "cite": "Diodorus 14.77.3",
+          "quote": "a body of two hundred thousand men",
+          "file": "sources/religion/diodorus-14.77-loeb.txt"
+        },
+        {
+          "text": "No capable commanders.",
+          "cite": "Diodorus 14.77.6",
+          "quote": "possessed no capable commanders",
+          "file": "sources/religion/diodorus-14.77-loeb.txt"
+        },
+        {
+          "text": "Quarrels over the command; some leaders bought off.",
+          "cite": "Diodorus 14.77.6",
+          "quote": "they quarrelled among themselves over the supreme command and some of them were bought off with Carthaginian money",
+          "file": "sources/religion/diodorus-14.77-loeb.txt"
+        },
+        {
+          "text": "The rising broke up.",
+          "cite": "Diodorus 14.77.6",
+          "quote": "broke up and scattered to their native lands",
+          "file": "sources/religion/diodorus-14.77-loeb.txt"
+        }
+      ],
+      "invented": [
+        "traits",
+        "ambition",
+        "opinion",
+        "wants",
+        "politicalType",
+        "marriageable",
+        "enters",
+        "faction",
+        "general",
+        "method",
+        "name",
+        "which leader"
+      ]
+    },
+    {
+      "id": "hanno",
+      "kind": "invention",
+      "name": "Hanno the elder",
+      "faction": "elders",
+      "role": "Head of a great merchant house, for the Elders",
+      "traits": [
+        "cautious"
+      ],
+      "ambition": "Wealth",
+      "opinion": 0,
+      "kin": [],
+      "wants": "rebuild",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [],
+      "politicalType": "Champion",
+      "general": 1,
+      "method": "kindness",
+      "rivalNote": "Already in the game (data/carthage.json), portrait in PR 95. No text names an Elder of these years other than the generals. Leans on Diodorus 14.47.2 (the council hears first) and Aristotle, Politics 2.11, 1273a (later: wealth chooses rulers).",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    },
+    {
+      "id": "carthalo",
+      "kind": "invention",
+      "name": "Carthalo son of Hamilcar",
+      "faction": "elders",
+      "role": "An elder with ships in the western trade",
+      "traits": [
+        "wealthy",
+        "vengeful"
+      ],
+      "ambition": "Wealth",
+      "opinion": -2,
+      "kin": [
+        "sibbolet",
+        "maharbal"
+      ],
+      "family": [
+        {
+          "person": "sibbolet",
+          "relation": "sister"
+        },
+        {
+          "person": "maharbal",
+          "relation": "son"
+        }
+      ],
+      "wants": "rebuild",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [
+        "the Syracusans plundered his ships in their harbour with your permission, 398/397"
+      ],
+      "rivalNote": "Invented. Leans on Diodorus 14.46.1: Carthaginians lived at Syracuse and their merchants' ships were plundered with Dionysius' leave. The grudge is invention built on that.",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    },
+    {
+      "id": "sibbolet",
+      "kind": "invention",
+      "name": "Sibbolet daughter of Hamilcar",
+      "sex": "f",
+      "faction": "elders",
+      "role": "Runs her brother Carthalo's warehouse; trades with Greeks",
+      "traits": [
+        "shrewd",
+        "wellConnected"
+      ],
+      "ambition": "Wealth",
+      "opinion": 1,
+      "kin": [
+        "carthalo",
+        "maharbal"
+      ],
+      "family": [
+        {
+          "person": "carthalo",
+          "relation": "brother"
+        },
+        {
+          "person": "maharbal",
+          "relation": "nephew"
+        }
+      ],
+      "wants": "rebuild",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [],
+      "rivalNote": "Invented. Her name is a businesswoman's on an undated gravestone at Carthage (docs/research/punic-womens-names.md). Leans on Diodorus 14.77.5 (Greeks living at Carthage). A ban on Greek (Justin 20.5.13, late) would cut her trade.",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    },
+    {
+      "id": "maharbal",
+      "kind": "invention",
+      "name": "Maharbal son of Carthalo",
+      "faction": "elders",
+      "role": "An elder sent abroad with silver to hire armies; lends to the state",
+      "traits": [
+        "ambitious",
+        "generous"
+      ],
+      "ambition": "Office",
+      "opinion": -1,
+      "kin": [
+        "carthalo",
+        "sibbolet"
+      ],
+      "family": [
+        {
+          "person": "carthalo",
+          "relation": "father"
+        },
+        {
+          "person": "sibbolet",
+          "relation": "aunt"
+        }
+      ],
+      "wants": "war",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [],
+      "politicalType": "Climber",
+      "general": 1,
+      "rivalNote": "Invented. Leans on Diodorus 13.80.2 and 14.47.3 (esteemed citizens and senators sent abroad with silver to hire men) and 13.62.5 (the Campanians' complaint about their reward).",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    },
+    {
+      "id": "adherbal",
+      "kind": "invention",
+      "name": "Adherbal son of Sapho",
+      "faction": "elders",
+      "role": "An elder who owns estates in Libya",
+      "traits": [
+        "wealthy",
+        "cautious"
+      ],
+      "ambition": "Safety",
+      "opinion": 0,
+      "kin": [
+        "synalus"
+      ],
+      "family": [
+        {
+          "person": "synalus",
+          "relation": "son"
+        }
+      ],
+      "wants": "libya",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [],
+      "rivalNote": "Invented. Leans on Diodorus 13.114.2 (plague in Libya, 405) and 14.77.1 to 14.77.6 (the rising of 396, slaves among the rebels, leaders bought off).",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    },
+    {
+      "id": "bostar",
+      "kind": "invention",
+      "name": "Bostar son of Malchus",
+      "faction": "elders",
+      "role": "A suffete of the year",
+      "traits": [
+        "dutiful",
+        "patient"
+      ],
+      "ambition": "Office",
+      "opinion": 0,
+      "kin": [
+        "annobal",
+        "hasdrubal"
+      ],
+      "family": [
+        {
+          "person": "annobal",
+          "relation": "brother"
+        },
+        {
+          "person": "hasdrubal",
+          "relation": "son"
+        }
+      ],
+      "wants": "tribute",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [],
+      "rivalNote": "Invented. No suffete of these years is named, and yearly suffetes in 405 are disputed (docs/research/carthage-government.md, section 1). Leans on Aristotle, Politics 2.11, 1273a (later): the kings and Elders decide what goes to the people.",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    },
+    {
+      "id": "hasdrubal",
+      "kind": "invention",
+      "name": "Hasdrubal son of Bostar",
+      "faction": "elders",
+      "role": "A priest of Demeter and Kore, the new goddesses of 396",
+      "traits": [
+        "grim",
+        "suspicious"
+      ],
+      "ambition": "Safety",
+      "opinion": -1,
+      "kin": [
+        "bostar",
+        "annobal"
+      ],
+      "family": [
+        {
+          "person": "bostar",
+          "relation": "father"
+        },
+        {
+          "person": "annobal",
+          "relation": "uncle"
+        }
+      ],
+      "wants": "peace",
+      "marriageable": false,
+      "status": "outside",
+      "enters": "summer-396",
+      "entersNote": "the priesthood was founded after the disaster of 396",
+      "grudges": [],
+      "rivalNote": "Invented. Leans on Diodorus 14.77.4 to 14.77.5: Carthage made its most renowned citizens priests of the two goddesses and gave Greeks living there a part in the rites.",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    },
+    {
+      "id": "bomilcar",
+      "kind": "invention",
+      "name": "Bomilcar",
+      "faction": "hundred",
+      "role": "A man of the Hundred who wants a command",
+      "traits": [
+        "bold"
+      ],
+      "ambition": "Office",
+      "opinion": -2,
+      "kin": [],
+      "wants": "war",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [],
+      "politicalType": "Climber",
+      "general": 2,
+      "method": "force",
+      "rivalNote": "Already in the game (data/carthage.json), portrait in PR 95. Not the Bomilcar of 308, who is later. Leans on Aristotle, Politics 2.11, 1273a (later): the generalship could be bought.",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    },
+    {
+      "id": "synalus",
+      "kind": "invention",
+      "name": "Synalus son of Adherbal",
+      "faction": "hundred",
+      "role": "A judge of the Hundred who audits the generals",
+      "traits": [
+        "blunt",
+        "suspicious"
+      ],
+      "ambition": "Power",
+      "opinion": 0,
+      "kin": [
+        "adherbal"
+      ],
+      "family": [
+        {
+          "person": "adherbal",
+          "relation": "father"
+        }
+      ],
+      "wants": "tribute",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [],
+      "rivalNote": "Invented. No court sits in any text of 410 to 380. Leans on Justin 19.2.5 to 19.2.6 (late: a hundred judges to demand an account from returning generals) and Aristotle, Politics 2.11, 1272b (later: the Hundred and Four, elected by merit).",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    },
+    {
+      "id": "annobal",
+      "kind": "invention",
+      "name": "Annobal son of Malchus",
+      "faction": "people",
+      "role": "A speaker of the craftsmen in the people's assembly",
+      "traits": [
+        "silverTongued",
+        "fiery"
+      ],
+      "ambition": "Power",
+      "opinion": 0,
+      "kin": [
+        "bostar",
+        "hasdrubal"
+      ],
+      "family": [
+        {
+          "person": "bostar",
+          "relation": "elder brother"
+        },
+        {
+          "person": "hasdrubal",
+          "relation": "nephew"
+        }
+      ],
+      "wants": "rebuild",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [],
+      "politicalType": "Champion",
+      "rivalNote": "Invented. No speaker of the people is named in these years. Leans on Diodorus 14.47.2 (the letter read to the people) and 14.77.4 (the city in terror), and Aristotle, Politics 2.11, 1273a (later: anyone may speak against a proposal). His name is from an inscription of AD 1 to 2.",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    },
+    {
+      "id": "bodostor",
+      "kind": "invention",
+      "name": "Bodostor son of Bodashtart",
+      "faction": "people",
+      "role": "A speaker of the dockyards in the people's assembly",
+      "traits": [
+        "blunt",
+        "loyal"
+      ],
+      "ambition": "Wealth",
+      "opinion": -1,
+      "kin": [],
+      "wants": "war",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [],
+      "politicalType": "Champion",
+      "rivalNote": "Invented. Leans on Diodorus 14.54.5 (Ephorus' four hundred warships for 396) and 14.76.2 (the fleet burned before Syracuse).",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    },
+    {
+      "id": "zarzas",
+      "kind": "invention",
+      "name": "Zarzas son of Muttines",
+      "faction": "libyans",
+      "role": "First man of a Libyan town under Carthage",
+      "traits": [
+        "shrewd",
+        "greedy"
+      ],
+      "ambition": "Safety",
+      "opinion": 0,
+      "kin": [],
+      "wants": "libya",
+      "marriageable": false,
+      "status": "outside",
+      "grudges": [],
+      "rivalNote": "Invented. Leans on Diodorus 13.44.1 (Libyans in Carthage's armies) and 14.77.6 (rebel leaders bought off). Both names are of much later Libyans who served Carthage.",
+      "player": false,
+      "card": "docs/drafts/carthage-cast.md",
+      "invented": [
+        "everything"
+      ]
+    }
+  ]
+}
