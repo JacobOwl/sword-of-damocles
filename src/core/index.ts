@@ -63,3 +63,5 @@ export { plateOn, planDef, habitLine, stratagems, BATTLE } from "./plate.ts";
 export { allScenes, pendingScene, plateNow, scenesOn, groundOn, groundCard, GROUND, SCENES } from "./scenes.ts";
 export type { Scene, SceneOpt } from "./scenes.ts";
 export { armyParts, heart as partHeart, heartWord, bonded as partBonded, contOn, CONT } from "./contingents.ts";
+export { FLEETS, fleetsOn, fleetState, soundYours, soundTheirs, fleetName, carthageFleetName, admiralName, orderDef, youOrder, fleetObeys } from "./fleets.ts";
+export { returnsState, recovering, inTruce } from "./returns.ts";

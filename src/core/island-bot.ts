@@ -6,6 +6,7 @@ import type { Args, GameState } from "./types.ts";
 import { townHold } from "./secrets.ts";
 import { commanderOptions, commissionOn, keeperOptions } from "./commission.ts";
 import { LANDINGS, autoContractor, contractors, convoysOn } from "./convoys.ts";
+import { beachedAt, buildCheck, fleetsOn, soundTheirs, soundYours, strikeCheck } from "./fleets.ts";
 
 export interface IslandChoice { a: string; args?: Args; min?: number }
 
@@ -24,6 +25,11 @@ function edge(s: GameState, ya: NonNullable<ReturnType<typeof yourArmy>>, ca: No
 export function islandChoices(s: GameState, style: IslandStyle = {}): IslandChoice[] {
   const out: IslandChoice[] = [];
   if (s.island && convoysOn(s)) out.push(...convoyChoices(s));
+  // Switch "fleets": build ships while Carthage's fleet is the stronger; strike it on the beach when the odds favour you.
+  if (s.island && fleetsOn(s)) {
+    if (!buildCheck(s) && s.silver >= 5 && soundYours(s) < soundTheirs(s)) out.push({ a: "buildSquadron", min: 0.5 });
+    if (!strikeCheck(s) && (beachedAt(s) ? soundYours(s) + 4 > soundTheirs(s) : soundYours(s) > soundTheirs(s) + 1)) out.push({ a: "strikeFleet", min: 0.5 });
+  }
   if (!s.island || (!holds(s, PLAYER, "generalship") && !commissionOn(s))) return out;
   const isl = s.island;
   const ya = yourArmy(s);

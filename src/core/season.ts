@@ -28,6 +28,7 @@ import { worksSeason } from "./works.ts";
 import { quarrelsSeasonEnd } from "./quarrels.ts";
 import { boardSeason, initBoard } from "./board.ts";
 import { settleScenes } from "./scenes.ts";
+import { escorting } from "./fleets.ts";
 import { beginFallen, exileBeginSeason, exileDecadeEnd, exileEndSeason, exileOn, inExile, maybeExile } from "./exile.ts";
 
 // ---------- World ----------
@@ -51,7 +52,7 @@ function worldStep(s: GameState) {
     const h = s.offices.fleet;
     const friendly = h && (h === PLAYER || (s.people[h].status === "free" && s.people[h].opinion >= 0));
     const damaged = s.flags.fleetDamaged !== undefined && s.season - s.flags.fleetDamaged < 3;
-    if (friendly && !damaged && !convoysOn(s)) grain(s, 2, `${h === PLAYER ? "your" : nameOf(s, h!) + "'s"} fleet brings grain`);
+    if (friendly && !damaged && !convoysOn(s) && escorting(s)) grain(s, 2, `${h === PLAYER ? "your" : nameOf(s, h!) + "'s"} fleet brings grain`);
   }
   for (const id of s.laws) {
     const l = lawById(id)!;

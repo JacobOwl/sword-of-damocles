@@ -10,6 +10,7 @@ import { carthageCourtsHouse } from "./towns.ts";
 import { carthageParts, envoys } from "./contingents.ts";
 import { carthageBlow, maybeDebate, recovering, returnsOn, returnsPrefers, returnsState, returnsSeason, secondExpedition, takeInExiles } from "./returns.ts";
 import { on } from "./switches.ts";
+import { fleetIntercept, fleetSeason } from "./fleets.ts";
 import { deedSecret } from "./secrets.ts";
 import {
   CARTHAGE, ISLAND, NODES, armyName, assault, assaultMods, assaultNeed, bloc, blocPower, carthageArmy, carthagePersonName, chance, city,
@@ -310,6 +311,7 @@ function doAct(s: GameState, id: string, goalName: string) {
 
 // Your fleet may catch Carthage's transports at sea (Leptines did, Diodorus 14.55.2).
 function intercept(s: GameState, a: Army) {
+  if (fleetIntercept(s, a)) return; // switch "fleets": only a fleet watching the crossing, and escorts fight
   const f = s.offices.fleet;
   if (!f || (s.flags.fleetDamaged !== undefined && s.season - s.flags.fleetDamaged < 3)) return;
   const friend = f === PLAYER || (s.people[f]?.status === "free" && s.people[f].opinion >= 0);
@@ -423,6 +425,7 @@ export function carthageStep(s: GameState) {
     for (const b of CARTHAGE.blocs.filter((x: any) => x.votes)) blocPower(s, b.id, prefers(s, b.id).goal === "war" ? -1 : 1, "an army was lost in Sicily");
   }
   generalOrders(s);
+  fleetSeason(s); // switch "fleets": orders, mending, rowers, the sea threat
   warLate(s); // switch "test5Fixes": the landing warning and the war's matters, after the march
   // A free general who has disgraced himself may end his own life, as Himilcon did (Diodorus 14.76.4).
   for (const p of Object.values(c.people)) if (p.status === "disgraced" && s.flags.carthageArmyLost === s.season - 1 && p.id === "himilcon") {
