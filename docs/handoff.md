@@ -2,6 +2,14 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Jacob's test 4, read from the save (thread 43, 2026-11-27)
+**Report only.** Jacob played the Near-war test (v26) for six seasons and stopped: "basically done with this save". Debrief: `docs/playtests/2026-11-27-jacob-test4/debrief.md`, save beside it (replays exactly).
+- **Verdict:** the war had a full arc but was over in four seasons (two after the landing): two wins, Himilcon's army destroyed, peace for 2 silver. Easy again; danger only at home (both factions Rebellious, two plots). Jacob did not see the battle at Acragas: a battle Carthage starts is one line in the summary.
+- **Bugs found, not fixed:** "the army wants battle" fires before the season's battle; the landing warning counts men before that season's hiring (30,000 said, 55,000 landed); "You's hold on the generalship" and a New/Settled flip in one season; a rival for less than a season.
+- **Starred fixes (Jacob picks):** a battle scene for every battle (thread 46), Carthage stays after one lost army (switch), battles closer to even (switch), the two war bugs, the drag-preview hint.
+- **New threads from his ideas:** 46 big event scenes; unit types and terrain.
+- **Questions for Jacob:** was the war too short? Why stop at six seasons?
+
 ## The season screen, simplified (thread 44, 2026-11-27)
 **Built.** Jacob: "incorporate layout suggestions as you see fit before my test" (the 17 from `docs/playtests/2026-11-26-ai-first-impressions/findings.md`). Display only: no rule, data or log change.
 - **Order:** what changed, the war strip, then Matters, Petitions, your council, Your actions. The season's full news ("Everything that happened", with "What shifted") folds at the foot of the column, closed. "How last season ended" moved below the actions.
