@@ -4,9 +4,10 @@ import { PLAYER, capital, holds } from "./state.ts";
 import { event, silver, grain, clock } from "./ops.ts";
 import {
   ISLAND, NODES, assault, assaultMods, assaultNeed, bloc, city, cityWalls, disband, friendly, march, menWords, muster, musterSize,
-  nodeName, path, reachable, sideName, yourArmy, carthageArmy, hostileTo, armyName,
+  nodeName, path, reachable, sideName, yourArmy, carthageArmy, hostileTo, armyName, punicHeld,
 } from "./island.ts";
 import { endWar, startWar } from "./carthage.ts";
+import { applyTerms, card, carthageAccepts, termsFor, termsText } from "./war.ts";
 import type { Args, GameState, Mod } from "./types.ts";
 import { townHold, useHold, townLeader, SECRETS } from "./secrets.ts";
 import { campaignCheck, commanderOptions, commissionOn, keeperOptions, musterNotes, startCampaign } from "./commission.ts";
@@ -41,7 +42,7 @@ export const ISLAND_IMPL: Record<string, Impl> = {
       { value: "guard", label: `The levies and the guard (${menWords(musterSize(s, true).total)}; your defense loses the guard)` },
     ],
     secondLabel: "Who marches",
-    check: (s) => general(s) ?? (yourArmy(s) ? "your army is already in the field" : s.silver < 2 ? "needs 2 silver" : s.grain < R.grainOnMuster ? `needs ${R.grainOnMuster} months of grain` : null),
+    check: (s) => general(s) ?? (yourArmy(s) ? "your army is already in the field: men can't be added to it there. Bring it home to a town of yours and disband it, then muster again" : s.silver < 2 ? "needs 2 silver" : s.grain < R.grainOnMuster ? `needs ${R.grainOnMuster} months of grain` : null),
     run: (s, a) => {
       silver(s, -2, "mustering the army");
       grain(s, -R.grainOnMuster, "food for the army's baggage");
@@ -119,7 +120,8 @@ export const ISLAND_IMPL: Record<string, Impl> = {
       const m: Mod[] = [];
       if (c.lean) m.push({ label: c.lean > 0 ? `${nodeName(c.id)} leans your way` : `${nodeName(c.id)} leans against you`, value: c.lean });
       if (c.fear) m.push({ label: "they fear your army", value: c.fear });
-      if (s.island!.war && c.side === "tributary") m.push({ label: "at war, the tribute towns want to be free", value: 1 });
+      if (punicHeld(s, c.id)) m.push({ label: "Carthage's men still hold it", value: -2 });
+      else if (s.island!.war && c.side === "tributary") m.push({ label: "at war, the tribute towns want to be free", value: 1 });
       const ya = yourArmy(s);
       if (ya && (ya.at === c.id || (path(ya.at, c.id)?.days.at(-1) ?? 99) <= 6)) m.push({ label: "your army is near", value: 1 });
       const ca = carthageArmy(s);
@@ -153,8 +155,24 @@ export const ISLAND_IMPL: Record<string, Impl> = {
     },
   },
   acceptPeace: {
-    check: (s) => (!s.island!.war ? "you are not at war" : s.island!.carthage.offer < s.season - 1 ? "Carthage has offered no terms" : null),
-    run: (s) => endWar(s, "you accepted Carthage's terms"),
+    check: (s) => (!s.island!.war ? "you are not at war" : s.island!.carthage.offer < s.season - 1 ? "Carthage has offered no terms" : card(s) && !card(s)!.terms ? "you sent Carthage's envoys home" : null),
+    run: (s) => {
+      const c = card(s); // switch "warFocus": the envoys' terms
+      if (c?.terms) { const t = c.terms; applyTerms(s, t, "you accepted Carthage's terms"); endWar(s, "you accepted Carthage's terms", termsText(t)); }
+      else endWar(s, "you accepted Carthage's terms");
+    },
+  },
+  // Switch "warFocus": you send envoys with the terms the war's ledger supports; Carthage takes them only if weary or losing.
+  offerPeace: {
+    notes: (s) => (card(s) ? [`Your terms would be: ${termsText(termsFor(s, "syracuse"))}`] : []),
+    check: (s) => (!s.island!.war ? "you are not at war" : !card(s) ? "not in this game" : s.flags.peaceOffered === s.season ? "your envoys are already on their way" : null),
+    run: (s) => {
+      s.flags.peaceOffered = s.season;
+      const t = termsFor(s, "syracuse");
+      const r = carthageAccepts(s);
+      if (r.ok) { event(s, PLAYER, `Your envoys put your terms to Carthage's council, and it accepts: ${r.why}.`, "Offer peace"); applyTerms(s, t, "the peace you offered"); endWar(s, "the peace you offered", termsText(t)); }
+      else event(s, PLAYER, `Your envoys put your terms to Carthage's council, and it refuses: ${r.why}.`, "Offer peace");
+    },
   },
 };
 

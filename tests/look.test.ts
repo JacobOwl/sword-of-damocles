@@ -5,16 +5,29 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { DATA, runBotGame } from "../src/core/index.ts";
 import { AREA_ICON, FACTION_ICON, ICON_NAMES, OFFICE_ICON, iconBody } from "../ui/components/icons.ts";
-import { VIGNETTES, vignette } from "../ui/components/vignettes.ts";
+import { GAME_VIGNETTE_NAMES, VIGNETTES, vignette } from "../ui/components/vignettes.ts";
 import { FLAVOR, knownDanger, seasonLine, swordOverhead } from "../ui/components/ambient.ts";
 import { ui } from "../ui/lib/text.ts";
 
 const events = [...JSON.parse(readFileSync("data/events.json", "utf8")).events, ...JSON.parse(readFileSync("data/island-events.json", "utf8")).events] as { id: string; art?: string }[];
+// Every record with a picture, in every data file that names one (board matters, exile, dinner asks too).
+const pictured: { id: string; art: string }[] = [];
+const collect = (o: unknown): void => {
+  if (Array.isArray(o)) o.forEach(collect);
+  else if (o && typeof o === "object") {
+    const r = o as Record<string, unknown>;
+    if (typeof r.art === "string") pictured.push({ id: String(r.id), art: r.art });
+    Object.values(r).forEach(collect);
+  }
+};
+for (const f of ["events", "island-events", "board", "exile", "dinners"]) collect(JSON.parse(readFileSync(`data/${f}.json`, "utf8")));
 
 test("every event has a picture, and every picture is used", () => {
   for (const e of events) assert.ok(e.art && VIGNETTES[e.art], `${e.id} has no picture (art: ${e.art})`);
-  const used = new Set(events.map((e) => e.art));
-  for (const v of Object.keys(VIGNETTES)) assert.ok(used.has(v), `picture ${v} is never used`);
+  for (const e of pictured) assert.ok(VIGNETTES[e.art], `${e.id} names a picture that does not exist (art: ${e.art})`);
+  // The game's own pictures must all be used; the art library's scenes may wait for an event.
+  const used = new Set(pictured.map((e) => e.art));
+  for (const v of GAME_VIGNETTE_NAMES) assert.ok(used.has(v), `picture ${v} is never used`);
   assert.match(vignette("ship") + "", /^$/); // an unknown picture draws nothing
   assert.match(vignette("feast"), /<svg class="tondo"/);
 });

@@ -461,3 +461,63 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 
 ## 2026-11-26 (redesign picked, thread 36)
 - **Decided (Jacob):** "lets do capitan of the guard and have city leaders sure. 2b and 3b for now". The redesign is 1B, 2B, 3B, with the captain of the guard and city leaders as seats, built in the proposal's order behind the switch "The contested board". Nothing built yet.
+
+## 2026-11-26 (the contested board built, thread 37)
+- **Decided (Jacob):** "Go" on the redesign, then "Why wouldn't that be in 2nd test" and "Current playthrough is done idc about breaking it": the contested board is on in the Second island test preset, not held behind a switch that is off. It stays a switch (`contestedBoard`) so older games replay.
+- **Decided (here, an engine call Jacob's draft left open):** petitions are event-style data in `data/board.json`, cast by `src/core/board.ts`, like the dinner asks; the old yes/no petition stays as it is.
+- **Decided (scope, from Jacob's pick in thread 36):** a seventh seat, the captain of the guard, and city commands as small seats. Logged in `docs/scope.md`.
+- **Done:** seats with powers, votes, digging in, the crisis on a loss, the captain, the ladder of standing, matters from moves, six of the twenty draft petitions, four actions, seat cards and the ladder on screen. 800 batch games, no crashes or broken states. Not tuned.
+- **Open:** fourteen draft petitions and parts of the design (supreme power, the keeper's betrayal, placing men, election day on screen): `docs/later.md`.
+
+
+## 2026-11-26 (second island test played, thread 38)
+- **Done:** Jacob played the Second island test (killed season 24 of 30). Notes word for word, his save and a debrief in `docs/playtests/2026-11-26-jacob-test2/`. Nothing built during or after the test.
+- **Parked (Jacob's idea):** drag an army on the map with its reach and travel times shown, area foraging, war ruining crops: `docs/later.md`.
+- **Open:** eight bugs and the starred fixes in `debrief.md`; six design questions in `notes.md` for Jacob.
+
+## 2026-11-26 (fixes from the second test, part 1: bugs, thread 39)
+- **Decided (Jacob):** "Build all and have council decide on the rule changes" (the 30-item list in thread 38).
+- **Done:** the eight bugs. Guard pay now falls with every guardsman lost and is never more than the men left. Open towns take their side's colour on the map. Marriage matches your relative with someone of the other sex in that house, and refuses if there is no one. The standing line uses her and she. Aetna is free again once the exiles come home. "Pay in land" needs Leontini to be your ally or yours. An effect on an optional person nobody filled is no longer shown ("FavouriteKin"). A blackmail told by its victim reads "that you blackmailed him".
+- **Changed (display, decided here):** the step "A player" on the ladder of standing is now "A power" (Jacob's notes offered "A power" or "A man of weight"; "a power" also fits women). The hint is a short list: "Next: a power, with two of an office, leading a faction, a following. Has: none."
+- **Re-pinned:** the first island test digest (guard pay changes every game with the guard in the field).
+
+## 2026-11-27 (fixes from the second test, part 2: display and the council's rules, thread 39)
+- **Decided (council, delegated by Jacob):** items 23 to 30. Built and on in the Second island test: the guard dies only in battle, love holds a rival back, Carthage holds what it takes, Carthage spares Libya, the mint as an order, petitions come with an offer. Not built (parked): a cap on seats, Pay in land as a promise, ravaging, dragging armies and area foraging. Record: `docs/council/2026-11-27-second-test-rules.md`.
+- **Done:** display items 9 to 22, including orders from the map, the chronicle cut to its arcs, and the "Coming for you" card. 800 batch games, no crashes or broken states.
+- **Open:** see `docs/handoff.md`.
+## 2026-11-26 (Duet prompts, thread 40)
+- **Done:** `docs/duet-prompts.md` holds two ready-to-paste prompts for Duet jobs Jacob picked: mosaic portraits for Carthage's council and the rising-cast people without a face, and a history brief for each of the six tyrant campaigns. Both deliver draft PRs and change no game code.
+- **Open:** the rising-cast sheet is still only on branch `claude/rising-cast`; PR #89 (art library) is open for Jacob's review.
+
+## 2026-11-27 (war and geopolitics focus: the council, thread 41)
+- **Done:** a five-seat council (historian, strategy designer, board-game designer, UI and map, player and story) on Jacob's first focus project. Proposal with seven questions and four build stages: `docs/council/2026-11-27-war-and-geopolitics.md`; statements in `docs/council/2026-11-27-war/`; card `docs/research/war-and-towns.md` (every quote opened in the saved texts).
+- **Decided (small, here):** treaties and battles from 392 and the 380s are used only as patterns for terms and battle, never as dated events in 405 to 395.
+- **Open (Jacob's):** the seven picks; a later-start test preset; naming the focus in `scope.md`. Nothing built.
+
+## 2026-11-26 (art library, thread art-library)
+- **Done (Jacob: "Make a big collection of art that claude code can look at and use later"):** `assets/library/`, 399 items with a searchable `catalog.json`, a gallery page and contact sheets. 326 drawn in the game's styles: icons, event pictures, coins, cast medallions, maps, frames, patterns and textures. 73 real: 41 copied, 32 checked on Commons and waiting to download. Nothing wired into the game.
+- **Decided (here):** real art only if public domain, CC0 or CC BY, with its credit line on the record. Share-alike, non-commercial and no-derivatives files are left out and listed with the reason. Why: those terms would bind the game.
+- **Decided (here):** drawn art is generated by scripts that import the game's own icon and figure code, so the in-game exports match the game and anything new uses the same figure kit. Standalone files use plain colours, not CSS variables, so other tools can open them.
+- **Open:** 32 real files are listed but not downloaded (this machine couldn't reach Wikimedia); `tools/fetch-real.mjs` does it on Jacob's PC. The medallions follow the cast list in PR 86, which is not merged.
+
+## 2026-11-27 (the art library in the game, thread 40)
+- **Done:** PR #89's art library merged with fixes; its 39 event scenes are game pictures, 32 records got their own picture, Carthage's council has faces and its coin on the island view, two new medallions (Hanno, Bomilcar).
+- **Decided (by me, small calls):** library art enters the game only through `scripts/build-library-art.mjs` (one source, safe to rerun); Carthage's men get the flat medallions, not mosaics, so they look foreign beside the Syracusans; unverified city coin types stay out of the game. Why: keeps one source for each drawing and keeps guesses off the screen.
+- **Open:** whether to keep the medallions for Carthage; fetching the 32 real pictures on Jacob's PC.
+
+## 2026-11-27 (war focus, stage 1: the war card, thread 41)
+
+- **Decided (Jacob, "Build it", with the council's recommended picks):** the war as one object (1B), built behind the switch `warFocus`, off by default. Data in `data/war.json` (every number invention), engine in `src/core/war.ts`.
+- **Done:** each side's aim, a ledger of named events (battles, towns, sacks, plague, aims met), weariness on both sides with lines at 4, 7 and 10 for you and bloc lines in Carthage, peace with terms read from the ledger (Carthage's envoys, and your own Offer peace), Carthage's return owed after a Libyan revolt, its landing announced a season ahead, the pendulum (holding four towns unites Carthage's council), kind and harsh Carthaginian generals, two new Carthaginian acts (raid the grain, court a tribute town), five war matters, the war strip on the season and island pages, Carthage's waiting army on the sea lane, each finished war told as a short chapter in the Story.
+- **Counted, not tuned (100 games, careful bot, Second island test preset):** on: 0 crashes, 1.9 wars a game, 1.1 ended by terms, wars 6.4 seasons long, 1.6 landings, 3.3 raids, the pendulum reached in 67 games. Off: 1.3 wars, none ended by terms. More wars with the switch on, mostly from the pendulum.
+- **Open:** town boards, map and supply, the battle plate (stages 2 to 4), the near-war preset.
+
+## 2026-11-27 (war focus: the Near-war test preset, thread 41)
+
+- **Decided (coordinator's note on Jacob's "Build it"):** a test preset that opens in spring 398 BC near the war, so a test reaches Carthage in its first seasons. A preset may now carry an `opening` (`src/core/opening.ts`): a later start season and plain state set once before any dice (citadel, the Epipolae wall, Aetna, Catana and Leontini yours, Messana an ally, plague in Carthage, anger 5). The history is on `docs/research/opening-398.md`; the numbers are invention. Fourteen seasons; the check-ins and the verdict count from the start.
+- **Changed (with the war card only):** plague in Carthage no longer makes the Elders and the people want peace outright; it counts as weariness (+2), like the council's design. Without it the near-war wars lasted 2.5 seasons on average; with it, 5.0 (100 games, careful bot). Counted, not tuned to history.
+## 2026-11-27 (Duet review and twelve new jobs, thread 42)
+- **Done:** reviewed Duet's PRs #84, #86, #95, #96, #97 (`docs/duet-review-2026-11-27.md`); wrote jobs 3 to 14 in `docs/duet-prompts.md`.
+- **Decided (small, here):** Duet jobs stay out of `src/`, `ui/`, `data/`, `tests/` and `package.json` while threads 39 and 41 build there; drafts go to `docs/drafts/`, the Godot trial to its own `godot/` folder. Each prompt carries its own rules so it can be pasted alone.
+- **Open (Jacob's):** which jobs to run, and whether to merge the drafts #86, #95, #96 and the bot #97.
+

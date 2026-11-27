@@ -1,0 +1,2272 @@
+{
+ "note": "Switch \"contestedBoard\" (The contested board, thread 37, design in docs/council/2026-11-26-offices-rivals-events.md). Seats of power, how each changes hands, how dug in its holder is, what a holder does with it, the ladder of standing, and the matters made from what just happened. How seats changed hands at Syracuse is history (docs/research/offices-history.md); every number, every holder's power, the yearly vote and the mint as a seat are invention. The six petitions marked From docs/drafts/petitions-draft.md come from Jacob's petitions draft (PR #84); the other fourteen need engine work and are parked in docs/later.md.",
+ "kind": "invention",
+ "dug": [
+  "New",
+  "Settled",
+  "Dug in",
+  "Unshakeable"
+ ],
+ "knobs": {
+  "maxBoardMatters": 2,
+  "petitionChance": 0.5,
+  "petitionWait": 4,
+  "upkeep": 1,
+  "hostileOpinion": -1,
+  "hitsToAnswer": 3,
+  "backedBonus": 2
+ },
+ "seats": [
+  {
+   "id": "assembly",
+   "kind": "invention",
+   "name": "the leadership of the assembly",
+   "title": "Assembly",
+   "tier": "easy",
+   "max": 1,
+   "voted": "always",
+   "changes": "By the assembly's vote, each spring: the side with more backing wins it.",
+   "power": "Each spring he puts one measure to the assembly.",
+   "lines": {
+    "friendly": "puts up an honour for you",
+    "neutral": "puts his own measure to the assembly",
+    "hostile": "puts his own measure to the assembly"
+   }
+  },
+  {
+   "id": "generalship",
+   "kind": "invention",
+   "name": "the generalship",
+   "title": "Generalship",
+   "tier": "middle",
+   "max": 2,
+   "voted": "free",
+   "changes": "Voted each spring while the city is free, and after any lost battle. Under your tyranny only force or a plot moves it.",
+   "power": "He leads the army and takes the credit: his following grows.",
+   "lines": {
+    "friendly": "drills the army, and it is yours to send",
+    "neutral": "musters the levy under his own name",
+    "hostile": "turns the soldiers into his own men"
+   }
+  },
+  {
+   "id": "fleet",
+   "kind": "invention",
+   "name": "the fleet",
+   "title": "Fleet",
+   "tier": "middle",
+   "max": 2,
+   "voted": "free",
+   "changes": "Voted each spring while the city is free; granted and taken back by you under a tyranny. Lost more easily while its holder is away.",
+   "power": "He picks where the ships go each winter.",
+   "lines": {
+    "friendly": "brings grain home for you",
+    "neutral": "carries his friends' trade",
+    "hostile": "keeps the grain ships in harbour"
+   }
+  },
+  {
+   "id": "treasury",
+   "kind": "invention",
+   "name": "the treasury",
+   "title": "Treasury",
+   "tier": "middle",
+   "max": 2,
+   "voted": "never",
+   "changes": "Granted by whoever rules. Taking it back costs you the holder's grudge, and his faction's mood if he was dug in.",
+   "power": "He decides who is paid first.",
+   "lines": {
+    "friendly": "pays the guard for you",
+    "neutral": "holds back the guard's pay",
+    "hostile": "pays his own people first, out of your silver"
+   }
+  },
+  {
+   "id": "mint",
+   "kind": "invention",
+   "name": "the mint",
+   "title": "Mint",
+   "tier": "middle",
+   "max": 2,
+   "voted": "never",
+   "changes": "Granted by whoever rules, like the treasury. No source names a mint office: the seat is invention.",
+   "power": "Each autumn he strikes coin, for you or for his own.",
+   "lines": {
+    "friendly": "strikes coin for you each Autumn (1 silver)",
+    "neutral": "strikes coin for his own faction each Autumn",
+    "hostile": "debases the coin each Autumn, and prices rise"
+   }
+  },
+  {
+   "id": "captain",
+   "kind": "invention",
+   "name": "the captaincy of the guard",
+   "title": "Guard captain",
+   "tier": "hard",
+   "max": 3,
+   "voted": "never",
+   "changes": "Appointed by whoever pays the guard. Removed only by arrest, and the guard may mutiny for its pay.",
+   "power": "The guard obeys him. If he turns against you, the guard no longer defends you.",
+   "lines": {
+    "friendly": "keeps the guard at your door",
+    "neutral": "keeps the guard",
+    "hostile": "the guard answers to him, not to you"
+   }
+  },
+  {
+   "id": "citadel",
+   "kind": "invention",
+   "name": "the citadel",
+   "title": "Citadel",
+   "tier": "hard",
+   "max": 3,
+   "voted": "never",
+   "changes": "Only by force, by its keeper's betrayal, or by surrender when its food runs out.",
+   "power": "Its keeper can shut the gates on anyone, you included.",
+   "lines": {
+    "friendly": "keeps the Island for you",
+    "neutral": "keeps the Island",
+    "hostile": "shuts the Island's gates on you"
+   }
+  }
+ ],
+ "standing": [
+  {
+   "id": "nobody",
+   "kind": "invention",
+   "name": "Nobody",
+   "can": "Nothing yet."
+  },
+  {
+   "id": "notable",
+   "kind": "invention",
+   "name": "Notable",
+   "can": "Brings petitions and asks small favours.",
+   "rise": "{Riser} is talked of in the agora now."
+  },
+  {
+   "id": "player",
+   "kind": "invention",
+   "name": "A power",
+   "can": "Stands for seats, bargains, makes allies."
+  },
+  {
+   "id": "rival",
+   "kind": "invention",
+   "name": "A rival",
+   "can": "Wants your place, with a faction behind him. Takes a move of his own each year."
+  },
+  {
+   "id": "pretender",
+   "kind": "invention",
+   "name": "A pretender",
+   "can": "Has a second faction behind him, and can take your place."
+  }
+ ],
+ "falls": "{Faller} is no longer {standing}.",
+ "hostileActions": [
+  "revokeOffice",
+  "imprison",
+  "seize",
+  "exile",
+  "plantRumor",
+  "block",
+  "expose",
+  "forceFavor",
+  "swearQuarrel",
+  "accuseAssembly",
+  "demandOffice"
+ ],
+ "events": [
+  {
+   "id": "boardLostVoted",
+   "kind": "invention",
+   "chained": true,
+   "art": "petalism",
+   "name": "A seat lost",
+   "roles": {
+    "taker": {
+     "status": "free"
+    }
+   },
+   "text": "{Taker} holds {seat} now, and it no longer answers to you. What {he:taker} does with it from now on, {he:taker} does for {his:taker} own.",
+   "why": "you lost {seat}",
+   "choices": [
+    {
+     "id": "bargain",
+     "label": "Bargain with {taker}",
+     "cost": {
+      "silver": 2
+     },
+     "text": "{Taker} takes your silver. For a year {he:taker} will use {seat} as you wish.",
+     "effects": [
+      {
+       "opinion": "taker",
+       "by": 1
+      },
+      {
+       "friend": "taker",
+       "seasons": 4
+      }
+     ]
+    },
+    {
+     "id": "contest",
+     "label": "Contest it in the assembly",
+     "roll": {
+      "need": 4,
+      "mods": [
+       {
+        "label": "you lead the assembly",
+        "value": 1,
+        "if": {
+         "playerHolds": [
+          "assembly"
+         ]
+        }
+       },
+       {
+        "label": "the citizens are content with you",
+        "value": 1,
+        "if": {
+         "mood": {
+          "citizens": {
+           "min": 3
+          }
+         }
+        }
+       },
+       {
+        "label": "the citizens are angry with you",
+        "value": -1,
+        "if": {
+         "mood": {
+          "citizens": {
+           "max": 1
+          }
+         }
+        }
+       }
+      ],
+      "success": {
+       "text": "The assembly gives {seat} back to you. {Taker} walks out red-faced.",
+       "effects": [
+        {
+         "seat": "$seat",
+         "to": "you"
+        },
+        {
+         "grudge": "taker",
+         "reason": "you had the assembly take {seat} from him"
+        }
+       ]
+      },
+      "failure": {
+       "text": "The assembly backs {taker}, and {his:taker} hold grows firmer.",
+       "effects": [
+        {
+         "mood": "citizens",
+         "by": -1
+        },
+        {
+         "opinion": "taker",
+         "by": -1
+        },
+        {
+         "dig": "taker",
+         "by": 1
+        }
+       ]
+      }
+     }
+    },
+    {
+     "id": "force",
+     "label": "Take it back by force",
+     "if": {
+      "guardMood": {
+       "min": 2
+      },
+      "arrears": {
+       "max": 0
+      }
+     },
+     "roll": {
+      "need": 3,
+      "mods": [
+       {
+        "label": "the guard is Loyal",
+        "value": 1,
+        "if": {
+         "guardMood": {
+          "min": 4
+         }
+        }
+       }
+      ],
+      "success": {
+       "text": "Your guard takes {seat} back in a night. The city saw it.",
+       "effects": [
+        {
+         "seat": "$seat",
+         "to": "you"
+        },
+        {
+         "rival": "taker",
+         "scar": "Humiliated",
+         "reason": "you took {seat} from him by force"
+        },
+        {
+         "factionMood": "taker",
+         "by": -2
+        }
+       ]
+      },
+      "failure": {
+       "text": "{Taker}'s friends stand in the street, and your men fall back.",
+       "effects": [
+        {
+         "mood": "guard",
+         "by": -1
+        },
+        {
+         "rival": "taker",
+         "scar": "Humiliated",
+         "reason": "you tried to take {seat} from him by force"
+        }
+       ]
+      }
+     }
+    },
+    {
+     "id": "accept",
+     "label": "Let {taker} have it",
+     "default": true,
+     "effects": [
+      {
+       "opinion": "taker",
+       "by": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardLostGranted",
+   "kind": "invention",
+   "chained": true,
+   "art": "coins",
+   "name": "A seat lost",
+   "roles": {
+    "taker": {
+     "status": "free"
+    }
+   },
+   "text": "{Taker} has {seat}, and the keys with it. From now on {he:taker} decides what it does, and for whom.",
+   "why": "you lost {seat}",
+   "choices": [
+    {
+     "id": "bargain",
+     "label": "Bargain with {taker}",
+     "cost": {
+      "silver": 2
+     },
+     "text": "{Taker} takes your silver. For a year {he:taker} will use {seat} as you wish.",
+     "effects": [
+      {
+       "opinion": "taker",
+       "by": 1
+      },
+      {
+       "friend": "taker",
+       "seasons": 4
+      }
+     ]
+    },
+    {
+     "id": "contest",
+     "label": "Accuse {taker} of theft before the assembly",
+     "roll": {
+      "need": 5,
+      "mods": [
+       {
+        "label": "you lead the assembly",
+        "value": 1,
+        "if": {
+         "playerHolds": [
+          "assembly"
+         ]
+        }
+       },
+       {
+        "label": "the rich families are content with you",
+        "value": 1,
+        "if": {
+         "mood": {
+          "rich": {
+           "min": 3
+          }
+         }
+        }
+       }
+      ],
+      "success": {
+       "text": "The charge sticks. {Seat} is yours again.",
+       "effects": [
+        {
+         "seat": "$seat",
+         "to": "you"
+        },
+        {
+         "grudge": "taker",
+         "reason": "you accused him of theft before the assembly"
+        }
+       ]
+      },
+      "failure": {
+       "text": "No one believes the charge, and {taker} says so loudly.",
+       "effects": [
+        {
+         "opinion": "taker",
+         "by": -2
+        },
+        {
+         "dig": "taker",
+         "by": 1
+        }
+       ]
+      }
+     }
+    },
+    {
+     "id": "force",
+     "label": "Take it back by force",
+     "if": {
+      "guardMood": {
+       "min": 2
+      },
+      "arrears": {
+       "max": 0
+      }
+     },
+     "roll": {
+      "need": 3,
+      "mods": [
+       {
+        "label": "the guard is Loyal",
+        "value": 1,
+        "if": {
+         "guardMood": {
+          "min": 4
+         }
+        }
+       }
+      ],
+      "success": {
+       "text": "Your guard takes {seat} back in a night. The city saw it.",
+       "effects": [
+        {
+         "seat": "$seat",
+         "to": "you"
+        },
+        {
+         "rival": "taker",
+         "scar": "Humiliated",
+         "reason": "you took {seat} from him by force"
+        },
+        {
+         "factionMood": "taker",
+         "by": -2
+        }
+       ]
+      },
+      "failure": {
+       "text": "{Taker}'s friends stand in the street, and your men fall back.",
+       "effects": [
+        {
+         "mood": "guard",
+         "by": -1
+        },
+        {
+         "rival": "taker",
+         "scar": "Humiliated",
+         "reason": "you tried to take {seat} from him by force"
+        }
+       ]
+      }
+     }
+    },
+    {
+     "id": "accept",
+     "label": "Let {taker} have it",
+     "default": true,
+     "effects": [
+      {
+       "opinion": "taker",
+       "by": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardLostHard",
+   "kind": "invention",
+   "chained": true,
+   "art": "arrest",
+   "name": "A seat lost",
+   "roles": {
+    "taker": {
+     "status": "free"
+    }
+   },
+   "text": "{Taker} holds {seat}. No vote will move {him:taker}. Only silver, a blade, or time.",
+   "why": "you lost {seat}",
+   "choices": [
+    {
+     "id": "bargain",
+     "label": "Buy {taker}'s loyalty",
+     "cost": {
+      "silver": 3
+     },
+     "text": "{Taker} takes your silver and swears to you. For a year, at least.",
+     "effects": [
+      {
+       "opinion": "taker",
+       "by": 1
+      },
+      {
+       "friend": "taker",
+       "seasons": 4
+      }
+     ]
+    },
+    {
+     "id": "force",
+     "label": "Arrest {taker}",
+     "if": {
+      "guardMood": {
+       "min": 2
+      },
+      "arrears": {
+       "max": 0
+      }
+     },
+     "roll": {
+      "need": 4,
+      "mods": [
+       {
+        "label": "the guard is Loyal",
+        "value": 1,
+        "if": {
+         "guardMood": {
+          "min": 4
+         }
+        }
+       }
+      ],
+      "success": {
+       "text": "{Taker} is taken in chains. The guard grumbles and asks for its pay, sharply.",
+       "effects": [
+        {
+         "status": "taker",
+         "to": "held"
+        },
+        {
+         "seat": "$seat",
+         "to": "you"
+        },
+        {
+         "mood": "guard",
+         "by": -1
+        }
+       ]
+      },
+      "failure": {
+       "text": "{Taker} was warned. {He:taker} keeps {seat}, and now {he:taker} knows.",
+       "effects": [
+        {
+         "rival": "taker",
+         "scar": "Hunted",
+         "reason": "you tried to arrest him"
+        },
+        {
+         "opinion": "taker",
+         "by": -2
+        }
+       ]
+      }
+     }
+    },
+    {
+     "id": "accept",
+     "label": "Wait, and watch {taker}",
+     "default": true,
+     "effects": [
+      {
+       "opinion": "taker",
+       "by": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardTerms",
+   "kind": "invention",
+   "chained": true,
+   "art": "treaty",
+   "name": "New hands, new terms",
+   "roles": {
+    "holder": {
+     "status": "free"
+    }
+   },
+   "text": "{Holder} now holds {seat}, and sends word of {his:holder} terms: silver, and {he:holder} will use it as you wish.",
+   "why": "{seat} changed hands",
+   "choices": [
+    {
+     "id": "pay",
+     "label": "Meet {his:holder} price",
+     "cost": {
+      "silver": 1
+     },
+     "effects": [
+      {
+       "opinion": "holder",
+       "by": 1
+      },
+      {
+       "friend": "holder",
+       "seasons": 4
+      }
+     ]
+    },
+    {
+     "id": "warn",
+     "label": "Tell {him:holder} the seat is not {his:holder} for long",
+     "effects": [
+      {
+       "opinion": "holder",
+       "by": -1
+      },
+      {
+       "dig": "holder",
+       "by": -1
+      }
+     ]
+    },
+    {
+     "id": "ignore",
+     "label": "Send no answer",
+     "default": true,
+     "effects": []
+    }
+   ]
+  },
+  {
+   "id": "boardRisePlayer",
+   "kind": "invention",
+   "chained": true,
+   "art": "assembly",
+   "name": "A man on the rise",
+   "roles": {
+    "riser": {
+     "status": "free",
+     "faction": [
+      "citizens",
+      "guard"
+     ]
+    }
+   },
+   "text": "{Riser} is carried from the assembly on the shoulders of the crowd. {He:riser} is a power in the city now: {he:riser} will stand for seats, and make friends.",
+   "why": "{riser} rose in standing",
+   "choices": [
+    {
+     "id": "gift",
+     "label": "Send {him:riser} a gift",
+     "cost": {
+      "silver": 1
+     },
+     "effects": [
+      {
+       "opinion": "riser",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "watch",
+     "label": "Have {him:riser} watched",
+     "effects": [
+      {
+       "reveal": "riser",
+       "seasons": 2
+      }
+     ]
+    },
+    {
+     "id": "pass",
+     "label": "Let it pass",
+     "default": true,
+     "effects": []
+    }
+   ]
+  },
+  {
+   "id": "boardRisePlayerHouse",
+   "kind": "invention",
+   "chained": true,
+   "art": "feast",
+   "name": "A man on the rise",
+   "roles": {
+    "riser": {
+     "status": "free",
+     "faction": [
+      "rich",
+      "family"
+     ]
+    }
+   },
+   "text": "The great houses send their sons to {riser}'s door each morning. {He:riser} is a power in the city now: {he:riser} will stand for seats, and make friends.",
+   "why": "{riser} rose in standing",
+   "choices": [
+    {
+     "id": "gift",
+     "label": "Send {him:riser} a gift",
+     "cost": {
+      "silver": 1
+     },
+     "effects": [
+      {
+       "opinion": "riser",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "watch",
+     "label": "Have {him:riser} watched",
+     "effects": [
+      {
+       "reveal": "riser",
+       "seasons": 2
+      }
+     ]
+    },
+    {
+     "id": "pass",
+     "label": "Let it pass",
+     "default": true,
+     "effects": []
+    }
+   ]
+  },
+  {
+   "id": "boardRiseRival",
+   "kind": "invention",
+   "chained": true,
+   "art": "denounced",
+   "name": "A rival in the open",
+   "roles": {
+    "riser": {
+     "status": "free"
+    }
+   },
+   "text": "{Riser} no longer hides it: {he:riser} wants your place, and a faction stands behind {him:riser}. Each year from now on {he:riser} will make a move of {his:riser} own.",
+   "why": "{riser} rose to be your rival",
+   "choices": [
+    {
+     "id": "court",
+     "label": "Offer {him:riser} your friendship",
+     "cost": {
+      "silver": 2
+     },
+     "effects": [
+      {
+       "opinion": "riser",
+       "by": 2
+      }
+     ]
+    },
+    {
+     "id": "defy",
+     "label": "Say in public that {he:riser} will never rule",
+     "effects": [
+      {
+       "opinion": "riser",
+       "by": -1
+      },
+      {
+       "factionMood": "riser",
+       "by": -1
+      },
+      {
+       "influence": "riser",
+       "by": -1
+      }
+     ]
+    },
+    {
+     "id": "pass",
+     "label": "Let it pass",
+     "default": true,
+     "effects": []
+    }
+   ]
+  },
+  {
+   "id": "boardRisePretender",
+   "kind": "invention",
+   "chained": true,
+   "art": "herald",
+   "name": "A pretender",
+   "roles": {
+    "riser": {
+     "status": "free"
+    }
+   },
+   "text": "Two factions now speak of {riser} as the man who should rule Syracuse. {He:riser} can take your place.",
+   "why": "{riser} rose to be a pretender",
+   "choices": [
+    {
+     "id": "people",
+     "label": "Win the people back with grain",
+     "cost": {
+      "grain": 2
+     },
+     "effects": [
+      {
+       "mood": "citizens",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "houses",
+     "label": "Win the rich back with silver",
+     "cost": {
+      "silver": 2
+     },
+     "effects": [
+      {
+       "mood": "rich",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "pass",
+     "label": "Let it pass",
+     "default": true,
+     "effects": []
+    }
+   ]
+  },
+  {
+   "id": "boardDemand",
+   "kind": "invention",
+   "chained": true,
+   "art": "herald",
+   "name": "A faction's demand",
+   "roles": {
+    "leader": {
+     "status": "free"
+    }
+   },
+   "text": "{Leader} comes before you for {faction}. They are done with complaining: they want silver for their own, now, or they will look for another master.",
+   "why": "{faction} have turned Rebellious",
+   "choices": [
+    {
+     "id": "grant",
+     "label": "Give them what they ask",
+     "cost": {
+      "silver": 2
+     },
+     "effects": [
+      {
+       "factionMood": "leader",
+       "by": 2
+      },
+      {
+       "opinion": "leader",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "crush",
+     "label": "Arrest {leader}",
+     "if": {
+      "guardMood": {
+       "min": 2
+      },
+      "arrears": {
+       "max": 0
+      }
+     },
+     "roll": {
+      "need": 4,
+      "mods": [
+       {
+        "label": "the guard is Loyal",
+        "value": 1,
+        "if": {
+         "guardMood": {
+          "min": 4
+         }
+        }
+       }
+      ],
+      "success": {
+       "text": "{Leader} is taken. {Faction} go quiet, for now.",
+       "effects": [
+        {
+         "status": "leader",
+         "to": "held"
+        },
+        {
+         "factionPower": "leader",
+         "by": -1
+        }
+       ]
+      },
+      "failure": {
+       "text": "{Leader} slips away, and the city hears that you tried.",
+       "effects": [
+        {
+         "rival": "leader",
+         "scar": "Hunted",
+         "reason": "you tried to arrest him for speaking for his own"
+        },
+        {
+         "mood": "guard",
+         "by": -1
+        }
+       ]
+      }
+     }
+    },
+    {
+     "id": "promise",
+     "label": "Promise to think on it",
+     "default": true,
+     "effects": [
+      {
+       "opinion": "leader",
+       "by": -1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardAnswerAlly",
+   "kind": "invention",
+   "chained": true,
+   "art": "assembly",
+   "name": "He has had enough",
+   "roles": {
+    "victim": {
+     "status": "free"
+    },
+    "ally": {
+     "status": "free"
+    }
+   },
+   "text": "{Victim} has had enough of what you do to {him:victim}. {He:victim} goes to {ally} and asks {him:ally} to hear {his:victim} case before the assembly. Now two men are working together, because of you.",
+   "why": "you moved against {victim} three times",
+   "choices": [
+    {
+     "id": "hear",
+     "label": "Let the assembly hear it",
+     "roll": {
+      "need": 4,
+      "mods": [
+       {
+        "label": "you lead the assembly",
+        "value": 1,
+        "if": {
+         "playerHolds": [
+          "assembly"
+         ]
+        }
+       },
+       {
+        "label": "the citizens are content with you",
+        "value": 1,
+        "if": {
+         "mood": {
+          "citizens": {
+           "min": 3
+          }
+         }
+        }
+       },
+       {
+        "label": "the citizens are angry with you",
+        "value": -1,
+        "if": {
+         "mood": {
+          "citizens": {
+           "max": 1
+          }
+         }
+        }
+       }
+      ],
+      "success": {
+       "text": "The assembly hears {victim} out, and sends {him:victim} home. You were in the right.",
+       "effects": [
+        {
+         "mood": "citizens",
+         "by": 1
+        },
+        {
+         "influence": "ally",
+         "by": -1
+        }
+       ]
+      },
+      "failure": {
+       "text": "The assembly sides with {victim}. {Ally} is cheered in the street.",
+       "effects": [
+        {
+         "mood": "citizens",
+         "by": -1
+        },
+        {
+         "influence": "ally",
+         "by": 1
+        },
+        {
+         "influence": "victim",
+         "by": 1
+        }
+       ]
+      }
+     }
+    },
+    {
+     "id": "pay",
+     "label": "Pay {victim} off",
+     "cost": {
+      "silver": 2
+     },
+     "effects": [
+      {
+       "clearGrudge": "victim"
+      },
+      {
+       "opinion": "victim",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "arrest",
+     "label": "Arrest {victim} before the hearing",
+     "effects": [
+      {
+       "status": "victim",
+       "to": "held"
+      },
+      {
+       "factionMood": "victim",
+       "by": -1
+      },
+      {
+       "grudge": "ally",
+       "reason": "you threw {victim} in chains before the assembly could hear him"
+      }
+     ]
+    },
+    {
+     "id": "ignore",
+     "label": "Ignore it",
+     "default": true,
+     "effects": [
+      {
+       "opinion": "ally",
+       "by": -1
+      },
+      {
+       "influence": "ally",
+       "by": 1
+      },
+      {
+       "rival": "victim",
+       "scar": "Humiliated",
+       "reason": "you hounded him and would not hear him"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardAnswerAlone",
+   "kind": "invention",
+   "chained": true,
+   "art": "letter",
+   "name": "He has had enough",
+   "roles": {
+    "victim": {
+     "status": "free"
+    }
+   },
+   "text": "{Victim} has had enough of what you do to {him:victim}. {His:victim} kin come to your door to plead for {him:victim}, in front of half the street.",
+   "why": "you moved against {victim} three times",
+   "choices": [
+    {
+     "id": "mercy",
+     "label": "Hear them, and let {him:victim} be",
+     "effects": [
+      {
+       "opinion": "victim",
+       "by": 1
+      },
+      {
+       "factionMood": "victim",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "pay",
+     "label": "Pay {victim} off",
+     "cost": {
+      "silver": 2
+     },
+     "effects": [
+      {
+       "clearGrudge": "victim"
+      },
+      {
+       "opinion": "victim",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "send",
+     "label": "Send them away",
+     "default": true,
+     "effects": [
+      {
+       "factionMood": "victim",
+       "by": -1
+      },
+      {
+       "rival": "victim",
+       "scar": "Humiliated",
+       "reason": "you hounded him and sent his kin away"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardMeasureGrain",
+   "kind": "invention",
+   "chained": true,
+   "art": "harvest",
+   "name": "A measure in the assembly",
+   "roles": {
+    "speaker": {
+     "status": "free",
+     "faction": "citizens"
+    }
+   },
+   "text": "{Speaker} puts a measure to the assembly: grain from the city's stores for the poor, by law, every winter. The crowd roars. The rich families do not.",
+   "why": "{speaker} moved the assembly",
+   "choices": [
+    {
+     "id": "back",
+     "label": "Back the measure",
+     "cost": {
+      "grain": 2
+     },
+     "effects": [
+      {
+       "mood": "citizens",
+       "by": 1
+      },
+      {
+       "mood": "rich",
+       "by": -1
+      },
+      {
+       "influence": "speaker",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "oppose",
+     "label": "Speak against it",
+     "roll": {
+      "need": 4,
+      "mods": [
+       {
+        "label": "the rich families are content with you",
+        "value": 1,
+        "if": {
+         "mood": {
+          "rich": {
+           "min": 3
+          }
+         }
+        }
+       },
+       {
+        "label": "you lead the assembly",
+        "value": 1,
+        "if": {
+         "playerHolds": [
+          "assembly"
+         ]
+        }
+       }
+      ],
+      "success": {
+       "text": "The measure fails. {Speaker} goes home with nothing.",
+       "effects": [
+        {
+         "influence": "speaker",
+         "by": -1
+        },
+        {
+         "mood": "rich",
+         "by": 1
+        }
+       ]
+      },
+      "failure": {
+       "text": "The measure passes over your voice.",
+       "effects": [
+        {
+         "grain": -2
+        },
+        {
+         "mood": "citizens",
+         "by": -1
+        },
+        {
+         "influence": "speaker",
+         "by": 1
+        },
+        {
+         "opinion": "speaker",
+         "by": -1
+        }
+       ]
+      }
+     }
+    },
+    {
+     "id": "take",
+     "label": "Take it over as your own law",
+     "cost": {
+      "grain": 2,
+      "slots": 1
+     },
+     "effects": [
+      {
+       "mood": "citizens",
+       "by": 1
+      },
+      {
+       "mood": "rich",
+       "by": -1
+      },
+      {
+       "influence": "speaker",
+       "by": -1
+      },
+      {
+       "grudge": "speaker",
+       "reason": "you stole his grain law"
+      }
+     ]
+    },
+    {
+     "id": "abstain",
+     "label": "Stay out of it",
+     "default": true,
+     "effects": [
+      {
+       "influence": "speaker",
+       "by": 1
+      },
+      {
+       "mood": "rich",
+       "by": -1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardMeasureAudit",
+   "kind": "invention",
+   "chained": true,
+   "art": "scales",
+   "name": "A measure in the assembly",
+   "roles": {
+    "speaker": {
+     "status": "free",
+     "faction": "rich"
+    }
+   },
+   "text": "{Speaker} asks the assembly to audit the city's accounts: where the silver went, and who had it. Everyone knows whose accounts {he:speaker} means.",
+   "why": "{speaker} moved the assembly",
+   "choices": [
+    {
+     "id": "back",
+     "label": "Open the accounts",
+     "cost": {
+      "silver": 1
+     },
+     "effects": [
+      {
+       "mood": "rich",
+       "by": 1
+      },
+      {
+       "influence": "speaker",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "oppose",
+     "label": "Refuse the audit",
+     "roll": {
+      "need": 4,
+      "mods": [
+       {
+        "label": "the citizens are content with you",
+        "value": 1,
+        "if": {
+         "mood": {
+          "citizens": {
+           "min": 3
+          }
+         }
+        }
+       },
+       {
+        "label": "you lead the assembly",
+        "value": 1,
+        "if": {
+         "playerHolds": [
+          "assembly"
+         ]
+        }
+       }
+      ],
+      "success": {
+       "text": "The assembly will not hear it. {Speaker} is laughed down.",
+       "effects": [
+        {
+         "influence": "speaker",
+         "by": -1
+        },
+        {
+         "opinion": "speaker",
+         "by": -1
+        }
+       ]
+      },
+      "failure": {
+       "text": "The assembly says you have something to hide.",
+       "effects": [
+        {
+         "mood": "rich",
+         "by": -1
+        },
+        {
+         "mood": "citizens",
+         "by": -1
+        },
+        {
+         "influence": "speaker",
+         "by": 1
+        }
+       ]
+      }
+     }
+    },
+    {
+     "id": "take",
+     "label": "Audit the rich houses instead",
+     "cost": {
+      "slots": 1
+     },
+     "effects": [
+      {
+       "silver": 2
+      },
+      {
+       "mood": "rich",
+       "by": -1
+      },
+      {
+       "mood": "citizens",
+       "by": 1
+      },
+      {
+       "grudge": "speaker",
+       "reason": "you turned his audit on his own house"
+      }
+     ]
+    },
+    {
+     "id": "abstain",
+     "label": "Stay out of it",
+     "default": true,
+     "effects": [
+      {
+       "influence": "speaker",
+       "by": 1
+      },
+      {
+       "mood": "rich",
+       "by": -1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardMeasurePay",
+   "kind": "invention",
+   "chained": true,
+   "art": "walls",
+   "name": "A measure in the assembly",
+   "roles": {
+    "speaker": {
+     "status": "free",
+     "faction": "guard"
+    }
+   },
+   "text": "{Speaker} stands up for the soldiers: a bounty for every man who serves, paid now. The guard watches to see what you say.",
+   "why": "{speaker} moved the assembly",
+   "choices": [
+    {
+     "id": "back",
+     "label": "Pay the bounty",
+     "cost": {
+      "silver": 2
+     },
+     "effects": [
+      {
+       "mood": "guard",
+       "by": 1
+      },
+      {
+       "influence": "speaker",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "oppose",
+     "label": "Say the city cannot pay",
+     "effects": [
+      {
+       "mood": "guard",
+       "by": -1
+      },
+      {
+       "opinion": "speaker",
+       "by": -1
+      }
+     ]
+    },
+    {
+     "id": "take",
+     "label": "Pay it yourself, in your own name",
+     "cost": {
+      "silver": 2,
+      "slots": 1
+     },
+     "effects": [
+      {
+       "mood": "guard",
+       "by": 1
+      },
+      {
+       "opinion": "speaker",
+       "by": 1
+      },
+      {
+       "influence": "speaker",
+       "by": -1
+      }
+     ]
+    },
+    {
+     "id": "abstain",
+     "label": "Stay out of it",
+     "default": true,
+     "effects": [
+      {
+       "influence": "speaker",
+       "by": 1
+      },
+      {
+       "mood": "guard",
+       "by": -1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardMeasureHonour",
+   "kind": "invention",
+   "chained": true,
+   "art": "assembly",
+   "name": "A measure in the assembly",
+   "roles": {
+    "speaker": {
+     "status": "free",
+     "faction": "family"
+    }
+   },
+   "text": "{Speaker} asks the assembly to vote {him:speaker} a statue in the agora, for what {he:speaker} has done for the city. It is your family's name on the stone, but not yours.",
+   "why": "{speaker} moved the assembly",
+   "choices": [
+    {
+     "id": "back",
+     "label": "Second the honour",
+     "effects": [
+      {
+       "mood": "family",
+       "by": 1
+      },
+      {
+       "influence": "speaker",
+       "by": 1
+      },
+      {
+       "opinion": "speaker",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "oppose",
+     "label": "Have it voted down",
+     "effects": [
+      {
+       "opinion": "speaker",
+       "by": -2
+      },
+      {
+       "influence": "speaker",
+       "by": -1
+      }
+     ]
+    },
+    {
+     "id": "abstain",
+     "label": "Stay out of it",
+     "default": true,
+     "effects": [
+      {
+       "influence": "speaker",
+       "by": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardAskFleet",
+   "kind": "invention",
+   "chained": true,
+   "art": "warship",
+   "name": "A favour of the fleet",
+   "roles": {
+    "asker": {
+     "status": "free"
+    }
+   },
+   "text": "{Asker} asks for two of your ships to carry {his:asker} grain to market. {He:asker} will not forget either answer.",
+   "why": "{asker} wants the use of your fleet",
+   "choices": [
+    {
+     "id": "grant",
+     "label": "Lend {him:asker} the ships",
+     "cost": {
+      "grain": 1
+     },
+     "effects": [
+      {
+       "opinion": "asker",
+       "by": 2
+      },
+      {
+       "influence": "asker",
+       "by": 1
+      },
+      {
+       "silver": 1,
+       "why": "a share of the profit from your ships",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
+      }
+     ]
+    },
+    {
+     "id": "refuse",
+     "label": "Refuse",
+     "default": true,
+     "effects": [
+      {
+       "refused": "asker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardAskMint",
+   "kind": "invention",
+   "chained": true,
+   "art": "coins",
+   "name": "A favour of the mint",
+   "roles": {
+    "asker": {
+     "status": "free"
+    }
+   },
+   "text": "{Asker} asks you to strike coin for {his:asker} daughter's wedding, with {his:asker} house's mark beside yours.",
+   "why": "{asker} wants the use of your mint",
+   "choices": [
+    {
+     "id": "grant",
+     "label": "Strike it",
+     "cost": {
+      "silver": 1
+     },
+     "effects": [
+      {
+       "opinion": "asker",
+       "by": 2
+      },
+      {
+       "factionMood": "asker",
+       "by": 1
+      },
+      {
+       "silver": 2,
+       "why": "the wedding gifts, sent on to you",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
+      }
+     ]
+    },
+    {
+     "id": "refuse",
+     "label": "Refuse",
+     "default": true,
+     "effects": [
+      {
+       "refused": "asker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardAskGeneralship",
+   "kind": "invention",
+   "chained": true,
+   "art": "arms",
+   "name": "A favour of the generalship",
+   "roles": {
+    "asker": {
+     "status": "free"
+    }
+   },
+   "text": "{Asker} asks a command in the army for {his:asker} son: a company of his own, and a name.",
+   "why": "{asker} wants the use of your generalship",
+   "choices": [
+    {
+     "id": "grant",
+     "label": "Give the boy his company",
+     "effects": [
+      {
+       "opinion": "asker",
+       "by": 2
+      },
+      {
+       "influence": "asker",
+       "by": 1
+      },
+      {
+       "factionPower": "asker",
+       "by": 1
+      },
+      {
+       "guard": "strength",
+       "by": 1,
+       "why": "the boy's company stands with your guard",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
+      }
+     ]
+    },
+    {
+     "id": "refuse",
+     "label": "Refuse",
+     "default": true,
+     "effects": [
+      {
+       "refused": "asker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardAskTreasury",
+   "kind": "invention",
+   "chained": true,
+   "art": "coins",
+   "name": "A favour of the treasury",
+   "roles": {
+    "asker": {
+     "status": "free"
+    }
+   },
+   "text": "{Asker} asks a loan from the treasury, at no interest, between friends.",
+   "why": "{asker} wants the use of your treasury",
+   "choices": [
+    {
+     "id": "grant",
+     "label": "Lend it",
+     "cost": {
+      "silver": 2
+     },
+     "effects": [
+      {
+       "opinion": "asker",
+       "by": 2
+      },
+      {
+       "favor": "asker"
+      },
+      {
+       "informer": "asker",
+       "why": "between friends, he tells you what he hears",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
+      }
+     ]
+    },
+    {
+     "id": "refuse",
+     "label": "Refuse",
+     "default": true,
+     "effects": [
+      {
+       "refused": "asker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardAskCaptain",
+   "kind": "invention",
+   "chained": true,
+   "art": "duel",
+   "name": "A favour of the guard",
+   "roles": {
+    "asker": {
+     "status": "free"
+    }
+   },
+   "text": "{Asker} asks a place in your guard for {his:asker} kinsman, at a captain's pay.",
+   "why": "{asker} wants a place in the guard you command",
+   "choices": [
+    {
+     "id": "grant",
+     "label": "Take the kinsman on",
+     "effects": [
+      {
+       "opinion": "asker",
+       "by": 2
+      },
+      {
+       "guard": "upkeep",
+       "by": 1
+      },
+      {
+       "silver": 1,
+       "why": "the kinsman's family pays for the place",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
+      }
+     ]
+    },
+    {
+     "id": "refuse",
+     "label": "Refuse",
+     "default": true,
+     "effects": [
+      {
+       "refused": "asker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardAskCitadel",
+   "kind": "invention",
+   "chained": true,
+   "art": "walls",
+   "name": "A favour of the citadel",
+   "roles": {
+    "asker": {
+     "status": "free"
+    }
+   },
+   "text": "{Asker} asks for a house on the Island, inside your walls, for {his:asker} family.",
+   "why": "{asker} wants shelter behind your citadel",
+   "choices": [
+    {
+     "id": "grant",
+     "label": "Give {him:asker} the house",
+     "cost": {
+      "land": 1
+     },
+     "effects": [
+      {
+       "opinion": "asker",
+       "by": 2
+      },
+      {
+       "bound": "asker"
+      },
+      {
+       "guard": "strength",
+       "by": 1,
+       "why": "his men stand guard on the Island",
+       "offer": true,
+       "if": {
+        "switchOn": "petitionOffers"
+       }
+      }
+     ]
+    },
+    {
+     "id": "refuse",
+     "label": "Refuse",
+     "default": true,
+     "effects": [
+      {
+       "refused": "asker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boardPetMotya",
+   "kind": "invention",
+   "chained": true,
+   "art": "arms",
+   "name": "Let me take Motya",
+   "roles": {
+    "general": {
+     "status": "free"
+    }
+   },
+   "text": "{General}, who holds the generalship, asks to lead the army against Motya himself. If it falls, the glory is {his:general}.",
+   "why": "the war with Carthage, and {general} holds the army",
+   "choices": [
+    {
+     "id": "let",
+     "label": "Let {him:general} go",
+     "effects": [
+      {
+       "opinion": "general",
+       "by": 1
+      },
+      {
+       "influence": "general",
+       "by": 1
+      },
+      {
+       "dig": "general",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "self",
+     "label": "Go yourself, and leave {him:general} the siege works",
+     "effects": [
+      {
+       "grudge": "general",
+       "reason": "you took his war from him"
+      }
+     ]
+    },
+    {
+     "id": "wait",
+     "label": "Wait a year",
+     "default": true,
+     "effects": [
+      {
+       "mood": "citizens",
+       "by": -1
+      },
+      {
+       "clock": 1
+      }
+     ]
+    }
+   ],
+   "note": "From docs/drafts/petitions-draft.md, petition 1 (Diodorus 14.47.4, 14.48.4). The trigger and choices are invention."
+  },
+  {
+   "id": "boardPetTrial",
+   "kind": "invention",
+   "chained": true,
+   "art": "trial",
+   "name": "Try the beaten general",
+   "roles": {
+    "speaker": {
+     "status": "free"
+    },
+    "general": {
+     "status": "free"
+    }
+   },
+   "text": "The army was beaten. {Speaker} speaks for the survivors in the assembly: {general} betrayed them, and should be tried.",
+   "why": "a lost battle, under {general}",
+   "choices": [
+    {
+     "id": "judge",
+     "label": "Let the assembly judge {him:general}",
+     "effects": [
+      {
+       "status": "general",
+       "to": "outside"
+      },
+      {
+       "rival": "general",
+       "scar": "Exiled",
+       "reason": "you let the assembly exile him after the defeat"
+      },
+      {
+       "factionMood": "general",
+       "by": -1
+      },
+      {
+       "mood": "citizens",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "shield",
+     "label": "Shield {him:general}",
+     "effects": [
+      {
+       "mood": "citizens",
+       "by": -1
+      },
+      {
+       "opinion": "general",
+       "by": 2
+      }
+     ]
+    },
+    {
+     "id": "accuse",
+     "label": "Accuse {him:general} yourself",
+     "cost": {
+      "slots": 1
+     },
+     "effects": [
+      {
+       "mood": "citizens",
+       "by": 1
+      },
+      {
+       "mood": "rich",
+       "by": -1
+      },
+      {
+       "status": "general",
+       "to": "outside"
+      },
+      {
+       "grudge": "general",
+       "reason": "you accused him of treason after the defeat"
+      }
+     ]
+    },
+    {
+     "id": "silence",
+     "label": "Say nothing",
+     "default": true,
+     "effects": [
+      {
+       "mood": "citizens",
+       "by": -1
+      },
+      {
+       "influence": "speaker",
+       "by": 1
+      }
+     ]
+    }
+   ],
+   "note": "From docs/drafts/petitions-draft.md, petition 3 (Diodorus 13.91.2 to 13.92.1). The trigger and choices are invention."
+  },
+  {
+   "id": "boardPetAdmiral",
+   "kind": "invention",
+   "chained": true,
+   "art": "warship",
+   "name": "The admiral is away",
+   "roles": {
+    "asker": {
+     "status": "free"
+    },
+    "admiral": {
+     "status": [
+      "free",
+      "outside"
+     ]
+    }
+   },
+   "text": "{Admiral} is away, and {asker} says the fleet needs a master at home: {him:asker}.",
+   "why": "{admiral} holds the fleet and is away from the city",
+   "choices": [
+    {
+     "id": "agree",
+     "label": "Give {asker} the fleet",
+     "effects": [
+      {
+       "seat": "fleet",
+       "to": "asker"
+      },
+      {
+       "rival": "admiral",
+       "scar": "Humiliated",
+       "reason": "you gave his fleet away while he was gone"
+      },
+      {
+       "opinion": "asker",
+       "by": 2
+      }
+     ]
+    },
+    {
+     "id": "refuse",
+     "label": "Refuse",
+     "default": true,
+     "effects": [
+      {
+       "opinion": "asker",
+       "by": -1
+      }
+     ]
+    }
+   ],
+   "note": "From docs/drafts/petitions-draft.md, petition 6 (Diodorus 13.63.1). The trigger and choices are invention."
+  },
+  {
+   "id": "boardPetGuardPay",
+   "kind": "invention",
+   "chained": true,
+   "art": "coins",
+   "name": "Pay the guard first",
+   "roles": {
+    "captain": {
+     "status": "free"
+    },
+    "treasurer": {
+     "status": "free"
+    }
+   },
+   "text": "{Captain}, captain of the guard, says the men are owed and {treasurer} pays {his:treasurer} friends first. The men are asking, with some sharpness.",
+   "why": "the guard is unpaid, and {treasurer} holds the treasury",
+   "choices": [
+    {
+     "id": "order",
+     "label": "Order {treasurer} to pay them",
+     "effects": [
+      {
+       "payArrears": true
+      },
+      {
+       "grudge": "treasurer",
+       "reason": "you made him pay the guard before his friends"
+      },
+      {
+       "factionMood": "treasurer",
+       "by": -1
+      }
+     ]
+    },
+    {
+     "id": "purse",
+     "label": "Pay from your own purse",
+     "cost": {
+      "silver": 2
+     },
+     "effects": [
+      {
+       "payArrears": true
+      }
+     ]
+    },
+    {
+     "id": "wait",
+     "label": "Let it wait",
+     "default": true,
+     "effects": [
+      {
+       "mood": "guard",
+       "by": -1
+      },
+      {
+       "opinion": "captain",
+       "by": -1
+      }
+     ]
+    }
+   ],
+   "note": "From docs/drafts/petitions-draft.md, petition 7 (Diodorus 14.78.1 to 14.78.2). The trigger and choices are invention."
+  },
+  {
+   "id": "boardPetWalls",
+   "kind": "invention",
+   "chained": true,
+   "art": "walls",
+   "name": "Men for the walls",
+   "roles": {
+    "commander": {
+     "status": "free"
+    }
+   },
+   "text": "Carthage's army is near, and {commander}, who holds a city for you, asks for men for {his:commander} walls.",
+   "why": "Carthage's army is near a city {commander} holds for you",
+   "choices": [
+    {
+     "id": "guard",
+     "label": "Send part of your guard",
+     "effects": [
+      {
+       "guard": "strength",
+       "by": -1
+      },
+      {
+       "opinion": "commander",
+       "by": 2
+      },
+      {
+       "friend": "commander",
+       "seasons": 4
+      }
+     ]
+    },
+    {
+     "id": "citizens",
+     "label": "Send citizens",
+     "effects": [
+      {
+       "mood": "citizens",
+       "by": -1
+      },
+      {
+       "opinion": "commander",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "hold",
+     "label": "Tell {him:commander} to hold with what {he:commander} has",
+     "default": true,
+     "effects": [
+      {
+       "opinion": "commander",
+       "by": -1
+      }
+     ]
+    }
+   ],
+   "note": "From docs/drafts/petitions-draft.md, petition 9 (Diodorus 14.15.1). The trigger and choices are invention."
+  },
+  {
+   "id": "boardPetHouses",
+   "kind": "invention",
+   "chained": true,
+   "art": "walls",
+   "name": "Houses on the Island",
+   "roles": {
+    "captain": {
+     "status": "free"
+    }
+   },
+   "text": "You cannot pay the guard. {Captain} offers a way out: houses on the Island for {his:captain} men, instead of silver.",
+   "why": "the guard is owed more than you have",
+   "choices": [
+    {
+     "id": "give",
+     "label": "Give them the houses",
+     "cost": {
+      "land": 1
+     },
+     "effects": [
+      {
+       "payArrears": true
+      },
+      {
+       "mood": "citizens",
+       "by": -1
+      },
+      {
+       "dig": "captain",
+       "by": 1
+      }
+     ]
+    },
+    {
+     "id": "refuse",
+     "label": "Refuse",
+     "default": true,
+     "effects": [
+      {
+       "mood": "guard",
+       "by": -1
+      }
+     ]
+    }
+   ],
+   "note": "From docs/drafts/petitions-draft.md, petition 15 (Diodorus 14.7.5). The trigger and choices are invention."
+  }
+ ]
+}

@@ -11,7 +11,8 @@ import type { Handlers } from "../app/clicks.ts";
 export function checkInDue(g: GameState): number | null {
   const p = presetById(g.preset);
   if (!p || g.over || ui.verdict) return null;
-  const due = (p.checkIns ?? []).filter((n) => n < p.verdictSeason && g.season >= n && !ui.checkIns.some((c) => c.season >= n));
+  const s0 = g.startSeason ?? 0; // a late opening counts its check-ins from where it began
+  const due = (p.checkIns ?? []).filter((n) => n < p.verdictSeason && g.season - s0 >= n && !ui.checkIns.some((c) => c.season - s0 >= n));
   return due.length ? due[due.length - 1] : null;
 }
 
@@ -20,13 +21,13 @@ export function checkInDue(g: GameState): number | null {
 export function verdictDue(g: GameState) {
   const p = presetById(g.preset);
   if (!p || ui.verdict) return false;
-  return g.season >= p.verdictSeason || !!g.over || checkInDue(g) !== null;
+  return g.season - (g.startSeason ?? 0) >= p.verdictSeason || !!g.over || checkInDue(g) !== null;
 }
 
 export function verdictView(g: GameState) {
   const p = presetById(g.preset)!;
   if (checkInDue(g) !== null) return checkInView(g, checkInDue(g)!);
-  const early = !!g.over && g.over.season < p.verdictSeason;
+  const early = !!g.over && g.over.season - (g.startSeason ?? 0) < p.verdictSeason;
   const draft = ui.verdictDraft as Record<string, string>;
   const q = (id: keyof Verdict, label: string, hint: string) => `<p><label for="v-${id}"><b>${esc(label)}</b> <span class="small muted">${esc(hint)}</span></label>
       <textarea id="v-${id}" rows="3">${esc(draft[id] ?? "")}</textarea></p>`;

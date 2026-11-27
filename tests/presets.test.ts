@@ -32,11 +32,13 @@ test("the first island test keeps the council's setup, so its saves replay", () 
   assert.match(startScreen(null, 7), /value="firstIslandTest"/, "still offered");
 });
 
-test("the second island test is listed first and recommended, with the rules Jacob made core (2026-11-26)", () => {
+test("the second island test is listed first and recommended, with the rules Jacob made core (2026-11-26) and the contested board", () => {
   const p = presetById("secondIslandTest")!;
   assert.equal(p.scenario, "island");
   assert.equal(p.tuning, "reapWhatYouSow");
-  assert.deepEqual([...p.switches].sort(), ["armiesBreak", "bargainDisgraces", "clues", "coalition", "commission", "escalation", "exile", "feud", "partialBlows", "purseDry", "quarrels", "secrets", "storyChronicle"]);
+  assert.deepEqual([...p.switches].sort(), ["armiesBreak", "bargainDisgraces", "clues", "coalition", "commission", "contestedBoard", "escalation", "exile", "feud", "partialBlows", "purseDry", "quarrels", "secrets", "storyChronicle",
+    // the council's picks after the second test (2026-11-27, docs/council/2026-11-27-second-test-rules.md)
+    "guardBattleOnly", "devotedHoldsBack", "carthageHolds", "libyaSpared", "mintHabit", "petitionOffers"].sort());
   assert.ok(!p.switches.includes("variedOpening"), "Jacob kept the first year as it is");
   assert.equal(p.verdictSeason, 30);
   assert.deepEqual(p.checkIns, [10, 20]);
@@ -64,7 +66,7 @@ test("a preset game is the same game as its options, and replays exactly", () =>
 
 // Pinned so nothing changes the test build under Jacob without a logged decision (freeze: 2026-11-24).
 // Re-pin only with a line in docs/decisions.md saying what changed.
-const PRESET_DIGEST = "515cdfe37a928f0b"; // 2026-11-25, thread 31 (part 3): one added line only, the floor line. Part 2 "8d9ccb179fc0ce4a": only wording, varied sentences after repeated lines. Part 1 "489e7bfc4ee22b8a": only wording (council bug fixes, same 60-game log diff); the frozen test link (code of main 26744da) keeps "a13b4b4e66093c27". Before that thread 28: "her house"; thread 19: dice no longer drawn inside a sort
+const PRESET_DIGEST = "4945dac05ed6d655"; // 2026-11-26, thread 39: the bug fixes from the second test (guard pay follows the men, marriage by sex, and others). Before: "515cdfe37a928f0b" 2026-11-25, thread 31 (part 3): one added line only, the floor line. Part 2 "8d9ccb179fc0ce4a": only wording, varied sentences after repeated lines. Part 1 "489e7bfc4ee22b8a": only wording (council bug fixes, same 60-game log diff); the frozen test link (code of main 26744da) keeps "a13b4b4e66093c27". Before that thread 28: "her house"; thread 19: dice no longer drawn inside a sort
 test("the first island test plays exactly as pinned (careful bot, seeds 1 to 10)", () => {
   const h = createHash("sha256");
   for (let seed = 1; seed <= 10; seed++) h.update(logDigest(runBotGame(seed, { bot: "careful", ...presetOpts("firstIslandTest") })));

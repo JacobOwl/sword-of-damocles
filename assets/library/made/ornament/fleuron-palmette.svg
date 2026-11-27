@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+<title>Fleuron: palmette</title>
+<desc>A single palmette.</desc>
+<ellipse cx="14.26" cy="24.38" rx="2.38" ry="7" transform="rotate(-60 14.26 24.38)" fill="#7a5424"/><ellipse cx="16.77" cy="21.38" rx="2.38" ry="7" transform="rotate(-40 16.77 21.38)" fill="#7a5424"/><ellipse cx="20.15" cy="19.43" rx="2.38" ry="7" transform="rotate(-20 20.15 19.43)" fill="#7a5424"/><ellipse cx="24" cy="18.75" rx="2.38" ry="8" transform="rotate(0 24 18.75)" fill="#7a5424"/><ellipse cx="27.85" cy="19.43" rx="2.38" ry="7" transform="rotate(20 27.85 19.43)" fill="#7a5424"/><ellipse cx="31.23" cy="21.38" rx="2.38" ry="7" transform="rotate(40 31.23 21.38)" fill="#7a5424"/><ellipse cx="33.74" cy="24.38" rx="2.38" ry="7" transform="rotate(60 33.74 24.38)" fill="#7a5424"/><path d="M15.25 35C15.25 28.75 21.5 28.75 24 31.25C26.5 28.75 32.75 28.75 32.75 35" fill="none" stroke="#7a5424" stroke-width="1.63" stroke-linecap="round"/><circle cx="15.25" cy="35.75" r="1.63" fill="#7a5424"/><circle cx="32.75" cy="35.75" r="1.63" fill="#7a5424"/>
+</svg>

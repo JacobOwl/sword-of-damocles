@@ -6,9 +6,26 @@ import { flags } from "./people.ts";
 import { portrait } from "../components/portraits.ts";
 import { esc, linkNames, opChip, opinionWord, pr, sign, ui, who } from "../lib/text.ts";
 import { FACTION_ICON, icon } from "../components/icons.ts";
+import { foe, foeLines } from "../components/foe.ts";
 
 export function dangersCol(g: GameState) {
-  return `${plots(g)}${quarrels(g)}${rivals(g)}${whoIsWho(g)}`;
+  return `${foeCard(g)}${plots(g)}${quarrels(g)}${rivals(g)}${whoIsWho(g)}`;
+}
+
+// One card for the person most likely to end your rule (ui/components/foe.ts).
+function foeCard(g: GameState) {
+  const f = foe(g);
+  if (!f || g.over) return "";
+  const x = foeLines(g, f);
+  const p = f.p;
+  const where = p.status === "outside" ? ` ${pr(p.id).He} is outside the walls.` : "";
+  const act = f.plot ? "Imprison him to take him out of the plot, or turn an informer inside it. Win back the factions behind it: a Content faction stops backing plots." : p.political?.rank === 3 ? "A Pretender needs a second faction angry with you. Keep the factions content, or take his offices and following from him." : "Watch him, buy him off, or put him where he can't reach you.";
+  return `<div class="foe"><h2>Coming for you</h2>
+    <div class="fhead">${portrait(p.id, "s")}<div><b>${who(p.id)}</b> ${esc(f.why)}.${x.titles ? ` <span class="small muted">${esc(x.titles)}.</span>` : ""}${esc(where)}</div></div>
+    ${x.grievances.length ? `<div class="small"><span class="label">Why</span><ul class="heard">${x.grievances.map((t) => `<li>${linkNames(t)}</li>`).join("")}</ul></div>` : ""}
+    ${x.plot ? `<div class="small"><span class="label">The plot</span> ${esc(x.plot)}</div>` : ""}
+    ${x.lately.length ? `<div class="small"><span class="label">Lately</span><ul class="heard">${x.lately.map((t) => `<li>${linkNames(t)}</li>`).join("")}</ul></div>` : ""}
+    <div class="small muted">${esc(act.replace(/\bhim\b/g, pr(p.id).him).replace(/\bhis\b/g, pr(p.id).his))}</div></div>`;
 }
 
 const partialKnobs = () => (switchById("partialBlows") as any).knobs as { wound: number; seize: number };

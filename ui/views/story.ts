@@ -1,5 +1,5 @@
 // The season's events and the chronicle, written for reading. Both come straight from the one action log.
-import { PLAYER, openEvents, seasonName, storyBook, switchOn } from "../../src/core/index.ts";
+import { PLAYER, openEvents, seasonName, storyBook, switchOn, warChapter } from "../../src/core/index.ts";
 import type { GameState, LogEntry } from "../../src/core/index.ts";
 import { esc, linkNames, rollLine, ui } from "../lib/text.ts";
 import { chronicleLine, colophon, diodorusYear } from "../components/ambient.ts";
@@ -109,9 +109,9 @@ export function chronicleBook(s: GameState) {
   if (last < 0) return `<article class="book"><h2>The chronicle</h2><p class="muted">The chronicle begins when the first season ends.</p></article>`;
   if (switchOn(s, "storyChronicle")) return storyChronicleBook(s);
   const years: string[] = [];
-  for (let y = 0; y * 4 <= last; y++) {
+  for (let y = Math.floor((s.startSeason ?? 0) / 4); y * 4 <= last; y++) {
     const seasons: string[] = [];
-    for (let q = 0; q < 4; q++) { const i = y * 4 + q; if (i <= last) seasons.push(chronicleSeason(s, i)); }
+    for (let q = 0; q < 4; q++) { const i = y * 4 + q; if (i <= last && i >= (s.startSeason ?? 0)) seasons.push(chronicleSeason(s, i)); }
     const dy = diodorusYear(405 - y);
     years.push(`<section class="cyear"><h3>Year ${y + 1} <span class="muted">${405 - y} to ${404 - y} BC</span></h3>${dy ? `<p class="cdiod">${esc(dy.text)} <span class="cite">(${esc(dy.cite)})</span></p>` : ""}${seasons.join("")}</section>`);
   }
@@ -122,7 +122,7 @@ export function chronicleBook(s: GameState) {
 
 // The last season, short, for the season column.
 export function lastSeasonSummary(s: GameState) {
-  if (s.season === 0) return "";
+  if (s.season === (s.startSeason ?? 0)) return "";
   const prev = s.season - 1;
   const f = seasonFeed(s, prev, ["player", "power", "sword"]);
   if (f.empty) return "";
@@ -131,17 +131,41 @@ export function lastSeasonSummary(s: GameState) {
 
 // The rule switch "Chronicle as story": each season told by who it was about, then each person's thread.
 const sentences = (text: string) => text.split(/(?<=\.)\s+(?=[A-Z])/).map((x) => told(x)).join(" ");
+// The chronicle cut to its arcs (second test: "WAY too long we gotta shorten that down to the important stuff and good
+// story arcs", about 7,100 words). Up top: how it ended and the main threads. Then each year in a few lines, only its
+// turning points; the whole season stays folded underneath for whoever wants it. Same storyBook, nothing invented.
+const KEY = /becomes your rival|Nemesis|is dead|executed|put to death|plot strikes|plot fails|Tyranny|Pretender|seize the Island|sword falls|takes your place|declares war|makes peace|peace with|is destroyed|is now yours|is now Carthage's|now pays tribute|is now your ally|marries|citadel is built|You build|complete The|achieve their aim|lands in Sicily|flee|exile|comes home|takes .* from you|loses .* to|you lost|wins the vote|elected/i;
+const CONNECTIVE = /^(Meanwhile|In the same season|Elsewhere|At court), (\w)/;
+const unlink = (x: string) => x.replace(CONNECTIVE, (_m, _c, l: string) => l.toUpperCase());
+const keyLines = (p: string) => p.split(/(?<=\.)\s+(?=[A-Z])/).filter((x) => KEY.test(x) && !/\(the \w+ time\)|^Again, |at it again|^The assembly votes on/.test(x)).map((x) => told(unlink(x)));
 function storyChronicleBook(s: GameState) {
   const b = storyBook(s);
   const years: string[] = [];
-  for (let y = 0; y * 4 < b.seasons.length; y++) {
-    const ss = b.seasons.slice(y * 4, y * 4 + 4).map((x) => `<div class="cseason"><h4>${esc(x.name)}</h4>${x.paragraphs.map((p) => {
+  for (let y = Math.floor((s.startSeason ?? 0) / 4); y * 4 < b.seasons.length; y++) {
+    const ss = b.seasons.slice(Math.max(y * 4, s.startSeason ?? 0), y * 4 + 4);
+    const key = ss.flatMap((x) => keyLines(x.paragraphs.join(" ")).map((t) => ({ name: x.name, t })));
+    const seen = new Set<string>();
+    const brief = key.filter((k) => !seen.has(k.t) && seen.add(k.t)).slice(0, 6);
+    const full = ss.map((x) => `<div class="cseason"><h4>${esc(x.name)}</h4>${x.paragraphs.map((p) => {
       const t = linkNames(sentences(p));
       return `<p>${TURNING.test(p) ? `<strong>${t}</strong>` : t}</p>`;
-    }).join("")}${x.omens.length ? `<p class="omens">${x.omens.map(linkNames).join(" ")}</p>` : ""}</div>`);
-    years.push(`<section class="cyear"><h3>Year ${y + 1} <span class="muted">${405 - y} to ${404 - y} BC</span></h3>${ss.join("")}</section>`);
+    }).join("")}${x.omens.length ? `<p class="omens">${x.omens.map(linkNames).join(" ")}</p>` : ""}</div>`).join("");
+    const lines = brief.length ? `<ul class="cbrief">${brief.map((k) => `<li><span class="muted">${esc(k.name.split(" ")[0])}.</span> ${linkNames(k.t)}</li>`).join("")}</ul>` : `<p class="small muted">No turning point this year.</p>`;
+    years.push(`<section class="cyear"><h3>Year ${y + 1} <span class="muted">${405 - y} to ${404 - y} BC</span></h3>${lines}<details class="cfull"><summary class="small">The whole year</summary>${full}</details></section>`);
   }
-  const lives = b.lives.length ? `<section class="cyear"><h3>Lives</h3><p class="small muted">Each person's thread through your reign, from what you saw. Repeats are counted, not repeated.</p>${b.lives.map((l) => `<p><strong>${linkNames(l.name.charAt(0).toUpperCase() + l.name.slice(1))}.</strong> ${linkNames(sentences(l.text))}</p>`).join("")}</section>` : "";
+  // The main threads: the four people with the most to their story, each cut to their first beat and turning points.
+  const lives = b.lives.slice(0, 4).map((l) => {
+    const beats = l.text.split(/(?<=\.)\s+(?=[A-Z])/);
+    const keep = [...new Set(beats.filter((x, i) => (i === 0 || i === beats.length - 1 || KEY.test(x)) && !/at it again/.test(x)))].slice(0, 6);
+    return `<p><strong>${linkNames(l.name.charAt(0).toUpperCase() + l.name.slice(1))}.</strong> ${linkNames(sentences(keep.join(" ")))}</p>`;
+  }).join("");
+  const rest = b.lives.slice(4);
+  const more = rest.length ? `<details class="cfull"><summary class="small">Other lives (${rest.length})</summary>${rest.map((l) => `<p><strong>${linkNames(l.name.charAt(0).toUpperCase() + l.name.slice(1))}.</strong> ${linkNames(sentences(l.text))}</p>`).join("")}</details>` : "";
   const ending = b.ending ? `<section class="cyear"><h3>How it ended</h3><p>${linkNames(sentences(b.ending))}</p></section>` : "";
-  return `<article class="book"><h2>The chronicle</h2><p class="small muted">Told as a story: each season by who it was about, with where each turning point began. Everything here is what you saw happen.</p>${years.join("")}${ending}${lives}</article>`;
+  const threads = lives ? `<section class="cyear"><h3>The main threads</h3>${lives}${more}</section>` : "";
+  // Switch "warFocus": each war told as one short chapter (src/core/war.ts warChapter).
+  const wars = (s.island?.pastWars ?? []).map((w) => `<p><strong>${esc(w.name.charAt(0).toUpperCase() + w.name.slice(1))}.</strong> ${linkNames(sentences(w.chapter))}</p>`).join("");
+  const warNow = s.island?.warCard && s.island.war ? `<p><strong>The war now.</strong> ${linkNames(sentences(warChapter(s, s.island.warCard, "It goes on.")))}</p>` : "";
+  const warSection = wars || warNow ? `<section class="cyear"><h3>The wars</h3>${wars}${warNow}</section>` : "";
+  return `<article class="book"><h2>The chronicle</h2><p class="small muted">The turning points of each year. Open a year for the whole of it. Everything here is what you saw happen.</p>${ending}${warSection}${threads}${years.join("")}</article>`;
 }

@@ -49,8 +49,18 @@ export function clock(s: GameState, d: number, why: string) {
   if (s.clock !== before) change(s, "world", `${s.island ? "Carthage's anger" : "The Carthage clock"} ${d > 0 ? "rises" : "falls"} to ${s.clock} of 10.`, why);
 }
 export function guardSet(s: GameState, key: "strength" | "upkeep", d: number, why: string) {
+  const before = s.guard[key];
   s.guard[key] = Math.max(0, s.guard[key] + d);
   change(s, "guard", `Guard ${key} ${d > 0 ? "+" : ""}${d} (now ${s.guard[key]}).`, why);
+  // Pay follows the men (Jacob's second test, 2026-11-26): every man lost takes his pay with him, and a guard is never paid more than it has men.
+  if (key === "strength" && s.guard.strength < before) {
+    const pay = Math.min(Math.max(0, s.guard.upkeep - (before - s.guard.strength)), s.guard.strength);
+    if (pay < s.guard.upkeep) {
+      const cut = pay - s.guard.upkeep;
+      s.guard.upkeep = pay;
+      change(s, "guard", `Guard upkeep ${cut} (now ${pay}).`, "dead men draw no pay");
+    }
+  }
 }
 
 export function mood(s: GameState, f: FactionId, d: number, why: string, visible = true) {
@@ -107,10 +117,13 @@ export function clearGrudge(s: GameState, pid: string, why: string): boolean {
   return true;
 }
 
+// Switch "contestedBoard" listens here (board.ts sets it), so every change of hands is seen without a cycle of imports.
+export const boardHooks: { onSeat?: (s: GameState, seat: string, before: string | null, after: string | null) => void } = {};
 export function setOffice(s: GameState, o: OfficeId, holder: string | null, why: string) {
   const before = s.offices[o];
   if (before === holder) return;
   s.offices[o] = holder;
+  if (s.board) boardHooks.onSeat?.(s, o, before, holder);
   change(s, holder ?? "world", holder ? `${capital(nameOf(s, holder))} ${holder === PLAYER ? "hold" : "holds"} ${officeName(o)}.` : `${capital(officeName(o))} stands empty.`, why);
 }
 
