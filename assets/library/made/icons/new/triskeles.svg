@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Triskeles (Sicily)</title>
+<desc>Three legs round a face, the sign of Sicily, on coins of Agathokles' time (general knowledge, unverified).</desc>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<g transform="rotate(0 12 12)"><path d="M11 10.6 L9.8 3.4 C9.6 2.2 10.4 1.4 11.6 1.6 L17.6 2.4 L18.6 1.2 L20.6 2.6 L19.4 4.4 L12.8 4.4 L13.4 10.2 Z"/></g><g transform="rotate(120 12 12)"><path d="M11 10.6 L9.8 3.4 C9.6 2.2 10.4 1.4 11.6 1.6 L17.6 2.4 L18.6 1.2 L20.6 2.6 L19.4 4.4 L12.8 4.4 L13.4 10.2 Z"/></g><g transform="rotate(240 12 12)"><path d="M11 10.6 L9.8 3.4 C9.6 2.2 10.4 1.4 11.6 1.6 L17.6 2.4 L18.6 1.2 L20.6 2.6 L19.4 4.4 L12.8 4.4 L13.4 10.2 Z"/></g><circle cx="12" cy="12" r="3.1"/><circle class="cut" cx="12" cy="12" r="1.9"/><circle cx="12" cy="12" r="1"/>
+</svg>

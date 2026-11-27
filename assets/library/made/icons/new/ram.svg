@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Bronze ram</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M1 12 L4.8 9.4 L8.4 9.8 L9.4 7.2 H20.6 L22.8 10 V14 L20.6 16.8 H9.4 L8.4 14.2 L4.8 14.6 Z"/><path d="M2.4 12 H9.4 M4.6 10.6 L9 10.9 M4.6 13.4 L9 13.1" class="cut line" style="stroke-width:0.55"/><path d="M14 9.4 L12.8 12 L14 14.6 M17 9.4 V14.6" class="cut line" style="stroke-width:0.6"/>
+</svg>

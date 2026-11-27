@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Fountain</title>
+<desc>The spring of Arethusa on Ortygia (general knowledge); the drawing is invention.</desc>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M3 15 H21 L19.4 20.6 H4.6 Z M2 13.6 H22 V15 H2 Z"/><path d="M12 13.6 V7" class="line" style="stroke-width:1.2"/><path d="M12 7 C9.6 5 7.6 6.6 7 9.6 M12 7 C14.4 5 16.4 6.6 17 9.6 M12 7 C11 4 12.6 2.2 12 1.2" class="line" style="stroke-width:0.9"/><path d="M5.6 17.6 C7 16.6 8.4 18.6 9.8 17.6 S12.6 18.6 14 17.6 S16.8 18.6 18.4 17.6" class="cut line" style="stroke-width:0.6"/><rect x="6" y="20.6" width="12" height="2"/>
+</svg>

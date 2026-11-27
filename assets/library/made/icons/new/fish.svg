@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Tunny fish</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M1.6 12 C4.8 7.4 12 6.6 17 10 L21.8 6.6 L20.4 12 L21.8 17.4 L17 14 C12 17.4 4.8 16.6 1.6 12 Z"/><circle class="cut" cx="5" cy="11.4" r="0.8"/><path d="M7.6 9.4 C8.6 11 8.6 13 7.6 14.6" class="cut line" style="stroke-width:0.6"/><path d="M10.6 8 L12.8 5.2 L14 8.6 Z M10.6 16 L12.8 18.8 L14 15.4 Z"/>
+</svg>

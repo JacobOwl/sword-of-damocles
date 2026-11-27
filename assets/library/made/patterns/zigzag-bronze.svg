@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10" width="12" height="10">
+<title>Zigzag, bronze (tile)</title>
+<desc>A plain zigzag between rails, as on Geometric pots. Colourway: bronze on a transparent ground, for parchment pages. Tiles left to right.</desc>
+<path d="M0 1H12M0 9H12" fill="none" stroke="#7a5424" stroke-width="0.9" stroke-linecap="square" stroke-linejoin="miter"/><path d="M0 7.4L6 2.6L12 7.4" fill="none" stroke="#7a5424" stroke-width="1.3" stroke-linejoin="miter" stroke-linecap="butt"/>
+</svg>

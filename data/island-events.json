@@ -16,7 +16,7 @@
     {
       "id": "traitorAtTheGate",
       "kind": "history",
-      "art": "gate",
+      "art": "torchlight",
       "name": "A gate at midnight",
       "weight": 6,
       "once": false,
@@ -242,7 +242,7 @@
     {
       "id": "towersAndCatapults",
       "kind": "history",
-      "art": "siege",
+      "art": "siegetower",
       "name": "Towers six storeys high",
       "weight": 5,
       "when": {
@@ -329,7 +329,7 @@
     {
       "id": "heraldsToTheTemples",
       "kind": "history",
-      "art": "temple",
+      "art": "oracle",
       "name": "Heralds to the temples",
       "weight": 6,
       "once": false,
@@ -459,7 +459,7 @@
     {
       "id": "greeksInTheEnemyRanks",
       "kind": "history",
-      "art": "dagger",
+      "art": "captives",
       "name": "Greeks who fought for Carthage",
       "weight": 4,
       "once": false,
@@ -557,7 +557,7 @@
     {
       "id": "firstOnTheWall",
       "kind": "history",
-      "art": "coins",
+      "art": "trophy",
       "name": "The first man on the wall",
       "weight": 4,
       "once": false,
@@ -1375,7 +1375,7 @@
     {
       "id": "himilconsBargain",
       "kind": "history",
-      "art": "letter",
+      "art": "nightletter",
       "name": "A bargain by night",
       "weight": 8,
       "when": {
@@ -1716,7 +1716,7 @@
     {
       "id": "captainCourted",
       "kind": "invention",
-      "art": "horse",
+      "art": "bribe",
       "name": "Punic silver for a captain",
       "weight": 2,
       "when": {
@@ -2682,7 +2682,7 @@
     {
       "id": "partisansBanished",
       "kind": "history",
-      "art": "gate",
+      "art": "exile",
       "name": "Your friends driven out",
       "weight": 6,
       "once": false,
@@ -3522,7 +3522,7 @@
     {
       "id": "hundredAuditTheGeneral",
       "kind": "invention",
-      "art": "tanit",
+      "art": "trial",
       "name": "A rumor from Carthage: the general on trial",
       "weight": 4,
       "when": {
@@ -3733,7 +3733,7 @@
     {
       "id": "dockyardSpeakers",
       "kind": "invention",
-      "art": "tanit",
+      "art": "shipyard",
       "name": "A rumor from Carthage: the dockyards cry for war",
       "weight": 5,
       "when": {
@@ -3908,7 +3908,7 @@
     {
       "id": "carthageMourns",
       "kind": "history",
-      "art": "tanit",
+      "art": "mourning",
       "name": "Carthage in mourning",
       "weight": 6,
       "when": {
@@ -4091,7 +4091,7 @@
     {
       "id": "sallyFromTheWalls",
       "kind": "invention",
-      "art": "siege",
+      "art": "catapult",
       "name": "A sally from the walls",
       "weight": 7,
       "once": false,
@@ -4423,7 +4423,7 @@
     {
       "id": "fleetInTheHarbour",
       "kind": "history",
-      "art": "warship",
+      "art": "carthagefleet",
       "name": "Ships in the Great Harbour",
       "weight": 6,
       "when": {
@@ -4736,7 +4736,7 @@
     {
       "id": "tyrantOfEnna",
       "kind": "history",
-      "art": "letter",
+      "art": "triskeles",
       "name": "A man who would be tyrant",
       "weight": 4,
       "once": true,

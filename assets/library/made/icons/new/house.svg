@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>House</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M2.4 11 L12 3.6 L21.6 11 Z"/><rect x="4" y="11" width="16" height="10.6"/><path d="M6 8.4 L12 4.6 L18 8.4" class="cut line" style="stroke-width:0.55"/><path d="M10.4 21.6 V16.4 H13.6 V21.6 Z" class="cut"/><rect x="5.8" y="13.4" width="2.4" height="2" class="cut"/><rect x="15.8" y="13.4" width="2.4" height="2" class="cut"/><rect x="1.6" y="21.6" width="20.8" height="1.2"/>
+</svg>
