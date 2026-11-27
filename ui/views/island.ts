@@ -2,6 +2,8 @@
 // It only reads the state; every rule is in src/core.
 import {
   CARTHAGE, ISLAND, NODES, ROUTES, armyName, blocDef, capital, carthageAgenda, cityGrain, cityMen, cityWalls, goalDef, menWords,
+  armyParts, partHeart, heartWord, partBonded, fleetsOn, fleetState, soundYours, soundTheirs, fleetName, carthageFleetName, admiralName, orderDef, youOrder, fleetObeys, FLEETS,
+  groundOn, GROUND, LIBYA, libyaOn, libyaState, armyInLibya, isLibya, ABROAD, abroadOn, abroadState, abroadMood, abroadMoodWord, ABROAD_NODES,
   moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo, warCard, plateOn, planDef, habitLine, BATTLE, battleMods, supplyOn, foodState, ravaged, SUPPLY, townBoardsOn, townSeats, houseName, townDivided, sendsSupport,
 } from "../../src/core/index.ts";
 import type { Handlers } from "../app/clicks.ts";
@@ -22,14 +24,17 @@ const SIDE_COLOR: Record<string, string> = {
 function mapSvg(g: GameState): string {
   // Drawn with the map kit in ui/island-art.ts (the art thread); this function only decides what goes where.
   const isl = g.island!;
-  const at = (id: string) => NODES.find((n) => n.id === id)!;
-  const P = (id: string): [number, number] => { const n = at(id); return [A.X(n.lon), A.Y(n.lat)]; };
+  const at = (id: string) => (NODES.find((n) => n.id === id) ?? ABROAD_NODES.find((n) => n.id === id))!;
+  const P = (id: string): [number, number] => { const n = at(id); return [Math.min(A.X(n.lon), A.W - 12), A.Y(n.lat)]; }; // Rhegium sits on the map's east edge
   const roads = ROUTES.map((r) => A.routePath(P(r.from), P(r.to), (r as { sea?: boolean }).sea ? "sea" : "road", r.days)).join("");
   const LABEL: Record<string, [number, number, "start" | "middle" | "end"]> = {
-    aetna: [-14, 4, "end"], catana: [16, 6, "start"], messana: [-12, -14, "end"], panormus: [0, -16, "middle"], motya: [12, 18, "start"],
+    rhegium: [-14, 20, "end"], aetna: [-14, 4, "end"], catana: [16, 6, "start"], messana: [-12, -14, "end"], panormus: [0, -16, "middle"], motya: [12, 18, "start"],
     leontini: [-14, 8, "end"], syracuse: [0, 30, "middle"],
   };
-  const marks = NODES.map((n) => {
+  // Switch "friendsAbroad": Rhegium across the Strait, with its sea lane to Messana.
+  const abroadNodes = ABROAD_NODES.filter((n) => isl.cities[n.id]);
+  const lanes = abroadNodes.map((n) => A.routePath(P("messana"), P(n.id), "sea", 1)).join("");
+  const marks = [...NODES, ...abroadNodes].map((n) => {
     const c = isl.cities[n.id];
     const [x, y] = P(n.id);
     return `<g class="citymark${ui.city === n.id ? " on" : ""}" data-city="${n.id}" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}" role="button" tabindex="0" aria-label="${esc(n.name)}: open its sheet">` + A.cityMark(x, y, {
@@ -44,9 +49,12 @@ function mapSvg(g: GameState): string {
   // Switch "armySupply": burnt fields, a scorched ring that fades when the year is out.
   const burnt = NODES.filter((n) => ravaged(g, n.id)).map((n) => { const [x, y] = P(n.id); return `<circle cx="${x.toFixed(1)}" cy="${(y - 2).toFixed(1)}" r="17" class="ravaged-ring"><title>${esc(n.name)}: its fields were burnt</title></circle>`; }).join("");
   const armies = isl.armies.map((a, i) => {
+    // Switch "libyaCrossing": an army in Libya is drawn off the map, on the lane to Carthage.
+    if (isLibya(a.at)) return A.armyMark(40, A.Y(37.2) + 100, { side: a.side, men: `${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k`, label: `${armyName(g, a)}, in Libya at ${nodeName(a.at)}`, dir: 1 });
     const [x, y] = P(a.at);
-    const dir = a.side === "syracuse" ? 1 : -1;
-    const mark = A.armyMark(x + dir * 22, y - 20 - i * 4, { side: a.side, men: `${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k`, label: armyName(g, a), dir });
+    const dir = a.side === "syracuse" && !ABROAD_NODES.some((n) => n.id === a.at) ? 1 : -1; // at Rhegium, on the map's edge, the shield stands to the left
+    const edge = ABROAD_NODES.some((n) => n.id === a.at);
+    const mark = A.armyMark(x + dir * 22, edge ? y + 26 : y - 20 - i * 4, { side: a.side, men: `${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k`, label: armyName(g, a), dir });
     return a.side === "syracuse" && supplyOn(g) && !g.over ? `<g class="drag-army" data-drag-army><title>Drag to a town to see the route and the towns that might go over</title>${mark}</g>` : mark;
   }).join("");
   // War focus: Carthage's hired men waiting at home, drawn on the sea lane, so a landing is never a surprise.
@@ -54,7 +62,7 @@ function mapSvg(g: GameState): string {
   const home = wc && isl.war && !isl.armies.some((a) => a.side === "carthage") && isl.carthage.mercs + isl.carthage.levy > 0
     ? A.armyMark(34, A.Y(37.2) + 26, { side: "carthage", men: `${Math.round((isl.carthage.mercs + isl.carthage.levy) * ISLAND.rules.menPerPoint / 1000)}k`, label: wc.landingDue !== undefined ? "Carthage's army, ready to sail: it lands next season" : "Carthage's men, gathering at home", dir: 1 }) : "";
   return `<svg viewBox="0 0 ${A.W} ${A.H}" class="island-map" role="img" aria-label="Map of Sicily: ${NODES.map((n) => `${n.name}, ${sideName(isl.cities[n.id].side)}`).join("; ")}">
-    ${A.islandBase()}${roads}${A.toCarthage(A.Y(37.2))}${burnt}${reach}${marks}${armies}${home}
+    ${A.islandBase()}${roads}${lanes}${A.toCarthage(A.Y(37.2), armyInLibya(g) ? "To Libya" : "To Carthage", armyInLibya(g) ? "your army is there" : "two days' sail")}${burnt}${reach}${marks}${armies}${home}
   </svg>`;
 }
 
@@ -68,6 +76,37 @@ function leadLine(g: GameState, a: Army) {
   }
   return c.lost ? " Its leader is lost; his officers bring it on under your orders." : ` ${linkNames(esc(capital(g.people[c.leader].name)))} leads it.`;
 }
+// Switch "contingents": the parts of an army and their hearts, one short line.
+function partsLine(g: GameState, a: Army) {
+  const ps = armyParts(g, a);
+  if (!ps.length) return "";
+  return `<br><span class="small">${ps.map((p) => {
+    const h = partHeart(g, a, p);
+    const cls = h.heart === "steady" ? "good" : "warn";
+    const tie = a.side === "syracuse" ? partBonded(g, p) : null;
+    const env = p.envoy === "carthage" && a.side === "syracuse" ? " Carthage's envoy is with them." : "";
+    return `<span title="${esc(h.why)}${tie ? `; ${esc(tie)}` : ""}">${esc(capital(p.name))} ${menWords(p.men)} <b class="${cls}">${esc(heartWord(h.heart))}</b>${env ? `<span class="warn">${esc(env)}</span>` : ""}</span>`;
+  }).join(" · ")}</span>`;
+}
+// Switch "fleets": the two fleets, the order and the sea threat.
+function fleetCard(g: GameState) {
+  if (!fleetsOn(g)) return "";
+  const f = fleetState(g);
+  const o = orderDef(f.order);
+  const obeys = fleetObeys(g);
+  const threat = f.threat !== undefined ? `<p class="small warn"><b>The sea threat:</b> ${esc(capital(carthageFleetName(g)))} could sail on Syracuse while your army is away.</p>` : "";
+  const sq = (n: number, d: number) => `${n} ${n === 1 ? "squadron" : "squadrons"}${d ? `, ${d} damaged` : ""}`;
+  const rowers = FLEETS.rowers.find((r: any) => r.id === f.rowers);
+  const beached = libyaOn(g) && !!armyInLibya(g) && !libyaState(g).burnt;
+  if (beached) return `<h3>The fleets</h3><ul><li><b>${esc(capital(fleetName(g)))}</b>: ${sq(f.sq, f.damaged)}, drawn up on the beach of Libya beside your army. It sails no other order until the army comes home, and Syracuse's harbour is bare.</li>
+    <li><b>${esc(capital(carthageFleetName(g)))}</b>: ${sq(g.island!.carthage.ships, Math.min(f.cDamaged, g.island!.carthage.ships))}.</li></ul>${threat}`;
+  return `<h3>The fleets</h3><ul>
+    <li><b>${esc(capital(fleetName(g)))}</b>: ${sq(f.sq, f.damaged)}. Order: <b>${esc(o?.name ?? "")}</b> <span class="muted small">(${esc(f.orderWhy)})</span>. Rowers: ${esc(rowers?.name.toLowerCase() ?? "")}.${!obeys ? ` <span class="warn">${esc(capital(admiralName(g)))} keeps the ships from your service.</span>` : !youOrder(g) ? ` <span class="muted small">${esc(capital(admiralName(g)))} chooses the order himself; win his friendship to give it.</span>` : ""}
+      ${youOrder(g) && !g.over ? `<br><span class="small">${FLEETS.orders.filter((x: any) => x.id !== "carry").map((x: any) => `<button type="button" class="small${f.order === x.id ? " on" : ""}" data-forder="${x.id}" title="${esc(x.text)}">${esc(x.name)}</button>`).join(" ")} <span class="muted">(the order uses no action)</span></span>` : ""}
+      <br><span class="small muted">${esc(o?.text ?? "")} The army can sail from port to port if the fleet has one sound squadron for every 10,000 men in it.</span></li>
+    <li><b>${esc(capital(carthageFleetName(g)))}</b>: ${sq(g.island!.carthage.ships, Math.min(f.cDamaged, g.island!.carthage.ships))}.${soundTheirs(g) > soundYours(g) ? ` <span class="warn">It is the stronger at sea.</span>` : ""}</li>
+  </ul>${threat}`;
+}
 function armyLine(g: GameState, a: Army) {
   const where = a.siege ? `besieging ${nodeName(a.siege)}` : `at ${nodeName(a.at)}`;
   const food = a.food <= 0 ? `<span class="warn">no food left</span>` : `${a.food} ${a.food === 1 ? "season" : "seasons"} of food`;
@@ -75,10 +114,10 @@ function armyLine(g: GameState, a: Army) {
   if (supplyOn(g)) { // switch "armySupply": fed, short or starving, and from where
     const f = foodState(g, a);
     const cls = f.word === "fed" ? "good" : "warn";
-    return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, <span class="${cls}">${f.word}</span> (${a.food} ${a.food === 1 ? "season" : "seasons"} of food in the baggage)${guard}.${leadLine(g, a)}<br><span class="small muted">${esc(f.why)} An army refills from the friendly towns within ${SUPPLY.knobs.supplyDays} days' march, one month of grain for every ${SUPPLY.knobs.pointsPerGrain * 5},000 men, so a big army empties its own country.</span></li>`;
+    return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, <span class="${cls}">${f.word}</span> (${a.food} ${a.food === 1 ? "season" : "seasons"} of food in the baggage)${guard}.${leadLine(g, a)}${partsLine(g, a)}<br><span class="small muted">${esc(f.why)} An army refills from the friendly towns within ${SUPPLY.knobs.supplyDays} days' march, one month of grain for every ${SUPPLY.knobs.pointsPerGrain * 5},000 men, so a big army empties its own country.</span></li>`;
   }
   const eats = a.side === "syracuse" ? `<br><span class="small muted">How it eats: one season of food each season. It refills to ${ISLAND.rules.foodOnMuster} in a town of yours or an ally's with ${ISLAND.rules.resupplyGrain} or more months of grain, if it is not besieging. In enemy land, Forage for one more season (the town hates you for it). With no food, men desert and sicken.</span>` : "";
-  return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, ${food}${guard}.${leadLine(g, a)}${eats}</li>`;
+  return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, ${food}${guard}.${leadLine(g, a)}${partsLine(g, a)}${eats}</li>`;
 }
 
 // The chance a town goes over this season, from the same roll the world step makes.
@@ -113,7 +152,7 @@ function cityRows(g: GameState) {
 const LEAN_WORD = (l: number) => (l >= 2 ? "warm to you" : l === 1 ? "leans your way" : l === 0 ? "undecided" : l === -1 ? "cool to you" : "hostile to you");
 function citySheet(g: GameState, id: string) {
   const isl = g.island!;
-  const n = NODES.find((x) => x.id === id)!;
+  const n = (NODES.find((x) => x.id === id) ?? ABROAD_NODES.find((x) => x.id === id))!;
   const c = isl.cities[id];
   const R = ISLAND.rules;
   const w = cityWalls(g, id);
@@ -152,6 +191,7 @@ function battlePlate(g: GameState) {
   const plans = BATTLE.plans.map((p: any) => `<button type="button" class="small${ya.plan === p.id ? " on" : ""}" data-plan="${p.id}" title="${esc(p.text)}">${esc(p.name)}</button>`).join(" ");
   return `<section class="plate" aria-label="The battle plate"><h4>The battle plate</h4>
     <p class="small">${plans} <button type="button" class="small${ya.reserve ? " on" : ""}" data-reserve="${ya.reserve ? "" : "1"}">${ya.reserve ? "Reserve held back" : "Hold back a reserve"}</button> <span class="muted">(setting the plan uses no action)</span></p>
+    ${groundOn(g) ? `<p class="small"><span class="label">The ground you seek</span> ${GROUND.wishes.map((w: any) => `<button type="button" class="small${(ya as any).wish === w.id ? " on" : ""}" data-wish="${w.id}" title="${esc(w.text)}">${esc(w.name)}</button>`).join(" ")} <span class="muted">${esc(GROUND.wishes.find((w: any) => w.id === (ya as any).wish)?.text ?? "No wish: your general takes the ground as he finds it.")}</span></p>` : ""}
     ${ya.plan ? `<p class="small"><b>${esc(planDef(ya.plan).name)}.</b> ${esc(planDef(ya.plan).text)}</p>` : `<p class="small muted">No plan set: your general fights his own way.</p>`}
     <div class="platecols"><div><span class="label">${esc(capital(armyName(g, ya)))}</span><span class="die" aria-label="a die not yet thrown"></span><ul class="tokens small">${mine.map(tok).join("")}</ul></div>
     <div><span class="label">${foe ? esc(capital(armyName(g, foe))) : "Carthage"}</span>${foe ? `<span class="die" aria-label="a die not yet thrown"></span><ul class="tokens small">${theirs.map(tok).join("")}</ul><p class="small muted">${esc(habitLine(g, foe))}</p>` : `<p class="small muted">No Carthaginian army is in Sicily.</p>`}</div></div>
@@ -199,6 +239,8 @@ function mapResult(g: GameState) {
 }
 export const islandHandlers: Handlers = {
   click: {
+    "[data-wish]": (b, c) => { act(c.g, "groundWish", { target: b.dataset.wish }); c.save(); c.render(); },
+    "[data-forder]": (b, c) => { act(c.g, "fleetOrder", { target: b.dataset.forder }); c.save(); c.render(); },
     "[data-plan]": (b, c) => { const ya = yourArmy(c.g); act(c.g, "battlePlan", { target: b.dataset.plan, second: ya?.reserve ? "reserve" : "all" }); c.save(); c.render(); },
     "[data-reserve]": (b, c) => { const ya = yourArmy(c.g); act(c.g, "battlePlan", { target: ya?.plan ?? "hold", second: b.dataset.reserve ? "reserve" : "all" }); c.save(); c.render(); },
     "[data-march]": (b, c) => {
@@ -219,6 +261,57 @@ function mapKey() {
     <span class="muted">Click a city for its sheet, and to send your army there.</span></div>`;
 }
 
+// Switch "libyaCrossing": the war in Libya, as a list of places (not drawn on a map until the positions are checked).
+function libyaPanel(g: GameState) {
+  if (!libyaOn(g)) return "";
+  const L = libyaState(g);
+  const a = armyInLibya(g);
+  if (!a && !L.crossings) return "";
+  const here = a ? LIBYA.places.find((p: any) => p.id === a.at) : undefined;
+  const rows = LIBYA.places.map((p: any) => {
+    const c = g.island!.cities[p.id];
+    if (!c) return "";
+    const state = p.id === "quarries" ? "your landing place" : c.sacked ? "razed" : c.side === "syracuse" ? "yours while your army is near" : "Carthage's";
+    const you = a?.at === p.id ? ` <b>Your army is here${a!.siege === p.id ? ", besieging it" : ""}.</b>` : here?.next.includes(p.id) ? " <span class=\"muted\">One march away.</span>" : "";
+    return `<li><b>${esc(capital(p.name))}</b> <span class="small">${esc(state)}${c.walls ? `, walls ${c.walls}` : ""}${p.port ? ", a harbour" : ""}.${you} <span class="muted">${esc(p.detail)}</span></span></li>`;
+  }).join("");
+  const bits: string[] = [];
+  if (a) {
+    const f = fleetState(g);
+    bits.push(L.burnt ? (L.vow === "regret" ? "You burnt the ships. The soldiers look at the sea and lose heart (−1 in battle) until they win or plunder." : "You burnt the ships: +1 in battle while the vow holds. A port town you hold builds a squadron each season.") : `The fleet lies on the beach at the Quarries (${f.sq} squadrons): your way home, and a target for Carthage's ships.`);
+    bits.push(L.answer ? `Carthage's council answered: ${esc(LIBYA.answers.find((x: any) => x.id === L.answer).name)}.` : "Carthage's council has not yet answered. It will, when your army comes near the city or in two seasons.");
+    if (L.foe) bits.push(`Carthage's own army, ${menWords(L.foe.men)}, marches out ${L.foe.due <= g.season + 1 ? "next season" : "in a season or two"}.`);
+    if (L.aelymas) bits.push("Aelymas and his Libyans march with you, and will leave you if you lose.");
+    bits.push(`Your army has ${a.food} ${a.food === 1 ? "season" : "seasons"} of food. It lives off the land: plunder the farmland to eat.`);
+  } else bits.push("Your army is not in Libya now.");
+  return `<section class="libya" aria-label="The war in Libya"><h3>The war in Libya</h3>
+    <p class="small"><i>${esc(LIBYA.whatIf)}</i></p>
+    <p class="small">${bits.join(" ")}</p>
+    <ul class="small libya-places">${rows}</ul>
+    <p class="small muted">Towns come over from fear or hatred of Carthage, and go back when your army marches away. Carthage itself cannot be stormed. The places are listed, not drawn: their positions are not yet checked against a source.</p></section>`;
+}
+
+// Switch "friendsAbroad": the powers across the sea, one card each: the mood word, the one wish, what is on it.
+function abroadPanel(g: GameState) {
+  if (!abroadOn(g)) return "";
+  const a = abroadState(g);
+  const cards = ABROAD.powers.map((p: any) => {
+    const lv = abroadMood(g, p.id);
+    const word = abroadMoodWord(g, p.id);
+    const top = p.moods.length - 1;
+    const cls = p.id === "league" ? (lv === 0 ? "good" : lv === top ? "warn" : "") : lv >= (p.helpAt ?? top) ? "good" : lv <= 0 || (p.id === "sparta" && lv <= 1) ? "warn" : "";
+    const pieces: string[] = [];
+    for (const e of a.envoys.filter((x) => x.to === p.id)) pieces.push(`${esc(capital(g.people[e.pid]?.name ?? "your envoy"))} is there as your envoy`);
+    if (a.at[p.id] !== undefined && g.season - a.at[p.id] <= ABROAD.knobs.envoyLasts) pieces.push("your envoy was heard this year: you may ask for help");
+    for (const h of a.help.filter((x) => x.from === p.id)) pieces.push(h.due !== undefined ? `${esc(ABROAD.help.find((x: any) => x.id === h.id).name)} on the way` : `${esc(ABROAD.help.find((x: any) => x.id === h.id).name)} with you`);
+    if (p.id === "locri" && a.married.locri) pieces.push(a.married.locri === "yes" ? "kin by your marriage" : "refused your marriage");
+    return `<li class="powercard"><b>${esc(p.name)}</b> <span class="small muted">${esc(p.where)}</span><br><b class="${cls}">${esc(word)}</b> <span class="small">Wants ${esc(p.wish)}.</span>${pieces.length ? `<br><span class="small">${capital(pieces.join("; "))}.</span>` : ""}</li>`;
+  }).join("");
+  const r = g.island!.cities.rhegium;
+  const rh = r ? `<p class="small"><b>Rhegium</b>, across the Strait: ${esc(LEAN_WORD(r.lean))}${a.married.rhegium === "no" ? ", and it refused your marriage" : ""}. Reached only by sea.</p>` : "";
+  return `<section class="abroad" aria-label="Across the sea"><h3>Across the sea</h3><ul class="powercards">${cards}</ul>${rh}
+    <p class="small muted">Sparta's favour must be kept with a gift each year, or its help sails home. The Italian league sleeps until you attack Rhegium or hold both sides of the Strait a year.</p></section>`;
+}
 function carthagePanel(g: GameState) {
   const c = g.island!.carthage;
   const goal = goalDef(c.goal);
@@ -268,11 +361,11 @@ export function islandView(g: GameState): string {
         ${mapKey()}
         <figcaption class="small muted">The helmet is your army, the palm Carthage's. Aetna's site is uncertain. Coast and rivers: Natural Earth (today's); the hills are drawn by eye.</figcaption></figure>
       ${ui.city && isl.cities[ui.city] ? citySheet(g, ui.city) : ""}
-      <h3>Armies</h3>${armies}${battlePlate(g)}
+      <h3>Armies</h3>${armies}${battlePlate(g)}${fleetCard(g)}${libyaPanel(g)}
       ${abroad.length ? `<h3>This season abroad</h3><ul class="small">${abroad.map((e) => `<li>${linkNames(e.text)}${e.why ? ` <span class="muted">(${esc(e.why)})</span>` : ""}</li>`).join("")}</ul>` : ""}
       <h3>The cities</h3>
       <div class="tablewrap"><table class="cities"><thead><tr><th>City</th><th>Side</th><th>Walls</th><th>Grain</th><th>Men</th><th>Toward you</th><th class="notes">Notes</th></tr></thead><tbody>${cityRows(g)}</tbody></table></div>
     </div>
-    ${carthagePanel(g)}
+    <div>${carthagePanel(g)}${abroadPanel(g)}</div>
   </div>`;
 }

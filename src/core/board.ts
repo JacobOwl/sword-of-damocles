@@ -11,6 +11,7 @@ import {
 } from "./state.ts";
 import { boardHooks, event, grudge, log, makeRival, mood, opinion, powerChange, setOffice, silver, grain, factionOf } from "./ops.ts";
 import { on } from "./switches.ts";
+import { HOOKS } from "./hooks.ts";
 import { fireBoard } from "./events.ts";
 import { away } from "./commission.ts";
 import { setSide } from "./island.ts";
@@ -101,14 +102,14 @@ export function setSeat(s: GameState, seat: string, to: string | null, why: stri
   if (seat === "captain") setCaptain(s, to, why);
   else if (seat !== "citadel" || s.citadelBuilt) setOffice(s, seat as OfficeId, to, why);
 }
-function dig(s: GameState, seat: string, d: number, why: string) {
+export function dig(s: GameState, seat: string, d: number, why: string) {
   const st = s.board!.seats[seat];
   const h = seatHolder(s, seat);
   if (!st || !h) return;
   const n = Math.max(0, Math.min(seatDef(seat).max, st.dug + d));
   if (n === st.dug) return;
   st.dug = n;
-  log(s, { actor: h, text: `${capital(nameOf(s, h))}'s hold on ${seatName(seat)}: ${dugWord(n)}.`, why, visible: true, kind: "change" });
+  log(s, { actor: h, text: `${h === PLAYER ? "Your" : `${capital(nameOf(s, h))}'s`} hold on ${seatName(seat)}: ${dugWord(n)}.`, why, visible: true, kind: "change" });
 }
 
 // Is he using his seat for you, against you, or for his own?
@@ -162,19 +163,33 @@ export function race(s: GameState, seat: string): { holder?: Stand; challenger?:
   stands.sort((a, b) => b.score - a.score || (a.id < b.id ? -1 : 1));
   return { holder, challenger: stands[0] };
 }
-function vote(s: GameState, seat: string, why: string) {
+export function vote(s: GameState, seat: string, why: string) {
   const r = race(s, seat);
   if (!r?.challenger) return;
   const { holder, challenger } = r;
   const line = (x: Stand) => `${capital(nameOf(s, x.id))} ${x.score}`;
   const wins = !holder || challenger.score > holder.score;
   const parts = [holder, challenger].filter(Boolean).map((x) => `${capital(nameOf(s, x!.id))}: ${x!.parts.map((m) => `${m.label} ${m.value >= 0 ? "+" : ""}${m.value}`).join(", ") || "nothing"}`).join("; ");
+  const yours = holder?.id === PLAYER ? holder : challenger.id === PLAYER ? challenger : undefined;
+  const foe = yours === holder ? challenger : holder;
+  if (yours && foe && HOOKS.debate?.(s, seat, seatName(seat), why, yours.score, foe.score, foe.id, yours === holder)) return; // switch "assemblyDebates": the vote is a debate
+  if (wins && holder?.id === PLAYER && HOOKS.veto?.(s, seat, seatName(seat))) return; // switch "friendsAbroad": Pharacidas speaks for you, once
   const winner = wins ? challenger.id : holder!.id;
   event(s, winner, `The assembly votes on ${seatName(seat)}: ${[holder, challenger].filter(Boolean).map((x) => line(x!)).join(", ")}. ${capital(nameOf(s, winner))} ${wins ? (winner === PLAYER ? "win it" : "wins it") : (winner === PLAYER ? "keep it" : "keeps it")}.`, `${why}. ${parts}`);
   delete s.board!.backed[seat];
   s.counters.boardVotes = (s.counters.boardVotes ?? 0) + 1;
   if (wins) { s.counters.boardVotesLost = (s.counters.boardVotesLost ?? 0) + (holder ? 1 : 0); setSeat(s, seat, challenger.id, "the assembly voted"); }
 }
+
+// Switch "assemblyDebates": the debate's end (crises.ts) settles the seat.
+HOOKS.debateResult = (s: GameState, seat: string, winner: string, lostAsHolder: boolean, why: string) => {
+  if (lostAsHolder && HOOKS.veto?.(s, seat, seatName(seat))) return;
+  const h = seatHolder(s, seat);
+  event(s, winner, `The assembly votes on ${seatName(seat)}. ${capital(nameOf(s, winner))} ${winner === PLAYER ? (h === PLAYER ? "keep it" : "win it") : (h === winner ? "keeps it" : "wins it")}.`, why);
+  if (s.board) delete s.board.backed[seat];
+  s.counters.boardVotes = (s.counters.boardVotes ?? 0) + 1;
+  if (h !== winner) { if (lostAsHolder) s.counters.boardVotesLost = (s.counters.boardVotesLost ?? 0) + 1; setSeat(s, seat, winner, "the assembly voted"); }
+};
 
 // ---------- The ladder of standing ----------
 
@@ -418,7 +433,7 @@ function falls(s: GameState) {
     if (!h || !st) continue;
     if (st.holder !== h) { b.seats[seat] = { holder: h, dug: 0, since: s.season }; continue; } // changed hands without the hook
     const gone = h === PLAYER ? away(s) : s.people[h].status === "outside" || s.people[h].where === "field";
-    if (gone && st.dug > 0) dig(s, seat, -1, `${nameOf(s, h)} ${h === PLAYER ? "are" : "is"} away from the city, and others take his place in it`);
+    if (gone && st.dug > 0) dig(s, seat, -1, h === PLAYER ? "you are away from the city, and others take your place in it" : `${nameOf(s, h)} is away from the city, and others take his place in it`);
   }
   const lost = s.counters.battlesLost ?? 0;
   if (lost > b.battlesLost) {
@@ -432,7 +447,8 @@ function falls(s: GameState) {
     const h = seatHolder(s, seat);
     const st = b.seats[seat];
     if (!h || (seat === "citadel" && !s.citadelBuilt)) continue;
-    if (s.season - st.since >= 3 && st.dug < seatDef(seat).max) dig(s, seat, 1, "another year held without a loss");
+    const lostNow = s.log.some((e) => e.season === s.season && e.kind === "change" && e.text.endsWith(`hold on ${seatName(seat)}: ${dugWord(st.dug)}.`) && e.why !== "another year held without a loss");
+    if (s.season - st.since >= 3 && st.dug < seatDef(seat).max && !(lostNow && on(s, "test5Fixes"))) dig(s, seat, 1, "another year held without a loss"); // not in a season it already slipped (test 4: New and Settled in one season)
     if (st.dug >= 2) {
       const pays = h === PLAYER ? s.silver >= K.upkeep : (factionOf(s, h) ? power(s, factionOf(s, h)!) >= 5 : false);
       if (h === PLAYER && pays) silver(s, -K.upkeep, `upkeep for your hold on ${seatName(seat)}: gifts to the men you placed there`);

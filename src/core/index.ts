@@ -59,3 +59,14 @@ export { townBoardsOn, seatsOf as townSeats, houseName, houseHead, divided as to
 export type { Seat, HouseLean } from "./towns.ts";
 export { supplyOn, foodState, ravaged, supplyTowns, grainNeed, SUPPLY } from "./supply.ts";
 export { plateOn, planDef, habitLine, stratagems, BATTLE } from "./plate.ts";
+// Test 5: scenes, contingents, the ground.
+export { allScenes, pendingScene, plateNow, scenesOn, groundOn, groundCard, GROUND, SCENES } from "./scenes.ts";
+export type { Scene, SceneOpt } from "./scenes.ts";
+export { armyParts, heart as partHeart, heartWord, bonded as partBonded, contOn, CONT } from "./contingents.ts";
+export { FLEETS, fleetsOn, fleetState, soundYours, soundTheirs, fleetName, carthageFleetName, admiralName, orderDef, youOrder, fleetObeys } from "./fleets.ts";
+export { returnsState, recovering, inTruce } from "./returns.ts";
+export { ABROAD, abroadOn, abroadState, moodOf as abroadMood, moodWordOf as abroadMoodWord, powerDef, pharacidasHere, helpHere } from "./abroad.ts";
+export { LIBYA, libyaOn, libyaState, inLibya, armyInLibya, landingOpen } from "./libya.ts";
+export { LIBYA_NODES, isLibya } from "./island.ts";
+export { ABROAD_NODES } from "./island.ts";
+export { pendingChoice, signsOf, crisisOn, risingOf, CRISES } from "./crises.ts";

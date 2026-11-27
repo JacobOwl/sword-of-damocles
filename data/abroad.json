@@ -1,0 +1,39 @@
+{
+  "kind": "invention",
+  "note": "Switch \"friendsAbroad\" (test 5, docs/council/2026-11-27-abroad.md Spec 2, thread 48). The powers across the sea as cards with a mood word and one wish, Rhegium as a town across the Strait, and five actions: an envoy, a marriage, a request for help, a gift, and leave to recruit in Laconia. The powers and their dealings are history (card docs/research/powers-398.md); the moods, odds and costs are invention.",
+  "knobs": {
+    "envoySeasons": 1,
+    "envoyLasts": 4,
+    "envoyNeed": 4,
+    "giftSilver": 2,
+    "spartaShips": 2,
+    "corinthShips": 1,
+    "bandGuard": 2,
+    "bandCost": 4,
+    "vetoCitizens": 2,
+    "leagueWarnSeasons": 1,
+    "leagueHoldSeasons": 4,
+    "marriageNeed": 5
+  },
+  "powers": [
+    { "id": "sparta", "kind": "history", "card": "docs/research/powers-398.md", "name": "Sparta", "where": "Greece", "moods": ["Hostile", "Cool", "Watching", "Friendly", "Patron"], "start": 2, "helpAt": 3,
+      "wish": "a strong ruler in Syracuse who stays Sparta's friend",
+      "source": "Diodorus 14.10.2, 14.44.2, 14.63.4, 14.70.2" },
+    { "id": "corinth", "kind": "history", "card": "docs/research/powers-398.md", "name": "Corinth", "where": "Greece", "moods": ["Cool", "Kin", "Answering"], "start": 1, "helpAt": 1,
+      "wish": "the Greek cities of Sicily, its daughters, not destroyed",
+      "source": "Diodorus 14.62.1, 14.63.4, 14.75.5" },
+    { "id": "locri", "kind": "history", "card": "docs/research/powers-398.md", "name": "Locri", "where": "Italy", "moods": ["Cool", "Friendly", "Kin by marriage"], "start": 1,
+      "wish": "protection from Rhegium, its neighbour and enemy",
+      "source": "Diodorus 14.44.6 to 14.44.7" },
+    { "id": "league", "kind": "history", "card": "docs/research/powers-398.md", "name": "The Italian Greek league", "where": "Italy", "moods": ["Asleep", "Watching", "Leagued"], "start": 0,
+      "wish": "no tyrant in Italy",
+      "source": "Diodorus 14.91.1, 14.101.1" }
+  ],
+  "rhegium": { "id": "rhegium", "kind": "history", "card": "docs/research/powers-398.md", "name": "Rhegium", "side": "free", "walls": 2, "men": 3, "grain": 6, "port": true, "lean": -2, "lat": 38.10928, "lon": 15.64393,
+    "source": "Diodorus 14.40.3 to 14.40.7, 14.44.3 to 14.44.5; place: Pleiades 452416 (via phoenician-punic-world data/places)" },
+  "help": [
+    { "id": "spartanShips", "kind": "history", "card": "docs/research/navy-397-396.md", "name": "Pharacidas and his squadrons", "from": "sparta", "source": "\"thirty warships from his allies, with Pharacidas the Lacedaemonian as admiral\" (Diodorus 14.63.4)" },
+    { "id": "corinthShips", "kind": "history", "card": "docs/research/powers-398.md", "name": "Corinthian ships", "from": "corinth", "source": "\"the Corinthians did not wait for him\" (Diodorus 14.75.5)" },
+    { "id": "laconians", "kind": "history", "card": "docs/research/powers-398.md", "name": "Lacedaemonian mercenaries", "from": "sparta", "source": "Sparta \"gave him permission to enlist as many mercenaries from them as he might wish\" (Diodorus 14.44.2)" }
+  ]
+}

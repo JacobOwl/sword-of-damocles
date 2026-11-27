@@ -1,0 +1,26 @@
+{
+  "kind": "invention",
+  "note": "Switch \"libyaCrossing\" (test 5, docs/council/2026-11-27-abroad.md Spec 3, thread 48): a what-if. No army of Syracuse crossed to Libya in 398 to 395; Agathocles did in 310 (Diodorus book 20) and Regulus in 256 (Polybius 1.26 to 1.34). The places and the pattern are history (card docs/research/libya-what-if.md); the steps between places, the rolls and every number are invention. The places are shown as a list, not drawn on a map, until positions are checked against a saved source.",
+  "whatIf": "Dionysius never did this. Agathocles did, in 310 BC.",
+  "knobs": { "overNeed": 5, "hate": 1, "plunderFood": 2, "plunderSilver": 2, "citizens": 4, "citizensDue": 1, "beachRisk": 6, "siegeWeary": 1, "fallAway": 1, "portShips": 1 },
+  "places": [
+    { "id": "quarries", "kind": "history", "card": "docs/research/libya-what-if.md", "name": "the Quarries", "type": "camp", "side": "syracuse", "walls": 0, "men": 0, "grain": 0, "port": true, "lean": 0, "lat": 0, "lon": 0, "next": ["megalepolis"], "detail": "The beach where Agathocles landed and made his camp (Diodorus 20.6.3).", "source": "Diodorus 20.6.3" },
+    { "id": "megalepolis", "kind": "history", "card": "docs/research/libya-what-if.md", "name": "Megalepolis", "type": "city", "side": "carthage", "walls": 0, "men": 1, "grain": 6, "port": false, "lean": -1, "lat": 0, "lon": 0, "next": ["quarries", "tunis"], "detail": "A rich town amid villas, vines and gardens, stormed and plundered (Diodorus 20.8.2 to 20.8.6).", "source": "Diodorus 20.8.2 to 20.8.6" },
+    { "id": "tunis", "kind": "history", "card": "docs/research/libya-what-if.md", "name": "White Tunis", "type": "city", "side": "carthage", "walls": 1, "men": 1, "grain": 5, "port": false, "lean": -1, "lat": 0, "lon": 0, "next": ["megalepolis", "neapolis", "utica", "carthago"], "detail": "Agathocles took it, and later kept his camp and a garrison near it (Diodorus 20.8.7, 20.17.1).", "source": "Diodorus 20.8.7, 20.17.1" },
+    { "id": "neapolis", "kind": "history", "card": "docs/research/libya-what-if.md", "name": "Neapolis", "type": "city", "side": "carthage", "walls": 1, "men": 1, "grain": 5, "port": true, "lean": -1, "lat": 0, "lon": 0, "next": ["tunis", "hadrumetum"], "detail": "The first of the coast towns, taken by storm (Diodorus 20.17.1).", "source": "Diodorus 20.17.1" },
+    { "id": "hadrumetum", "kind": "history", "card": "docs/research/libya-what-if.md", "name": "Hadrumetum", "type": "city", "side": "carthage", "walls": 1, "men": 1, "grain": 5, "port": true, "lean": -1, "lat": 0, "lon": 0, "next": ["neapolis"], "detail": "A coast town that surrendered to Agathocles in fright (Diodorus 20.17.5).", "source": "Diodorus 20.17.5" },
+    { "id": "utica", "kind": "history", "card": "docs/research/libya-what-if.md", "name": "Utica", "type": "city", "side": "carthage", "walls": 2, "men": 2, "grain": 6, "port": true, "lean": -2, "lat": 0, "lon": 0, "next": ["tunis", "carthago"], "detail": "A walled city that deserted Agathocles and was stormed in 307 (Diodorus 20.54 to 20.55).", "source": "Diodorus 20.54 to 20.55" },
+    { "id": "carthago", "kind": "history", "card": "docs/research/libya-what-if.md", "name": "Carthage", "type": "city", "side": "carthage", "walls": 5, "men": 6, "grain": 10, "port": true, "lean": -3, "lat": 0, "lon": 0, "next": ["tunis", "utica"], "detail": "The city itself: its walls made it safe from siege (Diodorus 20.59.2). It fell only in 146 BC.", "source": "Diodorus 20.59.2" }
+  ],
+  "landing": {
+    "choices": [
+      { "id": "beach", "kind": "invention", "label": "Beach the ships", "note": "The fleet stays at the Quarries: your way home, but Carthage's ships may fall on it on the beach.", "default": true },
+      { "id": "burn", "kind": "history", "card": "docs/research/libya-what-if.md", "label": "Burn the ships as a vow", "note": "+1 in battle while the vow holds: \"in victory alone would they have hope of safety\". You cannot sail home without new ships.", "source": "Diodorus 20.7.1 to 20.7.5" }
+    ]
+  },
+  "answers": [
+    { "id": "recall", "kind": "history", "card": "docs/research/libya-what-if.md", "bloc": "elders", "name": "Recall the army from Sicily", "line": "Send to Sicily and bring the army home: the city comes first.", "source": "they sent to Hamilcar \"begging him to send aid as soon as possible\" (Diodorus 20.15.1)" },
+    { "id": "arm", "kind": "history", "card": "docs/research/libya-what-if.md", "bloc": "people", "name": "Arm the citizens", "line": "Arm the citizens and march out against him ourselves.", "source": "\"they led the citizen soldiers themselves into the field\" (Diodorus 20.10.5)" },
+    { "id": "strike", "kind": "invention", "bloc": "hundred", "name": "Strike Syracuse while he is away", "line": "Leave him in Libya and take his city while he is gone." }
+  ]
+}

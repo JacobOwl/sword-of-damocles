@@ -6,6 +6,9 @@ import type { Args, GameState } from "./types.ts";
 import { townHold } from "./secrets.ts";
 import { commanderOptions, commissionOn, keeperOptions } from "./commission.ts";
 import { LANDINGS, autoContractor, contractors, convoysOn } from "./convoys.ts";
+import { abroadOn, abroadState, envoyMen, helpCheck, moodOf, recruitCheck, marriageTargets } from "./abroad.ts";
+import { armyInLibya, crossCheck, homeCheck, libyaOn, libyaState, marchCheck, marchTargets, plunderCheck } from "./libya.ts";
+import { beachedAt, buildCheck, fleetsOn, soundTheirs, soundYours, strikeCheck } from "./fleets.ts";
 
 export interface IslandChoice { a: string; args?: Args; min?: number }
 
@@ -24,6 +27,22 @@ function edge(s: GameState, ya: NonNullable<ReturnType<typeof yourArmy>>, ca: No
 export function islandChoices(s: GameState, style: IslandStyle = {}): IslandChoice[] {
   const out: IslandChoice[] = [];
   if (s.island && convoysOn(s)) out.push(...convoyChoices(s));
+  // Switch "fleets": build ships while Carthage's fleet is the stronger; strike it on the beach when the odds favour you.
+  if (s.island && fleetsOn(s)) {
+    if (!buildCheck(s) && s.silver >= 5 && soundYours(s) < soundTheirs(s)) out.push({ a: "buildSquadron", min: 0.5 });
+    if (!strikeCheck(s) && (beachedAt(s) ? soundYours(s) + 4 > soundTheirs(s) : soundYours(s) > soundTheirs(s) + 1)) out.push({ a: "strikeFleet", min: 0.5 });
+  }
+  // Switch "friendsAbroad": keep Sparta's favour, send envoys, ask for help, marry into Locri.
+  if (s.island && abroadOn(s)) {
+    const ab = abroadState(s);
+    if (s.silver >= 6 && moodOf(s, "sparta") < 4 && (ab.lastGift.sparta ?? -99) < s.season - 3) out.push({ a: "giftAbroad", args: { target: "sparta" }, min: 0.5 });
+    const men = envoyMen(s);
+    if (men.length && !ab.envoys.length && (ab.at.sparta ?? -99) < s.season - 3) out.push({ a: "envoyAbroad", args: { target: "sparta", second: men[0].value }, min: 0.5 });
+    if (!helpCheck(s, "sparta")) out.push({ a: "askHelpAbroad", args: { target: "sparta" } });
+    else if (!helpCheck(s, "corinth")) out.push({ a: "askHelpAbroad", args: { target: "corinth" } });
+    if (!recruitCheck(s) && s.silver >= 8 && s.guard.strength < 5) out.push({ a: "recruitLaconia", min: 0.5 });
+    if (marriageTargets(s).some((x) => x.value === "locri")) out.push({ a: "offerMarriage", args: { target: "locri" }, min: 0.5 });
+  }
   if (!s.island || (!holds(s, PLAYER, "generalship") && !commissionOn(s))) return out;
   const isl = s.island;
   const ya = yourArmy(s);
@@ -42,6 +61,9 @@ export function islandChoices(s: GameState, style: IslandStyle = {}): IslandChoi
     }
     return out;
   }
+  // Switch "libyaCrossing": in Libya, plunder to eat, march on Carthage town by town, and go home when worn or needed.
+  if (libyaOn(s) && armyInLibya(s)) return [...out, ...libyaChoices(s)];
+  if (libyaOn(s) && !crossCheck(s) && ya.men >= 4 && (!ca || edge(s, ya, ca) < 1)) out.push({ a: "crossLibya", min: 0.5 }); // as Agathocles left the stronger army before Syracuse
   const near = (id: string) => reachable(s, ya.at).includes(id);
   if (ya.siege) out.push({ a: "assault", min: 0.5 });
   if (ya.food <= 0 && !friendly("syracuse", city(s, ya.at).side)) out.push({ a: "forage" });
@@ -59,6 +81,25 @@ export function islandChoices(s: GameState, style: IslandStyle = {}): IslandChoi
   }
   if (!isl.war && !ya.siege && friendly("syracuse", city(s, ya.at).side) && (ya.food <= 0 || s.silver <= 2)) out.push({ a: "disband" });
   if (!ya.siege && ya.food <= 0 && ya.at !== "syracuse" && near("syracuse")) out.push({ a: "sendArmy", args: { target: "syracuse", second: "spare" } });
+  return out;
+}
+
+function libyaChoices(s: GameState): IslandChoice[] {
+  const out: IslandChoice[] = [];
+  const ya = yourArmy(s)!;
+  const L = libyaState(s);
+  const away = L.landed !== undefined ? s.season - L.landed : 0;
+  const wantHome = ya.men <= 2 || away >= 6 || (L.answer === "strike" && !!carthageArmy(s));
+  if (wantHome && !homeCheck(s)) out.push({ a: "libyaHome" });
+  if (wantHome && homeCheck(s) && ya.men <= 1 && ya.commander === PLAYER) out.push({ a: "libyaSlip" });
+  if (!plunderCheck(s) && ya.food <= 2) out.push({ a: "libyaPlunder" });
+  if (!marchCheck(s)) {
+    const order = ["megalepolis", "tunis", "carthago", "neapolis", "hadrumetum", "utica"];
+    const opts = marchTargets(s).map((x) => x.value);
+    const port = opts.find((id) => wantHome && ["neapolis", "hadrumetum", "utica", "quarries"].includes(id));
+    const next = port ?? opts.filter((id) => city(s, id).side !== "syracuse" && !city(s, id).sacked && (id !== "carthago" || ya.men >= 4)).sort((a, b) => order.indexOf(a) - order.indexOf(b))[0];
+    if (next && ya.food >= 1) out.push({ a: "libyaMarch", args: { target: next } });
+  }
   return out;
 }
 

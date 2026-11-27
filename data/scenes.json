@@ -1,0 +1,198 @@
+{
+  "kind": "invention",
+  "note": "Switch \"battleScenes\" and the scene frame (test 5, docs/council/2026-11-27-big-scenes.md, thread 46). Every battle is shown as a scene: the ground, the plan, one turning point picked from the state of the game (never by chance), the roll, and a choice after the battle. The turning points and the after-battle choices come from Diodorus (docs/research/big-scenes-history.md); the result names follow Total War's post-battle grades; every number is invention.",
+  "results": {
+    "crushing": {
+      "name": "A crushing victory",
+      "at": 5
+    },
+    "victory": {
+      "name": "A victory",
+      "at": 3
+    },
+    "costly": {
+      "name": "A costly victory",
+      "at": 1
+    },
+    "defeat": {
+      "name": "A defeat"
+    },
+    "rout": {
+      "name": "A rout",
+      "at": 5
+    },
+    "camp": {
+      "name": "A retreat to camp"
+    },
+    "night": {
+      "name": "A retreat by night"
+    },
+    "draw": {
+      "name": "A bloody draw"
+    },
+    "held": {
+      "name": "The line held"
+    },
+    "refused": {
+      "name": "Battle refused"
+    }
+  },
+  "turns": [
+    {
+      "id": "late",
+      "kind": "invention",
+      "when": "your plan is a combined attack",
+      "text": "Your second column is not yet in sight.",
+      "why": "as at Gela in 405, the parts of the army could not keep time",
+      "source": "Diodorus 13.110.4",
+      "options": [
+        {
+          "id": "wait",
+          "label": "Wait for it",
+          "note": "No combined attack: you lose its +2, but nothing can come late."
+        },
+        {
+          "id": "go",
+          "label": "Attack with what you have",
+          "note": "Keep the +2; each part may still come too late (1 or 2 on a die costs 2)."
+        }
+      ]
+    },
+    {
+      "id": "waver",
+      "kind": "invention",
+      "when": "a contingent's heart is wavering",
+      "text": "There is wavering on your wing, among {part}.",
+      "why": "{why}",
+      "source": "Diodorus 15.17.2 (Cronium: one wing routs when the other is crushed)",
+      "options": [
+        {
+          "id": "reserve",
+          "label": "Send the reserve to them",
+          "note": "They hold, but your reserve is spent: no retreat to camp if you lose."
+        },
+        {
+          "id": "trust",
+          "label": "Leave them to it",
+          "note": "They hold on 4 or more (3 in 6); if not, -2 and they break first."
+        }
+      ]
+    },
+    {
+      "id": "rash",
+      "kind": "invention",
+      "when": "your general is bold",
+      "text": "{general} wants to charge before the line is formed.",
+      "why": "Leptines at Catana fought \"in no cowardly fashion, but without prudence\"",
+      "source": "Diodorus 14.60.2",
+      "options": [
+        {
+          "id": "rein",
+          "label": "Rein him in",
+          "note": "-1, but a defeat by 1 is only a draw."
+        },
+        {
+          "id": "loose",
+          "label": "Let him go",
+          "note": "+1, but a defeat becomes a rout (half the army lost)."
+        }
+      ]
+    },
+    {
+      "id": "front",
+      "kind": "invention",
+      "when": "you lead the army in person",
+      "text": "Your men look for you along the line.",
+      "why": "a general in the front rank fights for his men's eyes",
+      "source": "Diodorus 14.53.1 (Dionysius in the fighting at Motya), invention for the odds",
+      "options": [
+        {
+          "id": "rear",
+          "label": "Command from behind the line",
+          "note": "Nothing changes."
+        },
+        {
+          "id": "front",
+          "label": "Fight in the front rank",
+          "note": "+1. On a 1 (1 in 6) you are wounded and lose an action next season; wounded in a lost battle, you are killed (1 in 36)."
+        }
+      ]
+    },
+    {
+      "id": "lines",
+      "kind": "invention",
+      "when": "no other turning point",
+      "text": "The two lines stand a bowshot apart, and neither moves.",
+      "why": "armies often stood for days before one side moved",
+      "source": "Diodorus 14.96.2 (the waiting at the Chrysas), invention",
+      "options": [
+        {
+          "id": "wait",
+          "label": "Let them come on",
+          "note": "Nothing changes."
+        },
+        {
+          "id": "high",
+          "label": "Take the higher ground first",
+          "note": "+1, but even if you win you lose a sixth more men."
+        }
+      ]
+    }
+  ],
+  "after": {
+    "win": [
+      {
+        "id": "pursue",
+        "label": "Pursue hard",
+        "note": "They lose a sixth more (a third with horse on open ground). If they kept a reserve, your pursuers are caught in disorder and you lose a sixth instead.",
+        "source": "Diodorus 11.22.4, 13.60.6, 14.60.5",
+        "kind": "invention"
+      },
+      {
+        "id": "sack",
+        "label": "Sack their camp",
+        "note": "+2 silver and the guard's love, but most of them get away (a quarter lost, not a third).",
+        "source": "invention",
+        "kind": "invention"
+      },
+      {
+        "id": "terms",
+        "label": "Stop the killing and offer terms",
+        "note": "A quarter lost, not a third. Carthage's war weariness +1, and the Greek towns near the field warm to you.",
+        "source": "Diodorus 14.9.5 (mercy), 14.75.3",
+        "kind": "invention"
+      },
+      {
+        "id": "silver",
+        "label": "Take Carthage's secret silver",
+        "note": "Its general offers silver to let its citizens sail home by night. +3 silver, its army breaks up, but your allies may see the ships slip away.",
+        "source": "Diodorus 14.75.1 to 14.75.3 (the three hundred talents)",
+        "kind": "invention"
+      }
+    ],
+    "lose": [
+      {
+        "id": "fight",
+        "label": "Fall back fighting",
+        "note": "A third of the army is lost, and a beaten army may scatter.",
+        "source": "the rules as before",
+        "kind": "invention"
+      },
+      {
+        "id": "truce",
+        "label": "Ask a truce to bury the dead, and slip away by night",
+        "note": "Only a sixth lost and the army holds together, but asking for your dead admits the defeat: the citizens sour and it counts for Carthage.",
+        "source": "Diodorus 13.111.1 to 13.111.2 (Gela, 405)",
+        "kind": "invention"
+      }
+    ]
+  },
+  "knobs": {
+    "trustHoldsOn": 4,
+    "wavering": -2,
+    "frontWoundOn": 1,
+    "spoils": 2,
+    "secretSilver": 3,
+    "keep": 30
+  }
+}

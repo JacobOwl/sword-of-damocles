@@ -1,6 +1,6 @@
 // The app shell: the start screen, the page frame (masthead, ledger, views), the character-sheet dialog, and the clicks.
 // It only reads the simulation's state and sends it your choices; all rules live in src/core.
-import { DATA, PLAYER, storesForecast, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, presetById, presetOpts, switchOn, CARTHAGE } from "../../src/core/index.ts";
+import { DATA, PLAYER, storesForecast, defense, endSeason, government, officesOf, playerInfluence, replay, seasonName, startGame, backingFaction, PACKAGES, DEFAULT_TUNING, packageName, switchById, presetById, presetOpts, switchOn, CARTHAGE, pendingScene, pendingChoice } from "../../src/core/index.ts";
 import type { Flow, GameState } from "../../src/core/index.ts";
 import { howToPlay, tipAttr } from "../views/help.ts";
 import { court, sheet } from "../views/people.ts";
@@ -11,6 +11,7 @@ import { worksView } from "../views/works.ts";
 import { chronicleBook } from "../views/story.ts";
 import { esc, ui } from "../lib/text.ts";
 import { seasonCount, showSeasonCard, swordOverhead } from "../components/ambient.ts";
+import { showScenes } from "../components/scene.ts";
 import { icon } from "../components/icons.ts";
 import { startScreen } from "../views/start.ts";
 import * as sound from "../lib/sound.ts";
@@ -98,6 +99,7 @@ export function render() {
   if (g.over && !endedSound) { endedSound = true; sound.ending(g.over.reason); }
   ui.lastSeen = g.log.length;
   if (ui.sheet) openSheet(ui.sheet, false);
+  if (g.island && !g.over && (pendingScene(g) || pendingChoice(g)) && !document.querySelector(".scene")) showScenes(() => ui.s, () => { save(); render(); }); // test 5: a battle waits for you
 }
 
 // "Copy my game": the seed, the setup, every move and your verdict, as one line of text to paste into a thread.
@@ -204,7 +206,7 @@ function turn() { app.classList.remove("turn"); void app.offsetWidth; app.classL
 
 // ---------- Clicks ----------
 // The frame's own clicks; each screen's are in its file (views/season.ts, views/help.ts).
-const endSeasonNow = (c: Ctx) => { endSeason(c.g); ui.openAction = null; ui.args = {}; ui.lastResult = null; c.save(); c.render(); c.turn(); window.scrollTo({ top: 0 }); showSeasonCard(c.g); };
+const endSeasonNow = (c: Ctx) => { endSeason(c.g); ui.openAction = null; ui.args = {}; ui.lastResult = null; c.save(); c.render(); c.turn(); window.scrollTo({ top: 0 }); showScenes(() => ui.s, () => { save(); render(); }, () => showSeasonCard(c.g)); }; // test 5: the season's scenes first, then the season card
 const restart = () => { clearSave(); ui.s = null; ui.verdict = null; ui.checkIns = []; ui.verdictDraft = {}; ui.copyOpen = false; splash(); };
 const frameHandlers: Handlers = {
   click: {
