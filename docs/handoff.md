@@ -2,6 +2,14 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Big scenes, the spec for test 5 (thread 46, 2026-11-27)
+**Spec only, no code.** Jacob: battles, serious plots and crises should get their own pop-up with art, some multi-part; "Have councils look into these issues... I prefer us being inspired by other games than you making up stuff"; then "ok do it" to the test 5 plan. Spec: `docs/council/2026-11-27-big-scenes.md`; games report `docs/council/2026-11-27-big-scenes/games.md`; history card `docs/research/big-scenes-history.md`.
+- **Every mechanic names its game or passage** (Six Ages, King of Dragon Pass, CK3 Struggles and schemes, Disco Elysium, Banner Saga, Griftlands, Republic of Rome, Pentiment, Stellaris; Diodorus 11, 13, 14, 15, Thucydides, Plutarch).
+- **Build order for test 5:** (1) scene frame and report scenes, no rule change; (2) battle and sea-battle scenes, switch `battleScenes` (ground, plan, a turning point picked from the state, after the battle; Carthage-started battles move to the player step); (3) plot and crisis scenes, switch `crisisScenes`. The debate waits for after test 5.
+- **Fits with thread 47** (ground, contingents) and the navy; can be built first with stand-ins. Sent to thread 49 (the test 5 build).
+- **Checks:** docs only; `npm test` 203 of 203, 100 seeds 0 crashes, 0 broken, 17 tyrannies.
+- **Questions for Jacob:** may a scene kill you, with odds on the button; pop-up only for battles, plot strikes and lost seats; debate after test 5?
+
 ## The season screen, simplified (thread 44, 2026-11-27)
 **Built.** Jacob: "incorporate layout suggestions as you see fit before my test" (the 17 from `docs/playtests/2026-11-26-ai-first-impressions/findings.md`). Display only: no rule, data or log change.
 - **Order:** what changed, the war strip, then Matters, Petitions, your council, Your actions. The season's full news ("Everything that happened", with "What shifted") folds at the foot of the column, closed. "How last season ended" moved below the actions.

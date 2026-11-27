@@ -571,3 +571,8 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small, here):** the numbers in `carthageStays` (3 seasons' grace, plague and a fallen general +1, peace a point later) were picked once and counted, not tuned to history; a fallen general's place goes to the next free man in Carthage's list, only with the switch. The night-march fix applies everywhere the plate is on, since it is a bug.
 - **Open:** whether Carthage's war now lasts long enough is for Jacob after test 4.
 
+## 2026-11-27 (big scenes design, thread 46)
+- **Done (Jacob: "Can we explore this idea. Look up other games"):** a design proposal for big pop-up scenes, `docs/council/2026-11-27-big-scenes.md`, with games opened and quoted (CK3 Struggles, Six Ages, Griftlands, Banner Saga commentary) and others marked unverified. Report only: no rules changed.
+- **Decided (small, here):** a scene only shows what the simulation is already doing; it is never drawn by chance.
+- **Decided (Jacob, "Have councils look into these issues", then "ok do it" to the test 5 plan):** the doc became a council spec with every mechanic tied to a game or a passage; build order frame, battle and sea scenes (`battleScenes`), plot and crisis scenes (`crisisScenes`); the debate after test 5.
+- **Open:** whether a scene may kill you; which scenes pop up.
