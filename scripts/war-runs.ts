@@ -32,6 +32,7 @@ for (let seed = 1; seed <= N; seed++) {
     add("houseShifts", L(/^In .+, the house of .+ (now leans|now stands)/)); add("purges", L(/drive out your friends/));
     add("tributeWithheld", L(/sends you no tribute this year/)); add("gatesOffered", L(/slips out of .+ by night/)); add("gatesTaken", s.log.filter((e) => /Pay his price/.test(e.why ?? "") || /Pay his price/.test(e.text)).length);
     if (s.island && (s.island as any).townBoards) add("dividedAtEnd", Object.keys((s.island as any).townBoards).filter((id) => new Set(((s.island as any).townBoards[id] as any[]).map((x) => x.lean)).size === 3).length);
+    add("ravages", L(/ravages the land of/)); add("reinforcements", L(/^Fresh men from/)); add("allyDrift", L(/allies drift home after/)); add("hunger", s.counters.hungerSeasons ?? 0);
     if (pw.length && sample.length < 3) sample.push(`seed ${seed}: ${pw[0].name}: ${pw[0].chapter}`);
   } catch (e) { crashes++; if (crashes < 4) console.error(`seed ${seed}:`, (e as Error).stack?.split("\n").slice(0, 4).join("\n")); }
 }

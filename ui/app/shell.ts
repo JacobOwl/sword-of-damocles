@@ -5,6 +5,7 @@ import type { Flow, GameState } from "../../src/core/index.ts";
 import { howToPlay, tipAttr } from "../views/help.ts";
 import { court, sheet } from "../views/people.ts";
 import { islandView, islandHandlers } from "../views/island.ts";
+import { setupArmyDrag } from "../components/drag-army.ts";
 import { familiesView, paintCensusFaces } from "../views/families.ts";
 import { worksView } from "../views/works.ts";
 import { chronicleBook } from "../views/story.ts";
@@ -229,4 +230,6 @@ const frameHandlers: Handlers = {
     "#designer": (el, c) => { ui.designer = (el as HTMLInputElement).checked; c.save(); c.render(); },
   },
 };
+// Switch "armySupply": drag your army's shield on the map; letting go on a town opens its sheet with the March orders.
+setupArmyDrag(app, () => ui.s, (t) => { if (t) { ui.city = t; render(); document.querySelector(".citysheet")?.scrollIntoView({ block: "nearest" }); } });
 listen(app, [frameHandlers, helpHandlers, seasonHandlers, verdictHandlers, islandHandlers, extraHandlers], () => (ui.s ? { g: ui.s, render, save, turn, openSheet } : null));
