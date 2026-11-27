@@ -10,6 +10,7 @@ import { PLAYER, capital, seasonName } from "./state.ts";
 import { CARTHAGE, ISLAND, NODES, carthageArmy, carthagePersonName, city, menWords, nodeDef, nodeName, setSide, yourArmy } from "./island.ts";
 import type { GameState, Side } from "./types.ts";
 import { patience } from "./supply.ts";
+import { returnsOn } from "./returns.ts";
 
 export const WAR = warJson as any;
 const K = WAR.knobs;
@@ -146,7 +147,7 @@ export function warBattle(s: GameState, winner: "syracuse" | "carthage", at: str
 export function warArmyDestroyed(s: GameState, side: "syracuse" | "carthage", where: string, commander?: string) {
   if (!card(s)) return;
   warNote(s, other(side), "armyDestroyed", `${side === "syracuse" ? "your army is destroyed" : `${commander ? `${carthagePersonName(s, commander)}'s` : "Carthage's"} army is destroyed`} near ${nodeName(where)}`, K.ledgerWeights.armyDestroyed, where);
-  weary(s, side, K.weary.armyDestroyed, "an army was destroyed");
+  weary(s, side, side === "carthage" && returnsOn(s) ? CARTHAGE.returns.destroyedWeary : K.weary.armyDestroyed, "an army was destroyed"); // switch "carthageReturns": a loss, not the end
 }
 export function warTaken(s: GameState, side: "syracuse" | "carthage", commander: string) {
   const k = s.island!.carthage;
