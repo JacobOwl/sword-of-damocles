@@ -1,0 +1,109 @@
+{
+  "kind": "invention",
+  "note": "Switch \"warFocus\" (the war and geopolitics focus, council of 2026-11-27, docs/council/2026-11-27-war-and-geopolitics.md): a war as an object with aims, a ledger of named events, weariness on both sides and peace with terms; Carthage's return after a revolt, its landings announced a season ahead, and a pendulum that unites its council when you hold much of the island. The shapes come from Diodorus (docs/research/war-and-towns.md); every number is invention.",
+  "knobs": {
+    "ledgerWeights": {
+      "battle": 2,
+      "armyDestroyed": 4,
+      "town": 1,
+      "townHeldMax": 2,
+      "sack": 1,
+      "campPlague": 1,
+      "aimMet": 3
+    },
+    "weary": {
+      "max": 10,
+      "perSeasonInField": 1,
+      "everyNSeasons": 2,
+      "battleLost": 2,
+      "armyDestroyed": 3,
+      "townLost": 1,
+      "campPlague": 2,
+      "hunger": 1,
+      "carthagePlague": 2,
+      "raided": 1,
+      "peaceFallPerSeason": 2,
+      "yoursAt": [
+        4,
+        7,
+        10
+      ],
+      "carthagePeace": {
+        "elders": 6,
+        "people": 8,
+        "hundred": 9
+      }
+    },
+    "terms": {
+      "even": 2,
+      "silverEvery": 2,
+      "silverMax": 6,
+      "townsAt": 6,
+      "carthageLean": 2,
+      "pressNeed": 4
+    },
+    "acceptOffer": {
+      "carthageWeary": 5,
+      "balance": 3
+    },
+    "noBattleMatter": 3,
+    "pendulum": {
+      "towns": 4,
+      "angerLess": 1,
+      "hireBonus": 0.5
+    },
+    "newlyWonSeasons": 4,
+    "kindness": {
+      "goOver": 1
+    }
+  },
+  "carthageAims": [
+    {
+      "id": "back",
+      "kind": "invention",
+      "name": "Win back what was taken",
+      "text": "Carthage wants back every town that was its own or paid it tribute.",
+      "when": "lost",
+      "phrase": "win back what was taken"
+    },
+    {
+      "id": "break",
+      "kind": "invention",
+      "name": "Break the tyrant",
+      "text": "Carthage means to besiege Syracuse itself.",
+      "when": "angry",
+      "phrase": "break the tyrant"
+    },
+    {
+      "id": "tribute",
+      "kind": "invention",
+      "name": "Keep the tribute of the Greek towns",
+      "text": "Carthage wants the tribute towns kept and the tyrant taught a lesson.",
+      "when": "default",
+      "phrase": "keep the tribute of the Greek towns"
+    }
+  ],
+  "yourAims": [
+    {
+      "id": "west",
+      "kind": "invention",
+      "name": "Drive Carthage from the west",
+      "text": "Take Motya or Panormus, Carthage's own towns.",
+      "phrase": "drive Carthage from the west"
+    },
+    {
+      "id": "free",
+      "kind": "invention",
+      "name": "Free the Greek cities",
+      "text": "No Greek town may still pay tribute to Carthage.",
+      "phrase": "free the Greek cities"
+    },
+    {
+      "id": "hold",
+      "kind": "invention",
+      "name": "Hold what you have",
+      "text": "Lose no town of yours or your allies' in this war.",
+      "phrase": "hold what you had"
+    }
+  ]
+}
