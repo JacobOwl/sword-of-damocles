@@ -23,6 +23,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Broke or odd:** the map's March buttons appear on free towns under the peace (the town sheet already warns that taking it breaks the treaty; same as the Send the army menu). The logged chronicle text (in the log and in replay-save) is unchanged; only the chronicle page is cut. A grudge from the start data reads its year raw ("..., 405").
 - **Changed for Jacob:** his second-test save no longer replays on main (rules changed); it replays on 8915213. The first test digest was re-pinned once (guard pay).
 - **Questions for the next design session:** is the "Coming for you" card the right man, and does it warn early enough? Do the six rules make the middle game harder or just different? Should the map's March buttons hide for towns under the peace? Court and Families: fold, cut or give a reason (ideas in `docs/later.md`).
+
 ## Focus 1, war and geopolitics: the council (thread 41, 2026-11-27)
 **Design only.** Jacob asked for a Paradox-DLC-style focus on war and geopolitics ("Make towns have some independent politics. More events. The better map and army controls. Battle system rules. War system... Better ui too"). Proposal: `docs/council/2026-11-27-war-and-geopolitics.md`; five seat statements and the brief in `docs/council/2026-11-27-war/`; new history card `docs/research/war-and-towns.md`.
 - **Built:** nothing in the game. **Changed:** nothing he owns; parked items added to `docs/later.md`.
