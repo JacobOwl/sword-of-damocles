@@ -10,6 +10,9 @@ import { d6 } from "./rng.ts";
 import { PLAYER, capital, nameOf, power, others } from "./state.ts";
 import { clock, event, grain, guardSet, mood, powerChange, setStatus, silver, nextId, log } from "./ops.ts";
 import type { Army, CityState, GameState, IslandState, Mod, Side } from "./types.ts";
+import { WAR, warOn, warTownChanged, warBattle, warArmyDestroyed, warTaken, warSack, warCampPlague, warHunger } from "./war.ts";
+// Switch "warFocus": a Carthaginian general whose way is kindness (Magon, Diodorus 14.90.3) spares what he takes.
+export const kindGeneral = (s: GameState, a: Army) => warOn(s) && a.side === "carthage" && CARTHAGE.people.find((p: any) => p.id === a.commander)?.method === "kindness";
 
 export const ISLAND = islandJson as any;
 export const CARTHAGE = carthageJson as any;
@@ -88,10 +91,12 @@ export function lean(s: GameState, id: string, d: number, why: string) {
 export function setSide(s: GameState, id: string, side: Side, why: string) {
   const c = city(s, id);
   if (c.side === side) return;
+  const before = c.side;
   c.side = side;
   c.since = s.season;
   const now: Record<string, string> = { syracuse: "is now yours", ally: "is now your ally", free: "is free again", tributary: "now pays tribute to Carthage", carthage: "is now Carthage's", exiles: "is held by the exiles" };
   log(s, { actor: "world", text: `${nodeName(id)} ${now[side] ?? `is now ${sideName(side)}`}.`, why, visible: true, kind: "change" });
+  warTownChanged(s, id, before, side); // switch "warFocus": a line in the war's ledger
 }
 const count = (s: GameState, k: string, by = 1) => { s.counters[k] = (s.counters[k] ?? 0) + by; };
 
@@ -248,6 +253,7 @@ export function battle(s: GameState, a: Army, b: Army) {
   }
   const [win, lose] = ta > tb ? [a, b] : [b, a];
   event(s, "world", `${capital(armyName(s, win))} wins the battle at ${nodeName(win.at)}.`, "the higher roll");
+  warBattle(s, win.side, win.at); // switch "warFocus"
   loseMen(s, win, Math.ceil(win.men / 6), "the cost of victory");
   loseMen(s, lose, Math.ceil(lose.men / 3), "beaten in the field");
   s.flags[win.side === "syracuse" ? "battleWon" : "battleLost"] = s.season; // for events (data/island-events.json)
@@ -317,6 +323,7 @@ function destroy(s: GameState, a: Army, why: string) {
   const isl = s.island!;
   isl.armies = isl.armies.filter((x) => x !== a);
   event(s, a.side === "syracuse" ? PLAYER : "carthage", `${capital(armyName(s, a))} is destroyed.`, why);
+  warArmyDestroyed(s, a.side, a.at, a.commander); // switch "warFocus"
   if (a.side === "syracuse") {
     count(s, "armiesLostYours");
     s.flags.armyLost = s.season;
@@ -356,7 +363,11 @@ export function takeCity(s: GameState, a: Army, how: "surrendered" | "stormed" |
     count(s, "citiesLost");
     setSide(s, id, def.side === "tributary" ? "tributary" : "carthage", `${carthagePersonName(s, a.commander)} took it`);
     s.flags[`punicTook_${id}`] = s.season; // read by switch "carthageHolds"
-    if (how === "stormed") {
+    warTaken(s, "carthage", a.commander); // switch "warFocus": the general's record
+    if (how === "stormed" && kindGeneral(s, a)) {
+      event(s, "carthage", `${carthagePersonName(s, a.commander)} spares ${nodeName(id)} and treats its people kindly.`, "his way is to win the towns, not to burn them");
+    } else if (how === "stormed") {
+      warSack(s, "carthage", id);
       c.men = 0; c.grain = 0; c.sacked = true;
       event(s, "carthage", `${carthagePersonName(s, a.commander)} sacks ${nodeName(id)}. Its people flee to the hills.`, "it was taken by storm");
     } else event(s, "carthage", `${nodeName(id)} submits to Carthage and is spared.`, `it ${how}`);
@@ -371,6 +382,7 @@ export function takeCity(s: GameState, a: Army, how: "surrendered" | "stormed" |
     silver(s, loot, `the sack of ${nodeName(id)}`);
     c.men = 0; c.grain = 0; c.sacked = true; c.lean = -3;
     event(s, PLAYER, `Your soldiers sack ${nodeName(id)} and sell its people.`, "you ordered a sack");
+    warSack(s, "syracuse", id);
     mood(s, "guard", 1, `plunder from ${nodeName(id)}`);
     count(s, "sacks");
     (s.island!.sacks ??= []).push(id);
@@ -470,6 +482,7 @@ export function islandWorld(s: GameState) {
       a.food = 0;
       event(s, a.side === "syracuse" ? PLAYER : "carthage", `${capital(armyName(s, a))} has run out of food. Men desert and sicken.`, "no food left in the baggage");
       count(s, "hungerSeasons");
+      warHunger(s, a.side);
       loseMen(s, a, Math.ceil(a.men / 4), "hunger");
     } else if (a.food === 0) {
       log(s, { actor: a.side === "syracuse" ? PLAYER : "carthage", text: `${capital(armyName(s, a))} eats the last of its food.`, why: "a season in the field", visible: true, kind: "warning" });
@@ -513,6 +526,7 @@ export function islandWorld(s: GameState) {
         count(s, "campPlagues");
         event(s, a.side === "syracuse" ? PLAYER : "carthage", `Plague breaks out in the camp before ${nodeName(id)}.`, `a crowded camp in the hot months${def.marsh ? ", on marshy ground" : ""} (rolled ${die}, plague on ${on} or less)`);
         if (a.side === "carthage") { s.flags.carthagePlague = s.season; bloc(s, "people", -1, "plague in the army"); }
+        warCampPlague(s, a.side, id); // switch "warFocus"
         loseMen(s, a, Math.ceil(a.men / 2), "plague in the camp");
       }
     }
@@ -548,6 +562,9 @@ export function goOverMods(s: GameState, id: string, side: Army["side"]): Mod[] 
   } else {
     if (c.lean) m.push({ label: c.lean < 0 ? "they hate you" : "they are loyal to you", value: -c.lean });
     if (c.side === "syracuse") m.push({ label: "your garrison holds it", value: -1 });
+    // Switch "warFocus": a town you won lately is loosely held, and a general who wins towns by kindness draws them.
+    if (warOn(s) && c.since > 0 && s.season - c.since < WAR.knobs.newlyWonSeasons) m.push({ label: "newly won, loosely held", value: 1 });
+    if (kindGeneral(s, army)) m.push({ label: `${carthagePersonName(s, army.commander)} treats the towns kindly`, value: WAR.knobs.kindness.goOver });
   }
   if (army.men >= R.aweMen) m.push({ label: `awed by the size of ${armyName(s, army)}`, value: 1 });
   if (!foe || army.men > foe.men) m.push({ label: `${armyName(s, army)} is the strongest on the island`, value: 1 });

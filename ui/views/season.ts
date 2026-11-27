@@ -7,6 +7,7 @@ import { portrait } from "../components/portraits.ts";
 import { councilBlock, counselLines, blackmailNote } from "../components/intrigue.ts";
 import { lastSeasonSummary, seasonFeed } from "./story.ts";
 import { changedBlock } from "../components/changed.ts";
+import { warStrip } from "../components/war.ts";
 import { esc, linkNames, opChip, pr, sign, ui, who } from "../lib/text.ts";
 import { AREA_ICON, icon } from "../components/icons.ts";
 import { vignette } from "../components/vignettes.ts";
@@ -19,6 +20,7 @@ export function seasonCol(g: GameState) {
   const f = seasonFeed(g, season);
   return `${!guideDone() && !g.over ? guide() : ""}
     ${changedBlock(g)}
+    ${warStrip(g)}
     ${lastSeasonSummary(g)}
     <div><h2>${esc(seasonName(season))}</h2>${f.empty ? `<p class="muted">Nothing has happened yet.</p>` : f.groups + f.shifts}</div>
     ${councilBlock(g)}
