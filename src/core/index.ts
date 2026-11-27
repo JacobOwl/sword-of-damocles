@@ -53,3 +53,5 @@ export { SEATS, BOARD, seatDef, seatName as boardSeatName, seatHolder, seatsOf, 
 export type { BoardState, SeatId } from "./board.ts";
 export type { Flow } from "./forecast.ts";
 export { pronoun, sexOf } from "./pronouns.ts";
+export { WAR, warOn, card as warCard, balance as warBalance, ledgerLines, termsFor, termsText, warChapter, townsHeld, pendulum, landingPossible } from "./war.ts";
+export type { WarCard, PastWar, Terms } from "./war.ts";

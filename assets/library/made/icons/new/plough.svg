@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Plough</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M1.4 7.2 C6 9 12 13 16.4 19.4" class="line" style="stroke-width:1.5"/><path d="M18.8 5.6 L16.8 19.6" class="line" style="stroke-width:1.4"/><path d="M10 19.2 L22.8 20.4 L21.8 21.8 L10 20.8 Z"/><path d="M18.8 5.6 L21 4.6" class="line" style="stroke-width:1.2"/><path d="M1 23 C5 22 9 23.4 13 22.6" class="line" style="stroke-width:0.6"/>
+</svg>

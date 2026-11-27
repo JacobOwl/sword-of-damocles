@@ -132,7 +132,7 @@
   "pacing": { "kind": "invention", "draws": 1, "secondChance": 0.25, "maxOpen": 2 },
   "events": [
     {
-      "id": "exileTerms", "kind": "history", "art": "letter", "name": "Terms from the city", "chained": true,
+      "id": "exileTerms", "kind": "history", "art": "treaty", "name": "Terms from the city", "chained": true,
       "source": "Diodorus 14.9.6 to 14.9.8", "card": "docs/research/exile.md",
       "roles": { "ruler": { "usurper": true } },
       "text": "{Ruler}'s envoys come to {refuge}. Come home as a private man, they say, with a pledged word that you will be borne no enmity. Some of those with you have wives and children in the city.",
@@ -155,7 +155,7 @@
       ]
     },
     {
-      "id": "exileReportedDead", "kind": "history", "art": "hearth", "name": "Reported dead", "chained": true,
+      "id": "exileReportedDead", "kind": "history", "art": "mourning", "name": "Reported dead", "chained": true,
       "source": "Diodorus 13.75.9", "card": "docs/research/exile.md",
       "roles": { "kin": { "status": "outside", "where": "exile", "faction": "family" } },
       "text": "After the failed attack, {kin} would give out that you died of your wounds. Hermocrates' men did the same for the wounded Dionysius in 408, \"in order that they might not be given over to the wrath of the multitude.\"",
@@ -200,7 +200,7 @@
       ]
     },
     {
-      "id": "exileEnvoy", "kind": "invention", "art": "letter", "name": "A Carthaginian at the door",
+      "id": "exileEnvoy", "kind": "invention", "art": "audience", "name": "A Carthaginian at the door",
       "weight": 1, "cooldown": 8,
       "when": { "exile": { "rulerKind": ["person", "assembly"] } },
       "text": "A Carthaginian merchant calls at your lodging in {refuge}. His masters, he says, would rather see you in Syracuse than {ruler}. He has silver with him.",
@@ -211,7 +211,7 @@
       ]
     },
     {
-      "id": "exileBones", "kind": "history", "art": "hearth", "name": "The unburied dead",
+      "id": "exileBones", "kind": "history", "art": "sacrifice", "name": "The unburied dead",
       "source": "Diodorus 13.75.2 to 13.75.5", "card": "docs/research/exile.md",
       "weight": 2, "once": true,
       "when": { "exile": { "since": { "min": 1 }, "silver": { "min": 1 } }, "island": { "war": true } },

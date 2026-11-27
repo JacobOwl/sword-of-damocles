@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Storage jar (pithos)</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M8.4 2.6 H15.6 V4.2 H14.8 C19.4 5.8 21 10 20.6 14.4 C20.2 18.8 17.4 21.4 14.4 22.2 H9.6 C6.6 21.4 3.8 18.8 3.4 14.4 C3 10 4.6 5.8 9.2 4.2 H8.4 Z"/><path d="M4.6 8.6 H19.4 M3.8 12 H20.2" class="cut line" style="stroke-width:0.6"/><path d="M5 15.2 C7 14 9 16.4 11 15.2 S15 16.4 17 15.2 S19 15.6 19.6 15.2" class="cut line" style="stroke-width:0.55"/>
+</svg>

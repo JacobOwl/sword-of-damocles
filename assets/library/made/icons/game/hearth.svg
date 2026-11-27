@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>hearth (game icon)</title>
+<desc>Exported from ui/components/icons.ts.</desc>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M4.5 13.6 H19.5 V15.6 H18 V19.8 H19.5 V22 H4.5 V19.8 H6 V15.6 H4.5 Z"/>
+    <path d="M7.6 16.4 H16.4 V19.1 H7.6 Z" class="cut"/>
+    <path d="M12 2.4 C14.6 5.6 16.6 7.6 16 10.6 C15.6 12.6 14 13.2 12 13.2 C10 13.2 8.3 12.5 8 10.6 C7.6 8.4 9.1 7.2 9.8 5.4 C10.5 7.2 11.2 7.8 11.4 8.8 C12.4 6.8 12.7 4.8 12 2.4 Z"/>
+</svg>

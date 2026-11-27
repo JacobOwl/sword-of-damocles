@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 400" width="240" height="400">
+<title>Punic votive stele</title>
+<desc>A pointed Punic stele with the sign of Tanit in the gable, the shape of the votive stones from the tophets of Carthage and Motya (general knowledge, not a copy of one stone). For Carthaginian news and treaties.</desc>
+<path d="M30 392V110L120 40L210 110V392Z" fill="#e6d7b0" stroke="#2b1d12" stroke-width="1.6"/><path d="M48 112L120 56L192 112Z" fill="none" stroke="#5b2a63" stroke-width="1"/><g transform="translate(120 66) scale(1.2)" fill="#5b2a63"><circle cx="0" cy="4" r="4"/><path d="M-9 9.5H9V11.4H-9Z"/><path d="M-9 9.5V5.5L-7.2 5.5V9.5Z"/><path d="M9 9.5V5.5L7.2 5.5V9.5Z"/><path d="M0 11.4L-8 28H8Z"/></g><path d="M30 116H210" stroke="#2b1d12" stroke-width="1.2"/><rect x="50" y="132" width="140" height="238" fill="none" stroke="#5b2a63" stroke-width="0.9"/><path d="M22 392H218" stroke="#2b1d12" stroke-width="2.4"/>
+</svg>

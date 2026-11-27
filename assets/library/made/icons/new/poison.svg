@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Phial of poison</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M8.4 3.2 H11.6 V4.4 H11 V5.6 C13.6 6.6 14.4 9.6 14.2 13 C14 17 12.6 20.6 10 21.6 C7.4 20.6 6 17 5.8 13 C5.6 9.6 6.4 6.6 9 5.6 V4.4 H8.4 Z"/><rect x="8.8" y="1.2" width="2.4" height="2.2" rx=".6"/><path d="M7 11.6 C8.6 12.6 11.4 12.6 13 11.6" class="cut line" style="stroke-width:0.55"/><path d="M18.6 9.4 C19.8 11.4 20.4 12.6 20.4 13.6 C20.4 14.8 19.6 15.4 18.6 15.4 C17.6 15.4 16.8 14.8 16.8 13.6 C16.8 12.6 17.4 11.4 18.6 9.4 Z M18.6 17.4 C19.2 18.4 19.6 19 19.6 19.6 C19.6 20.2 19.2 20.6 18.6 20.6 C18 20.6 17.6 20.2 17.6 19.6 C17.6 19 18 18.4 18.6 17.4 Z"/>
+</svg>

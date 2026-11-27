@@ -2,12 +2,14 @@
 // A preset adds no rules. A game remembers its preset only by name, so it replays exactly from its options.
 import presetsJson from "../../data/presets.json" with { type: "json" };
 import type { GameOpts, Scenario } from "./types.ts";
+import type { Opening } from "./opening.ts";
 
 export interface PresetDef {
   id: string; name: string; summary: string; recommended?: boolean; scenario: Scenario; tuning: string; switches: string[];
   verdictSeason: number; watch: string[];
   checkIns?: number[]; // shorter questions asked on the way to the verdict (seasons)
-  aim?: { id: string; text: string; done: string }; // the natural first goal shown until it is met (ui/components/now.ts)
+  aim?: { id: string; text: string; done: string };
+  opening?: Opening; // a late start (src/core/opening.ts); verdictSeason and checkIns then count from it // the natural first goal shown until it is met (ui/components/now.ts)
 }
 export const PRESETS = presetsJson.presets as PresetDef[];
 export const presetById = (id: string | undefined) => PRESETS.find((p) => p.id === id);

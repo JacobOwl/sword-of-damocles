@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Loaf of bread</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M2.6 16.8 C2.6 10.6 6.8 6.4 12 6.4 C17.2 6.4 21.4 10.6 21.4 16.8 C21.4 18.2 20.4 18.8 19 18.8 H5 C3.6 18.8 2.6 18.2 2.6 16.8 Z"/><path d="M12 7.4 V18 M12 12.6 L5.4 9.6 M12 12.6 L18.6 9.6 M12 12.6 L4 15.6 M12 12.6 L20 15.6" class="cut line" style="stroke-width:0.6"/><path d="M3 21.2 H21" class="line" style="stroke-width:1.2"/>
+</svg>

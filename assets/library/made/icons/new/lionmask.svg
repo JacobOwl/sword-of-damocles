@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Lion's face (Leontini, Rhegium)</title>
+<desc>A facing lion's head is the badge of Leontini and Rhegium (general knowledge, unverified).</desc>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M12 1.2 L13.91 4.02 L16.86 2.31 L17.36 5.68 L20.76 5.42 L19.75 8.67 L22.92 9.91 L20.6 12.4 L22.92 14.89 L19.75 16.13 L20.76 19.38 L17.36 19.12 L16.86 22.49 L13.91 20.78 L12 23.6 L10.09 20.78 L7.14 22.49 L6.64 19.12 L3.24 19.38 L4.25 16.13 L1.08 14.89 L3.4 12.4 L1.08 9.91 L4.25 8.67 L3.24 5.42 L6.64 5.68 L7.14 2.31 L10.09 4.02 Z"/><circle class="cut" cx="12" cy="12.6" r="6.8"/><path d="M6.6 7.4 C6.6 5.6 8.4 4.8 9.6 6 Z M17.4 7.4 C17.4 5.6 15.6 4.8 14.4 6 Z"/><ellipse cx="9.6" cy="11" rx="1.2" ry=".75"/><ellipse cx="14.4" cy="11" rx="1.2" ry=".75"/><path d="M7.8 9.6 C9.4 8.6 10.6 9 11.4 10 M16.2 9.6 C14.6 8.6 13.4 9 12.6 10" class="line" style="stroke-width:0.8"/><path d="M10.4 13.2 H13.6 L12 15.2 Z"/><path d="M12 15.2 V16.4 M9.4 16.4 C10.6 18 13.4 18 14.6 16.4" class="line" style="stroke-width:0.9"/>
+</svg>

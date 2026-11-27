@@ -9,6 +9,8 @@ import { initSecrets } from "./secrets.ts";
 import secretsKnobs from "../../data/secrets.json" with { type: "json" };
 const SECRET_INFLUENCE = secretsKnobs.knobs.influencePerSecret ?? 1;
 import { initCouncil } from "./council.ts";
+import { presetById } from "./presets.ts";
+import { applyOpening } from "./opening.ts";
 import { campaignDefense, campaignPlotParts, keeperInfluence } from "./commission.ts";
 import { FACTIONS, MOODS, OFFICES } from "./types.ts";
 
@@ -72,6 +74,8 @@ export function newGame(seed: number, tuning: string = DEFAULT_TUNING, opts: Gam
   };
   if (opts.preset) s.preset = opts.preset;
   if (opts.scenario === "island") { s.scenario = "island"; s.island = newIsland(); s.census = newCensus(s); }
+  const opening = presetById(opts.preset)?.opening;
+  if (opening) applyOpening(s, opening, PLAYER);
   if (switches.includes("secrets")) initSecrets(s); // no dice: the same seed plays the same with the switch off
   if (switches.includes("council")) initCouncil(s);
   return s;

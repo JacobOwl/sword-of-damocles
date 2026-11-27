@@ -115,8 +115,10 @@ export function showSeasonCard(g: GameState) {
 
 // A test preset counts to its verdict ("Season 4 of 30"), then to the end of the game.
 export function seasonCount(g: GameState) {
-  const n = Math.min(g.season + 1, DATA.start.seasons);
+  const s0 = g.startSeason ?? 0; // a late opening counts from where it began
+  const total = DATA.start.seasons - s0;
+  const n = Math.min(g.season + 1, DATA.start.seasons) - s0;
   const v = presetById(g.preset)?.verdictSeason;
-  return v && v < DATA.start.seasons && n <= v ? `Season ${n} of ${v} in this test` : `Season ${n} of ${DATA.start.seasons}`;
+  return v && v < total && n <= v ? `Season ${n} of ${v} in this test` : `Season ${n} of ${total}`;
 }
 
