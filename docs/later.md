@@ -98,3 +98,4 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - Numbers out of story sentences ("power +1 (now 6, Active)"); the news is folded now, so this matters less. (Suggestion 15.)
 - The actions list is about 30 buttons; group or fold by area if it still feels long after test 4.
 
+- Dragging the army on the map is only a preview (route, days, towns that may go over); the march is the town sheet's March button, one action. Jacob, test 4: "I can't drag my army" until he found the button. Say it on the map, or let the drop give the order with a confirm. (Thread 43, 2026-11-27.)
