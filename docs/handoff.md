@@ -2,6 +2,16 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## The art library, fixed and in the game (thread 40, 2026-11-27)
+**Built.** Jacob, on PR #89 (Duet's art library): "Fix, expand upon, and add the art where you can and in the future." Merged with #89's own commit, so #89 counts as merged.
+- **In the game:** the library's 39 event scenes are game pictures now (`scripts/build-library-art.mjs` writes `ui/components/library-scenes.ts`); 32 events, matters, exile and dinner asks that shared a generic picture got their own (Damocles' banquet, trials, treaties, bribes, the Punic fleet, mourning, the siege tower and more; list in `docs/art-direction.md`). Carthage's council has faces on the island view, and Carthage's horse-and-palm coin heads its panel (`ui/components/library-pictures.ts`).
+- **Expanded:** medallions for Hanno the elder and Bomilcar, so all four council men have one. The Carthage coin type is now sourced (`docs/research/art-motifs.md`, from the saved Wikipedia coinage page; meaning of horse and palm disputed, shown).
+- **Fixed:** the stray Python cache file is gone and ignored; the library README says what is in the game. My earlier "Doris looks bearded" was wrong: it was the small contact sheet.
+- **For the future:** `CLAUDE.md` now says to look in the library before drawing anything new, and to bring art in only through the build script.
+- **Not done:** the 32 real pictures still need downloading on Jacob's PC (Wikimedia is blocked from the cloud); seven scenes and the city coins wait (`docs/later.md`). The 24 Syracusans keep their mosaic portraits.
+- **Checks:** `npm test` 195 of 195; typecheck clean; 100 seeds: 0 crashes, 0 broken states, 17 tyrannies, output identical to before the change.
+- **Questions for Jacob:** do the flat medallions suit Carthage's men, or should they get mosaic faces like everyone else (the Duet portrait prompt covers that)? Any picture swap that feels wrong?
+
 ## Fixes from the second test (thread 39, 2026-11-27)
 **Built.** Jacob: "Build all and have council decide on the rule changes" (the 30-item list from thread 38). All on in the Second island test preset; the test link is updated.
 - **Bugs (PR #90):** guard pay follows the men; open towns in their side's colour; marriage by sex (the form names the spouse and says the dowry is yours); she/her in the standing line; Aetna freed when the exiles come home; "Pay in land" needs Leontini as ally or yours; no raw role names ("FavouriteKin"); "that you blackmailed him".
@@ -30,6 +40,15 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Recommended (all switches, off by default):** 1B the war card (why, aims, a ledger of named events, weariness both sides, peace terms); 2B town boards from the census houses (gates from inside, divided towns, purges on news, Carthage seats its friend); 3B Carthage's pendulum (returns after a revolt, a great expedition when you hold much, generals with standing at home); 4B supply by area with Ravage, reinforce, garrisons and "the levy wants battle"; 5B a one-plate battle, built last; Q6 map orders by dragging along roads plus the war strip; Q7 twelve war matters from state. Four build stages, stage 1 "a war with a face and an end".
 - **Baseline:** thread 39's click-to-send, 6-day rings, feeding and muster explanations, anger marks, and its council's switches `carthageHolds` (towns Carthage took are harder to turn for 8 seasons) and `libyaSpared` (no levy on Angry Libyans; not a revolt cap). Read its record before building.
 - **Questions for Jacob:** the seven picks; a test preset starting about 398 (scope lists choosing the start date as out); whether `scope.md` should name the current focus.
+
+## The art library (thread art-library, 2026-11-26)
+**Built, not wired in.** Jacob asked for "a big collection of art that claude code can look at and use later". It is `assets/library/`; start at its README.
+- **What's there:** 399 items. 108 icons (the game's 29 plus 79 new), 68 event tondos (29 plus 39 new scenes), 34 coins, tokens and seals, 21 cast medallions, 10 maps (Sicily, Syracuse, the Mediterranean and blanks), 31 frames and dividers, 45 pattern tiles, 8 textures, and 73 pieces of real art (41 copied, 32 listed to download).
+- **How to find things:** `catalog.json` (jq examples in the README), `INDEX.md`, `index.html` (a gallery with a search box that opens from disk) and `preview/*.png` contact sheets.
+- **Licences:** real art only public domain, CC0 or CC BY. CC BY items carry their credit line. 74 files were left out, listed in `real/sources.json` with the reason. The maps carry their Pleiades and OpenStreetMap credit lines.
+- **To do on Jacob's PC:** `node assets/library/tools/fetch-real.mjs`, then `node assets/library/tools/build-catalog.mjs`. It downloads the 32 checked Commons files (the dekadrachms of Kimon and Euainetos, the Met's Sword of Damocles drawing, Westall's Damocles and more), rechecking each licence first.
+- **Tests:** `tests/library.test.ts` checks that every catalog file exists, that real art carries only the allowed licences, that CC BY items have credit lines, and that drawn SVGs stand alone.
+- **Questions for Jacob:** which pieces to bring into the game first. For example, the new event scenes for events that share a picture today, or the cast medallions once PR 86 settles the cast.
 
 ## Jacob's second island test (thread 38, 2026-11-26)
 **Played.** Jacob played the Second island test and was killed in Autumn 399 BC, season 24 of 30, by the exiles' leader's plot. His words: `docs/playtests/2026-11-26-jacob-test2/notes.md`; replay and findings: `debrief.md` there; save `save.json` replays exactly on main (6bd1ae0).

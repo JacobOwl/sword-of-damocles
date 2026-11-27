@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>fleet (game icon)</title>
+<desc>Exported from ui/components/icons.ts.</desc>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M5.4 13.4 C3.6 11 3.6 7.6 5.8 5.4 C5.4 8.2 6 10.8 7.6 13.4 Z"/>
+    <path d="M1.4 14.2 H19.6 C20.8 14.2 21.6 13.4 22 12.2 L22.8 12.6 C22.6 14 22 15.2 21.2 15.8 L23.6 16.4 L21 17.2 H5.6 C4.2 17.2 3 16.6 2.4 15.8 L1 15.6 Z"/>
+    <path d="M6 17.2 L4.6 21.6 M8.4 17.2 L7 21.6 M10.8 17.2 L9.4 21.6 M13.2 17.2 L11.8 21.6 M15.6 17.2 L14.2 21.6 M18 17.2 L16.6 21.6" class="line" style="stroke-width:.85"/>
+    <circle cx="19.4" cy="15.6" r=".7" class="cut"/><path d="M5 15.7 H17" class="cut line" style="stroke-width:.5"/>
+</svg>

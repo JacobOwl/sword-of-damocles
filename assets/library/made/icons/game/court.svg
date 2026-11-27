@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>court (game icon)</title>
+<desc>Exported from ui/components/icons.ts.</desc>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M3.4 8.6 H20.6 C20.6 12.4 16.8 14.6 12 14.6 C7.2 14.6 3.4 12.4 3.4 8.6 Z"/>
+    <path d="M3.6 9.6 C1.4 9.2 .8 7.2 2.2 6.4 M20.4 9.6 C22.6 9.2 23.2 7.2 21.8 6.4" class="line" style="stroke-width:1.1"/>
+    <rect x="11.2" y="14.4" width="1.6" height="4.2"/><ellipse cx="12" cy="19.8" rx="4.6" ry="1.4"/>
+    <path d="M6.4 10.6 C9.6 12.4 14.4 12.4 17.6 10.6" class="cut line" style="stroke-width:.55"/>
+</svg>

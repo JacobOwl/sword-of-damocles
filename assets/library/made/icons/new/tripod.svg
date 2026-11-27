@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" color="#1d1410" fill="currentColor" style="color:#1d1410">
+<title>Tripod (oracle)</title>
+<style>.line{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.cut{fill:#efe4c8}.cut.line{fill:none;stroke:#efe4c8}</style>
+<path d="M4 7.6 H20 C20 11 16.6 12.8 12 12.8 C7.4 12.8 4 11 4 7.6 Z"/><circle class="line" cx="6.6" cy="4.8" r="2.2" style="stroke-width:1"/><circle class="line" cx="17.4" cy="4.8" r="2.2" style="stroke-width:1"/><path d="M6 11.6 L3.8 22.6 M12 12.8 V22.6 M18 11.6 L20.2 22.6" class="line" style="stroke-width:1.4"/><path d="M5 18 H19" class="line" style="stroke-width:0.6"/>
+</svg>

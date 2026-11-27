@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10" width="12" height="10">
+<title>Scales, glaze (tile)</title>
+<desc>Overlapping scales for a field: armour, roofs, fish, a dragon. Repeats both ways. Colourway: clay on black glaze, to sit with the red-figure pictures. Tiles both ways.</desc>
+<rect width="12" height="10" fill="#1d1410"/><path d="M0 5A3 3 0 0 0 6 5A3 3 0 0 0 12 5M-3 10A3 3 0 0 0 3 10A3 3 0 0 0 9 10A3 3 0 0 0 15 10M-3 0A3 3 0 0 0 3 0A3 3 0 0 0 9 0A3 3 0 0 0 15 0" fill="none" stroke="#c8743a" stroke-width="0.9" stroke-linejoin="miter" stroke-linecap="butt"/>
+</svg>
