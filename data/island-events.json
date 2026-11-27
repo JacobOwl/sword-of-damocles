@@ -4917,7 +4917,7 @@
     {
       "id": "peaceEnvoys",
       "kind": "history",
-      "art": "herald",
+      "art": "treaty",
       "name": "Peace envoys with terms",
       "chained": true,
       "when": {
@@ -5126,7 +5126,7 @@
     {
       "id": "victorsWelcome",
       "kind": "history",
-      "art": "herald",
+      "art": "trophy",
       "name": "A victor's welcome",
       "chained": true,
       "when": {

@@ -2,6 +2,15 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Portraits and more art (thread 40, part 2, 2026-11-27)
+**Built.** Jacob: "Why not add portraits and art".
+- **Carthage's council has mosaic faces**: Duet's draft looks (PR #95) for Himilcon, Magon, Hanno the elder and Bomilcar, now `ui/art/carthage-looks.json` and `ui/art/portraits/<id>.webp`. Drawn in a real browser with the mosaic editor's own code; a check re-drew Dionysius byte for byte the same as his file. They replace the flat medallions shown in part 1 (those stay in the library). The test now wants a portrait for every Syracusan and every man of Carthage's council.
+- **Season cards** carry a season picture (vintage, winter, spring, summer).
+- **The war's events:** peace envoys get the treaty, a victor's welcome the trophy.
+- **Waiting:** Dion, Aristides and Magon's son have looks but are not in the game yet (`docs/later.md`).
+- **Checks:** `npm test` 200 of 200; typecheck clean; 100 seeds: 0 crashes, 0 broken states, 17 tyrannies.
+- **Questions for Jacob (from Duet's notes, not changed):** Dionysius' cloak is Punic purple, Carthage's colour (cheap fix: blood red or gold); Theste's veil and Doris' hair bag are lilac; Daphnaeus and Demarchus have nearly the same face; Thearides is brown-haired beside two black-haired brothers.
+
 ## Playtest bot (2026-11-27)
 **Built, not merged.** Jacob: "Run the playtest bot". A headless bot, `npm run playtest` (`scripts/playtest.ts`, tables and charts in `scripts/playtest-report.ts`), plays every setup on main with seven kinds of player and a one-action sweep: 23,520 games in about 10 minutes on 4 cores, fixed seeds, every game replayed to check it comes out the same. Report: `docs/playtests/2026-11-27-playtest-bot/report.md`; tables: `results.md` beside it.
 - **Broke:** a dead man keeps his council seat while you are in exile (everything-on setup, 7% of games; `npm run playtest -- --one everything:idle:4`); a dead man started a plot once (`fallen:carefulDice:97`, an answer to a matter about a man who died earlier that season). No crashes, stuck seasons or replay differences.

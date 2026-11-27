@@ -2,7 +2,7 @@
 
 A store of pictures for The Sword of Damocles that Claude Code (or anyone) can search and use later: art drawn in the game's own styles, and real ancient art under open licences.
 
-**In the game now (thread 40, 2026-11-27):** all 39 new event scenes (32 of them on events; poison, beacon, Arethusa, eagle, winter, summer and vintage wait for one), the four medallions of Carthage's council (Himilcon, Magon, Hanno the elder, Bomilcar) and Carthage's horse coin, on the island view. `scripts/build-library-art.mjs` copies them into `ui/components/library-scenes.ts` and `ui/components/library-pictures.ts`; rerun it after `tools/build-made.mjs`. Everything else is waiting to be used. Rule for future work (in `CLAUDE.md`): look here before drawing anything new.
+**In the game now (thread 40, 2026-11-27):** all 39 new event scenes (34 on events, and winter, summer and vintage on the season cards; poison, beacon, Arethusa and eagle wait for one) and Carthage's horse coin, on the island view. Carthage's council has mosaic faces in the game (`ui/art/carthage-looks.json`); the medallions here are an alternative. `scripts/build-library-art.mjs` copies them into `ui/components/library-scenes.ts` and `ui/components/library-pictures.ts`; rerun it after `tools/build-made.mjs`. Everything else is waiting to be used. Rule for future work (in `CLAUDE.md`): look here before drawing anything new.
 
 **401 items.** 328 drawn for this library, 73 real.
 
