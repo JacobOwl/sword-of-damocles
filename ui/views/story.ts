@@ -109,9 +109,9 @@ export function chronicleBook(s: GameState) {
   if (last < 0) return `<article class="book"><h2>The chronicle</h2><p class="muted">The chronicle begins when the first season ends.</p></article>`;
   if (switchOn(s, "storyChronicle")) return storyChronicleBook(s);
   const years: string[] = [];
-  for (let y = 0; y * 4 <= last; y++) {
+  for (let y = Math.floor((s.startSeason ?? 0) / 4); y * 4 <= last; y++) {
     const seasons: string[] = [];
-    for (let q = 0; q < 4; q++) { const i = y * 4 + q; if (i <= last) seasons.push(chronicleSeason(s, i)); }
+    for (let q = 0; q < 4; q++) { const i = y * 4 + q; if (i <= last && i >= (s.startSeason ?? 0)) seasons.push(chronicleSeason(s, i)); }
     const dy = diodorusYear(405 - y);
     years.push(`<section class="cyear"><h3>Year ${y + 1} <span class="muted">${405 - y} to ${404 - y} BC</span></h3>${dy ? `<p class="cdiod">${esc(dy.text)} <span class="cite">(${esc(dy.cite)})</span></p>` : ""}${seasons.join("")}</section>`);
   }
@@ -122,7 +122,7 @@ export function chronicleBook(s: GameState) {
 
 // The last season, short, for the season column.
 export function lastSeasonSummary(s: GameState) {
-  if (s.season === 0) return "";
+  if (s.season === (s.startSeason ?? 0)) return "";
   const prev = s.season - 1;
   const f = seasonFeed(s, prev, ["player", "power", "sword"]);
   if (f.empty) return "";
@@ -141,8 +141,8 @@ const keyLines = (p: string) => p.split(/(?<=\.)\s+(?=[A-Z])/).filter((x) => KEY
 function storyChronicleBook(s: GameState) {
   const b = storyBook(s);
   const years: string[] = [];
-  for (let y = 0; y * 4 < b.seasons.length; y++) {
-    const ss = b.seasons.slice(y * 4, y * 4 + 4);
+  for (let y = Math.floor((s.startSeason ?? 0) / 4); y * 4 < b.seasons.length; y++) {
+    const ss = b.seasons.slice(Math.max(y * 4, s.startSeason ?? 0), y * 4 + 4);
     const key = ss.flatMap((x) => keyLines(x.paragraphs.join(" ")).map((t) => ({ name: x.name, t })));
     const seen = new Set<string>();
     const brief = key.filter((k) => !seen.has(k.t) && seen.add(k.t)).slice(0, 6);
