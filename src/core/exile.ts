@@ -19,6 +19,7 @@ import { chapter } from "./feud.ts";
 import { carthageArmy, carthagePersonName, city, cityWalls, islandWorld, loseMen, nodeName, path, setSide, NODES } from "./island.ts";
 import { carthageStep } from "./carthage.ts";
 import { censusSeason } from "./census-game.ts";
+import { fillSeats } from "./council.ts";
 import { drawExileEvents, fireNow } from "./events.ts";
 import type { Args, FactionId, GameState, Mod, OfficeId, Person } from "./types.ts";
 import { FACTIONS, OFFICES } from "./types.ts";
@@ -301,6 +302,7 @@ export function exileBeginSeason(s: GameState) {
   s.step = "factions";
   cityRuns(s, () => carthageStep(s));
   if (s.over) return;
+  if (s.council) fillSeats(s, true); // the dead leave their council seats while you are away
   s.step = "player";
   if (s.blockedSlots) { s.slots = Math.max(0, s.slots - s.blockedSlots); s.blockedSlots = 0; }
   void x;
@@ -325,6 +327,7 @@ export function exileEndSeason(s: GameState) {
   if (x.ruler.kind !== "carthage" && ca?.siege === "syracuse") hold(s, -1, "Carthage besieges the city");
   revolt(s);
   notice(s, -(refugeDef(x.at)?.fade ?? k.noticeFade), "time passes, and the city talks of other things");
+  if (s.council) fillSeats(s, true); // and anyone who died this season
 }
 
 // ---------- The ruler's season ----------

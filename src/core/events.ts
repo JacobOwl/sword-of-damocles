@@ -595,7 +595,7 @@ export function apply(s: GameState, inst: EventInstance, effects: Effect[], why:
       else event(s, PLAYER, "No one, it seems, plots against you. For now.", reason);
     }
     else if (e.leavePlots) { const p = pid(e.leavePlots); if (p) leaveAllPlots(s, p, reason); }
-    else if (e.startPlot) { const p = pid(e.startPlot); if (p && !plotOf(s, p) && s.people[p].status !== "held") startPlot(s, s.people[p], reason); }
+    else if (e.startPlot) { const p = pid(e.startPlot); if (p && !plotOf(s, p) && s.people[p].status !== "held" && alive(s.people[p])) startPlot(s, s.people[p], reason); }
     else if (e.plotBonus) for (const pl of s.plots) pl.bonus += e.plotBonus;
     else if (e.office) {
       const to = e.to === "you" ? PLAYER : pid(e.to);
