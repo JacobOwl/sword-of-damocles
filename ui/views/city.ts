@@ -24,7 +24,7 @@ function seatsBlock(g: GameState) {
       const r = race(g, id);
       const lead = r?.challenger && r.holder ? (r.challenger.score > r.holder.score ? `${r.challenger.id === PLAYER ? "you lead" : `${who(r.challenger.id)} leads`}` : r.challenger.score === r.holder.score ? `${r.challenger.id === PLAYER ? "you are" : who(r.challenger.id) + " is"} level with the holder, who keeps it on a tie` : `the holder leads${r.challenger.id === PLAYER ? " you" : ` ${who(r.challenger.id)}`}`) : r?.challenger ? `${r.challenger.id === PLAYER ? "you would" : who(r.challenger.id) + " would"} take it` : "no one stands";
       how = `<div class="small muted">Voted each spring: ${lead}.</div>`;
-    } else if (!unbuilt) how = `<div class="small muted">${d.tier === "hard" ? "Changes only by force, arrest or betrayal." : "Granted by whoever rules."}</div>`;
+    } // otherwise how it changes hands is in the seat's tooltip (suggestion 5: state on the board, rules one look away)
     return `<dt><span class="tipped" data-tip="office" data-tip-text="${esc(`${d.power} ${d.changes}`)}" tabindex="0">${icon(SEAT_ICON[id])}${esc(d.title)}</span></dt><dd>${holder}${did}${how}</dd>`;
   }).join("");
   const risen = others(g).filter((p) => p.status !== "dead" && p.status !== "absent" && standingOf(g, p.id) >= 2).sort((a, c) => standingOf(g, c.id) - standingOf(g, a.id));
@@ -87,11 +87,15 @@ function faction(g: GameState, f: FactionId) {
     <div class="fhead"><h3>${icon(FACTION_ICON[f], `f-${f}`)}${esc(fa.name)}</h3><span><span class="num">${pow}</span> <span class="band ${b} tipped" ${tipAttr("power")}>${b}</span></span></div>
     <div class="powerbar" aria-hidden="true">${bar}</div>
     <div class="small">Mood ${moodTrack(fa.mood)}${fa.backing ? ` · <span class="warn">backs a plot</span>` : ""}</div>
-    <div class="small ${fa.mood <= 1 ? "warn" : "muted"}">Angry or worse backs plots.${lead ? ` <span class="lead-line">Led by ${who(lead.id)}.</span>` : ""}</div>
-    <div class="small">Wants: ${esc(goal)}</div>
-    <div class="small">Agenda: <i class="tipped" ${tipAttr("agenda")} data-tip-text="${esc(`${ag.name}. Steps: ${ag.steps.join(", ")}. When complete: ${ag.completes} It moves a step when its roll succeeds, whether or not you act. Working against the faction slows it.`)}">${esc(ag.name)}</i>${fa.agenda.done ? ` <span class="muted">(${esc(fa.agenda.result ?? "done")})</span>` : `, step ${fa.agenda.step} of ${ag.steps.length}${ag.steps[fa.agenda.step] ? `; next: ${esc(ag.steps[fa.agenda.step].toLowerCase())}` : ""}`}</div>
-    <div class="steps" aria-hidden="true">${ag.steps.map((st, i) => `<span class="${i < fa.agenda.step || fa.agenda.done ? "done" : ""} ${i === fa.agenda.step && !fa.agenda.done ? "next" : ""}">${esc(st)}</span>`).join("")}</div>
-    ${fa.agenda.done ? "" : `<div class="small${fa.agenda.step >= ag.steps.length - 1 ? " warn" : " muted"}">When done: ${esc(ag.completes)}</div>
-    <div class="small muted">Slowed by: ${esc(slowedBy(g, f, ag.againstRuler === true))}.</div>`}
+    ${lead ? `<div class="small lead-line">Led by ${who(lead.id)}.</div>` : ""}
+    <div class="small">Agenda: <i class="tipped" ${tipAttr("agenda")} data-tip-text="${esc(`${ag.name}. Steps: ${ag.steps.join(", ")}. When complete: ${ag.completes} It moves a step when its roll succeeds, whether or not you act. Working against the faction slows it.`)}">${esc(ag.name)}</i>${fa.agenda.done ? ` <span class="muted">(${esc(fa.agenda.result ?? "done")})</span>` : ` <span class="dots" aria-label="step ${fa.agenda.step} of ${ag.steps.length}">${ag.steps.map((_, i) => `<i class="${i < fa.agenda.step ? "on" : ""}${i === fa.agenda.step ? " next" : ""}"></i>`).join("")}</span> <span class="muted">step ${fa.agenda.step} of ${ag.steps.length}</span>`}</div>
+    ${!fa.agenda.done && fa.agenda.step >= ag.steps.length - 1 ? `<div class="small warn">One step left. When done: ${esc(ag.completes)}</div>` : ""}
+    <details class="fmore"><summary class="small muted">What they want, and how to slow them</summary>
+      <div class="small ${fa.mood <= 1 ? "warn" : "muted"}">Angry or worse backs plots.</div>
+      <div class="small">Wants: ${esc(goal)}</div>
+      <div class="steps" aria-hidden="true">${ag.steps.map((st, i) => `<span class="${i < fa.agenda.step || fa.agenda.done ? "done" : ""} ${i === fa.agenda.step && !fa.agenda.done ? "next" : ""}">${esc(st)}</span>`).join("")}</div>
+      ${fa.agenda.done ? "" : `<div class="small muted">Next: ${esc((ag.steps[fa.agenda.step] ?? "").toLowerCase())}. When done: ${esc(ag.completes)}</div>
+      <div class="small muted">Slowed by: ${esc(slowedBy(g, f, ag.againstRuler === true))}.</div>`}
+    </details>
   </div>`;
 }

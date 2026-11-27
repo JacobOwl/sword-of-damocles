@@ -19,7 +19,7 @@ export function councilBlock(g: GameState): string {
   const seats = seated(g);
   if (!seats.length) return `<div class="council"><h2>Your council</h2><p class="small muted">Every seat at your table is empty. Seat a counsellor from the Court actions.</p></div>`;
   return `<div class="council"><h2>Your council</h2>
-    <p class="small muted">They speak before each action you open. A man who plots against you, wants your place or hates you says what serves him. Watch a man they accuse to see who told the truth.</p>
+    <p class="small muted"><span class="rule-tip tipped" data-tip="rule" tabindex="0" data-tip-text="They speak before each action you open. A man who plots against you, wants your place or hates you says what serves him. Watch a man they accuse to see who told the truth.">How counsel works</span></p>
     ${seats.map(({ seat, who: id, census }) => {
       const line = c.brief.find((l) => l.who === id);
       const doubts = c.doubts[id] ?? 0, right = c.right[id] ?? 0;

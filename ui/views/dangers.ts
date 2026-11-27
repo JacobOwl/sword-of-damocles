@@ -39,8 +39,24 @@ function plotTitle(g: GameState, pl: Plot, nth = 0) {
   return nth ? `A ${ORD[nth] ?? "further"} plot, source unknown` : "A plot, source unknown";
 }
 
+// Plots at Whispers that you know nothing else about read as one card (suggestion 8): "Two plots at Whispers".
+const NUM = ["", "One", "Two", "Three", "Four", "Five", "Six"];
+function quietCard(g: GameState, qs: Plot[]) {
+  const track = ["Whispers", "Rumors", "Named", "Strike"].map((n, i) => `<span class="${i < 1 ? "done" : ""} ${i === 1 ? "next" : ""}">${n}</span>`).join("");
+  const when = [...new Set(qs.map((q) => seasonName(q.started)))];
+  return `<div class="plot plot-s1">
+    <div class="fhead"><b>${NUM[qs.length] ?? qs.length} plots, source unknown</b><span class="stage stage-1 tipped" ${tipAttr("stage")}>${stageName(1)}</span></div>
+    <div class="plottrack" aria-label="Warnings passed: 1 of 3">${track}</div>
+    <div class="small">Something is off, in more than one place. You don't know who. First warned ${esc(when.join(" and "))}.</div>
+    <div class="small muted">Their strength is unknown. Turn an informer inside one to learn it.</div>
+    <div class="small">Earliest blow: 3 seasons from now, if they keep growing.</div>
+  </div>`;
+}
+
 function plots(g: GameState) {
-  const ps = g.plots.filter((p) => ui.designer || p.stage >= 1);
+  const all = g.plots.filter((p) => ui.designer || p.stage >= 1);
+  const quiet = ui.designer ? [] : all.filter((p) => p.stage === 1 && !p.heard?.length && !p.informer && !p.known.length);
+  const ps = quiet.length >= 2 ? all.filter((p) => !quiet.includes(p)) : all;
   const def = defense(g).total;
   let unknown = 0;
   const body = ps.length ? ps.map((pl) => {
@@ -64,8 +80,8 @@ function plots(g: GameState) {
       ${knownBtns}${pl.heard?.length ? `<div class="small"><span class="label">What you have heard</span><ul class="heard">${pl.heard.map((h) => `<li>${linkNames(h)}</li>`).join("")}</ul></div>` : ""}${meter}
       <div class="small">${when}</div>
     </div>`;
-  }).join("") : `<p class="small muted">No warnings. That you know of.</p>`;
-  const advice = ps.length ? `<p class="small muted">What you can do: <b>Watch</b> a suspect to see whether he is in it. <b>Turn an informer</b> to learn its size. <b>Imprison</b> a named plotter to take him out. Keep the guard paid: it is most of your defense.${switchOn(g, "partialBlows") ? ` A blow that beats your defense by ${partialKnobs().wound} or less only wounds you; by ${partialKnobs().seize} or less it costs you an office; it must beat it by ${partialKnobs().seize + 1} or more to kill you.` : ""}</p>` : "";
+  }).join("") + (quiet.length >= 2 ? quietCard(g, quiet) : "") : quiet.length >= 2 ? quietCard(g, quiet) : `<p class="small muted">No warnings. That you know of.</p>`;
+  const advice = all.length ? `<details class="howto small muted"><summary>What you can do</summary> <b>Watch</b> a suspect to see whether he is in it. <b>Turn an informer</b> to learn its size. <b>Imprison</b> a named plotter to take him out. Keep the guard paid: it is most of your defense.${switchOn(g, "partialBlows") ? ` A blow that beats your defense by ${partialKnobs().wound} or less only wounds you; by ${partialKnobs().seize} or less it costs you an office; it must beat it by ${partialKnobs().seize + 1} or more to kill you.` : ""}</details>` : "";
   return `<div><h2>Dangers: plots against you</h2>${body}${advice}</div>`;
 }
 
@@ -77,7 +93,7 @@ function quarrels(g: GameState) {
     ? qs.map((q) => `<div class="small${q.due <= g.season ? " warn" : ""}">${linkNames(quarrelLine(g, q))}</div>`).join("")
     : `<p class="small muted">No quarrel is sworn before the assembly.</p>`;
   return `<div><h2>Quarrels sworn</h2>${body}
-    <p class="small muted">A quarrel is fought by accusation in the assembly. The accused man's faction and any faction Angry with you stand with him; any faction Content or better stands with you. Give a man what he swore to take, or a gift of 3 silver if he swore to shame you, and his quarrel ends.</p></div>`;
+    <details class="howto small muted"><summary>How quarrels work</summary>A quarrel is fought by accusation in the assembly. The accused man's faction and any faction Angry with you stand with him; any faction Content or better stands with you. Give a man what he swore to take, or a gift of 3 silver if he swore to shame you, and his quarrel ends.</details></div>`;
 }
 
 // What a rival's influence means for you, in words (Jacob: "starting to match me in inlfence (not sure what that means)").
@@ -111,7 +127,7 @@ function rivals(g: GameState) {
   }).join("") : `<p class="small muted">No one has sworn against you, and no one is climbing toward your place. Yet.</p>`;
   return `<div><h2>Rivals</h2>${body}
     ${waiting.length ? `<p class="small muted">Waiting in the wings: ${waiting.map((w) => who(w)).join(", ")}.</p>` : ""}
-    <p class="small muted"><span class="tipped" ${tipAttr("enemy")}>Enemies</span> are made by wounds and want you dead (at most ${DATA.maxEnemies}). <span class="tipped" ${tipAttr("political")}>Political rivals</span> are made by ambition and want your place (at most ${DATA.maxPolitical}).</p></div>`;
+    <details class="howto small muted"><summary>Enemies and rivals</summary><span class="tipped" ${tipAttr("enemy")}>Enemies</span> are made by wounds and want you dead (at most ${DATA.maxEnemies}). <span class="tipped" ${tipAttr("political")}>Political rivals</span> are made by ambition and want your place (at most ${DATA.maxPolitical}).</details></div>`;
 }
 
 // Who is who: the people who matter this season first, marked with why (Jacob's first test: "Too many people all
