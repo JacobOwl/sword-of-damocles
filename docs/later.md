@@ -90,3 +90,11 @@ New ideas land here, not in the build. Tag each with the phase it might belong t
 - [Phase 2, art] Four library scenes wait for an event (poison, beacon, Arethusa, eagle). City coin types in `assets/library/made/coins/` could go on the town sheets once each type is checked against a saved source (thread 40).
 - [Whenever, art] 32 real pictures (the dekadrachms of Kimon and Euainetos, the Met's Sword of Damocles drawing, Westall's Damocles, Hackert's Ear of Dionysius and more) are listed but not downloaded: Wikimedia is blocked from the cloud. On Jacob's PC: `node assets/library/tools/fetch-real.mjs`, then `node assets/library/tools/build-catalog.mjs`.
 - [Phase 2, art] Duet's mosaic looks for Dion, Aristides of Locri and Magon's son (`docs/drafts/portraits/`) go in when those people join the game (they are only in the draft rising cast).
+
+## From the season-screen layout pass (thread 44, 2026-11-27)
+- Short personal names first for titled rivals ("the leader of the exiles at Aetna"), title second. Needs invented names marked `invention`; a content call for Jacob. (AI testers' suggestion 10.)
+- Introduce systems over the first year (court and matters first, the island and Carthage pointed to when they first matter). Changes the opening; Jacob's call. (Suggestion 16.)
+- Ledger strip from eight numbers to five. Not done because Jacob reads the ledger. (Suggestion 12.)
+- Numbers out of story sentences ("power +1 (now 6, Active)"); the news is folded now, so this matters less. (Suggestion 15.)
+- The actions list is about 30 buttons; group or fold by area if it still feels long after test 4.
+

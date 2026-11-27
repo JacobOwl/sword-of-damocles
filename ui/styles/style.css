@@ -109,6 +109,7 @@ select, input { font-family: var(--body); font-size: 1rem; color: var(--ink); ba
 .area > .label { display: block; border-bottom: 1px dotted var(--rule); margin-bottom: 2px; }
 .act { display: flex; justify-content: space-between; gap: 10px; width: 100%; text-align: left; border: 0; border-radius: 0; padding: 3px 4px; font-family: var(--body); }
 .act .c { color: var(--muted); font-size: .85rem; white-space: nowrap; }
+@media (max-width: 700px) { .act .c { white-space: normal; text-align: right; max-width: 55%; } }
 .act.open { background: var(--panel); }
 .act.off { opacity: .5; }
 .panel { background: var(--panel); padding: 8px 10px 10px; margin-bottom: 6px; display: flex; flex-direction: column; gap: 6px; }
@@ -484,3 +485,17 @@ table.cities tr.on { background: rgba(176, 140, 60, .12); }
 .plate .token.plus { color: var(--olive); border-color: var(--olive); }
 .plate .token.minus { color: var(--blood); border-color: var(--blood); }
 .plate .die { display: inline-block; width: 16px; height: 16px; border: 1.5px solid var(--ink); border-radius: 3px; margin-left: 8px; vertical-align: -3px; background: var(--page); }
+/* Season screen layout (AI testers' first impressions): the news folds below the turn, rules sit one look away. */
+details.news { margin-top: 18px; border-top: 1px solid var(--rule); padding-top: 8px; }
+details.news > summary, details.fmore > summary, details.howto > summary, details.src > summary, details.guide > summary { cursor: pointer; }
+details.news[open] > summary { margin-bottom: 6px; }
+.rule-tip { border-bottom: 1px dotted var(--muted); cursor: help; }
+details.src { margin: 2px 0 6px; } details.src > summary { display: inline; }
+details.fmore { margin-top: 3px; } details.fmore[open] { padding-bottom: 4px; }
+details.howto { margin: 6px 0; }
+details.guide > summary .label { font-size: 1rem; }
+details.guide > summary #guide-done { margin-left: 8px; }
+.dots { display: inline-flex; gap: 3px; vertical-align: middle; margin-left: 4px; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--muted); display: inline-block; }
+.dots i.on { background: var(--accent); border-color: var(--accent); }
+.dots i.next { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }

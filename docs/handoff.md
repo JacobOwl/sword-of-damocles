@@ -2,6 +2,20 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## The season screen, simplified (thread 44, 2026-11-27)
+**Built.** Jacob: "incorporate layout suggestions as you see fit before my test" (the 17 from `docs/playtests/2026-11-26-ai-first-impressions/findings.md`). Display only: no rule, data or log change.
+- **Order:** what changed, the war strip, then Matters, Petitions, your council, Your actions. The season's full news ("Everything that happened", with "What shifted") folds at the foot of the column, closed. "How last season ended" moved below the actions.
+- **Rules one look away:** the paragraphs over matters, petitions, actions and the council are "How this works" tooltips; each matter's source line is a "From the sources" fold; die and modifiers in a matter's choice show on hover (the chance stays).
+- **City column:** each faction shows power, mood track, leader and the agenda as dots ("step 2 of 4"); wants, step names, when done and what slows it fold under "What they want, and how to slow them". A faction one step from done shows a warning line. Seats lose the "Granted by whoever rules" line (it is in the seat's tooltip); voted seats keep their race line.
+- **Dangers:** two or more Whispers plots you know nothing about read as one card ("Two plots, source unknown"); "What you can do", how quarrels work, and enemies and rivals are folds.
+- **First-season box:** at the top, says matters come first and the news is folded. Title screen: "Rules on" moved inside each setup's "What to watch for" fold.
+- **Phone:** a long action cost ("Swear a quarrel") pushed the page 58 pixels wider than a phone screen; it now wraps.
+- **Counts,** Near-war test, seed 4242, desktop: first season 2,393 words to 1,528 (season column 1,263 to 843; city 533 to 268; dangers 347 to 167), page 5,154 to 4,156 pixels tall. Third season 2,691 to 1,770. Buttons unchanged (119).
+- **Already done before this thread:** unavailable actions folded (4), dice lines hidden (3), harvest lines merged (3), Who matters (9), mood track and agenda slowing (17), "See Dangers" label (7).
+- **Not built, parked in `docs/later.md`:** short personal names for titled rivals (10: needs invented names, a content call), systems introduced over the first year (16: changes the opening, Jacob's call), a smaller ledger (12: Jacob reads the ledger), numbers out of story sentences (15).
+- **Checks:** `npm test` 201 of 201; typecheck clean; 100 seeds 0 crashes, 0 broken states, 17 tyrannies (same as before); UI walk 115 snapshots, 0 page errors.
+- **Questions for Jacob:** after test 4, is the folded news missed? Is the actions list (about 30 buttons) the next thing to shrink?
+
 ## Portraits and more art (thread 40, part 2, 2026-11-27)
 **Built.** Jacob: "Why not add portraits and art".
 - **Carthage's council has mosaic faces**: Duet's draft looks (PR #95) for Himilcon, Magon, Hanno the elder and Bomilcar, now `ui/art/carthage-looks.json` and `ui/art/portraits/<id>.webp`. Drawn in a real browser with the mosaic editor's own code; a check re-drew Dionysius byte for byte the same as his file. They replace the flat medallions shown in part 1 (those stay in the library). The test now wants a portrait for every Syracusan and every man of Carthage's council.

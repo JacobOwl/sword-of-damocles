@@ -18,16 +18,24 @@ import { dinnerPanel, dinnerHandlers } from "./dinner.ts";
 export function seasonCol(g: GameState) {
   const season = g.over ? g.over.season : g.season;
   const f = seasonFeed(g, season);
+  // "Needs you" first (AI testers' first impressions, suggestion 1): what changed, then the matters, petitions and
+  // actions that make the turn; the season's full news folds below for whoever wants it (Jacob reads the structured
+  // parts and skips the news). Nothing is cut: every line is one click away.
+  const n = f.count;
+  const news = f.empty ? "" : `<details class="news"${g.over ? " open" : ""}><summary><span class="label">Everything that happened in ${esc(seasonName(season))}</span> <span class="small muted">${n} line${n === 1 ? "" : "s"}</span></summary>${f.groups}${f.shifts}</details>`;
   return `${!guideDone() && !g.over ? guide() : ""}
     ${changedBlock(g)}
     ${warStrip(g)}
-    ${lastSeasonSummary(g)}
-    <div><h2>${esc(seasonName(season))}</h2>${f.empty ? `<p class="muted">Nothing has happened yet.</p>` : f.groups + f.shifts}</div>
-    ${councilBlock(g)}
     ${matters(g)}
     ${requests(g)}
-    ${g.over ? "" : actions(g)}`;
+    ${councilBlock(g)}
+    ${g.over ? "" : actions(g)}
+    ${lastSeasonSummary(g)}
+    ${news}`;
 }
+
+// A short rule line, shown in full only on hover or focus, so the rules stay one look away and off the page.
+const ruleTip = (text: string) => `<span class="rule-tip tipped" data-tip="rule" tabindex="0" data-tip-text="${esc(text)}">How this works</span>`;
 
 // What your last action, answer or grant did, shown where you made it (Jacob, first test: "hard to tell if a
 // 'sieze propety works'"). The same log lines as the season's news, read from the one action log.
@@ -47,17 +55,17 @@ function matters(g: GameState) {
   const evs = g.over ? [] : openEvents(g);
   if (!evs.length) return resultBox(g, "matters") ? `<div><h2>Matters before you</h2>${resultBox(g, "matters")}</div>` : "";
   return `<div><h2>Matters before you</h2>${resultBox(g, "matters")}
-    <p class="small muted">Answering costs no action unless it says so. If you end the season without answering, the choice marked “if you give no answer” is taken.</p>
+    <p class="small muted">${ruleTip("Answering costs no action unless it says so. If you end the season without answering, the choice marked “if you give no answer” is taken.")}</p>
     ${evs.map((ev) => `<div class="matter ${(ev.def as { art?: string }).art ? "" : "no-art"}">
       ${vignette((ev.def as { art?: string }).art, `Picture for ${ev.title}`)}
       <h3>${esc(ev.title)}</h3>
       <p>${linkNames(ev.text)}</p>
-      ${ev.def.kind === "history" ? `<p class="small muted">From the sources: ${esc(ev.def.source)}. What follows from your choice is the game's.</p>` : ""}
+      ${ev.def.kind === "history" ? `<details class="src small muted"><summary>From the sources</summary>${esc(ev.def.source)}. What follows from your choice is the game's.</details>` : ""}
       <div class="choices">${ev.choices.map((c) => {
         const bits = [...(c.cost.length ? [`Costs ${c.cost.join(", ")}.`] : [])];
         if (c.effects.length) bits.push(`${c.effects.join(". ")}.`);
         let odds = "";
-        if (c.roll) odds = `Needs <span class="need">${c.roll.need}+</span> on one die${c.roll.mods.length ? `, with ${c.roll.mods.map((m) => `${esc(m.label)} ${sign(m.value)}`).join(", ")}` : ""}. Chance <span class="chance">${Math.round(c.roll.chance * 100)}%</span>.${c.roll.success.length ? ` If it works: ${esc(c.roll.success.join(". "))}.` : ""}${c.roll.failure.length ? ` If not: ${esc(c.roll.failure.join(". "))}.` : ""}`;
+        if (c.roll) odds = `<span class="tipped" data-tip="roll" tabindex="0" data-tip-text="${esc(`Needs ${c.roll.need}+ on one die${c.roll.mods.length ? `, with ${c.roll.mods.map((m) => `${m.label} ${sign(m.value)}`).join(", ")}` : ""}.`)}">Chance <span class="chance">${Math.round(c.roll.chance * 100)}%</span>.</span>${c.roll.success.length ? ` If it works: ${esc(c.roll.success.join(". "))}.` : ""}${c.roll.failure.length ? ` If not: ${esc(c.roll.failure.join(". "))}.` : ""}`;
         return `<div class="choice"><button data-choose="${esc(ev.inst.uid)}" data-choice="${esc(c.id)}" ${c.blocked ? "disabled" : ""}>${esc(c.label)}</button>
           <span class="small">${esc(bits.join(" "))}${odds ? ` ${odds}` : ""}${c.blocked ? ` <span class="muted">(${esc(c.blocked)})</span>` : ""}${c.isDefault ? ` <span class="tag">if you give no answer</span>` : ""}</span></div>`;
       }).join("")}</div>
@@ -68,7 +76,7 @@ function requests(g: GameState) {
   if (g.over) return "";
   if (!g.requests.length) return resultBox(g, "requests") ? `<div><h2>Petitions to you</h2>${resultBox(g, "requests")}</div>` : "";
   return `<div><h2>Petitions to you</h2>${resultBox(g, "requests")}
-    <p class="small muted">Granting uses an action. Refusing in public costs a petitioner influence and opinion; a second refusal makes an enemy. Petitions left unanswered are refused when the season ends.</p>
+    <p class="small muted">${ruleTip("Granting uses an action. Refusing in public costs a petitioner influence and opinion; a second refusal makes an enemy. Petitions left unanswered are refused when the season ends.")}</p>
     ${g.requests.map((r) => {
       const p = g.people[r.from];
       const P = pr(p.id);
@@ -105,7 +113,7 @@ function actions(g: GameState) {
   const items = menu(g);
   const areas = DATA.areas.filter((a) => items.some((i) => i.area === a));
   return `<div id="actions"><h2>Your actions</h2>${resultBox(g, "actions")}
-    <p class="small muted">Open an action to see its target, cost and odds before you commit. A roll is one die plus modifiers; 4 or more succeeds.</p>
+    <p class="small muted">Open one to see its target, cost and odds before you commit. ${ruleTip("A roll is one die plus modifiers; 4 or more succeeds.")}</p>
     ${areas.filter((area) => items.some((i) => i.area === area && !i.blocked)).map((area) => `<div class="area"><span class="label">${icon(AREA_ICON[area] ?? "")}${esc(area)}</span>
       ${items.filter((i) => i.area === area && !i.blocked).map((i) => `
         <button class="act ${ui.openAction === i.id ? "open" : ""} ${i.blocked ? "off" : ""}" data-act="${i.id}" aria-expanded="${ui.openAction === i.id}">

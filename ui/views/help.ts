@@ -75,30 +75,32 @@ const key = () => (ui.s?.island ? ISLAND_KEY : GUIDE_KEY);
 export function guideDone() { try { return localStorage.getItem(key()) === "1"; } catch { return false; } }
 export function setGuideDone(v: boolean) { try { if (v) localStorage.setItem(key(), "1"); else localStorage.removeItem(key()); } catch { /* storage may be blocked */ } }
 
-export function guide() {
+// Folded to one line once dismissed, so it never sits in the way of the turn (AI testers' suggestion 6).
+export function guide(open = true) {
   const g = ui.s;
-  if (g?.island) return `<aside class="guide" aria-label="Your first season on the island">
-    <div class="fhead"><h2>Your first season</h2><button type="button" id="guide-done">Got it</button></div>
+  const head = (t: string) => `<summary><span class="label">${t}</span>${open ? ` <button type="button" id="guide-done">Got it</button>` : ` <span class="small muted">open for the six steps</span>`}</summary>`;
+  if (g?.island) return `<details class="guide" aria-label="Your first season on the island"${open ? " open" : ""}>
+    ${head("Your first season")}
     <ol>
-      <li><b>Read what happened.</b> The people, the factions, the towns and Carthage have already moved. Each move below gives its reason.</li>
+      <li><b>Answer what needs you.</b> Matters and petitions come first. The people, the factions, the towns and Carthage have already moved; their moves, each with its reason, are folded at the foot of the page.</li>
       <li><b>Take three actions.</b> Open one to see its target, its cost and your exact odds before you commit. The army is an action too: muster it, send it, storm a wall.</li>
       <li><b>Watch the sword.</b> The sword over the title hangs lower as a plot you know of ripens. Plots warn you three times (Whispers, Rumors, Named) and grow from what you do to people. The Dangers column says who and why.</li>
       <li><b>Look at the map.</b> The island tab shows the eight cities, who holds each, every army, and what Carthage wants now. Carthage's anger, in the ledger, is what its council reads when it chooses war.</li>
       <li><b>Mind the moods.</b> Each faction runs from Rebellious to Loyal. ${knobsFor(g.tuning).contentFactionsStall ? "A faction that is Content or Loyal holds back its agenda against you; neglect it and the agenda marches on." : "An angry faction feeds plots."}</li>
       <li><b>Click any name</b> to see what that person thinks of you and why. Then <b>end the season</b>.</li>
     </ol>
-  </aside>`;
-  return `<aside class="guide" aria-label="How a season works">
-    <div class="fhead"><h2>How a season works</h2><button type="button" id="guide-done">Got it</button></div>
+  </details>`;
+  return `<details class="guide" aria-label="How a season works"${open ? " open" : ""}>
+    ${head("How a season works")}
     <ol>
-      <li><b>Read what happened.</b> The people and factions of Syracuse have already moved this season. Their moves are listed under this season, each with its reason.</li>
+      <li><b>Answer what needs you.</b> Matters and petitions come first. The people and factions have already moved; their moves, each with its reason, are folded at the foot of the page.</li>
       <li><b>Answer the petitions.</b> Granting one uses an action. Refusing in public costs you their goodwill, and a second refusal makes an enemy.</li>
       <li><b>Take up to three actions.</b> Open one to see its target, its cost and your exact odds before you commit.</li>
       <li><b>Watch the dangers</b> (the right-hand column, or the Dangers tab on a phone). Plots warn you three times before they strike: Whispers, Rumors, Named. Rivals grow out of what you do to people.</li>
       <li><b>Click any name</b> to open that person's sheet: what they think of you and why, their traits, their family, and what you can do to them.</li>
       <li><b>End the season</b> when you are done. Hold Syracuse until the summer of 395.</li>
     </ol>
-  </aside>`;
+  </details>`;
 }
 
 // ---------- How to play ----------

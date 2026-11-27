@@ -555,3 +555,9 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Done (Jacob: "Why not add portraits and art"):** Carthage's council gets Duet's mosaic faces (PR #95 looks, `ui/art/carthage-looks.json`), season cards a season picture, two war events their own picture.
 - **Decided (small, here):** mosaics, not the flat medallions, for Carthage's men, because every face in the game is a mosaic coin; this settles part 1's open question. Carthage's looks live in their own file so the 24-person cast file and the census faces are untouched. Duet's suggested fixes to the existing 24 are listed for Jacob, not made (his taste).
 - **Decided (delegated small taste call, thread 40):** four looks changed in `ui/art/portrait-looks.json`: Dionysius' cloak gold (purple is Carthage's colour), Thearides black-haired like his brothers, Daphnaeus in a general's helmet, Demarchus white-haired. Invention, as before.
+
+## 2026-11-27 (season screen layout, thread 44)
+- **Done:** built the AI testers' layout suggestions that still applied (1, 2, 5, 6, 8, 11, 13, 14 and the rest of 3), display only, before Jacob's test 4. First season on the Near-war test: about 2,390 words to about 1,530. Details in `docs/handoff.md`.
+- **Decided (delegated, "as you see fit"):** the news folds closed under the turn instead of leading it, since Jacob reads the structured parts. Every line is still one click away.
+- **Open:** 10, 12, 15, 16 parked in `docs/later.md`.
+

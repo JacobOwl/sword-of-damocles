@@ -25,11 +25,11 @@ function presetCard(p: PresetDef, checked: boolean) {
   return `<label class="setup">
       <input type="radio" name="setup" value="${esc(p.id)}"${checked ? " checked" : ""}>
       <span><b>${esc(p.name)}</b>${p.recommended ? ` <span class="tag rec">recommended</span>` : ""}
-      <span class="small">${esc(p.summary)}</span>
-      <span class="small muted">Rules on: ${esc(presetRules(p))}</span></span>
+      <span class="small">${esc(p.summary)}</span></span>
     </label>
     ${ex.length ? `<div class="setup-extra">${ex.map((w) => `<p class="small"><label><input type="checkbox" class="extra" value="${esc(w.id)}"${workshopIds().includes(w.id) ? " checked" : ""}> <span class="tag new">new</span> <b>${esc(w.name)}.</b> ${esc(w.summary)}</label></p>`).join("")}</div>` : ""}
-    <details class="watch"><summary class="small">What to watch for</summary>
+    <details class="watch"><summary class="small">What to watch for, and the rules on</summary>
+      <p class="small muted">Rules on: ${esc(presetRules(p))}</p>
       <ul class="small">${p.watch.map((w) => `<li>${esc(w)}</li>`).join("")}</ul>
       <p class="small muted">${p.checkIns?.length ? `At seasons ${p.checkIns.join(" and ")} the game checks in with two short questions. ` : ""}At the end of season ${p.verdictSeason} the game asks for your verdict. Your answers stay in the game, and "Copy my game" at the foot of the page copies them with your moves.</p>
     </details>`;

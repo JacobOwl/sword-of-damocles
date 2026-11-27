@@ -79,15 +79,17 @@ export function seasonFeed(s: GameState, season: number, steps = STEPS.map((x) =
   // dice lines go to Designer view (the sentence beside them already says what happened).
   const open = s.over ? [] : openEvents(s).map((ev) => ev.text.slice(0, 60));
   const shown = (e: LogEntry) => (ui.designer || e.kind !== "roll") && !(e.kind === "event" && open.some((t) => e.text.startsWith(t)));
+  let count = 0;
   const groups = STEPS.filter(([k]) => steps.includes(k)).map(([k, t]) => {
     const evs = es.filter((e) => e.step === k && e.kind !== "change" && shown(e));
     if (!evs.length) return "";
+    count += evs.length;
     return `<div class="feedgroup"><span class="label">${t}</span><div class="feed">${evs.map(line).join("")}</div></div>`;
   }).join("");
   const sh = shifts(es);
-  const shiftHtml = sh.people.length || sh.stores.length ? `<details class="shifts" open><summary class="label">What shifted (${sh.people.length + sh.stores.length})</summary>
+  const shiftHtml = sh.people.length || sh.stores.length ? `<details class="shifts"><summary class="label">What shifted (${sh.people.length + sh.stores.length})</summary>
     <ul>${shiftList(sh.people)}${shiftList(sh.stores)}</ul></details>` : "";
-  return { groups, shifts: shiftHtml, empty: !groups && !shiftHtml };
+  return { groups, shifts: shiftHtml, empty: !groups && !shiftHtml, count };
 }
 
 // ---------- The chronicle ----------
