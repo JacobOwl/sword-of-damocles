@@ -1,0 +1,61 @@
+{
+  "kind": "invention",
+  "note": "Switch \"fleets\" (test 5, docs/council/2026-11-27-units-ground-navy.md Part 3, thread 47). Each side has one named fleet counted in squadrons, sound or damaged; one order a season; the crossing; the blockade; the sea threat that holds the army home; one sea-battle scene; the admiral as a rival; who rows. The pattern is from Diodorus 14 (quoted in the council file and in docs/research/big-scenes-history.md); every number here is invention.",
+  "knobs": {
+    "start": 4,
+    "buildCost": 2,
+    "max": 8,
+    "great": 3,
+    "mendCost": 1,
+    "watchNeed": 5,
+    "laneNeed": 4,
+    "carryPer": 2,
+    "threatMin": 2,
+    "threatNeed": 4,
+    "raidGrain": 2,
+    "blockadeMin": 2,
+    "mercPay": 2,
+    "freedAdd": 2,
+    "traitCap": 2,
+    "chaseNeed": 4,
+    "fightOnNeed": 5,
+    "rashDisobeys": 2
+  },
+  "orders": [
+    { "id": "watch", "kind": "invention", "name": "Watch the crossing", "text": "Lie in wait for Carthage's transports and convoys at sea.", "source": "Leptines ordered \"to lie in wait\" (Diodorus 14.53.5)" },
+    { "id": "escort", "kind": "invention", "name": "Escort the grain", "text": "Guard your own grain ships; the fleet brings grain each autumn.", "source": "the escort of provisions (Diodorus 14.64.1)" },
+    { "id": "blockade", "kind": "invention", "name": "Blockade", "text": "Close the sea to a port your army besieges, so it gets no grain by ship.", "source": "Motya cut off from the sea, 397 (Diodorus 14.48-49)" },
+    { "id": "carry", "kind": "invention", "name": "Carry the army", "text": "Carry your army from port to port in one season. An enemy fleet watching the lane may bring on a battle at sea first.", "source": "the army on the shore as the fleet's refuge (Diodorus 14.59.6)" },
+    { "id": "home", "kind": "invention", "name": "Stay in harbour", "text": "Keep the ships in the Great Harbour and do nothing at sea.", "source": "invention" }
+  ],
+  "rowers": [
+    { "id": "citizens", "kind": "history", "card": "docs/research/navy-397-396.md", "name": "Citizens", "text": "Free, but the citizens are armed and bolder: a victory won without you makes them bolder against you.", "source": "Diodorus 14.43.4, 14.64.4; Aristotle, Politics 5.1304a (of Athens)" },
+    { "id": "mercs", "kind": "invention", "name": "Hired rowers", "text": "One silver a season for every two squadrons. Unpaid, a squadron deserts.", "source": "invention, after Republic of Rome's fleet upkeep" },
+    { "id": "freed", "kind": "history", "card": "docs/research/navy-397-396.md", "name": "Freed slaves", "text": "Two more squadrons at once, an emergency measure. The rich families resent losing their slaves.", "source": "Diodorus 14.58.1 (the anger of the rich is invention)" }
+  ],
+  "plans": [
+    { "id": "close", "kind": "history", "card": "docs/research/navy-397-396.md", "label": "Close order", "note": "Keep the line. A loss by 1 becomes a draw.", "source": "Dionysius ordered Leptines \"to engage with his ships in close order, and not to break his line\" (Diodorus 14.59.7)" },
+    { "id": "strike", "kind": "history", "card": "docs/research/navy-397-396.md", "label": "Strike ahead", "note": "+1, but a loss becomes a rout: twice the ships lost.", "source": "Leptines went ahead \"in no cowardly fashion, but without prudence\" (Diodorus 14.60.2)" }
+  ],
+  "rash": {
+    "kind": "history",
+    "text": "{admiral} wants to strike ahead with the best of the ships.",
+    "why": "he is bold, as Leptines was at Catana in 396",
+    "source": "Diodorus 14.60.2",
+    "options": [
+      { "id": "strike", "kind": "invention", "label": "Let him go", "note": "+1, but a loss becomes a rout." },
+      { "id": "close", "kind": "invention", "label": "Hold him to close order", "note": "A loss by 1 becomes a draw. He may go ahead anyway (1 or 2 on a die)." }
+    ]
+  },
+  "after": {
+    "won": [
+      { "id": "chase", "kind": "invention", "label": "Chase them", "note": "4 or more on a die: one more of their squadrons taken. Less: one of yours is damaged." },
+      { "id": "home", "kind": "invention", "label": "Row home with the prizes", "note": "Take what you won and go." }
+    ],
+    "lost": [
+      { "id": "fight", "kind": "invention", "label": "Fight on", "note": "5 or more on a die: you save one squadron. Less: you lose one more." },
+      { "id": "home", "kind": "invention", "label": "Break off and row for home", "note": "Lose nothing more." }
+    ]
+  },
+  "names": { "syracuse": "the fleet of Syracuse", "carthage": "the fleet of Carthage" }
+}

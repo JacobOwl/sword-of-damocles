@@ -17,6 +17,7 @@ import { townHold, useHold, townLeader, SECRETS } from "./secrets.ts";
 import { afterScene, fightScene, pendingScene, GROUND } from "./scenes.ts";
 import { bindPart, bindTargets, envoyTargets, sendEnvoy, CONT } from "./contingents.ts";
 import { payMan, returnsState, sendHerald } from "./returns.ts";
+import { FLEETS, buildCheck, buildSquadron, carryArmy, carryCheck, carryTargets, fleetState, setOrder, setRowers, strikeCheck, strikeFleet, youOrder, admiralName, beachedAt } from "./fleets.ts";
 import { prefers } from "./carthage.ts";
 import { campaignCheck, commanderOptions, commissionOn, keeperOptions, musterNotes, startCampaign } from "./commission.ts";
 
@@ -214,6 +215,31 @@ export const ISLAND_IMPL: Record<string, Impl> = {
     target: (s) => (pendingScene(s)?.stage === "after" ? (pendingScene(s)!.options ?? []).map((o) => ({ value: o.id, label: o.label })) : []),
     check: (s) => (pendingScene(s)?.stage !== "after" ? "no battle waits for its end" : null),
     run: (s, a) => afterScene(s, a.target),
+  },
+  // Switch "fleets": the fleet's order, its rowers, the crossing, and a strike at Carthage's fleet.
+  fleetOrder: {
+    target: () => FLEETS.orders.filter((o: any) => o.id !== "carry").map((o: any) => ({ value: o.id, label: `${o.name}: ${o.text}` })),
+    check: (s) => (!youOrder(s) ? `${capital(admiralName(s))} holds the fleet and does not take your orders` : null),
+    run: (s, a) => setOrder(s, a.target as any),
+  },
+  fleetRowers: {
+    target: (s) => FLEETS.rowers.filter((r: any) => r.id !== fleetState(s).rowers).map((r: any) => ({ value: r.id, label: `${r.name}: ${r.text}` })),
+    check: (s) => (!youOrder(s) ? `${capital(admiralName(s))} holds the fleet and does not take your orders` : null),
+    run: (s, a) => setRowers(s, a.target as any),
+  },
+  buildSquadron: {
+    check: (s) => buildCheck(s),
+    run: (s) => buildSquadron(s),
+  },
+  sailArmy: {
+    target: (s) => carryTargets(s),
+    check: (s) => general(s) ?? carryCheck(s),
+    run: (s, a) => carryArmy(s, a.target!),
+  },
+  strikeFleet: {
+    check: (s) => strikeCheck(s),
+    notes: (s) => (beachedAt(s) ? ["Its ships were drawn up on the beach when its army landed: +2 for you."] : []),
+    run: (s) => strikeFleet(s),
   },
   groundWish: {
     target: () => GROUND.wishes.map((w: any) => ({ value: w.id, label: `${w.name}: ${w.text}` })),

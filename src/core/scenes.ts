@@ -172,6 +172,7 @@ export function plateNow(s: GameState, sc: Scene) {
 // pick: the turning point's choice; refuse: try to refuse battle (switch "groundChoice").
 export function fightScene(s: GameState, pick?: string, refuse = false) {
   const sc = pendingScene(s);
+  if (sc?.kind === "sea") return HOOKS.seaFight?.(s, pick); // switch "fleets" (fleets.ts)
   if (!sc || sc.stage !== "choose") return;
   const a = armyById(s, sc.a), b = armyById(s, sc.b);
   if (!a || !b || a.at !== b.at) { (s.island as any).scenes = list(s).filter((x) => x !== sc); return; } // the armies parted (a peace, a retreat) before it was fought
@@ -247,6 +248,7 @@ function afterOptions(s: GameState, sc: Scene, mine: Army, foe: Army): SceneOpt[
 export function afterScene(s: GameState, pick?: string) {
   const sc = pendingScene(s);
   if (!sc || sc.stage !== "after") return;
+  if (sc.kind === "sea") return HOOKS.seaAfter?.(s, pick); // switch "fleets" (fleets.ts)
   const a = armyById(s, sc.a), b = armyById(s, sc.b);
   if (!a || !b) { sc.stage = "done"; return; }
   const ok = sc.options?.some((x) => x.id === pick);

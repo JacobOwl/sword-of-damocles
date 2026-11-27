@@ -58,13 +58,13 @@ function plateHtml(g: GameState, sc: Scene) {
 function choiceHtml(g: GameState, sc: Scene) {
   if (sc.stage === "choose") {
     const ya = yourArmy(g);
-    const plans = switchOn(g, "battlePlate") && ya ? `<div class="scplan"><span class="label">Your plan</span> ${BATTLE.plans.map((p: any) => `<button type="button" class="small${ya.plan === p.id ? " on" : ""}" data-scplan="${p.id}" title="${esc(p.text)}">${esc(p.name)}</button>`).join(" ")}
+    const plans = sc.kind === "battle" && switchOn(g, "battlePlate") && ya ? `<div class="scplan"><span class="label">Your plan</span> ${BATTLE.plans.map((p: any) => `<button type="button" class="small${ya.plan === p.id ? " on" : ""}" data-scplan="${p.id}" title="${esc(p.text)}">${esc(p.name)}</button>`).join(" ")}
       <button type="button" class="small${ya.reserve ? " on" : ""}" data-scres="${ya.reserve ? "" : "1"}">${ya.reserve ? "Reserve held back" : "Hold back a reserve"}</button>
       <p class="small muted">${ya.plan ? esc(planDef(ya.plan).text) : "No plan set: your general fights his own way."} ${esc(habitLine(g, carthageArmy(g)))}</p></div>` : "";
     const t = sc.turn!;
     return `${plans}<div class="scturn"><span class="label">The turning point</span><p class="scturn-text">${esc(t.text)} <span class="muted small">(${esc(t.why)}; ${esc(t.source)})</span></p>
       <div class="scopts">${t.options.map((o) => `<button type="button" class="scopt" data-scfight="${o.id}"><b>${esc(o.label)}</b><span class="small">${esc(o.note)}</span></button>`).join("")}</div>
-      ${switchOn(g, "groundChoice") ? `<p class="small"><button type="button" class="small" data-screfuse="1">Try to refuse battle</button> <span class="muted">Your general's skill against theirs, 4 or more on a die: you fall back and your rearguard pays. Your allies resent it either way.</span></p>` : ""}</div>`;
+      ${sc.kind === "battle" && switchOn(g, "groundChoice") ? `<p class="small"><button type="button" class="small" data-screfuse="1">Try to refuse battle</button> <span class="muted">Your general's skill against theirs, 4 or more on a die: you fall back and your rearguard pays. Your allies resent it either way.</span></p>` : ""}</div>`;
   }
   if (sc.stage === "after") {
     return `<div class="scturn"><span class="label">${esc(sc.ask ?? "What now?")}</span><div class="scopts">${(sc.options ?? []).map((o) => `<button type="button" class="scopt" data-scafter="${o.id}"><b>${esc(o.label)}</b><span class="small">${esc(o.note)}</span></button>`).join("")}</div></div>`;

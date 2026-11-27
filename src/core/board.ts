@@ -101,7 +101,7 @@ export function setSeat(s: GameState, seat: string, to: string | null, why: stri
   if (seat === "captain") setCaptain(s, to, why);
   else if (seat !== "citadel" || s.citadelBuilt) setOffice(s, seat as OfficeId, to, why);
 }
-function dig(s: GameState, seat: string, d: number, why: string) {
+export function dig(s: GameState, seat: string, d: number, why: string) {
   const st = s.board!.seats[seat];
   const h = seatHolder(s, seat);
   if (!st || !h) return;
@@ -162,7 +162,7 @@ export function race(s: GameState, seat: string): { holder?: Stand; challenger?:
   stands.sort((a, b) => b.score - a.score || (a.id < b.id ? -1 : 1));
   return { holder, challenger: stands[0] };
 }
-function vote(s: GameState, seat: string, why: string) {
+export function vote(s: GameState, seat: string, why: string) {
   const r = race(s, seat);
   if (!r?.challenger) return;
   const { holder, challenger } = r;
