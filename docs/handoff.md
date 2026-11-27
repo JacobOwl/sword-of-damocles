@@ -2,6 +2,13 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Playtest bot (2026-11-27)
+**Built, not merged.** Jacob: "Run the playtest bot". A headless bot, `npm run playtest` (`scripts/playtest.ts`, tables and charts in `scripts/playtest-report.ts`), plays every setup on main with seven kinds of player and a one-action sweep: 23,520 games in about 10 minutes on 4 cores, fixed seeds, every game replayed to check it comes out the same. Report: `docs/playtests/2026-11-27-playtest-bot/report.md`; tables: `results.md` beside it.
+- **Broke:** a dead man keeps his council seat while you are in exile (everything-on setup, 7% of games; `npm run playtest -- --one everything:idle:4`); a dead man started a plot once (`fallen:carefulDice:97`, an answer to a matter about a man who died earlier that season). No crashes, stuck seasons or replay differences.
+- **Never happens:** "Men for the walls"; "A seat lost: Arrest"; any petition for land (nothing makes one); Motya changing sides (0 to 2%).
+- **Nothing wins almost always:** the careful bot in the first island test is the only one over 90% (92%); careful and patron 86% in the second test. No single action or greedy plan is an exploit.
+- **Not changed:** no game code or data. Fix ideas are in the report. The six tyrant campaigns are not playable yet (PR #96), so they are not covered.
+
 ## War and geopolitics focus, stage 1 and the Near-war test (thread 41, 2026-11-27)
 **Built.** Jacob: "Build it", with the council's recommended pick on all seven questions (`docs/council/2026-11-27-war-and-geopolitics.md`). PRs #99, #102 and this one.
 - **The war card (switch `warFocus`, off by default; on in the new Near-war test preset):** aims for both sides, a ledger of named turning points, weariness on both sides, peace with terms from the ledger (Carthage's envoys, your Offer peace), the return owed after a Libyan revolt, Carthage's landing announced a season ahead, the pendulum, kind and harsh generals, raids and courting, five war matters, the war strip on the season and island pages, Carthage's waiting army on the map, each war told as a chapter in the Story. `data/war.json`, `src/core/war.ts`, `ui/components/war.ts`.
@@ -24,6 +31,7 @@ The thread that finishes a session writes this, not Jacob. Rewrite it at the end
 - **Not done:** the 32 real pictures still need downloading on Jacob's PC (Wikimedia is blocked from the cloud); seven scenes and the city coins wait (`docs/later.md`). The 24 Syracusans keep their mosaic portraits.
 - **Checks:** `npm test` 195 of 195; typecheck clean; 100 seeds: 0 crashes, 0 broken states, 17 tyrannies, output identical to before the change.
 - **Questions for Jacob:** do the flat medallions suit Carthage's men, or should they get mosaic faces like everyone else (the Duet portrait prompt covers that)? Any picture swap that feels wrong?
+
 
 ## Fixes from the second test (thread 39, 2026-11-27)
 **Built.** Jacob: "Build all and have council decide on the rule changes" (the 30-item list from thread 38). All on in the Second island test preset; the test link is updated.

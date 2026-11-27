@@ -1,0 +1,309 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="1298" viewBox="0 0 860 1298" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+<rect width="860" height="1298" fill="#ffffff"/>
+<text x="16" y="18" font-size="15" font-weight="600" fill="#191919">How games end, share of 300 games for each setup and player</text>
+<rect x="16" y="24" width="12" height="12" rx="2" fill="#257de0"/><text x="33" y="34" font-size="12" fill="#191919">Won</text>
+<rect x="71.8" y="24" width="12" height="12" rx="2" fill="#f47230"/><text x="88.8" y="34" font-size="12" fill="#191919">Killed</text>
+<rect x="147.39999999999998" y="24" width="12" height="12" rx="2" fill="#00b894"/><text x="164.39999999999998" y="34" font-size="12" fill="#191919">Exiled, fled or settled abroad</text>
+<rect x="381.4" y="24" width="12" height="12" rx="2" fill="#f2a600"/><text x="398.4" y="34" font-size="12" fill="#191919">Deposed</text>
+<rect x="463.59999999999997" y="24" width="12" height="12" rx="2" fill="#ee7fac"/><text x="480.59999999999997" y="34" font-size="12" fill="#191919">Fell to Carthage</text>
+<rect x="605.1999999999999" y="24" width="12" height="12" rx="2" fill="#008a17"/><text x="622.1999999999999" y="34" font-size="12" fill="#191919">Decade ended in exile</text>
+<rect x="779.8" y="24" width="12" height="12" rx="2" fill="#6a4ce2"/><text x="796.8" y="34" font-size="12" fill="#191919">Other</text>
+<text x="16" y="78" font-size="13" font-weight="600" fill="#191919">citadel: The Citadel</text>
+<text x="142" y="103" font-size="12" fill="#666666" text-anchor="end">idle</text>
+<rect x="151.0" y="90" width="347.1" height="18" rx="2" fill="#f47230"><title>citadel, idle: Killed 51% (154 of 300)</title></rect>
+<text x="324.5" y="103" font-size="11" fill="#ffffff" text-anchor="middle">51%</text>
+<rect x="500.1" y="90" width="328.9" height="18" rx="2" fill="#00b894"><title>citadel, idle: Exiled, fled or settled abroad 49% (146 of 300)</title></rect>
+<text x="664.5" y="103" font-size="11" fill="#ffffff" text-anchor="middle">49%</text>
+<text x="142" y="127" font-size="12" fill="#666666" text-anchor="end">random</text>
+<rect x="151.0" y="114" width="344.8" height="18" rx="2" fill="#f47230"><title>citadel, random: Killed 51% (153 of 300)</title></rect>
+<text x="323.4" y="127" font-size="11" fill="#ffffff" text-anchor="middle">51%</text>
+<rect x="497.8" y="114" width="317.6" height="18" rx="2" fill="#00b894"><title>citadel, random: Exiled, fled or settled abroad 47% (141 of 300)</title></rect>
+<text x="656.6" y="127" font-size="11" fill="#ffffff" text-anchor="middle">47%</text>
+<rect x="817.4" y="114" width="7.1" height="18" rx="2" fill="#f2a600"><title>citadel, random: Deposed 1% (4 of 300)</title></rect>
+<rect x="826.5" y="114" width="2.5" height="18" rx="2" fill="#ee7fac"><title>citadel, random: Fell to Carthage 1% (2 of 300)</title></rect>
+<text x="142" y="151" font-size="12" fill="#666666" text-anchor="end">careful</text>
+<rect x="151.0" y="138" width="471.7" height="18" rx="2" fill="#257de0"><title>citadel, careful: Won 70% (209 of 300)</title></rect>
+<text x="386.9" y="151" font-size="11" fill="#ffffff" text-anchor="middle">70%</text>
+<rect x="624.7" y="138" width="72.8" height="18" rx="2" fill="#f47230"><title>citadel, careful: Killed 11% (33 of 300)</title></rect>
+<text x="661.1" y="151" font-size="11" fill="#ffffff" text-anchor="middle">11%</text>
+<rect x="699.5" y="138" width="68.3" height="18" rx="2" fill="#00b894"><title>citadel, careful: Exiled, fled or settled abroad 10% (31 of 300)</title></rect>
+<text x="733.7" y="151" font-size="11" fill="#ffffff" text-anchor="middle">10%</text>
+<rect x="769.8" y="138" width="34.3" height="18" rx="2" fill="#f2a600"><title>citadel, careful: Deposed 5% (16 of 300)</title></rect>
+<text x="786.9" y="151" font-size="11" fill="#ffffff" text-anchor="middle">5%</text>
+<rect x="806.1" y="138" width="22.9" height="18" rx="2" fill="#ee7fac"><title>citadel, careful: Fell to Carthage 4% (11 of 300)</title></rect>
+<text x="142" y="175" font-size="12" fill="#666666" text-anchor="end">carefulDice</text>
+<rect x="151.0" y="162" width="297.2" height="18" rx="2" fill="#257de0"><title>citadel, carefulDice: Won 44% (132 of 300)</title></rect>
+<text x="299.6" y="175" font-size="11" fill="#ffffff" text-anchor="middle">44%</text>
+<rect x="450.2" y="162" width="140.8" height="18" rx="2" fill="#f47230"><title>citadel, carefulDice: Killed 21% (63 of 300)</title></rect>
+<text x="520.6" y="175" font-size="11" fill="#ffffff" text-anchor="middle">21%</text>
+<rect x="593.0" y="162" width="190.7" height="18" rx="2" fill="#00b894"><title>citadel, carefulDice: Exiled, fled or settled abroad 28% (85 of 300)</title></rect>
+<text x="688.3" y="175" font-size="11" fill="#ffffff" text-anchor="middle">28%</text>
+<rect x="785.7" y="162" width="7.1" height="18" rx="2" fill="#f2a600"><title>citadel, carefulDice: Deposed 1% (4 of 300)</title></rect>
+<rect x="794.7" y="162" width="34.3" height="18" rx="2" fill="#ee7fac"><title>citadel, carefulDice: Fell to Carthage 5% (16 of 300)</title></rect>
+<text x="811.9" y="175" font-size="11" fill="#ffffff" text-anchor="middle">5%</text>
+<text x="142" y="199" font-size="12" fill="#666666" text-anchor="end">patron</text>
+<rect x="151.0" y="186" width="299.5" height="18" rx="2" fill="#257de0"><title>citadel, patron: Won 44% (133 of 300)</title></rect>
+<text x="300.7" y="199" font-size="11" fill="#ffffff" text-anchor="middle">44%</text>
+<rect x="452.5" y="186" width="52.4" height="18" rx="2" fill="#f47230"><title>citadel, patron: Killed 8% (24 of 300)</title></rect>
+<text x="478.7" y="199" font-size="11" fill="#ffffff" text-anchor="middle">8%</text>
+<rect x="506.9" y="186" width="56.9" height="18" rx="2" fill="#00b894"><title>citadel, patron: Exiled, fled or settled abroad 9% (26 of 300)</title></rect>
+<text x="535.3" y="199" font-size="11" fill="#ffffff" text-anchor="middle">9%</text>
+<rect x="565.8" y="186" width="215.6" height="18" rx="2" fill="#f2a600"><title>citadel, patron: Deposed 32% (96 of 300)</title></rect>
+<text x="673.6" y="199" font-size="11" fill="#ffffff" text-anchor="middle">32%</text>
+<rect x="783.4" y="186" width="45.6" height="18" rx="2" fill="#ee7fac"><title>citadel, patron: Fell to Carthage 7% (21 of 300)</title></rect>
+<text x="806.2" y="199" font-size="11" fill="#ffffff" text-anchor="middle">7%</text>
+<text x="142" y="223" font-size="12" fill="#666666" text-anchor="end">tyrant</text>
+<rect x="151.0" y="210" width="22.9" height="18" rx="2" fill="#257de0"><title>citadel, tyrant: Won 4% (11 of 300)</title></rect>
+<rect x="175.9" y="210" width="301.7" height="18" rx="2" fill="#f47230"><title>citadel, tyrant: Killed 45% (134 of 300)</title></rect>
+<text x="326.8" y="223" font-size="11" fill="#ffffff" text-anchor="middle">45%</text>
+<rect x="479.7" y="210" width="313.1" height="18" rx="2" fill="#00b894"><title>citadel, tyrant: Exiled, fled or settled abroad 46% (139 of 300)</title></rect>
+<text x="636.2" y="223" font-size="11" fill="#ffffff" text-anchor="middle">46%</text>
+<rect x="794.7" y="210" width="32.0" height="18" rx="2" fill="#f2a600"><title>citadel, tyrant: Deposed 5% (15 of 300)</title></rect>
+<text x="810.7" y="223" font-size="11" fill="#ffffff" text-anchor="middle">5%</text>
+<rect x="828.7" y="210" width="0.5" height="18" rx="2" fill="#ee7fac"><title>citadel, tyrant: Fell to Carthage 0% (1 of 300)</title></rect>
+<text x="142" y="247" font-size="12" fill="#666666" text-anchor="end">hoarder</text>
+<rect x="151.0" y="234" width="333.5" height="18" rx="2" fill="#f47230"><title>citadel, hoarder: Killed 49% (148 of 300)</title></rect>
+<text x="317.7" y="247" font-size="11" fill="#ffffff" text-anchor="middle">49%</text>
+<rect x="486.5" y="234" width="340.3" height="18" rx="2" fill="#00b894"><title>citadel, hoarder: Exiled, fled or settled abroad 50% (151 of 300)</title></rect>
+<text x="656.6" y="247" font-size="11" fill="#ffffff" text-anchor="middle">50%</text>
+<rect x="828.7" y="234" width="0.5" height="18" rx="2" fill="#f2a600"><title>citadel, hoarder: Deposed 0% (1 of 300)</title></rect>
+<text x="16" y="282" font-size="13" font-weight="600" fill="#191919">island: The Island</text>
+<text x="142" y="307" font-size="12" fill="#666666" text-anchor="end">idle</text>
+<rect x="151.0" y="294" width="344.8" height="18" rx="2" fill="#f47230"><title>island, idle: Killed 51% (153 of 300)</title></rect>
+<text x="323.4" y="307" font-size="11" fill="#ffffff" text-anchor="middle">51%</text>
+<rect x="497.8" y="294" width="331.2" height="18" rx="2" fill="#00b894"><title>island, idle: Exiled, fled or settled abroad 49% (147 of 300)</title></rect>
+<text x="663.4" y="307" font-size="11" fill="#ffffff" text-anchor="middle">49%</text>
+<text x="142" y="331" font-size="12" fill="#666666" text-anchor="end">random</text>
+<rect x="151.0" y="318" width="310.8" height="18" rx="2" fill="#f47230"><title>island, random: Killed 46% (138 of 300)</title></rect>
+<text x="306.4" y="331" font-size="11" fill="#ffffff" text-anchor="middle">46%</text>
+<rect x="463.8" y="318" width="356.1" height="18" rx="2" fill="#00b894"><title>island, random: Exiled, fled or settled abroad 53% (158 of 300)</title></rect>
+<text x="641.9" y="331" font-size="11" fill="#ffffff" text-anchor="middle">53%</text>
+<rect x="821.9" y="318" width="7.1" height="18" rx="2" fill="#f2a600"><title>island, random: Deposed 1% (4 of 300)</title></rect>
+<text x="142" y="355" font-size="12" fill="#666666" text-anchor="end">careful</text>
+<rect x="151.0" y="342" width="437.7" height="18" rx="2" fill="#257de0"><title>island, careful: Won 65% (194 of 300)</title></rect>
+<text x="369.9" y="355" font-size="11" fill="#ffffff" text-anchor="middle">65%</text>
+<rect x="590.7" y="342" width="93.2" height="18" rx="2" fill="#f47230"><title>island, careful: Killed 14% (42 of 300)</title></rect>
+<text x="637.3" y="355" font-size="11" fill="#ffffff" text-anchor="middle">14%</text>
+<rect x="685.9" y="342" width="134.0" height="18" rx="2" fill="#00b894"><title>island, careful: Exiled, fled or settled abroad 20% (60 of 300)</title></rect>
+<text x="752.9" y="355" font-size="11" fill="#ffffff" text-anchor="middle">20%</text>
+<rect x="821.9" y="342" width="7.1" height="18" rx="2" fill="#f2a600"><title>island, careful: Deposed 1% (4 of 300)</title></rect>
+<text x="142" y="379" font-size="12" fill="#666666" text-anchor="end">carefulDice</text>
+<rect x="151.0" y="366" width="165.7" height="18" rx="2" fill="#257de0"><title>island, carefulDice: Won 25% (74 of 300)</title></rect>
+<text x="233.9" y="379" font-size="11" fill="#ffffff" text-anchor="middle">25%</text>
+<rect x="318.7" y="366" width="183.9" height="18" rx="2" fill="#f47230"><title>island, carefulDice: Killed 27% (82 of 300)</title></rect>
+<text x="410.7" y="379" font-size="11" fill="#ffffff" text-anchor="middle">27%</text>
+<rect x="504.6" y="366" width="317.6" height="18" rx="2" fill="#00b894"><title>island, carefulDice: Exiled, fled or settled abroad 47% (141 of 300)</title></rect>
+<text x="663.4" y="379" font-size="11" fill="#ffffff" text-anchor="middle">47%</text>
+<rect x="824.2" y="366" width="2.5" height="18" rx="2" fill="#f2a600"><title>island, carefulDice: Deposed 1% (2 of 300)</title></rect>
+<rect x="828.7" y="366" width="0.5" height="18" rx="2" fill="#6a4ce2"><title>island, carefulDice: Other 0% (1 of 300)</title></rect>
+<text x="142" y="403" font-size="12" fill="#666666" text-anchor="end">patron</text>
+<rect x="151.0" y="390" width="378.8" height="18" rx="2" fill="#257de0"><title>island, patron: Won 56% (168 of 300)</title></rect>
+<text x="340.4" y="403" font-size="11" fill="#ffffff" text-anchor="middle">56%</text>
+<rect x="531.8" y="390" width="59.2" height="18" rx="2" fill="#f47230"><title>island, patron: Killed 9% (27 of 300)</title></rect>
+<text x="561.4" y="403" font-size="11" fill="#ffffff" text-anchor="middle">9%</text>
+<rect x="593.0" y="390" width="66.0" height="18" rx="2" fill="#00b894"><title>island, patron: Exiled, fled or settled abroad 10% (30 of 300)</title></rect>
+<text x="626.0" y="403" font-size="11" fill="#ffffff" text-anchor="middle">10%</text>
+<rect x="661.0" y="390" width="168.0" height="18" rx="2" fill="#f2a600"><title>island, patron: Deposed 25% (75 of 300)</title></rect>
+<text x="745.0" y="403" font-size="11" fill="#ffffff" text-anchor="middle">25%</text>
+<text x="142" y="427" font-size="12" fill="#666666" text-anchor="end">tyrant</text>
+<rect x="151.0" y="414" width="36.5" height="18" rx="2" fill="#257de0"><title>island, tyrant: Won 6% (17 of 300)</title></rect>
+<text x="169.3" y="427" font-size="11" fill="#ffffff" text-anchor="middle">6%</text>
+<rect x="189.5" y="414" width="304.0" height="18" rx="2" fill="#f47230"><title>island, tyrant: Killed 45% (135 of 300)</title></rect>
+<text x="341.5" y="427" font-size="11" fill="#ffffff" text-anchor="middle">45%</text>
+<rect x="495.5" y="414" width="310.8" height="18" rx="2" fill="#00b894"><title>island, tyrant: Exiled, fled or settled abroad 46% (138 of 300)</title></rect>
+<text x="650.9" y="427" font-size="11" fill="#ffffff" text-anchor="middle">46%</text>
+<rect x="808.3" y="414" width="20.7" height="18" rx="2" fill="#f2a600"><title>island, tyrant: Deposed 3% (10 of 300)</title></rect>
+<text x="142" y="451" font-size="12" fill="#666666" text-anchor="end">hoarder</text>
+<rect x="151.0" y="438" width="356.1" height="18" rx="2" fill="#f47230"><title>island, hoarder: Killed 53% (158 of 300)</title></rect>
+<text x="329.1" y="451" font-size="11" fill="#ffffff" text-anchor="middle">53%</text>
+<rect x="509.1" y="438" width="319.9" height="18" rx="2" fill="#00b894"><title>island, hoarder: Exiled, fled or settled abroad 47% (142 of 300)</title></rect>
+<text x="669.1" y="451" font-size="11" fill="#ffffff" text-anchor="middle">47%</text>
+<text x="16" y="486" font-size="13" font-weight="600" fill="#191919">first: First island test</text>
+<text x="142" y="511" font-size="12" fill="#666666" text-anchor="end">idle</text>
+<rect x="151.0" y="498" width="335.7" height="18" rx="2" fill="#f47230"><title>first, idle: Killed 50% (149 of 300)</title></rect>
+<text x="318.9" y="511" font-size="11" fill="#ffffff" text-anchor="middle">50%</text>
+<rect x="488.7" y="498" width="340.3" height="18" rx="2" fill="#00b894"><title>first, idle: Exiled, fled or settled abroad 50% (151 of 300)</title></rect>
+<text x="658.9" y="511" font-size="11" fill="#ffffff" text-anchor="middle">50%</text>
+<text x="142" y="535" font-size="12" fill="#666666" text-anchor="end">random</text>
+<rect x="151.0" y="522" width="0.5" height="18" rx="2" fill="#257de0"><title>first, random: Won 0% (1 of 300)</title></rect>
+<rect x="153.3" y="522" width="270.0" height="18" rx="2" fill="#f47230"><title>first, random: Killed 40% (120 of 300)</title></rect>
+<text x="288.3" y="535" font-size="11" fill="#ffffff" text-anchor="middle">40%</text>
+<rect x="425.3" y="522" width="383.3" height="18" rx="2" fill="#00b894"><title>first, random: Exiled, fled or settled abroad 57% (170 of 300)</title></rect>
+<text x="616.9" y="535" font-size="11" fill="#ffffff" text-anchor="middle">57%</text>
+<rect x="810.6" y="522" width="18.4" height="18" rx="2" fill="#f2a600"><title>first, random: Deposed 3% (9 of 300)</title></rect>
+<text x="142" y="559" font-size="12" fill="#666666" text-anchor="end">careful</text>
+<rect x="151.0" y="546" width="621.3" height="18" rx="2" fill="#257de0"><title>first, careful: Won 92% (275 of 300)</title></rect>
+<text x="461.7" y="559" font-size="11" fill="#ffffff" text-anchor="middle">92%</text>
+<rect x="774.3" y="546" width="18.4" height="18" rx="2" fill="#f47230"><title>first, careful: Killed 3% (9 of 300)</title></rect>
+<rect x="794.7" y="546" width="18.4" height="18" rx="2" fill="#00b894"><title>first, careful: Exiled, fled or settled abroad 3% (9 of 300)</title></rect>
+<rect x="815.1" y="546" width="13.9" height="18" rx="2" fill="#f2a600"><title>first, careful: Deposed 2% (7 of 300)</title></rect>
+<text x="142" y="583" font-size="12" fill="#666666" text-anchor="end">carefulDice</text>
+<rect x="151.0" y="570" width="367.5" height="18" rx="2" fill="#257de0"><title>first, carefulDice: Won 54% (163 of 300)</title></rect>
+<text x="334.7" y="583" font-size="11" fill="#ffffff" text-anchor="middle">54%</text>
+<rect x="520.5" y="570" width="54.7" height="18" rx="2" fill="#f47230"><title>first, carefulDice: Killed 8% (25 of 300)</title></rect>
+<text x="547.8" y="583" font-size="11" fill="#ffffff" text-anchor="middle">8%</text>
+<rect x="577.1" y="570" width="233.7" height="18" rx="2" fill="#00b894"><title>first, carefulDice: Exiled, fled or settled abroad 35% (104 of 300)</title></rect>
+<text x="694.0" y="583" font-size="11" fill="#ffffff" text-anchor="middle">35%</text>
+<rect x="812.9" y="570" width="4.8" height="18" rx="2" fill="#f2a600"><title>first, carefulDice: Deposed 1% (3 of 300)</title></rect>
+<rect x="819.7" y="570" width="0.5" height="18" rx="2" fill="#ee7fac"><title>first, carefulDice: Fell to Carthage 0% (1 of 300)</title></rect>
+<rect x="821.9" y="570" width="7.1" height="18" rx="2" fill="#6a4ce2"><title>first, carefulDice: Other 1% (4 of 300)</title></rect>
+<text x="142" y="607" font-size="12" fill="#666666" text-anchor="end">patron</text>
+<rect x="151.0" y="594" width="523.9" height="18" rx="2" fill="#257de0"><title>first, patron: Won 77% (232 of 300)</title></rect>
+<text x="412.9" y="607" font-size="11" fill="#ffffff" text-anchor="middle">77%</text>
+<rect x="676.9" y="594" width="4.8" height="18" rx="2" fill="#f47230"><title>first, patron: Killed 1% (3 of 300)</title></rect>
+<rect x="683.7" y="594" width="2.5" height="18" rx="2" fill="#00b894"><title>first, patron: Exiled, fled or settled abroad 1% (2 of 300)</title></rect>
+<rect x="688.2" y="594" width="140.8" height="18" rx="2" fill="#f2a600"><title>first, patron: Deposed 21% (63 of 300)</title></rect>
+<text x="758.6" y="607" font-size="11" fill="#ffffff" text-anchor="middle">21%</text>
+<text x="142" y="631" font-size="12" fill="#666666" text-anchor="end">tyrant</text>
+<rect x="151.0" y="618" width="138.5" height="18" rx="2" fill="#257de0"><title>first, tyrant: Won 21% (62 of 300)</title></rect>
+<text x="220.3" y="631" font-size="11" fill="#ffffff" text-anchor="middle">21%</text>
+<rect x="291.5" y="618" width="220.1" height="18" rx="2" fill="#f47230"><title>first, tyrant: Killed 33% (98 of 300)</title></rect>
+<text x="401.6" y="631" font-size="11" fill="#ffffff" text-anchor="middle">33%</text>
+<rect x="513.7" y="618" width="245.1" height="18" rx="2" fill="#00b894"><title>first, tyrant: Exiled, fled or settled abroad 36% (109 of 300)</title></rect>
+<text x="636.2" y="631" font-size="11" fill="#ffffff" text-anchor="middle">36%</text>
+<rect x="760.7" y="618" width="68.3" height="18" rx="2" fill="#f2a600"><title>first, tyrant: Deposed 10% (31 of 300)</title></rect>
+<text x="794.9" y="631" font-size="11" fill="#ffffff" text-anchor="middle">10%</text>
+<text x="142" y="655" font-size="12" fill="#666666" text-anchor="end">hoarder</text>
+<rect x="151.0" y="642" width="11.6" height="18" rx="2" fill="#257de0"><title>first, hoarder: Won 2% (6 of 300)</title></rect>
+<rect x="164.6" y="642" width="306.3" height="18" rx="2" fill="#f47230"><title>first, hoarder: Killed 45% (136 of 300)</title></rect>
+<text x="317.7" y="655" font-size="11" fill="#ffffff" text-anchor="middle">45%</text>
+<rect x="472.9" y="642" width="294.9" height="18" rx="2" fill="#00b894"><title>first, hoarder: Exiled, fled or settled abroad 44% (131 of 300)</title></rect>
+<text x="620.3" y="655" font-size="11" fill="#ffffff" text-anchor="middle">44%</text>
+<rect x="769.8" y="642" width="59.2" height="18" rx="2" fill="#f2a600"><title>first, hoarder: Deposed 9% (27 of 300)</title></rect>
+<text x="799.4" y="655" font-size="11" fill="#ffffff" text-anchor="middle">9%</text>
+<text x="16" y="690" font-size="13" font-weight="600" fill="#191919">second: Second island test</text>
+<text x="142" y="715" font-size="12" fill="#666666" text-anchor="end">idle</text>
+<rect x="151.0" y="702" width="442.3" height="18" rx="2" fill="#f47230"><title>second, idle: Killed 65% (196 of 300)</title></rect>
+<text x="372.1" y="715" font-size="11" fill="#ffffff" text-anchor="middle">65%</text>
+<rect x="595.3" y="702" width="233.7" height="18" rx="2" fill="#008a17"><title>second, idle: Decade ended in exile 35% (104 of 300)</title></rect>
+<text x="712.1" y="715" font-size="11" fill="#ffffff" text-anchor="middle">35%</text>
+<text x="142" y="739" font-size="12" fill="#666666" text-anchor="end">random</text>
+<rect x="151.0" y="726" width="587.3" height="18" rx="2" fill="#f47230"><title>second, random: Killed 87% (260 of 300)</title></rect>
+<text x="444.7" y="739" font-size="11" fill="#ffffff" text-anchor="middle">87%</text>
+<rect x="740.3" y="726" width="86.4" height="18" rx="2" fill="#00b894"><title>second, random: Exiled, fled or settled abroad 13% (39 of 300)</title></rect>
+<text x="783.5" y="739" font-size="11" fill="#ffffff" text-anchor="middle">13%</text>
+<rect x="828.7" y="726" width="0.5" height="18" rx="2" fill="#008a17"><title>second, random: Decade ended in exile 0% (1 of 300)</title></rect>
+<text x="142" y="763" font-size="12" fill="#666666" text-anchor="end">careful</text>
+<rect x="151.0" y="750" width="585.1" height="18" rx="2" fill="#257de0"><title>second, careful: Won 86% (259 of 300)</title></rect>
+<text x="443.5" y="763" font-size="11" fill="#ffffff" text-anchor="middle">86%</text>
+<rect x="738.1" y="750" width="70.5" height="18" rx="2" fill="#f47230"><title>second, careful: Killed 11% (32 of 300)</title></rect>
+<text x="773.3" y="763" font-size="11" fill="#ffffff" text-anchor="middle">11%</text>
+<rect x="810.6" y="750" width="18.4" height="18" rx="2" fill="#008a17"><title>second, careful: Decade ended in exile 3% (9 of 300)</title></rect>
+<text x="142" y="787" font-size="12" fill="#666666" text-anchor="end">carefulDice</text>
+<rect x="151.0" y="774" width="283.6" height="18" rx="2" fill="#257de0"><title>second, carefulDice: Won 42% (126 of 300)</title></rect>
+<text x="292.8" y="787" font-size="11" fill="#ffffff" text-anchor="middle">42%</text>
+<rect x="436.6" y="774" width="238.3" height="18" rx="2" fill="#f47230"><title>second, carefulDice: Killed 35% (106 of 300)</title></rect>
+<text x="555.7" y="787" font-size="11" fill="#ffffff" text-anchor="middle">35%</text>
+<rect x="676.9" y="774" width="102.3" height="18" rx="2" fill="#00b894"><title>second, carefulDice: Exiled, fled or settled abroad 15% (46 of 300)</title></rect>
+<text x="728.0" y="787" font-size="11" fill="#ffffff" text-anchor="middle">15%</text>
+<rect x="781.1" y="774" width="47.9" height="18" rx="2" fill="#008a17"><title>second, carefulDice: Decade ended in exile 7% (22 of 300)</title></rect>
+<text x="805.1" y="787" font-size="11" fill="#ffffff" text-anchor="middle">7%</text>
+<text x="142" y="811" font-size="12" fill="#666666" text-anchor="end">patron</text>
+<rect x="151.0" y="798" width="580.5" height="18" rx="2" fill="#257de0"><title>second, patron: Won 86% (257 of 300)</title></rect>
+<text x="441.3" y="811" font-size="11" fill="#ffffff" text-anchor="middle">86%</text>
+<rect x="733.5" y="798" width="59.2" height="18" rx="2" fill="#f47230"><title>second, patron: Killed 9% (27 of 300)</title></rect>
+<text x="763.1" y="811" font-size="11" fill="#ffffff" text-anchor="middle">9%</text>
+<rect x="794.7" y="798" width="34.3" height="18" rx="2" fill="#008a17"><title>second, patron: Decade ended in exile 5% (16 of 300)</title></rect>
+<text x="811.9" y="811" font-size="11" fill="#ffffff" text-anchor="middle">5%</text>
+<text x="142" y="835" font-size="12" fill="#666666" text-anchor="end">tyrant</text>
+<rect x="151.0" y="822" width="226.9" height="18" rx="2" fill="#257de0"><title>second, tyrant: Won 34% (101 of 300)</title></rect>
+<text x="264.5" y="835" font-size="11" fill="#ffffff" text-anchor="middle">34%</text>
+<rect x="379.9" y="822" width="326.7" height="18" rx="2" fill="#f47230"><title>second, tyrant: Killed 48% (145 of 300)</title></rect>
+<text x="543.3" y="835" font-size="11" fill="#ffffff" text-anchor="middle">48%</text>
+<rect x="708.6" y="822" width="120.4" height="18" rx="2" fill="#008a17"><title>second, tyrant: Decade ended in exile 18% (54 of 300)</title></rect>
+<text x="768.8" y="835" font-size="11" fill="#ffffff" text-anchor="middle">18%</text>
+<text x="142" y="859" font-size="12" fill="#666666" text-anchor="end">hoarder</text>
+<rect x="151.0" y="846" width="13.9" height="18" rx="2" fill="#257de0"><title>second, hoarder: Won 2% (7 of 300)</title></rect>
+<rect x="166.9" y="846" width="279.1" height="18" rx="2" fill="#f47230"><title>second, hoarder: Killed 41% (124 of 300)</title></rect>
+<text x="306.4" y="859" font-size="11" fill="#ffffff" text-anchor="middle">41%</text>
+<rect x="447.9" y="846" width="381.1" height="18" rx="2" fill="#008a17"><title>second, hoarder: Decade ended in exile 56% (169 of 300)</title></rect>
+<text x="638.5" y="859" font-size="11" fill="#ffffff" text-anchor="middle">56%</text>
+<text x="16" y="894" font-size="13" font-weight="600" fill="#191919">fallen: Begin fallen</text>
+<text x="142" y="919" font-size="12" fill="#666666" text-anchor="end">idle</text>
+<rect x="151.0" y="906" width="199.7" height="18" rx="2" fill="#f47230"><title>fallen, idle: Killed 30% (89 of 300)</title></rect>
+<text x="250.9" y="919" font-size="11" fill="#ffffff" text-anchor="middle">30%</text>
+<rect x="352.7" y="906" width="476.3" height="18" rx="2" fill="#008a17"><title>fallen, idle: Decade ended in exile 70% (211 of 300)</title></rect>
+<text x="590.9" y="919" font-size="11" fill="#ffffff" text-anchor="middle">70%</text>
+<text x="142" y="943" font-size="12" fill="#666666" text-anchor="end">random</text>
+<rect x="151.0" y="930" width="514.8" height="18" rx="2" fill="#f47230"><title>fallen, random: Killed 76% (228 of 300)</title></rect>
+<text x="408.4" y="943" font-size="11" fill="#ffffff" text-anchor="middle">76%</text>
+<rect x="667.8" y="930" width="161.2" height="18" rx="2" fill="#00b894"><title>fallen, random: Exiled, fled or settled abroad 24% (72 of 300)</title></rect>
+<text x="748.4" y="943" font-size="11" fill="#ffffff" text-anchor="middle">24%</text>
+<text x="142" y="967" font-size="12" fill="#666666" text-anchor="end">careful</text>
+<rect x="151.0" y="954" width="378.8" height="18" rx="2" fill="#257de0"><title>fallen, careful: Won 56% (168 of 300)</title></rect>
+<text x="340.4" y="967" font-size="11" fill="#ffffff" text-anchor="middle">56%</text>
+<rect x="531.8" y="954" width="288.1" height="18" rx="2" fill="#f47230"><title>fallen, careful: Killed 43% (128 of 300)</title></rect>
+<text x="675.9" y="967" font-size="11" fill="#ffffff" text-anchor="middle">43%</text>
+<rect x="821.9" y="954" width="7.1" height="18" rx="2" fill="#008a17"><title>fallen, careful: Decade ended in exile 1% (4 of 300)</title></rect>
+<text x="142" y="991" font-size="12" fill="#666666" text-anchor="end">carefulDice</text>
+<rect x="151.0" y="978" width="143.1" height="18" rx="2" fill="#257de0"><title>fallen, carefulDice: Won 21% (64 of 300)</title></rect>
+<text x="222.5" y="991" font-size="11" fill="#ffffff" text-anchor="middle">21%</text>
+<rect x="296.1" y="978" width="233.7" height="18" rx="2" fill="#f47230"><title>fallen, carefulDice: Killed 35% (104 of 300)</title></rect>
+<text x="412.9" y="991" font-size="11" fill="#ffffff" text-anchor="middle">35%</text>
+<rect x="531.8" y="978" width="274.5" height="18" rx="2" fill="#00b894"><title>fallen, carefulDice: Exiled, fled or settled abroad 41% (122 of 300)</title></rect>
+<text x="669.1" y="991" font-size="11" fill="#ffffff" text-anchor="middle">41%</text>
+<rect x="808.3" y="978" width="20.7" height="18" rx="2" fill="#008a17"><title>fallen, carefulDice: Decade ended in exile 3% (10 of 300)</title></rect>
+<text x="142" y="1015" font-size="12" fill="#666666" text-anchor="end">patron</text>
+<rect x="151.0" y="1002" width="390.1" height="18" rx="2" fill="#257de0"><title>fallen, patron: Won 58% (173 of 300)</title></rect>
+<text x="346.1" y="1015" font-size="11" fill="#ffffff" text-anchor="middle">58%</text>
+<rect x="543.1" y="1002" width="258.7" height="18" rx="2" fill="#f47230"><title>fallen, patron: Killed 38% (115 of 300)</title></rect>
+<text x="672.5" y="1015" font-size="11" fill="#ffffff" text-anchor="middle">38%</text>
+<rect x="803.8" y="1002" width="25.2" height="18" rx="2" fill="#008a17"><title>fallen, patron: Decade ended in exile 4% (12 of 300)</title></rect>
+<text x="142" y="1039" font-size="12" fill="#666666" text-anchor="end">tyrant</text>
+<rect x="151.0" y="1026" width="163.5" height="18" rx="2" fill="#257de0"><title>fallen, tyrant: Won 24% (73 of 300)</title></rect>
+<text x="232.7" y="1039" font-size="11" fill="#ffffff" text-anchor="middle">24%</text>
+<rect x="316.5" y="1026" width="462.7" height="18" rx="2" fill="#f47230"><title>fallen, tyrant: Killed 68% (205 of 300)</title></rect>
+<text x="547.8" y="1039" font-size="11" fill="#ffffff" text-anchor="middle">68%</text>
+<rect x="781.1" y="1026" width="47.9" height="18" rx="2" fill="#008a17"><title>fallen, tyrant: Decade ended in exile 7% (22 of 300)</title></rect>
+<text x="805.1" y="1039" font-size="11" fill="#ffffff" text-anchor="middle">7%</text>
+<text x="142" y="1063" font-size="12" fill="#666666" text-anchor="end">hoarder</text>
+<rect x="151.0" y="1050" width="344.8" height="18" rx="2" fill="#f47230"><title>fallen, hoarder: Killed 51% (153 of 300)</title></rect>
+<text x="323.4" y="1063" font-size="11" fill="#ffffff" text-anchor="middle">51%</text>
+<rect x="497.8" y="1050" width="331.2" height="18" rx="2" fill="#008a17"><title>fallen, hoarder: Decade ended in exile 49% (147 of 300)</title></rect>
+<text x="663.4" y="1063" font-size="11" fill="#ffffff" text-anchor="middle">49%</text>
+<text x="16" y="1098" font-size="13" font-weight="600" fill="#191919">everything: Everything on</text>
+<text x="142" y="1123" font-size="12" fill="#666666" text-anchor="end">idle</text>
+<rect x="151.0" y="1110" width="387.9" height="18" rx="2" fill="#f47230"><title>everything, idle: Killed 57% (172 of 300)</title></rect>
+<text x="344.9" y="1123" font-size="11" fill="#ffffff" text-anchor="middle">57%</text>
+<rect x="540.9" y="1110" width="288.1" height="18" rx="2" fill="#008a17"><title>everything, idle: Decade ended in exile 43% (128 of 300)</title></rect>
+<text x="684.9" y="1123" font-size="11" fill="#ffffff" text-anchor="middle">43%</text>
+<text x="142" y="1147" font-size="12" fill="#666666" text-anchor="end">random</text>
+<rect x="151.0" y="1134" width="591.9" height="18" rx="2" fill="#f47230"><title>everything, random: Killed 87% (262 of 300)</title></rect>
+<text x="446.9" y="1147" font-size="11" fill="#ffffff" text-anchor="middle">87%</text>
+<rect x="744.9" y="1134" width="84.1" height="18" rx="2" fill="#00b894"><title>everything, random: Exiled, fled or settled abroad 13% (38 of 300)</title></rect>
+<text x="786.9" y="1147" font-size="11" fill="#ffffff" text-anchor="middle">13%</text>
+<text x="142" y="1171" font-size="12" fill="#666666" text-anchor="end">careful</text>
+<rect x="151.0" y="1158" width="510.3" height="18" rx="2" fill="#257de0"><title>everything, careful: Won 75% (226 of 300)</title></rect>
+<text x="406.1" y="1171" font-size="11" fill="#ffffff" text-anchor="middle">75%</text>
+<rect x="663.3" y="1158" width="145.3" height="18" rx="2" fill="#f47230"><title>everything, careful: Killed 22% (65 of 300)</title></rect>
+<text x="735.9" y="1171" font-size="11" fill="#ffffff" text-anchor="middle">22%</text>
+<rect x="810.6" y="1158" width="18.4" height="18" rx="2" fill="#008a17"><title>everything, careful: Decade ended in exile 3% (9 of 300)</title></rect>
+<text x="142" y="1195" font-size="12" fill="#666666" text-anchor="end">carefulDice</text>
+<rect x="151.0" y="1182" width="233.7" height="18" rx="2" fill="#257de0"><title>everything, carefulDice: Won 35% (104 of 300)</title></rect>
+<text x="267.9" y="1195" font-size="11" fill="#ffffff" text-anchor="middle">35%</text>
+<rect x="386.7" y="1182" width="276.8" height="18" rx="2" fill="#f47230"><title>everything, carefulDice: Killed 41% (123 of 300)</title></rect>
+<text x="525.1" y="1195" font-size="11" fill="#ffffff" text-anchor="middle">41%</text>
+<rect x="665.5" y="1182" width="95.5" height="18" rx="2" fill="#00b894"><title>everything, carefulDice: Exiled, fled or settled abroad 14% (43 of 300)</title></rect>
+<text x="713.3" y="1195" font-size="11" fill="#ffffff" text-anchor="middle">14%</text>
+<rect x="763.0" y="1182" width="63.7" height="18" rx="2" fill="#008a17"><title>everything, carefulDice: Decade ended in exile 10% (29 of 300)</title></rect>
+<text x="794.9" y="1195" font-size="11" fill="#ffffff" text-anchor="middle">10%</text>
+<rect x="828.7" y="1182" width="0.5" height="18" rx="2" fill="#6a4ce2"><title>everything, carefulDice: Other 0% (1 of 300)</title></rect>
+<text x="142" y="1219" font-size="12" fill="#666666" text-anchor="end">patron</text>
+<rect x="151.0" y="1206" width="573.7" height="18" rx="2" fill="#257de0"><title>everything, patron: Won 85% (254 of 300)</title></rect>
+<text x="437.9" y="1219" font-size="11" fill="#ffffff" text-anchor="middle">85%</text>
+<rect x="726.7" y="1206" width="88.7" height="18" rx="2" fill="#f47230"><title>everything, patron: Killed 13% (40 of 300)</title></rect>
+<text x="771.1" y="1219" font-size="11" fill="#ffffff" text-anchor="middle">13%</text>
+<rect x="817.4" y="1206" width="11.6" height="18" rx="2" fill="#008a17"><title>everything, patron: Decade ended in exile 2% (6 of 300)</title></rect>
+<text x="142" y="1243" font-size="12" fill="#666666" text-anchor="end">tyrant</text>
+<rect x="151.0" y="1230" width="208.8" height="18" rx="2" fill="#257de0"><title>everything, tyrant: Won 31% (93 of 300)</title></rect>
+<text x="255.4" y="1243" font-size="11" fill="#ffffff" text-anchor="middle">31%</text>
+<rect x="361.8" y="1230" width="396.9" height="18" rx="2" fill="#f47230"><title>everything, tyrant: Killed 59% (176 of 300)</title></rect>
+<text x="560.3" y="1243" font-size="11" fill="#ffffff" text-anchor="middle">59%</text>
+<rect x="760.7" y="1230" width="68.3" height="18" rx="2" fill="#008a17"><title>everything, tyrant: Decade ended in exile 10% (31 of 300)</title></rect>
+<text x="794.9" y="1243" font-size="11" fill="#ffffff" text-anchor="middle">10%</text>
+<text x="142" y="1267" font-size="12" fill="#666666" text-anchor="end">hoarder</text>
+<rect x="151.0" y="1254" width="344.8" height="18" rx="2" fill="#f47230"><title>everything, hoarder: Killed 51% (153 of 300)</title></rect>
+<text x="323.4" y="1267" font-size="11" fill="#ffffff" text-anchor="middle">51%</text>
+<rect x="497.8" y="1254" width="331.2" height="18" rx="2" fill="#008a17"><title>everything, hoarder: Decade ended in exile 49% (147 of 300)</title></rect>
+<text x="663.4" y="1267" font-size="11" fill="#ffffff" text-anchor="middle">49%</text>
+</svg>

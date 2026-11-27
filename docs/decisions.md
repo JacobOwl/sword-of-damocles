@@ -521,6 +521,11 @@ Dated log: decision, why. Newest at the bottom. If a chat and this file disagree
 - **Decided (small, here):** Duet jobs stay out of `src/`, `ui/`, `data/`, `tests/` and `package.json` while threads 39 and 41 build there; drafts go to `docs/drafts/`, the Godot trial to its own `godot/` folder. Each prompt carries its own rules so it can be pasted alone.
 - **Open (Jacob's):** which jobs to run, and whether to merge the drafts #86, #95, #96 and the bot #97.
 
+## 2026-11-27 (playtest bot)
+- **Done:** `npm run playtest` plays every setup on main hundreds of times with seven kinds of player and a one-action sweep, and writes `docs/playtests/2026-11-27-playtest-bot/` (report, tables, two charts). Report only, per the brief: no rule or data changed. Why: to find what breaks, what always wins and what never happens, with seeds to reproduce each.
+- **Decided (small, here):** the bot drives the engine only through the browser's calls, each player has its own random stream, and every game is replayed from its inputs; the raw counts (about 1.7 MB) stay out of the repo, written only with `--json`.
+- **Open (Jacob's):** which of the report's fix ideas to build (the council seat in exile, the dead plotter, land petitions, Motya).
+
 
 ## 2026-11-27 (war focus, stage 2: towns that choose, thread 41)
 
