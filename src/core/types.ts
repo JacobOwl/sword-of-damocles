@@ -183,7 +183,7 @@ export interface Args { target?: string; second?: string; option?: string }
 export type Scenario = "citadel" | "island";
 export interface GameOpts { scenario?: Scenario; switches?: string[]; preset?: string } // preset: a name from data/presets.json, kept for display
 export type Side = "syracuse" | "ally" | "free" | "tributary" | "carthage" | "exiles";
-export interface CityState { id: string; side: Side; walls: number; men: number; grain: number; lean: number; fear: number; sacked: boolean; since: number }
+export interface CityState { id: string; side: Side; walls: number; men: number; grain: number; lean: number; fear: number; sacked: boolean; since: number; ravagedUntil?: number } // ravagedUntil: switch "armySupply"
 export interface Army {
   id: string;
   side: "syracuse" | "carthage";
@@ -199,6 +199,8 @@ export interface Army {
   siege?: string; // the city it besieges
   siegeSince: number;
   onTake: "spare" | "sack";
+  fedFrom?: string[]; fedSeason?: number; // switch "armySupply": the towns that fed it, and when
+  reinforced?: number; // switch "armySupply": the season fresh men last came
 }
 export interface Bloc { id: string; power: number; mood: number }
 export interface CarthagePerson { id: string; name: string; status: "free" | "command" | "disgraced" | "dead"; record?: { taken: number; won: number; lost: number } } // record: switch "warFocus"

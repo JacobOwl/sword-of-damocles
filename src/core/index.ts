@@ -57,3 +57,4 @@ export { WAR, warOn, card as warCard, balance as warBalance, ledgerLines, termsF
 export type { WarCard, PastWar, Terms } from "./war.ts";
 export { townBoardsOn, seatsOf as townSeats, houseName, houseHead, divided as townDivided, sendsSupport, courtableSeat } from "./towns.ts";
 export type { Seat, HouseLean } from "./towns.ts";
+export { supplyOn, foodState, ravaged, supplyTowns, grainNeed, SUPPLY } from "./supply.ts";

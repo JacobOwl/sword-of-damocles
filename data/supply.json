@@ -1,0 +1,14 @@
+{
+  "kind": "invention",
+  "note": "Switch \"armySupply\" (the war and geopolitics focus, council of 2026-11-27, question 4B): an army feeds from the friendly towns within a few days' march, and a big army eats an area faster; Ravage burns a hostile town's crops; Reinforce brings fresh men to an army in the field; an army kept waiting without a battle loses its allies. The shapes come from Diodorus (supply decides battle 14.55.5, ravaging 14.48.5 and 14.62.5, allies desert a general who will not fight 14.61.3 and 14.96.2; docs/research/war-and-towns.md); every number is invention.",
+  "knobs": {
+    "supplyDays": 4,
+    "pointsPerGrain": 4,
+    "keepGrain": 1,
+    "ravageSeasons": 4,
+    "ravageGrain": 4,
+    "reinforceDays": 2,
+    "reinforceCost": 1,
+    "driftAfter": 4
+  }
+}

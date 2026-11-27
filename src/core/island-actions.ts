@@ -8,6 +8,7 @@ import {
 } from "./island.ts";
 import { endWar, startWar } from "./carthage.ts";
 import { applyTerms, card, carthageAccepts, termsFor, termsText } from "./war.ts";
+import { SUPPLY, ravage, ravageCheck, reinforce, reinforceCheck, reinforceFrom } from "./supply.ts";
 import { TOWNS, courtHouse, courtHouseMods, courtableSeat, houseName, seatsOf } from "./towns.ts";
 import type { Args, GameState, Mod } from "./types.ts";
 import { townHold, useHold, townLeader, SECRETS } from "./secrets.ts";
@@ -164,6 +165,17 @@ export const ISLAND_IMPL: Record<string, Impl> = {
     },
   },
   // Switch "warFocus": you send envoys with the terms the war's ledger supports; Carthage takes them only if weary or losing.
+  // Switch "armySupply": burn a hostile town's crops; bring fresh men to the army.
+  ravage: {
+    check: (s) => general(s) ?? ravageCheck(s, yourArmy(s)),
+    notes: (s) => { const a = yourArmy(s); return a && !ravageCheck(s, a) ? [`${nodeName(a.at)} gets no harvest for a year and loses ${SUPPLY.knobs.ravageGrain} months of grain; it fears you more and hates you more.`] : []; },
+    run: (s) => ravage(s, yourArmy(s)!),
+  },
+  reinforce: {
+    check: (s) => general(s) ?? reinforceCheck(s, yourArmy(s)),
+    notes: (s) => { const a = yourArmy(s); const f = a && reinforceFrom(s, a); return f ? [`The men would come from ${nodeName(f)}.`] : []; },
+    run: (s) => reinforce(s, yourArmy(s)!),
+  },
   // Switch "townBoards": court the highest house of a town that is not yet yours.
   courtHouse: {
     target: (s) => NODES.filter((n) => n.id !== "syracuse" && courtableSeat(s, n.id) >= 0 && !s.island!.armies.some((a) => a.siege === n.id))

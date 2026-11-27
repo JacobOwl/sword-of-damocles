@@ -2,7 +2,7 @@
 // It only reads the state; every rule is in src/core.
 import {
   CARTHAGE, ISLAND, NODES, ROUTES, armyName, blocDef, capital, carthageAgenda, cityGrain, cityMen, cityWalls, goalDef, menWords,
-  moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo, warCard, townBoardsOn, townSeats, houseName, townDivided, sendsSupport,
+  moodWord, nodeName, prefers, sideName, goOverMods, keeperValue, PLAYER, yourArmy, path, reachable, preview, act, battleForecast, friendly, hostileTo, warCard, supplyOn, foodState, ravaged, SUPPLY, townBoardsOn, townSeats, houseName, townDivided, sendsSupport,
 } from "../../src/core/index.ts";
 import type { Handlers } from "../app/clicks.ts";
 import * as sound from "../lib/sound.ts";
@@ -31,7 +31,7 @@ function mapSvg(g: GameState): string {
   const marks = NODES.map((n) => {
     const c = isl.cities[n.id];
     const [x, y] = P(n.id);
-    return `<g class="citymark${ui.city === n.id ? " on" : ""}" data-city="${n.id}" role="button" tabindex="0" aria-label="${esc(n.name)}: open its sheet">` + A.cityMark(x, y, {
+    return `<g class="citymark${ui.city === n.id ? " on" : ""}" data-city="${n.id}" data-x="${x.toFixed(1)}" data-y="${y.toFixed(1)}" role="button" tabindex="0" aria-label="${esc(n.name)}: open its sheet">` + A.cityMark(x, y, {
       name: n.name, side: c.side, walled: cityWalls(g, n.id) > 0, fort: n.type === "fort", capital: n.id === "syracuse",
       besieged: isl.armies.some((a) => a.siege === n.id), approx: !!n.approx, label: LABEL[n.id],
     }) + "</g>";
@@ -40,17 +40,20 @@ function mapSvg(g: GameState): string {
   // the days a town can go over to your army (data/island.json goOverDays).
   const ya = yourArmy(g);
   const reach = ya ? NODES.filter((n) => n.id !== ya.at && (path(ya.at, n.id)?.days.at(-1) ?? 999) <= ISLAND.rules.goOverDays).map((n) => { const [x, y] = P(n.id); return `<circle cx="${x.toFixed(1)}" cy="${(y - 2).toFixed(1)}" r="24" class="reach-ring"/>`; }).join("") : "";
+  // Switch "armySupply": burnt fields, a scorched ring that fades when the year is out.
+  const burnt = NODES.filter((n) => ravaged(g, n.id)).map((n) => { const [x, y] = P(n.id); return `<circle cx="${x.toFixed(1)}" cy="${(y - 2).toFixed(1)}" r="17" class="ravaged-ring"><title>${esc(n.name)}: its fields were burnt</title></circle>`; }).join("");
   const armies = isl.armies.map((a, i) => {
     const [x, y] = P(a.at);
     const dir = a.side === "syracuse" ? 1 : -1;
-    return A.armyMark(x + dir * 22, y - 20 - i * 4, { side: a.side, men: `${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k`, label: armyName(g, a), dir });
+    const mark = A.armyMark(x + dir * 22, y - 20 - i * 4, { side: a.side, men: `${Math.round(a.men * ISLAND.rules.menPerPoint / 1000)}k`, label: armyName(g, a), dir });
+    return a.side === "syracuse" && supplyOn(g) && !g.over ? `<g class="drag-army" data-drag-army><title>Drag to a town to see the route and the towns that might go over</title>${mark}</g>` : mark;
   }).join("");
   // War focus: Carthage's hired men waiting at home, drawn on the sea lane, so a landing is never a surprise.
   const wc = warCard(g);
   const home = wc && isl.war && !isl.armies.some((a) => a.side === "carthage") && isl.carthage.mercs + isl.carthage.levy > 0
     ? A.armyMark(34, A.Y(37.2) + 26, { side: "carthage", men: `${Math.round((isl.carthage.mercs + isl.carthage.levy) * ISLAND.rules.menPerPoint / 1000)}k`, label: wc.landingDue !== undefined ? "Carthage's army, ready to sail: it lands next season" : "Carthage's men, gathering at home", dir: 1 }) : "";
   return `<svg viewBox="0 0 ${A.W} ${A.H}" class="island-map" role="img" aria-label="Map of Sicily: ${NODES.map((n) => `${n.name}, ${sideName(isl.cities[n.id].side)}`).join("; ")}">
-    ${A.islandBase()}${roads}${A.toCarthage(A.Y(37.2))}${reach}${marks}${armies}${home}
+    ${A.islandBase()}${roads}${A.toCarthage(A.Y(37.2))}${burnt}${reach}${marks}${armies}${home}
   </svg>`;
 }
 
@@ -68,6 +71,11 @@ function armyLine(g: GameState, a: Army) {
   const where = a.siege ? `besieging ${nodeName(a.siege)}` : `at ${nodeName(a.at)}`;
   const food = a.food <= 0 ? `<span class="warn">no food left</span>` : `${a.food} ${a.food === 1 ? "season" : "seasons"} of food`;
   const guard = a.side === "syracuse" && a.guard ? `; ${menWords(a.guard)} of them are your guard${a.at === "syracuse" ? "" : ", away from your door"}` : "";
+  if (supplyOn(g)) { // switch "armySupply": fed, short or starving, and from where
+    const f = foodState(g, a);
+    const cls = f.word === "fed" ? "good" : "warn";
+    return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, <span class="${cls}">${f.word}</span> (${a.food} ${a.food === 1 ? "season" : "seasons"} of food in the baggage)${guard}.${leadLine(g, a)}<br><span class="small muted">${esc(f.why)} An army refills from the friendly towns within ${SUPPLY.knobs.supplyDays} days' march, one month of grain for every ${SUPPLY.knobs.pointsPerGrain * 5},000 men, so a big army empties its own country.</span></li>`;
+  }
   const eats = a.side === "syracuse" ? `<br><span class="small muted">How it eats: one season of food each season. It refills to ${ISLAND.rules.foodOnMuster} in a town of yours or an ally's with ${ISLAND.rules.resupplyGrain} or more months of grain, if it is not besieging. In enemy land, Forage for one more season (the town hates you for it). With no food, men desert and sicken.</span>` : "";
   return `<li><b>${esc(capital(armyName(g, a)))}</b>: ${menWords(a.men)}, ${where}, ${food}${guard}.${leadLine(g, a)}${eats}</li>`;
 }
