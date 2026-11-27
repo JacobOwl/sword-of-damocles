@@ -170,6 +170,9 @@ export function vote(s: GameState, seat: string, why: string) {
   const line = (x: Stand) => `${capital(nameOf(s, x.id))} ${x.score}`;
   const wins = !holder || challenger.score > holder.score;
   const parts = [holder, challenger].filter(Boolean).map((x) => `${capital(nameOf(s, x!.id))}: ${x!.parts.map((m) => `${m.label} ${m.value >= 0 ? "+" : ""}${m.value}`).join(", ") || "nothing"}`).join("; ");
+  const yours = holder?.id === PLAYER ? holder : challenger.id === PLAYER ? challenger : undefined;
+  const foe = yours === holder ? challenger : holder;
+  if (yours && foe && HOOKS.debate?.(s, seat, seatName(seat), why, yours.score, foe.score, foe.id, yours === holder)) return; // switch "assemblyDebates": the vote is a debate
   if (wins && holder?.id === PLAYER && HOOKS.veto?.(s, seat, seatName(seat))) return; // switch "friendsAbroad": Pharacidas speaks for you, once
   const winner = wins ? challenger.id : holder!.id;
   event(s, winner, `The assembly votes on ${seatName(seat)}: ${[holder, challenger].filter(Boolean).map((x) => line(x!)).join(", ")}. ${capital(nameOf(s, winner))} ${wins ? (winner === PLAYER ? "win it" : "wins it") : (winner === PLAYER ? "keep it" : "keeps it")}.`, `${why}. ${parts}`);
@@ -177,6 +180,16 @@ export function vote(s: GameState, seat: string, why: string) {
   s.counters.boardVotes = (s.counters.boardVotes ?? 0) + 1;
   if (wins) { s.counters.boardVotesLost = (s.counters.boardVotesLost ?? 0) + (holder ? 1 : 0); setSeat(s, seat, challenger.id, "the assembly voted"); }
 }
+
+// Switch "assemblyDebates": the debate's end (crises.ts) settles the seat.
+HOOKS.debateResult = (s: GameState, seat: string, winner: string, lostAsHolder: boolean, why: string) => {
+  if (lostAsHolder && HOOKS.veto?.(s, seat, seatName(seat))) return;
+  const h = seatHolder(s, seat);
+  event(s, winner, `The assembly votes on ${seatName(seat)}. ${capital(nameOf(s, winner))} ${winner === PLAYER ? (h === PLAYER ? "keep it" : "win it") : (h === winner ? "keeps it" : "wins it")}.`, why);
+  if (s.board) delete s.board.backed[seat];
+  s.counters.boardVotes = (s.counters.boardVotes ?? 0) + 1;
+  if (h !== winner) { if (lostAsHolder) s.counters.boardVotesLost = (s.counters.boardVotesLost ?? 0) + 1; setSeat(s, seat, winner, "the assembly voted"); }
+};
 
 // ---------- The ladder of standing ----------
 

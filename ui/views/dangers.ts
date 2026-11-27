@@ -1,5 +1,5 @@
 // The dangers column: plots against you, rivals, and who is who.
-import { DATA, leaderOf, openQuarrels, quarrelLine, agendaById, capital, defense, influence, officeName, officesOf, others, playerInfluence, plotStrength, rankTitle, seasonName, stageName, knobsFor, switchById, switchOn } from "../../src/core/index.ts";
+import { DATA, leaderOf, openQuarrels, quarrelLine, agendaById, capital, defense, influence, officeName, officesOf, others, playerInfluence, plotStrength, rankTitle, seasonName, stageName, knobsFor, switchById, switchOn, signsOf, crisisOn, risingOf, CRISES } from "../../src/core/index.ts";
 import type { FactionId, GameState, Plot } from "../../src/core/index.ts";
 import { tipAttr } from "./help.ts";
 import { flags } from "./people.ts";
@@ -9,7 +9,18 @@ import { FACTION_ICON, icon } from "../components/icons.ts";
 import { foe, foeLines } from "../components/foe.ts";
 
 export function dangersCol(g: GameState) {
-  return `${foeCard(g)}${plots(g)}${quarrels(g)}${rivals(g)}${whoIsWho(g)}`;
+  return `${risingCard(g)}${foeCard(g)}${plots(g)}${quarrels(g)}${rivals(g)}${whoIsWho(g)}`;
+}
+
+// Switch "crisisScenes": the city rising, as a track of phases with the reason it moves.
+function risingCard(g: GameState) {
+  const r = risingOf(g);
+  if (!r || !r.phase || g.over) return "";
+  const names = CRISES.phases.slice(1).map((p: any) => p.name);
+  const track = names.map((n: string, i: number) => `<span class="${i + 1 < r.phase ? "done" : ""} ${i + 1 === r.phase ? "next" : ""}">${esc(n)}</span>`).join("");
+  return `<div class="foe"><h2>The city rises</h2><div class="plottrack">${track}</div>
+    <div class="small">${esc(CRISES.phases[r.phase].text)}</div>
+    <div class="small muted">It moves on each season while two factions are Rebellious and the guard is unpaid or sullen; calm one faction or pay the guard and it eases a phase.${r.feignUntil !== undefined ? " It waits now on your feigned terms." : ""}</div></div>`;
 }
 
 // One card for the person most likely to end your rule (ui/components/foe.ts).
@@ -76,7 +87,7 @@ function plots(g: GameState) {
     return `<div class="plot plot-s${pl.stage}">
       <div class="fhead"><b>${esc(plotTitle(g, pl, nth))}</b><span class="stage stage-${pl.stage} tipped" ${tipAttr("stage")}>${stageName(pl.stage)}</span></div>
       <div class="plottrack" aria-label="Warnings passed: ${pl.stage} of 3">${track}</div>
-      <div class="small">${what} First warned ${esc(seasonName(pl.started))}.</div>
+      <div class="small">${what} First warned ${esc(seasonName(pl.started))}.${crisisOn(g) && signsOf(pl) ? ` <span class="signs" aria-label="${signsOf(pl)} signs seen">${"◆".repeat(Math.min(8, signsOf(pl)))}</span> ${signsOf(pl)} ${signsOf(pl) === 1 ? "sign" : "signs"} seen; a plot strikes only after it is named.` : ""}</div>
       ${knownBtns}${pl.heard?.length ? `<div class="small"><span class="label">What you have heard</span><ul class="heard">${pl.heard.map((h) => `<li>${linkNames(h)}</li>`).join("")}</ul></div>` : ""}${meter}
       <div class="small">${when}</div>
     </div>`;

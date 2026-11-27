@@ -1,0 +1,42 @@
+{
+  "kind": "invention",
+  "note": "Switches \"crisisScenes\" and \"assemblyDebates\" (test 5, docs/council/2026-11-27-big-scenes.md). The plot strike as a scene with a choice for the guilty; the city rising in phases with the winding-sheet council; the assembly's vote on a seat as a debate in up to three rounds. The order of the phases and the lines are from Diodorus (quoted in docs/research/big-scenes-history.md and in each record); every number is invention.",
+  "knobs": { "unrestSilver": 1, "blockadeGrain": 2, "holdNeed": 5, "feignSeasons": 2, "feignGuard": 2, "rounds": 3, "rebels": 2 },
+  "guilty": [
+    { "id": "watch", "kind": "invention", "label": "Watch them", "note": "Leave them free and named. The leader lives, and will remember.", "default": true },
+    { "id": "kill", "kind": "invention", "label": "The guilty die", "note": "Every plotter is put to death. Their factions grow angrier, and their kin will not forget." },
+    { "id": "spare", "kind": "history", "card": "docs/research/big-scenes-history.md", "label": "Spare them, for a price", "note": "The leader goes into exile and the rest pay. Their factions soften a step; you gain silver.", "source": "Dionysius \"treated with humanity the exiles who returned\" (Diodorus 14.9.8)" },
+    { "id": "blame", "kind": "invention", "label": "Blame a man you are not sure of", "note": "Arrest a rival who was not named. His faction is outraged; the plotters' own faction is spared your anger." }
+  ],
+  "phases": [
+    { "id": "calm", "kind": "invention", "name": "Calm" },
+    { "id": "unrest", "kind": "history", "card": "docs/research/big-scenes-history.md", "name": "Unrest", "art": "assembly",
+      "text": "The city stirs. Men gather in the agora and the shops are shut; a reward is cried for anyone who kills the tyrant.",
+      "source": "\"The revolters also proclaimed a large reward to any who would slay the tyrant\" (Diodorus 14.8.3)" },
+    { "id": "blockade", "kind": "history", "card": "docs/research/big-scenes-history.md", "name": "The blockade of the Island", "art": "walls",
+      "text": "The rebels close the roads to the Island. No grain comes in from the country, and mercenaries slip over the walls to the other side.",
+      "source": "\"being shut off as he now was from access to the countryside and constantly being abandoned by the mercenaries\" (Diodorus 14.8.4)" },
+    { "id": "council", "kind": "history", "card": "docs/research/big-scenes-history.md", "name": "The council in the citadel", "art": "assembly",
+      "text": "Shut in the citadel, you call your friends to council: not how to win, but how to end.",
+      "source": "\"he no longer was studying how to defeat the Syracusans but rather how to meet death in such a way as to end his rule not altogether ingloriously\" (Diodorus 14.8.4)" }
+  ],
+  "council": {
+    "speakers": [
+      { "id": "heloris", "kind": "history", "card": "docs/research/big-scenes-history.md", "stance": "to stay", "line": "\"Tyranny is a fair winding-sheet.\"", "source": "Diodorus 14.8.5" },
+      { "id": "polyxenus", "kind": "history", "card": "docs/research/big-scenes-history.md", "stance": "to flee", "line": "Take your swiftest horse and ride to the Campanians in Carthage's country.", "source": "Diodorus 14.8.5" },
+      { "id": "philistus", "kind": "history", "card": "docs/research/big-scenes-history.md", "stance": "to hold on", "line": "It is not fitting to dash from the tyranny on a galloping horse, but to be cast out, dragged by the leg.", "source": "Diodorus 14.8.5" }
+    ],
+    "choices": [
+      { "id": "stay", "kind": "invention", "label": "Stay and fight", "note": "A die plus your guard and the citadel's walls, 5 or more: the rising breaks. Less: the city breaks in.", "default": true },
+      { "id": "flee", "kind": "invention", "label": "Flee", "note": "You leave the city alive. Your rule is over." },
+      { "id": "feign", "kind": "history", "card": "docs/research/big-scenes-history.md", "label": "Feign terms and send for help", "note": "Ask leave to sail away while you hire men at any price: all your silver, and the rising waits two seasons. Then fight with the hired men beside you.", "source": "\"he sent ambassadors to those in revolt and urged them to allow him and his companions to leave the city, while he secretly dispatched messengers to the Campanians and promised them any price\" (Diodorus 14.8.6)" }
+    ]
+  },
+  "levers": [
+    { "id": "fines", "kind": "history", "card": "docs/research/big-scenes-history.md", "label": "A rich friend pays your fines", "value": 2, "note": "+2. Needs a friend among the rich families; you owe him a favour.", "source": "Philistus \"paid the fine and urged Dionysius to speak out\" (Diodorus 13.91.4)" },
+    { "id": "word", "kind": "history", "card": "docs/research/big-scenes-history.md", "label": "An ally speaks for you", "value": 2, "note": "+2. Needs a friend of standing; it spends his goodwill.", "source": "Pharacidas declared he had come \"not to overthrow the rule of Dionysius\" (Diodorus 14.70.2)" },
+    { "id": "armed", "kind": "history", "card": "docs/research/big-scenes-history.md", "label": "Armed men at the door", "value": 3, "note": "+3. The citizens fall a step.", "source": "\"the mercenaries flocked about Dionysius, and the Syracusans in dismay made no move\" (Diodorus 14.70.2)" },
+    { "id": "gelon", "kind": "history", "card": "docs/research/big-scenes-history.md", "label": "Invoke the name of Gelon", "value": 1, "note": "+1, once a game: the general with supreme power who beat Carthage at Himera.", "source": "\"three hundred thousand Carthaginians had been conquered at Himera when Gelon was general with supreme power\" (Diodorus 13.94.5)" },
+    { "id": "gifts", "kind": "history", "card": "docs/research/big-scenes-history.md", "label": "Promise gifts after", "value": 2, "note": "+2 for 2 silver: gifts and banquets for the people.", "source": "\"he won the favour of the multitude by kindly words, honouring some of them with gifts and inviting some to general banquets\" (Diodorus 14.70.3)" }
+  ]
+}

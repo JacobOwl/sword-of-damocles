@@ -18,6 +18,7 @@ import { afterScene, fightScene, pendingScene, GROUND } from "./scenes.ts";
 import { bindPart, bindTargets, envoyTargets, sendEnvoy, CONT } from "./contingents.ts";
 import { payMan, returnsState, sendHerald } from "./returns.ts";
 import { ABROAD, abroadOn, askHelp, envoyMen, envoyPowers, giftTargets, giveGift, helpCheck, marriageTargets, offerMarriage, recruitCheck, recruitLaconia, sendEnvoyAbroad } from "./abroad.ts";
+import { crisisChoice, debateMove, plotChoice, pendingChoice } from "./crises.ts";
 import { FLEETS, buildCheck, buildSquadron, carryArmy, carryCheck, carryTargets, fleetState, setOrder, setRowers, strikeCheck, strikeFleet, youOrder, admiralName, beachedAt } from "./fleets.ts";
 import { prefers } from "./carthage.ts";
 import { campaignCheck, commanderOptions, commissionOn, keeperOptions, musterNotes, startCampaign } from "./commission.ts";
@@ -227,6 +228,22 @@ export const ISLAND_IMPL: Record<string, Impl> = {
     target: (s) => FLEETS.rowers.filter((r: any) => r.id !== fleetState(s).rowers).map((r: any) => ({ value: r.id, label: `${r.name}: ${r.text}` })),
     check: (s) => (!youOrder(s) ? `${capital(admiralName(s))} holds the fleet and does not take your orders` : null),
     run: (s, a) => setRowers(s, a.target as any),
+  },
+  // Switches "crisisScenes" and "assemblyDebates": answers inside a scene (they use no action).
+  plotChoice: {
+    target: (s) => ((pendingChoice(s)?.kind === "plot" ? (pendingChoice(s) as any).choices : []) as any[]).map((o) => ({ value: o.id, label: o.label })),
+    check: (s) => (pendingChoice(s)?.kind !== "plot" ? "no plot waits for your judgement" : null),
+    run: (s, a) => plotChoice(s, a.target!, a.second),
+  },
+  crisisChoice: {
+    target: (s) => ((pendingChoice(s)?.kind === "crisis" ? (pendingChoice(s) as any).choices : []) as any[]).map((o) => ({ value: o.id, label: o.label })),
+    check: (s) => (pendingChoice(s)?.kind !== "crisis" ? "no council waits for your choice" : null),
+    run: (s, a) => crisisChoice(s, a.target!, a.second),
+  },
+  debateMove: {
+    target: (s) => ((pendingChoice(s)?.kind === "debate" ? (pendingChoice(s) as any).choices : []) as any[]).map((o) => ({ value: o.id, label: o.label })),
+    check: (s) => (pendingChoice(s)?.kind !== "debate" ? "no debate is under way" : null),
+    run: (s, a) => debateMove(s, a.target!, a.second),
   },
   // Switch "friendsAbroad": the powers across the sea.
   envoyAbroad: {
