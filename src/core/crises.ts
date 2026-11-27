@@ -240,6 +240,15 @@ export function debateMove(s: GameState, id: string, sceneId?: string) {
 function resolveDebate(s: GameState, sc: Scene) {
   const d = (sc as any).debate as Debate;
   (sc as any).open = false; (sc as any).answered = true;
+  // The other man is gone before the vote (dead, fled, in prison): the vote does not go ahead (council playtest, test 5).
+  const foe = s.people[d.foe];
+  if (!foe || foe.status !== "free") {
+    sc.result = `No vote on ${d.seatName}`; sc.good = true;
+    sc.beats.push(`${capital(nameOf(s, d.foe))} is gone before the vote is taken. The assembly goes home.`);
+    sc.mark = `The debate on ${d.seatName} ended without a vote.`;
+    count(s, "debatesVoid");
+    return;
+  }
   const youWin = d.holder ? d.you >= d.them : d.you > d.them;
   sc.result = `${youWin ? (d.holder ? "You keep" : "You win") : (d.holder ? "You lose" : "You fail to win")} ${d.seatName}: ${d.you} to ${d.them}`;
   sc.good = youWin;

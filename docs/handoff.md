@@ -2,6 +2,14 @@
 
 The thread that finishes a session writes this, not Jacob. Rewrite it at the end of every session.
 
+## Test 5, the deeper war, built (thread 49, 2026-11-27)
+**Built and merged (PRs #122 to #128).** Jacob: "ok do it", then "everything from all three councils", "I will wait if needed", "make sure council plays before me". Preset `test5` ("Test 5: the deeper war", 20 seasons from autumn 400 BC) turns on every switch below. Old presets replay as before.
+- **Built:** `test5Fixes`, `evenBattles`, `battleScenes`, `groundChoice`, `contingents` (stage 1); `carthageReturns` (stage 2); `fleets` (stage 3); `friendsAbroad` (stage 4); `crisisScenes`, `assemblyDebates` (stage 5); `libyaCrossing`, a what-if after Agathocles (stage 6). Details in `docs/decisions.md` (six entries dated 2026-11-27, thread 49).
+- **Council playtest:** five war-council testers, 200 games each on `test5`: `docs/playtests/2026-11-27-test5-council/council-runs.md`. The first run found two broken states (a debate won by a man who died before the vote); fixed in #128; second run clean. Survival 72% to 84%; battles won about as often as lost; the diplomat never fights. Browser: the scenes, the Libya panel and the landing checked at 1280 and 390 wide, no page errors.
+- **Changed:** a scene that waits for a choice opens on load like a battle; "Leptines'" in roll labels (with `test5Fixes`).
+- **Broke / known limits:** bot games played through `runBotGame` do not replay from their inputs (bot answers are not all recorded; player games replay). Bots never sail to Rhegium, so the Italian league never woke in counts. Libya simplifications in `docs/later.md`.
+- **Questions for Jacob:** is Libya worth keeping as a what-if, or should it wait for the Agathocles campaign? Debate levers: too many, or right? Should a burnt fleet be rebuilt only in Libyan ports (now) or also at home?
+
 ## Going abroad, the spec for test 5 (thread 48, 2026-11-27)
 **Spec only, no code.** Jacob: "I want to be able to invade carthage and I want to have dilpo with greece city states and other powers if theres history behind it"; then "Have councils look into these issues"; then "ok do it" to the test 5 plan (this thread has items 1 and 5). Spec: `docs/council/2026-11-27-abroad.md`; seats in `docs/council/2026-11-27-abroad/`; card `docs/research/powers-398.md`.
 - **Spec 1, `carthageReturns`:** a lost army starts a recovery (Recover goal, Take in the exiles, Magon's courting; 14.90), `armiesLost` fades, a truce after a treaty, a yearly council debate scene with three named speakers and your levers (herald, paying a man, sparing them), a second, bigger expedition from Libya, Sardinia and Italy, announced a season ahead (14.95.1), unrest while a landing goes unanswered (Republic of Rome).
